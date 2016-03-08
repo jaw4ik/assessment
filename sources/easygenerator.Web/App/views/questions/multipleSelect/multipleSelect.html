@@ -2,78 +2,68 @@
 
     <div class="content-section-wrapper">
         <div class="content-section" data-bind="with: answers">
-            <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded">
+            <div class="expand-collapse-panel" data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
-
-    <div class="content-section-wrapper answer-options" data-bind="with: answers">
-        <!-- ko if: isExpanded -->
-        <div class="question-answer-options-area">
-            <div class="content-section">
-                <ul class="unstyled answer-option-list">
-                    <!-- ko if: answers().length == 0 -->
-                    <li class="empty-learning-content" data-bind="localize: { text : 'noAnswerOptionsYet' } + '...'">
-                        No answer options yet...
-                    </li>
-                    <!-- /ko -->
-                    <!-- ko foreach: answers -->
-                    <li class="answer-option-item" data-bind="containerHasFocus: { hasFocus: hasFocus, update: function(){ $parent.updateAnswer($data); } }">
-                        <div class="answer-options-list-item">
-                            <div class="question-answer-value-wrapper">
-                                <div class="question-answer-checkbox question-answer-value info-tooltip-holder" tabindex="-1" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
-                                    <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
-                                    <div class="info-tooltip question-answer">
-                                        <!-- ko if: isCorrect -->
-                                        <span data-bind="localize: { text: 'markAsIncorrect' }">
-                                            Mark as incorrect
-                                        </span>
-                                        <!-- /ko -->
-                                        <!-- ko ifnot: isCorrect -->
-                                        <span data-bind="localize: { text: 'markAsCorrect' }">
-                                            Mark as correct
-                                        </span>
-                                        <!-- /ko -->
+    <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : answers.isExpanded(), minHeight : 0 }">
+        <div class="content-section-wrapper answer-options" data-bind="with: answers">
+            <div class="question-answer-options-area">
+                <div class="content-section">
+                    <ul class="unstyled answer-option-list">
+                        <!-- ko if: answers().length == 0 -->
+                        <li class="empty-learning-content" data-bind="localize: { text : 'noAnswerOptionsYet' } + '...'">
+                            No answer options yet...
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko foreach: answers -->
+                        <li class="answer-option-item" data-bind="containerHasFocus: { hasFocus: hasFocus, update: function(){ $parent.updateAnswer($data); } }">
+                            <div class="answer-options-list-item">
+                                <div class="question-answer-value-wrapper">
+                                    <div class="question-answer-checkbox question-answer-value info-tooltip-holder" tabindex="-1" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
+                                        <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
+                                        <div class="info-tooltip question-answer">
+                                            <!-- ko if: isCorrect -->
+                                            <span data-bind="localize: { text: 'markAsIncorrect' }">
+                                                Mark as incorrect
+                                            </span>
+                                            <!-- /ko -->
+                                            <!-- ko ifnot: isCorrect -->
+                                            <span data-bind="localize: { text: 'markAsCorrect' }">
+                                                Mark as correct
+                                            </span>
+                                            <!-- /ko -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus() }">
+                                    <div class="question-answer-text">
+                                        <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', event: { focus: $parent.beginEditText, blur: $parent.endEditText }, autosize: { text: text }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-answer-delete-wrapper">
+                                    <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
+                                        <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
+                                        <div class="info-tooltip question-answer right-side">
+                                            <span data-bind="localize: { text: 'delete' }">
+                                                Delete
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus() }">
-                                <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', event: { focus: $parent.beginEditText, blur: $parent.endEditText }, autosize: { text: text }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>
-                                </div>
-                            </div>
-                            <div class="question-answer-delete-wrapper">
-                                <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
-                                    <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
-                                    <div class="info-tooltip question-answer right-side">
-                                        <span data-bind="localize: { text: 'delete' }">
-                                            Delete
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-                <div class="add-answer-option-wrapper">
-                    <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
-                        <span class="add-answer-option-text" data-bind="localize: {text: 'addAnswerOption'}">Add answer option</span>
-                    </button>
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                    <div class="add-answer-option-wrapper">
+                        <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
+                            <span class="add-answer-option-text" data-bind="localize: {text: 'addAnswerOption'}">Add answer option</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- /ko -->
-    </div>
-
+    </section>
 </section>

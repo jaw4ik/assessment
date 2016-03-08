@@ -1,21 +1,13 @@
 ﻿<section data-bind="with: singleSelectImage">
     <div class="content-section-wrapper">
         <div class="content-section">
-            <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }"></span>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+            <div class="expand-collapse-panel" data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }"></span>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
-    <div class="content-section-wrapper answer-options" data-bind="visible: isExpanded">
+    <div class="content-section-wrapper answer-options content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
         <div class="question-answer-options-area">
             <div class="content-section">
                 <ul class="single-select-image-list clearfix">

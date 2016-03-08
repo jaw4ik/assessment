@@ -1,29 +1,21 @@
 ﻿<section class="scenario">
     <div class="content-section-wrapper">
         <div class="content-section">
-            <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded">
+            <div class="expand-collapse-panel" data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'scenarioDesigner' }">Scenario designer</span>
-                <div class="upgrade-block">
+                <div class="upgrade-block"  data-bind="visible: isExpanded()">
                     <div data-bind="localize: { text: 'wantMoreScenarios' }">Want more scenarios?</div>
                     <div>
                         <span data-bind="localize: { text: 'pleaseContact' }">Please contact:</span>
                         <a href="mailto:support@easygenerator.com">support@easygenerator.com</a>
                     </div>
                 </div>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'scenarioDesigner' }">Scenario designer</span>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
 
-    <div class="content-section-wrapper answer-options" data-bind="visible: isExpanded">
+    <div class="content-section-wrapper answer-options content-item-holder" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
         <div class="question-answer-options-area">
             <div class="content-section">
                 <!-- ko if: embedUrl -->

@@ -111,11 +111,11 @@
         eventTracker.publish(events.copyItem);
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
             viewModel.close();
-            if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
-                    router.navigate('courses/' + viewModel.selectedCourse().id + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
-            } else {
-                    router.navigate('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
-            }
+            //if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
+            //        router.navigate('courses/' + viewModel.selectedCourse().id + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
+            //} else {
+            //        router.navigate('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
+            //}
         });
     }
 

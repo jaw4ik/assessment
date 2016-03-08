@@ -2,30 +2,21 @@
 
     <div class="content-section-wrapper">
         <div class="content-section">
-            <!-- ko if: isExpanded() -->
-            <div class="expand-collapse-panel expanded">
+            <div class="expand-collapse-panel" data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'rankingChoicesInTheRightOrder' }">Ranking choices in the right order</span>
-                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                <div class="tooltip-icon" data-bind="tooltip:'top', visible: isExpanded">
                     <h4 class="tooltip-title" data-bind="localize: { html:'tooltipRankingTextTitle'}"></h4>
                     <div class="tooltip-content" data-bind="localize: { html: 'tooltipRankingTextDescription'}">
                     </div>
                     <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipContentLink'}">
                     </div>
                 </div>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isExpanded() -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'rankingChoicesInTheRightOrder' }">Ranking choices in the right order</span>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
 
-    <div class="content-section-wrapper answer-options">
-        <!-- ko if: isExpanded() -->
+    <div class="content-section-wrapper answer-options content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
         <div class="question-answer-options-area">
             <div class="content-section">
                 <ul class="unstyled answer-option-list" data-bind="foreachAnimated: { data: answers, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: {  '.answer-option-list': reorderAnswer }, draggableArea: '.answer-sort-btn' }">
@@ -38,10 +29,13 @@
                             </div>
                         </div>
                         <!-- ko if: $parent.showDeleteButton -->
-                        <div class="answer-delete-icon-wrapper">
-                            <div class="question-answer-delete-icon info-tooltip-holder" data-bind="click: $parent.removeAnswer.bind($parent)">
+                        <div class="question-answer-delete-wrapper">
+                            <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
+                                <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer.bind($parent)"></span>
                                 <div class="info-tooltip question-answer right-side">
-                                    <span data-bind="localize: { text: 'delete' }">Delete</span>
+                                    <span data-bind="localize: { text: 'delete' }">
+                                        Delete
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +49,6 @@
                 </div>
             </div>
         </div>
-        <!-- /ko -->
     </div>
 
 </section>

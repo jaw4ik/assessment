@@ -2,8 +2,7 @@
 
     <div class="content-section-wrapper">
         <div class="content-section">
-            <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded">
+            <div class="expand-collapse-panel" data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
                 <div class="tooltip-icon" data-bind="tooltip:'top'">
                     <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipTextMatchingTitle'}"></h4>
@@ -12,89 +11,74 @@
                     <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipTextMatchingLink'}">
                     </div>
                 </div>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
-                <div class="tooltip-icon" data-bind="tooltip:'top'">
-                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipTextMatchingTitle' }"></h4>
-                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipTextMatchingDescription'}">
-                    </div>
-                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipTextMatchingLink'}">
-                    </div>
-                </div>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
 
     <div class="content-section-wrapper answer-options">
-        <!-- ko if: isExpanded -->
-        <div class="question-answer-options-area">
-            <div class="content-section">
-                <ul class="unstyled answer-option-list">
-                    <!-- ko if: answers().length == 0 -->
-                    <li class="empty-learning-content" data-bind="localize: { text : 'noAnswerOptionsYet' } + '...'">
-                        No answer options yet...
-                    </li>
-                    <!-- /ko -->
-                    <!-- ko if: answers().length > 0 -->
-                    <li class="answer-option-caption-wrapper">
-                        <div class="answer-option-caption">
-                            <span data-bind="localize: { text: 'keysTitle'}">Keys</span>
-                        </div>
-                        <div class="answer-option-caption">
-                            <span data-bind="localize: { text: 'answersTitle'}">Answers</span>
-                        </div>
-                    </li>
-                    <!-- /ko -->
-                    <!-- ko foreach: answers -->
-                    <li class="answer-option-item">
-                        <div class="answer-options-list-item">
-                            <div class="question-answer-text-wrapper" tabindex="0" data-bind="css: { active: key.hasFocus(), error: !key.isValid()}, event: { focusin: key.beginEditText}">
-                                <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', autosize: { text: key }, event: { focus: key.beginEditText, blur: function(data, event){ key.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: key.hasFocus()"></textarea>
-                                </div>
-                                <div class="chars-counter" data-bind="css: { error: !key.isValid() }">
-                                    <span data-bind="text: key().trim().length"></span>/<span>255</span>
-                                </div>
+        <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+            <div class="question-answer-options-area">
+                <div class="content-section">
+                    <ul class="unstyled answer-option-list">
+                        <!-- ko if: answers().length == 0 -->
+                        <li class="empty-learning-content" data-bind="localize: { text : 'noAnswerOptionsYet' } + '...'">
+                            No answer options yet...
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: answers().length > 0 -->
+                        <li class="answer-option-caption-wrapper">
+                            <div class="answer-option-caption">
+                                <span data-bind="localize: { text: 'keysTitle'}">Keys</span>
                             </div>
-                            <div class="question-answer-text-wrapper" tabindex="0" data-bind="css: { active: value.hasFocus(), error: !value.isValid()}, event: { focusin: value.beginEditText}">
-                                <div class="puzzle-item"></div>
-                                <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', autosize: { text: value }, event: { focus: value.beginEditText, blur: function(data, event){ value.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: value.hasFocus()"></textarea>
-                                </div>
-                                <div class="chars-counter" data-bind="css: { error: !value.isValid() }">
-                                    <span data-bind="text: value().trim().length"></span>/<span>255</span>
-                                </div>
+                            <div class="answer-option-caption">
+                                <span data-bind="localize: { text: 'answersTitle'}">Answers</span>
                             </div>
-                            <!-- ko if: $parent.showDeleteButton -->
-                            <div class="question-answer-delete-wrapper">
-                                <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
-                                    <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
-                                    <div class="info-tooltip question-answer right-side">
-                                        <span data-bind="localize: { text: 'delete' }">
-                                            Delete
-                                        </span>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko foreach: answers -->
+                        <li class="answer-option-item">
+                            <div class="answer-options-list-item">
+                                <div class="question-answer-text-wrapper" tabindex="0" data-bind="css: { active: key.hasFocus(), error: !key.isValid()}, event: { focusin: key.beginEditText}">
+                                    <div class="question-answer-text">
+                                        <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', autosize: { text: key }, event: { focus: key.beginEditText, blur: function(data, event){ key.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: key.hasFocus()"></textarea>
+                                    </div>
+                                    <div class="chars-counter" data-bind="css: { error: !key.isValid() }">
+                                        <span data-bind="text: key().trim().length"></span>/<span>255</span>
                                     </div>
                                 </div>
+                                <div class="question-answer-text-wrapper" tabindex="0" data-bind="css: { active: value.hasFocus(), error: !value.isValid()}, event: { focusin: value.beginEditText}">
+                                    <div class="puzzle-item"></div>
+                                    <div class="question-answer-text">
+                                        <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', autosize: { text: value }, event: { focus: value.beginEditText, blur: function(data, event){ value.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: value.hasFocus()"></textarea>
+                                    </div>
+                                    <div class="chars-counter" data-bind="css: { error: !value.isValid() }">
+                                        <span data-bind="text: value().trim().length"></span>/<span>255</span>
+                                    </div>
+                                </div>
+                                <!-- ko if: $parent.showDeleteButton -->
+                                <div class="question-answer-delete-wrapper">
+                                    <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
+                                        <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
+                                        <div class="info-tooltip question-answer right-side">
+                                            <span data-bind="localize: { text: 'delete' }">
+                                                Delete
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
                             </div>
-                            <!-- /ko -->
-                        </div>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-                <div class="add-answer-option-wrapper">
-                    <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
-                        <span class="add-answer-option-text" data-bind="localize: { text: 'addTextMatchingAnswer' }">Add key-answer pair</span>
-                    </button>
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                    <div class="add-answer-option-wrapper">
+                        <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
+                            <span class="add-answer-option-text" data-bind="localize: { text: 'addTextMatchingAnswer' }">Add key-answer pair</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /ko -->
+        </section>
     </div>
-
 </section>

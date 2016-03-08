@@ -728,41 +728,6 @@ describe('moveCopyQuestionDialog', function () {
                     });
                 });
 
-                describe('when course is undefined', function () {
-
-                    beforeEach(function () {
-                        viewModel.selectedCourse(allobjs);
-                    });
-
-                    it('should navigate to new question', function (done) {
-                        viewModel.copyQuestion();
-
-                        copyQuestionDefer.promise.fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
-                            done();
-                        });
-                    });
-
-                });
-
-                describe('when course is not undefined', function () {
-
-                    beforeEach(function () {
-                        viewModel.selectedCourse().id = 1;
-                    });
-
-                    it('should navigate to new question in course', function (done) {
-                        viewModel.copyQuestion();
-
-                        copyQuestionDefer.promise.fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('courses/' + viewModel.courseId + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
-                            done();
-                        });
-
-                    });
-
-                });
-
             });
 
         });

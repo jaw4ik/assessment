@@ -18,6 +18,7 @@ import moveQuestionCommand from './commands/moveQuestionCommand';
 import reorderSectionCommand from './commands/reorderSectionCommand';
 import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
 import userContext from 'userContext';
+import questionModalView from 'editor/questions/questionModalView';
 
 describe('[drag and drop course editor]', () => {
 
@@ -94,11 +95,16 @@ describe('[drag and drop course editor]', () => {
 
     describe('activate:', () => {
 
-        let promise;
+        let promise,
+            modalViewInit;
 
         beforeEach(() => {
+            courseViewModel.id = '';
             promise = Promise.resolve(course);
+            modalViewInit = Promise.resolve();
             spyOn(courseRepository, 'getById').and.returnValue(promise);
+            spyOn(questionModalView, 'initialize').and.returnValue(modalViewInit);
+            spyOn(questionModalView, 'open').and.returnValue(Promise.resolve());
         });
 
         it('should set course id', done => (async () => {
@@ -132,6 +138,12 @@ describe('[drag and drop course editor]', () => {
             await promise;
             expect(courseViewModel.courseIntroductionContent.text()).toBe(course.introductionContent);
         })().then(done));
+            
+        it('should initialize questions popup', done => (async () => {
+            courseViewModel.activate(courseId);
+            await promise;
+            expect(questionModalView.initialize).toHaveBeenCalledWith(courseId);
+        })().then(done));
 
         describe('when client context highlighted objective id is defined', () => {
             let objectiveId = 'objId';
@@ -143,6 +155,7 @@ describe('[drag and drop course editor]', () => {
             it('should remove highlighted objective id from client context', done => (async () => {
                 courseViewModel.activate(courseId);
                 await promise;
+                await modalViewInit;
                 expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.highlightedObjectiveId);
             })().then(done));
 
@@ -150,9 +163,19 @@ describe('[drag and drop course editor]', () => {
                 courseViewModel.highlightedObjectiveId(null);
                 courseViewModel.activate(courseId);
                 await promise;
+                await modalViewInit;
                 expect(courseViewModel.highlightedObjectiveId()).toBe(objectiveId);
             })().then(done));
         });
+
+        it('should open questions popup', done => (async () => {
+            let objectiveId = 'objectiveId';
+            let questionId = 'questionId';
+
+            await courseViewModel.activate(courseId, objectiveId, questionId);
+            expect(questionModalView.open).toHaveBeenCalledWith(objectiveId, questionId);
+        })().then(done));
+
     });
 
     describe('createSection:', () => {

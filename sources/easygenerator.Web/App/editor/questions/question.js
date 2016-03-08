@@ -1,0 +1,230 @@
+﻿import app from 'durandal/app';
+import userContext from 'userContext';
+import eventTracker from 'eventTracker';
+import constants from 'constants';
+import questionRepository from 'repositories/questionRepository';
+import objectiveRepository from 'repositories/objectiveRepository';
+import courseRepository from 'repositories/courseRepository';
+import createQuestionCommand from 'commands/createQuestionCommand';
+import router from 'plugins/router';
+import vmQuestionTitle from 'viewmodels/questions/questionTitle';
+import vmContentField from 'viewmodels/common/contentField';
+import questionViewModelFactory from 'viewmodels/questions/questionViewModelFactory';
+import learningContentsViewModel from 'viewmodels/learningContents/learningContents';
+import feedbackViewModel from 'viewmodels/questions/feedback';
+import localizationManager from 'localization/localizationManager';
+import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
+import VoiceOver from 'viewmodels/questions/voiceOver';
+
+const events = {
+    navigateToObjective: 'Navigate to objective details',
+    duplicateItem: 'Duplicate item'
+};
+
+const eventsForQuestionContent = {
+    addContent: 'Add extra question content',
+    beginEditText: 'Start editing question content',
+    endEditText: 'End editing question content'
+};
+
+class QuestionViewModel  {
+    constructor() {
+        this.courseId =  null;
+        this.objectiveId =  null;
+        this.questionId = null;
+        this.questionType= '';
+
+        this.viewCaption= null;
+        this.questionTitle= null;
+        this.voiceOver = null;
+        this.questionContent = null;
+
+        this.eventTracker = eventTracker;
+        this.localizationManager = localizationManager;
+
+        this.activeQuestionViewModel= null;
+        this.learningContentsViewModel= learningContentsViewModel;
+        this.feedbackViewModel= feedbackViewModel;
+
+        this.viewUrl = 'editor/questions/question';
+
+        this.isInformationContent= false;
+        this.questions = [
+            {
+                type: constants.questionType.informationContent.type,
+                hasAccess: true
+            },
+            {
+                type: constants.questionType.dragAndDropText.type,
+                hasAccess: userContext.hasPlusAccess()
+            },
+            {
+                type: constants.questionType.singleSelectText.type,
+                hasAccess: true
+            },
+            {
+                type: constants.questionType.statement.type,
+                hasAccess: userContext.hasPlusAccess()
+            },
+            {
+                type: constants.questionType.multipleSelect.type,
+                hasAccess: true
+            },
+            {
+                type: constants.questionType.hotspot.type,
+                hasAccess: userContext.hasPlusAccess()
+            },
+            {
+                type: constants.questionType.singleSelectImage.type,
+                hasAccess: userContext.hasStarterAccess()
+            },
+            {
+                type: constants.questionType.openQuestion.type,
+                hasAccess: userContext.hasPlusAccess()
+            },
+            {
+                type: constants.questionType.fillInTheBlank.type,
+                hasAccess: userContext.hasStarterAccess()
+            },
+            {
+                type: constants.questionType.scenario.type,
+                hasAccess: userContext.hasAcademyAccess()
+            },
+            {
+                type: constants.questionType.textMatching.type,
+                hasAccess: userContext.hasStarterAccess()
+            },
+            {
+                type: constants.questionType.rankingText.type,
+                hasAccess: userContext.hasAcademyAccess()
+            }
+        ];
+
+        this.createQuestion = this.createQuestion.bind(this);
+
+        app.on(constants.messages.question.titleUpdatedByCollaborator, this.titleUpdatedByCollaborator.bind(this));
+        app.on(constants.messages.question.contentUpdatedByCollaborator, this.contentUpdatedByCollaborator.bind(this));
+    }
+
+    duplicateQuestion() {
+        this.eventTracker.publish(events.duplicateItem);
+        let that = this;
+        questionRepository.copyQuestion(this.questionId, this.objectiveId).then(function (response) {
+            router.navigate('courses/' + that.courseId + '/objectives/' + that.objectiveId + '/questions/' + response.id);
+        });
+    }
+
+    showMoveCopyDialog() {
+        moveCopyQuestionDialog.show(this.courseId, this.objectiveId, this.questionId);
+    }
+
+    navigateToObjectiveEvent() {
+        eventTracker.publish(events.navigateToObjective);
+    }
+
+    canActivate() {
+        var promises = [];
+        if (arguments.length === 3) {
+            promises.push(courseRepository.getById(arguments[0]));
+            promises.push(objectiveRepository.getById(arguments[1]));
+            promises.push(questionRepository.getById(arguments[1], arguments[2]));
+        } else if (arguments.length === 2) {
+            promises.push(objectiveRepository.getById(arguments[0]));
+            promises.push(questionRepository.getById(arguments[0], arguments[1]));
+        } else {
+            throw 'Invalid arguments';
+        }
+
+        return Promise.all(promises).then(function () {
+            return true;
+        }).catch(function () {
+            return { redirect: '404' };
+        });
+    }
+
+    activate() {
+        if (arguments.length === 3) {
+            this.courseId = arguments[0];
+            this.objectiveId = arguments[1];
+            this.questionId = arguments[2];
+        } else if (arguments.length === 2) {
+            this.courseId = null;
+            this.objectiveId = arguments[0];
+            this.questionId = arguments[1];
+        } else {
+            throw 'Invalid arguments';
+        }
+
+        return questionRepository.getById(this.objectiveId, this.questionId).then(question => {
+
+            this.activeQuestionViewModel = this.setActiveViewModel(question);
+            this.questionType = question.type;
+            this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
+
+            return this.activeQuestionViewModel.initialize(this.objectiveId, question).then(viewModelData => {
+
+                this.viewCaption = viewModelData.viewCaption;
+                this.questionTitle = vmQuestionTitle(this.objectiveId, question);
+                this.hasQuestionView = viewModelData.hasQuestionView;
+                this.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, this.updateQuestionContent.bind(this)) : null;
+                this.hasFeedback = viewModelData.hasFeedback;
+                this.feedbackCaptions = viewModelData.feedbackCaptions;
+
+                var promises = [];
+                promises.push(this.learningContentsViewModel.initialize(question));
+                promises.push(this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions }));
+
+                return Promise.all(promises);
+            });
+        });
+    }
+
+    setActiveViewModel(question) {
+        var activeViewModel = questionViewModelFactory[question.type];
+        if (!activeViewModel) {
+            throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
+        }
+        return activeViewModel;
+    }
+
+    updateQuestionContent(content) {
+        return questionRepository.updateContent(this.questionId, content);
+    }
+
+    back() {
+        if (this.courseId) {
+            router.navigate('#courses/' + this.courseId + '/objectives/' + this.objectiveId);
+        } else {
+            router.navigate('#library/objectives/' + this.objectiveId);
+        }
+    }
+
+    titleUpdatedByCollaborator(questionData) {
+        if (questionData.id != this.questionId || this.questionTitle.text.isEditing()) {
+            return;
+        }
+
+        this.questionTitle.text(questionData.title);
+    }
+
+    contentUpdatedByCollaborator(question) {
+        if (question.id != this.questionId)
+            return;
+
+        this.questionContent.originalText(question.content);
+        if (!this.questionContent.isEditing())
+            this.questionContent.text(question.content);
+    }
+
+    createQuestion(item) {
+        return createQuestionCommand.execute(this.objectiveId, this.courseId, item.type);
+    }
+
+    openUpgradePlanUrl() {
+        eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.questions);
+        router.openUrl(constants.upgradeUrl);
+    }
+
+}
+
+    export default new QuestionViewModel();

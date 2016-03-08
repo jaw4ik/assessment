@@ -1,7 +1,7 @@
 ﻿define(['viewmodels/courses/course/create/editor', 'editor/index', 'routing/isViewReadyMixin', 'repositories/courseRepository', 'userContext'], function (oldEditor, newEditor, isViewReady, courseRepository, userContext) {
 
     var childRouter = userContext.identity.newEditor ? newEditor : oldEditor;
-    isViewReady.assign(childRouter, true);
+    isViewReady.assign(childRouter, !userContext.identity.newEditor);
 
     return {
         router: childRouter,

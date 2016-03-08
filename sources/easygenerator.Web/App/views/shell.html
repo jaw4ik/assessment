@@ -3,7 +3,7 @@
     <!-- ko compose: leftSideBarManager.bar -->
     <!-- /ko -->
 
-    <section class="shell">
+    <section class="shell" data-bind="tooltipcontainer: { }">
         <header>
             <div class="header">
                 <div class="pull-left header-logo-holder">
@@ -81,7 +81,7 @@
     <div data-bind="widget: { kind: 'imagePreview' }"></div>
     <div data-bind="widget: { kind: 'notifyViewer' }"></div>
     <div data-bind="widget: { kind: 'cursorTooltip' }"></div>
-    <div data-bind="widget: { kind: 'hotSpotOnImageTextEditor' }"></div>
     <div data-bind="widget: { kind: 'upgradeDialog' }"></div>
     <div data-bind="widget: { kind: 'dialog' }"></div>
+    <div data-bind="widget: { kind: 'modalView' }"></div>
 </section>
