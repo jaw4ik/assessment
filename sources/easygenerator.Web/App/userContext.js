@@ -28,9 +28,13 @@ class UserContext {
             let currentCompany = _.find(this.identity.companies, company => company.id === this.ltiData.companyId);
             if (currentCompany && currentCompany.hideDefaultPublishOptions) {
                 this.identity.companies = [currentCompany];
-            } else if(currentCompany) {
+            } else if (currentCompany) {
                 currentCompany.priority = 10000;
             }
+        } else if (this.identity) {
+            this.identity.companies.forEach(function(company) {
+                company.hideDefaultPublishOptions = false;
+            });
         }
         app.trigger(constants.messages.user.identified, this.identity);
     }
