@@ -17,7 +17,6 @@
             position: fixed;
             height: 40px;
             top: 120px;
-            right: 0;
             cursor: pointer;
             box-shadow: -1px 0px 2px 0px rgba(0, 0, 0, 0.2);
             border-top-left-radius: 5px;
@@ -37,6 +36,7 @@
 
             &.expander {
                 width: 40px;
+                right: 0;
                 background-color: #469dd5;
                 z-index: 2;
 
@@ -79,6 +79,7 @@
 
             &.collapser {
                 width: 35px;
+                right: -35px;
                 background-color: #fff;
                 z-index: 0;
 
@@ -98,15 +99,16 @@
             box-shadow: 0 0 5px #CECECE;
 
             .review-panel-tail {
-                right: 370px;
-
+                
                 &.expander {
                     z-index: 0;
                     width: 34px;
+                    right: 335px;
                 }
 
                 &.collapser {
                     z-index: 2;
+                    right: 369px;
                 }
             }
         }
