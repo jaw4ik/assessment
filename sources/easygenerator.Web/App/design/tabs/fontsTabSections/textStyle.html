@@ -1,0 +1,74 @@
+﻿<section class="text-styling-panel" data-bind="if: isVisible">
+    <div class="text-styling-panel-button bold" data-bind="css:{ checked : isBold() }, click : toggleBold">
+        <span class="button-icon">B</span>
+    </div>
+    <div class="text-styling-panel-items-separator"></div>
+    <div class="text-styling-panel-button italic" data-bind="css:{ checked : isItalic() }, click : toggleItalic">
+        <span class="button-icon">I</span>
+    </div>
+    <div class="text-styling-panel-items-separator"></div>
+    <div class="text-styling-panel-button underline" data-bind="css:{ checked : isUnderlined() }, click : toggleUnderlined">
+        <span class="button-icon">U</span>
+    </div>
+    <div class="text-styling-panel-items-separator"></div>
+    <div class="text-styling-panel-button colorpicker-dropdown" data-bind=" dropDown : { } ">
+        <div class="color-preview" data-bind="style:{ backgroundColor : color }"></div>
+        <div class="colorpicker-content-wrapper" data-bind="stopEventPropagation: { event: 'click'}">
+            <div class="colorpicker-mode-switcher-wrapper">
+                <ul class="colorpicker-mode-switcher-options unstyled">
+                    <li class="colorpicker-mode-switcher-option">
+                        <span class="colorpicker-mode-switcher-option-label" data-bind="localize: { text: 'useGeneralColor' }, css: { selected : isGeneralColorSelected }, click : selectGeneralColor"></span>
+                        <div class="colorpicker-palette-color" data-bind="style: { backgroundColor: generalFontColor }"></div>
+                    </li>
+                    <li class="colorpicker-mode-switcher-option">
+                        <span class="colorpicker-mode-switcher-option-label" data-bind="localize: { text: 'customColor' }, css: { selected : !isGeneralColorSelected() }, click : selectCustomColor"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="colorpicker-wrapper" data-bind="css : { disabled : isGeneralColorSelected() }">
+                <colorpicker params="hex: color, callback: changed.bind($data), palette: true, colors: palette"></colorpicker>
+            </div>
+        </div>
+    </div>
+    <div class="text-styling-panel-items-separator"></div>
+    <!-- ko if: textBackgroundColor -->
+    <div class="text-styling-panel-button background-color colorpicker-dropdown" data-bind=" dropDown : { }">
+        <div class="colorpicker-content-wrapper" data-bind="stopEventPropagation: { event: 'click'}">
+            <colorpicker params="hex: textBackgroundColor, callback: changed.bind($data), palette: true, colors: palette"></colorpicker>
+        </div>
+    </div>
+    <div class="text-styling-panel-items-separator"></div>
+    <!-- /ko -->
+    <div class="text-styling-panel-button font-size" data-bind="dropDown : { }">
+        <input class="font-size-input" data-bind=" value : size, event : { blur: stopEditingFontSize } " />
+        <div class="font-size-dropdown-wrapper" data-bind="stopEventPropagation: { event: 'wheel'}">
+            <ul class="unstyled font-size-list" data-bind="foreach : fontSizes, scrollbar: { checkDOMChanges: false }">
+                <li class="font-size-item" data-bind="css: { selected : $parent.size().toString() === $data.toString() }, click : $parent.changeFontSize.bind($parent)">
+                    <span data-bind="text : $data"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="text-styling-panel-items-separator"></div>
+    <div class="text-styling-panel-button font-family" data-bind="dropDown : { }">
+
+        <!-- ko if:isGeneralSelected-->
+        <div class="font-family-preview" data-bind=" localize: { text: 'useGeneral' }, style : { fontFamily : fontFamily }"></div>
+        <!-- /ko -->
+        <!-- ko ifnot:isGeneralSelected-->
+        <div class="font-family-preview" data-bind="text : fontFamily, style : { fontFamily : fontFamily }"></div>
+        <!-- /ko -->
+        <div class="font-families-dropdown-wrapper" data-bind="stopEventPropagation: { event: 'wheel'}">
+            <ul class="fonts-list unstyled" data-bind="scrollbar: { checkDOMChanges: false }">
+                <li class="fonts-list-item general" data-bind="click: useGeneral, css:{ selected : isGeneralSelected } ">
+                    <span class="fonts-list-item-title" data-bind="localize: { text: 'useGeneral' }, style:{ 'font-family' : generalFontFamily } "></span>
+                </li>
+                <!-- ko foreach: fontFamilies -->
+                <li class="fonts-list-item" data-bind="css:{ selected : $parent.fontFamily() === name && !$parent.isGeneralSelected() }, click: $parent.changeFontFamily.bind($parent) ">
+                    <span class="fonts-list-item-title" data-bind="text:name, style:{ 'font-family' : name } "></span>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+    </div>
+</section>

@@ -37,6 +37,7 @@
     require('design/bindingHandlers/slideToggleBindingHandler');
     require('design/bindingHandlers/brightnessBindingHandler');
     require('design/bindingHandlers/popoverBindingHandler');
+    require('design/bindingHandlers/textStyleBindingHandler');
     require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');

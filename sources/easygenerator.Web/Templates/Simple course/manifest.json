@@ -13,7 +13,8 @@
     "configure": "settings/configure/configure.html"
   },
   "supports": [
-    "branding"
+    "branding",
+    "fonts"
   ],
   "presets": [
     {
@@ -61,7 +62,97 @@
               "texture": null
             }
           }
-        }
+        },
+        "fonts": [
+          {
+            "key": "main-font",
+            "fontFamily": "Roboto Slab"
+          },
+          {
+            "key": "Heading1",
+            "size": 26,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading2",
+            "size": 24,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading3",
+            "size": 20,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Normal",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Quote",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "italic",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Highlighted",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": "#2d9ec6",
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "links",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#2d9ec6",
+            "fontWeight": "normal",
+            "textDecoration": "underline",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          }
+        ]
       }
     },
     {
@@ -109,7 +200,97 @@
               "texture": "//cdn.easygenerator.com/textures/5.png"
             }
           }
-        }
+        },
+        "fonts": [
+          {
+            "key": "main-font",
+            "fontFamily": "Roboto Slab"
+          },
+          {
+            "key": "Heading1",
+            "size": 26,
+            "fontFamily": "Roboto Slab",
+            "color": "#d7d7d7",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading2",
+            "size": 24,
+            "fontFamily": "Roboto Slab",
+            "color": "#d7d7d7",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading3",
+            "size": 20,
+            "fontFamily": "Roboto Slab",
+            "color": "#d7d7d7",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Normal",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#d7d7d7",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Quote",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#d7d7d7",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "italic",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Highlighted",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#d7d7d7",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": "#33b3e2",
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "links",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#33b3e2",
+            "fontWeight": "normal",
+            "textDecoration": "underline",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          }
+        ]
       }
     },
     {
@@ -157,7 +338,97 @@
               "texture": "//cdn.easygenerator.com/textures/3.png"
             }
           }
-        }
+        },
+        "fonts": [
+          {
+            "key": "main-font",
+            "fontFamily": "Roboto Slab"
+          },
+          {
+            "key": "Heading1",
+            "size": 26,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading2",
+            "size": 24,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading3",
+            "size": 20,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Normal",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Quote",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "italic",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Highlighted",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": "#e9d20b",
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "links",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#e9d20b",
+            "fontWeight": "normal",
+            "textDecoration": "underline",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          }
+        ]
       }
     },
     {
@@ -206,7 +477,97 @@
             }
 
           }
-        }
+        },
+        "fonts": [
+          {
+            "key": "main-font",
+            "fontFamily": "Roboto Slab"
+          },
+          {
+            "key": "Heading1",
+            "size": 26,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading2",
+            "size": 24,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading3",
+            "size": 20,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Normal",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Quote",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "italic",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Highlighted",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": "#7596b7",
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "links",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#7596b7",
+            "fontWeight": "normal",
+            "textDecoration": "underline",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          }
+        ]
       }
     },
     {
@@ -254,7 +615,97 @@
               "texture": "//cdn.easygenerator.com/textures/2.png"
             }
           }
-        }
+        },
+        "fonts": [
+          {
+            "key": "main-font",
+            "fontFamily": "Roboto Slab"
+          },
+          {
+            "key": "Heading1",
+            "size": 26,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading2",
+            "size": 24,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Heading3",
+            "size": 20,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "700",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Normal",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Quote",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "italic",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "Highlighted",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#252728",
+            "fontWeight": "normal",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "textBackgroundColor": "#aed580",
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          },
+          {
+            "key": "links",
+            "size": 18,
+            "fontFamily": "Roboto Slab",
+            "color": "#aed580",
+            "fontWeight": "normal",
+            "textDecoration": "underline",
+            "fontStyle": "normal",
+            "textBackgroundColor": null,
+            "isGeneralSelected": true,
+            "isGeneralColorSelected": true
+          }
+        ]
       }
     }
   ],

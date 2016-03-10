@@ -49,7 +49,7 @@ export class Popover{
 
                 if (css.top + popover.outerHeight() > $(window).outerHeight()) {
                     if (offset.top + target.outerHeight() - popover.outerHeight() > 0) {
-                        css.top = css.top - popover.outerHeight() + 60;
+                        css.top = css.top - popover.outerHeight() - $('.editor-switcher').height() + 60;
                         popover.addClass('bottom');
                     } else {
                         popover.removeClass('bottom');

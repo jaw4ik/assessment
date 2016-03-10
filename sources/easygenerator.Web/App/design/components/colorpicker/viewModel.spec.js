@@ -260,7 +260,7 @@ describe('component [colorpicker]', () => {
         it('should be an array of default colors', () => {
             let colorpicker = new Colorpicker();
             expect(colorpicker.palette).toBeArray();
-            expect(colorpicker.palette.length).toEqual(36);
+            expect(colorpicker.palette.length).toEqual(24);
         });
     });
     describe('isPaletteVisible:', () => {

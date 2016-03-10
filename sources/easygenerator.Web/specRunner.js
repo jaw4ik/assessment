@@ -8,7 +8,7 @@ function runSpecs(env) {
 
     Q.stopUnhandledRejectionTracking();
     System.cacheBust = '?v=' + Date.now();
-    
+
     System.import('bootstrapper').then(function (bootstrapper) {
         System.import('localization/localizationManager').then(function (localizationManager) {
             bootstrapper.run();
@@ -37,6 +37,7 @@ function runSpecs(env) {
                 'design/commands/getCourseTemplateSettings.spec',
                 'design/tabs/PresetTab.spec',
                 'design/tabs/BrandingTab.spec',
+                'design/tabs/FontsTab.spec',
                 'design/tabs/sections/Logo.spec',
                 'design/tabs/sections/LogoPopover.spec',
                 'design/tabs/sections/HeaderBackground.spec',
@@ -46,6 +47,8 @@ function runSpecs(env) {
                 'design/tabs/sections/BodyBackgroundPopover.spec',
                 'design/tabs/sections/HeaderBackgroundPopover.spec',
                 'design/tabs/sections/ColorpickerPopover.spec',
+                'design/tabs/fontsTabSections/contentStyles.spec',
+                'design/tabs/fontsTabSections/generalStyles.spec',
                 'design/bus.spec',
                 'design/components/colorpicker/viewModel.spec',
                 'design/templateBrief.spec',
@@ -493,7 +496,7 @@ function runSpecs(env) {
             ];
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
-                
+
                 var processedCount = 0;
                 Promise.all(specs.map(function (spec) {
                     return System.import(spec).then(function () {

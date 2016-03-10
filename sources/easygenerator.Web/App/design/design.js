@@ -14,11 +14,14 @@ import bus from './bus.js';
 
 import BrandingTab from './tabs/BrandingTab';
 import PresetTab from './tabs/PresetTab';
+import FontsTab from './tabs/FontsTab';
 
 import * as getCommand from './commands/getCourseTemplateSettings';
 import * as saveCommand  from './commands/saveCourseTemplateSettings';
 
 import popoverService from './popoverService.js';
+
+import textStyleService from './textStyleService.js';
 
 export const EVENT_PRESET_SELECTED = 'preset:selected';
 
@@ -55,9 +58,11 @@ class Design{
         this.presetTab = new PresetTab();
 
         this.brandingTab = new BrandingTab();
+        this.fontsTab = new FontsTab();
 
         this.subscriptions = [];
         this.popovers = popoverService.collection;
+        this.textStyleElements = textStyleService.collection;
 
         this.currentPreset = null;
     }
@@ -81,6 +86,8 @@ class Design{
             this.subscriptions.push(app.on(constants.messages.course.templateUpdatedByCollaborator).then(course => this.templateUpdatedByCollaborator(course)));
             this.subscriptions.push(app.on(EVENT_PRESET_SELECTED).then(preset => this.presetSelected(preset)));
             this.subscriptions.push(bus.on('all').then(() => this.settingsChanged()));
+            this.subscriptions.push(app.on('font:settings-changed').then(() => this.fontSettingsChanged()));
+            this.subscriptions.push(app.on('text-color:changed').then(color => this.textColorChanged(color)));
             
             this.updateTabCollection(course.template);
 
@@ -183,6 +190,10 @@ class Design{
             }
         });
 
+        if (template.supports && template.supports.indexOf('fonts') > -1) {
+            collection.push(this.fontsTab);
+        }
+
         if (template.supports && template.supports.indexOf('branding') > -1) {
             collection.unshift(this.brandingTab);
         }
@@ -252,39 +263,103 @@ class Design{
     }
 
     settingsChanged() {
+
         this.settings = this.settings || {};
         this.settings.branding = this.settings.branding || {};
 
         this.settings.branding.logo = {
             url: this.brandingTab.logo.imageUrl()
-        }
+        };
 
-        this.settings.branding.colors = this.brandingTab.colors.colors().map(c => {
+        let colorsInFontsTab = _.map(this.fontsTab.generalStyles.colors(), item => { 
             return {
-                key: c.key,
-                value: c.value()
+                key: item.key, 
+                value: item.value()
             }
         });
 
-        this.settings.branding.background = {
-            header: {
-                brightness: this.brandingTab.background.header.brightness(),
-                color: this.brandingTab.background.header.color() ? this.brandingTab.background.header.color() : null,
-                image: this.brandingTab.background.header.image() ? {
-                    url: this.brandingTab.background.header.image(),
-                    option: this.brandingTab.background.header.option()
-                } : null
-            },
-            body: {
-                enabled: this.brandingTab.background.body.enabled(),
-                brightness: this.brandingTab.background.body.brightness(),
-                color: this.brandingTab.background.body.color() ? this.brandingTab.background.body.color() : null,
-                texture: this.brandingTab.background.body.texture() ? this.brandingTab.background.body.texture() : null
-            }
+        let isChangedInFontsTab = compareArrays(colorsInFontsTab, this.settings.branding.colors);
+
+        if(isChangedInFontsTab){
+            _.each(colorsInFontsTab, item => {
+                var element = _.find(this.settings.branding.colors, color =>{
+                    return color.key === item.key
+                });
+                element.value = item.value;
+            });
+        };
+
+        if(!isChangedInFontsTab && this.brandingTab.colors.colors().length){
+            this.settings.branding.colors = this.brandingTab.colors.colors().map(c => {
+                return {
+                    key: c.key,
+                    value: c.value()
+                }
+            });
+        
+            this.settings.branding.background = {
+                header: {
+                    brightness: this.brandingTab.background.header.brightness(),
+                    color: this.brandingTab.background.header.color() ? this.brandingTab.background.header.color() : null,
+                    image: this.brandingTab.background.header.image() ? {
+                        url: this.brandingTab.background.header.image(),
+                        option: this.brandingTab.background.header.option()
+                    } : null
+                },
+                body: {
+                    enabled: this.brandingTab.background.body.enabled(),
+                    brightness: this.brandingTab.background.body.brightness(),
+                    color: this.brandingTab.background.body.color() ? this.brandingTab.background.body.color() : null,
+                    texture: this.brandingTab.background.body.texture() ? this.brandingTab.background.body.texture() : null
+                }
+            };
         };
 
         return this.saveSettings();
     }
+
+    fontSettingsChanged(){
+        this.settings.fonts = _.flatten([this.fontsTab.generalStyles.mainFont, this.fontsTab.contentStyles.elements()]).map(f =>{
+            return {
+                key: f.key,
+                fontFamily: f.fontFamily ? f.fontFamily() : null,
+                fontWeight: f.fontWeight ? f.fontWeight() : null,
+                size: f.size ? f.size() : null,
+                color: f.color ? f.color() : null,
+                textBackgroundColor: f.textBackgroundColor ? f.textBackgroundColor() : null,
+                fontStyle: f.fontStyle ? f.fontStyle() : null,
+                textDecoration: f.textDecoration ? f.textDecoration() : null,
+                isGeneralSelected: f.isGeneralSelected ? f.isGeneralSelected() : null,
+                isGeneralColorSelected: f.isGeneralColorSelected ? f.isGeneralColorSelected() : null,
+            }
+        });
+
+        return this.saveSettings();
+    }
+
+    textColorChanged(color){
+        _.each(this.settings.fonts,f => {
+            if(f.isGeneralColorSelected &&f.key != 'links'){
+                f.color = color;
+            }
+        });
+        let textColor = _.find(this.settings.branding.colors, c => {
+            return c.key === '@text-color'
+        });
+        textColor.value = color;
+        return this.saveSettings();
+    }
+}
+
+function compareArrays (array1, array2){
+    var arr1 = _.map(array1, function(item){
+        return item.key + item.value; 
+    });
+    var arr2 = _.map(array2, function(item){
+        return item.key + item.value; 
+    });
+    var res = _.intersection(arr1, arr2);
+    return res.length != arr1.length;
 }
 
 export default new Design();

@@ -4,11 +4,68 @@
 @button-text-color: #fff;
 @content-body-color: #fff;
 
-@main-font: Roboto Slab;
+@main-font-fontFamily: Roboto Slab;
+
+@Heading1-color: #252728;
+@Heading1-fontFamily: Roboto Slab;
+@Heading1-fontStyle: normal;
+@Heading1-fontWeight: 700;
+@Heading1-size: 26px;
+@Heading1-textDecoration: none;
+@Heading1-textBackgroundColor: transparent;
+
+@Heading2-color: #252728;
+@Heading2-fontFamily: Roboto Slab;
+@Heading2-fontStyle: normal;
+@Heading2-fontWeight: 700;
+@Heading2-size: 24px;
+@Heading2-textDecoration: none;
+@Heading2-textBackgroundColor: transparent;
+
+@Heading3-color: #252728;
+@Heading3-fontFamily: Roboto Slab;
+@Heading3-fontStyle: normal;
+@Heading3-fontWeight: 700;
+@Heading3-size: 20px;
+@Heading3-textDecoration: none;
+@Heading3-textBackgroundColor: transparent;
+
+@Highlighted-color: #252728;
+@Highlighted-fontFamily: Roboto Slab;
+@Highlighted-fontStyle: normal;
+@Highlighted-fontWeight: normal;
+@Highlighted-size: 18px;
+@Highlighted-textDecoration: none;
+@Highlighted-textBackgroundColor: #2d9ec6;
+
+@links-color: #2d9ec6;
+@links-fontFamily: Roboto Slab;
+@links-fontStyle: normal;
+@links-fontWeight: normal;
+@links-size: 18px;
+@links-textDecoration: underline;
+@links-textBackgroundColor: transparent;
+
+@Normal-color: #252728;
+@Normal-fontFamily: Roboto Slab;
+@Normal-fontStyle: normal;
+@Normal-fontWeight: normal;
+@Normal-size: 18px;
+@Normal-textDecoration: none;
+@Normal-textBackgroundColor: transparent;
+
+@Quote-color: #252728;
+@Quote-fontFamily: Roboto Slab;
+@Quote-fontStyle: italic;
+@Quote-fontWeight: normal;
+@Quote-size: 18px;
+@Quote-textDecoration: none;
+@Quote-textBackgroundColor: transparent;
+
 
 body {
     color: @text-color;
-    font-family: @main-font;
+    font-family: @main-font-fontFamily;
 }
 
 .header:before {
@@ -16,7 +73,7 @@ body {
 }
 
 .button {
-    font-family: @main-font;
+    font-family: @main-font-fontFamily;
 
     &.primary {
         color: @button-text-color;
@@ -120,18 +177,78 @@ body {
 .styled-content {
     color: @text-color;
 
+    h1 {
+        font-size: @Heading1-size;
+        font-weight: @Heading1-fontWeight;
+        color: @Heading1-color;
+        font-family: @Heading1-fontFamily;
+        font-style: @Heading1-fontStyle;
+        text-decoration: @Heading1-textDecoration;
+        background-color: @Heading1-textBackgroundColor;
+    }
+
+    h2 {
+        font-size: @Heading2-size;
+        font-weight: @Heading2-fontWeight;
+        color: @Heading2-color;
+        font-family: @Heading2-fontFamily;
+        font-style: @Heading2-fontStyle;
+        text-decoration: @Heading2-textDecoration;
+        background-color: @Heading2-textBackgroundColor;
+    }
+
+    h3 {
+        font-size: @Heading3-size;
+        font-weight: @Heading3-fontWeight;
+        color: @Heading3-color;
+        font-family: @Heading3-fontFamily;
+        font-style: @Heading3-fontStyle;
+        text-decoration: @Heading3-textDecoration;
+        background-color: @Heading3-textBackgroundColor;
+    }
+
+    p {
+        color: @Normal-color;
+        font-family: @Normal-fontFamily;
+        font-style: @Normal-fontStyle;
+        font-weight: @Normal-fontWeight;
+        font-size: @Normal-size;
+        text-decoration: @Normal-textDecoration;
+        background-color: @Normal-textBackgroundColor;
+    }
+
     a {
-        color: @secondary-color;
+        color: @links-color;
+        font-family: @links-fontFamily;
+        font-style: @links-fontStyle;
+        font-weight: @links-fontWeight;
+        font-size: @links-size;
+        text-decoration: @links-textDecoration;
+        background-color: @links-textBackgroundColor;
     }
 
     cite {
+        color: @Quote-color;
+        font-family: @Quote-fontFamily;
+        font-style: @Quote-fontStyle;
+        font-weight: @Quote-fontWeight;
+        font-size: @Quote-size;
+        text-decoration: @Quote-textDecoration;
+        background-color: @Quote-textBackgroundColor;
+
         &:before, &:after {
-            color: @secondary-color;
+            color: @Quote-color;
         }
     }
 
     mark {
-        background-color: @secondary-color;
+        color: @Highlighted-color;
+        font-family: @Highlighted-fontFamily;
+        font-style: @Highlighted-fontStyle;
+        font-weight: @Highlighted-fontWeight;
+        font-size: @Highlighted-size;
+        text-decoration: @Highlighted-textDecoration;
+        background-color: @Highlighted-textBackgroundColor;
     }
 
     u {
@@ -139,8 +256,14 @@ body {
     }
 
     .table-wrapper {
+        color: @Normal-color;
+        font-family: @Normal-fontFamily;
+        font-style: @Normal-fontStyle;
+        font-weight: @Normal-fontWeight;
+        font-size: @Normal-size;
+        text-decoration: @Normal-textDecoration;
+
         table {
-            color: @text-color;
 
             thead {
                 th {
@@ -183,6 +306,17 @@ body {
                     }
                 }
             }
+        }
+    }
+
+    ul, ol {
+        li {
+            color: @Normal-color;
+            font-family: @Normal-fontFamily;
+            font-style: @Normal-fontStyle;
+            font-weight: @Normal-fontWeight;
+            font-size: @Normal-size;
+            text-decoration: @Normal-textDecoration;
         }
     }
 
@@ -253,7 +387,7 @@ body {
 
     .blankInput {
         color: @text-color;
-        font-family: @main-font;
+        font-family: @main-font-fontFamily;
     }
 }
 
@@ -463,7 +597,7 @@ body {
 .exit-course-button {
     color: @button-text-color;
     background-color: @main-color;
-    font-family: @main-font;
+    font-family: @main-font-fontFamily;
 
     &:not(.disabled):hover {
         background-color: shade(@main-color, 10%);

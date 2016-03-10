@@ -4,7 +4,7 @@ import _ from 'underscore';
 export default class Colorpicker{
     constructor(params) {
         params = params || {};
-        
+
         let currentValue;
         if (ko.isObservable(params.hex)) {
             currentValue = params.hex;
@@ -23,7 +23,7 @@ export default class Colorpicker{
                 },
                 write: value => {
                     let previousValue = currentValue();
-                    currentValue('');
+                    currentValue(' ');
                     currentValue(value);
 
                     if (!hexToRgb(value)) {
@@ -58,17 +58,24 @@ export default class Colorpicker{
             return obj;
         }, {});
 
-        this.palette = [
-            '#ffffff', '#000000', '#111111', '#222222', '#333333', '#666666', '#999999', '#aaaaaa', '#cccccc', '#eeeeee', '#fffff0', '#f5f5dc',
-            '#f5deb3', '#d2b48c', '#c3b091', '#000080', '#084c9e', '#0000cd', '#007fff', '#00ffff', '#7fffd4', '#008080', '#228b22', '#808000',
-            '#7fff00', '#bfff00', '#ffd700', '#daa520', '#ff7f50', '#fa8072', '#fc0fc0', '#e0b0ff', '#843179', '#4b0082', '#800000', '#dc143c'
-        ];
+        
+        if(params.colors){
+            this.palette = params.colors;
+        }
+        else{
+            this.palette = [
+            '#43aaa3', '#2d9ec6', '#336577', '#33b3e2', '#46a24a', '#aed580', '#3d85c6', '#7596b7', '#42515f', '#63798e', '#000000', '#ffffff',
+            '#faaf4a', '#f16162', '#9db2c0', '#999999', '#aeea00', '#673ab7', '#45818e', '#76a5af', '#6fa8dc', '#9fc5e8', '#cfe2f3', '#e7f0f9'
+            ];
+        }
+
         this.isPaletteVisible = ko.observable(params.palette || false);
     }
 
     select(hex) {
         this.hex(hex);
     }
+
 }
 
 function rgbToHex(rgb) {
