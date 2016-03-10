@@ -35,7 +35,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CommentCreatedEvent args)
         {
-            _broadcaster.OtherCollaborators(args.Course)
+            _broadcaster.AllCollaborators(args.Course)
                 .commentCreated(args.Course.Id.ToNString(), _entityMapper.Map(args.Comment));
         }
     }
