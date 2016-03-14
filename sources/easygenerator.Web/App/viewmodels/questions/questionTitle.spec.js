@@ -1,5 +1,4 @@
 ﻿import vmQuestionTitle from './questionTitle';
-
 import eventTracker from 'eventTracker';
 import questionRepository from 'repositories/questionRepository';
 import constants from 'constants';
@@ -14,7 +13,8 @@ describe('viewModel [questionTitlte]', function () {
         objectiveId = 'objectiveId';
         question = {
             id: 'questionId',
-            title: 'Question title'
+            title: 'Question title',
+            type: ''
         };
         spyOn(eventTracker, 'publish');
 
@@ -77,6 +77,27 @@ describe('viewModel [questionTitlte]', function () {
                 expect(viewModel.text()).toBe('asd');
             });
 
+        });
+
+    });
+
+    describe('label:', () => {
+        it('should be defined', () => {
+            expect(viewModel.label).toBeDefined();
+        });
+
+        it('should be question title label', () => {
+            expect(viewModel.label).toBe('questionTitleLabel');
+        });
+
+        describe('when question type is information content', () => {
+
+            it('should be content title label', () => {
+                question.type = constants.questionType.informationContent.type;
+                viewModel = vmQuestionTitle(objectiveId, question);
+                expect(viewModel.label).toBe('contentTitleLabel');
+            });
+            
         });
 
     });

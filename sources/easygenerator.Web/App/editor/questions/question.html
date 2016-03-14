@@ -3,7 +3,7 @@
         <section class="question view-module" data-bind="css: questionType">
             <div class="content-section-wrapper" data-bind="with: questionTitle">
                 <div class="content-section">
-                    <span class="question-content-item-label" data-bind="localize: { text: 'questionTitleLabel' } "></span>
+                    <span class="question-content-item-label" data-bind="localize: { text: label } "></span>
                     <div class="edit-field-wrapper small question-title" data-bind="css: { 'active': text.isEditing(), 'error': !text.isValid() }">
                         <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }"></div>
                         <div class="validation-message">

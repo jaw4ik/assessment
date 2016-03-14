@@ -11,6 +11,7 @@ let _questionTitleUpdated = new WeakMap();
 let _sectionConnected = new WeakMap();
 let _sectionsDisconnected = new WeakMap();
 let _sectionsReordered = new WeakMap();
+let _sectionDeleted = new WeakMap();
 let _questionsDeleted = new WeakMap();
 let _questionCreated = new WeakMap();
 let _questionsReordered = new WeakMap();
@@ -128,6 +129,13 @@ class ContentTreeView {
             this.activateQuestion(this.activeSectionId, this.activateQuestionId);
         });
 
+        _sectionDeleted.set(this, sectionId => {
+            let sectionToRemove = _.find(this.sections(), item => item.id === sectionId);
+            if (!_.isNullOrUndefined(sectionToRemove)) {
+                this.sections.remove(sectionToRemove);
+            }
+        });
+
         _questionCreated.set(this, (sectionId, question) => {
             let changedSection = _.find(this.sections(), item => item.id === sectionId);
             if (!changedSection) {
@@ -148,11 +156,12 @@ class ContentTreeView {
                 changedSection.activate(this.activateQuestionId);
             }
         });
-
+        
         app.on(constants.messages.course.objectiveRelated, _sectionConnected.get(this).bind(this));
         app.on(constants.messages.course.objectiveRelatedByCollaborator, _sectionConnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesUnrelated, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.objectivesUnrelated, _sectionsDisconnected.get(this).bind(this));        
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.objective.deleted, _sectionDeleted.get(this).bind(this));
         app.on(constants.messages.course.objectivesReordered, _sectionsReordered.get(this).bind(this));
         app.on(constants.messages.course.objectivesReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
 
