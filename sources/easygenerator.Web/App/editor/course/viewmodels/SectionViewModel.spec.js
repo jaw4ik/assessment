@@ -203,6 +203,7 @@ describe('[SectionViewModel]', () => {
                 id: 'newsectionId',
                 title: 'newsectionTitle',
                 image: 'newimageUrl',
+                createdBy: 'user',
                 modifiedOn: new Date(),
                 questions: [],
                 learningObjective: ''
@@ -210,6 +211,7 @@ describe('[SectionViewModel]', () => {
             sectionViewModel.updateFields(newSection);
             expect(sectionViewModel.id()).toBe(newSection.id);
             expect(sectionViewModel.title()).toBe(newSection.title);
+            expect(sectionViewModel.createdBy).toBe(newSection.createdBy);
             expect(sectionViewModel.originalTitle).toBe(newSection.title);
             expect(sectionViewModel.modifiedOn()).toBe(moment(newSection.modifiedOn).format('DD/MM/YY'));
             expect(sectionViewModel.image()).toBe(newSection.image);

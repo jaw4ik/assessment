@@ -6,11 +6,16 @@ import modalView from 'widgets/modalView/viewmodel';
 import questionViewModel from './question';
 import router from 'plugins/router';
 import navigationPanel from 'editor/questions/panels/questionsNavigationView';
+import eventTracker from 'eventTracker';
 
 let _courseDeleted = new WeakMap();
 let _sectionsDisconnected = new WeakMap();
 let _questionsDeleted = new WeakMap();
 let _routerNavigationProcessing = new WeakMap();
+
+const events = {
+    previewCourse: 'Preview course'
+};
 
 class QuestionModalView {
     constructor() {
@@ -81,6 +86,10 @@ class QuestionModalView {
     onQuestionViewCompositionComplete() {
         this.isQuestionViewReady(true);
     }
- }
+    previewCourse() {
+        eventTracker.publish(events.previewCourse);
+        router.openUrl('/preview/' + this.courseId);
+    }
+}
 
 export default new QuestionModalView();

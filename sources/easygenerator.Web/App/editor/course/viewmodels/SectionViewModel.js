@@ -192,6 +192,7 @@ export default class SectionViewModel{
         this.id(section.id);
         this.title(section.title);
         this.originalTitle = this.title();
+        this.createdBy = section.createdBy;
         this.learningObjective(section.learningObjective || '');
         this.originalLearningObjective = this.learningObjective();
         this.modifiedOn(updateModifiedOn(section.modifiedOn));

@@ -74,7 +74,7 @@
             return {
                 objectiveId: objectiveId,
                 questionId: questionId,
-
+                label: question.type === constants.questionType.informationContent.type ? 'contentTitleLabel' : 'questionTitleLabel',
                 text: text,
 
                 isExpanded: isExpanded,
