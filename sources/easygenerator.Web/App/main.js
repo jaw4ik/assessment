@@ -70,7 +70,7 @@ userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash()
     bootstrapper.run();
 
     await* [
-        fonts.load(['Open Sans', 'Droid Sans Mono']),
+        fonts.load(['Open+Sans::latin,cyrillic-ext', 'Droid+Sans+Mono::latin']),
         userContext.identify(),
         userContext.identifyStoragePermissions(),
         synchronization.start(),
