@@ -40,6 +40,7 @@
     require('design/bindingHandlers/popoverBindingHandler');
     require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
+    require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
 
     var task = {
         execute: execute
