@@ -74,7 +74,7 @@ namespace easygenerator.Web.Tests.Publish.External
             _publisher.Publish(_entity, company, userEmail);
 
             //Assert
-            _httpClient.Received().Post<string>(company.PublishCourseApiUrl, Arg.Is<object>((_) => _.IsObjectSimilarTo(new
+            _httpClient.Received().Post(company.PublishCourseApiUrl, Arg.Is<object>((_) => _.IsObjectSimilarTo(new
             {
                 id = _entity.Id.ToString("N"),
                 userEmail = userEmail,
@@ -118,7 +118,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var userEmail = "userEmail";
             var ex = new Exception();
 
-            _httpClient.Post<string>(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(info => { throw ex; });
+            _httpClient.Post(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(info => { throw ex; });
 
             //Act
             _publisher.Publish(_entity, company, userEmail);
@@ -132,7 +132,7 @@ namespace easygenerator.Web.Tests.Publish.External
         {
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
-            _httpClient.Post<string>(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(info => { throw new Exception(); });
+            _httpClient.Post(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(info => { throw new Exception(); });
 
             //Act
             var result = _publisher.Publish(_entity, company, userEmail);

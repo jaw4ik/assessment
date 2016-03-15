@@ -26,7 +26,7 @@ namespace easygenerator.Web.Publish.External
                     throw new InvalidOperationException($"Entity was not published (PublicationUrl is empty). Entity id: {entity.Id}.");
                 }
 
-                _httpClient.Post<string>(company.PublishCourseApiUrl, new
+                _httpClient.Post(company.PublishCourseApiUrl, new
                 {
                     id = entity.Id.ToNString(),
                     userEmail = userEmail,
