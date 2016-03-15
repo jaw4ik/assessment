@@ -557,3 +557,26 @@ body {
         }
     }
 }
+
+.exit-course-wrapper {
+    .exit-course-separator {
+        .exit-course-separator-text {
+            color: fade(@text-color, 50%);
+
+            &:before,
+            &:after {
+                background: fade(@text-color, 10%);
+            }
+        }
+    }
+
+    .exit-course-link-wrapper {
+        .exit-course-link {
+            color: fade(@text-color, 80%);
+
+            &:hover {
+                border-color: fade(@text-color, 80%);
+            }
+        }
+    }
+}
