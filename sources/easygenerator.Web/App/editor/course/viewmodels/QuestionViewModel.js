@@ -48,10 +48,6 @@ export default class QuestionViewmodel{
     cancel() {
         this.canBeDeleted(false);
     }
-    openQuestion() {
-        let questionPath = `#courses/${this.courseId}/objectives/${this.sectionId}/questions/${this.id()}`;
-        router.navigate(questionPath);
-    }
     startEditingTitle() {
         this.title.isEditing(true);
     }

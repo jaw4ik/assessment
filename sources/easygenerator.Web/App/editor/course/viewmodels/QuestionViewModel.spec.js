@@ -46,7 +46,6 @@ describe('[QuestionViewModel]', () => {
         expect(questionViewModel.updateFields).toBeFunction();
         expect(questionViewModel.markToDelete).toBeFunction();
         expect(questionViewModel.cancel).toBeFunction();
-        expect(questionViewModel.openQuestion).toBeFunction();
         expect(questionViewModel.justCreated()).toBeFalsy();
     });
 
@@ -94,19 +93,6 @@ describe('[QuestionViewModel]', () => {
             expect(questionViewModel.canBeDeleted()).toBeFalsy();
         });
 
-    });
-
-    describe('openQuestion:', () => {
-
-        beforeEach(() => {
-            spyOn(router, 'navigate');
-        });
-
-        it('should navigate to question', () => {
-            questionViewModel.openQuestion();
-            expect(router.navigate).toHaveBeenCalledWith(`#courses/${questionViewModel.courseId}/objectives/${questionViewModel.sectionId}/questions/${questionViewModel.id()}`);
-        });
-        
     });
 
     describe('startEditingTitle', () => {
