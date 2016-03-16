@@ -32,6 +32,12 @@ namespace easygenerator.Web.Configuration
                 .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
             );
 
+            bundles.Add(new ScriptBundle("~/bundles/scripts/system")
+                .Include("~/scripts/vendor/system.js")
+                .Include("~/scripts/system-hooks.js")
+                .Include("~/config.js")
+            );
+
             //CKEditor.js doesn't pass javascript validation, because of that it can't be minified in vendor bundle
             //so we used already minified version in separate bundle
             bundles.Add(new Bundle("~/bundles/scripts/ckeditor").Include("~/scripts/ckeditor/ckeditor.js"));
