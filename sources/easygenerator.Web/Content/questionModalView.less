@@ -2,8 +2,49 @@
 
 @navigation-tree-expand-duration: 0.2s;
 
+@keyframes showModalView {
+    0% {
+        transform: scale(.9,.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+}
+
+@keyframes hideModalView {
+    0% {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(.9,.9);
+        opacity: 0;
+    }
+}
+
+@keyframes showBlockout {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes hideBlockout {
+    0% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .modal-view-container {
     .modal-view {
+        display: none;
         position: fixed;
         top: 10px;
         bottom: 10px;
@@ -11,6 +52,14 @@
         right: 10px;
         z-index: @zindex-modal-view;
         overflow: hidden;
+
+        &.shown {
+            animation: showModalView linear .2s forwards;
+        }
+
+        &.hidden{
+            animation: hideModalView linear .2s forwards;
+        }
     }
 
     .question-content-section-holder {
@@ -23,6 +72,7 @@
     }
 
     .modal-view-blockout {
+        display: none;
         position: fixed;
         top: 0;
         bottom: 0;
@@ -31,6 +81,14 @@
         z-index: @zindex-modal-view-blocout;
         background-color: #42515f;
         opacity: .8;
+
+        &.shown {
+            animation: showBlockout linear .2s forwards;
+        }
+
+        &.hidden{
+            animation: hideBlockout linear .2s forwards;
+        }
     }
 }
 
