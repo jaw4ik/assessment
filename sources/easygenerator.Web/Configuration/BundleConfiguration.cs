@@ -32,8 +32,10 @@ namespace easygenerator.Web.Configuration
                 .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
             );
 
-            bundles.Add(new ScriptBundle("~/bundles/scripts/system")
-                .Include("~/scripts/vendor/system.js")
+            bundles.Add(new Bundle("~/bundles/scripts/system").Include("~/scripts/vendor/system.js"));
+            // This file is needed for IE, SystemJS load this file automatically when it needed
+            bundles.Add(new Bundle("~/bundles/scripts/system-polyfills.js").Include("~/scripts/vendor/system-polyfills.js"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts/system-configuration")
                 .Include("~/scripts/system-hooks.js")
                 .Include("~/config.js")
             );
