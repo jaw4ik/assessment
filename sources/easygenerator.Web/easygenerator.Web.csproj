@@ -1372,7 +1372,7 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\modalView\bindingHandlers\lockScrollBindingHandler.js" />
-    <Content Include="App\widgets\modalView\bindingHandlers\visibleAnimateBIndingHandler.js" />
+    <Content Include="App\widgets\modalView\bindingHandlers\visibleAnimateBindingHandler.js" />
     <Content Include="App\widgets\modalView\view.html" />
     <Content Include="App\widgets\modalView\viewmodel.js" />
     <Content Include="App\widgets\modalView\viewmodel.spec.js">
