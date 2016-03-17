@@ -1,4 +1,4 @@
-﻿<div class="modal-dialog-wrapper share" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown}, lockScroll: isShown">
+﻿<div class="modal-dialog-wrapper share" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown }, lockScroll: { lock: isShown }">
     <!-- ko if: !_.isNullOrUndefined(publishModel) && isActivated() -->
     <!-- ko compose: { model: publishModel, activate: false } --><!-- /ko -->
     <!-- /ko -->

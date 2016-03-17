@@ -1,6 +1,6 @@
 ﻿<div class="dialog">
     <header class="dialog-header">
-        <span class="dialog-header-text" data-bind="localize: { text: 'moveCopyQuestion' }">Move/Copy current question</span>
+        <span class="dialog-header-text" data-bind="localize: { text: isContent() ? 'moveCopyCurrentContent' : 'moveCopyQuestion' }">Move/Copy current question</span>
     </header>
     <section class="dialog-content">
         <h2 class="move-copy-question-title" data-bind="localize: {text:'toCourse'}">To course:</h2>

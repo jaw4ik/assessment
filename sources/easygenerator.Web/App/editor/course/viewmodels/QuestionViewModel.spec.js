@@ -1,6 +1,5 @@
 ﻿import QuestionViewModel from './QuestionViewModel';
 
-import router from 'plugins/router';
 import constants from 'constants';
 import notify from 'notify';
 import eventTracker from 'eventTracker';

@@ -1,6 +1,6 @@
 ﻿<section class="modal-view-container">
     <!-- ko if: viewModel() -->
-    <div class="modal-view" data-bind="lockScroll: isShown, visibleAnimate: { visible: isShown, visibleClass: 'shown' }">
+    <div class="modal-view" data-bind="lockScroll: { lock: isShown, hideScroll: true }, visibleAnimate: { visible: isShown, visibleClass: 'shown' }">
         <!-- ko compose: { model: viewModel } --><!-- /ko -->
     </div>
     <!-- /ko -->

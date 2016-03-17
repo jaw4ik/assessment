@@ -31,6 +31,7 @@ class QuestionViewModel{
         this.sectionId = null;
         this.questionId = null;
         this.questionType = '';
+        this.isContent = false;
 
         this.viewCaption = null;
         this.questionTitle = null;
@@ -57,7 +58,7 @@ class QuestionViewModel{
     }
 
     showMoveCopyDialog() {
-        moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId);
+        moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId, this.isContent);
     }
 
     navigateToSectionEvent() {
@@ -99,6 +100,7 @@ class QuestionViewModel{
 
         this.activeQuestionViewModel = this.setActiveViewModel(question);
         this.questionType = question.type;
+        this.isContent = this.questionType === constants.questionType.informationContent.type;
         this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
         let viewModelData = await this.activeQuestionViewModel.initialize(this.sectionId, question);

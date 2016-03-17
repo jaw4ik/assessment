@@ -29,19 +29,19 @@ class QuestionModalView {
 
         _courseDeleted.set(this, courseId => {
             if (courseId === this.courseId) {
-                modalView.close();
+                this.close();
             }
         });
 
         _sectionsDisconnected.set(this, (courseId, sectionIds) => {
             if (this.courseId === courseId && _.some(sectionIds, id => id === this.sectionId)) {
-                modalView.close();
+                this.close();
             }
         });
 
         _questionsDeleted.set(this, (sectionId, questionIds) => {
             if (this.sectionId === sectionId && _.some(questionIds, id => id === this.questionId)) {
-                modalView.close();
+                this.close();
             }
         });
 

@@ -1,5 +1,4 @@
 ﻿import ko from 'knockout';
-import router from 'plugins/router';
 
 import notify from 'notify';
 import constants from 'constants';
@@ -25,6 +24,9 @@ export default class QuestionViewmodel{
         this.title.isValid = ko.computed(() => this.title().trim().length <= this.title.maxLength, this);
         this.title.isEmpty = ko.computed(() => this.title().trim().length === 0, this);
         this.type = ko.observable(question.type || '');
+        this.isContent = ko.computed(() => {
+            return this.type() === constants.questionType.informationContent.type;
+        }, this);
         this.canBeDeleted = ko.observable(false);
         this.isProcessed = ko.observable(isProcessed || false);
         this.justCreated = ko.observable(justCreated);
@@ -40,7 +42,6 @@ export default class QuestionViewmodel{
             this.title.isEditing(true);
             this.title('');
         }
-
     }
     markToDelete() {
         this.canBeDeleted(true);
@@ -52,14 +53,14 @@ export default class QuestionViewmodel{
         this.title.isEditing(true);
     }
     async stopEditingTitle() {
-
         this.title.isEditing(false);
         this.title(this.title().trim());
+
         if (this.title.isValid() && !this.title.isEmpty() && this.title() !== this.originalTitle) {
             await updateQuestionTitleCommand.execute(this.id(), this.title());
             this.originalTitle = this.title();
             notify.saved();
-            if (this.type() === constants.questionType.informationContent.type) {
+            if (this.isContent()) {
                 eventTracker.publish(events.updateInformationTitle, constants.eventCategories.informationContent);
             } else {
                 eventTracker.publish(events.updateQuestionTitle);
@@ -67,6 +68,7 @@ export default class QuestionViewmodel{
         } else {
             this.title(this.originalTitle);
         }
+
         this.justCreated(false);
     }
 

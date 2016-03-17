@@ -1,10 +1,10 @@
 ﻿<div class="dialog">
     <div class="dialog-title-wrapper">
         <div class="dialog-title-img"></div>
-        <div class="dialog-title" data-bind="localize: { text: 'deleteLearningPath' }"></div>
+        <div class="dialog-title" data-bind="localize: { text: isContent() ? 'deleteContent' : 'deleteQuestion' }"></div>
         <div class="dialog-item-title">
             <span>„</span>
-            <span class="dialog-item-title-text" data-bind="text: learningPathTitle"></span>
+            <span class="dialog-item-title-text" data-bind="text: title"></span>
             <span>“ ?</span>
         </div>
     </div>
@@ -12,12 +12,12 @@
         <button class="btn white grey-border cancel-delete-item-btn" data-bind="click: cancel, css:{ 'disabled': isDeleting() }, disable: isDeleting()">
             <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
         </button>
-        <button class="btn red delete-item-btn" data-bind="click: deleteLearningPath, css:{ 'disabled': isDeleting(), 'progress': isDeleting() }, disable: isDeleting()">
+        <button class="btn red delete-item-btn" data-bind="click: deleteQuestion, css:{ 'disabled': isDeleting, 'progress': isDeleting }, disable: isDeleting()">
             <!-- ko if: isDeleting() -->
             <div data-bind="preloader: { type: 'circular', settings: 'small white align-center' }"></div>
             <!-- /ko -->
             <!-- ko ifnot: isDeleting() -->
-            <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
+            <span class="btn-caption" data-bind="localize: { text: isContent() ? 'deleteContent' : 'deleteQuestion' }"></span>
             <!-- /ko -->
         </button>
     </div>

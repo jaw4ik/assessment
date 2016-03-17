@@ -13,8 +13,9 @@
                     <div class="advanced-actions-menu" data-bind="dropDown: {}">
                         <button class="actions-menu-button"></button>
                         <ul class="actions-menu-list">
-                            <li class="actions-menu-list-item move-copy" data-bind="localize: { text: 'moveCopyQuestionTo' }, click: showMoveCopyDialog"></li>
-                            <li class="actions-menu-list-item duplicate" data-bind="localize: { text: 'duplicateQuestion' }, click: duplicateQuestion"></li>
+                            <li class="actions-menu-list-item move-copy" data-bind="localize: { text: isContent ? 'moveCopyContentTo' :'moveCopyQuestionTo' }, click: showMoveCopyDialog"></li>
+                            <li class="actions-menu-list-item duplicate" data-bind="localize: { text: isContent ? 'duplicateContent' : 'duplicateQuestion' }, click: duplicateQuestion"></li>
+                            <li class="actions-menu-list-item delete" data-bind="localize: { text: isContent ? 'deleteContent' : 'deleteQuestion' }, click: showDeleteDialog"></li>
                         </ul>
                     </div>
                     <div class="new-item action-container" data-bind="dropDown: {}">

@@ -14,6 +14,7 @@ import learningContentsViewModel from 'viewmodels/learningContents/learningConte
 import feedbackViewModel from 'viewmodels/questions/feedback';
 import localizationManager from 'localization/localizationManager';
 import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
+import deleteQuestionDialog from 'editor/questions/dialogs/deleteQuestion/deleteQuestion';
 import VoiceOver from 'viewmodels/questions/voiceOver';
 
 const events = {
@@ -32,7 +33,8 @@ class QuestionViewModel  {
         this.courseId =  null;
         this.sectionId =  null;
         this.questionId = null;
-        this.questionType= '';
+        this.questionType = '';
+        this.isContent = false;
 
         this.viewCaption= null;
         this.questionTitle= null;
@@ -115,50 +117,29 @@ class QuestionViewModel  {
     }
 
     showMoveCopyDialog() {
-        moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId);
+        moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId, this.isContent);
     }
-
+    showDeleteDialog() {
+        deleteQuestionDialog.show(this.courseId, this.sectionId, this.questionId, this.questionTitle.text(), this.isContent);
+    }
     navigateToSectionEvent() {
         eventTracker.publish(events.navigateToSection);
     }
 
-    canActivate() {
-        var promises = [];
-        if (arguments.length === 3) {
-            promises.push(courseRepository.getById(arguments[0]));
-            promises.push(sectionRepository.getById(arguments[1]));
-            promises.push(questionRepository.getById(arguments[1], arguments[2]));
-        } else if (arguments.length === 2) {
-            promises.push(sectionRepository.getById(arguments[0]));
-            promises.push(questionRepository.getById(arguments[0], arguments[1]));
-        } else {
+    activate(courseId, sectionId, questionId) {
+        if (!courseId || !sectionId || !questionId) {
             throw 'Invalid arguments';
         }
 
-        return Promise.all(promises).then(function () {
-            return true;
-        }).catch(function () {
-            return { redirect: '404' };
-        });
-    }
-
-    activate() {
-        if (arguments.length === 3) {
-            this.courseId = arguments[0];
-            this.sectionId = arguments[1];
-            this.questionId = arguments[2];
-        } else if (arguments.length === 2) {
-            this.courseId = null;
-            this.sectionId = arguments[0];
-            this.questionId = arguments[1];
-        } else {
-            throw 'Invalid arguments';
-        }
+        this.courseId = courseId;
+        this.sectionId = sectionId;
+        this.questionId = questionId;
 
         return questionRepository.getById(this.sectionId, this.questionId).then(question => {
 
             this.activeQuestionViewModel = this.setActiveViewModel(question);
             this.questionType = question.type;
+            this.isContent = question.type === constants.questionType.informationContent.type;
             this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
             return this.activeQuestionViewModel.initialize(this.sectionId, question).then(viewModelData => {
