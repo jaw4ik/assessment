@@ -1,4 +1,3 @@
-﻿import $ from 'jquery';
 import ko from 'knockout';
 import composition from 'durandal/composition';
 
