@@ -189,31 +189,6 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>¿Olvidó su contraseña?</value>
   </data>
-  <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>&lt;div&gt;
-Hi,
-&lt;p&gt;
-        Alguien solicitó restablecer la contraseña para su cuenta en &lt;a href=""{0}""&gt;{0}&lt;/a&gt;.
-&lt;/p&gt;
-&lt;p&gt;
-        Para restablecer la contraseña haga clic en el vínculo de abajo:&lt;br /&gt;
-        &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-&lt;/p&gt;
-&lt;p&gt;
-        Si usted no ha sido quien solicitó esto, ignore este mensaje. Su contraseña no será cambiada.
-&lt;/p&gt;
-&lt;p&gt;
-         ¡Gracias por utilizar easygenerator.com y que tenga un buen dia!
-&lt;/p&gt;
---
-&lt;p&gt;
-        &lt;strong&gt;
-                Cordiales saludos,&lt;br /&gt;
-                El equipo de easygenerator
-        &lt;/strong&gt;
-&lt;/p&gt;
-&lt;/div&gt;</value>
-  </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
     <value>Le hemos enviado un correo electrónico con instrucciones sobre cómo restablecer su contraseña.</value>
   </data>
@@ -368,5 +343,26 @@ Equipo de easygenerator&lt;/p&gt;
   </data>
   <data name="NotSupportedDeviceTitle" xml:space="preserve">
     <value>Su dispositivo no es compatible</value>
+  </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value>Cordiales saludos</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>Hi</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>Si usted no ha sido quien solicitó esto, ignore este mensaje. Su contraseña no será cambiada.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>Para restablecer la contraseña haga clic en el vínculo de abajo:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>Alguien solicitó restablecer la contraseña para su cuenta en</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>El equipo de easygenerator</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>¡Gracias por utilizar easygenerator.com y que tenga un buen dia!</value>
   </data>
 </root>

@@ -189,18 +189,6 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Kennwort vergessen?</value>
   </data>
-  <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>Betreff: Kennwortrücksetztung auf  &lt;a href=""{0}""&gt;{0}&lt;/a&gt;
-Guten Tag, 
-Jemand hat vor Kurzem eine Kenntwortrücksetzung auf  &lt;a href=""{0}""&gt;{0}&lt;/a&gt; beantragt.
-Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:
- &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-Sollte es sich hierbei um einen Fehler handeln, ignorieren Sie einfach diese E-Mail, Ihr Kennwort wird nicht geändert. 
-Vielen Dank, dass Sie easygenerator.com verwenden, und einen schönen Tag!
---
-Viele Grüße,  
-Ihr easygenerator-Team</value>
-  </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
     <value>Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet.</value>
   </data>
@@ -356,5 +344,26 @@ Ihr easygenerator-Team&lt;/p&gt;
   </data>
   <data name="NotSupportedDeviceTitle" xml:space="preserve">
     <value>Ihr Gerät wird nicht unterstützt.</value>
+  </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value>Viele Grüße</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>Guten Tag</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>Sollte es sich hierbei um einen Fehler handeln, ignorieren Sie einfach diese E-Mail, Ihr Kennwort wird nicht geändert.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>Jemand hat vor Kurzem eine Kenntwortrücksetzung auf</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>Ihr easygenerator-Team</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>Vielen Dank, dass Sie easygenerator.com verwenden, und einen schönen Tag!</value>
   </data>
 </root>
