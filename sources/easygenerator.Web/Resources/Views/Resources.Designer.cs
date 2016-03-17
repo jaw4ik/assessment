@@ -268,6 +268,69 @@ namespace ViewsResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best regards.
+        /// </summary>
+        public static string ForgotPassMailBestRegards {
+            get {
+                return ResourceManager.GetString("ForgotPassMailBestRegards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi.
+        /// </summary>
+        public static string ForgotPassMailGreeting {
+            get {
+                return ResourceManager.GetString("ForgotPassMailGreeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have not submitted this request, please ignore this message. Your password will not be changed..
+        /// </summary>
+        public static string ForgotPassMailIgnoreSuggestion {
+            get {
+                return ResourceManager.GetString("ForgotPassMailIgnoreSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To reset the password please click on the below link:.
+        /// </summary>
+        public static string ForgotPassMailLinkExplanation {
+            get {
+                return ResourceManager.GetString("ForgotPassMailLinkExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A password reset was requested for your account at.
+        /// </summary>
+        public static string ForgotPassMailRequested {
+            get {
+                return ResourceManager.GetString("ForgotPassMailRequested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to easygenerator team.
+        /// </summary>
+        public static string ForgotPassMailTeam {
+            get {
+                return ResourceManager.GetString("ForgotPassMailTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for using easygenerator.com and have a nice day!.
+        /// </summary>
+        public static string ForgotPassMailThankYou {
+            get {
+                return ResourceManager.GetString("ForgotPassMailThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot password?.
         /// </summary>
         public static string ForgotPassword {

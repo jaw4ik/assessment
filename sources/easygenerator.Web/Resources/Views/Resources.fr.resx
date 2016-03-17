@@ -189,31 +189,6 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Mot de passe oublié ?</value>
   </data>
-  <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>&lt;div&gt;
-Bonjour,
-&lt;p&gt;
-        Quelqu'un a effectué une demande de réinitialisation du mot de passe sur votre compte à &lt;a href=""{0}""&gt;{0}&lt;/a&gt;.
-&lt;/p&gt;
-&lt;p&gt;
-        Pour réinitialiser le mot de passe, veuillez cliquer sur le lien ci-dessous :&lt;br /&gt;
-        &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-&lt;/p&gt;
-&lt;p&gt;
-        Si vous n'avez pas effectué cette demande, veuillez ignorer ce message. Votre mot de passe ne sera pas modifié. 
-&lt;/p&gt;
-&lt;p&gt;
-        Nous vous remercions d'utiliser easygenerator.com et nous vous souhaitons une excellente journée !
-&lt;/p&gt;
---
-&lt;p&gt;
-        &lt;strong&gt;
-                Cordialement,&lt;br /&gt;
-                L'équipe d'easygenerator
-        &lt;/strong&gt;
-&lt;/p&gt;
-&lt;/div&gt;</value>
-  </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
     <value>Nous vous avons envoyé un email avec des instructions sur comment réinitialiser votre mot de passe.</value>
   </data>
@@ -368,5 +343,26 @@ L'équipe d'easygenerator &lt;/p&gt;
   </data>
   <data name="NotSupportedDeviceTitle" xml:space="preserve">
     <value>Votre appareil n'est pas pris en charge</value>
+  </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value>Cordialement</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>Bonjour</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>Si vous n'avez pas effectué cette demande, veuillez ignorer ce message. Votre mot de passe ne sera pas modifié.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>Pour réinitialiser le mot de passe, veuillez cliquer sur le lien ci-dessous:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>Quelqu'un a effectué une demande de réinitialisation du mot de passe sur votre compte à</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>L'équipe d'easygenerator</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>Nous vous remercions d'utiliser easygenerator.com et nous vous souhaitons une excellente journée!</value>
   </data>
 </root>

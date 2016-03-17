@@ -180,18 +180,6 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Wachtwoord vergeten?</value>
   </data>
-  <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>Onderwerp: Uw poging uw wachtwoord opnieuw in te stellen op &lt;a href=""{0}""&gt;{0}&lt;/a&gt;
-Hallo,
-Iemand heeft recentelijk geprobeerd het wachtwoord voor uw account bij  &lt;a href=""{0}""&gt;{0}&lt;/a&gt; opnieuw in te stellen.
-Als u het wachtwoord opnieuw wilt instellen, klikt u op de onderstaande koppeling:
- &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-Als dit een vergissing is, kunt u deze e-mail negeren. Uw wachtwoord wordt dan niet gewijzigd.
-Dank u voor het gebruik van easygenerator.com en een prettige dag!
---
-Vriendelijke groet,
-team van easygenerator</value>
-  </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
     <value>We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord.</value>
   </data>
@@ -355,5 +343,26 @@ easygenerator Team&lt;/p&gt;
   </data>
   <data name="NotSupportedDeviceTitle" xml:space="preserve">
     <value>Uw apparaat wordt niet ondersteund</value>
+  </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value>Vriendelijke groet</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>Hallo</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>Als dit een vergissing is, kunt u deze e-mail negeren. Uw wachtwoord wordt dan niet gewijzigd.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>Als u het wachtwoord opnieuw wilt instellen, klikt u op de onderstaande koppeling:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>Iemand heeft recentelijk geprobeerd het wachtwoord voor uw account bij</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>team van easygenerator</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>Dank u voor het gebruik van easygenerator.com en een prettige dag!</value>
   </data>
 </root>

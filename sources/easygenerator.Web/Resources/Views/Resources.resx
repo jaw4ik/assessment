@@ -369,4 +369,25 @@ easygenerator Team&lt;/p&gt;
   <data name="NotSupportedDeviceTitle" xml:space="preserve">
     <value>Your device is not supported</value>
   </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value>Best regards</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>Hi</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>If you have not submitted this request, please ignore this message. Your password will not be changed.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>To reset the password please click on the below link:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>A password reset was requested for your account at</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>easygenerator team</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>Thank you for using easygenerator.com and have a nice day!</value>
+  </data>
 </root>
