@@ -9,13 +9,13 @@
 
     function factory(Question) {
 
-        return function DragAndDropText(objectiveId, id, title, hasContent, learningContents, type, background, dropspots) {
+        return function DragAndDropText(SectionId, id, title, hasContent, learningContents, type, background, dropspots) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, objectiveId, id, title, hasContent, learningContents, type, _protected);
+            Question.call(that, SectionId, id, title, hasContent, learningContents, type, _protected);
 
             that.background = background;
             that.dropspots = dropspots;

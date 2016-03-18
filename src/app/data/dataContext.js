@@ -4,9 +4,9 @@
     angular.module('assessment')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$rootScope', '$q', '$http', 'Assessment', 'Objective', '$templateCache', 'questionsFactory', 'questionPool', 'questionDataProcessor'];// jshint ignore:line
+    dataContext.$inject = ['$rootScope', '$q', '$http', 'Assessment', 'Section', '$templateCache', 'questionsFactory', 'questionPool', 'questionDataProcessor'];// jshint ignore:line
 
-    function dataContext($rootScope, $q, $http, Assessment, Objective, $templateCache, questionsFactory, questionPool, questionDataProcessor) { // jshint ignore:line
+    function dataContext($rootScope, $q, $http, Assessment, Section, $templateCache, questionsFactory, questionPool, questionDataProcessor) { // jshint ignore:line
 
         var self = {
             isInited: false,
@@ -16,7 +16,7 @@
             templateId: null,
             title: null,
             hasIntroductionContent: false,
-            objectives: []
+            sections: []
         };
 
         return {
@@ -36,48 +36,48 @@
                     promises.push($http.get('content/content.html', { cache: $templateCache }));
                 }
 
-                if (_.isArray(response.objectives)) {
-                    readObjectives(response.objectives);
+                if (_.isArray(response.sections)) {
+                    readSections(response.sections);
                 }
 
                 return $q.all(promises);
             });
         }
 
-        function readObjectives(objectives) {
-            objectives.forEach(function (objective) {
-                if (_.isArray(objective.questions)) {
-                    var objectiveQuestions = _.chain(objective.questions)
+        function readSections(sections) {
+            sections.forEach(function (section) {
+                if (_.isArray(section.questions)) {
+                    var sectionQuestions = _.chain(section.questions)
                         .map(function (questionData) {
-                            return questionsFactory.createQuestion(objective.id, questionDataProcessor.process(questionData));
+                            return questionsFactory.createQuestion(section.id, questionDataProcessor.process(questionData));
                         })
                         .compact()
                         .value();
 
-                    self.objectives.push(new Objective(objective.id, objective.title, objectiveQuestions));
+                    self.sections.push(new Section(section.id, section.title, sectionQuestions));
                 }
             });
         }
 
         function getAllQuestions() {
-            return _.chain(self.objectives)
+            return _.chain(self.sections)
                 .pluck('questions')
                 .flatten()
                 .value();
         }
 
-        function generateObjectives(questions) {
-            var objectivesIds = _.chain(questions)
-                .pluck('objectiveId')
+        function generateSections(questions) {
+            var sectionsIds = _.chain(questions)
+                .pluck('sectionId')
                 .uniq()
                 .value();
 
-            return _.chain(self.objectives)
-                .filter(function (objective) {
-                    return _.contains(objectivesIds, objective.id);
+            return _.chain(self.sections)
+                .filter(function (section) {
+                    return _.contains(sectionsIds, section.id);
                 })
-                .map(function (objective) {
-                    return new Objective(objective.id, objective.title, _.intersection(objective.questions, questions));
+                .map(function (section) {
+                    return new Section(section.id, section.title, _.intersection(section.questions, questions));
                 })
                 .value();
         }
@@ -92,12 +92,12 @@
 
             if (!self.assessment || questionPool.isRefreshed()) {
                 var questionsForCourse = questionPool.getQuestions(getAllQuestions()),
-                    objectivesForCourse = generateObjectives(questionsForCourse);
+                    sectionsForCourse = generateSections(questionsForCourse);
 
                 return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.assessment = new Assessment(self.id, self.templateId, self.title, self.createdOn, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
+                    return self.assessment = new Assessment(self.id, self.templateId, self.title, self.createdOn, sectionsForCourse, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 

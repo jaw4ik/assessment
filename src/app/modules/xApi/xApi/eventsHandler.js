@@ -13,8 +13,8 @@
         }));
 
         unbindFunctions.push($rootScope.$on('course:results', function (scope, data) {
-            _.each(data.objectives, function (objective) {
-                sendStatementIfAllowed(dataBuilder.objectiveMastered(objective));
+            _.each(data.sections, function (section) {
+                sendStatementIfAllowed(dataBuilder.sectionMastered(section));
             });
             sendStatementIfAllowed(dataBuilder.courseResults(data));
         }));

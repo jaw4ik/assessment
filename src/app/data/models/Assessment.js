@@ -8,14 +8,14 @@
     factory.$inject = ['$rootScope', 'eventPublisher'];
 
     function factory($rootScope, eventPublisher) {
-        return function Assessment(id, templateId, title, createdOn, objectives, questions, hasIntroductionContent) {
+        return function Assessment(id, templateId, title, createdOn, sections, questions, hasIntroductionContent) {
             var that = this;
 
             that.id = id;
             that.templateId = templateId;
             that.title = title;
             that.createdOn = createdOn;
-            that.objectives = objectives;
+            that.sections = sections;
             that.questions = questions || [];
             that.hasIntroductionContent = hasIntroductionContent || false;
             that.isCompleted = false;

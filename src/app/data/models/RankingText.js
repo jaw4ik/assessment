@@ -8,13 +8,13 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function RankingText(objectiveId, id, title, hasContent, learningContents, type, answers) {
+        return function RankingText(sectionId, id, title, hasContent, learningContents, type, answers) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, objectiveId, id, title, hasContent, learningContents, type, _protected);
+            Question.call(that, sectionId, id, title, hasContent, learningContents, type, _protected);
 
             that.answers = _.shuffle(answers);
             that.correctOrderAnswers = answers;

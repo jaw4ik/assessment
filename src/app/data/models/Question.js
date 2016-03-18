@@ -8,17 +8,17 @@
     factory.$inject = ['$q', '$rootScope', 'LearningContent', 'htmlContentLoader'];
 
     function factory($q, $rootScope, LearningContent, htmlContentLoader) {
-        return function Question(objectiveId, id, title, hasContent, learningContents, type, _protected) {
+        return function Question(sectionId, id, title, hasContent, learningContents, type, _protected) {
             var that = this;
             that.id = id;
-            that.objectiveId = objectiveId;
+            that.sectionId = sectionId;
             that.title = title;
 
             that.hasContent = hasContent;
             that.content = null;
 
             that.learningContents = learningContents.map(function (learningContent) {
-                var learningContentUrl = 'content/' + that.objectiveId + '/' + that.id + '/' + learningContent.id + '.html';
+                var learningContentUrl = 'content/' + that.sectionId + '/' + that.id + '/' + learningContent.id + '.html';
                 return new LearningContent(learningContent.id, learningContentUrl);
             });
 
@@ -47,7 +47,7 @@
                         return;
                     }
 
-                    return htmlContentLoader.load('content/' + that.objectiveId + '/' + that.id + '/content.html').success(function (content) {
+                    return htmlContentLoader.load('content/' + that.sectionId + '/' + that.id + '/content.html').success(function (content) {
                         that.content = content;
                     });
                 });

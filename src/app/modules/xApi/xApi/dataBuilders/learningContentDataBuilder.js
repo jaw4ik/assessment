@@ -3,19 +3,19 @@
 
     angular.module('assessment.xApi').factory('learningContentDataBuilder', factory);
 
-    factory.$inject = ['xApiVerbs', 'objectivesQueries', 'dateTimeConverter'];
+    factory.$inject = ['xApiVerbs', 'sectionsQueries', 'dateTimeConverter'];
 
-    function factory(verbs, objectivesQueries, dateTimeConverter) {
+    function factory(verbs, sectionsQueries, dateTimeConverter) {
 
         return {
             learningContentExperienced: learningContentExperienced
         };
 
         function learningContentExperienced(question, spentTime, rootUrl) {
-            var objective = objectivesQueries.getObjectiveById(question.objectiveId),
-                questionUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id,
-                parentUrl = rootUrl + '#objectives?objective_id=' + objective.id,
-                learningContentUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id + '/learningContents';
+            var section = sectionsQueries.getSectionById(question.sectionId),
+                questionUrl = rootUrl + '#section/' + section.id + '/question/' + question.id,
+                parentUrl = rootUrl + '#sections?section_id=' + section.id,
+                learningContentUrl = rootUrl + '#section/' + section.id + '/question/' + question.id + '/learningContents';
 
             var result = new TinCan.Result({
                 duration: dateTimeConverter.timeToISODurationString(spentTime)
@@ -44,7 +44,7 @@
                         id: parentUrl,
                         definition: new TinCan.ActivityDefinition({
                             name: {
-                                'en-US': objective.title
+                                'en-US': section.title
                             }
                         })
                     })]

@@ -3,12 +3,12 @@
 
     angular.module('assessment.xApi').factory('questionDataBuilder', factory);
 
-    factory.$inject = ['xApiVerbs', 'xApiSupportedQuestionTypes', 'objectivesQueries',
+    factory.$inject = ['xApiVerbs', 'xApiSupportedQuestionTypes', 'sectionsQueries',
                       'dragAndDropTextDataBuilder', 'fillInTheBlanksDataBuilder', 'hotspotDataBuilder', 'multipleChoiceDataBuilder',
                       'singleChoiceDataBuilder', 'singleChoiceImageDataBuilder', 'statementDataBuilder', 'textMatchingDataBuilder',
                       'openQuestionDataBuilder', 'scenarioQuestionDataBuilder', 'rankingTextDataBuilder'];
 
-    function factory(verbs, supportedQuestionTypes, objectivesQueries,
+    function factory(verbs, supportedQuestionTypes, sectionsQueries,
         dragAndDropTextDataBuilder, fillInTheBlanksDataBuilder, hotspotDataBuilder, multipleChoiceDataBuilder,
         singleChoiceDataBuilder, singleChoiceImageDataBuilder, statementDataBuilder, textMatchingDataBuilder,
         openQuestionDataBuilder, scenarioQuestionDataBuilder, rankingTextDataBuilder) {
@@ -23,9 +23,9 @@
 
             var question = item.question,
                 answers = item.answers,
-                objective = objectivesQueries.getObjectiveById(question.objectiveId),
-                questionUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id,
-                parentUrl = rootUrl + '#objectives?objective_id=' + objective.id,
+                section = sectionsQueries.getSectionById(question.sectionId),
+                questionUrl = rootUrl + '#section/' + section.id + '/question/' + question.id,
+                parentUrl = rootUrl + '#sections?section_id=' + section.id,
                 data = null,
                 types = supportedQuestionTypes.types;
             
@@ -65,18 +65,18 @@
                     break;
             }
             
-            data.context = defaultContext(parentUrl, objective.title);
+            data.context = defaultContext(parentUrl, section.title);
             data.verb = verbs.answered;
 
             return data;
         }
 
-        function defaultContext(parentUrl, objectiveTitle) {
+        function defaultContext(parentUrl, sectionTitle) {
             var parentActivity = new TinCan.Activity({
                 id: parentUrl,
                 definition: new TinCan.ActivityDefinition({
                     name: {
-                        'en-US': objectiveTitle
+                        'en-US': sectionTitle
                     }
                 })
             });

@@ -3,10 +3,10 @@
 
     angular
         .module('assessment')
-        .factory('Objective', factory);
+        .factory('Section', factory);
 
     function factory() {
-        return function Objective(id, title, questions) {
+        return function Section(id, title, questions) {
             var that = this;
 
             that.id = id;
