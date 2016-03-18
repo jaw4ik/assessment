@@ -52,13 +52,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void CreateRankingText_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void CreateRankingText_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<RankingText>("Question title", CreatedBy);
             var defaultAnswer1 = Substitute.For<RankingTextAnswer>("", user);
             var defaultAnswer2 = Substitute.For<RankingTextAnswer>("", user, DateTimeWrapper.Now().AddSeconds(1));
@@ -77,26 +77,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.RankingTextAnswer("", user).Returns(defaultAnswer1);
             _entityFactory.RankingTextAnswer("", user, DateTimeWrapper.Now().AddSeconds(1)).Returns(defaultAnswer2);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
             _entityFactory.Received().RankingTextQuestion(title, user, defaultAnswer1, defaultAnswer2);
         }
 
         [TestMethod]
-        public void CreateRankingText_ShouldAddQuestionToObjective()
+        public void CreateRankingText_ShouldAddQuestionToSection()
         {
             const string title = "title";
             var user = "Test user";
             DateTimeWrapper.Now = () => DateTime.MinValue;
             _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<RankingText>("Question title", CreatedBy);
 
             _entityFactory.RankingTextQuestion(title, user, Arg.Any<RankingTextAnswer>(), Arg.Any<RankingTextAnswer>()).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
-            objective.Received().AddQuestion(question, user);
+            section.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.RankingTextQuestion(title, user, Arg.Any<RankingTextAnswer>(), Arg.Any<RankingTextAnswer>()).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

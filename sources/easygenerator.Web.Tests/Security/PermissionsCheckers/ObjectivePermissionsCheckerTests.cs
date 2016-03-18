@@ -9,9 +9,9 @@ using NSubstitute;
 namespace easygenerator.Web.Tests.Security.PermissionsCheckers
 {
     [TestClass]
-    public class ObjectivePermissionsCheckerTests
+    public class SectionPermissionsCheckerTests
     {
-        private ObjectivePermissionsChecker _objectivePermissionChecker;
+        private SectionPermissionsChecker _sectionPermissionChecker;
         private IEntityPermissionsChecker<Course> _coursePermissionChecker;
         private const string CreatedBy = "creator@user.com";
         private const string Username = "user@user.com";
@@ -20,7 +20,7 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void Initialize()
         {
             _coursePermissionChecker = Substitute.For<IEntityPermissionsChecker<Course>>();
-            _objectivePermissionChecker = new ObjectivePermissionsChecker(_coursePermissionChecker);
+            _sectionPermissionChecker = new SectionPermissionsChecker(_coursePermissionChecker);
         }
 
         #region HasOwnerPermissions
@@ -29,10 +29,10 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void HasOwnerPermissions_ShouldReturnTrue_WhenUserIsOwner()
         {
             //Arrange
-            var course = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
+            var course = SectionObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
-            var result = _objectivePermissionChecker.HasOwnerPermissions(CreatedBy, course);
+            var result = _sectionPermissionChecker.HasOwnerPermissions(CreatedBy, course);
 
             //Assert
             result.Should().BeTrue();
@@ -42,10 +42,10 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void HasOwnerPermissions_ShouldReturnFalse_WhenUserIsNotOwner()
         {
             //Arrange
-            var course = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
+            var course = SectionObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
-            var result = _objectivePermissionChecker.HasOwnerPermissions(Username, course);
+            var result = _sectionPermissionChecker.HasOwnerPermissions(Username, course);
 
             //Assert
             result.Should().BeFalse();
@@ -56,45 +56,45 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         #region HasCollaboratorPermissions
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsObjectiveOwner()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsSectionOwner()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
+            var section = SectionObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
-            var result = _objectivePermissionChecker.HasCollaboratorPermissions(CreatedBy, objective);
+            var result = _sectionPermissionChecker.HasCollaboratorPermissions(CreatedBy, section);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsObjectiveCourseCollaborator()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsSectionCourseCollaborator()
         {
             //Arrange
-            var objective = Substitute.For<Objective>();
+            var section = Substitute.For<Section>();
             var course = Substitute.For<Course>();
-            objective.Courses.Returns(new List<Course> { course });
+            section.Courses.Returns(new List<Course> { course });
             _coursePermissionChecker.HasCollaboratorPermissions(Username, course).Returns(true);
 
             //Act
-            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
+            var result = _sectionPermissionChecker.HasCollaboratorPermissions(Username, section);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsNotObjectiveOwnerOrCourseCollaborator()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsNotSectionOwnerOrCourseCollaborator()
         {
             //Arrange
-            var objective = Substitute.For<Objective>();
+            var section = Substitute.For<Section>();
             var course = CourseObjectMother.Create();
             _coursePermissionChecker.HasCollaboratorPermissions(Username, course).Returns(false);
-            objective.Courses.Returns(new List<Course> { course });
+            section.Courses.Returns(new List<Course> { course });
 
             //Act
-            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
+            var result = _sectionPermissionChecker.HasCollaboratorPermissions(Username, section);
 
             //Assert
             result.Should().BeFalse();

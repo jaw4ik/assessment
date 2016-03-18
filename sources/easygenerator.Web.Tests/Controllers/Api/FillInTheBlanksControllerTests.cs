@@ -49,28 +49,28 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void CreateFillInTheBlank_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void CreateFillInTheBlank_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
-        public void CreateFillInTheBlank_ShouldAddQuestionToObjective()
+        public void CreateFillInTheBlank_ShouldAddQuestionToSection()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
 
             _entityFactory.FillInTheBlanksQuestion(title, user).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
-            objective.Received().AddQuestion(question, user);
+            section.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.FillInTheBlanksQuestion(title, user).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

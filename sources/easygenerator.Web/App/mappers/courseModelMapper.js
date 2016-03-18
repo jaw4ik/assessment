@@ -3,16 +3,16 @@
         "use strict";
 
         var
-            map = function (item, objectives, templates) {
+            map = function (item, sections, templates) {
                 return new CourseModel({
                     id: item.Id,
                     title: item.Title,
                     createdBy: item.CreatedBy,
                     createdOn: new Date(item.CreatedOn),
                     modifiedOn: new Date(item.ModifiedOn),
-                    objectives: _.map(item.RelatedObjectives, function (relatedObjective) {
-                        return _.find(objectives, function (objective) {
-                            return objective.id == relatedObjective.Id;
+                    sections: _.map(item.RelatedSections, function (relatedSection) {
+                        return _.find(sections, function (section) {
+                            return section.id == relatedSection.Id;
                         });
                     }),
                     publishedPackageUrl: item.PublishedPackageUrl,

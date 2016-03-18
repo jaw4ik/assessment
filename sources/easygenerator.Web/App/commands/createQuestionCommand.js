@@ -2,14 +2,14 @@
     function (questionRepository, localizationManager, uiLocker, clientContext, eventTracker, router, constants) {
 
         return {
-            execute: function (objectiveId, courseId, questionType, eventCategory) {
+            execute: function (sectionId, courseId, questionType, eventCategory) {
                 sendActualEvent(questionType, eventCategory);
                 uiLocker.lock();
-                return questionRepository.addQuestion(objectiveId, { title: getActualQuestionName(questionType) }, questionType).then(function (question) {
+                return questionRepository.addQuestion(sectionId, { title: getActualQuestionName(questionType) }, questionType).then(function (question) {
                     clientContext.set(constants.clientContextKeys.lastCreatedQuestionId, question.id);
                     uiLocker.unlock();
 
-                    var navigateUrl = 'objectives/' + objectiveId + '/questions/' + question.id;
+                    var navigateUrl = 'sections/' + sectionId + '/questions/' + question.id;
 
                     if (_.isString(courseId)) {
                         router.navigate('courses/' + courseId + '/' + navigateUrl);

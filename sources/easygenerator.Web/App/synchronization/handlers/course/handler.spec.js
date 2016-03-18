@@ -20,9 +20,9 @@ describe('synchronization course [handler]', function () {
         });
     });
 
-    describe('objectivesReordered:', function () {
+    describe('sectionsReordered:', function () {
         it('should be function', function () {
-            expect(handler.objectivesReordered).toBeFunction();
+            expect(handler.sectionsReordered).toBeFunction();
         });
     });
 
@@ -38,21 +38,21 @@ describe('synchronization course [handler]', function () {
         });
     });
 
-    describe('objectiveRelated:', function () {
+    describe('sectionRelated:', function () {
         it('should be function', function () {
-            expect(handler.objectiveRelated).toBeFunction();
+            expect(handler.sectionRelated).toBeFunction();
         });
     });
 
-    describe('objectivesUnrelated:', function () {
+    describe('sectionsUnrelated:', function () {
         it('should be function', function () {
-            expect(handler.objectivesUnrelated).toBeFunction();
+            expect(handler.sectionsUnrelated).toBeFunction();
         });
     });
 
-    describe('objectivesReplaced:', function () {
+    describe('sectionsReplaced:', function () {
         it('should be function', function () {
-            expect(handler.objectivesReplaced).toBeFunction();
+            expect(handler.sectionsReplaced).toBeFunction();
         });
     });
 

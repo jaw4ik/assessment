@@ -23,7 +23,7 @@
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('editor/course/bindingHandlers/expandBlock');
-    require('editor/course/bindingHandlers/hightlightObjective');
+    require('editor/course/bindingHandlers/hightlightSection');
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
     require('editor/course/bindingHandlers/tooltipPopover');

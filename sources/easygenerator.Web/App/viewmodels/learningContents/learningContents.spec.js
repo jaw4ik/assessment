@@ -511,7 +511,7 @@ describe('viewModel [learningContents]', function () {
 
                 describe('and does not have focus', function () {
 
-                    it('should remove learning objective', function () {
+                    it('should remove learning section', function () {
                         viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
                         viewModel.deletedByCollaborator(question, learningContentId);
 
@@ -527,7 +527,7 @@ describe('viewModel [learningContents]', function () {
                         spyOn(notify, 'error');
                     });
 
-                    it('should not remove learning objective', function () {
+                    it('should not remove learning section', function () {
                         viewModel.deletedByCollaborator(question, learningContentId);
                         expect(viewModel.learningContents().length).toEqual(1);
                     });
@@ -548,7 +548,7 @@ describe('viewModel [learningContents]', function () {
 
             describe('and learning content with appropriate id does not exist', function () {
 
-                it('should not remove learning objective', function () {
+                it('should not remove learning section', function () {
                     viewModel.learningContents([{ id: ko.observable('otherId') }]);
                     viewModel.deletedByCollaborator(question, learningContentId);
 

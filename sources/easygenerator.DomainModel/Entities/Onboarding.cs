@@ -6,10 +6,10 @@ namespace easygenerator.DomainModel.Entities
     {
         public Onboarding() { }
 
-        public Onboarding(bool courseCreated, bool objectiveCreated, bool contentCreated, int createdQuestionsCount, bool coursePublished, bool isClosed, string userEmail)
+        public Onboarding(bool courseCreated, bool sectionCreated, bool contentCreated, int createdQuestionsCount, bool coursePublished, bool isClosed, string userEmail)
         {
             CourseCreated = courseCreated;
-            ObjectiveCreated = objectiveCreated;
+            SectionCreated = sectionCreated;
             ContentCreated = contentCreated;
             CreatedQuestionsCount = createdQuestionsCount;
             CoursePublished = coursePublished;
@@ -24,7 +24,7 @@ namespace easygenerator.DomainModel.Entities
 
         public bool CourseCreated { get; private set; }
 
-        public bool ObjectiveCreated { get; private set; }
+        public bool SectionCreated { get; private set; }
 
         public bool ContentCreated { get; private set; }
 
@@ -41,9 +41,9 @@ namespace easygenerator.DomainModel.Entities
             CourseCreated = true;
         }
 
-        public virtual void MarkObjectiveCreatedAsCompleted()
+        public virtual void MarkSectionCreatedAsCompleted()
         {
-            ObjectiveCreated = true;
+            SectionCreated = true;
         }
 
         public virtual void MarkContentCreatedAsCompleted()

@@ -62,7 +62,7 @@
     "languages":{
         "selected":"en"
     },
-    "objectivesLayout":{
+    "sectionsLayout":{
         "key":"Tiles"
     },
     "showConfirmationPopup":true

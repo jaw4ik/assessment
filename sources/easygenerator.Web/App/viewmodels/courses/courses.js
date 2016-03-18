@@ -62,9 +62,9 @@
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.sectionsReorderedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.sectionRelatedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
         app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
         app.on(constants.messages.course.deleted, viewModel.courseDeleted);
@@ -221,7 +221,7 @@
             course.modifiedOn = ko.observable(item.modifiedOn);
             course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);
-            course.objectives = item.objectives;
+            course.sections = item.sections;
             course.isProcessed = true;
 
             return course;
@@ -235,7 +235,7 @@
                 createdOn: new Date(),
                 modifiedOn: new Date(),
                 isSelected: ko.observable(false),
-                objectives: course.objectives,
+                sections: course.sections,
                 isProcessed: false,
                 isDuplicatingFinished: ko.observable(false),
                 finishDuplicating: false
@@ -265,8 +265,8 @@
                     uiLocker.lock();
                 },
                 success: function (course) {
-                    if (course.objectives.length) {
-                        router.navigate('courses/' + course.id + '/objectives/' + course.objectives[0].id);
+                    if (course.sections.length) {
+                        router.navigate('courses/' + course.id + '/sections/' + course.sections[0].id);
                     } else {
                         router.navigate('courses/' + course.id);
                     }

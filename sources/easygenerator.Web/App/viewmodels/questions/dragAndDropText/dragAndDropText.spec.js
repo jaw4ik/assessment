@@ -7,7 +7,7 @@ import localizationManager from 'localization/localizationManager';
 
 describe('dragAndDropText:', function () {
 
-    var objectiveId = 'objectiveId',
+    var sectionId = 'sectionId',
         question = {
             id: '1',
             title: 'lalala',
@@ -35,24 +35,24 @@ describe('dragAndDropText:', function () {
         });
 
         it('should return promise', function () {
-            var promise = viewModel.initialize(objectiveId, question);
+            var promise = viewModel.initialize(sectionId, question);
             expect(promise).toBePromise();
         });
 
-        it('should set objectiveId', function () {
-            viewModel.initialize(objectiveId, question);
+        it('should set sectionId', function () {
+            viewModel.initialize(sectionId, question);
 
-            expect(viewModel.objectiveId).toBe(objectiveId);
+            expect(viewModel.sectionId).toBe(sectionId);
         });
 
         it('should set questionId', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should call designer activate', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(designer.activate).toHaveBeenCalledWith(question.id);
         });
@@ -63,7 +63,7 @@ describe('dragAndDropText:', function () {
             });
 
             it('should return object', function (done) {
-                var promise = viewModel.initialize(objectiveId, question);
+                var promise = viewModel.initialize(sectionId, question);
                 promise.then(function (result) {
                     expect(result).toBeObject();
                     done();
@@ -72,7 +72,7 @@ describe('dragAndDropText:', function () {
 
             describe('and result object', function () {
                 it('should contain \'DragAndDropTextEditor\' viewCaption', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.viewCaption).toBe('DragAndDropTextEditor');
                         done();
@@ -80,7 +80,7 @@ describe('dragAndDropText:', function () {
                 });
 
                 it('should have hasQuestionView property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionView).toBeTruthy();
                         done();
@@ -88,7 +88,7 @@ describe('dragAndDropText:', function () {
                 });
 
                 it('should have hasQuestionContent property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionContent).toBeTruthy();
                         done();
@@ -96,7 +96,7 @@ describe('dragAndDropText:', function () {
                 });
 
                 it('should have hasFeedback property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasFeedback).toBeTruthy();
                         done();

@@ -10,7 +10,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.ObjectModel;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.SectionEvents;
 using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities.Questions

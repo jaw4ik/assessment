@@ -18,9 +18,9 @@ namespace easygenerator.DataAccess
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<ObjectiveRepository>()
-                .As<IObjectiveRepository>()
-                .As<IQuerableRepository<Objective>>();
+            builder.RegisterType<SectionRepository>()
+                .As<ISectionRepository>()
+                .As<IQuerableRepository<Section>>();
 
             builder.RegisterType<CourseRepository>()
                 .As<ICourseRepository>()

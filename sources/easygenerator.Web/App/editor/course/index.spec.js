@@ -36,7 +36,7 @@ describe('[drag and drop course editor]', () => {
             id: courseId,
             createdBy: 'user',
             introductionContent: 'introductionContent',
-            objectives: [
+            sections: [
                 {
                     id: 'sectionId1',
                     title: 'sectionTitle1',
@@ -76,8 +76,8 @@ describe('[drag and drop course editor]', () => {
         expect(courseViewModel.eventTracker).toBe(eventTracker);
         expect(courseViewModel.localizationManager).toBe(localizationManager);
         expect(courseViewModel.courseIntroductionContent).toBe(null);
-        expect(courseViewModel.highlightedObjectiveId).toBeObservable();
-        expect(courseViewModel.highlightedObjectiveId()).toBeNull();
+        expect(courseViewModel.highlightedSectionId).toBeObservable();
+        expect(courseViewModel.highlightedSectionId()).toBeNull();
         expect(courseViewModel.notContainSections).toBeObservable();
         expect(courseViewModel.notContainSections()).toBeFalsy();
         expect(courseViewModel.createBar).toBeInstanceOf(CreateBar);
@@ -145,35 +145,35 @@ describe('[drag and drop course editor]', () => {
             expect(questionModalView.initialize).toHaveBeenCalledWith(courseId);
         })().then(done));
 
-        describe('when client context highlighted objective id is defined', () => {
-            let objectiveId = 'objId';
+        describe('when client context highlighted section id is defined', () => {
+            let sectionId = 'objId';
             beforeEach(() => {
-                spyOn(clientContext, 'get').and.returnValue(objectiveId);
+                spyOn(clientContext, 'get').and.returnValue(sectionId);
                 spyOn(clientContext, 'remove');
             });
 
-            it('should remove highlighted objective id from client context', done => (async () => {
+            it('should remove highlighted section id from client context', done => (async () => {
                 courseViewModel.activate(courseId);
                 await promise;
                 await modalViewInit;
-                expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.highlightedObjectiveId);
+                expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.highlightedSectionId);
             })().then(done));
 
-            it('should set highlightedObjectiveId', done => (async () => {
-                courseViewModel.highlightedObjectiveId(null);
+            it('should set highlightedSectionId', done => (async () => {
+                courseViewModel.highlightedSectionId(null);
                 courseViewModel.activate(courseId);
                 await promise;
                 await modalViewInit;
-                expect(courseViewModel.highlightedObjectiveId()).toBe(objectiveId);
+                expect(courseViewModel.highlightedSectionId()).toBe(sectionId);
             })().then(done));
         });
 
         it('should open questions popup', done => (async () => {
-            let objectiveId = 'objectiveId';
+            let sectionId = 'sectionId';
             let questionId = 'questionId';
 
-            await courseViewModel.activate(courseId, objectiveId, questionId);
-            expect(questionModalView.open).toHaveBeenCalledWith(objectiveId, questionId);
+            await courseViewModel.activate(courseId, sectionId, questionId);
+            expect(questionModalView.open).toHaveBeenCalledWith(sectionId, questionId);
         })().then(done));
 
     });
@@ -241,7 +241,7 @@ describe('[drag and drop course editor]', () => {
             });
 
             it('should show notify saved message', done => (async () => {
-                courseViewModel.reorderSection({ sectionId: course.objectives[0].id });
+                courseViewModel.reorderSection({ sectionId: course.sections[0].id });
                 await promise;
                 expect(notify.saved).toHaveBeenCalled();
             })().then(done));
@@ -249,10 +249,10 @@ describe('[drag and drop course editor]', () => {
             describe('when next section id is not defined', () => {
 
                 it('should push section to end', done => (async () => {
-                    courseViewModel.reorderSection({ sectionId: course.objectives[0].id });
+                    courseViewModel.reorderSection({ sectionId: course.sections[0].id });
                     await promise;
                     let length = courseViewModel.sections().length;
-                    expect(courseViewModel.sections()[length - 1].id()).toBe(course.objectives[0].id);
+                    expect(courseViewModel.sections()[length - 1].id()).toBe(course.sections[0].id);
                 })().then(done));
 
             });
@@ -260,9 +260,9 @@ describe('[drag and drop course editor]', () => {
             describe('when next section id is defined', () => {
 
                 it('should push section before next section', done => (async () => {
-                    courseViewModel.reorderSection({ sectionId: course.objectives[0].id }, { sectionId: course.objectives[1].id });
+                    courseViewModel.reorderSection({ sectionId: course.sections[0].id }, { sectionId: course.sections[1].id });
                     await promise;
-                    expect(courseViewModel.sections()[0].id()).toBe(course.objectives[0].id);
+                    expect(courseViewModel.sections()[0].id()).toBe(course.sections[0].id);
                 })().then(done));
 
             });

@@ -43,13 +43,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void Create_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void Create_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string user = "Test user";
             DateTimeWrapper.Now = () => DateTime.MinValue;
             _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
             var correctAnswer = Substitute.For<Answer>(defaultAnswerText, true, user, DateTimeWrapper.Now());
             var incorrectAnswer = Substitute.For<Answer>(defaultAnswerText, false, user, DateTimeWrapper.Now().AddSeconds(1));
@@ -69,25 +69,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.Answer(defaultAnswerText, true, user, Arg.Any<DateTime>()).Returns(correctAnswer);
             _entityFactory.Answer(defaultAnswerText, false, user, Arg.Any<DateTime>()).Returns(incorrectAnswer);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
             _entityFactory.Received().SingleSelectTextQuestion(title, user, correctAnswer, incorrectAnswer);
         }
 
         [TestMethod]
-        public void Create_ShouldAddQuestionToObjective()
+        public void Create_ShouldAddQuestionToSection()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
 
             _entityFactory.SingleSelectTextQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
-            objective.Received().AddQuestion(question, user);
+            section.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
@@ -101,7 +101,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.SingleSelectTextQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

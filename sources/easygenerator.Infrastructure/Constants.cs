@@ -10,9 +10,9 @@ namespace easygenerator.Infrastructure
         public static readonly string[] SupportedCultures = {"en", "uk", "zh-cn", "pt-br", "de", "nl", "fr", "es"};
 
 
-        public class Objective
+        public class Section
         {
-            public const string DefaultImageUrl = "/Content/images/objective-default-image.jpg";
+            public const string DefaultImageUrl = "/Content/images/section-default-image.jpg";
         }
 
         public class MailTemplates

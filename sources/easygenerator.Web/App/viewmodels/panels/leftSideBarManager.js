@@ -10,7 +10,7 @@
                 { id: 'viewmodels/courses/course/configure' },
                 { id: 'viewmodels/courses/course/publish' },
                 { id: 'viewmodels/courses/course/results' },
-                { id: 'viewmodels/objectives/objective' },
+                { id: 'viewmodels/sections/section' },
                 { id: 'viewmodels/questions/question' }
             ],
             modelToCompose: 'navigationBar/navigationBar'

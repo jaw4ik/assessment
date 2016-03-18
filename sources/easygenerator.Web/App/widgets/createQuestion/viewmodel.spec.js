@@ -7,7 +7,7 @@ import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 
 var settings = {
-    objectiveId: '1'
+    sectionId: '1'
 };
 
 describe('viewmodel [createQuestion]', function () {
@@ -16,9 +16,9 @@ describe('viewmodel [createQuestion]', function () {
         expect(viewModel).toBeDefined();
     });
 
-    describe('objectiveId:', function () {
+    describe('sectionId:', function () {
         it('should be defined', function () {
-            expect(viewModel.objectiveId).toBeDefined();
+            expect(viewModel.sectionId).toBeDefined();
         });
     });
 
@@ -50,22 +50,22 @@ describe('viewmodel [createQuestion]', function () {
             });
         });
 
-        describe('when objectiveId is not string', function () {
+        describe('when sectionId is not string', function () {
             it('should throw exception', function () {
                 var f = function () {
                     viewModel.activate({});
                 };
 
-                expect(f).toThrow('objectiveId is not a string');
+                expect(f).toThrow('sectionId is not a string');
             });
         });
 
-        it('should set objectiveId', function () {
-            viewModel.objectiveId = null;
+        it('should set sectionId', function () {
+            viewModel.sectionId = null;
 
             viewModel.activate(settings);
 
-            expect(viewModel.objectiveId).toBe(settings.objectiveId);
+            expect(viewModel.sectionId).toBe(settings.sectionId);
         });
 
         it('should identify user', function () {
@@ -382,11 +382,11 @@ describe('viewmodel [createQuestion]', function () {
             });
 
             it('should execute createQuestionCommand', function () {
-                viewModel.objectiveId = 'objectiveId';
+                viewModel.sectionId = 'sectionId';
 
                 viewModel.createQuestion({ type: 'questionType' });
 
-                expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', undefined, 'questionType');
+                expect(createQuestionCommand.execute).toHaveBeenCalledWith('sectionId', undefined, 'questionType');
             });
 
         });
@@ -395,11 +395,11 @@ describe('viewmodel [createQuestion]', function () {
 
             it('should call command with courseId', function () {
                 viewModel.courseId = 'courseId';
-                viewModel.objectiveId = 'objectiveId';
+                viewModel.sectionId = 'sectionId';
 
                 viewModel.createQuestion({ type: 'questionType' });
 
-                expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId', 'questionType');
+                expect(createQuestionCommand.execute).toHaveBeenCalledWith('sectionId', 'courseId', 'questionType');
             });
 
         });

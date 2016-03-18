@@ -13,12 +13,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseTitleUpdatedEvent>,
         IDomainEventHandler<CourseIntroductionContentUpdated>,
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
-        IDomainEventHandler<CourseObjectivesReorderedEvent>,
+        IDomainEventHandler<CourseSectionsReorderedEvent>,
         IDomainEventHandler<CoursePublishedEvent>,
         IDomainEventHandler<CourseDeletedEvent>,
-        IDomainEventHandler<CourseObjectiveRelatedEvent>,
-        IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
-        IDomainEventHandler<CourseObjectivesClonedEvent>,
+        IDomainEventHandler<CourseSectionRelatedEvent>,
+        IDomainEventHandler<CourseSectionsUnrelatedEvent>,
+        IDomainEventHandler<CourseSectionsClonedEvent>,
         IDomainEventHandler<CourseStateChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
@@ -50,10 +50,10 @@ namespace easygenerator.Web.Synchronization.Handlers
                 .courseTemplateUpdated(args.Course.Id.ToNString(), _entityMapper.Map(args.Course.Template), args.Course.ModifiedOn);
         }
 
-        public void Handle(CourseObjectivesReorderedEvent args)
+        public void Handle(CourseSectionsReorderedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Course)
-                .courseObjectivesReordered(args.Course.Id.ToNString(), args.Course.RelatedObjectives.Select(e => e.Id.ToNString()), args.Course.ModifiedOn);
+                .courseSectionsReordered(args.Course.Id.ToNString(), args.Course.RelatedSections.Select(e => e.Id.ToNString()), args.Course.ModifiedOn);
         }
 
         public void Handle(CoursePublishedEvent args)
@@ -68,29 +68,29 @@ namespace easygenerator.Web.Synchronization.Handlers
             users.Add(args.Course.CreatedBy);
             users.Remove(args.DeletedBy);
 
-            _broadcaster.Users(users).courseDeleted(args.Course.Id.ToNString(), args.DeletedObjectiveIds);
+            _broadcaster.Users(users).courseDeleted(args.Course.Id.ToNString(), args.DeletedSectionIds);
             foreach (var invitedCollaborator in args.InvitedCollaborators)
             {
                 _broadcaster.User(invitedCollaborator.Value).collaborationInviteRemoved(invitedCollaborator.Key.ToNString());
             }
         }
 
-        public void Handle(CourseObjectiveRelatedEvent args)
+        public void Handle(CourseSectionRelatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Course)
-               .courseObjectiveRelated(args.Course.Id.ToNString(), _entityMapper.Map(args.Objective), args.Index.HasValue ? args.Index : null, args.Course.ModifiedOn);
+               .courseSectionRelated(args.Course.Id.ToNString(), _entityMapper.Map(args.Section), args.Index.HasValue ? args.Index : null, args.Course.ModifiedOn);
         }
 
-        public void Handle(CourseObjectivesUnrelatedEvent args)
+        public void Handle(CourseSectionsUnrelatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Course)
-             .courseObjectivesUnrelated(args.Course.Id.ToNString(), args.Objectives.Select(e => e.Id.ToNString()), args.Course.ModifiedOn);
+             .courseSectionsUnrelated(args.Course.Id.ToNString(), args.Sections.Select(e => e.Id.ToNString()), args.Course.ModifiedOn);
         }
 
-        public void Handle(CourseObjectivesClonedEvent args)
+        public void Handle(CourseSectionsClonedEvent args)
         {
-            _broadcaster.AllCollaborators(args.Course).courseObjectivesReplaced(args.Course.Id.ToNString(),
-                args.ReplacedObjectives.ToDictionary(objectivesInfo => objectivesInfo.Key.ToNString(), objectivesInfo => _entityMapper.Map(objectivesInfo.Value)), args.Course.ModifiedOn);
+            _broadcaster.AllCollaborators(args.Course).courseSectionsReplaced(args.Course.Id.ToNString(),
+                args.ReplacedSections.ToDictionary(sectionsInfo => sectionsInfo.Key.ToNString(), sectionsInfo => _entityMapper.Map(sectionsInfo.Value)), args.Course.ModifiedOn);
         }
 
         public void Handle(CourseStateChangedEvent args)

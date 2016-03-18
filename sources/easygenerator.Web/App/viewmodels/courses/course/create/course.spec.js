@@ -3,13 +3,13 @@
 import router from 'plugins/router';
 import eventTracker from 'eventTracker';
 import repository from 'repositories/courseRepository';
-import objectiveRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import clientContext from 'clientContext';
 import userContext from 'userContext';
 import imageUpload from 'imageUpload';
-import createObjectiveCommand from 'commands/createObjectiveCommand';
+import createSectionCommand from 'commands/createSectionCommand';
 import constants from 'constants';
 
 describe('viewModel [course]', function () {
@@ -17,7 +17,7 @@ describe('viewModel [course]', function () {
         course = {
             id: '1',
             title: 'course',
-            objectives: [
+            sections: [
                 { id: '0', title: 'A' },
                 { id: '1', title: 'a' },
                 { id: '2', title: 'z' },
@@ -81,26 +81,26 @@ describe('viewModel [course]', function () {
 
     });
 
-    describe('updateObjectiveImage:', function () {
+    describe('updateSectionImage:', function () {
 
         it('should be function', function () {
-            expect(viewModel.updateObjectiveImage).toBeFunction();
+            expect(viewModel.updateSectionImage).toBeFunction();
         });
 
         it('should send event \'Open "change objective image" dialog\'', function () {
             spyOn(imageUpload, 'upload');
-            viewModel.updateObjectiveImage();
+            viewModel.updateSectionImage();
             expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
         });
 
         it('should upload image', function () {
             spyOn(imageUpload, 'upload');
-            viewModel.updateObjectiveImage();
+            viewModel.updateSectionImage();
             expect(imageUpload.upload).toHaveBeenCalled();
         });
 
-        var objective = {
-            id: 'some_objective_id',
+        var section = {
+            id: 'some_section_id',
             imageUrl: ko.observable(''),
             isImageLoading: ko.observable(false),
             modifiedOn: ko.observable(new Date())
@@ -115,9 +115,9 @@ describe('viewModel [course]', function () {
             });
 
             it('should set isImageLoading to true', function () {
-                objective.isImageLoading(false);
-                viewModel.updateObjectiveImage(objective);
-                expect(objective.isImageLoading()).toBeTruthy();
+                section.isImageLoading(false);
+                viewModel.updateSectionImage(section);
+                expect(section.isImageLoading()).toBeTruthy();
             });
 
         });
@@ -131,15 +131,15 @@ describe('viewModel [course]', function () {
                 });
 
                 updateImageDefer = Q.defer();
-                spyOn(objectiveRepository, 'updateImage').and.returnValue(updateImageDefer.promise);
+                spyOn(sectionRepository, 'updateImage').and.returnValue(updateImageDefer.promise);
             });
 
-            it('should update objective image', function () {
-                viewModel.updateObjectiveImage(objective);
-                expect(objectiveRepository.updateImage).toHaveBeenCalledWith(objective.id, url);
+            it('should update section image', function () {
+                viewModel.updateSectionImage(section);
+                expect(sectionRepository.updateImage).toHaveBeenCalledWith(section.id, url);
             });
 
-            describe('and when objective image updated successfully', function () {
+            describe('and when section image updated successfully', function () {
 
                 var lastModifiedDate = new Date(), newUrl = 'new/image/url';
                 beforeEach(function () {
@@ -150,37 +150,37 @@ describe('viewModel [course]', function () {
                 });
 
                 it('should set imageUrl', function (done) {
-                    objective.imageUrl('');
-                    viewModel.updateObjectiveImage(objective);
+                    section.imageUrl('');
+                    viewModel.updateSectionImage(section);
 
                     updateImageDefer.promise.fin(function () {
-                        expect(objective.imageUrl()).toBe(newUrl);
+                        expect(section.imageUrl()).toBe(newUrl);
                         done();
                     });
                 });
 
                 it('should update modifiedOn date', function (done) {
-                    objective.modifiedOn(0);
-                    viewModel.updateObjectiveImage(objective);
+                    section.modifiedOn(0);
+                    viewModel.updateSectionImage(section);
 
                     updateImageDefer.promise.fin(function () {
-                        expect(objective.modifiedOn()).toBe(lastModifiedDate);
+                        expect(section.modifiedOn()).toBe(lastModifiedDate);
                         done();
                     });
                 });
 
                 it('should set isImageLoading to false', function (done) {
-                    objective.isImageLoading(true);
-                    viewModel.updateObjectiveImage(objective);
+                    section.isImageLoading(true);
+                    viewModel.updateSectionImage(section);
 
                     updateImageDefer.promise.fin(function () {
-                        expect(objective.isImageLoading()).toBeFalsy();
+                        expect(section.isImageLoading()).toBeFalsy();
                         done();
                     });
                 });
 
                 it('should send event \'Change objective image\'', function (done) {
-                    viewModel.updateObjectiveImage(objective);
+                    viewModel.updateSectionImage(section);
 
                     updateImageDefer.promise.fin(function () {
                         expect(eventTracker.publish).toHaveBeenCalledWith('Change objective image');
@@ -189,7 +189,7 @@ describe('viewModel [course]', function () {
                 });
 
                 it('should update notificaion', function (done) {
-                    viewModel.updateObjectiveImage(objective);
+                    viewModel.updateSectionImage(section);
 
                     updateImageDefer.promise.fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
@@ -210,60 +210,60 @@ describe('viewModel [course]', function () {
             });
 
             it('should set isImageLoading to false', function () {
-                objective.isImageLoading(true);
-                viewModel.updateObjectiveImage(objective);
-                expect(objective.isImageLoading()).toBeFalsy();
+                section.isImageLoading(true);
+                viewModel.updateSectionImage(section);
+                expect(section.isImageLoading()).toBeFalsy();
             });
 
         });
 
     });
 
-    describe('navigateToObjectiveDetails:', function () {
+    describe('navigateToSectionDetails:', function () {
 
         it('should be a function', function () {
-            expect(viewModel.navigateToObjectiveDetails).toBeFunction();
+            expect(viewModel.navigateToSectionDetails).toBeFunction();
         });
 
 
-        describe('when objective is undefined', function () {
+        describe('when section is undefined', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.navigateToObjectiveDetails();
+                    viewModel.navigateToSectionDetails();
                 };
                 expect(f).toThrow();
             });
 
         });
 
-        describe('when objective is null', function () {
+        describe('when section is null', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.navigateToObjectiveDetails(null);
+                    viewModel.navigateToSectionDetails(null);
                 };
                 expect(f).toThrow();
             });
 
         });
 
-        describe('when objective.id is undefined', function () {
+        describe('when section.id is undefined', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.navigateToObjectiveDetails({});
+                    viewModel.navigateToSectionDetails({});
                 };
                 expect(f).toThrow();
             });
 
         });
 
-        describe('when objective.id is null', function () {
+        describe('when section.id is null', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.navigateToObjectiveDetails({ id: null });
+                    viewModel.navigateToSectionDetails({ id: null });
                 };
                 expect(f).toThrow();
             });
@@ -271,214 +271,214 @@ describe('viewModel [course]', function () {
         });
 
         it('should send event \'Navigate to objective details\'', function () {
-            viewModel.navigateToObjectiveDetails({ id: 1 });
+            viewModel.navigateToSectionDetails({ id: 1 });
             expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
         });
 
         it('should navigate', function () {
-            var objectiveId = 1;
-            viewModel.navigateToObjectiveDetails({ id: objectiveId });
+            var sectionId = 1;
+            viewModel.navigateToSectionDetails({ id: sectionId });
             expect(router.navigate).toHaveBeenCalled();
         });
 
     });
 
-    describe('createObjective', function () {
+    describe('createSection', function () {
         var courseId = 'courseId';
 
         beforeEach(function () {
             viewModel.id = courseId;
-            spyOn(createObjectiveCommand, 'execute');
+            spyOn(createSectionCommand, 'execute');
         });
 
         it('should be a function', function () {
-            expect(viewModel.createObjective).toBeFunction();
+            expect(viewModel.createSection).toBeFunction();
         });
 
-        it('should execute create objective command', function () {
-            viewModel.createObjective();
-            expect(createObjectiveCommand.execute).toHaveBeenCalledWith(courseId);
+        it('should execute create section command', function () {
+            viewModel.createSection();
+            expect(createSectionCommand.execute).toHaveBeenCalledWith(courseId);
         });
     });
 
-    describe('toggleObjectiveSelection:', function () {
+    describe('toggleSectionSelection:', function () {
 
         it('should be a function', function () {
-            expect(viewModel.toggleObjectiveSelection).toBeFunction();
+            expect(viewModel.toggleSectionSelection).toBeFunction();
         });
 
-        describe('when objective is undefined', function () {
+        describe('when section is undefined', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.toggleObjectiveSelection();
+                    viewModel.toggleSectionSelection();
                 };
                 expect(f).toThrow();
             });
 
         });
 
-        describe('when objective is null', function () {
+        describe('when section is null', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.toggleObjectiveSelection(null);
+                    viewModel.toggleSectionSelection(null);
                 };
                 expect(f).toThrow();
             });
 
         });
 
-        describe('when objective.isSelected is not an observable', function () {
+        describe('when section.isSelected is not an observable', function () {
 
             it('should throw exception', function () {
                 var f = function () {
-                    viewModel.toggleObjectiveSelection({});
+                    viewModel.toggleSectionSelection({});
                 };
                 expect(f).toThrow();
             });
 
         });
 
-        describe('when objective is selected', function () {
+        describe('when section is selected', function () {
 
             it('should send event \'Unselect Objective\'', function () {
-                viewModel.toggleObjectiveSelection({ isSelected: ko.observable(true) });
+                viewModel.toggleSectionSelection({ isSelected: ko.observable(true) });
                 expect(eventTracker.publish).toHaveBeenCalledWith('Unselect Objective');
             });
 
-            it('should set objective.isSelected to false', function () {
-                var objective = { isSelected: ko.observable(true) };
-                viewModel.toggleObjectiveSelection(objective);
-                expect(objective.isSelected()).toBeFalsy();
+            it('should set section.isSelected to false', function () {
+                var section = { isSelected: ko.observable(true) };
+                viewModel.toggleSectionSelection(section);
+                expect(section.isSelected()).toBeFalsy();
             });
 
         });
 
-        describe('when objective is not selected', function () {
+        describe('when section is not selected', function () {
 
             it('should send event \'Select Objective\'', function () {
-                viewModel.toggleObjectiveSelection({ isSelected: ko.observable(false) });
+                viewModel.toggleSectionSelection({ isSelected: ko.observable(false) });
                 expect(eventTracker.publish).toHaveBeenCalledWith('Select Objective');
             });
 
-            it('should set objective.isSelected to true', function () {
-                var objective = { isSelected: ko.observable(false) };
-                viewModel.toggleObjectiveSelection(objective);
-                expect(objective.isSelected()).toBeTruthy();
+            it('should set section.isSelected to true', function () {
+                var section = { isSelected: ko.observable(false) };
+                viewModel.toggleSectionSelection(section);
+                expect(section.isSelected()).toBeTruthy();
             });
 
         });
 
     });
 
-    describe('objectivesMode:', function () {
+    describe('sectionsMode:', function () {
 
         it('should be observable', function () {
-            expect(viewModel.objectivesMode).toBeObservable();
+            expect(viewModel.sectionsMode).toBeObservable();
         });
 
     });
 
-    describe('showAllAvailableObjectives:', function () {
+    describe('showAllAvailableSections:', function () {
 
         it('should be function', function () {
-            expect(viewModel.showAllAvailableObjectives).toBeFunction();
+            expect(viewModel.showAllAvailableSections).toBeFunction();
         });
 
-        describe('when objectivesMode is appending', function () {
+        describe('when sectionsMode is appending', function () {
 
             beforeEach(function () {
-                viewModel.objectivesMode('appending');
+                viewModel.sectionsMode('appending');
             });
 
             it('should not send event \'Show all available objectives\'', function () {
-                viewModel.showAllAvailableObjectives();
+                viewModel.showAllAvailableSections();
                 expect(eventTracker.publish).not.toHaveBeenCalledWith('Show all available objectives');
             });
 
-            it('should not get objectives from repository', function () {
-                spyOn(objectiveRepository, 'getCollection').and.returnValue(Q.defer().promise);
+            it('should not get sections from repository', function () {
+                spyOn(sectionRepository, 'getCollection').and.returnValue(Q.defer().promise);
 
-                viewModel.showAllAvailableObjectives();
-                expect(objectiveRepository.getCollection).not.toHaveBeenCalled();
+                viewModel.showAllAvailableSections();
+                expect(sectionRepository.getCollection).not.toHaveBeenCalled();
             });
 
         });
 
-        describe('when objectivesMode is not appending', function () {
+        describe('when sectionsMode is not appending', function () {
 
-            var getObjectivesDefer;
+            var getSectionsDefer;
 
             beforeEach(function () {
-                getObjectivesDefer = Q.defer();
+                getSectionsDefer = Q.defer();
 
-                spyOn(objectiveRepository, 'getCollection').and.returnValue(getObjectivesDefer.promise);
+                spyOn(sectionRepository, 'getCollection').and.returnValue(getSectionsDefer.promise);
 
-                viewModel.objectivesMode('display');
+                viewModel.sectionsMode('display');
             });
 
             it('should send event \'Show all available objectives\'', function () {
-                viewModel.showAllAvailableObjectives();
+                viewModel.showAllAvailableSections();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Show all available objectives');
             });
 
-            it('should get objectives from repository', function () {
-                viewModel.showAllAvailableObjectives();
-                expect(objectiveRepository.getCollection).toHaveBeenCalled();
+            it('should get sections from repository', function () {
+                viewModel.showAllAvailableSections();
+                expect(sectionRepository.getCollection).toHaveBeenCalled();
             });
 
-            describe('when get objectives', function () {
+            describe('when get sections', function () {
                 beforeEach(function () {
-                    getObjectivesDefer.resolve([{ id: '0', title: 'B', createdBy: identity.email }, { id: '1', title: 'A', createdBy: identity.email }]);
+                    getSectionsDefer.resolve([{ id: '0', title: 'B', createdBy: identity.email }, { id: '1', title: 'A', createdBy: identity.email }]);
                 });
 
 
-                describe('and course does not have related objectives', function () {
+                describe('and course does not have related sections', function () {
 
-                    it('should set owned objectives as available', function (done) {
-                        viewModel.connectedObjectives([]);
+                    it('should set owned sections as available', function (done) {
+                        viewModel.connectedSections([]);
 
-                        viewModel.showAllAvailableObjectives();
+                        viewModel.showAllAvailableSections();
 
-                        getObjectivesDefer.promise.fin(function () {
-                            expect(viewModel.availableObjectives().length).toBe(2);
+                        getSectionsDefer.promise.fin(function () {
+                            expect(viewModel.availableSections().length).toBe(2);
                             done();
                         });
                     });
 
                 });
 
-                describe('and course has related objectives', function () {
+                describe('and course has related sections', function () {
 
-                    it('should set not related objectives as available', function (done) {
-                        viewModel.connectedObjectives([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
+                    it('should set not related sections as available', function (done) {
+                        viewModel.connectedSections([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
 
-                        viewModel.showAllAvailableObjectives();
+                        viewModel.showAllAvailableSections();
 
-                        getObjectivesDefer.promise.fin(function () {
-                            expect(viewModel.availableObjectives().length).toBe(1);
-                            expect(viewModel.availableObjectives()[0].id).toBe('1');
+                        getSectionsDefer.promise.fin(function () {
+                            expect(viewModel.availableSections().length).toBe(1);
+                            expect(viewModel.availableSections()[0].id).toBe('1');
                             done();
                         });
                     });
 
                 });
 
-                it('should set objectivesMode to \'appending\'', function (done) {
-                    viewModel.showAllAvailableObjectives();
+                it('should set sectionsMode to \'appending\'', function (done) {
+                    viewModel.showAllAvailableSections();
 
-                    getObjectivesDefer.promise.fin(function () {
-                        expect(viewModel.objectivesMode()).toBe('appending');
+                    getSectionsDefer.promise.fin(function () {
+                        expect(viewModel.sectionsMode()).toBe('appending');
                         done();
                     });
                 });
 
-                it('should sort available objectives by title', function (done) {
-                    viewModel.showAllAvailableObjectives();
+                it('should sort available sections by title', function (done) {
+                    viewModel.showAllAvailableSections();
 
-                    getObjectivesDefer.promise.fin(function () {
-                        expect(viewModel.availableObjectives()).toBeSortedAsc('title');
+                    getSectionsDefer.promise.fin(function () {
+                        expect(viewModel.availableSections()).toBeSortedAsc('title');
                         done();
                     });
                 });
@@ -488,249 +488,249 @@ describe('viewModel [course]', function () {
         });
     });
 
-    describe('showConnectedObjectives:', function () {
+    describe('showConnectedSections:', function () {
 
         it('should be function', function () {
-            expect(viewModel.showConnectedObjectives).toBeFunction();
+            expect(viewModel.showConnectedSections).toBeFunction();
         });
 
-        describe('when objectivesMode is display', function () {
+        describe('when sectionsMode is display', function () {
 
             beforeEach(function () {
-                viewModel.objectivesMode('display');
+                viewModel.sectionsMode('display');
             });
 
             it('should send event \'Show connected objectives\'', function () {
-                viewModel.showConnectedObjectives();
+                viewModel.showConnectedSections();
                 expect(eventTracker.publish).not.toHaveBeenCalledWith('Show connected objectives');
             });
 
         });
 
-        describe('when objectivesMode is not display', function () {
+        describe('when sectionsMode is not display', function () {
 
             beforeEach(function () {
-                viewModel.objectivesMode('appending');
+                viewModel.sectionsMode('appending');
             });
 
             it('should send event \'Show connected objectives\'', function () {
-                viewModel.showConnectedObjectives();
+                viewModel.showConnectedSections();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Show connected objectives');
             });
 
-            it('should set isSelected property to false for every item in connectedObjectives collection', function () {
-                viewModel.connectedObjectives([{ isSelected: ko.observable(false) }, { isSelected: ko.observable(true) }]);
-                viewModel.showConnectedObjectives();
-                expect(viewModel.connectedObjectives()[0].isSelected()).toBeFalsy();
-                expect(viewModel.connectedObjectives()[1].isSelected()).toBeFalsy();
+            it('should set isSelected property to false for every item in connectedSections collection', function () {
+                viewModel.connectedSections([{ isSelected: ko.observable(false) }, { isSelected: ko.observable(true) }]);
+                viewModel.showConnectedSections();
+                expect(viewModel.connectedSections()[0].isSelected()).toBeFalsy();
+                expect(viewModel.connectedSections()[1].isSelected()).toBeFalsy();
             });
 
-            it('should change objectivesMode to \'display\' ', function () {
-                viewModel.showConnectedObjectives();
-                expect(viewModel.objectivesMode()).toBe('display');
+            it('should change sectionsMode to \'display\' ', function () {
+                viewModel.showConnectedSections();
+                expect(viewModel.sectionsMode()).toBe('display');
             });
 
         });
     });
 
-    describe('connectedObjectives:', function () {
+    describe('connectedSections:', function () {
 
         it('should be observable', function () {
-            expect(viewModel.connectedObjectives).toBeObservable();
+            expect(viewModel.connectedSections).toBeObservable();
         });
 
     });
 
-    describe('availableObjectives:', function () {
+    describe('availableSections:', function () {
 
         it('should be observable', function () {
-            expect(viewModel.availableObjectives).toBeObservable();
+            expect(viewModel.availableSections).toBeObservable();
         });
 
     });
 
-    describe('isObjectivesListReorderedByCollaborator:', function () {
+    describe('isSectionsListReorderedByCollaborator:', function () {
 
         it('should be observable', function () {
-            expect(viewModel.isObjectivesListReorderedByCollaborator).toBeObservable();
+            expect(viewModel.isSectionsListReorderedByCollaborator).toBeObservable();
         });
 
     });
 
-    describe('canDisconnectObjectives:', function () {
+    describe('canDisconnectSections:', function () {
 
         it('should be computed', function () {
-            expect(viewModel.canDisconnectObjectives).toBeComputed();
+            expect(viewModel.canDisconnectSections).toBeComputed();
         });
 
-        describe('when all related objectives are unselected', function () {
+        describe('when all related sections are unselected', function () {
 
             it('should be false', function () {
-                viewModel.connectedObjectives([
+                viewModel.connectedSections([
                     { id: '0', isSelected: ko.observable(false) },
                     { id: '1', isSelected: ko.observable(false) },
                     { id: '2', isSelected: ko.observable(false) }
                 ]);
 
-                expect(viewModel.canDisconnectObjectives()).toBeFalsy();
+                expect(viewModel.canDisconnectSections()).toBeFalsy();
             });
 
         });
 
-        describe('when one of related objectives are selected', function () {
+        describe('when one of related sections are selected', function () {
 
             it('should be true', function () {
-                viewModel.connectedObjectives([
+                viewModel.connectedSections([
                     { id: '0', isSelected: ko.observable(true) },
                     { id: '1', isSelected: ko.observable(false) },
                     { id: '2', isSelected: ko.observable(false) }
                 ]);
 
-                expect(viewModel.canDisconnectObjectives()).toBeTruthy();
+                expect(viewModel.canDisconnectSections()).toBeTruthy();
             });
 
         });
 
-        describe('when several related objectives are selected', function () {
+        describe('when several related sections are selected', function () {
 
             it('should be true', function () {
-                viewModel.connectedObjectives([
+                viewModel.connectedSections([
                     { id: '0', isSelected: ko.observable(false) },
                     { id: '1', isSelected: ko.observable(true) },
                     { id: '2', isSelected: ko.observable(true) }
                 ]);
 
-                expect(viewModel.canDisconnectObjectives()).toBeTruthy();
+                expect(viewModel.canDisconnectSections()).toBeTruthy();
             });
 
         });
 
     });
 
-    describe('canConnectObjectives:', function () {
+    describe('canConnectSections:', function () {
 
         it('should be computed', function () {
-            expect(viewModel.canConnectObjectives).toBeComputed();
+            expect(viewModel.canConnectSections).toBeComputed();
         });
 
-        describe('when no available objectives are selected', function () {
+        describe('when no available sections are selected', function () {
             it('should be false', function () {
-                viewModel.availableObjectives([
+                viewModel.availableSections([
                     { id: '0', isSelected: ko.observable(false) },
                     { id: '1', isSelected: ko.observable(false) },
                     { id: '2', isSelected: ko.observable(false) }
                 ]);
 
-                expect(viewModel.canConnectObjectives()).toBeFalsy();
+                expect(viewModel.canConnectSections()).toBeFalsy();
             });
         });
 
-        describe('when one available objective is selected', function () {
+        describe('when one available section is selected', function () {
             it('should be true', function () {
-                viewModel.availableObjectives([
+                viewModel.availableSections([
                     { id: '0', isSelected: ko.observable(true) },
                     { id: '1', isSelected: ko.observable(false) },
                     { id: '2', isSelected: ko.observable(false) }
                 ]);
 
-                expect(viewModel.canConnectObjectives()).toBeTruthy();
+                expect(viewModel.canConnectSections()).toBeTruthy();
             });
         });
 
-        describe('when several available objectives are selected', function () {
+        describe('when several available sections are selected', function () {
             it('should be true', function () {
-                viewModel.availableObjectives([
+                viewModel.availableSections([
                     { id: '0', isSelected: ko.observable(false) },
                     { id: '1', isSelected: ko.observable(true) },
                     { id: '2', isSelected: ko.observable(true) }
                 ]);
 
-                expect(viewModel.canConnectObjectives()).toBeTruthy();
+                expect(viewModel.canConnectSections()).toBeTruthy();
             });
         });
     });
 
-    describe('disconnectSelectedObjectives:', function () {
+    describe('disconnectSelectedSections:', function () {
 
         beforeEach(function () {
             viewModel.id = 'courseId';
         });
 
         it('should be a function', function () {
-            expect(viewModel.disconnectSelectedObjectives).toBeFunction();
+            expect(viewModel.disconnectSelectedSections).toBeFunction();
         });
 
-        describe('when no objectives selected', function () {
+        describe('when no sections selected', function () {
             beforeEach(function () {
-                viewModel.connectedObjectives([]);
-                spyOn(repository, 'unrelateObjectives');
+                viewModel.connectedSections([]);
+                spyOn(repository, 'unrelateSections');
             });
 
             it('should not send event \'Unrelate objectives from course\'', function () {
-                viewModel.disconnectSelectedObjectives();
+                viewModel.disconnectSelectedSections();
                 expect(eventTracker.publish).not.toHaveBeenCalledWith('Unrelate objectives from course');
             });
 
-            it('should not call repository \"unrelateObjectives\" method', function () {
-                viewModel.disconnectSelectedObjectives();
-                expect(repository.unrelateObjectives).not.toHaveBeenCalled();
+            it('should not call repository \"unrelateSections\" method', function () {
+                viewModel.disconnectSelectedSections();
+                expect(repository.unrelateSections).not.toHaveBeenCalled();
             });
 
         });
 
-        describe('when some of related objectives is selected', function () {
+        describe('when some of related sections is selected', function () {
             var
-                relatedObjectives,
-                unrelateObjectives
+                relatedSections,
+                unrelateSections
             ;
 
             beforeEach(function () {
-                relatedObjectives = [
+                relatedSections = [
                     { id: '0', isSelected: ko.observable(true) },
                     { id: '1', isSelected: ko.observable(false) },
                     { id: '2', isSelected: ko.observable(true) }
                 ];
 
-                viewModel.connectedObjectives(relatedObjectives);
+                viewModel.connectedSections(relatedSections);
 
-                unrelateObjectives = Q.defer();
-                spyOn(repository, 'unrelateObjectives').and.returnValue(unrelateObjectives.promise);
+                unrelateSections = Q.defer();
+                spyOn(repository, 'unrelateSections').and.returnValue(unrelateSections.promise);
             });
 
             it('should send event \'Unrelate objectives from course\'', function () {
-                viewModel.disconnectSelectedObjectives();
+                viewModel.disconnectSelectedSections();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from course');
             });
 
-            it('should call repository \"unrelateObjectives\" method', function () {
-                var objectives = _.filter(viewModel.connectedObjectives(), function (item) {
+            it('should call repository \"unrelateSections\" method', function () {
+                var sections = _.filter(viewModel.connectedSections(), function (item) {
                     return item.isSelected();
                 });
-                viewModel.disconnectSelectedObjectives();
-                expect(repository.unrelateObjectives).toHaveBeenCalledWith('courseId', objectives);
+                viewModel.disconnectSelectedSections();
+                expect(repository.unrelateSections).toHaveBeenCalledWith('courseId', sections);
             });
 
-            describe('and unrelate objectives succeed', function () {
+            describe('and unrelate sections succeed', function () {
 
                 beforeEach(function () {
-                    unrelateObjectives.resolve(new Date());
+                    unrelateSections.resolve(new Date());
                 });
 
                 it('should call \'notify.info\' function', function (done) {
-                    viewModel.disconnectSelectedObjectives();
+                    viewModel.disconnectSelectedSections();
 
-                    unrelateObjectives.promise.finally(function () {
+                    unrelateSections.promise.finally(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
                     });
                 });
 
-                it('should update related objectives', function (done) {
-                    viewModel.disconnectSelectedObjectives();
+                it('should update related sections', function (done) {
+                    viewModel.disconnectSelectedSections();
 
-                    unrelateObjectives.promise.finally(function () {
-                        expect(viewModel.connectedObjectives().length).toBe(1);
-                        expect(viewModel.connectedObjectives()[0].id).toBe('1');
+                    unrelateSections.promise.finally(function () {
+                        expect(viewModel.connectedSections().length).toBe(1);
+                        expect(viewModel.connectedSections()[0].id).toBe('1');
                         done();
                     });
                 });
@@ -806,20 +806,20 @@ describe('viewModel [course]', function () {
                 });
             });
 
-            it('should display related objectives', function (done) {
-                viewModel.objectivesMode('appending');
+            it('should display related sections', function (done) {
+                viewModel.sectionsMode('appending');
 
                 viewModel.activate(course.id).fin(function () {
-                    expect(viewModel.objectivesMode()).toBe('display');
+                    expect(viewModel.sectionsMode()).toBe('display');
                     done();
                 });
             });
 
-            it('should set current course objectives', function (done) {
-                viewModel.connectedObjectives([]);
+            it('should set current course sections', function (done) {
+                viewModel.connectedSections([]);
 
                 viewModel.activate(course.id).fin(function () {
-                    expect(viewModel.connectedObjectives().length).toEqual(4);
+                    expect(viewModel.connectedSections().length).toEqual(4);
                     done();
                 });
             });
@@ -845,52 +845,52 @@ describe('viewModel [course]', function () {
 
     });
 
-    describe('reorderObjectives:', function () {
+    describe('reorderSections:', function () {
 
         var
-            relatedObjectives,
-            updateObjectiveOrderDefer
+            relatedSections,
+            updateSectionOrderDefer
         ;
 
         beforeEach(function () {
-            relatedObjectives = [
+            relatedSections = [
                 { id: '0', isSelected: ko.observable(true) },
                 { id: '1', isSelected: ko.observable(false) },
                 { id: '2', isSelected: ko.observable(true) }
             ];
 
-            viewModel.connectedObjectives(relatedObjectives);
-            updateObjectiveOrderDefer = Q.defer();
-            spyOn(repository, 'updateObjectiveOrder').and.returnValue(updateObjectiveOrderDefer.promise);
+            viewModel.connectedSections(relatedSections);
+            updateSectionOrderDefer = Q.defer();
+            spyOn(repository, 'updateSectionOrder').and.returnValue(updateSectionOrderDefer.promise);
         });
 
         it('should be function', function () {
-            expect(viewModel.reorderObjectives).toBeFunction();
+            expect(viewModel.reorderSections).toBeFunction();
         });
 
         it('should send event \'Change order of learning objectives\'', function () {
-            viewModel.reorderObjectives();
+            viewModel.reorderSections();
             expect(eventTracker.publish).toHaveBeenCalledWith('Change order of learning objectives');
         });
 
-        it('should set isReorderingObjectives to false', function () {
-            viewModel.isReorderingObjectives(true);
-            viewModel.reorderObjectives();
-            expect(viewModel.isReorderingObjectives()).toBeFalsy();
+        it('should set isReorderingSections to false', function () {
+            viewModel.isReorderingSections(true);
+            viewModel.reorderSections();
+            expect(viewModel.isReorderingSections()).toBeFalsy();
         });
 
-        it('should call repository \"updateObjectiveOrder\" method', function () {
-            viewModel.reorderObjectives();
-            expect(repository.updateObjectiveOrder).toHaveBeenCalledWith(viewModel.id, relatedObjectives);
+        it('should call repository \"updateSectionOrder\" method', function () {
+            viewModel.reorderSections();
+            expect(repository.updateSectionOrder).toHaveBeenCalledWith(viewModel.id, relatedSections);
         });
 
-        describe('when ObjectivesSortedList is updated', function () {
+        describe('when SectionsSortedList is updated', function () {
 
             it('should show notify saved message', function (done) {
-                viewModel.reorderObjectives();
-                updateObjectiveOrderDefer.resolve();
+                viewModel.reorderSections();
+                updateSectionOrderDefer.resolve();
 
-                updateObjectiveOrderDefer.promise.finally(function () {
+                updateSectionOrderDefer.promise.finally(function () {
                     expect(notify.saved).toHaveBeenCalled();
                     done();
                 });
@@ -906,26 +906,26 @@ describe('viewModel [course]', function () {
             expect(viewModel.isSortingEnabled).toBeObservable();
         });
 
-        describe('when connectedObjectives length not equal 1', function () {
+        describe('when connectedSections length not equal 1', function () {
 
             it('should return true', function () {
-                var objectivesList = [
+                var sectionsList = [
                     { isSelected: ko.observable(false) },
                     { isSelected: ko.observable(false) }
                 ];
-                viewModel.connectedObjectives(objectivesList);
+                viewModel.connectedSections(sectionsList);
                 expect(viewModel.isSortingEnabled()).toBeTruthy();
             });
 
         });
 
-        describe('when connectedObjectives length equal 1', function () {
+        describe('when connectedSections length equal 1', function () {
 
             it('should return false', function () {
-                var objectivesList = [
+                var sectionsList = [
                     { isSelected: ko.observable(false) }
                 ];
-                viewModel.connectedObjectives(objectivesList);
+                viewModel.connectedSections(sectionsList);
                 expect(viewModel.isSortingEnabled()).toBeFalsy();
             });
 
@@ -933,82 +933,82 @@ describe('viewModel [course]', function () {
 
     });
 
-    describe('isReorderingObjectives:', function () {
+    describe('isReorderingSections:', function () {
         it('should be observable', function () {
-            expect(viewModel.isReorderingObjectives).toBeObservable();
+            expect(viewModel.isReorderingSections).toBeObservable();
         });
     });
 
-    describe('disconnectObjective:', function () {
+    describe('disconnectSection:', function () {
 
         beforeEach(function () {
             viewModel.id = 'courseId';
         });
 
         it('should be function', function () {
-            expect(viewModel.disconnectObjective).toBeFunction();
+            expect(viewModel.disconnectSection).toBeFunction();
         });
 
-        describe('when objective is not related to course', function () {
+        describe('when section is not related to course', function () {
 
-            var objective;
+            var section;
 
             beforeEach(function () {
-                objective = {
+                section = {
                     title: 'abc'
                 };
-                viewModel.availableObjectives.push(objective);
-                spyOn(repository, 'unrelateObjectives');
+                viewModel.availableSections.push(section);
+                spyOn(repository, 'unrelateSections');
             });
 
             it('should not send event \'Unrelate objectives from course\'', function () {
-                viewModel.disconnectObjective({ item: objective });
+                viewModel.disconnectSection({ item: section });
                 expect(eventTracker.publish).not.toHaveBeenCalledWith('Unrelate objectives from course');
             });
 
-            it('should not call updateObjectiveOrder repository function with selected objectives', function () {
-                viewModel.disconnectObjective({ item: objective });
-                expect(repository.unrelateObjectives).not.toHaveBeenCalled();
+            it('should not call updateSectionOrder repository function with selected sections', function () {
+                viewModel.disconnectSection({ item: section });
+                expect(repository.unrelateSections).not.toHaveBeenCalled();
             });
 
         });
 
-        describe('when objective is related to course', function () {
+        describe('when section is related to course', function () {
 
-            var unrelateObjectives,
-                objective;
+            var unrelateSections,
+                section;
 
             beforeEach(function () {
-                objective = {
+                section = {
                     id: '0', isSelected: ko.observable(false)
                 };
 
-                viewModel.connectedObjectives.push(objective);
-                unrelateObjectives = Q.defer();
+                viewModel.connectedSections.push(section);
+                unrelateSections = Q.defer();
 
-                spyOn(repository, 'unrelateObjectives').and.returnValue(unrelateObjectives.promise);
+                spyOn(repository, 'unrelateSections').and.returnValue(unrelateSections.promise);
             });
 
             it('should send event \'Unrelate objectives from course\'', function () {
-                viewModel.disconnectObjective({ item: objective });
+                viewModel.disconnectSection({ item: section });
                 expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from course');
             });
 
-            it('should call repository \"unrelateObjectives\" method', function () {
-                viewModel.disconnectObjective({ item: objective });
-                expect(repository.unrelateObjectives).toHaveBeenCalledWith('courseId', [objective]);
+            it('should call repository \"unrelateSections\" method', function () {
+                viewModel.disconnectSection({ item: section });
+                expect(repository.unrelateSections).toHaveBeenCalledWith('courseId', [section]);
             });
 
-            describe('and unrelate objective succeed', function () {
+            describe('and unrelate section succeed', function () {
 
                 beforeEach(function () {
-                    unrelateObjectives.resolve(new Date());
+                    unrelateSections.resolve(new Date());
                 });
 
                 it('should call \'notify.info\' function', function (done) {
-                    viewModel.disconnectObjective({ item: objective });
+                    viewModel.disconnectSection({ item: section });
 
-                    unrelateObjectives.promise.finally(function () {
+                    unrelateSections.promise.finally(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
                     });
@@ -1020,131 +1020,131 @@ describe('viewModel [course]', function () {
 
     });
 
-    describe('objectiveDisconnected:', function () {
+    describe('sectionDisconnected:', function () {
 
-        var objectiveId = 'id',
-            objective = { id: objectiveId, isSelected: ko.observable(false) };
+        var sectionId = 'id',
+            section = { id: sectionId, isSelected: ko.observable(false) };
 
         it('should be function', function () {
-            expect(viewModel.objectiveDisconnected).toBeFunction();
+            expect(viewModel.sectionDisconnected).toBeFunction();
         });
 
-        describe('when objective is created by current user', function () {
+        describe('when section is created by current user', function () {
             beforeEach(function () {
-                objective.createdBy = identity.email;
-                viewModel.availableObjectives([objective]);
+                section.createdBy = identity.email;
+                viewModel.availableSections([section]);
             });
 
-            it('should not delete objective from available objectives list', function () {
-                viewModel.objectiveDisconnected({ item: objective });
-                expect(viewModel.availableObjectives().length).toBe(1);
+            it('should not delete section from available sections list', function () {
+                viewModel.sectionDisconnected({ item: section });
+                expect(viewModel.availableSections().length).toBe(1);
             });
         });
 
-        describe('when objective is created by current user', function () {
+        describe('when section is created by current user', function () {
             beforeEach(function () {
-                objective.createdBy = 'anonymous@user.com';
-                viewModel.availableObjectives([objective]);
+                section.createdBy = 'anonymous@user.com';
+                viewModel.availableSections([section]);
             });
 
-            it('should delete objective from available objectives list', function () {
-                viewModel.objectiveDisconnected({ item: objective });
-                expect(viewModel.availableObjectives().length).toBe(0);
+            it('should delete section from available sections list', function () {
+                viewModel.sectionDisconnected({ item: section });
+                expect(viewModel.availableSections().length).toBe(0);
             });
         });
     });
 
-    describe('connectObjective:', function () {
+    describe('connectSection:', function () {
 
-        var relateObjectiveDefer;
+        var relateSectionDefer;
 
         beforeEach(function () {
-            relateObjectiveDefer = Q.defer();
+            relateSectionDefer = Q.defer();
 
-            spyOn(repository, 'relateObjective').and.returnValue(relateObjectiveDefer.promise);
+            spyOn(repository, 'relateSection').and.returnValue(relateSectionDefer.promise);
         });
 
-        var objective = {
+        var section = {
             id: "id1",
-            title: ko.observable('objective1'),
+            title: ko.observable('section1'),
             modifiedOn: ko.observable('date'),
             isSelected: ko.observable(false)
         };
 
         it('should be function', function () {
-            expect(viewModel.connectObjective).toBeFunction();
+            expect(viewModel.connectSection).toBeFunction();
         });
 
         it('should send event \'Connect selected objectives to course\'', function () {
-            viewModel.connectObjective({ item: objective });
+            viewModel.connectSection({ item: section });
             expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to course');
         });
 
-        describe('when objective already exists in connected objectives', function () {
+        describe('when section already exists in connected sections', function () {
 
-            var orderObjectiveDefer, objective1, objective2;
+            var orderSectionDefer, section1, section2;
 
             beforeEach(function () {
-                objective1 = {
+                section1 = {
                     id: '0',
                     isSelected: function () { }
                 };
-                objective2 = {
+                section2 = {
                     id: '1',
                     isSelected: function () { }
                 };
-                viewModel.connectedObjectives([]);
-                viewModel.connectedObjectives.push(objective1);
-                viewModel.connectedObjectives.push(objective2);
-                orderObjectiveDefer = Q.defer();
-                spyOn(repository, 'updateObjectiveOrder').and.returnValue(orderObjectiveDefer.promise);
+                viewModel.connectedSections([]);
+                viewModel.connectedSections.push(section1);
+                viewModel.connectedSections.push(section2);
+                orderSectionDefer = Q.defer();
+                spyOn(repository, 'updateSectionOrder').and.returnValue(orderSectionDefer.promise);
             });
 
             it('should send event \'Change order of learning objectives\'', function () {
-                viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
+                viewModel.connectSection({ item: section1, targetIndex: 1, sourceIndex: 0 });
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change order of learning objectives');
             });
 
-            it('should call updateObjectiveOrder repository function with selected objectives', function () {
-                viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
-                expect(repository.updateObjectiveOrder).toHaveBeenCalledWith(viewModel.id, [{ id: '1' }, { id: '0' }]);
+            it('should call updateSectionOrder repository function with selected sections', function () {
+                viewModel.connectSection({ item: section1, targetIndex: 1, sourceIndex: 0 });
+                expect(repository.updateSectionOrder).toHaveBeenCalledWith(viewModel.id, [{ id: '1' }, { id: '0' }]);
             });
 
             it('should not send event \'Connect selected objectives to course\'', function () {
-                viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
+                viewModel.connectSection({ item: section1, targetIndex: 1, sourceIndex: 0 });
                 expect(eventTracker.publish).not.toHaveBeenCalledWith('Connect selected objectives to course');
             });
 
-            it('should not call updateObjectiveOrder repository function with selected objectives', function () {
-                viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
-                expect(repository.relateObjective).not.toHaveBeenCalled();
+            it('should not call updateSectionOrder repository function with selected sections', function () {
+                viewModel.connectSection({ item: section1, targetIndex: 1, sourceIndex: 0 });
+                expect(repository.relateSection).not.toHaveBeenCalled();
             });
 
         });
 
-        describe('when objective not exists in connected objectives', function () {
+        describe('when section not exists in connected sections', function () {
 
             beforeEach(function () {
-                viewModel.connectedObjectives([]);
+                viewModel.connectedSections([]);
             });
 
-            it('should call relateObjectives repository function with selected objectives', function () {
-                viewModel.connectObjective({ item: objective, targetIndex: 5 });
+            it('should call relateSections repository function with selected sections', function () {
+                viewModel.connectSection({ item: section, targetIndex: 5 });
 
-                expect(repository.relateObjective).toHaveBeenCalled();
+                expect(repository.relateSection).toHaveBeenCalled();
 
-                expect(repository.relateObjective.calls.mostRecent().args[0]).toEqual(viewModel.id);
-                expect(repository.relateObjective.calls.mostRecent().args[1]).toEqual(objective.id);
-                expect(repository.relateObjective.calls.mostRecent().args[2]).toEqual(5);
+                expect(repository.relateSection.calls.mostRecent().args[0]).toEqual(viewModel.id);
+                expect(repository.relateSection.calls.mostRecent().args[1]).toEqual(section.id);
+                expect(repository.relateSection.calls.mostRecent().args[2]).toEqual(5);
             });
 
-            describe('and objectives were connected successfully', function () {
+            describe('and sections were connected successfully', function () {
 
                 it('should call \'notify.info\' function', function (done) {
-                    relateObjectiveDefer.resolve({ modifiedOn: new Date() });
-                    viewModel.connectObjective({ item: objective, targetIndex: 5 });
+                    relateSectionDefer.resolve({ modifiedOn: new Date() });
+                    viewModel.connectSection({ item: section, targetIndex: 5 });
 
-                    relateObjectiveDefer.promise.fin(function () {
+                    relateSectionDefer.promise.fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
                     });
@@ -1232,83 +1232,83 @@ describe('viewModel [course]', function () {
         });
     });
 
-    describe('objectivesReordered:', function () {
-        var objectiveId1 = 'obj1',
-            objectiveId2 = 'obj2',
-            vmObjective1 = { id: objectiveId1, isSelected: ko.observable(false) },
-            vmObjective2 = { id: objectiveId2, isSelected: ko.observable(false) },
+    describe('sectionsReordered:', function () {
+        var sectionId1 = 'obj1',
+            sectionId2 = 'obj2',
+            vmSection1 = { id: sectionId1, isSelected: ko.observable(false) },
+            vmSection2 = { id: sectionId2, isSelected: ko.observable(false) },
             courseData = {
                 id: 'courseId',
-                objectives: [{ id: objectiveId1 }, { id: objectiveId2 }]
+                sections: [{ id: sectionId1 }, { id: sectionId2 }]
             };
 
         it('should be function', function () {
-            expect(viewModel.objectivesReordered).toBeFunction();
+            expect(viewModel.sectionsReordered).toBeFunction();
         });
 
         describe('when course is current course', function () {
 
-            describe('when objectives are reordering', function () {
+            describe('when sections are reordering', function () {
                 beforeEach(function () {
-                    viewModel.isReorderingObjectives(true);
+                    viewModel.isReorderingSections(true);
                 });
 
-                it('should not reorder objectives', function () {
+                it('should not reorder sections', function () {
                     viewModel.id = 'qwe';
-                    viewModel.connectedObjectives([vmObjective2, vmObjective1]);
+                    viewModel.connectedSections([vmSection2, vmSection1]);
 
-                    viewModel.objectivesReordered(courseData);
+                    viewModel.sectionsReordered(courseData);
 
-                    expect(viewModel.connectedObjectives()[0].id).toBe(objectiveId2);
-                    expect(viewModel.connectedObjectives()[1].id).toBe(objectiveId1);
+                    expect(viewModel.connectedSections()[0].id).toBe(sectionId2);
+                    expect(viewModel.connectedSections()[1].id).toBe(sectionId1);
                 });
             });
 
-            describe('when objectives are not reordering', function () {
+            describe('when sections are not reordering', function () {
                 beforeEach(function () {
-                    viewModel.isReorderingObjectives(false);
+                    viewModel.isReorderingSections(false);
                 });
 
-                it('should reorder objectives', function () {
+                it('should reorder sections', function () {
                     viewModel.id = courseData.id;
-                    viewModel.connectedObjectives([vmObjective2, vmObjective1]);
+                    viewModel.connectedSections([vmSection2, vmSection1]);
 
-                    viewModel.objectivesReordered(courseData);
+                    viewModel.sectionsReordered(courseData);
 
-                    expect(viewModel.connectedObjectives()[0].id).toBe(objectiveId1);
-                    expect(viewModel.connectedObjectives()[1].id).toBe(objectiveId2);
+                    expect(viewModel.connectedSections()[0].id).toBe(sectionId1);
+                    expect(viewModel.connectedSections()[1].id).toBe(sectionId2);
                 });
             });
         });
 
         describe('when course is not current course', function () {
-            it('should not reorder objectives', function () {
+            it('should not reorder sections', function () {
                 viewModel.id = 'qwe';
-                viewModel.connectedObjectives([vmObjective2, vmObjective1]);
+                viewModel.connectedSections([vmSection2, vmSection1]);
 
-                viewModel.objectivesReordered(courseData);
+                viewModel.sectionsReordered(courseData);
 
-                expect(viewModel.connectedObjectives()[0].id).toBe(objectiveId2);
-                expect(viewModel.connectedObjectives()[1].id).toBe(objectiveId1);
+                expect(viewModel.connectedSections()[0].id).toBe(sectionId2);
+                expect(viewModel.connectedSections()[1].id).toBe(sectionId1);
             });
         });
     });
 
-    describe('startReorderingObjectives:', function () {
+    describe('startReorderingSections:', function () {
 
         it('should be function', function () {
-            expect(viewModel.startReorderingObjectives).toBeFunction();
+            expect(viewModel.startReorderingSections).toBeFunction();
         });
 
-        it('should set isReorderingObjectives to true', function () {
-            viewModel.isReorderingObjectives(false);
-            viewModel.startReorderingObjectives();
-            expect(viewModel.isReorderingObjectives()).toBeTruthy();
+        it('should set isReorderingSections to true', function () {
+            viewModel.isReorderingSections(false);
+            viewModel.startReorderingSections();
+            expect(viewModel.isReorderingSections()).toBeTruthy();
         });
 
     });
 
-    describe('endReorderingObjectives:', function () {
+    describe('endReorderingSections:', function () {
 
         var getById;
 
@@ -1318,16 +1318,16 @@ describe('viewModel [course]', function () {
         });
 
         it('should be function', function () {
-            expect(viewModel.endReorderingObjectives).toBeFunction();
+            expect(viewModel.endReorderingSections).toBeFunction();
         });
 
-        describe('when reordering objectives has been finished', function () {
+        describe('when reordering sections has been finished', function () {
             beforeEach(function () {
-                viewModel.isReorderingObjectives(false);
+                viewModel.isReorderingSections(false);
             });
 
             it('should resolve promise', function (done) {
-                var promise = viewModel.endReorderingObjectives();
+                var promise = viewModel.endReorderingSections();
 
                 promise.fin(function () {
                     expect(promise).toBeResolved();
@@ -1336,14 +1336,14 @@ describe('viewModel [course]', function () {
             });
         });
 
-        describe('when objectives have not been reordered by collaborator', function () {
+        describe('when sections have not been reordered by collaborator', function () {
             beforeEach(function () {
-                viewModel.isReorderingObjectives(true);
-                viewModel.isObjectivesListReorderedByCollaborator(false);
+                viewModel.isReorderingSections(true);
+                viewModel.isSectionsListReorderedByCollaborator(false);
             });
 
             it('should resolve promise', function (done) {
-                var promise = viewModel.endReorderingObjectives();
+                var promise = viewModel.endReorderingSections();
 
                 promise.fin(function () {
                     expect(promise).toBeResolved();
@@ -1351,61 +1351,61 @@ describe('viewModel [course]', function () {
                 });
             });
 
-            it('should set isReorderingObjectives to false', function (done) {
-                viewModel.isReorderingObjectives(true);
-                var promise = viewModel.endReorderingObjectives();
+            it('should set isReorderingSections to false', function (done) {
+                viewModel.isReorderingSections(true);
+                var promise = viewModel.endReorderingSections();
 
                 promise.fin(function () {
-                    expect(viewModel.isReorderingObjectives()).toBeFalsy();
+                    expect(viewModel.isReorderingSections()).toBeFalsy();
                     done();
                 });
             });
         });
 
-        describe('when objectives have been reordered by collaborator', function () {
-            var objectiveId1 = 'obj1',
-            objectiveId2 = 'obj2',
-            vmObjective1 = { id: objectiveId1, isSelected: ko.observable(false) },
-            vmObjective2 = { id: objectiveId2, isSelected: ko.observable(false) },
+        describe('when sections have been reordered by collaborator', function () {
+            var sectionId1 = 'obj1',
+            sectionId2 = 'obj2',
+            vmSection1 = { id: sectionId1, isSelected: ko.observable(false) },
+            vmSection2 = { id: sectionId2, isSelected: ko.observable(false) },
             course = {
                 id: 'courseId',
-                objectives: [{ id: objectiveId1 }, { id: objectiveId2 }]
+                sections: [{ id: sectionId1 }, { id: sectionId2 }]
             };
 
             beforeEach(function () {
-                viewModel.isReorderingObjectives(true);
-                viewModel.isObjectivesListReorderedByCollaborator(true);
+                viewModel.isReorderingSections(true);
+                viewModel.isSectionsListReorderedByCollaborator(true);
                 getById.resolve(course);
             });
 
-            it('should set isReorderingObjectives to false', function (done) {
-                viewModel.isReorderingObjectives(true);
-                var promise = viewModel.endReorderingObjectives();
+            it('should set isReorderingSections to false', function (done) {
+                viewModel.isReorderingSections(true);
+                var promise = viewModel.endReorderingSections();
 
                 promise.fin(function () {
-                    expect(viewModel.isReorderingObjectives()).toBeFalsy();
+                    expect(viewModel.isReorderingSections()).toBeFalsy();
                     done();
                 });
             });
 
-            it('should set isObjectivesListReorderedByCollaborator to false', function (done) {
-                viewModel.isReorderingObjectives(true);
-                var promise = viewModel.endReorderingObjectives();
+            it('should set isSectionsListReorderedByCollaborator to false', function (done) {
+                viewModel.isReorderingSections(true);
+                var promise = viewModel.endReorderingSections();
 
                 promise.fin(function () {
-                    expect(viewModel.isObjectivesListReorderedByCollaborator()).toBeFalsy();
+                    expect(viewModel.isSectionsListReorderedByCollaborator()).toBeFalsy();
                     done();
                 });
             });
 
-            it('should reorder objectives', function (done) {
-                viewModel.connectedObjectives([vmObjective2, vmObjective1]);
+            it('should reorder sections', function (done) {
+                viewModel.connectedSections([vmSection2, vmSection1]);
 
-                var promise = viewModel.endReorderingObjectives();
+                var promise = viewModel.endReorderingSections();
 
                 promise.fin(function () {
-                    expect(viewModel.connectedObjectives()[0].id).toBe(objectiveId1);
-                    expect(viewModel.connectedObjectives()[1].id).toBe(objectiveId2);
+                    expect(viewModel.connectedSections()[0].id).toBe(sectionId1);
+                    expect(viewModel.connectedSections()[1].id).toBe(sectionId2);
                     done();
                 });
             });
@@ -1413,238 +1413,238 @@ describe('viewModel [course]', function () {
 
     });
 
-    describe('objectiveTitleUpdated:', function () {
+    describe('sectionTitleUpdated:', function () {
 
-        var objectiveId = "objectiveId";
-        var vmObjective = {
-            id: objectiveId,
+        var sectionId = "sectionId";
+        var vmSection = {
+            id: sectionId,
             title: ko.observable(""),
             isSelected: ko.observable(false),
             modifiedOn: ko.observable("")
         };
-        var objective = {
-            id: objectiveId,
+        var section = {
+            id: sectionId,
             title: "new title",
             modifiedOn: new Date()
         };
 
         it('should be function', function () {
-            expect(viewModel.objectiveTitleUpdated).toBeFunction();
+            expect(viewModel.sectionTitleUpdated).toBeFunction();
         });
 
-        it('should update objective title', function () {
-            viewModel.connectedObjectives([vmObjective]);
-            viewModel.objectiveTitleUpdated(objective);
+        it('should update section title', function () {
+            viewModel.connectedSections([vmSection]);
+            viewModel.sectionTitleUpdated(section);
 
-            expect(vmObjective.title()).toBe(objective.title);
+            expect(vmSection.title()).toBe(section.title);
         });
 
         it('should update course modified on date', function () {
-            viewModel.connectedObjectives([vmObjective]);
-            viewModel.objectiveTitleUpdated(objective);
+            viewModel.connectedSections([vmSection]);
+            viewModel.sectionTitleUpdated(section);
 
-            expect(vmObjective.modifiedOn().toISOString()).toBe(objective.modifiedOn.toISOString());
+            expect(vmSection.modifiedOn().toISOString()).toBe(section.modifiedOn.toISOString());
         });
 
     });
 
-    describe('objectiveImageUpdated:', function () {
+    describe('sectionImageUpdated:', function () {
 
-        var objectiveId = "objectiveId";
-        var vmObjective = {
-            id: objectiveId,
+        var sectionId = "sectionId";
+        var vmSection = {
+            id: sectionId,
             title: ko.observable(""),
             imageUrl: ko.observable(""),
             isSelected: ko.observable(false),
             modifiedOn: ko.observable("")
         };
-        var objective = {
-            id: objectiveId,
+        var section = {
+            id: sectionId,
             title: "new title",
             image: 'new/image/url',
             modifiedOn: new Date()
         };
 
         it('should be function', function () {
-            expect(viewModel.objectiveImageUpdated).toBeFunction();
+            expect(viewModel.sectionImageUpdated).toBeFunction();
         });
 
-        it('should update objective imageUrl', function () {
-            viewModel.connectedObjectives([vmObjective]);
-            viewModel.objectiveImageUpdated(objective);
+        it('should update section imageUrl', function () {
+            viewModel.connectedSections([vmSection]);
+            viewModel.sectionImageUpdated(section);
 
-            expect(vmObjective.imageUrl()).toBe(objective.image);
+            expect(vmSection.imageUrl()).toBe(section.image);
         });
 
         it('should update course modified on date', function () {
-            viewModel.connectedObjectives([vmObjective]);
-            viewModel.objectiveImageUpdated(objective);
+            viewModel.connectedSections([vmSection]);
+            viewModel.sectionImageUpdated(section);
 
-            expect(vmObjective.modifiedOn().toISOString()).toBe(objective.modifiedOn.toISOString());
+            expect(vmSection.modifiedOn().toISOString()).toBe(section.modifiedOn.toISOString());
         });
 
     });
 
-    describe('objectiveUpdated:', function () {
+    describe('sectionUpdated:', function () {
 
-        var objectiveId = "objectiveId";
-        var vmObjective = {
-            id: objectiveId,
+        var sectionId = "sectionId";
+        var vmSection = {
+            id: sectionId,
             title: ko.observable(""),
             isSelected: ko.observable(false),
             modifiedOn: ko.observable("")
         };
-        var objective = {
-            id: objectiveId,
+        var section = {
+            id: sectionId,
             modifiedOn: new Date()
         };
 
         it('should be function', function () {
-            expect(viewModel.objectiveUpdated).toBeFunction();
+            expect(viewModel.sectionUpdated).toBeFunction();
         });
 
         it('should update course modified on date', function () {
-            viewModel.connectedObjectives([vmObjective]);
-            viewModel.objectiveUpdated(objective);
+            viewModel.connectedSections([vmSection]);
+            viewModel.sectionUpdated(section);
 
-            expect(vmObjective.modifiedOn().toISOString()).toBe(objective.modifiedOn.toISOString());
+            expect(vmSection.modifiedOn().toISOString()).toBe(section.modifiedOn.toISOString());
         });
     });
 
-    describe('objectiveConnected:', function () {
+    describe('sectionConnected:', function () {
         var courseId = 'courseId',
-            objectiveId = 'objectiveId',
-            connectedObjectiveId = 'obj1',
-             vmObjective = {
-                 id: connectedObjectiveId,
+            sectionId = 'sectionId',
+            connectedSectionId = 'obj1',
+             vmSection = {
+                 id: connectedSectionId,
                  title: ko.observable(""),
                  isSelected: ko.observable(false),
                  modifiedOn: ko.observable("")
              },
-            objective = { id: objectiveId };
+            section = { id: sectionId };
 
         beforeEach(function () {
             viewModel.id = courseId;
         });
 
         it('should be function', function () {
-            expect(viewModel.objectiveConnected).toBeFunction();
+            expect(viewModel.sectionConnected).toBeFunction();
         });
 
         describe('when course is not current course', function () {
-            it('should not add objective', function () {
+            it('should not add section', function () {
                 viewModel.id = 'id';
-                viewModel.connectedObjectives([]);
+                viewModel.connectedSections([]);
 
-                viewModel.objectiveConnected(courseId, objective, 0);
-                expect(viewModel.connectedObjectives().length).toBe(0);
+                viewModel.sectionConnected(courseId, section, 0);
+                expect(viewModel.connectedSections().length).toBe(0);
             });
         });
 
         describe('when target index is not defined', function () {
-            it('should push objective', function () {
-                viewModel.connectedObjectives([vmObjective]);
-                viewModel.objectiveConnected(courseId, objective, null);
-                expect(viewModel.connectedObjectives()[1].id).toBe(objectiveId);
+            it('should push section', function () {
+                viewModel.connectedSections([vmSection]);
+                viewModel.sectionConnected(courseId, section, null);
+                expect(viewModel.connectedSections()[1].id).toBe(sectionId);
             });
         });
 
         describe('when target index is defined', function () {
-            it('should insert objective', function () {
-                viewModel.connectedObjectives([vmObjective]);
-                viewModel.objectiveConnected(courseId, objective, 0);
-                expect(viewModel.connectedObjectives()[0].id).toBe(objectiveId);
+            it('should insert section', function () {
+                viewModel.connectedSections([vmSection]);
+                viewModel.sectionConnected(courseId, section, 0);
+                expect(viewModel.connectedSections()[0].id).toBe(sectionId);
             });
         });
 
-        it('should remove connected objective from available objectives list', function () {
-            viewModel.availableObjectives([vmObjective]);
-            viewModel.objectiveConnected(courseId, vmObjective, 0);
-            expect(viewModel.availableObjectives().length).toBe(0);
+        it('should remove connected section from available sections list', function () {
+            viewModel.availableSections([vmSection]);
+            viewModel.sectionConnected(courseId, vmSection, 0);
+            expect(viewModel.availableSections().length).toBe(0);
         });
     });
 
-    describe('objectivesDisconnected:', function () {
+    describe('sectionsDisconnected:', function () {
         var courseId = 'courseId',
-         connectedObjectiveId = 'obj1',
-          vmObjective = {
-              id: connectedObjectiveId,
+         connectedSectionId = 'obj1',
+          vmSection = {
+              id: connectedSectionId,
               title: ko.observable(""),
               isSelected: ko.observable(false),
               modifiedOn: ko.observable("")
           },
-         getObjectivesDefer;
+         getSectionsDefer;
 
         beforeEach(function () {
-            getObjectivesDefer = Q.defer();
+            getSectionsDefer = Q.defer();
 
-            spyOn(objectiveRepository, 'getCollection').and.returnValue(getObjectivesDefer.promise);
+            spyOn(sectionRepository, 'getCollection').and.returnValue(getSectionsDefer.promise);
 
             viewModel.id = courseId;
         });
 
         it('should be function', function () {
-            expect(viewModel.objectivesDisconnected).toBeFunction();
+            expect(viewModel.sectionsDisconnected).toBeFunction();
         });
 
         describe('when course is not current course', function () {
-            it('should not disconnect objective', function () {
+            it('should not disconnect section', function () {
                 viewModel.id = 'id';
-                viewModel.connectedObjectives([vmObjective]);
+                viewModel.connectedSections([vmSection]);
 
-                viewModel.objectivesDisconnected(courseId, [vmObjective.id]);
-                expect(viewModel.connectedObjectives().length).toBe(1);
+                viewModel.sectionsDisconnected(courseId, [vmSection.id]);
+                expect(viewModel.connectedSections().length).toBe(1);
             });
         });
 
-        it('should disconnect objective', function () {
-            viewModel.connectedObjectives([vmObjective]);
-            viewModel.objectivesDisconnected(courseId, [vmObjective.id]);
-            expect(viewModel.connectedObjectives().length).toBe(0);
+        it('should disconnect section', function () {
+            viewModel.connectedSections([vmSection]);
+            viewModel.sectionsDisconnected(courseId, [vmSection.id]);
+            expect(viewModel.connectedSections().length).toBe(0);
         });
 
-        describe('when get objectives', function () {
+        describe('when get sections', function () {
             beforeEach(function () {
-                getObjectivesDefer.resolve([{ id: '0', title: 'B', createdBy: identity.email }, { id: '1', title: 'A', createdBy: identity.email }]);
+                getSectionsDefer.resolve([{ id: '0', title: 'B', createdBy: identity.email }, { id: '1', title: 'A', createdBy: identity.email }]);
             });
 
 
-            describe('and course does not have related objectives', function () {
+            describe('and course does not have related sections', function () {
 
-                it('should set owned objectives as available', function (done) {
-                    viewModel.connectedObjectives([]);
+                it('should set owned sections as available', function (done) {
+                    viewModel.connectedSections([]);
 
-                    viewModel.objectivesDisconnected(courseId, [vmObjective.id]);
+                    viewModel.sectionsDisconnected(courseId, [vmSection.id]);
 
-                    getObjectivesDefer.promise.fin(function () {
-                        expect(viewModel.availableObjectives().length).toBe(2);
+                    getSectionsDefer.promise.fin(function () {
+                        expect(viewModel.availableSections().length).toBe(2);
                         done();
                     });
                 });
 
             });
 
-            describe('and course has related objectives', function () {
+            describe('and course has related sections', function () {
 
-                it('should set not related objectives as available', function (done) {
-                    viewModel.connectedObjectives([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
+                it('should set not related sections as available', function (done) {
+                    viewModel.connectedSections([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
 
-                    viewModel.objectivesDisconnected(courseId, [vmObjective.id]);
+                    viewModel.sectionsDisconnected(courseId, [vmSection.id]);
 
-                    getObjectivesDefer.promise.fin(function () {
-                        expect(viewModel.availableObjectives().length).toBe(1);
-                        expect(viewModel.availableObjectives()[0].id).toBe('1');
+                    getSectionsDefer.promise.fin(function () {
+                        expect(viewModel.availableSections().length).toBe(1);
+                        expect(viewModel.availableSections()[0].id).toBe('1');
                         done();
                     });
                 });
 
             });
 
-            it('should sort available objectives by title', function (done) {
-                viewModel.objectivesDisconnected(courseId, [vmObjective.id]);
+            it('should sort available sections by title', function (done) {
+                viewModel.sectionsDisconnected(courseId, [vmSection.id]);
 
-                getObjectivesDefer.promise.fin(function () {
-                    expect(viewModel.availableObjectives()).toBeSortedAsc('title');
+                getSectionsDefer.promise.fin(function () {
+                    expect(viewModel.availableSections()).toBeSortedAsc('title');
                     done();
                 });
             });

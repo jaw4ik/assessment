@@ -6,7 +6,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     {
         private const string UserEmail = "username@easygenerator.com";
         private const bool CourseCreated = false;
-        private const bool ObjectiveDefined = false;
+        private const bool SectionDefined = false;
         private const bool ContentCreated = false;
         private const int QuestionsCount = 0;
         private const bool Published = false;
@@ -27,9 +27,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(contentCreated: contentCreated);
         }
 
-        public static Onboarding CreateWithObjectiveDefined(bool objectiveDefined)
+        public static Onboarding CreateWithSectionDefined(bool sectionDefined)
         {
-            return Create(objectiveDefined: objectiveDefined);
+            return Create(sectionDefined: sectionDefined);
         }
 
         public static Onboarding CreateWithCourseCreated(bool courseCreated)
@@ -47,10 +47,10 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(userEmail: userEmail);
         }
 
-        public static Onboarding Create(bool courseCreated = CourseCreated, bool objectiveDefined = ObjectiveDefined, bool contentCreated = ContentCreated,
+        public static Onboarding Create(bool courseCreated = CourseCreated, bool sectionDefined = SectionDefined, bool contentCreated = ContentCreated,
             int questionsCount = QuestionsCount, bool published = Published, bool isClosed = IsClosed, string userEmail = UserEmail)
         {
-            return new Onboarding(courseCreated, objectiveDefined, contentCreated, questionsCount, published, isClosed, userEmail);
+            return new Onboarding(courseCreated, sectionDefined, contentCreated, questionsCount, published, isClosed, userEmail);
         }
     }
 }

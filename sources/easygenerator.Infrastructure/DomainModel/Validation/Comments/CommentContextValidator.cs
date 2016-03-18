@@ -35,8 +35,8 @@ namespace easygenerator.Infrastructure.DomainModel.Validation.Comments
                     case "informationContent":
                         commentType = typeof(InformationContentCommentContext);
                         break;
-                    case "objective":
-                        commentType = typeof(ObjectiveCommentContext);
+                    case "section":
+                        commentType = typeof(SectionCommentContext);
                         break;
                     default:
                         throw new ArgumentException("Context has unknown type", "context.type");

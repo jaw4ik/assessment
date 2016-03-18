@@ -1,7 +1,7 @@
-﻿import sectionRepository from 'repositories/objectiveRepository';
+﻿import sectionRepository from 'repositories/sectionRepository';
 
 export default class {
-    static async execute(objectiveId) {
-        await sectionRepository.permanentlyDelete(objectiveId);
+    static async execute(sectionId) {
+        await sectionRepository.permanentlyDelete(sectionId);
     }
 }

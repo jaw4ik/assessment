@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.SectionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;

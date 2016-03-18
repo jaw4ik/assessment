@@ -3,7 +3,7 @@ import router from 'plugins/router';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
 import questionRepository from 'repositories/questionRepository';
-import objectiveRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
@@ -35,9 +35,9 @@ describe('viewModel [question]', () => {
         expect(viewModel).toBeDefined();
     });
 
-    describe('objectiveId:', () => {
+    describe('sectionId:', () => {
         it('should be defined', () => {
-            expect(viewModel.objectiveId).toBeDefined();
+            expect(viewModel.sectionId).toBeDefined();
         });
     });
 
@@ -59,14 +59,14 @@ describe('viewModel [question]', () => {
         });
     });
 
-    describe('navigateToObjectiveEvent:', () => {
+    describe('navigateToSectionEvent:', () => {
 
         it('should be function', () => {
-            expect(viewModel.navigateToObjectiveEvent).toBeFunction();
+            expect(viewModel.navigateToSectionEvent).toBeFunction();
         });
 
         it('should send event \'Navigate to objective details\'', () => {
-            viewModel.navigateToObjectiveEvent();
+            viewModel.navigateToSectionEvent();
             expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
         });
 
@@ -115,7 +115,7 @@ describe('viewModel [question]', () => {
             });
         });
 
-        describe('when objectiveId is not pass', () => {
+        describe('when sectionId is not pass', () => {
             it('should throw exception', () => {
                 var f = () => { viewModel.canActivate('courseId'); }
                 expect(f).toThrow();
@@ -124,7 +124,7 @@ describe('viewModel [question]', () => {
 
         describe('when questionId is not pass', () => {
             it('should throw exception', () => {
-                var f = () => { viewModel.canActivate('courseId', 'objectiveId'); }
+                var f = () => { viewModel.canActivate('courseId', 'sectionId'); }
                 expect(f).toThrow();
             });
         });
@@ -133,11 +133,11 @@ describe('viewModel [question]', () => {
             beforeEach(() => {
                 spyOn(courseRepository, 'getById').and.returnValue(Promise.reject());
                 spyOn(questionRepository, 'getById').and.returnValue(Promise.reject());
-                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.reject());
+                spyOn(sectionRepository, 'getById').and.returnValue(Promise.reject());
             });
 
             it('should redirect to 404', (done) => {
-                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                viewModel.canActivate('courseId', 'sectionId', 'questionId').then((result) => {
                     expect(result).toEqual({ redirect: '404' });
                     done();
                 });
@@ -145,15 +145,15 @@ describe('viewModel [question]', () => {
 
         });
 
-        describe('when objective does not exist', () => {
+        describe('when section does not exist', () => {
             beforeEach(() => {
                 spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve({}));
-                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.reject({}));
+                spyOn(sectionRepository, 'getById').and.returnValue(Promise.reject({}));
                 spyOn(questionRepository, 'getById').and.returnValue(Promise.reject());
             });
 
             it('should redirect to 404', (done) => {
-                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                viewModel.canActivate('courseId', 'sectionId', 'questionId').then((result) => {
                     expect(result).toEqual({ redirect: '404' });
                     done();
                 });
@@ -164,12 +164,12 @@ describe('viewModel [question]', () => {
         describe('when question does not exist', () => {
             beforeEach(() => {
                 spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve({}));
-                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(sectionRepository, 'getById').and.returnValue(Promise.resolve({}));
                 spyOn(questionRepository, 'getById').and.returnValue(Promise.reject());
             });
 
             it('should redirect to 404', (done) => {
-                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                viewModel.canActivate('courseId', 'sectionId', 'questionId').then((result) => {
                     expect(result).toEqual({ redirect: '404' });
                     done();
                 });
@@ -181,12 +181,12 @@ describe('viewModel [question]', () => {
             
             beforeEach(() => {
                 spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve({}));
-                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(sectionRepository, 'getById').and.returnValue(Promise.resolve({}));
                 spyOn(questionRepository, 'getById').and.returnValue(Promise.resolve({}));
             });
 
             it('should return true', (done) => {
-                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                viewModel.canActivate('courseId', 'sectionId', 'questionId').then((result) => {
                     expect(result).toEqual(true);
                     done();
                 });
@@ -202,7 +202,7 @@ describe('viewModel [question]', () => {
         });
 
         it('should return promise', () => {
-            expect(viewModel.activate('courseId', 'objectiveId', 'questionId')).toBePromise();
+            expect(viewModel.activate('courseId', 'sectionId', 'questionId')).toBePromise();
         });
 
         describe('when activated without course id', () => {
@@ -213,7 +213,7 @@ describe('viewModel [question]', () => {
             });
         });
 
-        describe('when activated without objective id', () => {
+        describe('when activated without section id', () => {
             it('should reject promise', () => {
                 viewModel.activate('courseId').catch(reason => {
                     expect(reason).toBeDefined();
@@ -223,7 +223,7 @@ describe('viewModel [question]', () => {
 
         describe('when activated without question id', () => {
             it('should reject promise', () => {
-                viewModel.activate('courseId', 'objectiveId').catch(reason => {
+                viewModel.activate('courseId', 'sectionId').catch(reason => {
                     expect(reason).toBeDefined();
                 });
             });
@@ -231,19 +231,19 @@ describe('viewModel [question]', () => {
 
         it('should set courseId', (done) => (async () => {
             viewModel.courseId = null;
-            viewModel.activate('courseId', 'objectiveId', 'questionId');
+            viewModel.activate('courseId', 'sectionId', 'questionId');
             expect(viewModel.courseId).toEqual('courseId');
         })().then(done));
 
-        it('should set objectiveId', (done) => (async () => {
-            viewModel.objectiveId = null;
-            viewModel.activate('courseId', 'objectiveId', 'questionId');
-            expect(viewModel.objectiveId).toEqual('objectiveId');
+        it('should set sectionId', (done) => (async () => {
+            viewModel.sectionId = null;
+            viewModel.activate('courseId', 'sectionId', 'questionId');
+            expect(viewModel.sectionId).toEqual('sectionId');
         })().then(done));
 
         it('should set questionId', (done) => (async () => {
             viewModel.questionId = null;
-            viewModel.activate('courseId', 'objectiveId', 'questionId');
+            viewModel.activate('courseId', 'sectionId', 'questionId');
             expect(viewModel.questionId).toEqual('questionId');
         })().then(done));
 
@@ -256,7 +256,7 @@ describe('viewModel [question]', () => {
             });
 
             it('should reject promise', (done) =>  (async () => {
-                viewModel.activate('courseId', 'objectiveId', 'questionId').catch(reason => {
+                viewModel.activate('courseId', 'sectionId', 'questionId').catch(reason => {
                     expect(reason).toBe('reason');    
                 });
             })().then(done));
@@ -284,22 +284,22 @@ describe('viewModel [question]', () => {
 
             it('should set activeQuestionViewModel', (done) =>  (async () => {
                 viewModel.activeQuestionViewModel = null;
-                viewModel.activate('courseId', 'objectiveId', 'questionId');
+                viewModel.activate('courseId', 'sectionId', 'questionId');
                 await getQuestionPromise;
                 expect(viewModel.activeQuestionViewModel).not.toBeNull();
             })().then(done));
 
             it('should initialize activeQuestionViewModel', (done) =>  (async () => {
-                viewModel.activate('courseId', 'objectiveId', 'questionId');
+                viewModel.activate('courseId', 'sectionId', 'questionId');
                 await getQuestionPromise;
-                expect(multipleSelect.initialize).toHaveBeenCalledWith('objectiveId', question);
+                expect(multipleSelect.initialize).toHaveBeenCalledWith('sectionId', question);
             })().then(done));
 
             describe('and active question view model is initialized', () => {
 
                 it('should set viewCaption', (done) =>  (async () => {
                     viewModel.viewCaption = null;
-                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    viewModel.activate('courseId', 'sectionId', 'questionId');
                     await getQuestionPromise;
                     await initializeActiveQuestionPromise;
                     expect(viewModel.viewCaption).toBe(viewModelData.viewCaption);
@@ -307,21 +307,21 @@ describe('viewModel [question]', () => {
 
                 it('should set questionTitle', (done) =>  (async () => {
                     viewModel.questionTitle = null;
-                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    viewModel.activate('courseId', 'sectionId', 'questionId');
                     await getQuestionPromise;
                     await initializeActiveQuestionPromise;
                     expect(viewModel.questionTitle).not.toBeNull();
                 })().then(done));
 
                 it('should initialize learningContents', (done) =>  (async () => {
-                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    viewModel.activate('courseId', 'sectionId', 'questionId');
                     await getQuestionPromise;
                     await initializeActiveQuestionPromise;
                     expect(learningContents.initialize).toHaveBeenCalledWith(question);
                 })().then(done));
 
                 it('should initialize feedback', (done) =>  (async () => {
-                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    viewModel.activate('courseId', 'sectionId', 'questionId');
                     await getQuestionPromise;
                     await initializeActiveQuestionPromise;
                     await initializeLearningContentPromise;
@@ -339,11 +339,11 @@ describe('viewModel [question]', () => {
             expect(viewModel.back).toBeFunction();
         });
 
-        it('should redirect to objective within course', () => {
+        it('should redirect to section within course', () => {
             viewModel.courseId = 'courseId';
-            viewModel.objectiveId = 'objectiveId';
+            viewModel.sectionId = 'sectionId';
             viewModel.back();
-            expect(router.navigate).toHaveBeenCalledWith('#courses/courseId/objectives/objectiveId');
+            expect(router.navigate).toHaveBeenCalledWith('#courses/courseId/sections/sectionId');
         });
     });
 
@@ -354,7 +354,7 @@ describe('viewModel [question]', () => {
         });
 
         beforeEach(() => {
-            viewModel.questionTitle = vmQuestionTitle('objectiveId', question);
+            viewModel.questionTitle = vmQuestionTitle('sectionId', question);
         });
 
         describe('when question is not current question', () => {
@@ -449,10 +449,10 @@ describe('viewModel [question]', () => {
 
         it('should open move/copy question dialog', () => {
             viewModel.courseId = '1';
-            viewModel.objectiveId = '2';
+            viewModel.sectionId = '2';
             viewModel.questionId = '3';
             viewModel.showMoveCopyDialog();
-            expect(moveCopyDialog.show).toHaveBeenCalledWith(viewModel.courseId, viewModel.objectiveId, viewModel.questionId);
+            expect(moveCopyDialog.show).toHaveBeenCalledWith(viewModel.courseId, viewModel.sectionId, viewModel.questionId);
         });
 
     });
@@ -461,7 +461,7 @@ describe('viewModel [question]', () => {
         let duplicateQuestionPromise;
 
         beforeEach(() => {
-            viewModel.objectiveId = 'objectiveId';
+            viewModel.sectionId = 'sectionId';
             viewModel.questionId = 'questionId';
             duplicateQuestionPromise = Promise.resolve({ id: 'newQuestionId' });
             spyOn(questionRepository, 'copyQuestion').and.returnValue(duplicateQuestionPromise);
@@ -478,14 +478,14 @@ describe('viewModel [question]', () => {
 
         it('should send response to server', () => {
             viewModel.duplicateQuestion();
-            expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);
+            expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.sectionId);
         });
 
 
         it('should navigate to new question', (done) => (async () => {
             viewModel.duplicateQuestion();
             await duplicateQuestionPromise;
-            expect(router.navigate).toHaveBeenCalledWith(`courses/${viewModel.courseId}/objectives/${viewModel.objectiveId}/questions/newQuestionId`);
+            expect(router.navigate).toHaveBeenCalledWith(`courses/${viewModel.courseId}/sections/${viewModel.sectionId}/questions/newQuestionId`);
         })().then(done));
 
     });

@@ -2,9 +2,9 @@
     function (guard, app, constants, dataContext) {
         "use strict";
 
-        return function (courseId, deletedObjectiveIds) {
+        return function (courseId, deletedSectionIds) {
             guard.throwIfNotString(courseId, 'CourseId is not a string');
-            guard.throwIfNotArray(deletedObjectiveIds, 'DeletedObjectiveIds is not an array');
+            guard.throwIfNotArray(deletedSectionIds, 'DeletedSectionIds is not an array');
 
             var course = _.find(dataContext.courses, function (item) {
                 return item.id == courseId;
@@ -18,8 +18,8 @@
                 return item.id === courseId;
             });
 
-            dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
-                return _.contains(deletedObjectiveIds, objective.id);
+            dataContext.sections = _.reject(dataContext.sections, function (section) {
+                return _.contains(deletedSectionIds, section.id);
             });
 
             app.trigger(constants.messages.course.deletedByCollaborator, course.id);

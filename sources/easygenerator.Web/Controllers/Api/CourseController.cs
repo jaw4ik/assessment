@@ -33,7 +33,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _courseRepository;
-        private readonly IObjectiveRepository _objectiveRepository;
+        private readonly ISectionRepository _sectionRepository;
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly IPublisher _publisher;
@@ -45,13 +45,13 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICloner _cloner;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
-            IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher,
+            ISectionRepository sectionRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher,
             IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher,
             IUserRepository userRepository, ICloner cloner)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
-            _objectiveRepository = objectiveRepository;
+            _sectionRepository = sectionRepository;
             _entityFactory = entityFactory;
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
@@ -97,7 +97,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 course = _entityMapper.Map(duplicatedCourse),
-                objectives = duplicatedCourse.RelatedObjectives.Select(e => _entityMapper.Map(e))
+                sections = duplicatedCourse.RelatedSections.Select(e => _entityMapper.Map(e))
             });
         }
 
@@ -111,7 +111,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess();
             }
 
-            var deletedObjectiveIds = new List<string>();
+            var deletedSectionIds = new List<string>();
             var deletedFromLearningPathIds = new List<string>();
 
             if (course.LearningPaths.Any())
@@ -123,16 +123,16 @@ namespace easygenerator.Web.Controllers.Api
                 }
             }
 
-            foreach (var objective in course.RelatedObjectives)
+            foreach (var section in course.RelatedSections)
             {
-                if (objective.Courses.Count() == 1)
+                if (section.Courses.Count() == 1)
                 {
-                    deletedObjectiveIds.Add(objective.Id.ToNString());
-                    foreach (var question in objective.Questions)
+                    deletedSectionIds.Add(section.Id.ToNString());
+                    foreach (var question in section.Questions)
                     {
-                        objective.RemoveQuestion(question, GetCurrentUsername());
+                        section.RemoveQuestion(question, GetCurrentUsername());
                     }
-                    _objectiveRepository.Remove(objective);
+                    _sectionRepository.Remove(section);
                 }
             }
             var collaborators = course.Collaborators.Select(e => e.Email).ToList();
@@ -140,9 +140,9 @@ namespace easygenerator.Web.Controllers.Api
             course.Collaborators.Where(e => !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
 
             _courseRepository.Remove(course);
-            _eventPublisher.Publish(new CourseDeletedEvent(course, deletedObjectiveIds, collaborators, invitedCollaborators, GetCurrentUsername()));
+            _eventPublisher.Publish(new CourseDeletedEvent(course, deletedSectionIds, collaborators, invitedCollaborators, GetCurrentUsername()));
 
-            return JsonSuccess(new { deletedObjectiveIds, deletedFromLearningPathIds });
+            return JsonSuccess(new { deletedSectionIds, deletedFromLearningPathIds });
         }
 
         [HttpPost]
@@ -234,20 +234,20 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
-        [Route("api/course/relateObjective")]
-        public ActionResult RelateObjective(Course course, Objective objective, int? index)
+        [Route("api/course/relateSection")]
+        public ActionResult RelateSection(Course course, Section section, int? index)
         {
             if (course == null)
             {
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            if (objective == null)
+            if (section == null)
             {
-                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.SectionNotFoundError, Errors.SectionNotFoundResourceKey);
             }
 
-            course.RelateObjective(objective, index, GetCurrentUsername());
+            course.RelateSection(section, index, GetCurrentUsername());
 
             return JsonSuccess(new
             {
@@ -257,22 +257,22 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
-        [Route("api/course/unrelateObjectives")]
-        public ActionResult UnrelateObjectives(Course course, ICollection<Objective> objectives)
+        [Route("api/course/unrelateSections")]
+        public ActionResult UnrelateSections(Course course, ICollection<Section> sections)
         {
             if (course == null)
             {
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            if (objectives.Count == 0)
+            if (sections.Count == 0)
             {
-                return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
+                return JsonLocalizableError(Errors.SectionsNotFoundError, Errors.SectionsNotFoundResourceKey);
             }
 
-            foreach (var objective in objectives)
+            foreach (var section in sections)
             {
-                course.UnrelateObjective(objective, GetCurrentUsername());
+                course.UnrelateSection(section, GetCurrentUsername());
             }
 
             return JsonSuccess(new
@@ -343,15 +343,15 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
-        [Route("api/course/updateobjectivesorder")]
-        public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)
+        [Route("api/course/updatesectionsorder")]
+        public ActionResult UpdateSectionsOrderedList(Course course, ICollection<Section> sections)
         {
             if (course == null)
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
-            course.UpdateObjectivesOrder(objectives, GetCurrentUsername());
+            course.UpdateSectionsOrder(sections, GetCurrentUsername());
 
             return JsonSuccess(new { course.ModifiedOn });
         }
@@ -382,7 +382,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var duplicatedCourse = _cloner.Clone(course, GetCurrentUsername(), true);
             duplicatedCourse.UpdateTitle(GetDuplicatedEntityTitle(duplicatedCourse.Title), GetCurrentUsername());
-            duplicatedCourse.RelatedObjectives.ForEach(obj => obj.UpdateTitle(GetDuplicatedEntityTitle(obj.Title), GetCurrentUsername()));
+            duplicatedCourse.RelatedSections.ForEach(obj => obj.UpdateTitle(GetDuplicatedEntityTitle(obj.Title), GetCurrentUsername()));
 
             return duplicatedCourse;
         }

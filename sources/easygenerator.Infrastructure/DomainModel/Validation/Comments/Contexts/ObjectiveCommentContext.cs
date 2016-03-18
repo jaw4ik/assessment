@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace easygenerator.Infrastructure.DomainModel.Validation.Comments.Contexts
 {
-    public class ObjectiveCommentContext : ICommentContext
+    public class SectionCommentContext : ICommentContext
     {
         [JsonProperty("property")]
         public string Property { get; set; }

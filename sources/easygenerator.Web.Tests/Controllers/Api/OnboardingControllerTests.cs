@@ -117,14 +117,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void ObjetiveCreated_ShouldSetObjectivedefinedToTrue()
+        public void ObjetiveCreated_ShouldSetSectiondefinedToTrue()
         {
             var onboarding = OnboardingObjectMother.Create();
             _onboardingRepository.GetByUserEmail(Arg.Any<string>()).Returns(onboarding);
 
             _controller.ObjetiveCreated();
 
-            onboarding.ObjectiveCreated.Should().BeTrue();
+            onboarding.SectionCreated.Should().BeTrue();
         }
 
         #endregion

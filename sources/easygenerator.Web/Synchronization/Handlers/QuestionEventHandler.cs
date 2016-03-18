@@ -31,7 +31,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(QuestionCreatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Question)
-                .questionCreated(args.Question.Objective.Id.ToNString(), _entityMapper.Map(args.Question), args.Question.Objective.ModifiedOn);
+                .questionCreated(args.Question.Section.Id.ToNString(), _entityMapper.Map(args.Question), args.Question.Section.ModifiedOn);
         }
 
         public void Handle(QuestionContentUpdatedEvent args)

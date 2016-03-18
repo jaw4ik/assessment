@@ -10,7 +10,7 @@
     function execute() {
         composition.addBindingHandler('autofocus');
         composition.addBindingHandler('scrollToElement');
-        composition.addBindingHandler('highlightObjective');
+        composition.addBindingHandler('highlightSection');
         composition.addBindingHandler('dialog');
         composition.addBindingHandler('ckeditor');
         composition.addBindingHandler('editableText');

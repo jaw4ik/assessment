@@ -33,13 +33,13 @@ describe('synchronization collaboration [started]', function () {
         });
     });
 
-    describe('when objectives is not an array', function () {
+    describe('when sections is not an array', function () {
         it('should throw an exception', function () {
             var f = function () {
                 handler(course, undefined);
             };
 
-            expect(f).toThrow('Objectives is not an array');
+            expect(f).toThrow('Sections is not an array');
         });
     });
 
@@ -54,34 +54,34 @@ describe('synchronization collaboration [started]', function () {
 
     });
 
-    describe('when objective is not found in dataContext', function () {
+    describe('when section is not found in dataContext', function () {
 
-        var objective = { Id: 'id' };
+        var section = { Id: 'id' };
 
-        it('should add objective to data context', function () {
-            var existingCourse = { id: course.Id, collaborators: [], objectives: [] };
+        it('should add section to data context', function () {
+            var existingCourse = { id: course.Id, collaborators: [], sections: [] };
             dataContext.courses = [existingCourse];
-            dataContext.objectives = [];
+            dataContext.sections = [];
 
-            handler(course, [objective], emptyTemplate);
+            handler(course, [section], emptyTemplate);
 
-            expect(dataContext.objectives.length).toBe(1);
+            expect(dataContext.sections.length).toBe(1);
         });
 
     });
 
-    describe('when objective is found in dataContext', function () {
+    describe('when section is found in dataContext', function () {
 
-        var objective = { Id: 'id' };
+        var section = { Id: 'id' };
 
-        it('should not add objective to data context', function () {
-            var existingCourse = { id: course.Id, collaborators: [], objectives: [] };
+        it('should not add section to data context', function () {
+            var existingCourse = { id: course.Id, collaborators: [], sections: [] };
             dataContext.courses = [existingCourse];
-            dataContext.objectives = [{ id: objective.Id }];
+            dataContext.sections = [{ id: section.Id }];
 
-            handler(course, [objective], emptyTemplate);
+            handler(course, [section], emptyTemplate);
 
-            expect(dataContext.objectives.length).toBe(1);
+            expect(dataContext.sections.length).toBe(1);
         });
 
     });

@@ -12,6 +12,6 @@ export default class extends CommentContextEntity {
         if (!questionData)
             return null;
 
-        return 'courses/' + this.courseId + '/objectives/' + questionData.objectiveId + '/questions/' + this.questionId;
+        return 'courses/' + this.courseId + '/sections/' + questionData.sectionId + '/questions/' + this.questionId;
     }
 }

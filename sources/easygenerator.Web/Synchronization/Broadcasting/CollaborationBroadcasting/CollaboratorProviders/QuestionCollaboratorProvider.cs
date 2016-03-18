@@ -6,21 +6,21 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
 {
     public class QuestionCollaboratorProvider : IEntityCollaboratorProvider<Question>
     {
-        private readonly IEntityCollaboratorProvider<Objective> _objectiveCollaboratorProvider;
+        private readonly IEntityCollaboratorProvider<Section> _sectionCollaboratorProvider;
 
-        public QuestionCollaboratorProvider(IEntityCollaboratorProvider<Objective> objectiveCollaboratorProvider)
+        public QuestionCollaboratorProvider(IEntityCollaboratorProvider<Section> sectionCollaboratorProvider)
         {
-            _objectiveCollaboratorProvider = objectiveCollaboratorProvider;
+            _sectionCollaboratorProvider = sectionCollaboratorProvider;
         }
 
         public IEnumerable<string> GetCollaborators(Question question)
         {
-            return _objectiveCollaboratorProvider.GetCollaborators(question.Objective);
+            return _sectionCollaboratorProvider.GetCollaborators(question.Section);
         }
 
         public IEnumerable<string> GetUsersInvitedToCollaboration(Question question)
         {
-            return _objectiveCollaboratorProvider.GetUsersInvitedToCollaboration(question.Objective);
+            return _sectionCollaboratorProvider.GetUsersInvitedToCollaboration(question.Section);
         }
     }
 }

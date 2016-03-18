@@ -1,6 +1,6 @@
 ﻿define(['repositories/courseRepository', 'localization/localizationManager', 'eventTracker', 'fileUpload', 'notify', 'dataContext', 'mappers/courseModelMapper',
-    'mappers/objectiveModelMapper', 'durandal/app', 'constants'],
-    function (repository, localizationManager, eventTracker, fileUpload, notify, dataContext, courseModelMapper, objectiveModelMapper, app, constants) {
+    'mappers/sectionModelMapper', 'durandal/app', 'constants'],
+    function (repository, localizationManager, eventTracker, fileUpload, notify, dataContext, courseModelMapper, sectionModelMapper, app, constants) {
 
         return {
             execute: function (options) {
@@ -21,7 +21,7 @@
                             return;
 
                         var data = response.data;
-                        var course = processImportedCourse(data.course, data.objectives);
+                        var course = processImportedCourse(data.course, data.sections);
                         options.success(course);
                     },
                     error: function (event) {
@@ -47,22 +47,22 @@
             }
         };
 
-        function processImportedCourse(courseData, objectivesData) {
-            _.each(objectivesData, function (objectiveData) {
-                var objective = objectiveModelMapper.map(objectiveData);
-                dataContext.objectives.push(objective);
+        function processImportedCourse(courseData, sectionsData) {
+            _.each(sectionsData, function (sectionData) {
+                var section = sectionModelMapper.map(sectionData);
+                dataContext.sections.push(section);
             });
 
-            var course = courseModelMapper.map(courseData, dataContext.objectives, dataContext.templates);
+            var course = courseModelMapper.map(courseData, dataContext.sections, dataContext.templates);
             dataContext.courses.push(course);
 
             app.trigger(constants.messages.course.created, course);
-            if (course.objectives.length) {
-                app.trigger(constants.messages.objective.createdInCourse);
+            if (course.sections.length) {
+                app.trigger(constants.messages.section.createdInCourse);
             }
 
-            if (course.objectives.length && course.objectives[0].questions.length) {
-                app.trigger(constants.messages.question.created, course.objectives[0].id, course.objectives[0].questions[0]);
+            if (course.sections.length && course.sections[0].questions.length) {
+                app.trigger(constants.messages.question.created, course.sections[0].id, course.sections[0].questions[0]);
             }
 
             return course;

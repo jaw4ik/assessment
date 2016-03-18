@@ -1,25 +1,25 @@
 ﻿
-define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guard', 'repositories/objectiveRepository', 'models/question', 'mappers/questionModelMapper'],
-    function (app, dataContext, constants, apiHttpWrapper, guard, objectiveRepository, Question, questionModelMapper) {
+define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guard', 'repositories/sectionRepository', 'models/question', 'mappers/questionModelMapper'],
+    function (app, dataContext, constants, apiHttpWrapper, guard, sectionRepository, Question, questionModelMapper) {
 
         var
-            addQuestion = function (objectiveId, obj, questionType) {
+            addQuestion = function (sectionId, obj, questionType) {
                 return Q.fcall(function () {
 
-                    guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+                    guard.throwIfNotString(sectionId, 'Section id is not a string');
                     guard.throwIfNotAnObject(obj, 'Question data is not an object');
 
-                    return apiHttpWrapper.post('api/question/' + questionType + '/create', { objectiveId: objectiveId, title: obj.title })
+                    return apiHttpWrapper.post('api/question/' + questionType + '/create', { sectionId: sectionId, title: obj.title })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.Id, 'Question Id is not a string');
                             guard.throwIfNotString(response.CreatedOn, 'Question creation date is not a string');
 
-                            var objective = _.find(dataContext.objectives, function (item) {
-                                return item.id === objectiveId;
+                            var section = _.find(dataContext.sections, function (item) {
+                                return item.id === sectionId;
                             });
 
-                            guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+                            guard.throwIfNotAnObject(section, 'Section does not exist in dataContext');
 
                             var
                                 createdOn = new Date(response.CreatedOn),
@@ -32,41 +32,41 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
                                     type: questionType
                                 });
 
-                            objective.modifiedOn = createdOn;
-                            objective.questions.push(createdQuestion);
+                            section.modifiedOn = createdOn;
+                            section.questions.push(createdQuestion);
 
-                            app.trigger(constants.messages.question.created, objectiveId, createdQuestion);
+                            app.trigger(constants.messages.question.created, sectionId, createdQuestion);
 
                             return createdQuestion;
                         });
                 });
             },
 
-            removeQuestions = function (objectiveId, questionIds) {
+            removeQuestions = function (sectionId, questionIds) {
 
                 return Q.fcall(function () {
-                    guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+                    guard.throwIfNotString(sectionId, 'Section id is not a string');
                     guard.throwIfNotArray(questionIds, 'Questions to remove are not an array');
 
-                    return apiHttpWrapper.post('api/question/delete', { objectiveId: objectiveId, questions: questionIds })
+                    return apiHttpWrapper.post('api/question/delete', { sectionId: sectionId, questions: questionIds })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                             var modifiedOn = new Date(response.ModifiedOn);
 
-                            var objective = _.find(dataContext.objectives, function (item) {
-                                return item.id == objectiveId;
+                            var section = _.find(dataContext.sections, function (item) {
+                                return item.id == sectionId;
                             });
 
-                            guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+                            guard.throwIfNotAnObject(section, 'Section does not exist in dataContext');
 
-                            objective.modifiedOn = modifiedOn;
-                            objective.questions = _.reject(objective.questions, function (item) {
+                            section.modifiedOn = modifiedOn;
+                            section.questions = _.reject(section.questions, function (item) {
                                 return _.indexOf(questionIds, item.id) != -1;
                             });
 
-                            app.trigger(constants.messages.question.deleted, objectiveId, questionIds);
+                            app.trigger(constants.messages.question.deleted, sectionId, questionIds);
 
                             return modifiedOn;
                         });
@@ -322,19 +322,19 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
                 });
             },
 
-            getById = function (objectiveId, questionId) {
-                if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId)) {
+            getById = function (sectionId, questionId) {
+                if (_.isNullOrUndefined(sectionId) || _.isNullOrUndefined(questionId)) {
                     throw 'Invalid arguments';
                 }
 
                 var deferred = Q.defer();
 
-                objectiveRepository.getById(objectiveId).then(function (objective) {
-                    if (!_.isObject(objective)) {
-                        deferred.reject('Objective does not exist');
+                sectionRepository.getById(sectionId).then(function (section) {
+                    if (!_.isObject(section)) {
+                        deferred.reject('Section does not exist');
                     }
 
-                    var question = _.find(objective.questions, function (item) {
+                    var question = _.find(section.questions, function (item) {
                         return item.id === questionId;
                     });
 
@@ -348,71 +348,71 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
                 return deferred.promise;
             },
 
-            copyQuestion = function(questionId, objectiveId) {
+            copyQuestion = function(questionId, sectionId) {
                 return Q.fcall(function() {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+                    guard.throwIfNotString(sectionId, 'Section id is not a string');
 
-                    return apiHttpWrapper.post('api/question/copy', { questionId: questionId, objectiveId: objectiveId })
+                    return apiHttpWrapper.post('api/question/copy', { questionId: questionId, sectionId: sectionId })
                         .then(function(response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
 
-                            var objective = _.find(dataContext.objectives, function (item) {
-                                return item.id === objectiveId;
+                            var section = _.find(dataContext.sections, function (item) {
+                                return item.id === sectionId;
                             });
 
-                            guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+                            guard.throwIfNotAnObject(section, 'Section does not exist in dataContext');
 
                             var question = questionModelMapper.map(response);
-                            objective.questions.push(question);
-                            objective.modifiedOn = question.createdOn;
+                            section.questions.push(question);
+                            section.modifiedOn = question.createdOn;
 
-                            app.trigger(constants.messages.question.created, objectiveId, question);
+                            app.trigger(constants.messages.question.created, sectionId, question);
                             return question;
                         });
                 });
             },
 
-            moveQuestion = function (questionId, sourceObjectiveId, destinationObjectiveId) {
+            moveQuestion = function (questionId, sourceSectionId, destinationSectionId) {
                 return Q.fcall(function() {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(sourceObjectiveId, 'Source objective id is not a string');
-                    guard.throwIfNotString(destinationObjectiveId, 'Destination objective id is not a string');
+                    guard.throwIfNotString(sourceSectionId, 'Source section id is not a string');
+                    guard.throwIfNotString(destinationSectionId, 'Destination section id is not a string');
 
-                    return apiHttpWrapper.post('api/question/move', { questionId: questionId, objectiveId: destinationObjectiveId })
+                    return apiHttpWrapper.post('api/question/move', { questionId: questionId, sectionId: destinationSectionId })
                         .then(function(response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                            var sourceObjective = _.find(dataContext.objectives, function (item) {
-                                return item.id === sourceObjectiveId;
+                            var sourceSection = _.find(dataContext.sections, function (item) {
+                                return item.id === sourceSectionId;
                                 });
 
-                            guard.throwIfNotAnObject(sourceObjective, 'Source objective does not exist in dataContext');
+                            guard.throwIfNotAnObject(sourceSection, 'Source section does not exist in dataContext');
 
-                            var destinationObjective = _.find(dataContext.objectives, function (item) {
-                                return item.id === destinationObjectiveId;
+                            var destinationSection = _.find(dataContext.sections, function (item) {
+                                return item.id === destinationSectionId;
                                 });
 
-                            guard.throwIfNotAnObject(destinationObjective, 'Destination objective does not exist in dataContext');
+                            guard.throwIfNotAnObject(destinationSection, 'Destination section does not exist in dataContext');
 
-                            var question = _.find(sourceObjective.questions, function (item) {
+                            var question = _.find(sourceSection.questions, function (item) {
                                 return item.id === questionId;
                                 });
 
-                            guard.throwIfNotAnObject(question, 'Source objective does not contain moved question');
+                            guard.throwIfNotAnObject(question, 'Source section does not contain moved question');
 
-                            sourceObjective.questions = _.reject(sourceObjective.questions, function(item) {
+                            sourceSection.questions = _.reject(sourceSection.questions, function(item) {
                                 return item.id === question.id;
                             });
-                            destinationObjective.questions.push(question);
+                            destinationSection.questions.push(question);
 
                             var modifiedOn = new Date(response.ModifiedOn);
-                            sourceObjective.modifiedOn = modifiedOn;
-                            destinationObjective.modifiedOn = modifiedOn;
+                            sourceSection.modifiedOn = modifiedOn;
+                            destinationSection.modifiedOn = modifiedOn;
 
-                            app.trigger(constants.messages.question.deleted, sourceObjectiveId, [question.id]);
-                            app.trigger(constants.messages.question.created, destinationObjectiveId, question);
+                            app.trigger(constants.messages.question.deleted, sourceSectionId, [question.id]);
+                            app.trigger(constants.messages.question.created, destinationSectionId, question);
                             return;
                         });
                 });
@@ -421,8 +421,8 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
 
         function getQuestions() {
             var questions = [];
-            _.each(dataContext.objectives, function (objective) {
-                questions.push.apply(questions, objective.questions);
+            _.each(dataContext.sections, function (section) {
+                questions.push.apply(questions, section.questions);
             });
             return questions;
         }

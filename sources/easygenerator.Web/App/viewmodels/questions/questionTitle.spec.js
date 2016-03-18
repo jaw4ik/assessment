@@ -7,10 +7,10 @@ import notify from 'notify';
 
 describe('viewModel [questionTitlte]', function () {
 
-    var objectiveId, question, viewModel;
+    var sectionId, question, viewModel;
 
     beforeEach(function () {
-        objectiveId = 'objectiveId';
+        sectionId = 'sectionId';
         question = {
             id: 'questionId',
             title: 'Question title',
@@ -18,7 +18,7 @@ describe('viewModel [questionTitlte]', function () {
         };
         spyOn(eventTracker, 'publish');
 
-        viewModel = vmQuestionTitle(objectiveId, question);
+        viewModel = vmQuestionTitle(sectionId, question);
     });
 
     it('should be defined', function () {
@@ -94,7 +94,7 @@ describe('viewModel [questionTitlte]', function () {
 
             it('should be content title label', () => {
                 question.type = constants.questionType.informationContent.type;
-                viewModel = vmQuestionTitle(objectiveId, question);
+                viewModel = vmQuestionTitle(sectionId, question);
                 expect(viewModel.label).toBe('contentTitleLabel');
             });
             

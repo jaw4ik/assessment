@@ -67,33 +67,33 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
 
         });
 
-        describe('when context has objective', function () {
+        describe('when context has section', function () {
 
             var treeOfContent;
 
-            var objectiveTreeNode;
-            var objectiveTreeNodeExpand = Q.defer();
+            var sectionTreeNode;
+            var sectionTreeNodeExpand = Q.defer();
 
             beforeEach(function () {
-                objectiveTreeNode = { id: 'objectiveId', expand: function () { } };
-                objectiveTreeNodeExpand = Q.defer();
+                sectionTreeNode = { id: 'sectionId', expand: function () { } };
+                sectionTreeNodeExpand = Q.defer();
 
-                var courseTreeNode = { id: 'courseId', children: ko.observableArray([objectiveTreeNode]), expand: function () { } };
+                var courseTreeNode = { id: 'courseId', children: ko.observableArray([sectionTreeNode]), expand: function () { } };
                 var courseTreeNodeExpand = Q.defer();
 
                 treeOfContent = { children: ko.observableArray([courseTreeNode]), sharedChildren: ko.observableArray([]) };
 
                 spyOn(courseTreeNode, 'expand').and.returnValue(courseTreeNodeExpand.promise);
-                spyOn(objectiveTreeNode, 'expand').and.returnValue(objectiveTreeNodeExpand.promise);
+                spyOn(sectionTreeNode, 'expand').and.returnValue(sectionTreeNodeExpand.promise);
 
                 courseTreeNodeExpand.resolve();
-                objectiveTreeNodeExpand.resolve();
+                sectionTreeNodeExpand.resolve();
             });
 
-            describe('and objective was not found', function () {
+            describe('and section was not found', function () {
 
                 it('should resolve promise', function (done) {
-                    var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: '-' });
+                    var promise = handler.handle(treeOfContent, { courseId: 'courseId', sectionId: '-' });
 
                     promise.fin(function () {
                         expect(promise).toBeResolved();
@@ -103,20 +103,20 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
 
             });
 
-            it('should expand objective', function (done) {
-                handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' }).fin(function () {
-                    expect(objectiveTreeNode.expand).toHaveBeenCalled();
+            it('should expand section', function (done) {
+                handler.handle(treeOfContent, { courseId: 'courseId', sectionId: 'sectionId' }).fin(function () {
+                    expect(sectionTreeNode.expand).toHaveBeenCalled();
                     done();
                 });
             });
 
-            describe('and objective was expanded', function () {
+            describe('and section was expanded', function () {
 
                 it('should resolve promise', function (done) {
-                    var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' });
+                    var promise = handler.handle(treeOfContent, { courseId: 'courseId', sectionId: 'sectionId' });
 
                     promise.fin(function () {
-                        expect(objectiveTreeNode.expand).toHaveBeenCalled();
+                        expect(sectionTreeNode.expand).toHaveBeenCalled();
                         done();
                     });
                 });

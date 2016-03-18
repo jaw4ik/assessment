@@ -340,7 +340,7 @@ describe('repository [learningContentRepository]', function () {
                         questionId = 'asdasdasd',
                         learningContent = { text: 'asdadsadsasdasd' };
 
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var promise = repository.addLearningContent(questionId, learningContent);
 
@@ -360,14 +360,14 @@ describe('repository [learningContentRepository]', function () {
                     learningContent = { text: 'asdadsadsasdasd' },
                     createdOnDate = new Date();
 
-                dataContext.objectives = [{
+                dataContext.sections = [{
                     questions: [{ id: questionId, modifiedOn: '' }]
                 }];
 
                 var promise = repository.addLearningContent(questionId, learningContent);
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(createdOnDate);
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(createdOnDate);
                     done();
                 });
 
@@ -381,7 +381,7 @@ describe('repository [learningContentRepository]', function () {
                     responseId = 'asdasdasd',
                     createdOnDate = new Date();
 
-                dataContext.objectives = [{
+                dataContext.sections = [{
                     questions: [{ id: questionId, modifiedOn: '' }]
                 }];
 
@@ -549,7 +549,7 @@ describe('repository [learningContentRepository]', function () {
                         questionId = 'asdasdasd',
                         learningContentId = 'asdadsadfghfgh';
 
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var promise = repository.removeLearningContent(questionId, learningContentId);
 
@@ -569,14 +569,14 @@ describe('repository [learningContentRepository]', function () {
                     learningContentId = 'asdadsadfghfgh',
                     modifiedOnDate = new Date();
 
-                dataContext.objectives = [{
+                dataContext.sections = [{
                     questions: [{ id: questionId, modifiedOn: '' }]
                 }];
 
                 var promise = repository.removeLearningContent(questionId, learningContentId);
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(modifiedOnDate);
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(modifiedOnDate);
                     done();
                 });
 
@@ -589,7 +589,7 @@ describe('repository [learningContentRepository]', function () {
                     learningContentId = 'asdadsadfghfgh',
                     modifiedOnDate = new Date();
 
-                dataContext.objectives = [{
+                dataContext.sections = [{
                     questions: [{ id: questionId, modifiedOn: '' }]
                 }];
 
@@ -800,7 +800,7 @@ describe('repository [learningContentRepository]', function () {
                         learningContentId = 'asdadsadfghfgh',
                         learningContentText = 'yiopuiopuiop';
 
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var promise = repository.updateText(questionId, learningContentId, learningContentText);
 
@@ -821,14 +821,14 @@ describe('repository [learningContentRepository]', function () {
                     learningContentText = 'yiopuiopuiop',
                     modifiedOnDate = new Date();
 
-                dataContext.objectives = [{
+                dataContext.sections = [{
                     questions: [{ id: questionId, modifiedOn: '' }]
                 }];
 
                 var promise = repository.updateText(questionId, learningContentId, learningContentText);
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(modifiedOnDate);
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(modifiedOnDate);
                     done();
                 });
 
@@ -842,7 +842,7 @@ describe('repository [learningContentRepository]', function () {
                     learningContentText = 'yiopuiopuiop',
                     modifiedOnDate = new Date();
 
-                dataContext.objectives = [{
+                dataContext.sections = [{
                     questions: [{ id: questionId, modifiedOn: '' }]
                 }];
 

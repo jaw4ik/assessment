@@ -61,30 +61,30 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_CourseObjectivesReorderedEvent_Should_Publish_CourseChangedEvent()
+        public void Handler_CourseSectionsReorderedEvent_Should_Publish_CourseChangedEvent()
         {
             //Act
-            _tracker.Handle(new CourseObjectivesReorderedEvent(CourseObjectMother.Create()));
+            _tracker.Handle(new CourseSectionsReorderedEvent(CourseObjectMother.Create()));
 
             //Assert
             _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
-        public void Handler_CourseObjectiveRelatedEvent_Should_Publish_CourseChangedEvent()
+        public void Handler_CourseSectionRelatedEvent_Should_Publish_CourseChangedEvent()
         {
             //Act
-            _tracker.Handle(new CourseObjectiveRelatedEvent(CourseObjectMother.Create(), ObjectiveObjectMother.Create()));
+            _tracker.Handle(new CourseSectionRelatedEvent(CourseObjectMother.Create(), SectionObjectMother.Create()));
 
             //Assert
             _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
-        public void Handler_CourseObjectivesUnrelatedEvent_Should_Publish_CourseChangedEvent()
+        public void Handler_CourseSectionsUnrelatedEvent_Should_Publish_CourseChangedEvent()
         {
             //Act
-            _tracker.Handle(new CourseObjectivesUnrelatedEvent(CourseObjectMother.Create(), new[] { ObjectiveObjectMother.Create() }));
+            _tracker.Handle(new CourseSectionsUnrelatedEvent(CourseObjectMother.Create(), new[] { SectionObjectMother.Create() }));
 
             //Assert
             _publisher.ShouldPublishEvent<CourseChangedEvent>();
@@ -103,15 +103,15 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
         #endregion
 
         [TestMethod]
-        public void Handler_ObjectiveChangedEvent_Should_Publish_CourseChangedEvent()
+        public void Handler_SectionChangedEvent_Should_Publish_CourseChangedEvent()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
-            _repository.GetCoursesRelatedToObjective(objective.Id).Returns(courses);
+            _repository.GetCoursesRelatedToSection(section.Id).Returns(courses);
 
             //Act
-            _tracker.Handle(new ObjectiveChangedEvent(objective));
+            _tracker.Handle(new SectionChangedEvent(section));
 
             //Assert
             _publisher.ShouldPublishEvent<CourseChangedEvent>(2);

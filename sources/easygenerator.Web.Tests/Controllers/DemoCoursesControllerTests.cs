@@ -29,7 +29,7 @@ namespace easygenerator.Web.Tests.Controllers
         private IDemoCoursesStorage _demoCoursesStorage;
         private ICourseRepository _courseRepository;
         private IDemoCourseInfoRepository _demoCourseInfoRepository;
-        private IObjectiveRepository _objectiveRepository;
+        private ISectionRepository _sectionRepository;
         private ICloner _cloner;
         private IEntityFactory _entityFactory;
 
@@ -39,10 +39,10 @@ namespace easygenerator.Web.Tests.Controllers
             _demoCoursesStorage = Substitute.For<IDemoCoursesStorage>();
             _courseRepository = Substitute.For<ICourseRepository>();
             _demoCourseInfoRepository = Substitute.For<IDemoCourseInfoRepository>();
-            _objectiveRepository = Substitute.For<IObjectiveRepository>();
+            _sectionRepository = Substitute.For<ISectionRepository>();
             _cloner = Substitute.For<ICloner>();
             _entityFactory = Substitute.For<IEntityFactory>();
-            _demoCourseController = new DemoCoursesController(_demoCoursesStorage, _courseRepository, _demoCourseInfoRepository, _objectiveRepository, _cloner, _entityFactory);
+            _demoCourseController = new DemoCoursesController(_demoCoursesStorage, _courseRepository, _demoCourseInfoRepository, _sectionRepository, _cloner, _entityFactory);
 
             var context = Substitute.For<HttpContextBase>();
             context.User.Returns(Substitute.For<IPrincipal>());
@@ -129,19 +129,19 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void RemoveDemoCourse_Should_RemoveDemoCourseWithObjectivesFromRepository()
+        public void RemoveDemoCourse_Should_RemoveDemoCourseWithSectionsFromRepository()
         {
             var course = CourseObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objective2 = ObjectiveObjectMother.Create();
-            course.RelateObjective(objective1, null, course.CreatedBy);
-            course.RelateObjective(objective2, null, course.CreatedBy);
+            var section1 = SectionObjectMother.Create();
+            var section2 = SectionObjectMother.Create();
+            course.RelateSection(section1, null, course.CreatedBy);
+            course.RelateSection(section2, null, course.CreatedBy);
 
             var demoCourseInfo = DemoCourseInfoObjectMother.Create(null, course);
             _demoCourseController.RemoveDemoCourse(demoCourseInfo);
 
-            _objectiveRepository.Received().Remove(objective1);
-            _objectiveRepository.Received().Remove(objective2);
+            _sectionRepository.Received().Remove(section1);
+            _sectionRepository.Received().Remove(section2);
             _courseRepository.Received().Remove(course);
         }
 
@@ -193,20 +193,20 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_RemoveOldDemoCourseWithObjectives()
+        public void UpdateDemoCourse_Should_RemoveOldDemoCourseWithSections()
         {
             var course = CourseObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objective2 = ObjectiveObjectMother.Create();
-            course.RelateObjective(objective1, null, course.CreatedBy);
-            course.RelateObjective(objective2, null, course.CreatedBy);
+            var section1 = SectionObjectMother.Create();
+            var section2 = SectionObjectMother.Create();
+            course.RelateSection(section1, null, course.CreatedBy);
+            course.RelateSection(section2, null, course.CreatedBy);
 
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(course);
             var demoCourseInfo = DemoCourseInfoObjectMother.Create(CourseObjectMother.Create(), course);
             _demoCourseController.UpdateDemoCourse(demoCourseInfo);
 
-            _objectiveRepository.Received().Remove(objective1);
-            _objectiveRepository.Received().Remove(objective2);
+            _sectionRepository.Received().Remove(section1);
+            _sectionRepository.Received().Remove(section2);
             _courseRepository.Received().Remove(course);
         }
 

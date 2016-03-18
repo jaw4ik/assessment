@@ -3,7 +3,7 @@
 import constants from 'constants';
 import GeneralCommentContext from 'review/comments/context/commentContexts/GeneralCommentContext';
 import CourseCommentContext from 'review/comments/context/commentContexts/CourseCommentContext';
-import ObjectiveCommentContext from 'review/comments/context/commentContexts/ObjectiveCommentContext';
+import SectionCommentContext from 'review/comments/context/commentContexts/SectionCommentContext';
 import QuestionCommentContext from 'review/comments/context/commentContexts/QuestionCommentContext';
 import InformationContentCommentContext from 'review/comments/context/commentContexts/InformationContentCommentContext';
 
@@ -25,11 +25,11 @@ describe('review [commentContextFactory]', () => {
             });
         });
 
-        describe('when context type is \'objective\'', () => {
-            it('should return objective context', () => {
-                let context = { type: constants.comment.context.types.objective };
+        describe('when context type is \'section\'', () => {
+            it('should return section context', () => {
+                let context = { type: constants.comment.context.types.section };
 
-                expect(factory.createContext(courseId, context)).toEqual(new ObjectiveCommentContext(courseId, context));
+                expect(factory.createContext(courseId, context)).toEqual(new SectionCommentContext(courseId, context));
             });
         });
 

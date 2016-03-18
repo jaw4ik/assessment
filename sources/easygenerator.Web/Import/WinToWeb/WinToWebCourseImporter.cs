@@ -66,7 +66,7 @@ namespace easygenerator.Web.Import.WinToWeb
 
             foreach (var winObjective in winCourse.Objectives)
             {
-                var objective = _entityFactory.Objective(winObjective.Title, userName);
+                var section = _entityFactory.Section(winObjective.Title, userName);
                 
                 foreach (var winQuestion in winObjective.Questions)
                 {
@@ -75,7 +75,7 @@ namespace easygenerator.Web.Import.WinToWeb
                         case Question.QuestionTypes.InformationContent:
                             var informationContent = _entityFactory.InformationContent(winQuestion.Title, userName);
                             MapLearningContent(winQuestion, informationContent, userName);
-                            objective.AddQuestion(informationContent, userName);
+                            section.AddQuestion(informationContent, userName);
                             break;
                         case Question.QuestionTypes.SingleSelectText:
                             var singleSelectText = _entityFactory.SingleSelectTextQuestion(winQuestion.Title, userName);
@@ -86,7 +86,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 singleSelectText.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, singleSelectText);
-                            objective.AddQuestion(singleSelectText, userName);
+                            section.AddQuestion(singleSelectText, userName);
                             break;
                         case Question.QuestionTypes.MultipleSelect:
                             var multipleSelect = _entityFactory.MultipleselectQuestion(winQuestion.Title, userName);
@@ -97,7 +97,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 multipleSelect.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, multipleSelect);
-                            objective.AddQuestion(multipleSelect, userName);
+                            section.AddQuestion(multipleSelect, userName);
                             break;
                         case Question.QuestionTypes.SingleSelectImage:
                             var singleSelectImage  = _entityFactory.SingleSelectImageQuestion(winQuestion.Title, userName);
@@ -116,7 +116,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 singleSelectImage.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, singleSelectImage);
-                            objective.AddQuestion(singleSelectImage, userName);
+                            section.AddQuestion(singleSelectImage, userName);
                             break;
                         case Question.QuestionTypes.HotSpot:
                             var hotSpot = _entityFactory.HotSpot(winQuestion.Title, userName);
@@ -133,7 +133,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 hotSpot.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, hotSpot);
-                            objective.AddQuestion(hotSpot, userName);
+                            section.AddQuestion(hotSpot, userName);
                             break;
                         case Question.QuestionTypes.Statement:
                             var statement = _entityFactory.StatementQuestion(winQuestion.Title, userName);
@@ -144,7 +144,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 statement.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, statement);
-                            objective.AddQuestion(statement, userName);
+                            section.AddQuestion(statement, userName);
                             break;
                         case Question.QuestionTypes.OpenQuestion:
                             var openQuestion = _entityFactory.OpenQuestion(winQuestion.Title, userName);
@@ -154,7 +154,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 openQuestion.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, openQuestion);
-                            objective.AddQuestion(openQuestion, userName);
+                            section.AddQuestion(openQuestion, userName);
                             break;
                         case Question.QuestionTypes.TextMatching:
                             var textmatching = _entityFactory.TextMatchingQuestion(winQuestion.Title, userName);
@@ -170,7 +170,7 @@ namespace easygenerator.Web.Import.WinToWeb
                                 textmatching.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, textmatching);
-                            objective.AddQuestion(textmatching, userName);
+                            section.AddQuestion(textmatching, userName);
                             break;
                         case Question.QuestionTypes.FillInTheBlanks:
                             var fillInTheBlanks = _entityFactory.FillInTheBlanksQuestion(winQuestion.Title, userName);
@@ -186,11 +186,11 @@ namespace easygenerator.Web.Import.WinToWeb
                                 fillInTheBlanks.UpdateContent(winQuestion.Content, userName);
                             }
                             UpdateFeedbacks(winQuestion, fillInTheBlanks);
-                            objective.AddQuestion(fillInTheBlanks, userName);
+                            section.AddQuestion(fillInTheBlanks, userName);
                             break;
                     }
                 }
-                course.RelateObjective(objective, null, userName);
+                course.RelateSection(section, null, userName);
             }
 
             _courseRepository.Add(course);

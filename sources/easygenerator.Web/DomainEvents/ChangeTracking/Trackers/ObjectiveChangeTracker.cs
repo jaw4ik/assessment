@@ -1,56 +1,56 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.SectionEvents;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 {
-    public class ObjectiveChangeTracker :
-        IDomainEventHandler<ObjectiveImageUrlUpdatedEvent>,
-        IDomainEventHandler<ObjectiveTitleUpdatedEvent>,
-        IDomainEventHandler<ObjectiveLearningObjectiveUpdatedEvent>,
+    public class SectionChangeTracker :
+        IDomainEventHandler<SectionImageUrlUpdatedEvent>,
+        IDomainEventHandler<SectionTitleUpdatedEvent>,
+        IDomainEventHandler<SectionLearningObjectiveUpdatedEvent>,
         IDomainEventHandler<QuestionsReorderedEvent>,
         IDomainEventHandler<QuestionsDeletedEvent>
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
-        public ObjectiveChangeTracker(IDomainEventPublisher eventPublisher)
+        public SectionChangeTracker(IDomainEventPublisher eventPublisher)
         {
             _eventPublisher = eventPublisher;
         }
 
         #region Handlers
 
-        public void Handle(ObjectiveImageUrlUpdatedEvent args)
+        public void Handle(SectionImageUrlUpdatedEvent args)
         {
-            RaiseObjectiveChangedEvent(args.Objective);
+            RaiseSectionChangedEvent(args.Section);
         }
 
-        public void Handle(ObjectiveTitleUpdatedEvent args)
+        public void Handle(SectionTitleUpdatedEvent args)
         {
-            RaiseObjectiveChangedEvent(args.Objective);
+            RaiseSectionChangedEvent(args.Section);
         }
 
-        public void Handle(ObjectiveLearningObjectiveUpdatedEvent args)
+        public void Handle(SectionLearningObjectiveUpdatedEvent args)
         {
-            RaiseObjectiveChangedEvent(args.Objective);
+            RaiseSectionChangedEvent(args.Section);
         }
 
         public void Handle(QuestionsReorderedEvent args)
         {
-            RaiseObjectiveChangedEvent(args.Objective);
+            RaiseSectionChangedEvent(args.Section);
         }
 
         public void Handle(QuestionsDeletedEvent args)
         {
-            RaiseObjectiveChangedEvent(args.Objective);
+            RaiseSectionChangedEvent(args.Section);
         }
 
         #endregion
 
-        private void RaiseObjectiveChangedEvent(Objective objective)
+        private void RaiseSectionChangedEvent(Section section)
         {
-            _eventPublisher.Publish(new ObjectiveChangedEvent(objective));
+            _eventPublisher.Publish(new SectionChangedEvent(section));
         }
     }
 }

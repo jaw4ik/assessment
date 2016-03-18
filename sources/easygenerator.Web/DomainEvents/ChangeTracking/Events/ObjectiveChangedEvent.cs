@@ -1,12 +1,12 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.SectionEvents;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Events
 {
-    public class ObjectiveChangedEvent : ObjectiveEvent
+    public class SectionChangedEvent : SectionEvent
     {
-        public ObjectiveChangedEvent(Objective objective)
-            : base(objective)
+        public SectionChangedEvent(Section section)
+            : base(section)
         {
         }
     }

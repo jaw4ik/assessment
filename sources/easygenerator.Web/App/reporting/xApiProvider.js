@@ -10,15 +10,15 @@ export default class {
     static getCourseStatements(courseId, embeded, take, skip) {
         return getGroupedStatements({ courseId: courseId, embeded: embeded, limit: take, skip: skip });
     }
-    static getLearningPathFinishedStatements(learningPathId, take, skip) {
-        return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
-    }
-    static getMasteredStatements(attemptId) {
-        return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptIds: attemptId });
-    }
-    static getObjectiveStatements(attemptId, parentActivityId) {
-        return getStatements({ verbs: [constants.reporting.xApiVerbIds.answered, constants.reporting.xApiVerbIds.experienced], attemptIds: attemptId, parentId: parentActivityId });
-    }
+static getLearningPathFinishedStatements(learningPathId, take, skip) {
+    return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
+}
+static getMasteredStatements(attemptId) {
+    return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptIds: attemptId });
+}
+static getObjectiveStatements(attemptId, parentActivityId) {
+    return getStatements({ verbs: [constants.reporting.xApiVerbIds.answered, constants.reporting.xApiVerbIds.experienced], attemptIds: attemptId, parentId: parentActivityId });
+}
 }
 
 function mapStatements(statements) {

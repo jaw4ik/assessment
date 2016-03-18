@@ -1,4 +1,4 @@
-﻿define(['./treeOfContentTraversal', '../CourseTreeNode', '../RelatedObjectiveTreeNode', '../QuestionTreeNode'], function (treeOfContentTraversal, CourseTreeNode, ObjectiveTreeNode, QuestionTreeNode) {
+﻿define(['./treeOfContentTraversal', '../CourseTreeNode', '../RelatedSectionTreeNode', '../QuestionTreeNode'], function (treeOfContentTraversal, CourseTreeNode, SectionTreeNode, QuestionTreeNode) {
 
     var eventHandler = function () {
 
@@ -15,10 +15,10 @@
             collaborationStarted: collaborationStarted,
             collaborationFinished: collaborationFinished,
 
-            objectiveRelated: objectiveRelated,
-            objectivesUnrelated: objectivesUnrelated,
-            objectivesReordered: objectivesReordered,
-            objectiveTitleUpdated: objectiveTitleUpdated,
+            sectionRelated: sectionRelated,
+            sectionsUnrelated: sectionsUnrelated,
+            sectionsReordered: sectionsReordered,
+            sectionTitleUpdated: sectionTitleUpdated,
             courseDeletedByCollaborator: courseDeletedByCollaborator
         };
 
@@ -81,74 +81,74 @@
             });
         }
 
-        function objectiveRelated(courseId, objective, index) {
+        function sectionRelated(courseId, section, index) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(courseId), function (courseTreeNode) {
                 if (courseTreeNode.isExpanded()) {
                     if (!_.isNullOrUndefined(index)) {
-                        courseTreeNode.children.splice(index, 0, new ObjectiveTreeNode(objective.id, courseId, objective.title, "#courses/" + courseId + "/objectives/" + objective.id));
+                        courseTreeNode.children.splice(index, 0, new SectionTreeNode(section.id, courseId, section.title, "#courses/" + courseId + "/sections/" + section.id));
                     } else {
-                        courseTreeNode.children.push(new ObjectiveTreeNode(objective.id, courseId, objective.title, "#courses/" + courseId + "/objectives/" + objective.id));
+                        courseTreeNode.children.push(new SectionTreeNode(section.id, courseId, section.title, "#courses/" + courseId + "/sections/" + section.id));
                     }
                 }
             });
         }
 
-        function objectivesUnrelated(courseId, objectives) {
+        function sectionsUnrelated(courseId, sections) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(courseId), function (courseTreeNode) {
                 var collection = [];
-                _.each(courseTreeNode.children(), function (objectiveTreeNode) {
-                    if (!_.contains(objectives, objectiveTreeNode.id)) {
-                        collection.push(objectiveTreeNode);
+                _.each(courseTreeNode.children(), function (sectionTreeNode) {
+                    if (!_.contains(sections, sectionTreeNode.id)) {
+                        collection.push(sectionTreeNode);
                     }
                 });
                 courseTreeNode.children(collection);
             });
         }
 
-        function objectivesReordered(course) {
+        function sectionsReordered(course) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(course.id), function (courseTreeNode) {
                 if (courseTreeNode.children().length) {
-                    courseTreeNode.children(_.map(course.objectives, function (objective) {
-                        return _.find(courseTreeNode.children(), function (objectiveTreeNode) {
-                            return objectiveTreeNode.id == objective.id;
+                    courseTreeNode.children(_.map(course.sections, function (section) {
+                        return _.find(courseTreeNode.children(), function (sectionTreeNode) {
+                            return sectionTreeNode.id == section.id;
                         });
                     }));
                 }
             });
         }
 
-        function objectiveTitleUpdated(objective) {
-            _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objective.id), function (objectiveTreeNode) {
-                objectiveTreeNode.title(objective.title);
+        function sectionTitleUpdated(section) {
+            _.each(treeOfContentTraversal.getSectionTreeNodeCollection(section.id), function (sectionTreeNode) {
+                sectionTreeNode.title(section.title);
             });
         }
 
-        function questionCreated(objectiveId, question) {
-            _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objectiveId), function (objectiveTreeNode) {
-                if (objectiveTreeNode.isExpanded()) {
-                    objectiveTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#courses/" + objectiveTreeNode.courseId + "/objectives/" + objectiveTreeNode.id + "/questions/" + question.id));
+        function questionCreated(sectionId, question) {
+            _.each(treeOfContentTraversal.getSectionTreeNodeCollection(sectionId), function (sectionTreeNode) {
+                if (sectionTreeNode.isExpanded()) {
+                    sectionTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#courses/" + sectionTreeNode.courseId + "/sections/" + sectionTreeNode.id + "/questions/" + question.id));
                 }
             });
         }
 
-        function questionsDeleted(objectiveId, questions) {
-            _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objectiveId), function (objectiveTreeNode) {
+        function questionsDeleted(sectionId, questions) {
+            _.each(treeOfContentTraversal.getSectionTreeNodeCollection(sectionId), function (sectionTreeNode) {
                 var collection = [];
-                _.each(objectiveTreeNode.children(), function (questionTreeNode) {
+                _.each(sectionTreeNode.children(), function (questionTreeNode) {
                     if (!_.contains(questions, questionTreeNode.id)) {
                         collection.push(questionTreeNode);
                     }
                 });
-                objectiveTreeNode.children(collection);
+                sectionTreeNode.children(collection);
             });
 
         }
 
-        function questionsReordered(objective) {
-            _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objective.id), function (objectiveTreeNode) {
-                if (objectiveTreeNode.children().length) {
-                    objectiveTreeNode.children(_.map(objective.questions, function (item) {
-                        return _.find(objectiveTreeNode.children(), function (question) {
+        function questionsReordered(section) {
+            _.each(treeOfContentTraversal.getSectionTreeNodeCollection(section.id), function (sectionTreeNode) {
+                if (sectionTreeNode.children().length) {
+                    sectionTreeNode.children(_.map(section.questions, function (item) {
+                        return _.find(sectionTreeNode.children(), function (question) {
                             return question.id == item.id;
                         });
                     }));

@@ -159,7 +159,7 @@ class RankingText {
         this.answers(answers);
     }
 
-    initialize(objectiveId, question) {
+    initialize(sectionId, question) {
         this.questionId = question.id;
 
         return getAnswers.execute(question.id).then((items) => {

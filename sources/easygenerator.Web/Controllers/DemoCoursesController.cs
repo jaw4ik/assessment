@@ -34,17 +34,17 @@ namespace easygenerator.Web.Controllers
         private readonly ICloner _cloner;
         private readonly IEntityFactory _entityFactory;
         private readonly IDemoCourseInfoRepository _demoCourseInfoRepository;
-        private readonly IObjectiveRepository _objectiveRepository;
+        private readonly ISectionRepository _sectionRepository;
 
         public DemoCoursesController(IDemoCoursesStorage demoCoursesInMemoryStorage, ICourseRepository courseRepository, IDemoCourseInfoRepository demoCourseInfoRepository,
-            IObjectiveRepository objectiveRepository, ICloner cloner, IEntityFactory entityFactory)
+            ISectionRepository sectionRepository, ICloner cloner, IEntityFactory entityFactory)
         {
             _demoCoursesInMemoryStorage = demoCoursesInMemoryStorage;
             _courseRepository = courseRepository;
             _cloner = cloner;
             _entityFactory = entityFactory;
             _demoCourseInfoRepository = demoCourseInfoRepository;
-            _objectiveRepository = objectiveRepository;
+            _sectionRepository = sectionRepository;
         }
 
         [HttpPost]
@@ -79,7 +79,7 @@ namespace easygenerator.Web.Controllers
             }
 
             _demoCoursesInMemoryStorage.RemoveDemoCourseInfo(demoCourseInfo);
-            RemoveCourseWithObjectives(demoCourseInfo.DemoCourse);
+            RemoveCourseWithSections(demoCourseInfo.DemoCourse);
 
             return RedirectToAction("Index");
         }
@@ -103,7 +103,7 @@ namespace easygenerator.Web.Controllers
             var newDemoCourse = GetClonedDemoCourse(demoCourseInfo.SourceCourse);
             _courseRepository.Add(newDemoCourse);
             demoCourseInfo.UpdateDemoCourse(newDemoCourse, DemoCoursesOwnerEmail);
-            RemoveCourseWithObjectives(oldDemoCourse);
+            RemoveCourseWithSections(oldDemoCourse);
             _demoCoursesInMemoryStorage.UpdateDemoCourseInfo(demoCourseInfo);
 
             return SuccessResult(DemoCourseWasUpdated);
@@ -147,11 +147,11 @@ namespace easygenerator.Web.Controllers
             return clonedCourse;
         }
 
-        private void RemoveCourseWithObjectives(Course course)
+        private void RemoveCourseWithSections(Course course)
         {
-            foreach (var objective in course.RelatedObjectives)
+            foreach (var section in course.RelatedSections)
             {
-                _objectiveRepository.Remove(objective);
+                _sectionRepository.Remove(section);
             }
             _courseRepository.Remove(course);
         }

@@ -19,11 +19,11 @@ namespace easygenerator.DomainModel
            typeof(EntityCloner).GetMethod("UpdateLearningContentsOrderInQuestion",
                BindingFlags.NonPublic | BindingFlags.Instance);
 
-        protected static MethodInfo EntityTypeCloner_UpdateQuestionsOrderInObjective =
-            typeof(EntityCloner).GetMethod("UpdateQuestionsOrderInObjective", BindingFlags.NonPublic | BindingFlags.Instance);
+        protected static MethodInfo EntityTypeCloner_UpdateQuestionsOrderInSection =
+            typeof(EntityCloner).GetMethod("UpdateQuestionsOrderInSection", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        protected static MethodInfo EntityTypeCloner_UpdateObjectivesOrderInCourse =
-            typeof(EntityCloner).GetMethod("UpdateObjectivesOrderInCourse", BindingFlags.NonPublic | BindingFlags.Instance);
+        protected static MethodInfo EntityTypeCloner_UpdateSectionsOrderInCourse =
+            typeof(EntityCloner).GetMethod("UpdateSectionsOrderInCourse", BindingFlags.NonPublic | BindingFlags.Instance);
 
         protected static MethodInfo EntityTypeCloner_UpdateAnswersOrderInQuestion =
             typeof(EntityCloner).GetMethod("UpdateAnswersOrderInQuestion", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -102,7 +102,7 @@ namespace easygenerator.DomainModel
                     }
 
                     // cloning of cources is not needed.
-                    if (type == typeof(Objective) && member.Name == "RelatedCoursesCollection")
+                    if (type == typeof(Section) && member.Name == "RelatedCoursesCollection")
                         continue;
 
                     if (!member.CanRead || !member.CanWrite || member.GetIndexParameters().Length > 0)
@@ -137,14 +137,14 @@ namespace easygenerator.DomainModel
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateAnswersOrderInQuestion, source, target));
                 }
 
-                if (type == typeof(Objective))
+                if (type == typeof(Section))
                 {
-                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateQuestionsOrderInObjective, source, target));
+                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateQuestionsOrderInSection, source, target));
                 }
 
                 if (type == typeof(Course))
                 {
-                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateObjectivesOrderInCourse, source, target));
+                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateSectionsOrderInCourse, source, target));
                 }
                 
                 return list;
@@ -152,13 +152,13 @@ namespace easygenerator.DomainModel
             return null;
         }
 
-        protected virtual void UpdateObjectivesOrderInCourse(Course source, Course target)
+        protected virtual void UpdateSectionsOrderInCourse(Course source, Course target)
         {
-            var orderedClonedObjectives = source.OrderClonedObjectives(target.RelatedObjectivesCollection);
-            target.UpdateObjectivesOrder(orderedClonedObjectives, target.CreatedBy);
+            var orderedClonedSections = source.OrderClonedSections(target.RelatedSectionsCollection);
+            target.UpdateSectionsOrder(orderedClonedSections, target.CreatedBy);
         }
 
-        protected virtual void UpdateQuestionsOrderInObjective(Objective source, Objective target)
+        protected virtual void UpdateQuestionsOrderInSection(Section source, Section target)
         {
             var orderedClonedQuestions = source.OrderClonedQuestions(target.QuestionsCollection);
             target.UpdateQuestionsOrder(orderedClonedQuestions, target.CreatedBy);

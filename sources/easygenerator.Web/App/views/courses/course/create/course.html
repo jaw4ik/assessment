@@ -2,7 +2,7 @@
 
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="course-introduction-container" data-bind="with: courseIntroductionContent, css: {hidden: objectivesMode() != objectivesListModes.display}">
+            <div class="course-introduction-container" data-bind="with: courseIntroductionContent, css: {hidden: sectionsMode() != sectionsListModes.display}">
                 <div class="course-introduction-wrapper" data-bind="css: { active: hasFocus, 'content-defined': isContentDefined }, introAnimate: { isEditing: isEditing }">
                     <div class="course-introduction-holder">
                         <!-- ko ifnot: isContentDefined -->
@@ -29,72 +29,72 @@
                 </div>
             </div>
             <div class="main-content-list-holder">
-                <!-- ko if: connectedObjectives().length == 0 && objectivesMode() == objectivesListModes.display -->
+                <!-- ko if: connectedSections().length == 0 && sectionsMode() == sectionsListModes.display -->
                 <div class="empty-list-container">
-                    <h2 class="empty-list-title bold" data-bind="localize: { text: 'letsCreateLearningObjective' }">Let's create learning objective</h2>
+                    <h2 class="empty-list-title bold" data-bind="localize: { text: 'letsCreateSection' }">Let's create learning section</h2>
                     <div class="create-item-btn-container">
                         <div class="action-item-btn-wrapper">
-                            <button class="action-item-btn create-item btn green" data-bind="click: createObjective">
-                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
+                            <button class="action-item-btn create-item btn green" data-bind="click: createSection">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectSection' }">Learning section</span>
                             </button>
                         </div>
                     </div>
-                    <div class="connect-objectives-link-container">
+                    <div class="connect-sections-link-container">
                         <span data-bind="localize:{ text: 'or' }">or</span>
-                        <a href class="connect-objectives-link" data-bind="click: showAllAvailableObjectives, localize: { text: 'connectExisting' }">connect existing</a>
+                        <a href class="connect-sections-link" data-bind="click: showAllAvailableSections, localize: { text: 'connectExisting' }">connect existing</a>
                     </div>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: connectedObjectives().length > 0 || objectivesMode() != objectivesListModes.display -->
+                <!-- ko if: connectedSections().length > 0 || sectionsMode() != sectionsListModes.display -->
                 <div class="view-list-actions-holder">
-                    <h2 class="list-item-action view-title bold" data-bind="localize: { text: 'relatedLearningObjectives' }">Course objectives</h2>
+                    <h2 class="list-item-action view-title bold" data-bind="localize: { text: 'relatedSections' }">Course sections</h2>
                     <div class="list-item-action delete">
-                        <!-- ko if: objectivesMode() == objectivesListModes.display -->
-                        <div class="delete-btn btn-head enabled" data-bind="click: disconnectSelectedObjectives, css: { enabled: canDisconnectObjectives, disabled: !canDisconnectObjectives() }">
+                        <!-- ko if: sectionsMode() == sectionsListModes.display -->
+                        <div class="delete-btn btn-head enabled" data-bind="click: disconnectSelectedSections, css: { enabled: canDisconnectSections, disabled: !canDisconnectSections() }">
                             <div class="info-tooltip remove-selected">
                                 <span data-bind="localize: { text: 'disconnectSelected' }">Remove selected</span>
                             </div>
                         </div>
                         <!--/ko -->
                     </div>
-                    <div class="list-item-action advanced-features-dropdown" data-bind="dropDown: {}, visible: objectivesMode() == objectivesListModes.display">
+                    <div class="list-item-action advanced-features-dropdown" data-bind="dropDown: {}, visible: sectionsMode() == sectionsListModes.display">
                         <div class="btn-head bold">
                             <div class="info-tooltip more-options">
                                 <span data-bind="localize: { text: 'moreOptions' }">More options</span>
                             </div>
                         </div>
                         <ul class="dropdown-list">
-                            <li class="dropdown-list-item" data-bind="click: showAllAvailableObjectives">
-                                <span class="advanced-features-item" data-bind="localize: { text: 'connectExistingLearningObjectives' }">Add existing objectives</span>
+                            <li class="dropdown-list-item" data-bind="click: showAllAvailableSections">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'connectExistingSections' }">Add existing sections</span>
                             </li>
-                            <li class="dropdown-list-item objective-from-powerpoint">
-                                <span class="advanced-features-item" data-bind="localize: { text: 'objectiveFromPowerpoint' }">Objective from powerpoint</span>
+                            <li class="dropdown-list-item section-from-powerpoint">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'sectionFromPowerpoint' }">Section from powerpoint</span>
                                 <span class="soon-icon" data-bind="localize: { text: 'soon' }">Soon</span>
                             </li>
                         </ul>
                     </div>
                     <div class="list-item-action create">
-                        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                        <!-- ko if: sectionsMode() == sectionsListModes.display -->
                         <div class="action-item-btn-wrapper">
-                            <button class="action-item-btn create-item btn green" data-bind="click: createObjective">
-                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
+                            <button class="action-item-btn create-item btn green" data-bind="click: createSection">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectSection' }">Learning section</span>
                             </button>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                        <!-- ko if: sectionsMode() == sectionsListModes.appending -->
                         <div class="action-item-btn-wrapper">
-                            <button class="action-item-btn btn confirm" data-bind="click: showConnectedObjectives">
-                                <span class="action-item-btn-caption" data-bind="localize: { text: 'finishConnectingLearningObjectives' }"></span>
+                            <button class="action-item-btn btn confirm" data-bind="click: showConnectedSections">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'finishConnectingSections' }"></span>
                             </button>
                         </div>
                         <!-- /ko -->
                     </div>
                 </div>
                 <!-- /ko -->
-                <!--ko if: objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0-->
-                <ul class="unstyled main-content-list main-objectives-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingObjectives, stop: endReorderingObjectives } }">
+                <!--ko if: sectionsMode() == sectionsListModes.display && connectedSections().length > 0-->
+                <ul class="unstyled main-content-list main-sections-list" data-bind="sortable: { data: connectedSections, afterMove: reorderSections, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingSections, stop: endReorderingSections } }">
                     <li class="main-content-list-item draggable" data-bind="css: { selected: isSelected }">
-                        <div class="list-item-content-holder" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
+                        <div class="list-item-content-holder" data-bind="click: $parent.navigateToSectionDetails.bind($parent)">
                             <!-- ko if: $parent.isSortingEnabled() -->
                             <div class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></div>
                             <!-- /ko -->
@@ -102,7 +102,7 @@
                             <div class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></div>
                             <!-- /ko -->
                             <div class="empty-list-item"></div>
-                            <div class="checkbox-holder" data-bind="click: $parent.toggleObjectiveSelection, stopEventPropagation: { event: 'click' }">
+                            <div class="checkbox-holder" data-bind="click: $parent.toggleSectionSelection, stopEventPropagation: { event: 'click' }">
                                 <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
                                     <input class="custom-checkbox" type="checkbox" />
                                 </span>
@@ -110,7 +110,7 @@
                             <div class="list-item-info-holder">
                                 <div class="info-holder-table">
                                     <div class="list-item-logo-wrapper">
-                                        <div class="list-item-logo changeable" data-bind="click: $parent.updateObjectiveImage, stopEventPropagation: { event: 'click' }">
+                                        <div class="list-item-logo changeable" data-bind="click: $parent.updateSectionImage, stopEventPropagation: { event: 'click' }">
                                             <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
                                             <div class="overlay hover" data-bind="visible: !isImageLoading()">
                                                 <span class="image"></span>
@@ -143,23 +143,23 @@
                     </li>
                 </ul>
                 <!-- /ko -->
-                <!--ko ifnot: objectivesMode() == objectivesListModes.display-->
-                <div class="connecting-objectives-holder">
-                    <div class="connecting-objectives-item">
-                        <div class="other-objectives-title">
-                            <div data-bind="localize: { text: 'otherObjectives' }"></div>
+                <!--ko ifnot: sectionsMode() == sectionsListModes.display-->
+                <div class="connecting-sections-holder">
+                    <div class="connecting-sections-item">
+                        <div class="other-sections-title">
+                            <div data-bind="localize: { text: 'otherSections' }"></div>
                         </div>
-                        <div class="connecting-objectives-item-container" data-bind="css: { empty:  availableObjectives().length == 0  }">
-                            <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
-                            <div class="empty-list-wrapper connecting-objectives">
+                        <div class="connecting-sections-item-container" data-bind="css: { empty:  availableSections().length == 0  }">
+                            <!-- ko if: sectionsMode() == sectionsListModes.appending && availableSections().length == 0-->
+                            <div class="empty-list-wrapper connecting-sections">
                                 <div class="empty-list-info">
-                                    <div class="empty-list connecting-objectives" data-bind="localize: { text: 'allObjectivesConnected' }"></div>
+                                    <div class="empty-list connecting-sections" data-bind="localize: { text: 'allSectionsConnected' }"></div>
                                 </div>
                             </div>
                             <!-- /ko -->
-                            <ul class="unstyled main-content-list" data-bind="css: { 'disconnected': availableObjectives().length != 0, empty: availableObjectives().length == 0 }, sortableExtended: { data: availableObjectives, beforeMove: disconnectObjective, afterMove: objectiveDisconnected, placeholder: '.placeholder-wrapper' }">
+                            <ul class="unstyled main-content-list" data-bind="css: { 'disconnected': availableSections().length != 0, empty: availableSections().length == 0 }, sortableExtended: { data: availableSections, beforeMove: disconnectSection, afterMove: sectionDisconnected, placeholder: '.placeholder-wrapper' }">
                                 <li class="main-content-list-item">
-                                    <div class="list-item-content-holder moved-objectives">
+                                    <div class="list-item-content-holder moved-sections">
                                         <div class="list-item-drag-icon"></div>
                                         <div class="list-item-info-holder">
                                             <div class="info-holder-table">
@@ -178,29 +178,29 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="connecting-objectives-item empty">
+                    <div class="connecting-sections-item empty">
                         &nbsp;
                     </div>
-                    <div class="connecting-objectives-item">
-                        <div class="connecting-objectives-item-wrapper">
+                    <div class="connecting-sections-item">
+                        <div class="connecting-sections-item-wrapper">
                             <div class="tip-arrow-holder bottom-right">
-                                <div class="tip-arrow-text" data-bind="localize: { text: 'dragLOHere' }">Drag learning objective here</div>
+                                <div class="tip-arrow-text" data-bind="localize: { text: 'dragLOHere' }">Drag learning section here</div>
                             </div>
-                            <div class="connected-objectives-title">
-                                <div class="connected-objectives-title-text" data-bind="localize: { text: 'connectedObjectives' }"></div>
+                            <div class="connected-sections-title">
+                                <div class="connected-sections-title-text" data-bind="localize: { text: 'connectedSections' }"></div>
                             </div>
-                            <div class="connecting-objectives-item-container" data-bind="css: { empty:  connectedObjectives().length == 0  }">
-                                <!-- ko if: objectivesMode() == objectivesListModes.appending && connectedObjectives().length == 0 -->
-                                <div class="empty-list-wrapper connecting-objectives connected">
+                            <div class="connecting-sections-item-container" data-bind="css: { empty:  connectedSections().length == 0  }">
+                                <!-- ko if: sectionsMode() == sectionsListModes.appending && connectedSections().length == 0 -->
+                                <div class="empty-list-wrapper connecting-sections connected">
                                     <div class=" empty-list-info">
                                         <div class="empty-list-image "></div>
-                                        <div class="empty-list-caption"><span data-bind="localize: { html: 'dragAndDropObjectivesHere' }"></span></div>
+                                        <div class="empty-list-caption"><span data-bind="localize: { html: 'dragAndDropSectionsHere' }"></span></div>
                                     </div>
                                 </div>
                                 <!-- /ko -->
-                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortableExtended: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper',  options: { start : startReorderingObjectives, stop: endReorderingObjectives } }">
+                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedSections().length != 0, empty: connectedSections().length == 0 }, sortableExtended: { data: connectedSections, beforeMove: connectSection, placeholder: '.placeholder-wrapper',  options: { start : startReorderingSections, stop: endReorderingSections } }">
                                     <li class="main-content-list-item">
-                                        <div class="list-item-content-holder moved-objectives">
+                                        <div class="list-item-content-holder moved-sections">
                                             <div class="list-item-drag-icon"></div>
                                             <div class="list-item-info-holder">
                                                 <div class="info-holder-table">

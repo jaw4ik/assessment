@@ -51,7 +51,7 @@ class QuestionModalView {
 
         app.on(constants.messages.course.collaboration.finished, _courseDeleted.get(this).bind(this));
         app.on(constants.messages.course.deletedByCollaborator, _courseDeleted.get(this).bind(this));
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionsDeleted.get(this).bind(this));
         router.on('router:navigation:processing', _routerNavigationProcessing.get(this).bind(this));
     }

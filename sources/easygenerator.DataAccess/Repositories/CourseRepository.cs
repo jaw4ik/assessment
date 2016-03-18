@@ -29,34 +29,34 @@ namespace easygenerator.DataAccess.Repositories
                    ).AsNoTracking().ToList();
         }
 
-        public void RemoveCourseWithObjectives(Guid courseId)
+        public void RemoveCourseWithSections(Guid courseId)
         {
             var command = @"
-							DELETE FROM Objectives WHERE Id IN (SELECT Objective_Id FROM CourseObjectives WHERE Course_Id = @courseId)
+							DELETE FROM Sections WHERE Id IN (SELECT Section_Id FROM CourseSections WHERE Course_Id = @courseId)
 							DELETE FROM Courses WHERE ID = @courseId
 						  ";
 
             ((DatabaseContext)_dataContext).Database.ExecuteSqlCommand(command, new SqlParameter("@courseId", courseId));
         }
 
-        public ICollection<Course> GetCoursesRelatedToObjective(Guid objectiveId)
+        public ICollection<Course> GetCoursesRelatedToSection(Guid sectionId)
         {
             const string query = @"
-				SELECT course.* FROM Courses course INNER JOIN CourseObjectives objective ON objective.Course_Id = course.Id 
-				WHERE objective.Objective_Id = @objectiveId
+				SELECT course.* FROM Courses course INNER JOIN CourseSections section ON section.Course_Id = course.Id 
+				WHERE section.Section_Id = @sectionId
 			";
 
             return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
-                new SqlParameter("@objectiveId", objectiveId)).ToList();
+                new SqlParameter("@sectionId", sectionId)).ToList();
         }
 
         public ICollection<Course> GetCoursesRelatedToQuestion(Guid questionId)
         {
             const string query = @"
 				SELECT course.* FROM Courses course INNER JOIN (
-					SELECT objective.Course_Id FROM CourseObjectives objective INNER JOIN (
-						SELECT question.Objective_Id FROM Questions question WHERE question.Id = @questionId
-					) quest ON objective.Objective_Id = quest.Objective_Id
+					SELECT section.Course_Id FROM CourseSections section INNER JOIN (
+						SELECT question.Section_Id FROM Questions question WHERE question.Id = @questionId
+					) quest ON section.Section_Id = quest.Section_Id
 				) obj ON course.Id = obj.Course_Id
 			";
 
@@ -103,10 +103,10 @@ namespace easygenerator.DataAccess.Repositories
         {
             var query = String.Format(@"
                 SELECT course.* FROM Courses course inner join(
-	                SELECT objective.Course_Id FROM CourseObjectives objective inner join(
-		                SELECT question.Objective_Id FROM Questions question inner join {0} entity ON entity.Question_Id = question.Id
+	                SELECT section.Course_Id FROM CourseSections section inner join(
+		                SELECT question.Section_Id FROM Questions question inner join {0} entity ON entity.Question_Id = question.Id
 		                WHERE entity.Id = @entityId
-	                ) quest ON objective.Objective_Id = quest.Objective_Id
+	                ) quest ON section.Section_Id = quest.Section_Id
                 ) obj ON course.Id = obj.Course_Id
 			", entityTableName);
 

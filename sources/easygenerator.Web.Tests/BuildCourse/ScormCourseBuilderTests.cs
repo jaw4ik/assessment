@@ -384,12 +384,12 @@ namespace easygenerator.Web.Tests.BuildCourse
             question.AddAnswer(answer, "SomeUser");
             question.AddLearningContent(explanation, "SomeUser");
 
-            var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
-            objective.AddQuestion(question, "SomeUser");
+            var section = SectionObjectMother.Create("SectionTitle");
+            section.AddQuestion(question, "SomeUser");
 
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
-            course.RelateObjective(objective, null, "SomeUser");
+            course.RelateSection(section, null, "SomeUser");
 
             return course;
         }
