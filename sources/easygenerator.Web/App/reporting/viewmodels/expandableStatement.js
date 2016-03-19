@@ -9,6 +9,7 @@ export default class {
         this.isExpanded = ko.observable(false);
         this.children = ko.observableArray([]);
         this.hasScore = this.lrsStatement.score != null;
+        this.isProgressed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.progressed;
     }
 
     async expand() {

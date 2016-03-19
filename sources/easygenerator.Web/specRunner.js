@@ -183,6 +183,7 @@ function runSpecs(env) {
                 'reporting/viewmodels/resultsBase.spec',
                 'reporting/learningPathStatementsProvider.spec',
                 'reporting/courseStatementsProvider.spec',
+                'reporting/statementsCacheManager.spec',
                 //#endregion
 
                 //#region synchronization

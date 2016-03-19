@@ -17,25 +17,39 @@ export default class {
                 return _.find([constants.reporting.xApiVerbIds.failed, constants.reporting.xApiVerbIds.passed], verb => verb === statement.verb);
             });
 
+            if (!finishedStatement) {
+                var progressedStatement = _.sortBy(_.filter(statementGroup.root, statement => statement.verb === constants.reporting.xApiVerbIds.progressed), statement => -statement.date.getTime())[0];
+                finishedStatement = progressedStatement;
+            }
+
             if (finishedStatement) {
 
                 if (spec.embeded) {
-                    var mastered = _.map(statementGroup.embeded, embededStatementGroup => {
-                        if (!embededStatementGroup || !embededStatementGroup.mastered) {
+                    var objectiveStatements = _.map(statementGroup.embeded, embededStatementGroup => {
+                        if (!embededStatementGroup || !embededStatementGroup.root || !embededStatementGroup.root.length) {
                             return null;
                         }
                         if ((!embededStatementGroup.answered || !embededStatementGroup.answered.length) && (!embededStatementGroup.experienced || !embededStatementGroup.experienced.length) ) {
-                            return new ObjectiveStatement(embededStatementGroup.mastered);
+                            return spec.progressedHistory ? _.map(embededStatementGroup.root, objectiveStatement => new ObjectiveStatement(objectiveStatement, null))
+                                : new ObjectiveStatement(embededStatementGroup.root[0], null);
                         }
 
                         var answered = embededStatementGroup.answered ? embededStatementGroup.answered : [],
                             experienced = embededStatementGroup.experienced ? embededStatementGroup.experienced : [],
                             questionStatementsModels = _.map(_.union(answered, experienced), statement => questionStatementFactory.createQuestionStatement(statement));
 
-                        return new ObjectiveStatement(embededStatementGroup.mastered, questionStatementsModels.length ? questionStatementsModels : null);
+                        var latestObjectiveStatement = new ObjectiveStatement(embededStatementGroup.root[0], questionStatementsModels.length ? questionStatementsModels : null);
+
+                        if (spec.progressedHistory) {
+                            embededStatementGroup.root.splice(0, 1);
+                            let result = _.map(embededStatementGroup.root, objectiveStatement => new ObjectiveStatement(objectiveStatement, []));
+                            result.unshift(latestObjectiveStatement);
+                            return result;
+                        }
+                        return latestObjectiveStatement;
                     });
 
-                    return new FinishStatement(finishedStatement, startedStatement || null, mastered.length ? mastered : null);
+                    return new FinishStatement(finishedStatement, startedStatement || null, objectiveStatements.length ? objectiveStatements : null);
                 }
 
                 return new FinishStatement(finishedStatement, startedStatement || null);

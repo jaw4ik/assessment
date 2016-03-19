@@ -683,6 +683,10 @@
     <Content Include="App\reporting\learningPathStatementsProvider.spec.js">
       <DependentUpon>learningPathStatementsProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\statementsCacheManager.js" />
+    <Content Include="App\reporting\statementsCacheManager.spec.js">
+      <DependentUpon>statementsCacheManager.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\viewmodels\questionStatements\answeredStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatements\answeredStatement.spec.js">
       <DependentUpon>answeredStatement.js</DependentUpon>
@@ -2985,6 +2989,7 @@
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\lang\de.json" />
     <Content Include="Templates\Personalized learning\lang\en.json" />
+    <Content Include="Templates\Personalized learning\lang\es.json" />
     <Content Include="Templates\Personalized learning\lang\fr.json" />
     <Content Include="Templates\Personalized learning\lang\nl.json" />
     <Content Include="Templates\Personalized learning\lang\pt-br.json" />
@@ -3071,6 +3076,9 @@
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\app\main.js.map" />
+    <Content Include="Templates\Simple course\css\colors.less" />
+    <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\img\browsers\android.png" />
     <Content Include="Templates\Simple course\css\img\browsers\chrome.png" />
@@ -3094,6 +3102,17 @@
     <Content Include="Templates\Simple course\js\less.min.js" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\lang\cn.json" />
+    <Content Include="Templates\Simple course\lang\de.json" />
+    <Content Include="Templates\Simple course\lang\en.json" />
+    <Content Include="Templates\Simple course\lang\es.json" />
+    <Content Include="Templates\Simple course\lang\fr.json" />
+    <Content Include="Templates\Simple course\lang\it.json" />
+    <Content Include="Templates\Simple course\lang\nl.json" />
+    <Content Include="Templates\Simple course\lang\pt-br.json" />
+    <Content Include="Templates\Simple course\lang\tr.json" />
+    <Content Include="Templates\Simple course\lang\ua.json" />
+    <Content Include="Templates\Simple course\manifest.json" />
     <Content Include="Templates\Simple course\pdf\index.html" />
     <Content Include="Templates\Simple course\pdf\scripts.js" />
     <Content Include="Templates\Simple course\pdf\styles.css" />
@@ -3107,12 +3126,20 @@
     <Content Include="Templates\Simple course\settings\api.js" />
     <Content Include="Templates\Simple course\settings\configure\configure.html" />
     <Content Include="Templates\Simple course\settings\configure\css\configure.css" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Simple course\settings\configure\css\img\preview-templates-sprite.png" />
     <Content Include="Templates\Simple course\settings\configure\css\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\design\css\design.css" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
     <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\design\layout.html" />
@@ -3190,30 +3217,7 @@
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <Content Include="Templates\Assessment\lang\es.json" />
-    <Content Include="Templates\Personalized learning\lang\es.json" />
     <Content Include="Templates\Reader\lang\es.json" />
-    <Content Include="Templates\Simple course\manifest.json" />
-    <Content Include="Templates\Simple course\app\main.js.map" />
-    <Content Include="Templates\Simple course\css\colors.less" />
-    <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
-    <Content Include="Templates\Simple course\lang\cn.json" />
-    <Content Include="Templates\Simple course\lang\de.json" />
-    <Content Include="Templates\Simple course\lang\en.json" />
-    <Content Include="Templates\Simple course\lang\es.json" />
-    <Content Include="Templates\Simple course\lang\fr.json" />
-    <Content Include="Templates\Simple course\lang\it.json" />
-    <Content Include="Templates\Simple course\lang\nl.json" />
-    <Content Include="Templates\Simple course\lang\pt-br.json" />
-    <Content Include="Templates\Simple course\lang\tr.json" />
-    <Content Include="Templates\Simple course\lang\ua.json" />
-    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-italic-400.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

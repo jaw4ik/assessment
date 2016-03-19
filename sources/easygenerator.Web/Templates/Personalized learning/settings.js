@@ -13,7 +13,7 @@
             },
           "authenticationRequired": false
         },
-        "allowedVerbs":["started","stopped","mastered","answered","passed","failed"]
+        "allowedVerbs":["started","stopped","mastered","answered","passed","failed","progressed"]
     },
     "languages": {
         "selected": "en"

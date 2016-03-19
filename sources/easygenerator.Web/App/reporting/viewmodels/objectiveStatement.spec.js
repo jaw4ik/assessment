@@ -17,7 +17,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
         statementsDefer = Q.defer();
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50 };
-        spyOn(XApiProvider, 'getObjectiveStatements').and.returnValue(statementsDefer.promise);
+        spyOn(XApiProvider, 'getQuestionStatements').and.returnValue(statementsDefer.promise);
         statement = new ObjectiveStatement(lrsStatement);
     });
 
@@ -71,10 +71,10 @@ describe('viewmodel [ObjectiveStatement]', () => {
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call xApiProvider.getObjectiveStatements with correct args', done => (async () => {
+        it('should call xApiProvider.getQuestionStatements with correct args', done => (async () => {
             statementsDefer.resolve([]);
             await statement.expandLoadAction();
-            expect(XApiProvider.getObjectiveStatements).toHaveBeenCalledWith(attemptId, statementId);
+            expect(XApiProvider.getQuestionStatements).toHaveBeenCalledWith(attemptId, statementId);
         })().then(done));
 
         describe('if there are no answered statements', () => {

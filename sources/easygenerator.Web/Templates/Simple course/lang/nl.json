@@ -68,7 +68,7 @@
     "[download course in pdf format]": "Download de cursus in PDF formaat",
     "[scenario has been passed successfully]": "Het scenario is succesvol voltooid",
     "[scenario has not been passed successfully]": "U heeft het scenario niet succesvol voltooid",
-    "[download as pdf]": "Downlaod als PDF",
+    "[download as pdf]": "Download als PDF",
     "[download as pdf preparing]": "Voorbereiden...",
     "[download as pdf error]": "Er is iets misgegaan",
     "[Save, I will continue later]": "Bewaar en ga later verder",
@@ -76,5 +76,7 @@
     "[Overall progress]": "Algemene voortgang",
     "[OK, close course]": "Ok, Sluit cursus",
     "[take a brake]": "Neem een pauze",
-    "[note that]": "Merk op dat:"
+    "[note that]": "Merk op dat:",
+    "[or]": "or",
+    "[take a break and continue later]": "Take a break and continue later"
 }

@@ -12,19 +12,19 @@ function getLearnerDisplayName(name, email) {
 }
 
 export default class extends ExpandableStatement {
-    constructor(finishedLrsStatement, startedLrsStatement, masteredStatements) {
+    constructor(finishedLrsStatement, startedLrsStatement, childStatements) {
         super(finishedLrsStatement);
         this.startedLrsStatement = startedLrsStatement;
-        if (masteredStatements === null || masteredStatements) {
-            masteredStatements ? this.children(masteredStatements) : this.children = null;
+        if (childStatements === null || childStatements) {
+            childStatements ? this.children(childStatements) : this.children = null;
         }
         this.learnerDisplayName = getLearnerDisplayName(this.lrsStatement.actor.name, this.lrsStatement.actor.email);
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
     async expandLoadAction() {
-        let mastered = await XApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
-            objectiveStatements = _.map(mastered, statement => new ObjectiveStatement(statement));
+        let statements = await XApiProvider.getObjectiveStatements(this.lrsStatement.attemptId, this.lrsStatement.date.getTime()),
+            objectiveStatements = _.map(statements, statement => new ObjectiveStatement(statement));
 
         objectiveStatements.length ? this.children(objectiveStatements) : this.children = null;
     }

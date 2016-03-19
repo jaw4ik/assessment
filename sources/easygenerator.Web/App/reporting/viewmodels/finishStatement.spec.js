@@ -23,7 +23,7 @@ describe('viewmodel [FinishStatement]', () => {
         attemptId = 'attemptId';
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50, actor: { name: 'name', email: 'email' } };
-        spyOn(XApiProvider, 'getMasteredStatements').and.returnValue(Promise.resolve(masteredStatements));
+        spyOn(XApiProvider, 'getObjectiveStatements').and.returnValue(Promise.resolve(masteredStatements));
         spyOn(localizationManager, 'localize').and.callFake(function(localizationKey) {
             if (localizationKey === 'reportingInfoNotAvailable') {
                 return "N/A";
@@ -102,12 +102,12 @@ describe('viewmodel [FinishStatement]', () => {
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call XApiProvider.getMasteredStatements with correct args', () => {
+        it('should call XApiProvider.getObjectiveStatements with correct args', () => {
             statement.expandLoadAction();
-            expect(XApiProvider.getMasteredStatements).toHaveBeenCalledWith(attemptId);
+            expect(XApiProvider.getObjectiveStatements).toHaveBeenCalledWith(attemptId);
         });
 
-        describe('when XApiProvider.getMasteredStatements call was success', () => {
+        describe('when XApiProvider.getObjectiveStatements call was success', () => {
 
             it('should fill children collection with ObjectiveStatement instances', done => (async () => {
                 await statement.expandLoadAction();
