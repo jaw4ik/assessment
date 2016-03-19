@@ -37,7 +37,7 @@ describe('[CourseTreeNode]', function () {
             spyOn(getCourseByIdQuery, 'execute').and.returnValue(execute.promise);
 
             jasmine.addMatchers({
-                toBeObjectiveTreeNode: function () {
+                toBeSectionTreeNode: function () {
                     return {
                         compare: function (actual) {
                             var result = {
@@ -47,7 +47,7 @@ describe('[CourseTreeNode]', function () {
                             if (result.pass) {
                                 result.message = "Ok";
                             } else {
-                                result.message = "Expected to be ObjectiveTreeNode";
+                                result.message = "Expected to be SectionTreeNode";
                             }
 
                             return result;
@@ -73,17 +73,17 @@ describe('[CourseTreeNode]', function () {
             });
 
             it('should get children', function (done) {
-                execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                execute.resolve({ sections: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
                 courseTreeNode.expand().fin(function () {
-                    expect(courseTreeNode.children()[0]).toBeObjectiveTreeNode();
-                    expect(courseTreeNode.children()[1]).toBeObjectiveTreeNode();
+                    expect(courseTreeNode.children()[0]).toBeSectionTreeNode();
+                    expect(courseTreeNode.children()[1]).toBeSectionTreeNode();
                     done();
                 });
             });
 
             it('should mark node as expanded', function (done) {
-                execute.resolve({ objectives: [] });
+                execute.resolve({ sections: [] });
                 courseTreeNode.isExpanded(false);
 
                 courseTreeNode.expand().fin(function () {
@@ -100,7 +100,7 @@ describe('[CourseTreeNode]', function () {
             });
 
             it('should not get children', function (done) {
-                execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                execute.resolve({ sections: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
                 courseTreeNode.expand().fin(function () {
                     expect(getCourseByIdQuery.execute).not.toHaveBeenCalled();
@@ -110,7 +110,7 @@ describe('[CourseTreeNode]', function () {
 
 
             it('should mark node as expanded', function (done) {
-                execute.resolve({ objectives: [] });
+                execute.resolve({ sections: [] });
                 courseTreeNode.isExpanded(false);
 
                 courseTreeNode.expand().fin(function () {

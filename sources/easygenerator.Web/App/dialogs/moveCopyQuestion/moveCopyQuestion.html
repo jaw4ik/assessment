@@ -12,22 +12,22 @@
                 <!-- ko foreach: courses -->
                 <li class="dropdown-options-item" data-bind="text: title, click: $parent.selectCourse, css: { selected: id === $parent.selectedCourse().id }"></li>
                 <!-- /ko -->
-                <li class="dropdown-options-item" data-bind="text: allObjectives().title, click: selectCourse.bind($data, allObjectives()), css: { selected: selectedCourse() == allObjectives() }"></li>
+                <li class="dropdown-options-item" data-bind="text: allSections().title, click: selectCourse.bind($data, allSections()), css: { selected: selectedCourse() == allSections() }"></li>
             </ul>
         </div>
-        <h2 class="move-copy-question-title" data-bind="localize: { text: 'toObjective' }">To objective:</h2>
+        <h2 class="move-copy-question-title" data-bind="localize: { text: 'toSection' }">To section:</h2>
         <div class="move-copy-question-content">
-            <ul class="destination-objectives-list scrollable unstyled">
-                <!-- ko foreach: selectedCourse().objectives -->
-                <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, css: { selected: id == $parent.selectedObjectiveId() }">
+            <ul class="destination-sections-list scrollable unstyled">
+                <!-- ko foreach: selectedCourse().sections -->
+                <li class="destination-sections-list-item" data-bind="click: $parent.selectSection, css: { selected: id == $parent.selectedSectionId() }">
                     <span data-bind="text: title"></span>
-                    <!-- ko if: id === $parent.objectiveId() -->
-                    [<span class="destination-objectives-list-item-text" data-bind="localize: { text: 'current' }"></span>]
+                    <!-- ko if: id === $parent.sectionId() -->
+                    [<span class="destination-sections-list-item-text" data-bind="localize: { text: 'current' }"></span>]
                     <!-- /ko -->
                 </li>
                 <!-- /ko -->
                 <!-- ko if: selectedCourse().objectvesListEmpty -->
-                <li class="destination-objectives-list-item empty" data-bind="localize: { text: 'objectivesListEmpty' }">Objectives list is empty...</li>
+                <li class="destination-sections-list-item empty" data-bind="localize: { text: 'sectionsListEmpty' }">Sections list is empty...</li>
                 <!-- /ko -->
             </ul>
         </div>

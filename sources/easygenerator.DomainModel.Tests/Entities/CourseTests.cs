@@ -81,268 +81,268 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.Title.Should().Be(title);
             course.CreatedOn.Should().Be(DateTime.MaxValue);
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
-            course.RelatedObjectives.Should().BeEmpty();
+            course.RelatedSections.Should().BeEmpty();
             course.CommentsCollection.Should().BeEmpty();
             course.CollaboratorsCollection.Should().BeEmpty();
             course.TemplateSettings.Should().BeEmpty();
             course.CreatedBy.Should().Be(CreatedBy);
             course.ModifiedBy.Should().Be(CreatedBy);
             course.IntroductionContent.Should().BeNull();
-            course.ObjectivesOrder.Should().BeNull();
+            course.SectionsOrder.Should().BeNull();
             course.CourseCompanies.Should().BeEmpty();
         }
 
         #endregion
 
-        #region RelateObjective
+        #region RelateSection
 
         [TestMethod]
-        public void RelateObjective_ShouldThrowNullArgumentException_WhenObjectiveIsNull()
+        public void RelateSection_ShouldThrowNullArgumentException_WhenSectionIsNull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
 
             //Act
-            Action action = () => course.RelateObjective(null, null, ModifiedBy);
+            Action action = () => course.RelateSection(null, null, ModifiedBy);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("objective");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("section");
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldUpdateModifiedOnDate()
+        public void RelateSection_ShouldUpdateModifiedOnDate()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
 
             //Assert
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldRelateObjectiveToCourse()
+        public void RelateSection_ShouldRelateSectionToCourse()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
 
             //Act
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
 
             //Assert
-            course.RelatedObjectives.Should().Contain(objective);
+            course.RelatedSections.Should().Contain(section);
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldUpdateObjectivesOrderedListAndInsertToEnd()
+        public void RelateSection_ShouldUpdateSectionsOrderedListAndInsertToEnd()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective = ObjectiveObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            course.RelatedObjectivesCollection = new Collection<Objective>()
+            var section = SectionObjectMother.Create();
+            var section1 = SectionObjectMother.Create();
+            course.RelatedSectionsCollection = new Collection<Section>()
             {
-                objective
+                section
             };
-            var objectiveCollection = new List<Objective>() { objective };
-            course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
-            objectiveCollection.Add(objective1);
-            var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            var sectionCollection = new List<Section>() { section };
+            course.UpdateSectionsOrder(sectionCollection, ModifiedBy);
+            sectionCollection.Add(section1);
+            var result = String.Join(",", sectionCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            course.RelateObjective(objective1, null, ModifiedBy);
+            course.RelateSection(section1, null, ModifiedBy);
 
             //Assert
-            course.ObjectivesOrder.Should().Be(result);
+            course.SectionsOrder.Should().Be(result);
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldUpdateObjectivesOrderedListAndInsertToPosition()
+        public void RelateSection_ShouldUpdateSectionsOrderedListAndInsertToPosition()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective = ObjectiveObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objective2 = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
+            var section1 = SectionObjectMother.Create();
+            var section2 = SectionObjectMother.Create();
             const int position = 1;
-            course.RelatedObjectivesCollection = new Collection<Objective>()
+            course.RelatedSectionsCollection = new Collection<Section>()
             {
-                objective,
-                objective1
+                section,
+                section1
             };
-            var objectiveCollection = new List<Objective>() { objective, objective1 };
-            course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
-            objectiveCollection.Insert(position, objective2);
-            var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            var sectionCollection = new List<Section>() { section, section1 };
+            course.UpdateSectionsOrder(sectionCollection, ModifiedBy);
+            sectionCollection.Insert(position, section2);
+            var result = String.Join(",", sectionCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            course.RelateObjective(objective2, 1, ModifiedBy);
+            course.RelateSection(section2, 1, ModifiedBy);
 
             //Assert
-            course.ObjectivesOrder.Should().Be(result);
+            course.SectionsOrder.Should().Be(result);
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        public void RelateSection_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
 
-            Action action = () => course.RelateObjective(objective, null, null);
+            Action action = () => course.RelateSection(section, null, null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        public void RelateSection_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
 
-            Action action = () => course.RelateObjective(objective, null, string.Empty);
+            Action action = () => course.RelateSection(section, null, string.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldUpdateMoidifiedBy()
+        public void RelateSection_ShouldUpdateMoidifiedBy()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
             var user = "Some user";
 
-            course.RelateObjective(objective, null, user);
+            course.RelateSection(section, null, user);
 
             course.ModifiedBy.Should().Be(user);
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldAddCourseObjectiveRelatedEvent()
+        public void RelateSection_ShouldAddCourseSectionRelatedEvent()
         {
             var course = CourseObjectMother.Create();
 
-            course.RelateObjective(ObjectiveObjectMother.Create(), null, "user");
+            course.RelateSection(SectionObjectMother.Create(), null, "user");
 
-            course.ShouldContainSingleEvent<CourseObjectiveRelatedEvent>();
+            course.ShouldContainSingleEvent<CourseSectionRelatedEvent>();
         }
 
         #endregion
 
-        #region UnrelateObjective
+        #region UnrelateSection
 
         [TestMethod]
-        public void UnrelateObjective_ShouldThrowNullArgumentException_WhenObjectiveIsNull()
+        public void UnrelateSection_ShouldThrowNullArgumentException_WhenSectionIsNull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
 
             //Act
-            Action action = () => course.UnrelateObjective(null, ModifiedBy);
+            Action action = () => course.UnrelateSection(null, ModifiedBy);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("objective");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("section");
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldUpdateModifiedOnDate()
+        public void UnrelateSection_ShouldUpdateModifiedOnDate()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            course.UnrelateObjective(objective, ModifiedBy);
+            course.UnrelateSection(section, ModifiedBy);
 
             //Assert
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldUnrelateObjectiveFromCourse()
+        public void UnrelateSection_ShouldUnrelateSectionFromCourse()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
 
             //Act
-            course.UnrelateObjective(objective, ModifiedBy);
+            course.UnrelateSection(section, ModifiedBy);
 
             //Assert
-            course.RelatedObjectives.Should().NotContain(objective);
+            course.RelatedSections.Should().NotContain(section);
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldUpdateObjectivesOrderedList()
+        public void UnrelateSection_ShouldUpdateSectionsOrderedList()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective = ObjectiveObjectMother.Create();
-            course.RelatedObjectivesCollection = new Collection<Objective>()
+            var section = SectionObjectMother.Create();
+            course.RelatedSectionsCollection = new Collection<Section>()
             {
-                objective
+                section
             };
-            var objectiveCollection = new List<Objective>() { objective };
-            course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
+            var sectionCollection = new List<Section>() { section };
+            course.UpdateSectionsOrder(sectionCollection, ModifiedBy);
             //Act
-            course.UnrelateObjective(objective, ModifiedBy);
+            course.UnrelateSection(section, ModifiedBy);
 
             //Assert
-            course.ObjectivesOrder.Should().Be(null);
+            course.SectionsOrder.Should().Be(null);
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        public void UnrelateSection_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
 
-            Action action = () => course.UnrelateObjective(objective, null);
+            Action action = () => course.UnrelateSection(section, null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        public void UnrelateSection_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
 
-            Action action = () => course.UnrelateObjective(objective, string.Empty);
+            Action action = () => course.UnrelateSection(section, string.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldUpdateMoidifiedBy()
+        public void UnrelateSection_ShouldUpdateMoidifiedBy()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
             var user = "Some user";
 
-            course.UnrelateObjective(objective, user);
+            course.UnrelateSection(section, user);
 
             course.ModifiedBy.Should().Be(user);
         }
 
         [TestMethod]
-        public void UnrelateObjective_ShouldAddCourseObjectiveRelatedEvent()
+        public void UnrelateSection_ShouldAddCourseSectionRelatedEvent()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, null, ModifiedBy);
+            course.RelateSection(section, null, ModifiedBy);
 
-            course.UnrelateObjective(objective, "user");
+            course.UnrelateSection(section, "user");
 
-            course.ShouldContainSingleEventOfType<CourseObjectivesUnrelatedEvent>();
+            course.ShouldContainSingleEventOfType<CourseSectionsUnrelatedEvent>();
         }
 
         #endregion
@@ -1061,31 +1061,31 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region UpdateObjectivesOrder
+        #region UpdateSectionsOrder
 
         [TestMethod]
-        public void UpdateObjectivesOrder_ShouldUpdateObjectivesOrderedList()
+        public void UpdateSectionsOrder_ShouldUpdateSectionsOrderedList()
         {
             //Arrange
             var user = "some user";
             var course = CourseObjectMother.Create();
-            var objective = ObjectiveObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objectiveCollection = new List<Objective>()
+            var section = SectionObjectMother.Create();
+            var section1 = SectionObjectMother.Create();
+            var sectionCollection = new List<Section>()
             {
-                objective,
-                objective1
+                section,
+                section1
             };
-            var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            var result = String.Join(",", sectionCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            course.UpdateObjectivesOrder(objectiveCollection, user);
+            course.UpdateSectionsOrder(sectionCollection, user);
 
             //Assert
-            course.ObjectivesOrder.Should().Be(result);
+            course.SectionsOrder.Should().Be(result);
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrder_ShouldUpdateModificationDate()
+        public void UpdateSectionsOrder_ShouldUpdateModificationDate()
         {
             //Arrange
             var user = "some user";
@@ -1094,151 +1094,151 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             var dateTime = DateTime.Now.AddDays(1);
             DateTimeWrapper.Now = () => dateTime;
-            var objectiveCollection = new List<Objective>()
+            var sectionCollection = new List<Section>()
             {
-                ObjectiveObjectMother.Create()
+                SectionObjectMother.Create()
             };
 
             //Act
-            course.UpdateObjectivesOrder(objectiveCollection, user);
+            course.UpdateSectionsOrder(sectionCollection, user);
 
             //Assert
             course.ModifiedOn.Should().Be(dateTime);
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrder_ShouldUpdateModifiedBy()
+        public void UpdateSectionsOrder_ShouldUpdateModifiedBy()
         {
             //Arrange
             var user = "some user";
             var course = CourseObjectMother.Create();
-            var objectiveCollection = new List<Objective>()
+            var sectionCollection = new List<Section>()
             {
-                ObjectiveObjectMother.Create()
+                SectionObjectMother.Create()
             };
             //Act
-            course.UpdateObjectivesOrder(objectiveCollection, user);
+            course.UpdateSectionsOrder(sectionCollection, user);
 
             //Assert
             course.ModifiedBy.Should().Be(user);
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        public void UpdateSectionsOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objectiveCollection = new List<Objective>()
+            var sectionCollection = new List<Section>()
             {
-                ObjectiveObjectMother.Create()
+                SectionObjectMother.Create()
             };
 
             //Act
-            Action action = () => course.UpdateObjectivesOrder(objectiveCollection, null);
+            Action action = () => course.UpdateSectionsOrder(sectionCollection, null);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrder_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        public void UpdateSectionsOrder_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objectiveCollection = new List<Objective>()
+            var sectionCollection = new List<Section>()
             {
-                ObjectiveObjectMother.Create()
+                SectionObjectMother.Create()
             };
 
             //Act
-            Action action = () => course.UpdateObjectivesOrder(objectiveCollection, "");
+            Action action = () => course.UpdateSectionsOrder(sectionCollection, "");
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrder_ShouldAddCourseObjectivesReorderedEvent()
+        public void UpdateSectionsOrder_ShouldAddCourseSectionsReorderedEvent()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
 
             var course = CourseObjectMother.Create();
-            course.RelatedObjectivesCollection.Add(objective);
+            course.RelatedSectionsCollection.Add(section);
 
-            course.UpdateObjectivesOrder(new Collection<Objective> { objective }, "user");
+            course.UpdateSectionsOrder(new Collection<Section> { section }, "user");
 
-            course.ShouldContainSingleEvent<CourseObjectivesReorderedEvent>();
+            course.ShouldContainSingleEvent<CourseSectionsReorderedEvent>();
         }
 
-        #endregion UpdateObjectivesOrder
+        #endregion UpdateSectionsOrder
 
-        #region RelatedObjectives
+        #region RelatedSections
 
         [TestMethod]
-        public void RelatedObjectives_ShouldReturnOrderedObjectivesCollection_WhenObjectivesOrderedListNotNull()
+        public void RelatedSections_ShouldReturnOrderedSectionsCollection_WhenSectionsOrderedListNotNull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objective2 = ObjectiveObjectMother.Create();
-            course.RelatedObjectivesCollection = new Collection<Objective>()
+            var section1 = SectionObjectMother.Create();
+            var section2 = SectionObjectMother.Create();
+            course.RelatedSectionsCollection = new Collection<Section>()
             {
-                objective2,
-                objective1
+                section2,
+                section1
             };
-            course.ObjectivesOrder = String.Format("{0},{1}", objective1.Id, objective2.Id);
+            course.SectionsOrder = String.Format("{0},{1}", section1.Id, section2.Id);
 
             //Act
-            var result = course.RelatedObjectives;
+            var result = course.RelatedSections;
 
             //Assert
-            result.First().Id.Should().Be(objective1.Id);
+            result.First().Id.Should().Be(section1.Id);
         }
 
         [TestMethod]
-        public void RelatedObjectives_ShouldReturnAllObjectivesInCorrectOrder_WhenObjectivesOrderedListIsNotFull()
+        public void RelatedSections_ShouldReturnAllSectionsInCorrectOrder_WhenSectionsOrderedListIsNotFull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objective2 = ObjectiveObjectMother.Create();
-            course.RelatedObjectivesCollection = new Collection<Objective>()
+            var section1 = SectionObjectMother.Create();
+            var section2 = SectionObjectMother.Create();
+            course.RelatedSectionsCollection = new Collection<Section>()
             {
-                objective2,
-                objective1
+                section2,
+                section1
             };
-            course.ObjectivesOrder = objective1.Id.ToString();
+            course.SectionsOrder = section1.Id.ToString();
 
             //Act
-            var result = course.RelatedObjectives;
+            var result = course.RelatedSections;
 
             //Assert
             result.Count().Should().Be(2);
-            result.First().Should().Be(objective1);
+            result.First().Should().Be(section1);
         }
 
         [TestMethod]
-        public void RelatedObjectives_ShouldReturnAllObjectivesInCorrectOrder_WhenObjectivesOrderedListIsOverfull()
+        public void RelatedSections_ShouldReturnAllSectionsInCorrectOrder_WhenSectionsOrderedListIsOverfull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective1 = ObjectiveObjectMother.Create();
-            var objective2 = ObjectiveObjectMother.Create();
-            course.RelatedObjectivesCollection = new Collection<Objective>()
+            var section1 = SectionObjectMother.Create();
+            var section2 = SectionObjectMother.Create();
+            course.RelatedSectionsCollection = new Collection<Section>()
             {
-                objective2
+                section2
             };
-            course.ObjectivesOrder = String.Format("{0},{1}", objective1.Id, objective2.Id);
+            course.SectionsOrder = String.Format("{0},{1}", section1.Id, section2.Id);
 
             //Act
-            var result = course.RelatedObjectives;
+            var result = course.RelatedSections;
 
             //Assert
             result.Count().Should().Be(1);
-            result.First().Should().Be(objective2);
+            result.First().Should().Be(section2);
         }
 
-        #endregion RelatedObjectives
+        #endregion RelatedSections
 
         #region RemoveCollaborator
 
@@ -1321,116 +1321,116 @@ namespace easygenerator.DomainModel.Tests.Entities
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-            var objective = ObjectiveObjectMother.Create(createdBy: email);
-            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+            var section = SectionObjectMother.Create(createdBy: email);
+            var clonedSection = SectionObjectMother.Create(createdBy: email);
 
-            var objective2 = ObjectiveObjectMother.Create(createdBy: email);
-            var clonedObjective2 = ObjectiveObjectMother.Create(createdBy: email);
+            var section2 = SectionObjectMother.Create(createdBy: email);
+            var clonedSection2 = SectionObjectMother.Create(createdBy: email);
 
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective2.Id), Arg.Any<object>()).Returns(clonedObjective2);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section.Id), Arg.Any<object>()).Returns(clonedSection);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section2.Id), Arg.Any<object>()).Returns(clonedSection2);
 
-            course.RelateObjective(objective, null, email);
-            course.RelateObjective(objective2, null, email);
+            course.RelateSection(section, null, email);
+            course.RelateSection(section2, null, email);
             course.Collaborate(email, "createdBy");
 
             // Act
             course.RemoveCollaborator(_cloner, email);
 
             // Assert
-            var raisedEvent = course.GetSingleEventOfType<CourseObjectivesClonedEvent>();
+            var raisedEvent = course.GetSingleEventOfType<CourseSectionsClonedEvent>();
             raisedEvent.Should().NotBeNull();
 
             raisedEvent.Course.Should().Be(course);
-            raisedEvent.ReplacedObjectives.Count.Should().Be(2);
-            raisedEvent.ReplacedObjectives.ContainsKey(objective.Id).Should().Be(true);
-            raisedEvent.ReplacedObjectives.ContainsKey(objective2.Id).Should().Be(true);
-            raisedEvent.ReplacedObjectives[objective.Id].Should().Be(clonedObjective);
-            raisedEvent.ReplacedObjectives[objective2.Id].Should().Be(clonedObjective2);
+            raisedEvent.ReplacedSections.Count.Should().Be(2);
+            raisedEvent.ReplacedSections.ContainsKey(section.Id).Should().Be(true);
+            raisedEvent.ReplacedSections.ContainsKey(section2.Id).Should().Be(true);
+            raisedEvent.ReplacedSections[section.Id].Should().Be(clonedSection);
+            raisedEvent.ReplacedSections[section2.Id].Should().Be(clonedSection2);
 
             var nextEvent = course.DequeueEvent();
             nextEvent.Should().BeNull();
         }
 
         [TestMethod]
-        public void RemoveCollaborator_ShouldRaiseEventOnlyAboutObjectivesOfRemovedCollaborator()
+        public void RemoveCollaborator_ShouldRaiseEventOnlyAboutSectionsOfRemovedCollaborator()
         {
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-            var objective = ObjectiveObjectMother.Create(createdBy: email);
-            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+            var section = SectionObjectMother.Create(createdBy: email);
+            var clonedSection = SectionObjectMother.Create(createdBy: email);
 
-            var objective2 = ObjectiveObjectMother.Create(createdBy: "another creator");
-            var clonedObjective2 = ObjectiveObjectMother.Create(createdBy: email);
+            var section2 = SectionObjectMother.Create(createdBy: "another creator");
+            var clonedSection2 = SectionObjectMother.Create(createdBy: email);
 
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective2.Id), Arg.Any<object>()).Returns(clonedObjective2);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section.Id), Arg.Any<object>()).Returns(clonedSection);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section2.Id), Arg.Any<object>()).Returns(clonedSection2);
 
-            course.RelateObjective(objective, null, email);
-            course.RelateObjective(objective2, null, email);
+            course.RelateSection(section, null, email);
+            course.RelateSection(section2, null, email);
             course.Collaborate(email, "createdBy");
 
             // Act
             course.RemoveCollaborator(_cloner, email);
 
             // Assert            
-            var raisedEvent = course.GetSingleEventOfType<CourseObjectivesClonedEvent>();
+            var raisedEvent = course.GetSingleEventOfType<CourseSectionsClonedEvent>();
             raisedEvent.Should().NotBeNull();
 
             raisedEvent.Course.Should().Be(course);
-            raisedEvent.ReplacedObjectives.Count.Should().Be(1);
-            raisedEvent.ReplacedObjectives.ContainsKey(objective.Id).Should().Be(true);
-            raisedEvent.ReplacedObjectives[objective.Id].Should().Be(clonedObjective);
+            raisedEvent.ReplacedSections.Count.Should().Be(1);
+            raisedEvent.ReplacedSections.ContainsKey(section.Id).Should().Be(true);
+            raisedEvent.ReplacedSections[section.Id].Should().Be(clonedSection);
 
             var nextEvent = course.DequeueEvent();
             nextEvent.Should().BeNull();
         }
 
         [TestMethod]
-        public void RemoveCollaborator_ShouldReplaceObjectivesOfCollaboratorWithClonedObjectives()
+        public void RemoveCollaborator_ShouldReplaceSectionsOfCollaboratorWithClonedSections()
         {
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-            var objective = ObjectiveObjectMother.Create(createdBy: email);
-            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+            var section = SectionObjectMother.Create(createdBy: email);
+            var clonedSection = SectionObjectMother.Create(createdBy: email);
 
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
-            course.RelateObjective(objective, null, email);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section.Id), Arg.Any<object>()).Returns(clonedSection);
+            course.RelateSection(section, null, email);
             course.Collaborate(email, "createdBy");
 
             // Act
             course.RemoveCollaborator(_cloner, email);
 
             // Assert
-            course.RelatedObjectivesCollection.ElementAt(0).Should().Be(clonedObjective);
+            course.RelatedSectionsCollection.ElementAt(0).Should().Be(clonedSection);
         }
 
         [TestMethod]
-        public void RemoveCollaborator_ShouldOrderClonedObjectivesInSameOrderAsOriginal()
+        public void RemoveCollaborator_ShouldOrderClonedSectionsInSameOrderAsOriginal()
         {
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-            var objective = ObjectiveObjectMother.Create(createdBy: email);
-            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+            var section = SectionObjectMother.Create(createdBy: email);
+            var clonedSection = SectionObjectMother.Create(createdBy: email);
 
-            var objective2 = ObjectiveObjectMother.Create(createdBy: email);
-            var clonedObjective2 = ObjectiveObjectMother.Create(createdBy: email);
+            var section2 = SectionObjectMother.Create(createdBy: email);
+            var clonedSection2 = SectionObjectMother.Create(createdBy: email);
 
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
-            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective2.Id), Arg.Any<object>()).Returns(clonedObjective2);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section.Id), Arg.Any<object>()).Returns(clonedSection);
+            _cloner.Clone(Arg.Is<Section>(i => i.Id == section2.Id), Arg.Any<object>()).Returns(clonedSection2);
 
-            course.RelateObjective(objective, null, email);
-            course.RelateObjective(objective2, 0, email);
+            course.RelateSection(section, null, email);
+            course.RelateSection(section2, 0, email);
             course.Collaborate(email, "createdBy");
 
             // Act
             course.RemoveCollaborator(_cloner, email);
 
             // Assert
-            course.ObjectivesOrder.Should().Be(clonedObjective2.Id + "," + clonedObjective.Id);
+            course.SectionsOrder.Should().Be(clonedSection2.Id + "," + clonedSection.Id);
         }
 
         #endregion
@@ -1527,47 +1527,47 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region OrderClonedObjectives
+        #region OrderClonedSections
 
         [TestMethod]
-        public void OrderClonedObjectives_ShouldReturnNull_IfClonedObjectivesAreNull()
+        public void OrderClonedSections_ShouldReturnNull_IfClonedSectionsAreNull()
         {
             var course = CourseObjectMother.Create();
 
-            var result = course.OrderClonedObjectives(null);
+            var result = course.OrderClonedSections(null);
             result.Should().BeNull();
         }
 
         [TestMethod]
-        public void OrderClonedObjectives_ShouldThrowArgumentException_IfLengthOfObjectiveCollectionsAreDifferent()
+        public void OrderClonedSections_ShouldThrowArgumentException_IfLengthOfSectionCollectionsAreDifferent()
         {
             var course = CourseObjectMother.Create();
-            Action action = () => course.OrderClonedObjectives(new Collection<Objective> { ObjectiveObjectMother.Create() });
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedObjectives");
+            Action action = () => course.OrderClonedSections(new Collection<Section> { SectionObjectMother.Create() });
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedSections");
         }
 
         [TestMethod]
-        public void OrderClonedObjectives_ShouldOrderClonedObjectivesAccordingToCourseObjectives()
+        public void OrderClonedSections_ShouldOrderClonedSectionsAccordingToCourseSections()
         {
-            var objective1 = ObjectiveObjectMother.Create("objective 1");
-            var objective2 = ObjectiveObjectMother.Create("objective 2");
-            var objective3 = ObjectiveObjectMother.Create("objective 3");
+            var section1 = SectionObjectMother.Create("section 1");
+            var section2 = SectionObjectMother.Create("section 2");
+            var section3 = SectionObjectMother.Create("section 3");
 
-            var clonedObjective1 = ObjectiveObjectMother.Create("cloned objective 1");
-            var clonedObjective2 = ObjectiveObjectMother.Create("cloned objective 2");
-            var clonedObjective3 = ObjectiveObjectMother.Create("cloned objective 3");
+            var clonedSection1 = SectionObjectMother.Create("cloned section 1");
+            var clonedSection2 = SectionObjectMother.Create("cloned section 2");
+            var clonedSection3 = SectionObjectMother.Create("cloned section 3");
 
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective1, null, "owner");
-            course.RelateObjective(objective2, null, "owner");
-            course.RelateObjective(objective3, null, "owner");
-            course.UpdateObjectivesOrder(new Collection<Objective> { objective3, objective1, objective2 }, "owner");
+            course.RelateSection(section1, null, "owner");
+            course.RelateSection(section2, null, "owner");
+            course.RelateSection(section3, null, "owner");
+            course.UpdateSectionsOrder(new Collection<Section> { section3, section1, section2 }, "owner");
 
-            var result = course.OrderClonedObjectives(new Collection<Objective> { clonedObjective1, clonedObjective2, clonedObjective3 });
+            var result = course.OrderClonedSections(new Collection<Section> { clonedSection1, clonedSection2, clonedSection3 });
 
-            result[0].Should().Be(clonedObjective3);
-            result[1].Should().Be(clonedObjective1);
-            result[2].Should().Be(clonedObjective2);
+            result[0].Should().Be(clonedSection3);
+            result[1].Should().Be(clonedSection1);
+            result[2].Should().Be(clonedSection2);
         }
 
         #endregion

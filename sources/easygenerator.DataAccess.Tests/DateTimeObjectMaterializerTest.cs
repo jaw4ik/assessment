@@ -66,10 +66,10 @@ namespace easygenerator.DataAccess.Tests
         }
 
         [TestMethod]
-        public void Materialize_ShouldSetDateTimeKindToUtcForObjective()
+        public void Materialize_ShouldSetDateTimeKindToUtcForSection()
         {
             //Arrange
-            var entity = ObjectiveObjectMother.Create();
+            var entity = SectionObjectMother.Create();
 
             //Act
             DateTimeObjectMaterializer.Materialize(entity);

@@ -78,7 +78,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _userBroadcaster.User(args.Collaborator.Email)
                  .courseCollaborationStarted(_entityMapper.Map(args.Collaborator.Course),
-                     args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
+                     args.Collaborator.Course.RelatedSections.Select(o => _entityMapper.Map(o)),
                      _entityMapper.Map(args.Collaborator.Course.Template));
 
             _userBroadcaster.User(args.Course.CreatedBy)

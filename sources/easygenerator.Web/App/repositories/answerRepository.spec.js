@@ -352,7 +352,7 @@ describe('repository [answerRepository]', function () {
             describe('and question not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var receivedAnswer = {
                         Id: 'Id123',
@@ -374,7 +374,7 @@ describe('repository [answerRepository]', function () {
             it('should update question modified date in dataContext', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -391,7 +391,7 @@ describe('repository [answerRepository]', function () {
                 var promise = repository.addAnswer(questionId, { text: '123123123123', isCorrect: true });
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(receivedAnswer.CreatedOn));
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(new Date(receivedAnswer.CreatedOn));
                     done();
                 });
 
@@ -401,7 +401,7 @@ describe('repository [answerRepository]', function () {
             it('should resolve promise with received information', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -565,7 +565,7 @@ describe('repository [answerRepository]', function () {
             describe('and question not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var response = {
                         ModifiedOn: new Date().toISOString()
@@ -586,7 +586,7 @@ describe('repository [answerRepository]', function () {
             it('should update question modified date in dataContext', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -602,7 +602,7 @@ describe('repository [answerRepository]', function () {
                 var promise = repository.removeAnswer(questionId, 'id2');
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                     done();
                 });
 
@@ -612,7 +612,7 @@ describe('repository [answerRepository]', function () {
             it('should resolve promise with received information', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -852,7 +852,7 @@ describe('repository [answerRepository]', function () {
             describe('and question not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var response = {
                         ModifiedOn: new Date().toISOString()
@@ -873,7 +873,7 @@ describe('repository [answerRepository]', function () {
             it('should update question modified date in dataContext', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -889,7 +889,7 @@ describe('repository [answerRepository]', function () {
                 var promise = repository.updateAnswer(questionId, 'id2', 'asdasdasd', false);
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                     done();
                 });
 
@@ -899,7 +899,7 @@ describe('repository [answerRepository]', function () {
             it('should resolve promise with received information', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -1100,7 +1100,7 @@ describe('repository [answerRepository]', function () {
             describe('and question not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var response = {
                         ModifiedOn: new Date().toISOString()
@@ -1121,7 +1121,7 @@ describe('repository [answerRepository]', function () {
             it('should update question modified date in dataContext', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -1137,7 +1137,7 @@ describe('repository [answerRepository]', function () {
                 var promise = repository.updateText(questionId, 'id2', 'asdasdasd');
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                     done();
                 });
 
@@ -1147,7 +1147,7 @@ describe('repository [answerRepository]', function () {
             it('should resolve promise with received information', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -1298,7 +1298,7 @@ describe('repository [answerRepository]', function () {
             describe('and question not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    dataContext.objectives = [];
+                    dataContext.sections = [];
 
                     var response = {
                         ModifiedOn: new Date().toISOString()
@@ -1319,7 +1319,7 @@ describe('repository [answerRepository]', function () {
             it('should update question modified date in dataContext', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {
@@ -1335,7 +1335,7 @@ describe('repository [answerRepository]', function () {
                 var promise = repository.singleSelectTextChangeCorrectAnswer(questionId, 'id2');
 
                 promise.fin(function () {
-                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                     done();
                 });
 
@@ -1345,7 +1345,7 @@ describe('repository [answerRepository]', function () {
             it('should resolve promise with received information', function (done) {
                 var questionId = 'someId';
 
-                dataContext.objectives = [
+                dataContext.sections = [
                 {
                     questions: [
                     {

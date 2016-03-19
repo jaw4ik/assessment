@@ -1,0 +1,84 @@
+﻿<section class="sections view-module" data-bind="scrollToElement: {}">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize: { text: 'sections' }">Sections</div>
+            </div>
+            <div class="view-list-actions-holder">
+                <div class="list-item-action delete">
+                    <!-- ko if: enableDeleteSections -->
+                    <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedSections, localize: { text: 'deleteSelected' }">Delete selected</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: enableDeleteSections -->
+                    <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                    <!-- /ko -->
+                </div>
+                <div class="list-item-action empty">
+                    &nbsp;
+                </div>
+                <div class="list-item-action create">
+                    <div class="action-item-btn-wrapper">
+                        <button class="action-item-btn create-item btn green" data-bind="click: createSection">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewSection' }">Learning section</span>
+                        </button>
+                        <!-- ko if: sections().length === 0 -->
+                        <div class="tip-arrow-holder right">
+                            <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+            <ul class="unstyled main-content-list">
+                <!-- ko if: sections().length === 0 -->
+                <li class="empty-list-wrapper">
+                    <span class="empty-list" data-bind="localize: { text: 'sectionListIsEmpty'}">Learning section list is empty</span>
+                </li>
+                <!-- /ko -->
+                <!-- ko foreach: sections -->
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedSection == id, 'selected': isSelected }">
+                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                        <div class="checkbox-holder" data-bind="click: $parent.toggleSectionSelection, stopEventPropagation: { event: 'click' }">
+                            <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                <input class="custom-checkbox" type="checkbox" />
+                            </span>
+                        </div>
+                        <div class="list-item-info-holder">
+                            <div class="info-holder-table">
+                                <div class="list-item-logo-wrapper">
+                                    <div class="list-item-logo changeable" data-bind="click: $parent.updateSectionImage, stopEventPropagation: { event: 'click' }">
+                                        <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
+                                        <div class="overlay hover" data-bind="visible: !isImageLoading()">
+                                            <span class="image"></span>
+                                            <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
+                                        </div>
+                                        <div class="overlay uploading" data-bind="visible: isImageLoading()">
+                                            <span class="image"></span>
+                                            <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    </div>
+                                </div>
+                                <div class="list-item-open">
+                                    <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                        <div class="info-tooltip open-item">
+                                            <span data-bind="localize: { text: 'open' }">Open</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+    </div>
+</section>

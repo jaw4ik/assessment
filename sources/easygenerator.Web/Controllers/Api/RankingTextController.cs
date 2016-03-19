@@ -29,13 +29,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost, AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
-        [EntityCollaborator(typeof(Objective))]
+        [EntityCollaborator(typeof(Section))]
         [Route("api/question/rankingText/create")]
-        public ActionResult Create(Objective objective, string title)
+        public ActionResult Create(Section section, string title)
         {
-            if (objective == null)
+            if (section == null)
             {
-                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.SectionNotFoundError, Errors.SectionNotFoundResourceKey);
             }
 
             var firstAnswer  = _entityFactory.RankingTextAnswer("", GetCurrentUsername());
@@ -43,7 +43,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var question = _entityFactory.RankingTextQuestion(title, GetCurrentUsername(), firstAnswer, secondAnswer);
             
-            objective.AddQuestion(question, GetCurrentUsername());
+            section.AddQuestion(question, GetCurrentUsername());
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }

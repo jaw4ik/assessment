@@ -189,31 +189,6 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Esqueceu a senha?</value>
   </data>
-  <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>&lt;div&gt;
-Olá,
-&lt;p&gt;
-        Alguém solicitou um reset da senha da sua conta em &lt;a href=""{0}""&gt;{0}&lt;/a&gt;.
-&lt;/p&gt;
-&lt;p&gt;
-        Para resetar a senha, favor clicar no link abaixo:&lt;br /&gt;
-        &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-&lt;/p&gt;
-&lt;p&gt;
-        Se você não fez a solicitação, ignore esta mensagem. Sua senha não será alterada. 
-&lt;/p&gt;
-&lt;p&gt;
-        Obrigado por usar easygenerator.com e tenha um bom dia!
-&lt;/p&gt;
---
-&lt;p&gt;
-        &lt;strong&gt;
-                Atenciosamente,&lt;br /&gt;
-                time do easygenerator
-        &lt;/strong&gt;
-&lt;/p&gt;
-&lt;/div&gt;</value>
-  </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
     <value>Nós lhe enviamos um e-mail com instruções de como ressetar sua senha.</value>
   </data>
@@ -368,5 +343,26 @@ Time Easygenerator&lt;/p&gt;
   </data>
   <data name="NotSupportedDeviceTitle" xml:space="preserve">
     <value>Seu dispositivo não é suportado</value>
+  </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value>Atenciosamente</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>Se você não fez a solicitação, ignore esta mensagem. Sua senha não será alterada.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>Para resetar a senha, favor clicar no link abaixo:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>Alguém solicitou um reset da senha da sua conta em</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>time do easygenerator</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>Obrigado por usar easygenerator.com e tenha um bom dia!</value>
   </data>
 </root>

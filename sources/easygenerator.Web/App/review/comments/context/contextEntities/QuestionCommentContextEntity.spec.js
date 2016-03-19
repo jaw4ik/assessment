@@ -9,7 +9,7 @@ import getQuestionDataQuery from 'review/comments/context/queries/getQuestionDat
 describe('review context [QuestionCommentContextEntity]', () => {
     let courseId = 'courseId', 
         title = 'title', 
-        objectiveId = 'objectiveId', 
+        sectionId = 'sectionId', 
         questionId = 'questionId', 
         contextEntity;
     
@@ -68,12 +68,12 @@ describe('review context [QuestionCommentContextEntity]', () => {
         describe('when question data is defined', () => {
             beforeEach(() => {
                 spyOn(getQuestionDataQuery, 'execute').and.returnValue({
-                    objectiveId: objectiveId
+                    sectionId: sectionId
                 });
             });
 
             it('should return url', () => {
-                expect(contextEntity.getEntityUrl()).toBe('courses/' + courseId + '/objectives/' + objectiveId + '/questions/' + questionId);
+                expect(contextEntity.getEntityUrl()).toBe('courses/' + courseId + '/sections/' + sectionId + '/questions/' + questionId);
             });
         });
 

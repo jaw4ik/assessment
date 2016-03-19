@@ -33,7 +33,7 @@ namespace easygenerator.Web.Tests.Import.Presentation
         }
 
         [TestMethod]
-        public void Import_ShouldAddObjectiveToCourse()
+        public void Import_ShouldAddSectionToCourse()
         {
             //Arrange
             var presentation = Substitute.For<easygenerator.Web.Import.Presentation.Model.Presentation>();
@@ -41,18 +41,18 @@ namespace easygenerator.Web.Tests.Import.Presentation
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
 
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
             //Act
             _importer.Import(presentation, FileName, Username);
 
             //Assert
-            course.Received().RelateObjective(objective, Arg.Any<int?>(), Arg.Any<string>());
+            course.Received().RelateSection(section, Arg.Any<int?>(), Arg.Any<string>());
         }
 
         [TestMethod]
-        public void Import_ShouldAddContentToObjective()
+        public void Import_ShouldAddContentToSection()
         {
             //Arrange
             var presentation = Substitute.For<easygenerator.Web.Import.Presentation.Model.Presentation>();
@@ -60,8 +60,8 @@ namespace easygenerator.Web.Tests.Import.Presentation
 
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<easygenerator.DomainModel.Entities.Template>(), Arg.Any<string>()).Returns(Substitute.For<Course>());
 
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
             var content = Substitute.For<InformationContent>();
             _entityFactory.InformationContent(Arg.Any<string>(), Arg.Any<string>()).Returns(content);
@@ -70,7 +70,7 @@ namespace easygenerator.Web.Tests.Import.Presentation
             _importer.Import(presentation, FileName, Username);
 
             //Assert
-            objective.Received().AddQuestion(content, Arg.Any<string>());
+            section.Received().AddQuestion(content, Arg.Any<string>());
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace easygenerator.Web.Tests.Import.Presentation
             presentation.Slides.Add(new Slide());
 
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(Substitute.For<Course>());
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(Substitute.For<Objective>());
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(Substitute.For<Section>());
 
             var informationContent = Substitute.For<InformationContent>();
             _entityFactory.InformationContent(Arg.Any<string>(), Arg.Any<string>()).Returns(informationContent);
@@ -103,7 +103,7 @@ namespace easygenerator.Web.Tests.Import.Presentation
             _slideHtmlComposer.ComposeHtml(slide).Returns("html");
 
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(Substitute.For<Course>());
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(Substitute.For<Objective>());
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(Substitute.For<Section>());
 
             var informationContent = Substitute.For<InformationContent>();
             _entityFactory.InformationContent(Arg.Any<string>(), Arg.Any<string>()).Returns(informationContent);

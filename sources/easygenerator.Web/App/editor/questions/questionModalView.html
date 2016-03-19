@@ -17,8 +17,8 @@
                             <li class="actions-menu-list-item duplicate" data-bind="localize: { text: 'duplicateQuestion' }, click: duplicateQuestion"></li>
                         </ul>
                     </div>
-                    <div class="new-item-container" data-bind="dropDown: {}">
-                        <button class="new-item-button"><span class="new-item-button-caption" data-bind="localize: { text: 'createNewQuestion' }"></span></button>
+                    <div class="new-item action-container" data-bind="dropDown: {}">
+                        <button class="action-button"><span class="action-button-caption" data-bind="localize: { text: 'createNewQuestion' }"></span></button>
                         <ul class="new-item-list">
                             <!-- ko foreach: questions -->
                             <li class="item" data-bind="css: type, css2 : { disabled: !hasAccess } , click : $parent.createQuestion">
@@ -31,7 +31,9 @@
                             </li>
                             <!-- /ko -->
                         </ul>
-
+                    </div>
+                    <div class="preview action-container">
+                        <button class="action-button" data-bind="click: $parent.previewCourse"><span class="action-button-caption" data-bind="localize: { text: 'preview' }"></span></button>
                     </div>
                 </div>
             </div>

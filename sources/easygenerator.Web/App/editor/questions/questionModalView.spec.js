@@ -3,12 +3,17 @@ import modalView from 'widgets/modalView/viewmodel';
 import navigationPanel from 'editor/questions/panels/questionsNavigationView';
 import questionViewModel from 'editor/questions/question';
 import router from 'plugins/router';
+import eventTracker from 'eventTracker';
 
 let courseId = 'courseId';
 let sectionId = 'sectionId';
 let questionId = 'questionId';
 
 describe('viewmodel [questionModalView]', () => {
+    beforeEach(() => {
+        spyOn(eventTracker, 'publish');
+    });
+
     describe('initialize:', () => {
         let navigationInit;
 
@@ -130,7 +135,7 @@ describe('viewmodel [questionModalView]', () => {
         });
     });
 
-    describe('toggleExpandNavigationPanel', () => {
+    describe('toggleExpandNavigationPanel:', () => {
         it('should be function', () => {
             expect(viewModel.toggleExpandNavigationPanel).toBeFunction();
         });
@@ -152,7 +157,7 @@ describe('viewmodel [questionModalView]', () => {
         });
     });
 
-    describe('onQuestionViewCompositionComplete', () => {
+    describe('onQuestionViewCompositionComplete:', () => {
         it('should be function', () => {
             expect(viewModel.onQuestionViewCompositionComplete).toBeFunction();
         });
@@ -161,6 +166,27 @@ describe('viewmodel [questionModalView]', () => {
             viewModel.isQuestionViewReady(null);
             viewModel.onQuestionViewCompositionComplete();
             expect(viewModel.isQuestionViewReady()).toBeTruthy();
+        });
+    });
+
+    describe('previewCourse:', () => {
+        beforeEach(() => {
+            spyOn(router, 'openUrl');
+        });
+
+        it('should be function', () => {
+            expect(viewModel.previewCourse).toBeFunction();
+        });
+
+        it('should publish event', () => {
+            viewModel.previewCourse();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Preview course');
+        });
+
+        it('should open preview course url', () => {
+            viewModel.courseId = courseId;
+            viewModel.previewCourse();
+            expect(router.openUrl).toHaveBeenCalledWith('/preview/courseId');
         });
     });
 

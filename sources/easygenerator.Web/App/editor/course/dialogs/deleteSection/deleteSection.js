@@ -11,7 +11,7 @@ import permanentlyDeleteSectionCommand from 'editor/course/commands/permanentlyD
 import unrelateSectionCommand from 'editor/course/commands/unrelateSectionCommand';
 
 let events = {
-    deleteObjective: 'Delete selected objectives'
+    deleteSection: 'Delete selected objectives'
 };
 
 let eventCategory = 'Course editor (drag and drop)';
@@ -34,13 +34,13 @@ class DeleteSection {
         this.sectionCreatedBy = createdBy;
 
         this.courses(_.filter(dataContext.courses, course => {
-            return _.some(course.objectives, objective => objective.id === sectionId);
+            return _.some(course.sections, section => section.id === sectionId);
         }));
 
         dialog.show(this, constants.dialogs.deleteItem.settings);
     }
     async deleteSection() {
-        eventTracker.publish(events.deleteObjective, eventCategory);
+        eventTracker.publish(events.deleteSection, eventCategory);
         this.isDeleting(true);
         if ((this.deleteEverywhere() || !this.sectionContainedInFewCourses()) && userContext.identity.email === this.sectionCreatedBy) {
             await permanentlyDeleteSectionCommand.execute(this.sectionId);

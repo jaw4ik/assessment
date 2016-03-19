@@ -8,7 +8,7 @@ namespace easygenerator.Web.Tests.BuildCourse
     public class CourseContentPathProviderTests
     {
         private const string BuildDirectory = "BuildDirectory";
-        private const string ObjectiveId = "ObjectiveId";
+        private const string SectionId = "SectionId";
         private const string QuestionId = "QuestionId";
         private const string LearningContentId = "LearningContentId";
 
@@ -54,16 +54,16 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion GetCourseIntroductionContentFileName
 
-        #region GetObjectiveDirectoryName
+        #region GetSectionDirectoryName
 
         [TestMethod]
-        public void GetObjectiveDirectoryName_ShouldReturnObjectiveDirecory()
+        public void GetSectionDirectoryName_ShouldReturnSectionDirecory()
         {
             //Arrange
-            var expectedPath = "BuildDirectory\\content\\ObjectiveId";
+            var expectedPath = "BuildDirectory\\content\\SectionId";
 
             //Act
-            var result = _courseContentPathProvider.GetObjectiveDirectoryName(BuildDirectory, ObjectiveId);
+            var result = _courseContentPathProvider.GetSectionDirectoryName(BuildDirectory, SectionId);
 
             //Assert
             result.Should().Be(expectedPath);
@@ -77,10 +77,10 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void GetQuestionDirectoryName_ShouldReturnQuestionDirecory()
         {
             //Arrange
-            var expectedPath = "BuildDirectory\\content\\ObjectiveId\\QuestionId";
+            var expectedPath = "BuildDirectory\\content\\SectionId\\QuestionId";
 
             //Act
-            var result = _courseContentPathProvider.GetQuestionDirectoryName(BuildDirectory, ObjectiveId, QuestionId);
+            var result = _courseContentPathProvider.GetQuestionDirectoryName(BuildDirectory, SectionId, QuestionId);
 
             //Assert
             result.Should().Be(expectedPath);
@@ -94,10 +94,10 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void GetLearningContentFileName_ShouldReturnLearningContentFileName()
         {
             //Arrange
-            var expectedPath = "BuildDirectory\\content\\ObjectiveId\\QuestionId\\LearningContentId.html";
+            var expectedPath = "BuildDirectory\\content\\SectionId\\QuestionId\\LearningContentId.html";
 
             //Act
-            var result = _courseContentPathProvider.GetLearningContentFileName(BuildDirectory, ObjectiveId, QuestionId, LearningContentId);
+            var result = _courseContentPathProvider.GetLearningContentFileName(BuildDirectory, SectionId, QuestionId, LearningContentId);
 
             //Assert
             result.Should().Be(expectedPath);
@@ -111,10 +111,10 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void GetQuestionContentFileName_ShouldReturnLearningQuestionFileName()
         {
             //Arrange
-            var expectedPath = "BuildDirectory\\content\\ObjectiveId\\QuestionId\\content.html";
+            var expectedPath = "BuildDirectory\\content\\SectionId\\QuestionId\\content.html";
 
             //Act
-            var result = _courseContentPathProvider.GetQuestionContentFileName(BuildDirectory, ObjectiveId, QuestionId);
+            var result = _courseContentPathProvider.GetQuestionContentFileName(BuildDirectory, SectionId, QuestionId);
 
             //Assert
             result.Should().Be(expectedPath);
@@ -199,14 +199,14 @@ namespace easygenerator.Web.Tests.BuildCourse
         {
             //Arrange
             var packagePath = "packagePath";
-            var objectiveId = "objectiveId";
+            var sectionId = "sectionId";
             var questionId = "questionId";
 
             //Act
-            var result = _courseContentPathProvider.GetCorrectFeedbackContentFileName(packagePath, objectiveId, questionId);
+            var result = _courseContentPathProvider.GetCorrectFeedbackContentFileName(packagePath, sectionId, questionId);
 
             //Assert
-            result.Should().Be("packagePath\\content\\objectiveId\\questionId\\correctFeedback.html");
+            result.Should().Be("packagePath\\content\\sectionId\\questionId\\correctFeedback.html");
         }
 
         #endregion
@@ -218,14 +218,14 @@ namespace easygenerator.Web.Tests.BuildCourse
         {
             //Arrange
             var packagePath = "packagePath";
-            var objectiveId = "objectiveId";
+            var sectionId = "sectionId";
             var questionId = "questionId";
 
             //Act
-            var result = _courseContentPathProvider.GetIncorrectFeedbackContentFileName(packagePath, objectiveId, questionId);
+            var result = _courseContentPathProvider.GetIncorrectFeedbackContentFileName(packagePath, sectionId, questionId);
 
             //Assert
-            result.Should().Be("packagePath\\content\\objectiveId\\questionId\\incorrectFeedback.html");
+            result.Should().Be("packagePath\\content\\sectionId\\questionId\\incorrectFeedback.html");
         }
 
         #endregion

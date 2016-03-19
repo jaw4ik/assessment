@@ -3,7 +3,7 @@
         "use strict";
 
         var viewModel = {
-            objectiveId: '',
+            sectionId: '',
 
             dragAndDropText: null,
 
@@ -27,8 +27,8 @@
 
         return viewModel;
 
-        function initialize(objectiveId, question) {
-            viewModel.objectiveId = objectiveId;
+        function initialize(sectionId, question) {
+            viewModel.sectionId = sectionId;
             viewModel.questionId = question.id;
 
             viewModel.dragAndDropText = designer;

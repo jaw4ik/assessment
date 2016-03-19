@@ -14,28 +14,28 @@ describe('moveCopyQuestionDialog', function () {
 
     var ids = {
         courseId: 'courseId',
-        objectiveId: 'objectiveId',
+        sectionId: 'sectionId',
         questionId: 'questionId'
     },
         userName = 'user@user.com',
         moveQuestionDefer,
         copyQuestionDefer,
-        allObjectivesTitle = 'title',
+        allSectionsTitle = 'title',
         courses = [
             {
                 id: 'courseId',
                 title: 'courseTitle',
-                objectives: [{}]
+                sections: [{}]
             },
             {
                 id: 'courseId2',
                 title: 'courseTitle2',
-                objectives: [{}]
+                sections: [{}]
             },
             {
                 id: 'courseId3',
                 title: 'courseTitle3',
-                objectives: [{}]
+                sections: [{}]
             }
         ];
 
@@ -46,7 +46,7 @@ describe('moveCopyQuestionDialog', function () {
         spyOn(questionRepository, 'copyQuestion').and.returnValue(copyQuestionDefer.promise);
         spyOn(eventTracker, 'publish');
         spyOn(router, 'navigate');
-        spyOn(localizationManager, 'localize').and.returnValue(allObjectivesTitle);
+        spyOn(localizationManager, 'localize').and.returnValue(allSectionsTitle);
         spyOn(notify, 'error');
         spyOn(dialog, 'show');
         spyOn(dialog, 'close');
@@ -60,10 +60,10 @@ describe('moveCopyQuestionDialog', function () {
 
     });
 
-    describe('objectiveId', function () {
+    describe('sectionId', function () {
 
         it('should be observable', function () {
-            expect(viewModel.objectiveId).toBeObservable();
+            expect(viewModel.sectionId).toBeObservable();
         });
 
     });
@@ -148,48 +148,48 @@ describe('moveCopyQuestionDialog', function () {
             expect(viewModel.courses()[2].id).toBe(courses[1].id);
         });
 
-        it('should set objectiveId', function () {
-            viewModel.objectiveId('');
-            viewModel.show(ids.courseId, ids.objectiveId);
-            expect(viewModel.objectiveId()).toBe(ids.objectiveId);
+        it('should set sectionId', function () {
+            viewModel.sectionId('');
+            viewModel.show(ids.courseId, ids.sectionId);
+            expect(viewModel.sectionId()).toBe(ids.sectionId);
         });
 
         it('should set questionId', function () {
             viewModel.questionId = '';
-            viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
+            viewModel.show(ids.courseId, ids.sectionId, ids.questionId);
             expect(viewModel.questionId).toBe(ids.questionId);
         });
 
-        it('should set selected objectiveId', function () {
-            viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
-            expect(viewModel.selectedObjectiveId()).toBe(ids.objectiveId);
+        it('should set selected sectionId', function () {
+            viewModel.show(ids.courseId, ids.sectionId, ids.questionId);
+            expect(viewModel.selectedSectionId()).toBe(ids.sectionId);
         });
 
-        it('should set object allObjectives', function () {
-            viewModel.allObjectives({});
+        it('should set object allSections', function () {
+            viewModel.allSections({});
             viewModel.show();
-            expect(viewModel.allObjectives().title).toBe(allObjectivesTitle);
-            expect(viewModel.allObjectives().objectives).toBe(dataContext.objectives);
+            expect(viewModel.allSections().title).toBe(allSectionsTitle);
+            expect(viewModel.allSections().sections).toBe(dataContext.sections);
         });
 
         describe('when courseId is defined', function () {
 
             it('should select course from dataContext', function () {
-                viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
+                viewModel.show(ids.courseId, ids.sectionId, ids.questionId);
                 expect(viewModel.selectedCourse().id).toBe(courses[0].id);
                 expect(viewModel.selectedCourse().title).toBe(courses[0].title);
-                expect(viewModel.selectedCourse().objectives).toBe(courses[0].objectives);
-                expect(viewModel.selectedCourse().objectvesListEmpty).toBe(courses[0].objectives === 0);
+                expect(viewModel.selectedCourse().sections).toBe(courses[0].sections);
+                expect(viewModel.selectedCourse().objectvesListEmpty).toBe(courses[0].sections === 0);
             });
 
         });
 
         describe('when courseId is undefined', function () {
 
-            it('should set select to allObjectives', function () {
-                viewModel.show(null, ids.objectiveId, ids.questionId);
-                expect(viewModel.selectedCourse().title).toBe(allObjectivesTitle);
-                expect(viewModel.selectedCourse().objectives).toBe(dataContext.objectives);
+            it('should set select to allSections', function () {
+                viewModel.show(null, ids.sectionId, ids.questionId);
+                expect(viewModel.selectedCourse().title).toBe(allSectionsTitle);
+                expect(viewModel.selectedCourse().sections).toBe(dataContext.sections);
             });
 
         });
@@ -315,53 +315,53 @@ describe('moveCopyQuestionDialog', function () {
 
         it('should select course', function () {
             viewModel.selectedCourse(null);
-            viewModel.selectCourse({ id: 'This is id!', objectives: [], objectvesListEmpty: true });
+            viewModel.selectCourse({ id: 'This is id!', sections: [], objectvesListEmpty: true });
             expect(viewModel.selectedCourse().id).toBe('This is id!');
         });
 
-        describe('when selected course has objectives', function () {
+        describe('when selected course has sections', function () {
 
-            it('should set selected objective id', function () {
-                viewModel.selectedObjectiveId(null);
-                viewModel.selectCourse({ id: 'This is id!', objectives: [{ id: 1 }], objectvesListEmpty: false });
-                expect(viewModel.selectedObjectiveId()).toBe(1);
+            it('should set selected section id', function () {
+                viewModel.selectedSectionId(null);
+                viewModel.selectCourse({ id: 'This is id!', sections: [{ id: 1 }], objectvesListEmpty: false });
+                expect(viewModel.selectedSectionId()).toBe(1);
             });
 
         });
 
-        describe('when selected course has objectives', function () {
+        describe('when selected course has sections', function () {
 
-            it('should set selected objective id to null', function () {
-                viewModel.selectedObjectiveId(1);
-                viewModel.selectCourse({ id: 'This is id!', objectives: [], objectvesListEmpty: true });
-                expect(viewModel.selectedObjectiveId()).toBe(null);
+            it('should set selected section id to null', function () {
+                viewModel.selectedSectionId(1);
+                viewModel.selectCourse({ id: 'This is id!', sections: [], objectvesListEmpty: true });
+                expect(viewModel.selectedSectionId()).toBe(null);
             });
 
         });
 
     });
 
-    describe('selectedObjectiveId', function () {
+    describe('selectedSectionId', function () {
 
         it('should be observable', function () {
-            expect(viewModel.selectedObjectiveId).toBeObservable();
+            expect(viewModel.selectedSectionId).toBeObservable();
         });
 
     });
 
-    describe('selectObjective:', function () {
+    describe('selectSection:', function () {
 
         it('should be function', function () {
-            expect(viewModel.selectObjective).toBeFunction();
+            expect(viewModel.selectSection).toBeFunction();
         });
 
-        it('should set selected objective id', function () {
-            var objective = {
+        it('should set selected section id', function () {
+            var section = {
                 id: 'someid'
             };
-            viewModel.selectedObjectiveId('');
-            viewModel.selectObjective(objective);
-            expect(viewModel.selectedObjectiveId()).toBe(objective.id);
+            viewModel.selectedSectionId('');
+            viewModel.selectSection(section);
+            expect(viewModel.selectedSectionId()).toBe(section.id);
         });
 
     });
@@ -374,49 +374,49 @@ describe('moveCopyQuestionDialog', function () {
 
     });
 
-    describe('allObjectives', function () {
+    describe('allSections', function () {
 
         it('should be observable', function () {
-            expect(viewModel.allObjectives).toBeObservable();
+            expect(viewModel.allSections).toBeObservable();
         });
 
     });
 
     describe('moveQuestion:', function () {
-        var objectiveId = 'selectedObjectiveId';
+        var sectionId = 'selectedSectionId';
 
         beforeEach(function () {
-            viewModel.selectedObjectiveId(objectiveId);
+            viewModel.selectedSectionId(sectionId);
         });
 
         it('should be function', function () {
             expect(viewModel.moveQuestion).toBeFunction();
         });
 
-        describe('when selected objective is not valid', function () {
+        describe('when selected section is not valid', function () {
 
-            describe('when objective is not selected', function () {
+            describe('when section is not selected', function () {
 
                 beforeEach(function () {
-                    viewModel.selectedObjectiveId(null);
+                    viewModel.selectedSectionId(null);
                 });
 
                 it('should show notify error', function () {
                     viewModel.moveQuestion();
                     expect(localizationManager.localize).toHaveBeenCalledWith('moveCopyErrorMessage');
-                    expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                    expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                 });
 
             });
 
-            describe('when objective is selected', function () {
+            describe('when section is selected', function () {
 
-                describe('and when objective is not found in course', function () {
+                describe('and when section is not found in course', function () {
 
                     beforeEach(function () {
                         dataContext.courses = [{
                             id: 1,
-                            objectives: [{
+                            sections: [{
                                 id: 1
                             }, {
                                 id: 2
@@ -425,18 +425,18 @@ describe('moveCopyQuestionDialog', function () {
                         }
                         ];
                         viewModel.selectedCourse(dataContext.courses[0]);
-                        viewModel.selectedObjectiveId(3);
+                        viewModel.selectedSectionId(3);
                     });
 
                     it('should show notify error', function () {
                         viewModel.moveQuestion();
-                        expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
-                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        expect(localizationManager.localize).toHaveBeenCalledWith('sectionHasBeenDisconnectedByCollaborator');
+                        expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                     });
 
                 });
 
-                describe('and when objective is not found dataContext objectives', function () {
+                describe('and when section is not found dataContext sections', function () {
 
                     beforeEach(function () {
                         var allobjs = [
@@ -446,16 +446,16 @@ describe('moveCopyQuestionDialog', function () {
                                 id: 2
                             }
                         ];
-                        dataContext.objectives = allobjs;
-                        viewModel.allObjectives(allobjs);
-                        viewModel.selectedObjectiveId(3);
+                        dataContext.sections = allobjs;
+                        viewModel.allSections(allobjs);
+                        viewModel.selectedSectionId(3);
                         viewModel.selectedCourse(allobjs);
                     });
 
                     it('should show notify error', function () {
                         viewModel.moveQuestion();
-                        expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
-                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        expect(localizationManager.localize).toHaveBeenCalledWith('sectionHasBeenDisconnectedByCollaborator');
+                        expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                     });
 
                 });
@@ -464,7 +464,7 @@ describe('moveCopyQuestionDialog', function () {
 
         });
 
-        describe('when selected objective is valid', function () {
+        describe('when selected section is valid', function () {
 
             beforeEach(function () {
                 var allobjs = [
@@ -474,9 +474,9 @@ describe('moveCopyQuestionDialog', function () {
                         id: 2
                     }
                 ];
-                dataContext.objectives = allobjs;
-                viewModel.allObjectives(allobjs);
-                viewModel.selectedObjectiveId(2);
+                dataContext.sections = allobjs;
+                viewModel.allSections(allobjs);
+                viewModel.selectedSectionId(2);
                 viewModel.selectedCourse(allobjs);
             });
 
@@ -485,31 +485,31 @@ describe('moveCopyQuestionDialog', function () {
                 expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
             });
 
-            describe('when current objective id equal selected objective id', function () {
+            describe('when current section id equal selected section id', function () {
 
                 it('should hide popup', function () {
-                    viewModel.objectiveId(1);
-                    viewModel.selectedObjectiveId(1);
+                    viewModel.sectionId(1);
+                    viewModel.selectedSectionId(1);
                     viewModel.moveQuestion();
                     expect(dialog.close).toHaveBeenCalled();
                 });
 
             });
 
-            describe('when current objective id not equal selected objective id', function () {
-                var currentObjectiveId = 1,
-                    selectedObjectiveId = 2;
+            describe('when current section id not equal selected section id', function () {
+                var currentSectionId = 1,
+                    selectedSectionId = 2;
 
                 beforeEach(function () {
                     viewModel.questionId = 'questionId';
                     viewModel.courseId = 'courseId';
-                    viewModel.objectiveId(currentObjectiveId);
-                    viewModel.selectedObjectiveId(selectedObjectiveId);
+                    viewModel.sectionId(currentSectionId);
+                    viewModel.selectedSectionId(selectedSectionId);
                 });
 
                 it('should call moveQuestion from repository', function () {
                     viewModel.moveQuestion();
-                    expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId(), viewModel.selectedObjectiveId());
+                    expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.sectionId(), viewModel.selectedSectionId());
                 });
 
                 describe('when question was move', function () {
@@ -534,11 +534,11 @@ describe('moveCopyQuestionDialog', function () {
                             viewModel.courseId = null;
                         });
 
-                        it('should navigate to current objective', function (done) {
+                        it('should navigate to current section', function (done) {
                             viewModel.moveQuestion();
 
                             moveQuestionDefer.promise.fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + viewModel.objectiveId());
+                                expect(router.navigate).toHaveBeenCalledWith('library/sections/' + viewModel.sectionId());
                                 done();
                             });
                         });
@@ -551,11 +551,11 @@ describe('moveCopyQuestionDialog', function () {
                             viewModel.courseId = 'courseid';
                         });
 
-                        it('should navigate to current objective', function (done) {
+                        it('should navigate to current section', function (done) {
                             viewModel.moveQuestion();
 
                             moveQuestionDefer.promise.fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId());
+                                expect(router.navigate).toHaveBeenCalledWith('courses/' + viewModel.courseId + '/sections/' + viewModel.sectionId());
                                 done();
                             });
                         });
@@ -572,37 +572,37 @@ describe('moveCopyQuestionDialog', function () {
 
     describe('copyQuestion:', function () {
 
-        var currentObjectiveId = 1,
-            selectedObjectiveId = 2;
+        var currentSectionId = 1,
+            selectedSectionId = 2;
 
         beforeEach(function () {
             viewModel.questionId = 'questionId';
             viewModel.courseId = 1;
-            viewModel.objectiveId(currentObjectiveId);
-            viewModel.selectedObjectiveId(selectedObjectiveId);
+            viewModel.sectionId(currentSectionId);
+            viewModel.selectedSectionId(selectedSectionId);
         });
 
         it('should be function', function () {
             expect(viewModel.copyQuestion).toBeFunction();
         });
 
-        describe('when selected objective is not valid', function () {
+        describe('when selected section is not valid', function () {
 
-            describe('when objective is not selected', function () {
+            describe('when section is not selected', function () {
 
                 beforeEach(function () {
-                    viewModel.selectedObjectiveId(null);
+                    viewModel.selectedSectionId(null);
                 });
 
                 it('should show notify error', function () {
                     viewModel.copyQuestion();
                     expect(localizationManager.localize).toHaveBeenCalledWith('moveCopyErrorMessage');
-                    expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                    expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                 });
 
             });
 
-            describe('when objective is selected', function () {
+            describe('when section is selected', function () {
 
                 describe('and when course not found in dataContext', function () {
 
@@ -610,7 +610,7 @@ describe('moveCopyQuestionDialog', function () {
                         dataContext.courses = [];
                         var course = {
                             id: 1,
-                            objectives: [
+                            sections: [
                                 {
                                     id: 1
                                 }, {
@@ -619,23 +619,23 @@ describe('moveCopyQuestionDialog', function () {
                             ]
                         };
                         viewModel.selectedCourse(course);
-                        viewModel.selectedObjectiveId(3);
+                        viewModel.selectedSectionId(3);
                     });
 
                     it('should show notify error', function () {
                         viewModel.copyQuestion();
                         expect(localizationManager.localize).toHaveBeenCalledWith('courseIsNotAvailableAnyMore');
-                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                     });
 
                 });
 
-                describe('and when objective is not found in course', function () {
+                describe('and when section is not found in course', function () {
 
                     beforeEach(function () {
                         dataContext.courses = [{
                             id: 1,
-                            objectives: [{
+                            sections: [{
                                 id: 1
                             }, {
                                 id: 2
@@ -644,18 +644,18 @@ describe('moveCopyQuestionDialog', function () {
                         }
                         ];
                         viewModel.selectedCourse(dataContext.courses[0]);
-                        viewModel.selectedObjectiveId(3);
+                        viewModel.selectedSectionId(3);
                     });
 
                     it('should show notify error', function () {
                         viewModel.copyQuestion();
-                        expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
-                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        expect(localizationManager.localize).toHaveBeenCalledWith('sectionHasBeenDisconnectedByCollaborator');
+                        expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                     });
 
                 });
 
-                describe('and when objective is not found dataContext objectives', function () {
+                describe('and when section is not found dataContext sections', function () {
 
                     beforeEach(function () {
                         var allobjs = [
@@ -665,16 +665,16 @@ describe('moveCopyQuestionDialog', function () {
                                 id: 2
                             }
                         ];
-                        dataContext.objectives = allobjs;
-                        viewModel.allObjectives(allobjs);
-                        viewModel.selectedObjectiveId(3);
+                        dataContext.sections = allobjs;
+                        viewModel.allSections(allobjs);
+                        viewModel.selectedSectionId(3);
                         viewModel.selectedCourse(allobjs);
                     });
 
                     it('should show notify error', function () {
                         viewModel.copyQuestion();
-                        expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
-                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        expect(localizationManager.localize).toHaveBeenCalledWith('sectionHasBeenDisconnectedByCollaborator');
+                        expect(notify.error).toHaveBeenCalledWith(allSectionsTitle);
                     });
 
                 });
@@ -683,21 +683,21 @@ describe('moveCopyQuestionDialog', function () {
 
         });
 
-        describe('when selected objective is valid', function () {
+        describe('when selected section is valid', function () {
             var allobjs;
             beforeEach(function () {
                 allobjs = [{ id: 1 }, { id: 2 }];
                 dataContext.courses = [{
                     id: 1,
-                    objectives: [{
+                    sections: [{
                         id: 1
                     }, {
                         id: 2
                     }]
                 }];
-                dataContext.objectives = allobjs;
-                viewModel.allObjectives(allobjs);
-                viewModel.selectedObjectiveId(1);
+                dataContext.sections = allobjs;
+                viewModel.allSections(allobjs);
+                viewModel.selectedSectionId(1);
                 viewModel.selectedCourse(dataContext.courses[0]);
             });
 
@@ -708,7 +708,7 @@ describe('moveCopyQuestionDialog', function () {
 
             it('should call copyQuestion from repository', function () {
                 viewModel.copyQuestion();
-                expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.selectedObjectiveId());
+                expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.selectedSectionId());
             });
 
             describe('and when question was copy', function () {

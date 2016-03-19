@@ -141,17 +141,17 @@ namespace easygenerator.Web.Tests.BuildCourse
         }
 
         [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldCreateObjectiveDirectory()
+        public void AddBuildContentToPackageDirectory_ShouldCreateSectionDirectory()
         {
             //Arrange
-            var objectiveDirectory = "SomeObjectivePath";
-            _buildPathProvider.GetObjectiveDirectoryName(Arg.Any<string>(), _course.RelatedObjectives.ToArray()[0].Id.ToNString()).Returns(objectiveDirectory);
+            var sectionDirectory = "SomeSectionPath";
+            _buildPathProvider.GetSectionDirectoryName(Arg.Any<string>(), _course.RelatedSections.ToArray()[0].Id.ToNString()).Returns(sectionDirectory);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
 
             //Assert
-            _fileManager.Received().CreateDirectory(objectiveDirectory);
+            _fileManager.Received().CreateDirectory(sectionDirectory);
         }
 
         [TestMethod]
@@ -160,8 +160,8 @@ namespace easygenerator.Web.Tests.BuildCourse
             //Arrange
             var questionDirectory = "SomeQuestionPath";
             _buildPathProvider.GetQuestionDirectoryName(Arg.Any<string>(),
-                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                _course.RelatedSections.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
                 .Returns(questionDirectory);
 
             //Act
@@ -177,34 +177,34 @@ namespace easygenerator.Web.Tests.BuildCourse
             //Arrange
             var questionContentPath = "SomePath";
             _buildPathProvider.GetQuestionContentFileName(Arg.Any<string>(),
-                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                _course.RelatedSections.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
                 .Returns(questionContentPath);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
 
             //Assert
-            _fileManager.Received().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
+            _fileManager.Received().WriteToFile(questionContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Content);
         }
 
         [TestMethod]
         public void AddBuildContentToPackageDirectory_ShouldNotWriteQuestionContentToFile_WhenQuestionContentIsNull()
         {
             //Arrange
-            _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].UpdateContent(null, "SomeUser");
+            _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].UpdateContent(null, "SomeUser");
             var questionContentPath = "SomePath";
 
             _buildPathProvider.GetQuestionContentFileName(Arg.Any<string>(),
-                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                _course.RelatedSections.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
                 .Returns(questionContentPath);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
 
             //Assert
-            _fileManager.DidNotReceive().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
+            _fileManager.DidNotReceive().WriteToFile(questionContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Content);
         }
 
         [TestMethod]
@@ -213,16 +213,16 @@ namespace easygenerator.Web.Tests.BuildCourse
             //Arrange
             var learningContentsFilePath = "SomeELearningContentsPath";
             _buildPathProvider.GetLearningContentFileName(Arg.Any<string>(),
-                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Id.ToNString())
+                _course.RelatedSections.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Id.ToNString())
                 .Returns(learningContentsFilePath);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
 
             //Assert
-            _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
+            _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
         }
 
         [TestMethod]
@@ -232,15 +232,15 @@ namespace easygenerator.Web.Tests.BuildCourse
             var feedbackContentPath = "correctFeedbackPath";
 
             _buildPathProvider.GetCorrectFeedbackContentFileName(Arg.Any<string>(),
-                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                _course.RelatedSections.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
                 .Returns(feedbackContentPath);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
 
             //Assert
-            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Feedback.CorrectText);
+            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Feedback.CorrectText);
         }
 
         [TestMethod]
@@ -250,15 +250,15 @@ namespace easygenerator.Web.Tests.BuildCourse
             var feedbackContentPath = "incorrectFeedbackPath";
 
             _buildPathProvider.GetIncorrectFeedbackContentFileName(Arg.Any<string>(),
-                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                _course.RelatedSections.ToArray()[0].Id.ToNString(),
+                _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
                 .Returns(feedbackContentPath);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
 
             //Assert
-            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Feedback.IncorrectText);
+            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Feedback.IncorrectText);
         }
 
         #endregion
@@ -434,13 +434,13 @@ namespace easygenerator.Web.Tests.BuildCourse
             question.UpdateCorrectFeedbackText("Correct feedback text");
             question.UpdateIncorrectFeedbackText("Incorrect feedback text");
 
-            var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
-            objective.AddQuestion(question, "SomeUser");
+            var section = SectionObjectMother.Create("SectionTitle");
+            section.AddQuestion(question, "SomeUser");
 
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdateIntroductionContent("some course content", "SomeUser");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
-            course.RelateObjective(objective, null, "SomeUser");
+            course.RelateSection(section, null, "SomeUser");
 
             return course;
         }

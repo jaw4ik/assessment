@@ -38,7 +38,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IScormCourseBuilder _scormCourseBuilder;
         private IEntityFactory _entityFactory;
         private ICourseRepository _courseRepository;
-        private IObjectiveRepository _objectiveRepository;
+        private ISectionRepository _sectionRepository;
         private IPrincipal _user;
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
@@ -55,7 +55,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _courseRepository = Substitute.For<ICourseRepository>();
-            _objectiveRepository = Substitute.For<IObjectiveRepository>();
+            _sectionRepository = Substitute.For<ISectionRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _publisher = Substitute.For<IPublisher>();
@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _objectiveRepository, _entityFactory, _urlHelper, _publisher,
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _sectionRepository, _entityFactory, _urlHelper, _publisher,
                 _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
@@ -188,29 +188,29 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Duplicate_ShouldAddDuplicatedObjectiveSuffixToObjectivesTitles()
+        public void Duplicate_ShouldAddDuplicatedSectionSuffixToSectionsTitles()
         {
             Course courseToDuplicate = CourseObjectMother.Create();
-            Objective objectiveToDuplicate = ObjectiveObjectMother.Create();
-            courseToDuplicate.RelateObjective(objectiveToDuplicate, 0, "some@user.com");
-            var objectiveTitle = objectiveToDuplicate.Title;
+            Section sectionToDuplicate = SectionObjectMother.Create();
+            courseToDuplicate.RelateSection(sectionToDuplicate, 0, "some@user.com");
+            var sectionTitle = sectionToDuplicate.Title;
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
-            objectiveToDuplicate.Title.Should().Be(objectiveTitle + " (copy)");
+            sectionToDuplicate.Title.Should().Be(sectionTitle + " (copy)");
         }
 
         [TestMethod]
-        public void Duplicate_WhenObjectiveTitleIsLarge_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedObjectiveSuffix()
+        public void Duplicate_WhenSectionTitleIsLarge_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedSectionSuffix()
         {
             Course courseToDuplicate = CourseObjectMother.Create();
-            Objective objectiveToDuplicate = ObjectiveObjectMother.Create();
-            objectiveToDuplicate.UpdateTitle("New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New", "modifier");
-            courseToDuplicate.RelateObjective(objectiveToDuplicate, 0, "some@user.com");
-            var objectiveTitle = objectiveToDuplicate.Title;
-            var newTitle = String.Format("{0} {1}", objectiveTitle.Substring(0, 244), "... (copy)");
+            Section sectionToDuplicate = SectionObjectMother.Create();
+            sectionToDuplicate.UpdateTitle("New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New section!New", "modifier");
+            courseToDuplicate.RelateSection(sectionToDuplicate, 0, "some@user.com");
+            var sectionTitle = sectionToDuplicate.Title;
+            var newTitle = String.Format("{0} {1}", sectionTitle.Substring(0, 244), "... (copy)");
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
-            objectiveToDuplicate.Title.Should().Be(newTitle);
+            sectionToDuplicate.Title.Should().Be(newTitle);
         }
 
         [TestMethod]
@@ -266,26 +266,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldDeleteObjective_WhenItIsNotRelatedToOtherCourse()
+        public void Delete_ShouldDeleteSection_WhenItIsNotRelatedToOtherCourse()
         {
             var course = Substitute.For<Course>();
             var courses = new Collection<Course>();
             courses.Add(course);
 
-            var objective = Substitute.For<Objective>(); ;
-            var objectives = new Collection<Objective>();
-            objectives.Add(objective);
+            var section = Substitute.For<Section>(); ;
+            var sections = new Collection<Section>();
+            sections.Add(section);
 
-            course.RelatedObjectives.Returns(objectives);
-            objective.Courses.Returns(courses);
+            course.RelatedSections.Returns(sections);
+            section.Courses.Returns(courses);
 
             _controller.Delete(course);
 
-            _objectiveRepository.Received().Remove(objective);
+            _sectionRepository.Received().Remove(section);
         }
 
         [TestMethod]
-        public void Delete_ShouldNotDeleteObjective_WhenItIsRelatedToOtherCourse()
+        public void Delete_ShouldNotDeleteSection_WhenItIsRelatedToOtherCourse()
         {
             var course1 = Substitute.For<Course>("Some title1", TemplateObjectMother.Create(), CreatedBy);
             var course2 = Substitute.For<Course>("Some title2", TemplateObjectMother.Create(), CreatedBy);
@@ -293,40 +293,40 @@ namespace easygenerator.Web.Tests.Controllers.Api
             courses.Add(course1);
             courses.Add(course2);
 
-            var objective = Substitute.For<Objective>(); ;
-            var objectives = new Collection<Objective>();
-            objectives.Add(objective);
+            var section = Substitute.For<Section>(); ;
+            var sections = new Collection<Section>();
+            sections.Add(section);
 
-            course1.RelatedObjectives.Returns(objectives);
-            objective.Courses.Returns(courses);
+            course1.RelatedSections.Returns(sections);
+            section.Courses.Returns(courses);
 
             _controller.Delete(course1);
 
-            _objectiveRepository.DidNotReceive().Remove(objective);
+            _sectionRepository.DidNotReceive().Remove(section);
         }
 
         [TestMethod]
-        public void Delete_ShouldDeleteAllQuestions_WhenCourseObjectiveIsDeleted()
+        public void Delete_ShouldDeleteAllQuestions_WhenCourseSectionIsDeleted()
         {
             var course = Substitute.For<Course>();
             var courses = new Collection<Course>();
             courses.Add(course);
 
-            var objective = Substitute.For<Objective>(); ;
-            var objectives = new Collection<Objective>();
-            objectives.Add(objective);
+            var section = Substitute.For<Section>(); ;
+            var sections = new Collection<Section>();
+            sections.Add(section);
 
             var question = Substitute.For<Question>();
             var questions = new Collection<Question>();
             questions.Add(question);
 
-            course.RelatedObjectives.Returns(objectives);
-            objective.Courses.Returns(courses);
-            objective.Questions.Returns(questions);
+            course.RelatedSections.Returns(sections);
+            section.Courses.Returns(courses);
+            section.Questions.Returns(questions);
 
             _controller.Delete(course);
 
-            objective.Received().RemoveQuestion(question, Arg.Any<string>());
+            section.Received().RemoveQuestion(question, Arg.Any<string>());
         }
 
         [TestMethod]
@@ -715,47 +715,47 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Relate Objectives
+        #region Relate Sections
 
         [TestMethod]
-        public void RelateObjectives_ShouldReturnJson()
+        public void RelateSections_ShouldReturnJson()
         {
             //Arrange
             _user.Identity.Name.Returns("Test user");
             var course = CourseObjectMother.Create();
-            var relatedObjective = ObjectiveObjectMother.Create();
+            var relatedSection = SectionObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjective(course, relatedObjective, null);
+            var result = _controller.RelateSection(course, relatedSection, null);
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldRelateObjectiveToCourse()
+        public void RelateSections_ShouldRelateSectionToCourse()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             var course = Substitute.For<Course>("title", TemplateObjectMother.Create(), CreatedBy);
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
 
             //Act
-            _controller.RelateObjective(course, objective, null);
+            _controller.RelateSection(course, section, null);
 
             //Assert
-            course.Received().RelateObjective(objective, null, user);
+            course.Received().RelateSection(section, null, user);
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldReturnJsonErrorResult_WhenCourseIsNull()
+        public void RelateSections_ShouldReturnJsonErrorResult_WhenCourseIsNull()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjective(null, objective, null);
+            var result = _controller.RelateSection(null, section, null);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
@@ -763,63 +763,63 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldReturnJsonErrorResult_WhenObjectiveListIsEmpty()
+        public void RelateSections_ShouldReturnJsonErrorResult_WhenSectionListIsEmpty()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjective(course, null, null);
+            var result = _controller.RelateSection(course, null, null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         #endregion
 
-        #region Unrelate Objectives
+        #region Unrelate Sections
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldReturnJson()
+        public void UnrelateSections_ShouldReturnJson()
         {
             //Arrange
             _user.Identity.Name.Returns("Test user");
             var course = CourseObjectMother.Create();
-            var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
+            var relatedSections = new List<Section>() { SectionObjectMother.Create() };
 
             //Act
-            var result = _controller.UnrelateObjectives(course, relatedObjectives);
+            var result = _controller.UnrelateSections(course, relatedSections);
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldUnrelateObjectiveFromCourse()
+        public void UnrelateSections_ShouldUnrelateSectionFromCourse()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
             var course = Substitute.For<Course>("title", TemplateObjectMother.Create(), CreatedBy);
 
             //Act
-            _controller.UnrelateObjectives(course, new List<Objective>() { objective });
+            _controller.UnrelateSections(course, new List<Section>() { section });
 
             //Assert
-            course.Received().UnrelateObjective(objective, user);
+            course.Received().UnrelateSection(section, user);
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldReturnJsonErrorResult_WhenCourseIsNull()
+        public void UnrelateSections_ShouldReturnJsonErrorResult_WhenCourseIsNull()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var section = SectionObjectMother.Create();
 
             //Act
-            var result = _controller.UnrelateObjectives(null, new List<Objective>() { objective });
+            var result = _controller.UnrelateSections(null, new List<Section>() { section });
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
@@ -827,17 +827,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldReturnJsonErrorResult_WhenObjectiveListIsEmpty()
+        public void UnrelateSections_ShouldReturnJsonErrorResult_WhenSectionListIsEmpty()
         {
             //Arrange
             var course = CourseObjectMother.Create();
 
             //Act
-            var result = _controller.UnrelateObjectives(course, new List<Objective>() { });
+            var result = _controller.UnrelateSections(course, new List<Section>() { });
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objectives are not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Sections are not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionsNotFoundError");
         }
 
         #endregion
@@ -1010,48 +1010,48 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion UpdateContent
 
-        #region UpdateObjectivesOrder
+        #region UpdateSectionsOrder
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        public void UpdateSectionsOrderedList_ShouldReturnHttpNotFound_WhenCourseIsNull()
         {
             //Arrange
 
             //Act
-            var result = _controller.UpdateObjectivesOrderedList(null, new List<Objective>());
+            var result = _controller.UpdateSectionsOrderedList(null, new List<Section>());
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldCallMethodReorderRelatedObjectives()
+        public void UpdateSectionsOrderedList_ShouldCallMethodReorderRelatedSections()
         {
             //Arrange
             var course = Substitute.For<Course>();
-            var objectivesCollection = new Collection<Objective>();
+            var sectionsCollection = new Collection<Section>();
             _user.Identity.Name.Returns("user");
 
             //Act
-            _controller.UpdateObjectivesOrderedList(course, objectivesCollection);
+            _controller.UpdateSectionsOrderedList(course, sectionsCollection);
 
             //Assert
-            course.Received().UpdateObjectivesOrder(objectivesCollection, "user");
+            course.Received().UpdateSectionsOrder(sectionsCollection, "user");
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldReturnJsonSuccessResult()
+        public void UpdateSectionsOrderedList_ShouldReturnJsonSuccessResult()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             //Act
-            var result = _controller.UpdateObjectivesOrderedList(course, new List<Objective>());
+            var result = _controller.UpdateSectionsOrderedList(course, new List<Section>());
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
         }
 
-        #endregion UpdateObjectivesOrder
+        #endregion UpdateSectionsOrder
 
     }
 }

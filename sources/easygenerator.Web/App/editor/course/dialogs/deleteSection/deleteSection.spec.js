@@ -71,7 +71,7 @@ describe('dialog [deleteSection]', () => {
             dataContext.courses = [
                 {
                     id: courseId,
-                    objectives: [
+                    sections: [
                     {
                         id: sectionId
                     }]

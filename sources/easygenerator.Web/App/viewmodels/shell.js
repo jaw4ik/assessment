@@ -32,7 +32,7 @@
             closeSwitchEditorMessage: closeSwitchEditorMessage,
 
             courseDeleted: courseDeleted,
-            objectivesUnrelated: objectivesUnrelated,
+            sectionsUnrelated: sectionsUnrelated,
             questionsDeleted: questionsDeleted,
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl,
@@ -84,7 +84,7 @@
 
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
         app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);
+        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.sectionsUnrelated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
         app.on(constants.messages.user.planChanged, checkUpgradeNowVisibility);
 
@@ -171,7 +171,7 @@
                         clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
 
-                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                    clientContext.set(constants.clientContextKeys.lastVisitedSection, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
                     var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
@@ -195,7 +195,7 @@
                             nav: true,
                             navigate: function () {
                                 eventTracker.publish(events.navigateToCourses);
-                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                clientContext.set(constants.clientContextKeys.lastVisitedSection, null);
                                 router.navigate(this.hash);
                             }
                         },
@@ -210,7 +210,7 @@
                             navigate: function () {
                                 eventTracker.publish(events.navigateToLearningPaths);
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                clientContext.set(constants.clientContextKeys.lastVisitedSection, null);
                                 router.navigate(this.hash);
                             }
                         },
@@ -269,11 +269,11 @@
             notify.error(localizationManager.localize('courseHasBeenDeletedByTheOwner'));
         }
 
-        function objectivesUnrelated(courseId, deletedObjectiveIds) {
-            if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().objectiveId) || !_.contains(deletedObjectiveIds, router.routeData().objectiveId))
+        function sectionsUnrelated(courseId, deletedSectionIds) {
+            if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().sectionId) || !_.contains(deletedSectionIds, router.routeData().sectionId))
                 return;
 
-            notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
+            notify.error(localizationManager.localize('sectionHasBeenDisconnectedByCollaborator'));
         }
 
         function questionsDeleted(objId, deletedQuestionIds) {

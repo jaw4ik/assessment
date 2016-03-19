@@ -58,24 +58,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create
 
         [TestMethod]
-        public void Create_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void Create_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
-        public void Create_ShouldAddQuestionToObjective()
+        public void Create_ShouldAddQuestionToSection()
         {
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = ScenarioObjectMother.Create();
             _entityFactory.Scenario(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(question);
 
-            _controller.Create(objective, "title");
+            _controller.Create(section, "title");
 
-            objective.Received().AddQuestion(question, CreatedBy);
+            section.Received().AddQuestion(question, CreatedBy);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var question = ScenarioObjectMother.Create();
             _entityFactory.Scenario(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(question);
 
-            var result = _controller.Create(ObjectiveObjectMother.Create(), "title");
+            var result = _controller.Create(SectionObjectMother.Create(), "title");
 
             result.Should()
                 .BeJsonSuccessResult()

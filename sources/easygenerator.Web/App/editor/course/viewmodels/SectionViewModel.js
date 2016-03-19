@@ -7,7 +7,7 @@ import imageUpload from 'imageUpload';
 import notify from 'notify';
 import constants from 'constants';
 import QuestionViewModel from './QuestionViewModel';
-import sectionRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 import updateSectionLearningObjectiveCommand from '../commands/updateSectionLearningObjectiveCommand';
 
@@ -42,13 +42,13 @@ export default class SectionViewModel{
         this.title = ko.observable(section.title || '');
         this.title.isEditing = ko.observable(false);
         this.title.isSelected = ko.observable(false);
-        this.title.maxLength = constants.validation.objectiveTitleMaxLength;
+        this.title.maxLength = constants.validation.sectionTitleMaxLength;
         this.title.isValid = ko.computed(() => this.title().trim().length <= this.title.maxLength, this);
         this.title.isEmpty = ko.computed(() => this.title().trim().length === 0, this);
         this.learningObjective = ko.observable(section.learningObjective || '');
         this.learningObjective.isEditing = ko.observable(false);
         this.learningObjective.isSelected = ko.observable(false);
-        this.learningObjective.maxLength = constants.validation.objectiveTitleMaxLength;
+        this.learningObjective.maxLength = constants.validation.sectionTitleMaxLength;
         this.learningObjective.isValid = ko.computed(() => this.learningObjective().trim().length <= this.learningObjective.maxLength, this);
         this.learningObjective.isEmpty = ko.computed(() => this.learningObjective().trim().length === 0, this);
         this.learningObjective.isVisible = ko.observable(false);
@@ -135,13 +135,13 @@ export default class SectionViewModel{
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
 
-        app.on(constants.messages.objective.titleUpdatedByCollaborator, _sectionTitleUpdated.get(this).bind(this));
-        app.on(constants.messages.objective.learningObjectiveUpdatedByCollaborator, _sectionLearningObjectiveUpdated.get(this).bind(this));
-        app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, _sectionImageUrlUpdated.get(this).bind(this));
+        app.on(constants.messages.section.titleUpdatedByCollaborator, _sectionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.section.learningObjectiveUpdatedByCollaborator, _sectionLearningObjectiveUpdated.get(this).bind(this));
+        app.on(constants.messages.section.imageUrlUpdatedByCollaborator, _sectionImageUrlUpdated.get(this).bind(this));
         app.on(constants.messages.question.titleUpdatedByCollaborator, _questionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionDeleted.get(this).bind(this));
         app.on(constants.messages.question.createdByCollaborator, _questionCreatedByCollaborator.get(this).bind(this));
-        app.on(constants.messages.objective.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
+        app.on(constants.messages.section.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
         app.on(constants.messages.question.titleUpdated, _questionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.deleted, _questionDeleted.get(this).bind(this));
         app.on(constants.messages.question.created, _questionCreated.get(this).bind(this));
@@ -192,6 +192,7 @@ export default class SectionViewModel{
         this.id(section.id);
         this.title(section.title);
         this.originalTitle = this.title();
+        this.createdBy = section.createdBy;
         this.learningObjective(section.learningObjective || '');
         this.originalLearningObjective = this.learningObjective();
         this.modifiedOn(updateModifiedOn(section.modifiedOn));

@@ -7,9 +7,9 @@
             updateInformationTitle: 'Update information title'
         };
 
-        var viewModel = function (_objectiveId, question) {
+        var viewModel = function (_sectionId, question) {
             var
-                objectiveId = _objectiveId,
+                sectionId = _sectionId,
                 questionId = question.id,
 
                 text = (function () {
@@ -42,7 +42,7 @@
                     text.trim();
                     text.isEditing(false);
 
-                    questionRepository.getById(objectiveId, questionId).then(function (response) {
+                    questionRepository.getById(sectionId, questionId).then(function (response) {
                         var questionTitle = response.title;
 
                         if (text() == questionTitle) {
@@ -72,9 +72,9 @@
             isCreatedQuestion = lastCreatedQuestionId === question.id;
 
             return {
-                objectiveId: objectiveId,
+                sectionId: sectionId,
                 questionId: questionId,
-
+                label: question.type === constants.questionType.informationContent.type ? 'contentTitleLabel' : 'questionTitleLabel',
                 text: text,
 
                 isExpanded: isExpanded,

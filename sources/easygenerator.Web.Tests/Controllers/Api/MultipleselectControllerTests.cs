@@ -2,7 +2,7 @@
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.SectionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -49,13 +49,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void CreateMultipleSelect_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void CreateMultipleSelect_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
             var correctAnswer = Substitute.For<Answer>(defaultAnswerText, true, user, DateTimeWrapper.Now());
             var incorrectAnswer = Substitute.For<Answer>(defaultAnswerText, false, user, DateTimeWrapper.Now().AddSeconds(1));
@@ -76,25 +76,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.MultipleselectQuestion(title, user, correctAnswer, incorrectAnswer).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
             _entityFactory.Received().MultipleselectQuestion(title, user, correctAnswer, incorrectAnswer);
         }
 
         [TestMethod]
-        public void CreateMultipleSelect_ShouldAddQuestionToObjective()
+        public void CreateMultipleSelect_ShouldAddQuestionToSection()
         {
             const string title = "title";
             var user = "Test user";
             DateTimeWrapper.Now = () => DateTime.MinValue;
             _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
 
             _entityFactory.MultipleselectQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
-            objective.Received().AddQuestion(question, user);
+            section.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
@@ -108,7 +108,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.MultipleselectQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

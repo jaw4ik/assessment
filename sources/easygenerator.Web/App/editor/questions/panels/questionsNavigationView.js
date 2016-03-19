@@ -11,6 +11,7 @@ let _questionTitleUpdated = new WeakMap();
 let _sectionConnected = new WeakMap();
 let _sectionsDisconnected = new WeakMap();
 let _sectionsReordered = new WeakMap();
+let _sectionDeleted = new WeakMap();
 let _questionsDeleted = new WeakMap();
 let _questionCreated = new WeakMap();
 let _questionsReordered = new WeakMap();
@@ -44,8 +45,8 @@ class SectionTreeNode extends TreeNode{
             this.questions(_.reject(this.questions(), question => _.some(questionIds, id => id === question.id)));
         });
 
-        app.on(constants.messages.objective.titleUpdatedByCollaborator, _questionTitleUpdated.get(this).bind(this));
-        app.on(constants.messages.objective.titleUpdated, _questionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.section.titleUpdatedByCollaborator, _questionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.section.titleUpdated, _questionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.deleted, _questionsDeleted.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionsDeleted.get(this).bind(this));
     }
@@ -88,7 +89,7 @@ class QuestionTreeNode extends TreeNode{
 
 var mapSection = (courseId, section) => new SectionTreeNode(section.id, section.title, _.map(section.questions, question => mapQuestion(courseId, section.id, question)));
 var mapQuestion = (courseId, sectionId, question) => new QuestionTreeNode(question.id, question.title, getQuestionLink(courseId, sectionId, question.id));
-var getQuestionLink = (courseId, sectionId, questionId) => `#courses/${courseId}/objectives/${sectionId}/questions/${questionId}`;
+var getQuestionLink = (courseId, sectionId, questionId) => `#courses/${courseId}/sections/${sectionId}/questions/${questionId}`;
 
 class ContentTreeView {
     constructor() {
@@ -124,8 +125,15 @@ class ContentTreeView {
             if (course.id !== this.id) {
                 return;
             }
-            this.sections(_.map(course.objectives, section => mapSection(this.id, section)));
+            this.sections(_.map(course.sections, section => mapSection(this.id, section)));
             this.activateQuestion(this.activeSectionId, this.activateQuestionId);
+        });
+
+        _sectionDeleted.set(this, sectionId => {
+            let sectionToRemove = _.find(this.sections(), item => item.id === sectionId);
+            if (!_.isNullOrUndefined(sectionToRemove)) {
+                this.sections.remove(sectionToRemove);
+            }
         });
 
         _questionCreated.set(this, (sectionId, question) => {
@@ -148,23 +156,24 @@ class ContentTreeView {
                 changedSection.activate(this.activateQuestionId);
             }
         });
-
-        app.on(constants.messages.course.objectiveRelated, _sectionConnected.get(this).bind(this));
-        app.on(constants.messages.course.objectiveRelatedByCollaborator, _sectionConnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesUnrelated, _sectionsDisconnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesReordered, _sectionsReordered.get(this).bind(this));
-        app.on(constants.messages.course.objectivesReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
+        
+        app.on(constants.messages.course.sectionRelated, _sectionConnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionRelatedByCollaborator, _sectionConnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsUnrelated, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsReordered, _sectionsReordered.get(this).bind(this));
+        app.on(constants.messages.course.sectionsReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
+		app.on(constants.messages.section.deleted, _sectionDeleted.get(this).bind(this));
 
         app.on(constants.messages.question.created, _questionCreated.get(this).bind(this));
         app.on(constants.messages.question.createdByCollaborator, _questionCreated.get(this).bind(this));
-        app.on(constants.messages.objective.questionsReordered, _questionsReordered.get(this).bind(this));
-        app.on(constants.messages.objective.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
+        app.on(constants.messages.section.questionsReordered, _questionsReordered.get(this).bind(this));
+        app.on(constants.messages.section.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
     }
     async initialize(courseId) {
         this.id = courseId;
         let course = await courseRepository.getById(this.id);
-        this.sections(_.map(course.objectives, section => mapSection(this.id, section)));
+        this.sections(_.map(course.sections, section => mapSection(this.id, section)));
     }
     activate(sectionId, questionId) {
         this.activeSectionId = sectionId;

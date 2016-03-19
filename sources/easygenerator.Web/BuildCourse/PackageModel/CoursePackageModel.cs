@@ -14,6 +14,6 @@ namespace easygenerator.Web.BuildCourse.PackageModel
         [JsonIgnore]
         public string IntroductionContent { get; set; }
         public bool HasIntroductionContent { get; set; }
-        public List<ObjectivePackageModel> Objectives { get; set; }
+        public List<SectionPackageModel> Sections { get; set; }
     }
 }

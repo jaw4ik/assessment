@@ -1,23 +1,23 @@
-﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField',
-        'userContext', 'durandal/app', 'imageUpload', 'commands/createObjectiveCommand'],
-    function (router, constants, eventTracker, repository, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, userContext, app, imageUpload, createObjectiveCommand) {
+﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'viewmodels/sections/sectionBrief',
+        'localization/localizationManager', 'notify', 'repositories/sectionRepository', 'viewmodels/common/contentField',
+        'userContext', 'durandal/app', 'imageUpload', 'commands/createSectionCommand'],
+    function (router, constants, eventTracker, repository, sectionBrief, localizationManager, notify, sectionRepository, vmContentField, userContext, app, imageUpload, createSectionCommand) {
         "use strict";
 
         var
             events = {
-                navigateToObjectiveDetails: 'Navigate to objective details',
-                selectObjective: 'Select Objective',
-                unselectObjective: 'Unselect Objective',
+                navigateToSectionDetails: 'Navigate to objective details',
+                selectSection: 'Select Objective',
+                unselectSection: 'Unselect Objective',
                 updateCourseTitle: 'Update course title',
-                showAllAvailableObjectives: 'Show all available objectives',
-                connectSelectedObjectivesToCourse: 'Connect selected objectives to course',
-                showConnectedObjectives: 'Show connected objectives',
-                unrelateObjectivesFromCourse: 'Unrelate objectives from course',
+                showAllAvailableSections: 'Show all available objectives',
+                connectSelectedSectionsToCourse: 'Connect selected objectives to course',
+                showConnectedSections: 'Show connected objectives',
+                unrelateSectionsFromCourse: 'Unrelate objectives from course',
                 navigateToCourses: 'Navigate to courses',
-                changeOrderObjectives: 'Change order of learning objectives',
-                openChangeObjectiveImageDialog: 'Open "change objective image" dialog',
-                changeObjectiveImage: 'Change objective image'
+                changeOrderSections: 'Change order of learning objectives',
+                openChangeSectionImageDialog: 'Open "change objective image" dialog',
+                changeSectionImage: 'Change objective image'
             },
 
             eventsForCourseContent = {
@@ -26,7 +26,7 @@
                 endEditText: 'End editing introduction'
             },
 
-            objectivesListModes = {
+            sectionsListModes = {
                 appending: 'appending',
                 display: 'display'
             };
@@ -34,72 +34,72 @@
         var viewModel = {
             id: '',
             createdBy: '',
-            connectedObjectives: ko.observableArray([]),
-            availableObjectives: ko.observableArray([]),
-            objectivesMode: ko.observable(''),
+            connectedSections: ko.observableArray([]),
+            availableSections: ko.observableArray([]),
+            sectionsMode: ko.observable(''),
 
             courseIntroductionContent: {},
-            objectivesListModes: objectivesListModes,
-            canDisconnectObjectives: ko.observable(false),
-            canConnectObjectives: ko.observable(false),
-            isReorderingObjectives: ko.observable(false),
+            sectionsListModes: sectionsListModes,
+            canDisconnectSections: ko.observable(false),
+            canConnectSections: ko.observable(false),
+            isReorderingSections: ko.observable(false),
             isSortingEnabled: ko.observable(true),
 
-            isObjectivesListReorderedByCollaborator: ko.observable(false),
+            isSectionsListReorderedByCollaborator: ko.observable(false),
 
-            updateObjectiveImage: updateObjectiveImage,
-            navigateToObjectiveDetails: navigateToObjectiveDetails,
-            createObjective: createObjective,
+            updateSectionImage: updateSectionImage,
+            navigateToSectionDetails: navigateToSectionDetails,
+            createSection: createSection,
             navigateToCoursesEvent: navigateToCoursesEvent,
-            toggleObjectiveSelection: toggleObjectiveSelection,
-            showAllAvailableObjectives: showAllAvailableObjectives,
-            showConnectedObjectives: showConnectedObjectives,
-            disconnectSelectedObjectives: disconnectSelectedObjectives,
-            startReorderingObjectives: startReorderingObjectives,
-            endReorderingObjectives: endReorderingObjectives,
-            reorderObjectives: reorderObjectives,
+            toggleSectionSelection: toggleSectionSelection,
+            showAllAvailableSections: showAllAvailableSections,
+            showConnectedSections: showConnectedSections,
+            disconnectSelectedSections: disconnectSelectedSections,
+            startReorderingSections: startReorderingSections,
+            endReorderingSections: endReorderingSections,
+            reorderSections: reorderSections,
             activate: activate,
-            connectObjective: connectObjective,
-            disconnectObjective: disconnectObjective,
-            objectiveDisconnected: objectiveDisconnected,
+            connectSection: connectSection,
+            disconnectSection: disconnectSection,
+            sectionDisconnected: sectionDisconnected,
 
             introductionContentUpdated: introductionContentUpdated,
-            objectivesReordered: objectivesReordered,
-            objectiveConnected: objectiveConnected,
-            objectivesDisconnected: objectivesDisconnected,
-            objectiveTitleUpdated: objectiveTitleUpdated,
-            objectiveImageUpdated: objectiveImageUpdated,
-            objectiveUpdated: objectiveUpdated,
+            sectionsReordered: sectionsReordered,
+            sectionConnected: sectionConnected,
+            sectionsDisconnected: sectionsDisconnected,
+            sectionTitleUpdated: sectionTitleUpdated,
+            sectionImageUpdated: sectionImageUpdated,
+            sectionUpdated: sectionUpdated,
             localizationManager: localizationManager,
             eventTracker: eventTracker
         };
 
-        viewModel.canDisconnectObjectives = ko.computed(function () {
-            return _.some(viewModel.connectedObjectives(), function (item) {
+        viewModel.canDisconnectSections = ko.computed(function () {
+            return _.some(viewModel.connectedSections(), function (item) {
                 return item.isSelected();
             });
         });
 
-        viewModel.canConnectObjectives = ko.computed(function () {
-            return _.some(viewModel.availableObjectives(), function (item) {
+        viewModel.canConnectSections = ko.computed(function () {
+            return _.some(viewModel.availableSections(), function (item) {
                 return item.isSelected();
             });
         });
 
         viewModel.isSortingEnabled = ko.computed(function () {
-            return viewModel.connectedObjectives().length !== 1;
+            return viewModel.connectedSections().length !== 1;
         });
 
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.introductionContentUpdated);
-        app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.objectivesReordered);
-        app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.objectiveConnected);
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesDisconnected);
-        app.on(constants.messages.objective.titleUpdatedByCollaborator, viewModel.objectiveTitleUpdated);
-        app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, viewModel.objectiveImageUpdated);
-        app.on(constants.messages.objective.questionsReorderedByCollaborator, viewModel.objectiveUpdated);
-        app.on(constants.messages.question.createdByCollaborator, viewModel.objectiveUpdated);
-        app.on(constants.messages.question.deletedByCollaborator, viewModel.objectiveUpdated);
+        app.on(constants.messages.course.sectionsReorderedByCollaborator, viewModel.sectionsReordered);
+        app.on(constants.messages.course.sectionRelatedByCollaborator, viewModel.sectionConnected);
+        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.sectionsDisconnected);
+        app.on(constants.messages.section.titleUpdatedByCollaborator, viewModel.sectionTitleUpdated);
+        app.on(constants.messages.section.imageUrlUpdatedByCollaborator, viewModel.sectionImageUpdated);
+        app.on(constants.messages.section.questionsReorderedByCollaborator, viewModel.sectionUpdated);
+        app.on(constants.messages.question.createdByCollaborator, viewModel.sectionUpdated);
+        app.on(constants.messages.question.deletedByCollaborator, viewModel.sectionUpdated);
 
         return viewModel;
 
@@ -107,94 +107,94 @@
             eventTracker.publish(events.navigateToCourses);
         }
 
-        function updateObjectiveImage(objective) {
-            eventTracker.publish(events.openChangeObjectiveImageDialog);
+        function updateSectionImage(section) {
+            eventTracker.publish(events.openChangeSectionImageDialog);
             imageUpload.upload({
                 startLoading: function () {
-                    objective.isImageLoading(true);
+                    section.isImageLoading(true);
                 },
                 success: function (url) {
-                    objectiveRepository.updateImage(objective.id, url).then(function (result) {
-                        objective.imageUrl(result.imageUrl);
-                        objective.modifiedOn(result.modifiedOn);
-                        objective.isImageLoading(false);
-                        eventTracker.publish(events.changeObjectiveImage);
+                    sectionRepository.updateImage(section.id, url).then(function (result) {
+                        section.imageUrl(result.imageUrl);
+                        section.modifiedOn(result.modifiedOn);
+                        section.isImageLoading(false);
+                        eventTracker.publish(events.changeSectionImage);
                         notify.saved();
                     });
                 },
                 error: function () {
-                    objective.isImageLoading(false);
+                    section.isImageLoading(false);
                 }
             });
         }
 
-        function navigateToObjectiveDetails(objective) {
-            eventTracker.publish(events.navigateToObjectiveDetails);
-            if (_.isUndefined(objective)) {
-                throw 'Objective is undefined';
+        function navigateToSectionDetails(section) {
+            eventTracker.publish(events.navigateToSectionDetails);
+            if (_.isUndefined(section)) {
+                throw 'Section is undefined';
             }
 
-            if (_.isNull(objective)) {
-                throw 'Objective is null';
+            if (_.isNull(section)) {
+                throw 'Section is null';
             }
 
-            if (_.isUndefined(objective.id)) {
-                throw 'Objective does not have id property';
+            if (_.isUndefined(section.id)) {
+                throw 'Section does not have id property';
             }
 
-            if (_.isNull(objective.id)) {
-                throw 'Objective id property is null';
+            if (_.isNull(section.id)) {
+                throw 'Section id property is null';
             }
 
-            router.navigate('courses/' + viewModel.id + '/objectives/' + objective.id);
+            router.navigate('courses/' + viewModel.id + '/sections/' + section.id);
         }
 
-        function createObjective() {
-            createObjectiveCommand.execute(viewModel.id);
+        function createSection() {
+            createSectionCommand.execute(viewModel.id);
         }
 
-        function toggleObjectiveSelection(objective) {
-            if (_.isUndefined(objective)) {
-                throw 'Objective is undefined';
+        function toggleSectionSelection(section) {
+            if (_.isUndefined(section)) {
+                throw 'Section is undefined';
             }
 
-            if (_.isNull(objective)) {
-                throw 'Objective is null';
+            if (_.isNull(section)) {
+                throw 'Section is null';
             }
 
-            if (!ko.isObservable(objective.isSelected)) {
-                throw 'Objective does not have isSelected observable';
+            if (!ko.isObservable(section.isSelected)) {
+                throw 'Section does not have isSelected observable';
             }
 
-            if (objective.isSelected()) {
-                eventTracker.publish(events.unselectObjective);
-                objective.isSelected(false);
+            if (section.isSelected()) {
+                eventTracker.publish(events.unselectSection);
+                section.isSelected(false);
             } else {
-                eventTracker.publish(events.selectObjective);
-                objective.isSelected(true);
+                eventTracker.publish(events.selectSection);
+                section.isSelected(true);
             }
         }
 
-        function showAllAvailableObjectives() {
-            if (viewModel.objectivesMode() === objectivesListModes.appending) {
+        function showAllAvailableSections() {
+            if (viewModel.sectionsMode() === sectionsListModes.appending) {
                 return;
             }
 
-            eventTracker.publish(events.showAllAvailableObjectives);
+            eventTracker.publish(events.showAllAvailableSections);
 
-            objectiveRepository.getCollection().then(function (objectivesList) {
-                var relatedIds = _.pluck(viewModel.connectedObjectives(), 'id');
-                var objectives = _.filter(objectivesList, function (item) {
+            sectionRepository.getCollection().then(function (sectionsList) {
+                var relatedIds = _.pluck(viewModel.connectedSections(), 'id');
+                var sections = _.filter(sectionsList, function (item) {
                     return !_.include(relatedIds, item.id);
                 });
-                mapAvailableObjectives(objectives);
+                mapAvailableSections(sections);
 
-                viewModel.objectivesMode(objectivesListModes.appending);
+                viewModel.sectionsMode(sectionsListModes.appending);
             });
         }
 
-        function mapAvailableObjectives(objectives) {
-            viewModel.availableObjectives(_.chain(objectives)
+        function mapAvailableSections(sections) {
+            viewModel.availableSections(_.chain(sections)
                     .filter(function (item) {
                         return item.createdBy === userContext.identity.email;
                     })
@@ -202,112 +202,112 @@
                         return -item.createdOn;
                     })
                     .map(function (item) {
-                        var mappedObjective = objectiveBrief(item);
-                        mappedObjective._original = item;
+                        var mappedSection = sectionBrief(item);
+                        mappedSection._original = item;
 
-                        return mappedObjective;
+                        return mappedSection;
                     })
                     .value());
         }
 
-        function showConnectedObjectives() {
-            if (viewModel.objectivesMode() === objectivesListModes.display) {
+        function showConnectedSections() {
+            if (viewModel.sectionsMode() === sectionsListModes.display) {
                 return;
             }
 
-            eventTracker.publish(events.showConnectedObjectives);
+            eventTracker.publish(events.showConnectedSections);
 
-            _.each(viewModel.connectedObjectives(), function (item) {
+            _.each(viewModel.connectedSections(), function (item) {
                 item.isSelected(false);
             });
 
-            viewModel.objectivesMode(objectivesListModes.display);
+            viewModel.sectionsMode(sectionsListModes.display);
         }
 
-        function connectObjective(objective) {
-            if (_.contains(viewModel.connectedObjectives(), objective.item)) {
-                var objectives = _.map(viewModel.connectedObjectives(), function (item) {
+        function connectSection(section) {
+            if (_.contains(viewModel.connectedSections(), section.item)) {
+                var sections = _.map(viewModel.connectedSections(), function (item) {
                     return {
                         id: item.id
                     };
                 });
-                objectives.splice(objective.sourceIndex, 1);
-                objectives.splice(objective.targetIndex, 0, { id: objective.item.id });
-                eventTracker.publish(events.changeOrderObjectives);
-                repository.updateObjectiveOrder(viewModel.id, objectives).then(function () {
+                sections.splice(section.sourceIndex, 1);
+                sections.splice(section.targetIndex, 0, { id: section.item.id });
+                eventTracker.publish(events.changeOrderSections);
+                repository.updateSectionOrder(viewModel.id, sections).then(function () {
                     notify.saved();
                 });
                 return;
             }
 
-            eventTracker.publish(events.connectSelectedObjectivesToCourse);
-            repository.relateObjective(viewModel.id, objective.item.id, objective.targetIndex).then(function () {
+            eventTracker.publish(events.connectSelectedSectionsToCourse);
+            repository.relateSection(viewModel.id, section.item.id, section.targetIndex).then(function () {
                 notify.saved();
             });
         }
 
-        function disconnectObjective(objective) {
-            if (_.contains(viewModel.availableObjectives(), objective.item)) {
+        function disconnectSection(section) {
+            if (_.contains(viewModel.availableSections(), section.item)) {
                 return;
             }
 
-            eventTracker.publish(events.unrelateObjectivesFromCourse);
-            repository.unrelateObjectives(viewModel.id, [objective.item]).then(function () {
+            eventTracker.publish(events.unrelateSectionsFromCourse);
+            repository.unrelateSections(viewModel.id, [section.item]).then(function () {
                 notify.saved();
             });
         }
 
-        function objectiveDisconnected(objective) {
-            if (objective.item.createdBy != userContext.identity.email) {
-                viewModel.availableObjectives(_.reject(viewModel.availableObjectives(), function (item) {
-                    return item.id == objective.item.id;
+        function sectionDisconnected(section) {
+            if (section.item.createdBy != userContext.identity.email) {
+                viewModel.availableSections(_.reject(viewModel.availableSections(), function (item) {
+                    return item.id == section.item.id;
                 }));
             }
         }
 
-        function disconnectSelectedObjectives() {
-            if (!viewModel.canDisconnectObjectives()) {
+        function disconnectSelectedSections() {
+            if (!viewModel.canDisconnectSections()) {
                 return;
             }
 
-            eventTracker.publish(events.unrelateObjectivesFromCourse);
+            eventTracker.publish(events.unrelateSectionsFromCourse);
 
-            var selectedObjectives = _.filter(viewModel.connectedObjectives(), function (item) {
+            var selectedSections = _.filter(viewModel.connectedSections(), function (item) {
                 return item.isSelected();
             });
 
-            repository.unrelateObjectives(viewModel.id, _.map(selectedObjectives, function (item) {
+            repository.unrelateSections(viewModel.id, _.map(selectedSections, function (item) {
                 return item;
             })).then(function () {
-                viewModel.connectedObjectives(_.difference(viewModel.connectedObjectives(), selectedObjectives));
+                viewModel.connectedSections(_.difference(viewModel.connectedSections(), selectedSections));
                 notify.saved();
             });
         }
 
-        function startReorderingObjectives() {
-            viewModel.isReorderingObjectives(true);
+        function startReorderingSections() {
+            viewModel.isReorderingSections(true);
         }
 
-        function endReorderingObjectives() {
+        function endReorderingSections() {
             return Q.fcall(function () {
-                if (!viewModel.isReorderingObjectives() || !viewModel.isObjectivesListReorderedByCollaborator()) {
-                    viewModel.isReorderingObjectives(false);
+                if (!viewModel.isReorderingSections() || !viewModel.isSectionsListReorderedByCollaborator()) {
+                    viewModel.isReorderingSections(false);
                     return;
                 }
 
-                viewModel.isReorderingObjectives(false);
-                viewModel.isObjectivesListReorderedByCollaborator(false);
+                viewModel.isReorderingSections(false);
+                viewModel.isSectionsListReorderedByCollaborator(false);
 
                 return repository.getById(viewModel.id).then(function (course) {
-                    reorderConnectedObjectivesList(course);
+                    reorderConnectedSectionsList(course);
                 });
             });
         }
 
-        function reorderObjectives() {
-            eventTracker.publish(events.changeOrderObjectives);
-            viewModel.isReorderingObjectives(false);
-            repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
+        function reorderSections() {
+            eventTracker.publish(events.changeOrderSections);
+            viewModel.isReorderingSections(false);
+            repository.updateSectionOrder(viewModel.id, viewModel.connectedSections()).then(function () {
                 notify.saved();
             });
         }
@@ -318,10 +318,10 @@
                 viewModel.id = course.id;
                 viewModel.createdBy = course.createdBy;
 
-                viewModel.objectivesMode(objectivesListModes.display);
-                viewModel.connectedObjectives(_.chain(course.objectives)
-                    .map(function (objective) {
-                        return objectiveBrief(objective);
+                viewModel.sectionsMode(sectionsListModes.display);
+                viewModel.connectedSections(_.chain(course.sections)
+                    .map(function (section) {
+                        return sectionBrief(section);
                     })
                     .value());
 
@@ -332,37 +332,37 @@
             });
         }
 
-        function objectiveTitleUpdated(objective) {
-            var vmObjective = getObjectiveViewModel(objective.id);
+        function sectionTitleUpdated(section) {
+            var vmSection = getSectionViewModel(section.id);
 
-            if (_.isObject(vmObjective)) {
-                vmObjective.title(objective.title);
-                vmObjective.modifiedOn(objective.modifiedOn);
+            if (_.isObject(vmSection)) {
+                vmSection.title(section.title);
+                vmSection.modifiedOn(section.modifiedOn);
             }
         }
 
-        function objectiveImageUpdated(objective) {
-            var vmObjective = getObjectiveViewModel(objective.id);
+        function sectionImageUpdated(section) {
+            var vmSection = getSectionViewModel(section.id);
 
-            if (_.isObject(vmObjective)) {
-                vmObjective.imageUrl(objective.image);
-                vmObjective.modifiedOn(objective.modifiedOn);
+            if (_.isObject(vmSection)) {
+                vmSection.imageUrl(section.image);
+                vmSection.modifiedOn(section.modifiedOn);
             }
         }
 
-        function objectiveUpdated(objective) {
-            var vmObjective = getObjectiveViewModel(objective.id);
+        function sectionUpdated(section) {
+            var vmSection = getSectionViewModel(section.id);
 
-            if (_.isObject(vmObjective)) {
-                vmObjective.modifiedOn(objective.modifiedOn);
+            if (_.isObject(vmSection)) {
+                vmSection.modifiedOn(section.modifiedOn);
             }
         }
 
-        function getObjectiveViewModel(objectiveId) {
-            var objectives = viewModel.connectedObjectives().concat(viewModel.availableObjectives());
+        function getSectionViewModel(sectionId) {
+            var sections = viewModel.connectedSections().concat(viewModel.availableSections());
 
-            return _.find(objectives, function (item) {
-                return item.id === objectiveId;
+            return _.find(sections, function (item) {
+                return item.id === sectionId;
             });
         }
 
@@ -378,74 +378,74 @@
             }
         }
 
-        function objectivesReordered(course) {
-            if (viewModel.id !== course.id || viewModel.isReorderingObjectives()) {
-                viewModel.isObjectivesListReorderedByCollaborator(true);
+        function sectionsReordered(course) {
+            if (viewModel.id !== course.id || viewModel.isReorderingSections()) {
+                viewModel.isSectionsListReorderedByCollaborator(true);
                 return;
             }
 
-            reorderConnectedObjectivesList(course);
+            reorderConnectedSectionsList(course);
         }
 
-        function reorderConnectedObjectivesList(course) {
-            viewModel.connectedObjectives(_.chain(course.objectives)
-                  .map(function (objective) {
-                      return _.find(viewModel.connectedObjectives(), function (obj) {
-                          return obj.id === objective.id;
+        function reorderConnectedSectionsList(course) {
+            viewModel.connectedSections(_.chain(course.sections)
+                  .map(function (section) {
+                      return _.find(viewModel.connectedSections(), function (obj) {
+                          return obj.id === section.id;
                       });
                   })
                   .value());
         }
 
-        function objectiveConnected(courseId, objective, targetIndex) {
+        function sectionConnected(courseId, section, targetIndex) {
             if (viewModel.id !== courseId) {
                 return;
             }
 
-            var objectives = viewModel.connectedObjectives();
-            var isConnected = _.some(objectives, function (item) {
-                return item.id === objective.id;
+            var sections = viewModel.connectedSections();
+            var isConnected = _.some(sections, function (item) {
+                return item.id === section.id;
             });
 
             if (isConnected) {
-                objectives = _.reject(objectives, function (item) {
-                    return item.id === objective.id;
+                sections = _.reject(sections, function (item) {
+                    return item.id === section.id;
                 });
             }
 
-            var vmObjective = objectiveBrief(objective);
+            var vmSection = sectionBrief(section);
             if (!_.isNullOrUndefined(targetIndex)) {
-                objectives.splice(targetIndex, 0, vmObjective);
+                sections.splice(targetIndex, 0, vmSection);
             } else {
-                objectives.push(vmObjective);
+                sections.push(vmSection);
             }
 
-            viewModel.connectedObjectives(objectives);
+            viewModel.connectedSections(sections);
 
-            var availableObjectives = viewModel.availableObjectives();
-            viewModel.availableObjectives(_.reject(availableObjectives, function (item) {
-                return objective.id === item.id;
+            var availableSections = viewModel.availableSections();
+            viewModel.availableSections(_.reject(availableSections, function (item) {
+                return section.id === item.id;
             }));
         }
 
-        function objectivesDisconnected(courseId, disconnectedObjectiveIds) {
+        function sectionsDisconnected(courseId, disconnectedSectionIds) {
             if (viewModel.id !== courseId) {
                 return;
             }
 
-            var connectedObjectives = viewModel.connectedObjectives();
-            viewModel.connectedObjectives(_.reject(connectedObjectives, function (item) {
-                return _.some(disconnectedObjectiveIds, function (id) {
+            var connectedSections = viewModel.connectedSections();
+            viewModel.connectedSections(_.reject(connectedSections, function (item) {
+                return _.some(disconnectedSectionIds, function (id) {
                     return id === item.id;
                 });
             }));
 
-            objectiveRepository.getCollection().then(function (objectivesList) {
-                var relatedIds = _.pluck(viewModel.connectedObjectives(), 'id');
-                var objectives = _.filter(objectivesList, function (item) {
+            sectionRepository.getCollection().then(function (sectionsList) {
+                var relatedIds = _.pluck(viewModel.connectedSections(), 'id');
+                var sections = _.filter(sectionsList, function (item) {
                     return !_.include(relatedIds, item.id);
                 });
-                mapAvailableObjectives(objectives);
+                mapAvailableSections(sections);
             });
         }
 

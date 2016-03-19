@@ -18,7 +18,7 @@ namespace easygenerator.Web.Import.Presentation
         private readonly ITemplateRepository _templateRepository;
         private readonly ISlideHtmlComposer _slideHtmlComposer;
 
-        private const string DefaultObjectiveTitle = "Untitled objective";
+        private const string DefaultSectionTitle = "Untitled section";
         private const string DefaultContentTitle = "Untitled content";
 
         public PresentationCourseImporter(IEntityFactory entityFactory, ITemplateRepository templateRepository, ISlideHtmlComposer slideHtmlComposer)
@@ -32,15 +32,15 @@ namespace easygenerator.Web.Import.Presentation
         {
             var course = _entityFactory.Course(Path.GetFileNameWithoutExtension(fileName),
                 _templateRepository.GetDefaultTemplate(), userName);
-            var objective = _entityFactory.Objective(DefaultObjectiveTitle, userName);
-            course.RelateObjective(objective, null, userName);
+            var section = _entityFactory.Section(DefaultSectionTitle, userName);
+            course.RelateSection(section, null, userName);
 
             for (var i = 0; i < model.Slides.Count; i++)
             {
                 var slide = model.Slides[i];
 
                 var content = _entityFactory.InformationContent(String.Format("{0} {1}", DefaultContentTitle, i + 1), userName);
-                objective.AddQuestion(content, userName);
+                section.AddQuestion(content, userName);
 
                 var slideHtml = _slideHtmlComposer.ComposeHtml(slide);
                 if (String.IsNullOrEmpty(slideHtml))

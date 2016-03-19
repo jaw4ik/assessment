@@ -42,7 +42,7 @@ var _sectionConnected = new WeakMap();
 var _sectionsDisconnected = new WeakMap();
 var _sectionsReordered = new WeakMap();
 var _sectionDeleted = new WeakMap();
-var _navigateToObjective = new WeakMap();
+var _navigateToSection = new WeakMap();
 
 var instance = null;
 
@@ -63,7 +63,7 @@ export default class {
         this.localizationManager = localizationManager;
         this.courseIntroductionContent = null;
         this.notContainSections = ko.observable(false);
-        this.highlightedObjectiveId = ko.observable(null);
+        this.highlightedSectionId = ko.observable(null);
         this.createBar = new CreateBar();
 
         _introductionContentUpdated.set(this, course => {
@@ -108,7 +108,7 @@ export default class {
             if (course.id !== this.id) {
                 return;
             }
-            this.sections(mapSections(course.id, course.objectives));
+            this.sections(mapSections(course.id, course.sections));
         });
 
         _sectionDeleted.set(this, sectionId => {
@@ -118,34 +118,34 @@ export default class {
             }
         });
 
-        _navigateToObjective.set(this, () => {
-            this.hightlightObjectiveIfNeeded();
+        _navigateToSection.set(this, () => {
+            this.hightlightSectionIfNeeded();
         });
 
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
-        app.on(constants.messages.course.objectiveRelatedByCollaborator, _sectionConnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesUnrelated, _sectionsDisconnected.get(this).bind(this));
-        app.on(constants.messages.course.objectivesReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
-        app.on(constants.messages.objective.deleted, _sectionDeleted.get(this).bind(this));
-        app.on(constants.messages.objective.navigated, _navigateToObjective.get(this).bind(this));
+        app.on(constants.messages.course.sectionRelatedByCollaborator, _sectionConnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsUnrelated, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.sectionsReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
+        app.on(constants.messages.section.deleted, _sectionDeleted.get(this).bind(this));
+        app.on(constants.messages.section.navigated, _navigateToSection.get(this).bind(this));
 
         return instance;
     }
-    async activate(courseId, objectiveId, questionId) {
+    async activate(courseId, sectionId, questionId) {
         if (!this.canReuseForRoute(courseId)) {
             let course = await courseRepository.getById(courseId);
             this.id = course.id;
             this.createBar.activate();
             this.createdBy = course.createdBy;
-            this.sections(mapSections(this.id, course.objectives));
+            this.sections(mapSections(this.id, course.sections));
             this.notContainSections = ko.computed(() => this.sections().length === 0, this);
             this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
             await questionModalView.initialize(courseId);
         }
 
-        this.hightlightObjectiveIfNeeded();
-        await questionModalView.open(objectiveId, questionId);
+        this.hightlightSectionIfNeeded();
+        await questionModalView.open(sectionId, questionId);
     }
     async createSection(section) {
         eventTracker.publish(events.createSection, eventCategory);
@@ -325,11 +325,11 @@ export default class {
         sectionInCourse.questionsExpanded(this.lastDraggingSectionState);
     }
 
-    hightlightObjectiveIfNeeded() {
-        let objectiveId = clientContext.get(constants.clientContextKeys.highlightedObjectiveId);
-        if(objectiveId) {
-            clientContext.remove(constants.clientContextKeys.highlightedObjectiveId);
-            this.highlightedObjectiveId(objectiveId);
+    hightlightSectionIfNeeded() {
+        let sectionId = clientContext.get(constants.clientContextKeys.highlightedSectionId);
+        if(sectionId) {
+            clientContext.remove(constants.clientContextKeys.highlightedSectionId);
+            this.highlightedSectionId(sectionId);
         }
     }
 

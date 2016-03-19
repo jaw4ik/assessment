@@ -119,13 +119,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityCollaborator(typeof(Objective))]
+        [EntityCollaborator(typeof(Section))]
         [Route("api/question/delete")]
-        public ActionResult Delete(Objective objective, ICollection<Question> questions)
+        public ActionResult Delete(Section section, ICollection<Question> questions)
         {
-            if (objective == null)
+            if (section == null)
             {
-                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.SectionNotFoundError, Errors.SectionNotFoundResourceKey);
             }
 
             if (questions == null)
@@ -135,10 +135,10 @@ namespace easygenerator.Web.Controllers.Api
 
             foreach (Question question in questions)
             {
-                objective.RemoveQuestion(question, GetCurrentUsername());
+                section.RemoveQuestion(question, GetCurrentUsername());
             }
 
-            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
+            return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
         }
 
         [HttpPost]
@@ -158,42 +158,42 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
-        [EntityCollaborator(typeof(Objective))]
+        [EntityCollaborator(typeof(Section))]
         [QuestionAccess]
         [Route("api/question/copy")]
-        public ActionResult Copy(Question question, Objective objective)
+        public ActionResult Copy(Question question, Section section)
         {
-            if (objective == null || question == null)
+            if (section == null || question == null)
             {
                 return BadRequest();
             }
 
             var questionCopy = _cloner.Clone(question, GetCurrentUsername());
-            objective.AddQuestion(questionCopy, GetCurrentUsername());
+            section.AddQuestion(questionCopy, GetCurrentUsername());
 
             return JsonSuccess(_entityModelMapper.Map(questionCopy));
         }
 
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
-        [EntityCollaborator(typeof(Objective))]
+        [EntityCollaborator(typeof(Section))]
         [Route("api/question/move")]
-        public ActionResult Move(Question question, Objective objective)
+        public ActionResult Move(Question question, Section section)
         {
-            if (objective == null || question == null)
+            if (section == null || question == null)
             {
                 return BadRequest();
             }
 
-            var sourceObjective = question.Objective;
+            var sourceSection = question.Section;
 
-            if (sourceObjective.Id != objective.Id)
+            if (sourceSection.Id != section.Id)
             {
-                sourceObjective.RemoveQuestion(question, GetCurrentUsername());
-                objective.AddQuestion(question, GetCurrentUsername());
+                sourceSection.RemoveQuestion(question, GetCurrentUsername());
+                section.AddQuestion(question, GetCurrentUsername());
             }
 
-            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
+            return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
         }
     }
 }

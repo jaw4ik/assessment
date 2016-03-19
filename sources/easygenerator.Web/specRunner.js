@@ -64,13 +64,13 @@ function runSpecs(env) {
                 'review/comments/context/commentContexts/CourseCommentContext.spec',
                 'review/comments/context/commentContexts/GeneralCommentContext.spec',
                 'review/comments/context/commentContexts/InformationContentCommentContext.spec',
-                'review/comments/context/commentContexts/ObjectiveCommentContext.spec',
+                'review/comments/context/commentContexts/SectionCommentContext.spec',
                 'review/comments/context/commentContexts/QuestionCommentContext.spec',
 
-                'review/comments/context/contextEntities/ObjectiveCommentContextEntity.spec',
+                'review/comments/context/contextEntities/SectionCommentContextEntity.spec',
                 'review/comments/context/contextEntities/QuestionCommentContextEntity.spec',
 
-                'review/comments/context/queries/getObjective.spec',
+                'review/comments/context/queries/getSection.spec',
                 'review/comments/context/queries/getQuestionData.spec',
                 //#endregion
 
@@ -78,7 +78,7 @@ function runSpecs(env) {
 
                 //#region commands
                 'commands/createQuestionCommand.spec',
-                'commands/createObjectiveCommand.spec',
+                'commands/createSectionCommand.spec',
                 'commands/createCourseCommand.spec',
                 'commands/createDocumentCommand.spec',
                 'commands/updateDocumentCommand.spec',
@@ -155,7 +155,7 @@ function runSpecs(env) {
                 'repositories/documentRepository.spec',
                 'repositories/learningContentRepository.spec',
                 'repositories/learningPathRepository.spec',
-                'repositories/objectiveRepository.spec',
+                'repositories/sectionRepository.spec',
                 'repositories/templateRepository.spec',
                 'repositories/questionRepository.spec',
                 'repositories/videoRepository.spec',
@@ -187,11 +187,11 @@ function runSpecs(env) {
                 //#endregion
 
                 //#region synchronization
-                'synchronization/handlers/objective/handler.spec',
-                'synchronization/handlers/objective/eventHandlers/titleUpdated.spec',
-                'synchronization/handlers/objective/eventHandlers/imageUrlUpdated.spec',
-                'synchronization/handlers/objective/eventHandlers/questionsReordered.spec',
-                'synchronization/handlers/objective/eventHandlers/learningObjectiveUpdated.spec',
+                'synchronization/handlers/section/handler.spec',
+                'synchronization/handlers/section/eventHandlers/titleUpdated.spec',
+                'synchronization/handlers/section/eventHandlers/imageUrlUpdated.spec',
+                'synchronization/handlers/section/eventHandlers/questionsReordered.spec',
+                'synchronization/handlers/section/eventHandlers/learningObjectiveUpdated.spec',
                 'synchronization/handlers/collaboration/handler.spec',
                 'synchronization/handlers/collaboration/eventHandlers/started.spec',
                 'synchronization/handlers/collaboration/eventHandlers/finished.spec',
@@ -205,10 +205,10 @@ function runSpecs(env) {
                 'synchronization/handlers/course/handler.spec',
                 'synchronization/handlers/course/eventHandlers/deleted.spec',
                 'synchronization/handlers/course/eventHandlers/introductionContentUpdated.spec',
-                'synchronization/handlers/course/eventHandlers/objectiveRelated.spec',
-                'synchronization/handlers/course/eventHandlers/objectivesReordered.spec',
-                'synchronization/handlers/course/eventHandlers/objectivesReplaced.spec',
-                'synchronization/handlers/course/eventHandlers/objectivesUnrelated.spec',
+                'synchronization/handlers/course/eventHandlers/sectionRelated.spec',
+                'synchronization/handlers/course/eventHandlers/sectionsReordered.spec',
+                'synchronization/handlers/course/eventHandlers/sectionsReplaced.spec',
+                'synchronization/handlers/course/eventHandlers/sectionsUnrelated.spec',
                 'synchronization/handlers/course/eventHandlers/published.spec',
                 'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
                 'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
@@ -310,9 +310,9 @@ function runSpecs(env) {
                 'treeOfContent/handlers/treeOfContentEventHandler.spec',
                 'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
                 'treeOfContent/queries/getCourseByIdQuery.spec',
-                'treeOfContent/queries/getObjectiveByIdQuery.spec',
+                'treeOfContent/queries/getSectionByIdQuery.spec',
                 'treeOfContent/CourseTreeNode.spec',
-                'treeOfContent/RelatedObjectiveTreeNode.spec',
+                'treeOfContent/RelatedSectionTreeNode.spec',
                 'treeOfContent/QuestionTreeNode.spec',
                 //#endregion
 
@@ -332,9 +332,9 @@ function runSpecs(env) {
                 'viewmodels/courses/publishingActions/publish.spec',
                 'viewmodels/courses/publishingActions/scormBuild.spec',
                 'viewmodels/courses/publishingActions/publishToCustomLms.spec',
-                'viewmodels/objectives/objectives.spec',
-                'viewmodels/objectives/objective.spec',
-                'viewmodels/objectives/objectiveBrief.spec',
+                'viewmodels/sections/sections.spec',
+                'viewmodels/sections/section.spec',
+                'viewmodels/sections/sectionBrief.spec',
 
                 //#region questions
                 'viewmodels/questions/question.spec',

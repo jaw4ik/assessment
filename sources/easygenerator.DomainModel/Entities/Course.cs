@@ -13,7 +13,7 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Course()
         {
-            RelatedObjectivesCollection = new Collection<Objective>();
+            RelatedSectionsCollection = new Collection<Section>();
             CommentsCollection = new Collection<Comment>();
             CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
@@ -29,7 +29,7 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             Template = template;
-            RelatedObjectivesCollection = new Collection<Objective>();
+            RelatedSectionsCollection = new Collection<Section>();
             CommentsCollection = new Collection<Comment>();
             CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
@@ -37,7 +37,7 @@ namespace easygenerator.DomainModel.Entities
             CourseCompanies = new Collection<Company>();
             BuildOn = null;
             IntroductionContent = null;
-            ObjectivesOrder = null;
+            SectionsOrder = null;
         }
 
         public virtual Template Template { get; private set; }
@@ -89,7 +89,7 @@ namespace easygenerator.DomainModel.Entities
 
             collaborator.Course = null;
             CollaboratorsCollection.Remove(collaborator);
-            CloneObjectivesOfCollaborator(entityCloner, collaborator.Email);
+            CloneSectionsOfCollaborator(entityCloner, collaborator.Email);
 
             MarkAsModified(CreatedBy);
             RaiseEvent(new CourseCollaboratorRemovedEvent(this, collaborator));
@@ -113,36 +113,36 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new CollaborationInviteDeclinedEvent(this, collaborator));
         }
 
-        private void CloneObjectivesOfCollaborator(ICloner entityCloner, string collaboratorEmail)
+        private void CloneSectionsOfCollaborator(ICloner entityCloner, string collaboratorEmail)
         {
-            var clonedObjectives = new Dictionary<Guid, Objective>();
-            var objectives = GetOrderedRelatedObjectives();
+            var clonedSections = new Dictionary<Guid, Section>();
+            var sections = GetOrderedRelatedSections();
 
-            var objectivesWereCloned = false;
+            var sectionsWereCloned = false;
 
-            for (var i = 0; i < objectives.Count; i++)
+            for (var i = 0; i < sections.Count; i++)
             {
-                var currentObjective = objectives[i];
-                if (currentObjective.CreatedBy != collaboratorEmail)
+                var currentSection = sections[i];
+                if (currentSection.CreatedBy != collaboratorEmail)
                 {
                     continue;
                 }
 
-                objectivesWereCloned = true;
-                var clonedObjective = entityCloner.Clone(currentObjective, CreatedBy);
-                RelatedObjectivesCollection.Remove(currentObjective);
-                objectives[i] = clonedObjective;
-                RelatedObjectivesCollection.Add(clonedObjective);
+                sectionsWereCloned = true;
+                var clonedSection = entityCloner.Clone(currentSection, CreatedBy);
+                RelatedSectionsCollection.Remove(currentSection);
+                sections[i] = clonedSection;
+                RelatedSectionsCollection.Add(clonedSection);
 
-                clonedObjectives.Add(currentObjective.Id, clonedObjective);
+                clonedSections.Add(currentSection.Id, clonedSection);
             }
 
-            if (objectivesWereCloned)
+            if (sectionsWereCloned)
             {
-                DoUpdateOrder(objectives, CreatedBy);
-                if (clonedObjectives.Any())
+                DoUpdateOrder(sections, CreatedBy);
+                if (clonedSections.Any())
                 {
-                    RaiseEvent(new CourseObjectivesClonedEvent(this, clonedObjectives));
+                    RaiseEvent(new CourseSectionsClonedEvent(this, clonedSections));
                 }
             }
         }
@@ -176,95 +176,95 @@ namespace easygenerator.DomainModel.Entities
 
         #endregion
 
-        #region Objectives
+        #region Sections
 
-        protected internal virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
+        protected internal virtual ICollection<Section> RelatedSectionsCollection { get; set; }
 
-        protected internal string ObjectivesOrder { get; set; }
+        protected internal string SectionsOrder { get; set; }
 
-        public virtual IEnumerable<Objective> RelatedObjectives => GetOrderedRelatedObjectives().AsEnumerable();
+        public virtual IEnumerable<Section> RelatedSections => GetOrderedRelatedSections().AsEnumerable();
 
-        public virtual void RelateObjective(Objective objective, int? index, string modifiedBy)
+        public virtual void RelateSection(Section section, int? index, string modifiedBy)
         {
-            ThrowIfObjectiveIsInvalid(objective);
+            ThrowIfSectionIsInvalid(section);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            if (!RelatedObjectivesCollection.Contains(objective))
+            if (!RelatedSectionsCollection.Contains(section))
             {
-                var objectives = GetOrderedRelatedObjectives();
+                var sections = GetOrderedRelatedSections();
                 if (index.HasValue)
                 {
-                    objectives.Insert(index.Value, objective);
+                    sections.Insert(index.Value, section);
                 }
                 else
                 {
-                    objectives.Add(objective);
+                    sections.Add(section);
                 }
-                DoUpdateOrder(objectives, modifiedBy);
+                DoUpdateOrder(sections, modifiedBy);
 
-                RelatedObjectivesCollection.Add(objective);
+                RelatedSectionsCollection.Add(section);
             }
 
             MarkAsModified(modifiedBy);
 
-            RaiseEvent(new CourseObjectiveRelatedEvent(this, objective, index));
+            RaiseEvent(new CourseSectionRelatedEvent(this, section, index));
         }
 
-        public virtual void UnrelateObjective(Objective objective, string modifiedBy)
+        public virtual void UnrelateSection(Section section, string modifiedBy)
         {
-            ThrowIfObjectiveIsInvalid(objective);
+            ThrowIfSectionIsInvalid(section);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            var objectives = GetOrderedRelatedObjectives();
-            objectives.Remove(objective);
-            DoUpdateOrder(objectives, modifiedBy);
+            var sections = GetOrderedRelatedSections();
+            sections.Remove(section);
+            DoUpdateOrder(sections, modifiedBy);
 
-            RelatedObjectivesCollection.Remove(objective);
+            RelatedSectionsCollection.Remove(section);
 
             MarkAsModified(modifiedBy);
 
-            RaiseEvent(new CourseObjectivesUnrelatedEvent(this, new[] { objective }));
+            RaiseEvent(new CourseSectionsUnrelatedEvent(this, new[] { section }));
         }
 
-        public void UpdateObjectivesOrder(ICollection<Objective> objectives, string modifiedBy)
+        public void UpdateSectionsOrder(ICollection<Section> sections, string modifiedBy)
         {
-            DoUpdateOrder(objectives, modifiedBy);
-            RaiseEvent(new CourseObjectivesReorderedEvent(this));
+            DoUpdateOrder(sections, modifiedBy);
+            RaiseEvent(new CourseSectionsReorderedEvent(this));
         }
 
-        private void DoUpdateOrder(ICollection<Objective> objectives, string modifiedBy)
+        private void DoUpdateOrder(ICollection<Section> sections, string modifiedBy)
         {
-            ObjectivesOrder = OrderingUtils.GetOrder(objectives);
+            SectionsOrder = OrderingUtils.GetOrder(sections);
             MarkAsModified(modifiedBy);
         }
 
-        private IList<Objective> GetOrderedRelatedObjectives()
+        private IList<Section> GetOrderedRelatedSections()
         {
-            return OrderingUtils.OrderCollection(RelatedObjectivesCollection, ObjectivesOrder);
+            return OrderingUtils.OrderCollection(RelatedSectionsCollection, SectionsOrder);
         }
 
         #endregion
 
-        public virtual IList<Objective> OrderClonedObjectives(ICollection<Objective> clonedObjectives)
+        public virtual IList<Section> OrderClonedSections(ICollection<Section> clonedSections)
         {
-            if (clonedObjectives == null)
+            if (clonedSections == null)
                 return null;
 
-            var originalObjectives = RelatedObjectivesCollection.ToList();
+            var originalSections = RelatedSectionsCollection.ToList();
 
-            if (originalObjectives.Count != clonedObjectives.Count)
+            if (originalSections.Count != clonedSections.Count)
             {
-                throw new ArgumentException("Cloned objectives collection has to be same length as original.", nameof(clonedObjectives));
+                throw new ArgumentException("Cloned sections collection has to be same length as original.", nameof(clonedSections));
             }
 
-            var orderedClonedObjectives = new List<Objective>();
-            foreach (var objective in RelatedObjectives)
+            var orderedClonedSections = new List<Section>();
+            foreach (var section in RelatedSections)
             {
-                int index = originalObjectives.IndexOf(objective);
-                orderedClonedObjectives.Add(clonedObjectives.ElementAt(index));
+                int index = originalSections.IndexOf(section);
+                orderedClonedSections.Add(clonedSections.ElementAt(index));
             }
 
-            return orderedClonedObjectives;
+            return orderedClonedSections;
         }
 
         public string Title { get; private set; }
@@ -417,9 +417,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfLongerThan255(title, nameof(title));
         }
 
-        public void ThrowIfObjectiveIsInvalid(Objective objective)
+        public void ThrowIfSectionIsInvalid(Section section)
         {
-            ArgumentValidation.ThrowIfNull(objective, nameof(objective));
+            ArgumentValidation.ThrowIfNull(section, nameof(section));
         }
 
         public void ThrowIfPackageUrlIsInvalid(string packageUrl)

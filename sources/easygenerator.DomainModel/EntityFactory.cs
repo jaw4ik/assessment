@@ -7,7 +7,7 @@ namespace easygenerator.DomainModel
 {
     public interface IEntityFactory
     {
-        Objective Objective(string title, string createdBy);
+        Section Section(string title, string createdBy);
         Document Document(string title, string embedCode, DocumentType documentType, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
@@ -59,9 +59,9 @@ namespace easygenerator.DomainModel
 
     public class EntityFactory : IEntityFactory
     {
-        public Objective Objective(string title, string createdBy)
+        public Section Section(string title, string createdBy)
         {
-            return new Objective(title, createdBy);
+            return new Section(title, createdBy);
         }
 
         public Document Document(string title, string embedCode, DocumentType documentType, string createdBy)

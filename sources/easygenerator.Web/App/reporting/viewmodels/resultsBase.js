@@ -210,8 +210,8 @@
                     startedTimeHeader = localizationManager.localize('startedTime'),
                     finishedTimeHeader = localizationManager.localize('finishedTime'),
 
-                    objectiveTitleHeader = localizationManager.localize('objectiveTitle'),
-                    objectiveScoreHeader = localizationManager.localize('objectiveScore'),
+                    objectiveTitleHeader = localizationManager.localize('section'),
+                    objectiveScoreHeader = localizationManager.localize('sectionScore'),
 
                     questionTitleHeader = localizationManager.localize('questionTitle'),
                     questionResultHeader = localizationManager.localize('questionResult'),

@@ -17,14 +17,8 @@ gulp.task('create-tags', function () {
             'personalized-learning',
             'assessment',
             'reader',
-            'lango-personalized-learning',
             'quiz-for-learni',
-            'lango-simple',
-            'simple-ie10',
-            'simple-pdf',
             'ICEMD',
-            'PwC',
-            'SC-without-tryagain',
             'ac-nielsen'
         ],
         github = new GitHubApi({

@@ -4,7 +4,7 @@
 
         var viewModel = {
             initialize: initialize,
-            objectiveId: '',
+            sectionId: '',
             questionId: '',
 
             isExpanded: ko.observable(true),
@@ -15,8 +15,8 @@
 
         return viewModel;
 
-        function initialize(objectiveId, question) {
-            viewModel.objectiveId = objectiveId;
+        function initialize(sectionId, question) {
+            viewModel.sectionId = sectionId;
             viewModel.questionId = question.id;
 
             return answerRepository.getCollection(question.id).then(function (answerOptions) {

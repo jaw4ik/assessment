@@ -672,7 +672,7 @@ span.top-navigation-item.current {
 
 /*#region OBJECTIVES-COURSES*/
 
-.objectives .help-hint .content-section-wrapper {
+.sections .help-hint .content-section-wrapper {
     padding-left: 145px;
 }
 
@@ -680,11 +680,11 @@ span.top-navigation-item.current {
     padding-left: 105px;
 }
 
-.module-objectives .navigation-tree-hide-mode .help-hint .content-section-wrapper {
+.module-sections .navigation-tree-hide-mode .help-hint .content-section-wrapper {
     padding-left: 160px;
 }
 
-.module-objective .navigation-tree-hide-mode .help-hint .content-section-wrapper,
+.module-section .navigation-tree-hide-mode .help-hint .content-section-wrapper,
 .module-question .navigation-tree-hide-mode .help-hint .content-section-wrapper {
     padding-left: 80px;
 }
@@ -701,7 +701,7 @@ span.top-navigation-item.current {
     padding-left: 60px;
 }
 
-.objectives.view-module {
+.sections.view-module {
     padding-left: 80px;
 }
 
@@ -722,7 +722,7 @@ span.top-navigation-item.current {
 }
 
     .list-item-action.create,
-    .list-item-action.connect-objectives {
+    .list-item-action.connect-sections {
         display: table-cell;
         height: 40px;
         width: 1px;
@@ -1556,7 +1556,7 @@ span.top-navigation-item.current {
     background-position: -206px -32px;
 }
 
-/*connect and finish connecting objectives list item button*/
+/*connect and finish connecting sections list item button*/
 
 .btn.connect-item {
     margin-right: 20px;

@@ -32,10 +32,12 @@
             <div class="course-editor-sections-container" data-bind="css: { empty: notContainSections }">
                 <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button', events: { drag: hideQuestions, dragend: restoreQuestionsExpandingState } }">
                     <!-- ko foreach: sections -->
-                    <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }, highlightObjective: { hightlightObjectiveId: $parent.highlightedObjectiveId, objectiveId: id }">
+                    <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }, highlightSection: { hightlightSectionId: $parent.highlightedSectionId, sectionId: id }">
                         <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessed }">
+                            <!-- ko if: isProcessed -->
                             <div class="preloader-container" data-bind="preloader: { settings: 'align-center medium' }"></div>
-                            <div class="sections-list-item" data-objective-highlight-item="">
+                            <!-- /ko -->
+                            <div class="sections-list-item" data-section-highlight-item="">
                                 <div class="sections-list-item-sort-button"></div>
                                 <div class="sections-list-item-body">
                                     <div class="sections-list-item-image-container">
@@ -44,28 +46,32 @@
                                             <span class="sections-list-item-image-change-icon"></span>
                                             <span class="sections-list-item-image-change-text" data-bind="localize: {text: 'change'}">Change</span>
                                         </div>
-                                        <div class="sections-list-item-image-preloader-container" data-bind="visible: imageLoading">
+                                        <!-- ko if: imageLoading -->
+                                        <div class="sections-list-item-image-preloader-container">
                                             <div data-bind="preloader: { settings: 'align-center small' }"></div>
                                         </div>
+                                        <!-- /ko -->
                                     </div>
                                     <div class="sections-list-item-title-container">
                                         <div class="sections-list-item-title-wrapper" data-bind="css: { active: title.isEditing, error: !title.isValid() }">
                                             <div class="sections-list-item-title-icon"></div>
                                             <div class="sections-list-item-title selectable" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() }, localize: { placeholder: 'whatIsThisSectionAbout' }"></div>
+                                            <!-- ko if: title.isEditing -->
                                             <div class="sections-list-item-title-counter">
                                                 <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength">255</span>
                                             </div>
+                                            <!-- /ko -->
                                         </div>
                                         <!-- ko ifnot: justCreated -->
                                         <div class="sections-list-item-data-conteiner">
                                             <!-- ko if: learningObjective.isEmpty -->
-                                            <div class="sections-list-item-learning-objective-btn" data-bind="click: toggleLearningObjectiveVisibility">
-                                                <span class="sections-list-item-learning-objective-btn-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</span>
+                                            <div class="sections-list-item-learning-section-btn" data-bind="click: toggleLearningObjectiveVisibility">
+                                                <span class="sections-list-item-learning-section-btn-text" data-bind="localize: { text: 'learningObjective' }">Learning section</span>
                                             </div>
                                             <!-- /ko -->
                                             <!-- ko ifnot: learningObjective.isEmpty -->
-                                            <div class="sections-list-item-learning-objective-btn not-empty" data-bind="click: toggleLearningObjectiveVisibility, css: { shown: learningObjective.isVisible}">
-                                                <span class="sections-list-item-learning-objective-btn-text" data-bind="localize: { text: learningObjective.isVisible() ? 'hideLearningObjective' : 'showLearningObjective' }"></span>
+                                            <div class="sections-list-item-learning-section-btn not-empty" data-bind="click: toggleLearningObjectiveVisibility, css: { shown: learningObjective.isVisible}">
+                                                <span class="sections-list-item-learning-section-btn-text" data-bind="localize: { text: learningObjective.isVisible() ? 'hideLearningObjective' : 'showLearningObjective' }"></span>
                                             </div>
                                             <!-- /ko -->
                                             <div class="sections-list-item-modified">
@@ -91,20 +97,20 @@
                                         <!-- /ko -->
                                     </div>
                                 </div>
-                                <div class="sections-list-item-learning-objective-container" data-bind="expandBlock: { expanded: learningObjective.isVisible }">
-                                    <h3 class="sections-list-item-learning-objective-header" data-bind="localize: { text: 'learningObjectiveWithColon' }"></h3>
-                                    <div class="sections-list-item-learning-objective-title-container">
-                                        <div class="sections-list-item-learning-objective-title-wrapper" data-bind="css: { active: learningObjective.isEditing, error: !learningObjective.isValid() }">
-                                            <div class="sections-list-item-learning-objective-title-icon"></div>
-                                            <div class="sections-list-item-learning-objective-title selectable" data-bind="editableText: { text: learningObjective }, event: { focus: startEditingLearningObjective, blur: stopEditingLearningObjective }, autofocus: { focus: justCreated() || learningObjective.isSelected() }, localize: { placeholder: 'learningObjectivePlaceholder' }"></div>
-                                            <div class="sections-list-item-learning-objective-title-counter">
+                                <div class="sections-list-item-learning-section-container" data-bind="expandBlock: { expanded: learningObjective.isVisible }">
+                                    <h3 class="sections-list-item-learning-section-header" data-bind="localize: { text: 'learningObjectiveWithColon' }"></h3>
+                                    <div class="sections-list-item-learning-section-title-container">
+                                        <div class="sections-list-item-learning-section-title-wrapper" data-bind="css: { active: learningObjective.isEditing, error: !learningObjective.isValid() }">
+                                            <div class="sections-list-item-learning-section-title-icon"></div>
+                                            <div class="sections-list-item-learning-section-title selectable" data-bind="editableText: { text: learningObjective }, event: { focus: startEditingLearningObjective, blur: stopEditingLearningObjective }, autofocus: { focus: justCreated() || learningObjective.isSelected() }, localize: { placeholder: 'learningObjectivePlaceholder' }"></div>
+                                            <div class="sections-list-item-learning-section-title-counter">
                                                 <span data-bind="text: learningObjective().length"></span>/<span data-bind="text: learningObjective.maxLength">255</span>
                                             </div>
                                         </div>
                                         <button class="btn green" data-bind="css: { disabled: learningObjective.isEmpty() || !learningObjective.isValid(), shown: learningObjective.isEditing }, localize: { text:'ok' }">Ok</button>
                                     </div>
-                                    <div class="sections-list-item-learning-objective-helper">
-                                        <span data-bind="localize: { text: 'objectiveHelpText' }"></span>&nbsp;<span data-bind="localize: { html: 'objectiveHelpLink' }"></span>
+                                    <div class="sections-list-item-learning-section-helper">
+                                        <span data-bind="localize: { text: 'sectionHelpText' }"></span>&nbsp;<span data-bind="localize: { html: 'sectionHelpLink' }"></span>
                                     </div>
                                 </div>
                             </div>
@@ -115,16 +121,20 @@
                         <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list" data-bind="foreachAnimated: { data: questions, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
                                 <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed, editing: title.isEditing() }, draggableData: { id: id }">
+                                    <!-- ko if: isProcessed -->
                                     <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
+                                    <!-- /ko -->
                                     <div class="questions-list-item" data-bind="css: type">
                                         <div class="questions-list-item-sort-button"></div>
                                         <div class="questions-list-item-body-wrapper">
-                                            <div class="questions-list-item-image" data-bind="click: openQuestion"></div>
-                                            <div class="questions-list-item-title-container"  data-bind="css: { error: !title.isValid() }">
+                                            <div class="questions-list-item-image"></div>
+                                            <div class="questions-list-item-title-container" data-bind="css: { error: !title.isValid() }">
                                                 <div class="questions-list-item-title" data-animation-duration="200" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() },  localize: { placeholder:  type() === 'informationContent' ? 'typeContentTitle' : 'typeQuestionTitle'  }, heightAnimation:  { expanded : title.isEditing(), minHeight : 26 } "></div>
-                                                <div class="questions-list-item-title-counter" data-bind=" visible: title.isEditing() ">
+                                                <!-- ko if: title.isEditing -->
+                                                <div class="questions-list-item-title-counter">
                                                     <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength">255</span>
                                                 </div>
+                                                <!-- /ko -->
                                             </div>
                                         </div>
                                         <div class="questions-list-item-btn-wrapper" data-bind="click: markToDelete">
@@ -132,7 +142,7 @@
                                         </div>
                                         <div class="questions-list-item-delete-holder">
                                             <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
-                                                <div class="questions-list-item-delete-text" data-bind="localize: {text: 'deleteThisQuestion'}">Delete this question?</div>
+                                                <div class="questions-list-item-delete-text" data-bind="localize: { text: 'deleteThisQuestion'}">Delete this question?</div>
                                                 <div class="questions-list-item-delete-buttons-container">
                                                     <button class="btn red small delete" tabindex="-1" data-bind="click: $root.deleteQuestion.bind($root), localize: {text:'remove'}">Delete</button>
                                                     <button class="btn white grey-border small cancel" tabindex="-1" data-bind="click: cancel, localize: {text: 'cancel'}">Cancel</button>
@@ -140,11 +150,11 @@
                                             </div>
                                         </div>
                                         <div class="questions-list-item-btn-separator"></div>
-                                        <div class="questions-list-item-btn-wrapper open-btn-wrapper" data-bind="click: openQuestion">
-                                            <button class="questions-list-item-btn open">
-                                                <span data-bind=" localize:{ text : 'open'} "></span>
+                                        <div class="questions-list-item-btn-wrapper open-btn-wrapper">
+                                            <a class="questions-list-item-btn open" data-bind="attr: { href: '#courses/'+ courseId + '/sections/' + sectionId + '/questions/' + id() }">
+                                                <span data-bind="localize:{ text: 'open' }"></span>
                                                 <span class="open-btn-arrow"></span>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </li>

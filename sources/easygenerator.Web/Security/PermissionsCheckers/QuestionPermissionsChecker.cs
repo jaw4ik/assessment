@@ -5,16 +5,16 @@ namespace easygenerator.Web.Security.PermissionsCheckers
 {
     public class QuestionPermissionsChecker : EntityPermissionsChecker<Question>
     {
-        private readonly IEntityPermissionsChecker<Objective> _objectivePermissionsChecker;
+        private readonly IEntityPermissionsChecker<Section> _sectionPermissionsChecker;
 
-        public QuestionPermissionsChecker(IEntityPermissionsChecker<Objective> objectivePermissionsChecker)
+        public QuestionPermissionsChecker(IEntityPermissionsChecker<Section> sectionPermissionsChecker)
         {
-            _objectivePermissionsChecker = objectivePermissionsChecker;
+            _sectionPermissionsChecker = sectionPermissionsChecker;
         }
 
         public override bool HasCollaboratorPermissions(string username, Question entity)
         {
-            return _objectivePermissionsChecker.HasCollaboratorPermissions(username, entity.Objective);
+            return _sectionPermissionsChecker.HasCollaboratorPermissions(username, entity.Section);
         }
     }
 }

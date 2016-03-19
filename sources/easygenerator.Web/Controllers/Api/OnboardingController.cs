@@ -37,7 +37,7 @@ namespace easygenerator.Web.Controllers.Api
                     new
                     {
                         courseCreated = onboarding.CourseCreated,
-                        objectiveCreated = onboarding.ObjectiveCreated,
+                        sectionCreated = onboarding.SectionCreated,
                         contentCreated = onboarding.ContentCreated,
                         createdQuestionsCount = onboarding.CreatedQuestionsCount,
                         coursePublished = onboarding.CoursePublished,
@@ -60,7 +60,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [Route("api/onboarding/objectivecreated")]
+        [Route("api/onboarding/sectioncreated")]
         public ActionResult ObjetiveCreated()
         {
             var onboarding = _onboardingRepository.GetByUserEmail(GetCurrentUsername());
@@ -69,7 +69,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError(String.Empty);
             }
 
-            onboarding.MarkObjectiveCreatedAsCompleted();
+            onboarding.MarkSectionCreatedAsCompleted();
             return JsonSuccess();
         }
 

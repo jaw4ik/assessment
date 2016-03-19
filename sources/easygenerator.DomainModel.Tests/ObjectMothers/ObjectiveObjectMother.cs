@@ -2,24 +2,24 @@
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
-    public class ObjectiveObjectMother
+    public class SectionObjectMother
     {
-        private const string Title = "Objective title";
+        private const string Title = "Section title";
         private const string CreatedBy = "username@easygenerator.com";
 
-        public static Objective CreateWithTitle(string title)
+        public static Section CreateWithTitle(string title)
         {
             return Create(title: title);
         }
 
-        public static Objective CreateWithCreatedBy(string createdBy)
+        public static Section CreateWithCreatedBy(string createdBy)
         {
             return Create(createdBy: createdBy);
         }
 
-        public static Objective Create(string title = Title, string createdBy = CreatedBy)
+        public static Section Create(string title = Title, string createdBy = CreatedBy)
         {
-            return new Objective(title, createdBy);
+            return new Section(title, createdBy);
         }
     }
 }

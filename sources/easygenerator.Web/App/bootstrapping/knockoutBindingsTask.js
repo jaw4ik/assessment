@@ -23,7 +23,7 @@
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('editor/course/bindingHandlers/expandBlock');
-    require('editor/course/bindingHandlers/hightlightObjective');
+    require('editor/course/bindingHandlers/hightlightSection');
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
     require('editor/course/bindingHandlers/tooltipPopover');
@@ -40,6 +40,7 @@
     require('design/bindingHandlers/popoverBindingHandler');
     require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
+    require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
 
     var task = {
         execute: execute

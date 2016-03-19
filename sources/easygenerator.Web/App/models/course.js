@@ -7,7 +7,7 @@
             EntityModel.call(this, spec);
 
             this.title = spec.title;
-            this.objectives = spec.objectives;
+            this.sections = spec.sections;
             this.createdBy = spec.createdBy;
             this.createdOn = spec.createdOn;
             this.builtOn = spec.builtOn;

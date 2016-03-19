@@ -3,6 +3,14 @@ import animate from 'velocity-animate';
 
 const shadowClass = 'gu-transit';
 
+if (!('remove' in Element.prototype)) {
+    Element.prototype.remove = function() {
+        if (this.parentNode) {
+            this.parentNode.removeChild(this);
+        }
+    };
+}
+
 let dragulaAnimation = {
     container: null,
     lastShadowElement: null,

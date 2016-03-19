@@ -51,13 +51,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void Create_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void Create_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>();
+            var section = Substitute.For<Section>();
             var question = SingleSelectImageObjectMother.Create();
 
             var answer = Substitute.For<SingleSelectImageAnswer>(user, DateTimeWrapper.Now());
@@ -75,26 +75,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.SingleSelectImageAnswer(Arg.Any<string>(), Arg.Any<DateTime>()).Returns(answer);
             _entityFactory.SingleSelectImageQuestion(title, user, answer, answer).Returns(question);
             
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
             _entityFactory.Received().SingleSelectImageQuestion(title, user, answer, answer);
         }
 
         [TestMethod]
-        public void Create_ShouldAddQuestionToObjective()
+        public void Create_ShouldAddQuestionToSection()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>();
+            var section = Substitute.For<Section>();
             var question = Substitute.For<SingleSelectImage>();
 
             _entityFactory.SingleSelectImageQuestion(title, user, Arg.Any<SingleSelectImageAnswer>(), Arg.Any<SingleSelectImageAnswer>()).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
-            objective.Received().AddQuestion(question, user);
+            section.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
@@ -108,7 +108,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.SingleSelectImageQuestion(title, user, Arg.Any<SingleSelectImageAnswer>(), Arg.Any<SingleSelectImageAnswer>()).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>(), title);
+            var result = _controller.Create(Substitute.For<Section>(), title);
 
             result.Should()
                 .BeJsonSuccessResult()

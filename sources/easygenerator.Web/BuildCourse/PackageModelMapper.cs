@@ -43,20 +43,20 @@ namespace easygenerator.Web.BuildCourse
 
                 HasIntroductionContent = !string.IsNullOrWhiteSpace(course.IntroductionContent),
                 IntroductionContent = course.IntroductionContent,
-                Objectives = (course.RelatedObjectives ?? new Collection<Objective>()).Select(MapObjective).ToList()
+                Sections = (course.RelatedSections ?? new Collection<Section>()).Select(MapSection).ToList()
             };
         }
 
-        private ObjectivePackageModel MapObjective(Objective objective)
+        private SectionPackageModel MapSection(Section section)
         {
-            return new ObjectivePackageModel
+            return new SectionPackageModel
             {
-                Id = objective.Id.ToNString(),
-                Title = objective.Title,
-                ImageUrl = String.IsNullOrEmpty(objective.ImageUrl)
-                    ? _urlHelper.ToAbsoluteUrl(Constants.Objective.DefaultImageUrl)
-                    : objective.ImageUrl,
-                Questions = (objective.Questions ?? new Collection<Question>()).Select(MapQuestion).ToList()
+                Id = section.Id.ToNString(),
+                Title = section.Title,
+                ImageUrl = String.IsNullOrEmpty(section.ImageUrl)
+                    ? _urlHelper.ToAbsoluteUrl(Constants.Section.DefaultImageUrl)
+                    : section.ImageUrl,
+                Questions = (section.Questions ?? new Collection<Question>()).Select(MapQuestion).ToList()
             };
         }
 

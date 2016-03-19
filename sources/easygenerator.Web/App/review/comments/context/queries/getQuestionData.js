@@ -11,8 +11,8 @@ export default class {
 
         let questionEntity;
 
-        let objective = _.find(course.objectives, objectiveItem => {
-            let question = _.find(objectiveItem.questions, item => item.id === questionId);
+        let section = _.find(course.sections, sectionItem => {
+            let question = _.find(sectionItem.questions, item => item.id === questionId);
             if (question) {
                 questionEntity = question;
             }
@@ -20,9 +20,9 @@ export default class {
             return question;
         });
 
-        if(objective) {
+        if(section) {
             return {
-                objectiveId: objective.id,
+                sectionId: section.id,
                 question: questionEntity
             };
         }

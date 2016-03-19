@@ -499,7 +499,7 @@
     <Compile Include="Controllers\Api\CourseController.cs" />
     <Compile Include="Controllers\Api\FeedbackController.cs" />
     <Compile Include="Controllers\Api\LearningContentController.cs" />
-    <Compile Include="Controllers\Api\ObjectiveController.cs" />
+    <Compile Include="Controllers\Api\SectionController.cs" />
     <Compile Include="Controllers\Api\QuestionController.cs" />
     <Compile Include="Controllers\Api\TemplateController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
@@ -580,7 +580,7 @@
     <Compile Include="Synchronization\Handlers\HotSpotEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CommentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
-    <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\SectionEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\RankingTextEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ScenarioEventHandler.cs" />
@@ -667,12 +667,15 @@
     <Content Include="App\commands\createDocumentCommand.spec.js">
       <DependentUpon>createDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\commands\createSectionCommand.spec.js">
+      <DependentUpon>createSectionCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\updateDocumentCommand.js" />
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
     <Content Include="App\core\bootstrap\visible.js" />
-    <Content Include="App\editor\course\bindingHandlers\hightlightObjective.js" />
+    <Content Include="App\editor\course\bindingHandlers\hightlightSection.js" />
     <Content Include="App\editor\questions\questionModalView.spec.js">
       <DependentUpon>questionModalView.js</DependentUpon>
     </Content>
@@ -686,6 +689,9 @@
     <Content Include="App\reporting\statementsCacheManager.js" />
     <Content Include="App\reporting\statementsCacheManager.spec.js">
       <DependentUpon>statementsCacheManager.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
+      <DependentUpon>objectiveStatement.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\viewmodels\questionStatements\answeredStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatements\answeredStatement.spec.js">
@@ -702,7 +708,13 @@
     <Content Include="App\reporting\viewmodels\questionStatements\questionStatementFactory.spec.js">
       <DependentUpon>questionStatementFactory.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\startedStatement.spec.js">
+      <DependentUpon>startedStatement.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\views\questionStatements\experiencedStatement.html" />
+    <Content Include="App\repositories\sectionRepository.spec.js">
+      <DependentUpon>sectionRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\review\commands\deleteComment.js" />
     <Content Include="App\review\commands\deleteComment.spec.js">
       <DependentUpon>deleteComment.js</DependentUpon>
@@ -735,16 +747,13 @@
     <Content Include="App\review\comments\context\commentContexts\InformationContentCommentContext.spec.js">
       <DependentUpon>InformationContentCommentContext.js</DependentUpon>
     </Content>
-    <Content Include="App\review\comments\context\commentContexts\ObjectiveCommentContext.spec.js">
-      <DependentUpon>ObjectiveCommentContext.js</DependentUpon>
-    </Content>
     <Content Include="App\review\comments\context\commentContexts\QuestionCommentContext.spec.js">
       <DependentUpon>QuestionCommentContext.js</DependentUpon>
     </Content>
-    <Content Include="App\review\comments\context\contextEntities\ObjectiveCommentContextEntity.js" />
-    <Content Include="App\review\comments\context\contextEntities\ObjectiveCommentContextEntity.spec.js">
-      <DependentUpon>ObjectiveCommentContextEntity.js</DependentUpon>
+    <Content Include="App\review\comments\context\commentContexts\SectionCommentContext.spec.js">
+      <DependentUpon>SectionCommentContext.js</DependentUpon>
     </Content>
+    <Content Include="App\review\comments\context\contextEntities\SectionCommentContextEntity.js" />
     <Content Include="App\review\comments\context\contextEntities\QuestionCommentContextEntity.js" />
     <Content Include="App\review\comments\context\commentContexts\CommentContext.js" />
     <Content Include="App\review\comments\context\contextEntities\CommentContextEntity.js" />
@@ -752,18 +761,21 @@
     <Content Include="App\review\comments\context\commentContexts\CourseCommentContext.js" />
     <Content Include="App\review\comments\context\commentContexts\GeneralCommentContext.js" />
     <Content Include="App\review\comments\context\commentContextFactory.js" />
-    <Content Include="App\review\comments\context\commentContexts\ObjectiveCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContexts\SectionCommentContext.js" />
     <Content Include="App\review\comments\context\contextEntities\QuestionCommentContextEntity.spec.js">
       <DependentUpon>QuestionCommentContextEntity.js</DependentUpon>
     </Content>
-    <Content Include="App\review\comments\context\queries\getObjective.js" />
-    <Content Include="App\review\comments\context\queries\getObjective.spec.js">
-      <DependentUpon>getObjective.js</DependentUpon>
+    <Content Include="App\review\comments\context\contextEntities\SectionCommentContextEntity.spec.js">
+      <DependentUpon>SectionCommentContextEntity.js</DependentUpon>
     </Content>
+    <Content Include="App\review\comments\context\queries\getSection.js" />
     <Content Include="App\review\comments\context\queries\getQuestionData.js" />
     <Content Include="App\review\comments\context\commentContexts\QuestionCommentContext.js" />
     <Content Include="App\review\comments\context\queries\getQuestionData.spec.js">
       <DependentUpon>getQuestionData.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\queries\getSection.spec.js">
+      <DependentUpon>getSection.js</DependentUpon>
     </Content>
     <Content Include="App\review\comments\courseComments.html" />
     <Content Include="App\review\comments\courseComments.js" />
@@ -1028,10 +1040,7 @@
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
     </Content>
-    <Content Include="App\commands\createObjectiveCommand.js" />
-    <Content Include="App\commands\createObjectiveCommand.spec.js">
-      <DependentUpon>createObjectiveCommand.js</DependentUpon>
-    </Content>
+    <Content Include="App\commands\createSectionCommand.js" />
     <Content Include="App\commands\duplicateCourseCommand.js" />
     <Content Include="App\commands\duplicateCourseCommand.spec.js">
       <DependentUpon>duplicateCourseCommand.js</DependentUpon>
@@ -1115,9 +1124,6 @@
     <Content Include="App\reporting\courseStatementsProvider.js" />
     <Content Include="App\reporting\learningPathStatementsProvider.js" />
     <Content Include="App\reporting\viewmodels\startedStatement.js" />
-    <Content Include="App\reporting\viewmodels\startedStatement.spec.js">
-      <DependentUpon>startedStatement.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\documentRepository.js" />
     <Content Include="App\repositories\documentRepository.spec.js">
       <DependentUpon>documentRepository.js</DependentUpon>
@@ -1139,8 +1145,20 @@
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\comment\handler.js" />
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\learningObjectiveUpdated.js" />
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\learningObjectiveUpdated.spec.js">
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionRelated.spec.js">
+      <DependentUpon>sectionRelated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsReordered.spec.js">
+      <DependentUpon>sectionsReordered.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsReplaced.spec.js">
+      <DependentUpon>sectionsReplaced.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsUnrelated.spec.js">
+      <DependentUpon>sectionsUnrelated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\section\eventHandlers\learningObjectiveUpdated.js" />
+    <Content Include="App\synchronization\handlers\section\eventHandlers\learningObjectiveUpdated.spec.js">
       <DependentUpon>learningObjectiveUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\comment\handler.spec.js">
@@ -1179,6 +1197,12 @@
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.js" />
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.spec.js">
       <DependentUpon>upgradedToAcademy.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\queries\getSectionByIdQuery.spec.js">
+      <DependentUpon>getSectionByIdQuery.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\RelatedSectionTreeNode.spec.js">
+      <DependentUpon>RelatedSectionTreeNode.js</DependentUpon>
     </Content>
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
@@ -1303,6 +1327,15 @@
     <Content Include="App\viewmodels\questions\scenario\scenario.spec.js">
       <DependentUpon>scenario.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\sections\section.spec.js">
+      <DependentUpon>section.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\sections\sectionBrief.spec.js">
+      <DependentUpon>sectionBrief.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\sections\sections.spec.js">
+      <DependentUpon>sections.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\videos\commands\deleteVideo.js" />
     <Content Include="App\viewmodels\videos\commands\deleteVideo.spec.js">
       <DependentUpon>deleteVideo.js</DependentUpon>
@@ -1376,6 +1409,7 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\modalView\bindingHandlers\lockScrollBindingHandler.js" />
+    <Content Include="App\widgets\modalView\bindingHandlers\visibleAnimateBindingHandler.js" />
     <Content Include="App\widgets\modalView\view.html" />
     <Content Include="App\widgets\modalView\viewmodel.js" />
     <Content Include="App\widgets\modalView\viewmodel.spec.js">
@@ -1494,8 +1528,8 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
       <DependentUpon>stateChanged.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.js" />
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.spec.js">
+    <Content Include="App\synchronization\handlers\section\eventHandlers\imageUrlUpdated.js" />
+    <Content Include="App\synchronization\handlers\section\eventHandlers\imageUrlUpdated.spec.js">
       <DependentUpon>imageUrlUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\isMultipleChanged.js" />
@@ -1660,7 +1694,7 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\queries\getLearningPathByIdQuery.spec.js">
       <DependentUpon>getLearningPathByIdQuery.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\objectives\index.js" />
+    <Content Include="App\viewmodels\sections\index.js" />
     <Content Include="App\viewmodels\panels\leftSideBarManager.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
@@ -1707,7 +1741,7 @@
     <Content Include="App\views\learningPaths\index.html" />
     <Content Include="App\views\learningPaths\learningPath\index.html" />
     <Content Include="App\views\learningPaths\learningPaths\learningPaths.html" />
-    <Content Include="App\views\objectives\index.html" />
+    <Content Include="App\views\sections\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\views\videos\videos.html" />
     <Content Include="App\reporting\views\courseStatement.html" />
@@ -1801,7 +1835,7 @@
     <Content Include="Content\images\templates\new-template.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
-    <Content Include="Content\images\objective-default-image.jpg" />
+    <Content Include="Content\images\section-default-image.jpg" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
@@ -2375,10 +2409,7 @@
     <Content Include="App\synchronization\handlers\collaboration\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReplaced.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReplaced.spec.js">
-      <DependentUpon>objectivesReplaced.js</DependentUpon>
-    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsReplaced.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\backgroundChanged.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\backgroundChanged.spec.js">
       <DependentUpon>backgroundChanged.js</DependentUpon>
@@ -2511,13 +2542,10 @@
     <Content Include="App\mappers\collaboratorModelMapper.js" />
     <Content Include="App\mappers\courseModelMapper.js" />
     <Content Include="App\mappers\learningContentModelMapper.js" />
-    <Content Include="App\mappers\objectiveModelMapper.js" />
+    <Content Include="App\mappers\sectionModelMapper.js" />
     <Content Include="App\mappers\questionModelMapper.js" />
     <Content Include="App\mappers\templateModelMapper.js" />
-    <Content Include="App\repositories\objectiveRepository.js" />
-    <Content Include="App\repositories\objectiveRepository.spec.js">
-      <DependentUpon>objectiveRepository.js</DependentUpon>
-    </Content>
+    <Content Include="App\repositories\sectionRepository.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.spec.js">
@@ -2573,18 +2601,9 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\introductionContentUpdated.spec.js">
       <DependentUpon>introductionContentUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectiveRelated.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectiveRelated.spec.js">
-      <DependentUpon>objectiveRelated.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReordered.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReordered.spec.js">
-      <DependentUpon>objectivesReordered.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesUnrelated.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesUnrelated.spec.js">
-      <DependentUpon>objectivesUnrelated.js</DependentUpon>
-    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionRelated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsReordered.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsUnrelated.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\published.spec.js">
       <DependentUpon>published.js</DependentUpon>
     </Content>
@@ -2597,16 +2616,16 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\titleUpdated.spec.js">
       <DependentUpon>titleUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\questionsReordered.js" />
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\questionsReordered.spec.js">
+    <Content Include="App\synchronization\handlers\section\eventHandlers\questionsReordered.js" />
+    <Content Include="App\synchronization\handlers\section\eventHandlers\questionsReordered.spec.js">
       <DependentUpon>questionsReordered.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\titleUpdated.js" />
-    <Content Include="App\synchronization\handlers\objective\eventHandlers\titleUpdated.spec.js">
+    <Content Include="App\synchronization\handlers\section\eventHandlers\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\section\eventHandlers\titleUpdated.spec.js">
       <DependentUpon>titleUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\objective\handler.js" />
-    <Content Include="App\synchronization\handlers\objective\handler.spec.js">
+    <Content Include="App\synchronization\handlers\section\handler.js" />
+    <Content Include="App\synchronization\handlers\section\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\user\handler.js" />
@@ -2815,7 +2834,7 @@
     <Content Include="Content\navigationBar.less" />
     <Content Include="Content\notify.less" />
     <Content Include="Content\notSupportedPage.less" />
-    <Content Include="Content\objective.less" />
+    <Content Include="Content\section.less" />
     <Content Include="Content\onboarding.less" />
     <Content Include="Content\question.less" />
     <Content Include="Content\review.less" />
@@ -2829,9 +2848,6 @@
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
     <Content Include="Content\video.less" />
-    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
-      <DependentUpon>objectiveStatement.js</DependentUpon>
-    </Content>
     <Content Include="Content\notifications.less" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.spec.js">
       <DependentUpon>inviteCreated.js</DependentUpon>
@@ -3330,7 +3346,7 @@
     </Content>
     <Content Include="App\models\entity.js" />
     <Content Include="App\models\learningContent.js" />
-    <Content Include="App\models\objective.js" />
+    <Content Include="App\models\section.js" />
     <Content Include="App\models\question.js" />
     <Content Include="App\models\template.js" />
     <Content Include="App\models\user.js" />
@@ -3396,20 +3412,14 @@
     <Content Include="App\treeOfContent\queries\getCourseByIdQuery.spec.js">
       <DependentUpon>getCourseByIdQuery.js</DependentUpon>
     </Content>
-    <Content Include="App\treeOfContent\queries\getObjectiveByIdQuery.js" />
-    <Content Include="App\treeOfContent\queries\getObjectiveByIdQuery.spec.js">
-      <DependentUpon>getObjectiveByIdQuery.js</DependentUpon>
-    </Content>
+    <Content Include="App\treeOfContent\queries\getSectionByIdQuery.js" />
     <Content Include="App\treeOfContent\QuestionTreeNode.html" />
     <Content Include="App\treeOfContent\QuestionTreeNode.js" />
     <Content Include="App\treeOfContent\QuestionTreeNode.spec.js">
       <DependentUpon>QuestionTreeNode.js</DependentUpon>
     </Content>
-    <Content Include="App\treeOfContent\RelatedObjectiveTreeNode.html" />
-    <Content Include="App\treeOfContent\RelatedObjectiveTreeNode.js" />
-    <Content Include="App\treeOfContent\RelatedObjectiveTreeNode.spec.js">
-      <DependentUpon>RelatedObjectiveTreeNode.js</DependentUpon>
-    </Content>
+    <Content Include="App\treeOfContent\RelatedSectionTreeNode.html" />
+    <Content Include="App\treeOfContent\RelatedSectionTreeNode.js" />
     <Content Include="App\treeOfContent\TreeNode.js" />
     <Content Include="App\treeOfContent\treeOfContent.html" />
     <Content Include="App\treeOfContent\treeOfContent.js" />
@@ -3447,18 +3457,9 @@
       <DependentUpon>scormBuild.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\errors\404.js" />
-    <Content Include="App\viewmodels\objectives\objective.js" />
-    <Content Include="App\viewmodels\objectives\objective.spec.js">
-      <DependentUpon>objective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\objectiveBrief.js" />
-    <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js">
-      <DependentUpon>objectiveBrief.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\objectives.js" />
-    <Content Include="App\viewmodels\objectives\objectives.spec.js">
-      <DependentUpon>objectives.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\sections\section.js" />
+    <Content Include="App\viewmodels\sections\sectionBrief.js" />
+    <Content Include="App\viewmodels\sections\sections.js" />
     <Content Include="App\review\publish\coursePublish.js" />
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js">
@@ -3477,8 +3478,8 @@
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courses.html" />
     <Content Include="App\views\errors\404.html" />
-    <Content Include="App\views\objectives\objective.html" />
-    <Content Include="App\views\objectives\objectives.html" />
+    <Content Include="App\views\sections\section.html" />
+    <Content Include="App\views\sections\sections.html" />
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />

@@ -103,7 +103,7 @@ export default {
     },
 
     validation: {
-        objectiveTitleMaxLength: 255,
+        sectionTitleMaxLength: 255,
         courseTitleMaxLength: 255,
         questionTitleMaxLength: 255,
         textMatchingKeyMaxLength: 255,
@@ -132,12 +132,12 @@ export default {
             titleUpdatedByCollaborator: 'course:titleUpdatedByCollaborator',
             introductionContentUpdated: 'course:introductionContentUpdated',
             introductionContentUpdatedByCollaborator: 'course:introductionContentUpdatedByCollaborator',
-            objectiveRelated: 'course:objectiveRelated',
-            objectiveRelatedByCollaborator: 'course:objectiveRelatedByCollaborator',
-            objectivesUnrelated: 'course:objectivesUnrelated',
-            objectivesUnrelatedByCollaborator: 'course:objectivesUnrelatedByCollaborator',
-            objectivesReordered: 'course:objectivesReordered',
-            objectivesReorderedByCollaborator: 'course:objectivesReorderedByCollaborator',
+            sectionRelated: 'course:sectionRelated',
+            sectionRelatedByCollaborator: 'course:sectionRelatedByCollaborator',
+            sectionsUnrelated: 'course:sectionsUnrelated',
+            sectionsUnrelatedByCollaborator: 'course:sectionsUnrelatedByCollaborator',
+            sectionsReordered: 'course:sectionsReordered',
+            sectionsReorderedByCollaborator: 'course:sectionsReorderedByCollaborator',
             templateUpdatedByCollaborator: 'course:templateUpdatedByCollaborator',
             templateUpdated: 'course:templateUpdated',
             stateChanged: 'course:stateChanged',
@@ -207,18 +207,18 @@ export default {
             },
             deleted: 'learningPath:deleted'
         },
-        objective: {
-            createdInCourse: 'objective:createdInCourse',
-            deleted: 'objective:deleted',
-            titleUpdated: 'objective:titleUpdated',
-            titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
-            learningObjectiveUpdated: 'objective:learningObjectiveUpdated',
-            learningObjectiveUpdatedByCollaborator: 'objective:learningObjectiveUpdatedByCollaborator',
-            imageUrlUpdated: 'objective:imageUrlUpdated',
-            imageUrlUpdatedByCollaborator: 'objective:imageUrlUpdatedByCollaborator',
-            questionsReordered: 'objective:questionsReordered',
-            questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator',
-            navigated: 'objective:navigatedTo'
+        section: {
+            createdInCourse: 'section:createdInCourse',
+            deleted: 'section:deleted',
+            titleUpdated: 'section:titleUpdated',
+            titleUpdatedByCollaborator: 'section:titleUpdatedByCollaborator',
+            learningObjectiveUpdated: 'section:learningObjectiveUpdated',
+            learningObjectiveUpdatedByCollaborator: 'section:learningObjectiveUpdatedByCollaborator',
+            imageUrlUpdated: 'section:imageUrlUpdated',
+            imageUrlUpdatedByCollaborator: 'section:imageUrlUpdatedByCollaborator',
+            questionsReordered: 'section:questionsReordered',
+            questionsReorderedByCollaborator: 'section:questionsReorderedByCollaborator',
+            navigated: 'section:navigatedTo'
         },
         question: {
             created: 'question:created',
@@ -359,11 +359,11 @@ export default {
         lastCreatedQuestionId: 'lastCreatedQuestionId',
         lastCreatedCourseId: 'lastCreatedCourseId',
         lastCreatedLearningPathId: 'lastCreatedLearningPathId',
-        lastCreatedObjectiveId: 'lastCreatedObjectiveId',
+        lastCreatedSectionId: 'lastCreatedSectionId',
         lastVistedCourse: 'lastVistedCourse',
-        lastVisitedObjective: 'lastVisitedObjective',
+        lastVisitedSection: 'lastVisitedSection',
         showCreateCoursePopup: 'showCreateCoursePopup',
-        highlightedObjectiveId: 'highlightedObjectiveId'
+        highlightedSectionId: 'highlightedSectionId'
     },
 
     reporting: {
@@ -591,7 +591,7 @@ export default {
         context: {
             types: {
                 course: 'course',
-                objective: 'objective',
+                section: 'section',
                 question: 'question',
                 informationContent: 'informationContent'
             },

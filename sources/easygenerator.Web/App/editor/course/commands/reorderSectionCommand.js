@@ -3,6 +3,6 @@ import courseRepository from 'repositories/courseRepository';
 
 export default class {
     static async execute(courseId, sections) {
-        await courseRepository.updateObjectiveOrder(courseId, ko.toJS(sections));
+        await courseRepository.updateSectionOrder(courseId, ko.toJS(sections));
     }
 }

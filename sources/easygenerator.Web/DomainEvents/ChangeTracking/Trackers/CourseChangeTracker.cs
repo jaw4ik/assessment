@@ -13,12 +13,12 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<CourseTitleUpdatedEvent>,
         IDomainEventHandler<CourseIntroductionContentUpdated>,
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
-        IDomainEventHandler<CourseObjectivesReorderedEvent>,
-        IDomainEventHandler<CourseObjectiveRelatedEvent>,
-        IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
+        IDomainEventHandler<CourseSectionsReorderedEvent>,
+        IDomainEventHandler<CourseSectionRelatedEvent>,
+        IDomainEventHandler<CourseSectionsUnrelatedEvent>,
         IDomainEventHandler<CourseTemplateSettingsUpdated>,
 
-        IDomainEventHandler<ObjectiveChangedEvent>,
+        IDomainEventHandler<SectionChangedEvent>,
         IDomainEventHandler<QuestionChangedEvent>,
         IDomainEventHandler<LearningContentChangedEvent>,
         IDomainEventHandler<AnswerChangedEvent>,
@@ -56,17 +56,17 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             RaiseCourseChangedEvent(args.Course);
         }
 
-        public void Handle(CourseObjectivesReorderedEvent args)
+        public void Handle(CourseSectionsReorderedEvent args)
         {
             RaiseCourseChangedEvent(args.Course);
         }
 
-        public void Handle(CourseObjectiveRelatedEvent args)
+        public void Handle(CourseSectionRelatedEvent args)
         {
             RaiseCourseChangedEvent(args.Course);
         }
 
-        public void Handle(CourseObjectivesUnrelatedEvent args)
+        public void Handle(CourseSectionsUnrelatedEvent args)
         {
             RaiseCourseChangedEvent(args.Course);
         }
@@ -78,9 +78,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         #endregion
 
-        public void Handle(ObjectiveChangedEvent args)
+        public void Handle(SectionChangedEvent args)
         {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToObjective(args.Objective.Id));
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToSection(args.Section.Id));
         }
 
         public void Handle(QuestionChangedEvent args)

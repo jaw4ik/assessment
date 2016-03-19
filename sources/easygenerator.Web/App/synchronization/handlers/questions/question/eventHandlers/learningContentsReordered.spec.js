@@ -6,7 +6,7 @@ import app from 'durandal/app';
 
 describe('synchronization question [learningContentsReordered]', function () {
 
-    var objective = { id: 'objectiveId' },
+    var section = { id: 'sectionId' },
         question = { id: 'questionId' };
 
     beforeEach(function () {
@@ -54,7 +54,7 @@ describe('synchronization question [learningContentsReordered]', function () {
 
     describe('when question is not found in data context', function () {
         it('should throw an exception', function () {
-            dataContext.objectives = [];
+            dataContext.sections = [];
 
             var f = function () {
                 handler(question.id, learningContentsOrder, modifiedOn.toISOString());
@@ -67,16 +67,16 @@ describe('synchronization question [learningContentsReordered]', function () {
     it('should update question modified on date', function () {
         spyOn(dataContext, 'getQuestions').and.returnValue([question]);
         question.modifiedOn = "";
-        objective.questions = [question];
-        dataContext.objectives = [objective];
+        section.questions = [question];
+        dataContext.sections = [section];
         handler(question.id, learningContentsOrder, modifiedOn.toISOString());
-        expect(dataContext.objectives[0].questions[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
+        expect(dataContext.sections[0].questions[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
     });
 
     it('should trigger app event', function () {
         spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-        objective.questions = [question];
-        dataContext.objectives = [objective];
+        section.questions = [question];
+        dataContext.sections = [section];
 
         handler(question.id, learningContentsOrder, modifiedOn.toISOString());
         expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.learningContentsReorderedByCollaborator, question, learningContentsOrder);

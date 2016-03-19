@@ -1,8 +1,8 @@
-﻿<section class="modal-view-container" data-bind="css: { hidden: !isShown() }">
+﻿<section class="modal-view-container">
     <!-- ko if: viewModel() -->
-    <div class="modal-view" data-bind="lockScroll: isShown, visible: isShown">
+    <div class="modal-view" data-bind="lockScroll: isShown, visibleAnimate: { visible: isShown, visibleClass: 'shown' }">
         <!-- ko compose: { model: viewModel } --><!-- /ko -->
     </div>
     <!-- /ko -->
-    <div class="modal-view-blockout" data-bind="visible: isShown"></div>
+    <div class="modal-view-blockout" data-bind="visibleAnimate: { visible: isShown, visibleClass: 'shown' }"></div>
 </section>

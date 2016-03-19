@@ -6,7 +6,7 @@
             navigateToVideos: 'Navigate to videos',
             navigateToAudios: 'Navigate to audios',
             navigateToImages: 'Navigate to images',
-            navigateToObjectives: 'Navigate to objectives'
+            navigateToSections: 'Navigate to objectives'
         }
 
         var childRouter = shell.router.createChildRouter()

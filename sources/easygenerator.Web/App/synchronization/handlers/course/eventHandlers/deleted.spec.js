@@ -6,7 +6,7 @@ import app from 'durandal/app';
 describe('synchronization course [deleted]', function () {
 
     var course = { Id: 'courseId' },
-        objectiveId = "objectiveId",
+        sectionId = "sectionId",
         mappedCourse = { id: course.Id, collaborators: [] };
 
     beforeEach(function () {
@@ -27,13 +27,13 @@ describe('synchronization course [deleted]', function () {
         });
     });
 
-    describe('when deletedObjectiveIds is not an array', function () {
+    describe('when deletedSectionIds is not an array', function () {
         it('should throw an exception', function () {
             var f = function () {
                 handler(mappedCourse.id, undefined);
             };
 
-            expect(f).toThrow('DeletedObjectiveIds is not an array');
+            expect(f).toThrow('DeletedSectionIds is not an array');
         });
     });
 
@@ -52,12 +52,12 @@ describe('synchronization course [deleted]', function () {
         expect(dataContext.courses.length).toBe(0);
     });
 
-    it('should delete objectives', function () {
+    it('should delete sections', function () {
         dataContext.courses = [mappedCourse];
-        dataContext.objectives = [{ id: objectiveId }];
+        dataContext.sections = [{ id: sectionId }];
 
-        handler(mappedCourse.id, [objectiveId]);
-        expect(dataContext.objectives.length).toBe(0);
+        handler(mappedCourse.id, [sectionId]);
+        expect(dataContext.sections.length).toBe(0);
     });
 
     it('should trigger app event', function () {

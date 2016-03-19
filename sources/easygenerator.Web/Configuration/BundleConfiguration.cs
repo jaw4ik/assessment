@@ -32,6 +32,14 @@ namespace easygenerator.Web.Configuration
                 .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
             );
 
+            bundles.Add(new Bundle("~/bundles/scripts/system").Include("~/scripts/vendor/system.js"));
+            // This file is needed for IE, SystemJS load this file automatically when it needed
+            bundles.Add(new Bundle("~/bundles/scripts/system-polyfills.js").Include("~/scripts/vendor/system-polyfills.js"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts/system-configuration")
+                .Include("~/scripts/system-hooks.js")
+                .Include("~/config.js")
+            );
+
             //CKEditor.js doesn't pass javascript validation, because of that it can't be minified in vendor bundle
             //so we used already minified version in separate bundle
             bundles.Add(new Bundle("~/bundles/scripts/ckeditor").Include("~/scripts/ckeditor/ckeditor.js"));
@@ -65,7 +73,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/styles.css")
                 .Include("~/Content/notifications.css")
                 .Include("~/Content/question.css")
-                .Include("~/Content/objective.css")
+                .Include("~/Content/section.css")
                 .Include("~/Content/courses.css")
                 .Include("~/Content/course.css")
                 .Include("~/Content/learningPaths.css")
