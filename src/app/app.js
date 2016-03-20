@@ -51,6 +51,12 @@
         '$rootScope', '$location', 'settings', 'htmlTemplatesCache', '$templateCache', 'attemptsLimiter',
         function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache, attemptsLimiter) {
             $rootScope.$on('$routeChangeStart', function (event, next) {
+				var xapi = $location.search()['xapi'];
+				debugger;
+				if (isXapiDisabled()) {
+					settings.xApi.enabled = false;
+                }
+
                 var xApiEnabled = settings.xApi.enabled;
                 if (xApiEnabled && !$rootScope.isXApiInitialized) {
                     forbidRedirects('/login');
@@ -58,6 +64,11 @@
                 else if (!attemptsLimiter.hasAvailableAttempt()) {
                     forbidRedirects('/summary');
                 }
+				
+				function isXapiDisabled() {
+					var xapi = $location.search()['xapi'];
+					return !settings.xApi.required && !_.isNull(xapi) && !_.isUndefined(xapi) && xapi.toLowerCase() === 'false';
+				}
 
                 function forbidRedirects(urlHash) {
                     if (next.originalPath !== urlHash) {
@@ -78,3 +89,5 @@
         }
     ]);
 })(window.angular, window._, window.angularDragula);
+
+
