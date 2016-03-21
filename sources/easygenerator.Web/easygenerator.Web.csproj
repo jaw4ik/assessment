@@ -690,8 +690,8 @@
     <Content Include="App\reporting\statementsCacheManager.spec.js">
       <DependentUpon>statementsCacheManager.js</DependentUpon>
     </Content>
-    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
-      <DependentUpon>objectiveStatement.js</DependentUpon>
+    <Content Include="App\reporting\viewmodels\progressedStatement.spec.js">
+      <DependentUpon>progressedStatement.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\viewmodels\questionStatements\answeredStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatements\answeredStatement.spec.js">
@@ -707,6 +707,10 @@
     <Content Include="App\reporting\viewmodels\questionStatements\questionStatementFactory.js" />
     <Content Include="App\reporting\viewmodels\questionStatements\questionStatementFactory.spec.js">
       <DependentUpon>questionStatementFactory.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\sectionStatement.js" />
+    <Content Include="App\reporting\viewmodels\sectionStatement.spec.js">
+      <DependentUpon>sectionStatement.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\viewmodels\startedStatement.spec.js">
       <DependentUpon>startedStatement.js</DependentUpon>
@@ -1344,10 +1348,7 @@
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
     </Content>
-    <Content Include="App\reporting\viewmodels\finishStatement.js" />
-    <Content Include="App\reporting\viewmodels\finishStatement.spec.js">
-      <DependentUpon>finishStatement.js</DependentUpon>
-    </Content>
+    <Content Include="App\reporting\viewmodels\progressedStatement.js" />
     <Content Include="App\reporting\viewmodels\resultsBase.js" />
     <Content Include="App\reporting\viewmodels\resultsBase.spec.js">
       <DependentUpon>resultsBase.js</DependentUpon>
@@ -1719,7 +1720,6 @@
     <Content Include="App\views\common\titleField.html" />
     <Content Include="App\views\courses\course\configure.html" />
     <Content Include="App\reporting\viewmodels\expandableStatement.js" />
-    <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatements\questionStatementBase.js" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
@@ -1745,7 +1745,7 @@
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\views\videos\videos.html" />
     <Content Include="App\reporting\views\courseStatement.html" />
-    <Content Include="App\reporting\views\objectiveStatement.html" />
+    <Content Include="App\reporting\views\sectionStatement.html" />
     <Content Include="App\reporting\views\questionStatements\answeredStatement.html" />
     <Content Include="App\widgets\cursorTooltip\view.html" />
     <Content Include="App\widgets\cursorTooltip\viewmodel.js" />

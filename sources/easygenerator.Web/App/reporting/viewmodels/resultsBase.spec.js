@@ -1,7 +1,7 @@
 ﻿import ResultsBase from './resultsBase';
 
 import StartedStatement from './startedStatement';
-import FinishStatement from './finishStatement';
+import ProgressedStatement from './progressedStatement';
 import dialog from 'plugins/dialog';
 import moment from 'moment';
 import eventTracker from 'eventTracker';
@@ -178,22 +178,22 @@ describe('ResultsBase instance', function () {
         });
 
         it('should extend statement', function () {
-            var finishStatement = new FinishStatement(statements[0]);
+            var progressedStatement = new ProgressedStatement(statements[0]);
             var startedStatement = new StartedStatement(statements[0]);
-            viewModel.extendStatement(finishStatement);
+            viewModel.extendStatement(progressedStatement);
             viewModel.extendStatement(startedStatement);
 
-            expect(finishStatement).toBeInstanceOf(FinishStatement);
-            expect(finishStatement.isFinished).toBeTruthy();
+            expect(progressedStatement).toBeInstanceOf(ProgressedStatement);
+            expect(progressedStatement.isProgressed).toBeTruthy();
 
             expect(startedStatement).toBeInstanceOf(StartedStatement);
-            expect(startedStatement.isFinished).toBeFalsy();
+            expect(startedStatement.isProgressed).toBeFalsy();
         });
 
         it('should return extended statement', function () {
-            var finishStatement = new FinishStatement(statements[0]);
-            var extended = viewModel.extendStatement(finishStatement);
-            expect(finishStatement).toBe(extended);
+            var progressedStatement = new ProgressedStatement(statements[0]);
+            var extended = viewModel.extendStatement(progressedStatement);
+            expect(progressedStatement).toBe(extended);
         });
 
     });
@@ -585,7 +585,7 @@ describe('ResultsBase instance', function () {
             viewModel.activate(entityId);
 
             statementsProvider.getLrsStatements.and.returnValue(getLrsStatementsDfd.promise);
-            getLrsStatementsDfd.resolve(_.map(statements, function(statement) { return new FinishStatement(statement);  }));
+            getLrsStatementsDfd.resolve(_.map(statements, function(statement) { return new ProgressedStatement(statement);  }));
 
             fileSaverWrapper.saveAs = function () { };
             spyOn(fileSaverWrapper, 'saveAs');

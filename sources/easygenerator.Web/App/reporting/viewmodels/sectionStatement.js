@@ -4,8 +4,8 @@ import questionStatementFactory from 'reporting/viewmodels/questionStatements/qu
 import XApiProvider from 'reporting/xApiProvider';
 
 export default class extends ExpandableStatement  {
-    constructor(objectiveLrsStatement, childStatements) {
-        super(objectiveLrsStatement);
+    constructor(sectionLrsStatement, childStatements) {
+        super(sectionLrsStatement);
         this.hasScore = this.lrsStatement.score != null;
         if (childStatements === null || childStatements) {
             childStatements ? this.children(childStatements) : this.children = null;

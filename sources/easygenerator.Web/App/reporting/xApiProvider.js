@@ -13,8 +13,8 @@ export default class {
     static getLearningPathFinishedStatements(learningPathId, take, skip) {
         return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
     }
-    static async getObjectiveStatements(attemptId, latestDate) {
-        return filterObjectiveStatements(filterStatementsByLatestDate(await getStatements({
+    static async getSectionStatements(attemptId, latestDate) {
+        return filterSectionStatements(filterStatementsByLatestDate(await getStatements({
              verbs: [constants.reporting.xApiVerbIds.mastered, constants.reporting.xApiVerbIds.progressed], type: constants.reporting.xApiActivityTypes.objective, attemptIds: attemptId
         }), latestDate));
     }
@@ -89,7 +89,7 @@ function filterStatementsByLatestDate(statements, latestDate) {
     return _.filter(statements, statement => statement.date.getTime() <= latestDate);
 }
 
-function filterObjectiveStatements(statements) {
+function filterSectionStatements(statements) {
     var sortedStatements = _.sortBy(statements, statement => statement.id);
     var resultStatements = [];
     if (!sortedStatements.length) {

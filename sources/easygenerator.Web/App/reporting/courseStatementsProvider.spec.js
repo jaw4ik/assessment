@@ -2,8 +2,8 @@
 import constants from 'constants';
 import XApiProvider from 'reporting/xApiProvider';
 import StartedStatement from 'reporting/viewmodels/startedStatement';
-import FinishStatement from 'reporting/viewmodels/finishStatement';
-import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
+import ProgressedStatement from 'reporting/viewmodels/progressedStatement';
+import SectionStatement from 'reporting/viewmodels/sectionStatement';
 import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
 import AnsweredStatement from 'reporting/viewmodels/questionStatements/answeredStatement';
 
@@ -206,9 +206,9 @@ describe('CourseStatementsProvider:', () => {
                 it('should return mapped instances of statement viewmodels', done => (async () => {
                     var reportingStatements = await CourseStatementsProvider.getLrsStatements({ entityId: entityId, take: 10, skip: 20 });
                     expect(reportingStatements.length).toBe(3);
-                    expect(reportingStatements[0]).toBeInstanceOf(FinishStatement);
+                    expect(reportingStatements[0]).toBeInstanceOf(ProgressedStatement);
                     expect(reportingStatements[0].startedLrsStatement).toBe(statements[0].root[0]);
-                    expect(reportingStatements[1]).toBeInstanceOf(FinishStatement);
+                    expect(reportingStatements[1]).toBeInstanceOf(ProgressedStatement);
                     expect(reportingStatements[1].startedLrsStatement).toBe(null);
                     expect(reportingStatements[2]).toBeInstanceOf(StartedStatement);
                 })().then(done));
@@ -225,16 +225,16 @@ describe('CourseStatementsProvider:', () => {
                 it('should return mapped instances of statement viewmodels', done => (async () => {
                     var reportingStatements = await CourseStatementsProvider.getLrsStatements({ entityId: entityId, embeded: true, take: 10, skip: 20 });
                     expect(reportingStatements.length).toBe(1);
-                    expect(reportingStatements[0]).toBeInstanceOf(FinishStatement);
+                    expect(reportingStatements[0]).toBeInstanceOf(ProgressedStatement);
                     expect(reportingStatements[0].startedLrsStatement).toBe(detailedStatements[0].root[0]);
                     expect(reportingStatements[0].children().length).toBe(2);
-                    expect(reportingStatements[0].children()[0]).toBeInstanceOf(ObjectiveStatement);
+                    expect(reportingStatements[0].children()[0]).toBeInstanceOf(SectionStatement);
                     expect(reportingStatements[0].children()[0].children().length).toBe(4);
                     expect(reportingStatements[0].children()[0].children()[0]).toBeInstanceOf(AnsweredStatement);
                     expect(reportingStatements[0].children()[0].children()[1]).toBeInstanceOf(AnsweredStatement);
                     expect(reportingStatements[0].children()[0].children()[2]).toBeInstanceOf(AnsweredStatement);
                     expect(reportingStatements[0].children()[0].children()[3]).toBeInstanceOf(AnsweredStatement);
-                    expect(reportingStatements[0].children()[1]).toBeInstanceOf(ObjectiveStatement);
+                    expect(reportingStatements[0].children()[1]).toBeInstanceOf(SectionStatement);
                 })().then(done));
 
             });

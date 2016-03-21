@@ -7,11 +7,7 @@
   width: 32px;
   height: 32px;
   cursor: pointer;
-<<<<<<< HEAD
-  background: url(./img/review-sprites.png?v=1458395850467);
-=======
-  background: url(./img/review-sprites.png?v=1458309731778);
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/review-sprites.png?v=1458399006764);
   background-position: 0px -112px;
 }
 .review-spot-wrapper .review-spot:hover {
@@ -227,11 +223,7 @@
   width: 20px;
   height: 17px;
   content: '';
-<<<<<<< HEAD
-  background: url(./img/review-sprites.png?v=1458395850467);
-=======
-  background: url(./img/review-sprites.png?v=1458309731778);
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/review-sprites.png?v=1458399006764);
   background-position: -7px -59px;
 }
 .review-dialog .comments-header .comments-expander {
@@ -239,11 +231,7 @@
   height: 9px;
   margin-right: 12px;
   content: '';
-<<<<<<< HEAD
-  background: url(./img/review-sprites.png?v=1458395850467);
-=======
-  background: url(./img/review-sprites.png?v=1458309731778);
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/review-sprites.png?v=1458399006764);
   background-position: -7px -45px;
   -webkit-transition: all .2s linear;
   transition: all .2s linear;
@@ -514,11 +502,7 @@
   display: block;
   width: 20px;
   content: '';
-<<<<<<< HEAD
-  background: url(./img/review-sprites.png?v=1458395850467);
-=======
-  background: url(./img/review-sprites.png?v=1458309731778);
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/review-sprites.png?v=1458399006764);
 }
 .review-dialog .add-comment-form .comment-action-wrapper .comment-status-message.success {
   padding-top: 8px;
@@ -526,11 +510,7 @@
 }
 .review-dialog .add-comment-form .comment-action-wrapper .comment-status-message.success:before {
   height: 14px;
-<<<<<<< HEAD
-  background: url(./img/review-sprites.png?v=1458395850467);
-=======
-  background: url(./img/review-sprites.png?v=1458309731778);
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/review-sprites.png?v=1458399006764);
   background-position: -7px -10px;
 }
 .review-dialog .add-comment-form .comment-action-wrapper .comment-status-message.fail:before {
@@ -765,11 +745,7 @@
 }
 @font-face {
   font-family: 'RobotoCondensedRegular';
-<<<<<<< HEAD
-  src: url(./font/robotocondensed-regular.woff?v=1458395850467) format('woff');
-=======
-  src: url(./font/robotocondensed-regular.woff?v=1458309731778) format('woff');
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  src: url(./font/robotocondensed-regular.woff?v=1458399006764) format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -784,11 +760,7 @@
 }
 #not-supported-page .not-supported-page-bg-table .not-supported-page-top-bg {
   height: 61%;
-<<<<<<< HEAD
-  background: url(./img/easy-supported-browser-top-part-bg.png?v=1458395850467) 0 0 repeat;
-=======
-  background: url(./img/easy-supported-browser-top-part-bg.png?v=1458309731778) 0 0 repeat;
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/easy-supported-browser-top-part-bg.png?v=1458399006764) 0 0 repeat;
 }
 #not-supported-page .not-supported-page-bg-table .not-supported-page-toothed-bg {
   height: 8px;
@@ -811,11 +783,7 @@
   height: 36px;
   width: 200px;
   margin: 30px;
-<<<<<<< HEAD
-  background: url(./img/easy-supported-browser-logo.png?v=1458395850467) 0 0 no-repeat;
-=======
-  background: url(./img/easy-supported-browser-logo.png?v=1458309731778) 0 0 no-repeat;
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/easy-supported-browser-logo.png?v=1458399006764) 0 0 no-repeat;
 }
 #not-supported-page .not-supported-page-markup-table .not-supported-page-content-cell {
   padding: 0 30px;
@@ -870,11 +838,7 @@
   height: 208px;
   width: 177px;
   margin: 0 auto;
-<<<<<<< HEAD
-  background: url(./img/easy-supported-browser-browser-bg.png?v=1458395850467) center bottom no-repeat;
-=======
-  background: url(./img/easy-supported-browser-browser-bg.png?v=1458309731778) center bottom no-repeat;
->>>>>>> 83d28ee8e512c0f704f001a574d7bb438c3f1dc6
+  background: url(./img/easy-supported-browser-browser-bg.png?v=1458399006764) center bottom no-repeat;
   text-decoration: none;
 }
 #not-supported-page .not-supported-page-markup-table .supported-browser-container.with-link:hover .supported-browser-title {

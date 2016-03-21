@@ -1,6 +1,6 @@
 ﻿import LearningPathStatementsProvider from 'reporting/learningPathStatementsProvider';
 import XApiProvider from 'reporting/xApiProvider';
-import FinishStatement from 'reporting/viewmodels/finishStatement';
+import ProgressedStatement from 'reporting/viewmodels/progressedStatement';
 
 var learningPathId = 'learningPathId';
 
@@ -60,8 +60,8 @@ describe('learningPathStatementsProvider:', () => {
             it('should return mapped instances of statement viewmodels', done => (async () => {
                 var reportingStatements = await LearningPathStatementsProvider.getLrsStatements({ entityId: learningPathId, take: 10, skip: 20 });
                 expect(reportingStatements.length).toBe(2);
-                expect(reportingStatements[0]).toBeInstanceOf(FinishStatement);
-                expect(reportingStatements[1]).toBeInstanceOf(FinishStatement);
+                expect(reportingStatements[0]).toBeInstanceOf(ProgressedStatement);
+                expect(reportingStatements[1]).toBeInstanceOf(ProgressedStatement);
             })().then(done));
 
         });

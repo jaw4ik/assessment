@@ -1,12 +1,12 @@
-﻿import FinishStatement from './finishStatement';
+﻿import ProgressedStatement from './progressedStatement';
 
 import ExpandableStatement from './expandableStatement';
-import ObjectiveStatement from './objectiveStatement';
+import SectionStatement from './sectionStatement';
 import XApiProvider from 'reporting/xApiProvider';
 import constants from 'constants';
 import localizationManager from 'localization/localizationManager';
 
-describe('viewmodel [FinishStatement]', () => {
+describe('viewmodel [ProgressedStatement]', () => {
     var lrsStatement,
         statement,
         attemptId,
@@ -23,17 +23,17 @@ describe('viewmodel [FinishStatement]', () => {
         attemptId = 'attemptId';
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50, actor: { name: 'name', email: 'email' } };
-        spyOn(XApiProvider, 'getObjectiveStatements').and.returnValue(Promise.resolve(masteredStatements));
+        spyOn(XApiProvider, 'getSectionStatements').and.returnValue(Promise.resolve(masteredStatements));
         spyOn(localizationManager, 'localize').and.callFake(function(localizationKey) {
             if (localizationKey === 'reportingInfoNotAvailable') {
                 return "N/A";
             }
         });
-        statement = new FinishStatement(lrsStatement);
+        statement = new ProgressedStatement(lrsStatement);
     });
 
     it('should be class', () => {
-        expect(FinishStatement).toBeFunction();
+        expect(ProgressedStatement).toBeFunction();
     });
 
     describe('[class]', () => {
@@ -47,26 +47,26 @@ describe('viewmodel [FinishStatement]', () => {
             });
 
             it('should return Not Available texts for name and email if they are not exist', () => {
-                var statementWithEmptyActor = new FinishStatement({ attemptId: attemptId, id: statementId, score: 50, actor: {} });
+                var statementWithEmptyActor = new ProgressedStatement({ attemptId: attemptId, id: statementId, score: 50, actor: {} });
                 expect(statementWithEmptyActor.learnerDisplayName).toBe('N/A (N/A)');
             });
         });
 
         it('should set passed to true if statement verb is passed', () => {
             lrsStatement.verb = constants.reporting.xApiVerbIds.passed;
-            statement = new FinishStatement(lrsStatement);
+            statement = new ProgressedStatement(lrsStatement);
             expect(statement.passed).toBeTruthy();
         });
 
         it('should set passed to false if statement verb is not passed', () => {
             lrsStatement.verb = constants.reporting.xApiVerbIds.failed;
-            statement = new FinishStatement(lrsStatement);
+            statement = new ProgressedStatement(lrsStatement);
             expect(statement.passed).toBeFalsy();
         });
 
         it('should set startedLrsStatement', () => {
             var started = { id: 1 };
-            statement = new FinishStatement(lrsStatement, started);
+            statement = new ProgressedStatement(lrsStatement, started);
             expect(statement.startedLrsStatement).toBe(started);
         });
 
@@ -76,7 +76,7 @@ describe('viewmodel [FinishStatement]', () => {
 
                 it('should set children to null', () => {
                     var started = { id: 1 };
-                    statement = new FinishStatement(lrsStatement, started, null);
+                    statement = new ProgressedStatement(lrsStatement, started, null);
                     expect(statement.children).toBeNull();
                 });
                 
@@ -87,7 +87,7 @@ describe('viewmodel [FinishStatement]', () => {
                 it('should set children to masteredStatements', () => {
                     var started = { id: 1 };
                     var mastered = [{ id: 1 }, { id: 2 }];
-                    statement = new FinishStatement(lrsStatement, started, mastered);
+                    statement = new ProgressedStatement(lrsStatement, started, mastered);
                     expect(statement.children()).toBe(mastered);
                 });
                 
@@ -102,18 +102,18 @@ describe('viewmodel [FinishStatement]', () => {
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call XApiProvider.getObjectiveStatements with correct args', () => {
+        it('should call XApiProvider.getSectionStatements with correct args', () => {
             statement.expandLoadAction();
-            expect(XApiProvider.getObjectiveStatements).toHaveBeenCalledWith(attemptId);
+            expect(XApiProvider.getSectionStatements).toHaveBeenCalledWith(attemptId);
         });
 
-        describe('when XApiProvider.getObjectiveStatements call was success', () => {
+        describe('when XApiProvider.getSectionStatements call was success', () => {
 
-            it('should fill children collection with ObjectiveStatement instances', done => (async () => {
+            it('should fill children collection with SectionStatement instances', done => (async () => {
                 await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
-                expect(statement.children()[0]).toBeInstanceOf(ObjectiveStatement);
-                expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
+                expect(statement.children()[0]).toBeInstanceOf(SectionStatement);
+                expect(statement.children()[1]).toBeInstanceOf(SectionStatement);
                 expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
                 expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
             })().then(done));

@@ -2,6 +2,7 @@
     <div class="r-table" data-bind="click: isExpandable ? (isExpanded() ? collapse : expand ) : null">
         <div class=" r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
         <div class="r-result">
+            <!-- ko if: isProgressed -->
             <!-- ko if: isFinished -->
             <!-- ko if: passed -->
             <span class="correct">
@@ -11,14 +12,6 @@
             </span>
             <!-- /ko -->
             <!-- ko ifnot: passed -->
-            <!-- ko if: isProgressed -->
-            <span class="started">
-                <span class="info-tooltip">
-                    <span data-bind="localize: { text: 'inProgress' }">In progress</span>
-                </span>
-            </span>
-            <!-- /ko -->
-            <!-- ko ifnot: isProgressed -->
             <span class="incorrect">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'failed' }">Failed</span>
@@ -26,8 +19,15 @@
             </span>
             <!-- /ko -->
             <!-- /ko -->
-            <!-- /ko -->
             <!-- ko ifnot: isFinished -->
+            <span class="started">
+                <span class="info-tooltip">
+                    <span data-bind="localize: { text: 'inProgress' }">In progress</span>
+                </span>
+            </span>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko ifnot: isProgressed -->
             <span class="started">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'inProgress' }">In progress</span>
@@ -41,10 +41,10 @@
         <!-- ko ifnot: hasScore -->
         <div class="r-score" data-bind="localize: { text: 'reportingInfoNotAvailable' }">N/A</div>
         <!-- /ko -->
-        <!-- ko ifnot: isFinished && !isProgressed -->
+        <!-- ko ifnot: isProgressed && isFinished -->
         <div class="r-date semibold italic" data-bind="localize: { text: 'reportingNotFinished'}">Not finished yet</div>
         <!-- /ko -->
-        <!-- ko if: isFinished && !isProgressed -->
+        <!-- ko if: isProgressed && isFinished -->
         <div class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }">date</div>
         <!-- /ko -->
     </div>
@@ -53,16 +53,16 @@
         <li class="r-table">
             <div class="r-course-dates">
                 <span data-bind="localize: { text: 'courseStartedAt' }">Course started at</span>&nbsp;<span class="r-date" data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>&nbsp;
-                <!-- ko if: isProgressed -->
+                <!-- ko ifnot: isFinished -->
                 <span class="lower" data-bind="localize: { text: 'and' }">and</span>&nbsp;<span class="lower" data-bind="localize: { text: 'reportingNotFinished' }">not finished yet</span>
                 <!-- /ko -->
-                <!-- ko ifnot: isProgressed -->
+                <!-- ko if: isFinished -->
                 <span data-bind="localize: { text: 'courseFinishedAt' }">and finished at</span>&nbsp;<span class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
                 <!-- /ko -->
             </div>
         </li>
         <!-- ko foreach: children -->
-        <!-- ko compose: { view: 'reporting/views/objectiveStatement', model: $data } --><!-- /ko -->
+        <!-- ko compose: { view: 'reporting/views/sectionStatement', model: $data } --><!-- /ko -->
         <!-- /ko -->
     </ul>
     <!-- /ko -->

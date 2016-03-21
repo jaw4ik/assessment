@@ -1,7 +1,7 @@
 ﻿import _ from 'underscore';
 import constants from 'constants';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
-import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
+import SectionStatement from 'reporting/viewmodels/sectionStatement';
 import XApiProvider from 'reporting/xApiProvider';
 import localizationManager from 'localization/localizationManager';
 
@@ -12,20 +12,21 @@ function getLearnerDisplayName(name, email) {
 }
 
 export default class extends ExpandableStatement {
-    constructor(finishedLrsStatement, startedLrsStatement, childStatements) {
-        super(finishedLrsStatement);
+    constructor(progressedLrsStatement, startedLrsStatement, childStatements) {
+        super(progressedLrsStatement);
         this.startedLrsStatement = startedLrsStatement;
         if (childStatements === null || childStatements) {
             childStatements ? this.children(childStatements) : this.children = null;
         }
         this.learnerDisplayName = getLearnerDisplayName(this.lrsStatement.actor.name, this.lrsStatement.actor.email);
+        this.isFinished = this.lrsStatement.verb !== constants.reporting.xApiVerbIds.progressed;
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
     async expandLoadAction() {
-        let statements = await XApiProvider.getObjectiveStatements(this.lrsStatement.attemptId, this.lrsStatement.date.getTime()),
-            objectiveStatements = _.map(statements, statement => new ObjectiveStatement(statement));
+        let statements = await XApiProvider.getSectionStatements(this.lrsStatement.attemptId, this.lrsStatement.date.getTime()),
+            sectionStatements = _.map(statements, statement => new SectionStatement(statement));
 
-        objectiveStatements.length ? this.children(objectiveStatements) : this.children = null;
+        sectionStatements.length ? this.children(sectionStatements) : this.children = null;
     }
 }
