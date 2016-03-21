@@ -68,13 +68,15 @@ describe('viewmodel [SectionStatement]', () => {
     describe('[expandLoadAction]', () => {
 
         it('should return promise', () => {
+            statement.lrsStatement.date = new Date(Date.now());
             expect(statement.expandLoadAction()).toBePromise();
         });
 
         it('should call xApiProvider.getQuestionStatements with correct args', done => (async () => {
             statementsDefer.resolve([]);
+            statement.lrsStatement.date = new Date(Date.now());
             await statement.expandLoadAction();
-            expect(XApiProvider.getQuestionStatements).toHaveBeenCalledWith(attemptId, statementId);
+            expect(XApiProvider.getQuestionStatements).toHaveBeenCalledWith(attemptId, statementId, statement.lrsStatement.date.getTime());
         })().then(done));
 
         describe('if there are no answered statements', () => {
@@ -84,6 +86,7 @@ describe('viewmodel [SectionStatement]', () => {
             });
 
             it('should set children to null', done => (async () => {
+                statement.lrsStatement.date = new Date(Date.now());
                 await statement.expandLoadAction();
                 expect(statement.children).toBeNull();
             })().then(done));
@@ -108,6 +111,7 @@ describe('viewmodel [SectionStatement]', () => {
             });
 
             it('should fill children collection with QuestionStatement instances', done => (async () => {
+                statement.lrsStatement.date = new Date(Date.now());
                 await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
                 expect(statement.children()[0]).toBeInstanceOf(AnsweredStatement);

@@ -2,6 +2,7 @@
 
 import StartedStatement from './startedStatement';
 import ProgressedStatement from './progressedStatement';
+import statementsCacheManager from 'reporting/statementsCacheManager';
 import dialog from 'plugins/dialog';
 import moment from 'moment';
 import eventTracker from 'eventTracker';
@@ -84,6 +85,8 @@ describe('ResultsBase instance', function () {
         window.moment = moment;
         spyOn(window, 'moment').and.returnValue(fakeMoment);
         spyOn(fakeMoment, 'format').and.returnValue(time);
+        spyOn(statementsCacheManager, 'applyLoadedChanges');
+        spyOn(statementsCacheManager, 'clearProgressedHistory');
         viewModel = new ResultsBase(repository.getById, statementsProvider.getLrsStatements, viewLocation);
     });
 
@@ -307,7 +310,8 @@ describe('ResultsBase instance', function () {
                     entityId: entityId,
                     embeded: false,
                     take: constants.results.pageSize + 1,
-                    skip: 0
+                    skip: 0,
+                    progressedHistory: undefined
                 });
                 done();
             });
@@ -550,7 +554,8 @@ describe('ResultsBase instance', function () {
                                 entityId: entityId,
                                 embeded: false,
                                 take: constants.results.pageSize + 1,
-                                skip: 5
+                                skip: 5,
+                                progressedHistory: undefined
                             });
                             done();
                         });
@@ -657,7 +662,7 @@ describe('ResultsBase instance', function () {
 
                 it('should get LRS statements', function (done) {
                     viewModel.downloadResults().fin(function () {
-                        expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith({ entityId: viewModel.entityId, embeded: undefined, take: undefined, skip: undefined });
+                        expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith({ entityId: viewModel.entityId, embeded: undefined, take: undefined, skip: undefined, progressedHistory: undefined });
                         done();
                     });
                 });

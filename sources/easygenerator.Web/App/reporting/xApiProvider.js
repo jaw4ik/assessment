@@ -83,6 +83,9 @@ function getGroupedStatements(filterCriteriaSpec) {
 }
 
 function filterStatementsByLatestDate(statements, latestDate) {
+    if (!statements) {
+        return statements;
+    }
     if (!latestDate) {
         return statements;
     }
@@ -90,6 +93,9 @@ function filterStatementsByLatestDate(statements, latestDate) {
 }
 
 function filterSectionStatements(statements) {
+    if (!statements) {
+        return statements;
+    }
     var sortedStatements = _.sortBy(statements, statement => statement.id);
     var resultStatements = [];
     if (!sortedStatements.length) {

@@ -75,7 +75,7 @@ describe('XApiProvider', () => {
     ];
 
     var embededStatements = [{
-        mastered: {
+        root: [{
             verb: { id: "http://adlnet.gov/expapi/verbs/mastered" },
             timestamp: "2014-11-15T07:45:59+00:00",
             actor: { mbox: "mailto:test@example.com", name: "vasyl" },
@@ -92,7 +92,7 @@ describe('XApiProvider', () => {
             context: {
                 registration: '223'
             }
-        },
+        }],
         answered: [
             {
                 verb: { id: "http://adlnet.gov/expapi/verbs/answered" },
@@ -255,7 +255,7 @@ describe('XApiProvider', () => {
                                     ],
                                     embeded: [
                                         {
-                                            mastered: embededStatements[0].mastered,
+                                            root: embededStatements[0].root,
                                             answered: embededStatements[0].answered,
                                             experienced: embededStatements[0].experienced
                                         }
@@ -276,7 +276,7 @@ describe('XApiProvider', () => {
                         expect(statements[0].root[0]).toBeInstanceOf(Statement);
                         expect(statements[0].root[1]).toBeInstanceOf(Statement);
                         expect(statements[1].root[0]).toBeInstanceOf(Statement);
-                        expect(statements[0].embeded[0].mastered).toBeInstanceOf(Statement);
+                        expect(statements[0].embeded[0].root[0]).toBeInstanceOf(Statement);
                         expect(statements[0].embeded[0].answered[0]).toBeInstanceOf(Statement);
                     })().then(done));
 
@@ -405,7 +405,8 @@ describe('XApiProvider', () => {
             XApiProvider.getSectionStatements(attemptId);
             expect(FilterCriteriaFactory.create).toHaveBeenCalledWith({ 
                 attemptIds: attemptId,
-                verbs: constants.reporting.xApiVerbIds.mastered
+                verbs: [constants.reporting.xApiVerbIds.mastered, constants.reporting.xApiVerbIds.progressed],
+                type: constants.reporting.xApiActivityTypes.objective
             });
         });
 
@@ -472,7 +473,7 @@ describe('XApiProvider', () => {
                 beforeEach(() => {
                     dfd.resolve({
                         statements: [
-                            embededStatements[0].mastered
+                            embededStatements[0].root[0]
                         ]
                     });
                 });

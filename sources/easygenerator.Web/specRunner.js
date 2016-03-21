@@ -168,7 +168,7 @@ function runSpecs(env) {
                 //#endregion
 
                 //#region reporting
-                /*'models/reporting/statement.spec',
+                'models/reporting/statement.spec',
                 'models/reporting/actor.spec',
                 'reporting/xApiFilterCriteriaFactory.spec',
                 'reporting/xApiProvider.spec',
@@ -183,7 +183,7 @@ function runSpecs(env) {
                 'reporting/viewmodels/resultsBase.spec',
                 'reporting/learningPathStatementsProvider.spec',
                 'reporting/courseStatementsProvider.spec',
-                'reporting/statementsCacheManager.spec',*/
+                'reporting/statementsCacheManager.spec',
                 //#endregion
 
                 //#region synchronization

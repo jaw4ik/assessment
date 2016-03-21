@@ -177,7 +177,6 @@
                 ];
 
                 var csvList = [generateCsvRow(csvHeader)];
-
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
                         var resultCsv = generateCsvRow([

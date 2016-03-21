@@ -4,8 +4,8 @@ import XApiProvider from 'reporting/xApiProvider';
 import StartedStatement from 'reporting/viewmodels/startedStatement';
 import ProgressedStatement from 'reporting/viewmodels/progressedStatement';
 import SectionStatement from 'reporting/viewmodels/sectionStatement';
-import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
 import AnsweredStatement from 'reporting/viewmodels/questionStatements/answeredStatement';
+import ExperiencedStatement from 'reporting/viewmodels/questionStatements/experiencedStatement';
 
 describe('CourseStatementsProvider:', () => {
 
@@ -29,6 +29,7 @@ describe('CourseStatementsProvider:', () => {
                             email: 'r@p.com'
                         },
                         score: null,
+                        date: new Date(Date.now() - 1000000),
                         verb: constants.reporting.xApiVerbIds.started
 
                     },
@@ -39,8 +40,9 @@ describe('CourseStatementsProvider:', () => {
                             name: 'roma',
                             email: 'r@p.com'
                         },
+                        date: new Date(Date.now()),
                         score: null,
-                        verb: constants.reporting.xApiVerbIds.passed
+                        verb: constants.reporting.xApiVerbIds.progressed
                     }
                 ]
             },
@@ -53,6 +55,7 @@ describe('CourseStatementsProvider:', () => {
                             name: 'roma',
                             email: 'r@p.com'
                         },
+                        date: new Date(Date.now() - 10000000),
                         score: null,
                         verb: constants.reporting.xApiVerbIds.passed
                     }
@@ -67,6 +70,7 @@ describe('CourseStatementsProvider:', () => {
                             name: 'roma',
                             email: 'r@p.com'
                         },
+                        date: new Date(Date.now() - 100000000),
                         score: null,
                         verb: constants.reporting.xApiVerbIds.started
 
@@ -86,6 +90,7 @@ describe('CourseStatementsProvider:', () => {
                             email: 'r@p.com'
                         },
                         score: null,
+                        date: new Date(Date.now() - 1000000),
                         verb: constants.reporting.xApiVerbIds.started
 
                     },
@@ -96,22 +101,34 @@ describe('CourseStatementsProvider:', () => {
                             name: 'roma',
                             email: 'r@p.com'
                         },
+                        date: new Date(Date.now()),
                         score: null,
                         verb: constants.reporting.xApiVerbIds.passed
                     }
                 ], 
                 embeded: [
                     {
-                        mastered: {
+                        root: [{
                             id: '11',
                             attemptId: '123',
                             actor: {
                                 name: 'roma',
                                 email: 'r@p.com'
                             },
+                            date: new Date(Date.now() - 100000),
                             score: null,
                             verb: constants.reporting.xApiVerbIds.mastered
-                        },
+                        },{
+                            id: '12',
+                            attemptId: '123',
+                            actor: {
+                                name: 'roma',
+                                email: 'r@p.com'
+                            },
+                            date: new Date(Date.now() - 1000000),
+                            score: null,
+                            verb: constants.reporting.xApiVerbIds.progressed
+                        }],
                         answered: [
                             {
                                 id: '1145',
@@ -120,9 +137,10 @@ describe('CourseStatementsProvider:', () => {
                                     name: 'roma',
                                     email: 'r@p.com'
                                 },
+                                date: new Date(Date.now() - 1000000),
                                 score: null,
                                 response: null,
-                                verb: constants.reporting.xApiVerbIds.mastered
+                                verb: constants.reporting.xApiVerbIds.answered
                             },
                             {
                                 id: '11456',
@@ -131,9 +149,10 @@ describe('CourseStatementsProvider:', () => {
                                     name: 'roma',
                                     email: 'r@p.com'
                                 },
+                                date: new Date(Date.now() - 1000000),
                                 score: null,
                                 response: null,
-                                verb: constants.reporting.xApiVerbIds.mastered
+                                verb: constants.reporting.xApiVerbIds.answered
                             }
                         ],
                         experienced: [
@@ -144,9 +163,10 @@ describe('CourseStatementsProvider:', () => {
                                     name: 'roma',
                                     email: 'r@p.com'
                                 },
+                                date: new Date(Date.now() - 1000000),
                                 score: null,
                                 response: null,
-                                verb: constants.reporting.xApiVerbIds.mastered
+                                verb: constants.reporting.xApiVerbIds.experienced
                             },
                             {
                                 id: '11456',
@@ -155,23 +175,25 @@ describe('CourseStatementsProvider:', () => {
                                     name: 'roma',
                                     email: 'r@p.com'
                                 },
+                                date: new Date(Date.now() - 1000000),
                                 score: null,
                                 response: null,
-                                verb: constants.reporting.xApiVerbIds.mastered
+                                verb: constants.reporting.xApiVerbIds.experienced
                             }
                         ]
                     },
                     {
-                        mastered: {
+                        root: [{
                             id: '112',
                             attemptId: '123',
                             actor: {
                                 name: 'roma',
                                 email: 'r@p.com'
                             },
+                            date: new Date(Date.now() - 10000),
                             score: null,
                             verb: constants.reporting.xApiVerbIds.mastered
-                        }
+                        }]
                     }
                 ]
             }
@@ -191,7 +213,7 @@ describe('CourseStatementsProvider:', () => {
         });
 
         it('should call XApiProvider getCourseStatements with correct args', () => {
-            CourseStatementsProvider.getLrsStatements({ entityId: entityId, take: 10, skip: 20 });
+            CourseStatementsProvider.getLrsStatements({ entityId: entityId, take: 10, skip: 20, progressedHistory: true });
             expect(XApiProvider.getCourseStatements).toHaveBeenCalledWith(entityId, undefined, 10, 20);
         });
 
@@ -219,22 +241,23 @@ describe('CourseStatementsProvider:', () => {
 
                 beforeEach(() => {
                     dfd.resolve(detailedStatements);
-                    spyOn(questionStatementFactory, 'createQuestionStatement').and.returnValue(new AnsweredStatement({}));
                 });
 
                 it('should return mapped instances of statement viewmodels', done => (async () => {
-                    var reportingStatements = await CourseStatementsProvider.getLrsStatements({ entityId: entityId, embeded: true, take: 10, skip: 20 });
+                    var reportingStatements = await CourseStatementsProvider.getLrsStatements({ entityId: entityId, embeded: true, take: 10, skip: 20, progressedHistory: true });
                     expect(reportingStatements.length).toBe(1);
                     expect(reportingStatements[0]).toBeInstanceOf(ProgressedStatement);
                     expect(reportingStatements[0].startedLrsStatement).toBe(detailedStatements[0].root[0]);
                     expect(reportingStatements[0].children().length).toBe(2);
-                    expect(reportingStatements[0].children()[0]).toBeInstanceOf(SectionStatement);
-                    expect(reportingStatements[0].children()[0].children().length).toBe(4);
-                    expect(reportingStatements[0].children()[0].children()[0]).toBeInstanceOf(AnsweredStatement);
-                    expect(reportingStatements[0].children()[0].children()[1]).toBeInstanceOf(AnsweredStatement);
-                    expect(reportingStatements[0].children()[0].children()[2]).toBeInstanceOf(AnsweredStatement);
-                    expect(reportingStatements[0].children()[0].children()[3]).toBeInstanceOf(AnsweredStatement);
-                    expect(reportingStatements[0].children()[1]).toBeInstanceOf(SectionStatement);
+                    expect(reportingStatements[0].children()[0].length).toBe(2);
+                    expect(reportingStatements[0].children()[0][0]).toBeInstanceOf(SectionStatement);
+                    expect(reportingStatements[0].children()[0][0].children().length).toBe(4);
+                    expect(reportingStatements[0].children()[0][0].children()[0]).toBeInstanceOf(AnsweredStatement);
+                    expect(reportingStatements[0].children()[0][0].children()[1]).toBeInstanceOf(AnsweredStatement);
+                    expect(reportingStatements[0].children()[0][0].children()[2]).toBeInstanceOf(ExperiencedStatement);
+                    expect(reportingStatements[0].children()[0][0].children()[3]).toBeInstanceOf(ExperiencedStatement);
+                    expect(reportingStatements[0].children()[1].length).toBe(1);
+                    expect(reportingStatements[0].children()[1][0]).toBeInstanceOf(SectionStatement);
                 })().then(done));
 
             });

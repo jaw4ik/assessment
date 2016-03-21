@@ -99,17 +99,20 @@ describe('viewmodel [ProgressedStatement]', () => {
     describe('[expandLoadAction]', () => {
 
         it('should return promise', () => {
+            statement.lrsStatement.date = new Date(Date.now());
             expect(statement.expandLoadAction()).toBePromise();
         });
 
         it('should call XApiProvider.getSectionStatements with correct args', () => {
+            statement.lrsStatement.date = new Date(Date.now());
             statement.expandLoadAction();
-            expect(XApiProvider.getSectionStatements).toHaveBeenCalledWith(attemptId);
+            expect(XApiProvider.getSectionStatements).toHaveBeenCalledWith(attemptId, statement.lrsStatement.date.getTime());
         });
 
         describe('when XApiProvider.getSectionStatements call was success', () => {
 
             it('should fill children collection with SectionStatement instances', done => (async () => {
+                statement.lrsStatement.date = new Date(Date.now());
                 await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
                 expect(statement.children()[0]).toBeInstanceOf(SectionStatement);
