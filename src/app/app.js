@@ -52,7 +52,6 @@
         function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache, attemptsLimiter) {
             $rootScope.$on('$routeChangeStart', function (event, next) {
 				var xapi = $location.search()['xapi'];
-				debugger;
 				if (isXapiDisabled()) {
 					settings.xApi.enabled = false;
                 }
