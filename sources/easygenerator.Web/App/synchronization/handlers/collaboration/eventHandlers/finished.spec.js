@@ -57,6 +57,6 @@ describe('synchronization collaboration [finished]', function () {
 
     it('should trigger app event', function () {
         handler(courseId);
-        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.finished, courseId);
+        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.finishedByCollaborator, courseId);
     });
 });

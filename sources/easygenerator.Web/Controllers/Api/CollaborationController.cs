@@ -110,6 +110,29 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/collaboration/finish")]
+        public ActionResult FinishCollaboration(Course course, string collaboratorEmail)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            if (collaboratorEmail != GetCurrentUsername())
+            {
+                return ForbiddenResult();
+            }
+
+            if (!course.RemoveCollaborator(_cloner, collaboratorEmail))
+            {
+                return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
         [Route("api/course/collaboration/invites")]
         public ActionResult GetCollaborationInvites()
         {

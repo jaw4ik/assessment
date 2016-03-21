@@ -1,0 +1,35 @@
+﻿<div class="dialog stop-coauthoring">
+    <div class="dialog-title-wrapper">
+        <div class="dialog-title-img"></div>
+        <div class="dialog-title" data-bind="localize: { text: 'stopCoauthoring' }"></div>
+        <div class="dialog-item-title single-line">
+            <span data-bind="localize: {text: 'stopCoauthoringInTheCourse'}"></span>
+            <span>&nbsp;„</span>
+            <span class="dialog-item-title-text" data-bind="text: courseTitle"></span>
+            <span>“ ?</span>
+        </div>
+        <div class="dialog-info-wrapper">
+            <div class="dialog-info" data-bind="scrollbar: {}">
+                <div class="dialog-info-scrollable-container">
+                    <h3 data-bind="localize: { text: 'importantInformation'}"></h3>
+                    <p data-bind="localize: { text: 'youWillNotBeAbleToEditTheCourseAnymore'}"></p>
+                    <p data-bind="localize: { text: 'allChangesYouHaveMadeWillRemain'}"></p>
+                    <p data-bind="localize: { text: 'courseWillBeRemovedFromListOfSharedCourses'}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-actions">
+        <button class="btn white grey-border cancel-delete-item-btn" data-bind="click: cancel, css:{ 'disabled': isStopping() }, disable: isStopping()">
+            <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
+        </button>
+        <button class="btn red delete-item-btn" data-bind="click: stopCollaboration, css:{ 'disabled': isStopping(), 'progress': isStopping() }, disable: isStopping()">
+            <!-- ko if: isStopping() -->
+            <div data-bind="preloader: { type: 'circular', settings: 'small white align-center' }"></div>
+            <!-- /ko -->
+            <!-- ko ifnot: isStopping() -->
+            <span class="btn-caption" data-bind="localize: { text: 'stopCoauthoring' }"></span>
+            <!-- /ko -->
+        </button>
+    </div>
+</div>

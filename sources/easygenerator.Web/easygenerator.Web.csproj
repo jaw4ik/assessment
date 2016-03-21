@@ -663,6 +663,10 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\commands\collaboration\finishCollaborationCommand.js" />
+    <Content Include="App\commands\collaboration\finishCollaborationCommand.spec.js">
+      <DependentUpon>finishCollaborationCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\createDocumentCommand.js" />
     <Content Include="App\commands\createDocumentCommand.spec.js">
       <DependentUpon>createDocumentCommand.js</DependentUpon>
@@ -675,6 +679,36 @@
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
     <Content Include="App\core\bootstrap\visible.js" />
+    <Content Include="App\dialogs\collaboration\addCollaborator.js">
+      <DependentUpon>addCollaborator.html</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\addCollaborator.spec.js">
+      <DependentUpon>addCollaborator.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\collaboration.js">
+      <DependentUpon>collaboration.html</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\collaboration.spec.js">
+      <DependentUpon>collaboration.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\collaborator.js">
+      <DependentUpon>collaborator.html</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\collaborator.spec.js">
+      <DependentUpon>collaborator.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\stopCollaboration.html" />
+    <Content Include="App\dialogs\collaboration\stopCollaboration.js">
+      <DependentUpon>stopCollaboration.html</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\stopCollaboration.spec.js">
+      <DependentUpon>stopCollaboration.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\stopCollaboration\stopCollaboration.html" />
+    <Content Include="App\dialogs\course\stopCollaboration\stopCollaboration.js" />
+    <Content Include="App\dialogs\course\stopCollaboration\stopCollaboration.spec.js">
+      <DependentUpon>stopCollaboration.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\bindingHandlers\hightlightSection.js" />
     <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.html" />
     <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.js" />
@@ -1064,15 +1098,7 @@
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
     <Content Include="App\dialogs\collaboration\collaboration.html" />
-    <Content Include="App\dialogs\collaboration\collaboration.js" />
-    <Content Include="App\dialogs\collaboration\collaboration.spec.js">
-      <DependentUpon>collaboration.js</DependentUpon>
-    </Content>
     <Content Include="App\dialogs\collaboration\collaborator.html" />
-    <Content Include="App\dialogs\collaboration\collaborator.js" />
-    <Content Include="App\dialogs\collaboration\collaborator.spec.js">
-      <DependentUpon>collaborator.js</DependentUpon>
-    </Content>
     <Content Include="App\dialogs\course\changeTemplate\changeTemplate.html" />
     <Content Include="App\dialogs\course\changeTemplate\changeTemplate.js" />
     <Content Include="App\dialogs\course\changeTemplate\changeTemplate.spec.js">
@@ -3324,10 +3350,6 @@
     <Content Include="App\constants.js" />
     <Content Include="App\dataContext.js" />
     <Content Include="App\dialogs\collaboration\addCollaborator.html" />
-    <Content Include="App\dialogs\collaboration\addCollaborator.js" />
-    <Content Include="App\dialogs\collaboration\addCollaborator.spec.js">
-      <DependentUpon>addCollaborator.js</DependentUpon>
-    </Content>
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
       <DependentUpon>errorHandlingConfiguration.js</DependentUpon>

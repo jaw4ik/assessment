@@ -1,85 +1,109 @@
-﻿define(['eventTracker', 'plugins/dialog', 'dialogs/collaboration/addCollaborator', 'constants', 'plugins/router', 'repositories/collaboratorRepository', 'localization/localizationManager',
-    'durandal/app', 'userContext', 'dialogs/collaboration/collaborator', 'guard'],
-    function (eventTracker, dialog, addCollaboratorViewModel, constants, router, repository, localizationManager, app, userContext, vmCollaborator, guard) {
-        "use strict";
+﻿import ko from 'knockout';
+import _ from 'underscore';
+import addCollaboratorViewModel from 'dialogs/collaboration/addCollaborator';
+import stopCollaborationViewModel from 'dialogs/collaboration/stopCollaboration';
+import constants from 'constants';
+import repository from 'repositories/collaboratorRepository';
+import app from 'durandal/app';
+import userContext from 'userContext';
+import Collaborator from 'dialogs/collaboration/collaborator';
+import guard from 'guard';
 
-        var viewModel = {
-            isShown: ko.observable(false),
-            collaborationWarning: ko.observable(''),
-            show: show,
-            hide: hide,
-            courseId: '',
-            courseOwner: '',
-            collaboratorAdded: collaboratorAdded,
-            collaboratorRemoved: collaboratorRemoved,
-            addCollaboratorViewModel: addCollaboratorViewModel,
-            isLoadingCollaborators: ko.observable(false),
-            collaborators: ko.observableArray([])
-        };
+class Collaboration{
+    constructor() {
+        this.isShown = ko.observable(false);
+        this.collaborationWarning = ko.observable('');
+        this.courseId = '';
+        this.courseOwner = '';
+        this._collaboratorAddedProxy = this.collaboratorAdded.bind(this);
+        this._collaboratorRemovedProxy = this.collaboratorRemoved.bind(this);
+        this.addCollaboratorViewModel = addCollaboratorViewModel;
+        this.stopCollaborationViewModel = stopCollaborationViewModel;
+        this.isLoadingCollaborators = ko.observable(false);
+        this.collaborators = ko.observableArray([]);
+        this.isUserCourseOwner = ko.observable(false);
 
-        return viewModel;
-
-        function show(courseId, courseOwner) {
-            guard.throwIfNotString(courseId, 'courseId is not a string');
-            guard.throwIfNotString(courseOwner, 'courseOwner is not a string');
-
-            reset();
-            viewModel.courseOwner = courseOwner;
-            addCollaboratorViewModel.isEnabled(false);
-            viewModel.isLoadingCollaborators(true);
-
-            viewModel.isShown(true);
-
-            viewModel.courseId = courseId;
-            app.on(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
-            app.on(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
-
-            repository.getCollection(viewModel.courseId).then(function (collaborators) {
-                var collaboratorsList = _.chain(collaborators)
-                       .sortBy(function (item) {
-                           return item.createdOn;
-                       })
-                       .map(function (item) {
-                           return new vmCollaborator(courseOwner, item);
-                       })
-                       .value();
-
-                viewModel.collaborators(collaboratorsList);
-
-                viewModel.isLoadingCollaborators(false);
-                addCollaboratorViewModel.isEnabled(true);
-            });
-        }
-
-        function collaboratorAdded(collaborator) {
-            var items = viewModel.collaborators();
-            items.push(new vmCollaborator(viewModel.courseOwner, collaborator));
-            items = _.sortBy(items, function (item) {
-                return item.createdOn;
-            });
-
-            viewModel.collaborators(items);
-        }
-
-        function collaboratorRemoved(collaboratorEmail) {
-            viewModel.collaborators(_.reject(viewModel.collaborators(), function (item) {
-                return item.email == collaboratorEmail;
-            }));
-        }
-
-        function hide() {
-            app.off(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
-            app.off(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
-
-            _.each(viewModel.collaborators(), function (item) {
-                item.deactivate();
-            });
-
-            viewModel.isShown(false);
-        }
-
-        function reset() {
-            addCollaboratorViewModel.reset();
-        }
+        this.stopCollaborationViewModel.init(this.hide.bind(this));
     }
-);
+
+    async show(courseId, courseOwner) {
+        guard.throwIfNotString(courseId, 'courseId is not a string');
+        guard.throwIfNotString(courseOwner, 'courseOwner is not a string');
+
+        this.reset();
+        this.courseOwner = courseOwner;
+        this.isUserCourseOwner(userContext.identity.email === courseOwner);
+        this.addCollaboratorViewModel.isEnabled(false);
+        this.isLoadingCollaborators(true);
+
+        this.isShown(true);
+
+        this.courseId = courseId;
+        app.on(constants.messages.course.collaboration.collaboratorAdded + this.courseId, this._collaboratorAddedProxy);
+        app.on(constants.messages.course.collaboration.collaboratorRemoved + this.courseId, this._collaboratorRemovedProxy);
+
+        var collaborators = await repository.getCollection(this.courseId);
+        var collaboratorsList = _.chain(collaborators)
+            .map(function(item) {
+                return new Collaborator(courseOwner, item);
+            })
+            .value();
+
+        this.collaborators(this.sortCollaborators(collaboratorsList));
+
+        this.isLoadingCollaborators(false);
+        this.addCollaboratorViewModel.isEnabled(true);
+    }
+
+    hide() {
+        app.off(constants.messages.course.collaboration.collaboratorAdded + this.courseId, this._collaboratorAddedProxy);
+        app.off(constants.messages.course.collaboration.collaboratorRemoved + this.courseId, this._collaboratorRemovedProxy);
+
+        _.each(this.collaborators(), function(item) {
+            item.deactivate();
+        });
+
+        this.isShown(false);
+    }
+
+    collaboratorAdded(collaborator) {
+        var items = this.collaborators();
+        items.push(new Collaborator(this.courseOwner, collaborator));
+
+        this.collaborators(this.sortCollaborators(items));
+    }
+
+    collaboratorRemoved(collaboratorEmail) {
+        this.collaborators(_.reject(this.collaborators(), function(item) {
+            return item.email === collaboratorEmail;
+        }));
+    }
+
+    reset() {
+        this.stopCollaborationViewModel.reset();
+        this.addCollaboratorViewModel.reset();
+    }
+
+    sortCollaborators(collaborators) {
+        let owner = _.find(collaborators, item => item.isOwner);
+        let currentUser = _.find(collaborators, item => item.isCurrentUser && !item.isOwner);
+
+        let items = _.chain(collaborators)
+            .without(owner, currentUser)
+            .sortBy(collaborators, function(item) {
+                return item.createdOn;
+            })
+            .value();
+
+        if (currentUser) {
+            items.unshift(currentUser);
+        }
+        if (owner){
+            items.unshift(owner);
+        }
+
+        return items;
+    }
+}
+
+export default new Collaboration();

@@ -1,4 +1,4 @@
-﻿import ctor from './collaborator';
+﻿import Collaborator from './collaborator';
 
 import app from 'durandal/app';
 import constants from 'constants';
@@ -6,8 +6,9 @@ import repository from 'repositories/collaboratorRepository';
 import notify from 'notify';
 import router from 'plugins/router';
 import eventTracker from 'eventTracker';
+import userContext from 'userContext';
 
-describe('viewModel dialog [collaborator]', function () {
+describe('viewModel dialog [collaborator]', () => {
 
     var viewModel,
     ownerEmail = "user@user.com",
@@ -15,7 +16,7 @@ describe('viewModel dialog [collaborator]', function () {
     fullName = "Full Name",
     id = 'id';
 
-    beforeEach(function () {
+    beforeEach(() => {
         spyOn(app, 'on');
         spyOn(app, 'off');
         spyOn(app, 'trigger');
@@ -24,232 +25,261 @@ describe('viewModel dialog [collaborator]', function () {
         spyOn(eventTracker, 'publish');
     });
 
-    describe('email:', function () {
+    describe('email:', () => {
 
-        it('should be defined', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+        it('should be defined', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, id: 'id' });
             expect(viewModel.email).toBe(email);
         });
 
     });
 
-    describe('isOwner:', function () {
-        it('should be defined', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
+    describe('isOwner:', () => {
+        it('should be defined', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
             expect(viewModel.isOwner).toBeDefined();
         });
 
-        describe('when collaborator is owner', function () {
-            it('should be true', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
+        describe('when collaborator is owner', () => {
+            it('should be true', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
                 expect(viewModel.isOwner).toBeTruthy();
             });
         });
 
-        describe('when collaborator is not owner', function () {
-            it('should be false', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: 'oppa@some.style' });
+        describe('when collaborator is not owner', () => {
+            it('should be false', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: 'oppa@some.style' });
                 expect(viewModel.isOwner).toBeFalsy();
             });
         });
     });
 
-    describe('canBeRemoved:', function () {
-        it('should be defined', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
-            expect(viewModel.canBeRemoved).toBeDefined();
+    describe('isCurrentUser:', () => {
+        it('should be defined', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
+            expect(viewModel.isCurrentUser).toBeDefined();
         });
 
-        describe('when collaborator is owner', function () {
-            it('should be false', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
-                expect(viewModel.canBeRemoved).toBeFalsy();
+        describe('when collaborator is current user', () => {
+            beforeEach(() => {
+                userContext.identity.email = ownerEmail;
+            });
+
+            it('should be true', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
+                expect(viewModel.isCurrentUser).toBeTruthy();
             });
         });
 
-        describe('when collaborator is not owner', function () {
-            it('should be false', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: 'oppa@some.style' });
-                expect(viewModel.canBeRemoved).toBeTruthy();
+        describe('when collaborator is not current user', () => {
+            beforeEach(() => {
+                userContext.identity.email = 'anonymous';
+            });
+
+            it('should be false', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
+                expect(viewModel.isCurrentUser).toBeFalsy();
             });
         });
     });
 
-    describe('isRegistered:', function () {
+    describe('canBeRemoved:', () => {
+        it('should be defined', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
+            expect(viewModel.canBeRemoved).toBeDefined();
+        });
 
-        it('should be observable', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
+        describe('when current user is course owner', () => {
+            beforeEach(() => {
+                userContext.identity.email = ownerEmail;
+            });
+
+            describe('when collaborator is owner', () => {
+                it('should be false', () => {
+                    viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
+                    expect(viewModel.canBeRemoved).toBeFalsy();
+                });
+            });
+
+            describe('when collaborator is not owner', () => {
+                it('should be false', () => {
+                    viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: 'oppa@some.style' });
+                    expect(viewModel.canBeRemoved).toBeTruthy();
+                });
+            });
+        });
+
+        describe('when current user is not course owner', () => {
+            beforeEach(() => {
+                userContext.identity.email = 'anonymous';
+            });
+
+            it('should be false', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
+                expect(viewModel.canBeRemoved).toBeFalsy();
+            });
+        });
+    });
+
+    describe('isRegistered:', () => {
+
+        it('should be observable', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
             expect(viewModel.isRegistered).toBeObservable();
         });
     });
 
-    describe('isAccepted:', function () {
+    describe('isAccepted:', () => {
 
-        it('should be observable', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
+        it('should be observable', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
             expect(viewModel.isAccepted).toBeObservable();
         });
     });
 
-    describe('id', function () {
+    describe('id', () => {
 
-        it('should be defined', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('should be defined', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.id).toBe('id');
         });
 
     });
 
-    describe('name:', function () {
+    describe('name:', () => {
 
-        beforeEach(function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
+        beforeEach(() => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
         });
 
-        it('should be observable', function () {
+        it('should be observable', () => {
             expect(viewModel.name).toBeObservable();
         });
 
-        it('should be defined', function () {
+        it('should be defined', () => {
             expect(viewModel.name()).toBeDefined();
         });
 
-        it('should be equal to fullname if exists', function () {
+        it('should be equal to fullname if exists', () => {
             expect(viewModel.name()).toBe(fullName);
         });
 
-        it('should be equal to email if fullname is null', function () {
-            viewModel = ctor(ownerEmail, { fullName: null, email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('should be equal to email if fullname is null', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: null, email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.name()).toBe(email);
         });
 
-        it('should be equal to email if fullname is undefined', function () {
-            viewModel = ctor(ownerEmail, { fullName: undefined, email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('should be equal to email if fullname is undefined', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: undefined, email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.name()).toBe(email);
         });
 
-        it('should be equal to email if fullname is empty string', function () {
-            viewModel = ctor(ownerEmail, { fullName: '', email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('should be equal to email if fullname is empty string', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '', email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.name()).toBe(email);
         });
 
-        it('should be equal to email if fullname is whitespace string', function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('should be equal to email if fullname is whitespace string', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.name()).toBe(email);
         });
     });
 
-    describe('avatarLetter:', function () {
+    describe('avatarLetter:', () => {
 
-        it('should be computed', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
+        it('should be computed', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
             expect(viewModel.avatarLetter).toBeComputed();
         });
 
-        describe('when collaborator fullName is defined', function () {
-            it('should be equal to first letter of collaborator fullName', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, registered: true });
+        describe('when collaborator fullName is defined', () => {
+            it('should be equal to first letter of collaborator fullName', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail, registered: true });
                 expect(viewModel.avatarLetter()).toBe(fullName.charAt(0));
             });
         });
 
-        describe('when collaborator fullName is not defined', function () {
-            it('should be equal to first letter of collaborator email', function () {
-                viewModel = ctor(ownerEmail, { fullName: '', email: ownerEmail, registered: true });
+        describe('when collaborator fullName is not defined', () => {
+            it('should be equal to first letter of collaborator email', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: '', email: ownerEmail, registered: true });
                 expect(viewModel.avatarLetter()).toBe(ownerEmail.charAt(0));
             });
         });
 
-        describe('when collaborator is not registered', function () {
-            it('should be \'\'', function () {
-                viewModel = ctor(ownerEmail, { fullName: '', email: ownerEmail, registered: false });
+        describe('when collaborator is not registered', () => {
+            it('should be \'\'', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: '', email: ownerEmail, registered: false });
                 expect(viewModel.avatarLetter()).toBe('');
             });
         });
     });
 
-    describe('isRemoveConfirmationShown:', function () {
-        beforeEach(function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+    describe('isRemoveConfirmationShown:', () => {
+        beforeEach(() => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
         });
 
-        it('shoud be observable', function () {
+        it('shoud be observable', () => {
             expect(viewModel.isRemoveConfirmationShown).toBeObservable();
         });
 
-        it('shoud be true by default if collaborator is deleting', function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: 'deleting' });
+        it('shoud be true by default if collaborator is deleting', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: 'deleting' });
             expect(viewModel.isRemoveConfirmationShown()).toBeTruthy();
         });
 
-        it('shoud be false by default if collaborator is not deleting', function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('shoud be false by default if collaborator is not deleting', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.isRemoveConfirmationShown()).toBeFalsy();
         });
 
     });
 
-    describe('isRemoveSuccessMessageShown:', function () {
-        beforeEach(function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+    describe('isRemoveSuccessMessageShown:', () => {
+        beforeEach(() => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
         });
 
-        it('shoud be observable', function () {
+        it('shoud be observable', () => {
             expect(viewModel.isRemoveSuccessMessageShown).toBeObservable();
         });
 
-        it('should be false', function () {
+        it('should be false', () => {
             expect(viewModel.isRemoveSuccessMessageShown()).toBeFalsy();
         });
     });
 
-    describe('isRemoving:', function () {
-        beforeEach(function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+    describe('isRemoving:', () => {
+        beforeEach(() => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
         });
 
-        it('shoud be observable', function () {
+        it('shoud be observable', () => {
             expect(viewModel.isRemoving).toBeObservable();
         });
 
-        it('shoud be true by default if collaborator is deleting', function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: 'deleting' });
+        it('shoud be true by default if collaborator is deleting', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: 'deleting' });
             expect(viewModel.isRemoving()).toBeTruthy();
         });
 
-        it('shoud be false by default if collaborator is not deleting', function () {
-            viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+        it('shoud be false by default if collaborator is not deleting', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
             expect(viewModel.isRemoving()).toBeFalsy();
         });
     });
 
-    describe('deactivate', function () {
+    describe('deactivate', () => {
 
-        it('should be a function', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+        it('should be a function', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, id: 'id' });
             expect(viewModel.deactivate).toBeFunction();
         });
 
-        it('should unsubscribe from collaboratorRegistered event', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
-
-            viewModel.deactivate();
-
-            expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
-        });
-
-
-        it('should unsubscribe from collaboration.inviteAccepted event', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
-
-            viewModel.deactivate();
-
-            expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-        });
-
-        describe('when removing is not in progress', function () {
-            it('should set isRemoveConfirmationShown to false', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+        describe('when removing is not in progress', () => {
+            it('should set isRemoveConfirmationShown to false', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, id: 'id' });
                 viewModel.isRemoveConfirmationShown(true);
                 viewModel.isRemoving(false);
 
@@ -259,9 +289,9 @@ describe('viewModel dialog [collaborator]', function () {
             });
         });
 
-        describe('when removing is in progress', function () {
-            it('should not set isRemoveConfirmationShown to false', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+        describe('when removing is in progress', () => {
+            it('should not set isRemoveConfirmationShown to false', () => {
+                viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, id: 'id' });
                 viewModel.isRemoveConfirmationShown(true);
                 viewModel.isRemoving(true);
 
@@ -273,35 +303,16 @@ describe('viewModel dialog [collaborator]', function () {
 
     });
 
-    describe('when collaborator is not registered', function () {
+    describe('collaboratorRegistered:', () => {
 
-        it('should subscribe for collaboratorRegistered event', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
-
-            expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
-        });
-    });
-
-    describe('when collaborator is not accepted', function () {
-
-        it('should subscribe for collaboration.inviteAccepted event', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id', isAccepted: false });
-
-            expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-        });
-    });
-
-
-    describe('collaboratorRegistered:', function () {
-
-        it('should be a function', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+        it('should be a function', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email });
 
             expect(viewModel.collaboratorRegistered).toBeFunction();
         });
 
-        it('should update name', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+        it('should update name', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email });
             viewModel.name('');
 
             viewModel.collaboratorRegistered({ fullName: 'Registered user' });
@@ -309,188 +320,171 @@ describe('viewModel dialog [collaborator]', function () {
             expect(viewModel.name()).toBe('Registered user');
         });
 
-        it('should set registered to true', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: false });
+        it('should set registered to true', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, registered: false });
 
             viewModel.collaboratorRegistered({ fullName: 'Registered user' });
 
             expect(viewModel.isRegistered()).toBe(true);
         });
-
-        it('should unsubscribe from collaboratorRegister event', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
-
-            viewModel.collaboratorRegistered({ fullName: 'Registered user' });
-
-            expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
-        });
-
     });
 
     describe('collaborationAccepted:', function() {
 
-        it('should set isAccepted to true', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, isAccepted: false });
+        it('should set isAccepted to true', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, isAccepted: false });
 
             viewModel.collaborationAccepted();
 
             expect(viewModel.isAccepted()).toBeTruthy();
         });
-
-        it('should unsubscribe from collaboration.inviteAccepted event', function () {
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
-
-            viewModel.collaborationAccepted();
-
-            expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-        });
     });
 
-    describe('showRemoveConfirmation:', function () {
-        it('should set isRemoveConfirmationShown to true', function () {
+    describe('showRemoveConfirmation:', () => {
+        it('should set isRemoveConfirmationShown to true', () => {
             viewModel.isRemoveConfirmationShown(false);
             viewModel.showRemoveConfirmation();
             expect(viewModel.isRemoveConfirmationShown()).toBeTruthy();
         });
     });
 
-    describe('hideRemoveConfirmation:', function () {
-        it('should set isRemoveConfirmationShown to false', function () {
+    describe('hideRemoveConfirmation:', () => {
+        it('should set isRemoveConfirmationShown to false', () => {
             viewModel.isRemoveConfirmationShown(true);
             viewModel.hideRemoveConfirmation();
             expect(viewModel.isRemoveConfirmationShown()).toBeFalsy();
         });
     });
 
-    describe('removeCollaborator:', function () {
+    describe('removeCollaborator:', () => {
 
         var removeCollaborator;
         var courseId = 'courseId';
         var collaborator;
         var errorMessage;
 
-        beforeEach(function () {
+        beforeEach(() => {
             collaborator = { email: 'email' };
             errorMessage = 'error';
             removeCollaborator = Q.defer();
             spyOn(repository, 'remove').and.returnValue(removeCollaborator.promise);;
             router.routeData({ courseId: courseId });
-            viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: id });
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: id });
         });
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.removeCollaborator).toBeFunction();
         });
 
-        it('should isRemoving to true', function () {
+        it('should isRemoving to true', () => {
             viewModel.isRemoving(false);
             viewModel.removeCollaborator();
             expect(viewModel.isRemoving()).toBeTruthy();
         });
 
-        it('should send event \'Remove collaborator\'', function () {
+        it('should send event \'Remove collaborator\'', () => {
             viewModel.removeCollaborator();
             expect(eventTracker.publish).toHaveBeenCalledWith('Remove collaborator');
         });
 
-        it('shodul trigger event about starting deleting the collaboration', function () {
+        it('shodul trigger event about starting deleting the collaboration', () => {
             viewModel.removeCollaborator();
             expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.started + id, id);
         });
 
-        it('should remove collaborator', function () {
+        it('should remove collaborator', () => {
             viewModel.removeCollaborator();
             expect(repository.remove).toHaveBeenCalledWith(courseId, email);
         });
 
-        describe('when collaborator removed successfully', function () {
+        describe('when collaborator removed successfully', () => {
 
-            beforeEach(function () {
+            beforeEach(() => {
                 removeCollaborator.resolve(collaborator);
             });
 
-            it('should trigger deleting complete event', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should trigger deleting complete event', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.completed + id, collaborator);
                     done();
                 });
             });
 
-            it('should trigger collaborator removed event', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should trigger collaborator removed event', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaborator.email);
                     done();
                 });
             });
 
-            it('should not trigger deleting failed event', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should not trigger deleting failed event', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.failed + id, errorMessage);
                     done();
                 });
             });
 
-            it('should set isRemoving to false', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should set isRemoving to false', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(viewModel.isRemoving()).toBeFalsy();
                     done();
                 });
             });
 
-            it('should set isRemoveSuccessMessageShown to true', function (done) {
+            it('should set isRemoveSuccessMessageShown to true', done => {
                 viewModel.isRemoveSuccessMessageShown(false);
-                viewModel.removeCollaborator().fin(function () {
+                viewModel.removeCollaborator().fin(() => {
                     expect(viewModel.isRemoveSuccessMessageShown()).toBeTruthy();
                     done();
                 });
             });
 
-            it('should not set isRemoveConfirmationShown to false', function (done) {
+            it('should not set isRemoveConfirmationShown to false', done => {
                 viewModel.isRemoveConfirmationShown(true);
-                viewModel.removeCollaborator().fin(function () {
+                viewModel.removeCollaborator().fin(() => {
                     expect(viewModel.isRemoveConfirmationShown()).toBeTruthy();
                     done();
                 });
             });
         });
 
-        describe('when collaborator not removed', function () {
+        describe('when collaborator not removed', () => {
 
-            beforeEach(function () {
+            beforeEach(() => {
                 removeCollaborator.reject(errorMessage);
             });
 
-            it('should trigger deleting failed event', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should trigger deleting failed event', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.failed + id, errorMessage);
                     done();
                 });
             });
 
-            it('should not trigger deleting complete event', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should not trigger deleting complete event', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.completed + id, collaborator);
                     done();
                 });
             });
 
-            it('should not trigger collaborator removed event', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should not trigger collaborator removed event', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaborator.email);
                     done();
                 });
             });
 
-            it('should isRemoving to false', function (done) {
-                viewModel.removeCollaborator().fin(function () {
+            it('should isRemoving to false', done => {
+                viewModel.removeCollaborator().fin(() => {
                     expect(viewModel.isRemoving()).toBeFalsy();
                     done();
                 });
             });
 
-            it('should isRemoveConfirmationShown to false', function (done) {
+            it('should isRemoveConfirmationShown to false', done => {
                 viewModel.isRemoveConfirmationShown(true);
-                viewModel.removeCollaborator().fin(function () {
+                viewModel.removeCollaborator().fin(() => {
                     expect(viewModel.isRemoveConfirmationShown()).toBeFalsy();
                     done();
                 });

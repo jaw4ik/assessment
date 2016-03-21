@@ -49,7 +49,7 @@ class QuestionModalView {
             this.isQuestionViewReady(false);
         });
 
-        app.on(constants.messages.course.collaboration.finished, _courseDeleted.get(this).bind(this));
+        app.on(constants.messages.course.collaboration.finishedByCollaborator, _courseDeleted.get(this).bind(this));
         app.on(constants.messages.course.deletedByCollaborator, _courseDeleted.get(this).bind(this));
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionsDeleted.get(this).bind(this));

@@ -85,12 +85,14 @@ function runSpecs(env) {
                 'commands/updateDocumentCommand.spec',
                 'commands/duplicateCourseCommand.spec',
                 'commands/presentationCourseImportCommand.spec',
+                'commands/collaboration/finishCollaborationCommand.spec',
                 //#endregion commands
 
                 //#region dialogs
                 'dialogs/collaboration/addCollaborator.spec',
                 'dialogs/collaboration/collaboration.spec',
                 'dialogs/collaboration/collaborator.spec',
+                'dialogs/collaboration/stopCollaboration.spec',
                 'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
                 'dialogs/video/video.spec',
                 'dialogs/audio/chooseVoiceOver.spec',
@@ -109,6 +111,7 @@ function runSpecs(env) {
                 'dialogs/course/publishCourse/defaultPublish.spec',
                 'dialogs/course/publishCourse/customPublish.spec',
                 'dialogs/course/delete/deleteCourse.spec',
+                'dialogs/course/stopCollaboration/stopCollaboration.spec',
                 'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
                 'dialogs/releaseNotes/commands/getReleaseNote.spec',
                 'dialogs/releaseNotes/releaseNotes.spec',

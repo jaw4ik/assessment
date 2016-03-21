@@ -1,99 +1,97 @@
-﻿define(['localization/localizationManager', 'durandal/app', 'constants', 'repositories/collaboratorRepository', 'plugins/router', 'eventTracker'],
-    function (localizationManager, app, constants, collaboratorRepository, router, eventTracker) {
+﻿import ko from 'knockout';
+import _ from 'underscore';
+import constants from 'constants';
+import collaboratorRepository from 'repositories/collaboratorRepository';
+import app from 'durandal/app';
+import userContext from 'userContext';
+import router from 'plugins/router';
+import eventTracker from 'eventTracker';
 
-        var events = {
-            removeCollaborator: 'Remove collaborator'
-        };
+var events = {
+    removeCollaborator: 'Remove collaborator'
+};
 
-        var ctor = function (courseOwner, collaborator) {
-            var viewModel = {
-                id: collaborator.id,
-                email: collaborator.email,
-                isOwner: collaborator.email == courseOwner,
-                isRegistered: ko.observable(collaborator.registered),
-                isAccepted: ko.observable(collaborator.isAccepted),
-                name: ko.observable(_.isNullOrUndefined(collaborator.fullName) || _.isEmptyOrWhitespace(collaborator.fullName) ? collaborator.email : collaborator.fullName),
-                collaboratorRegistered: collaboratorRegistered,
-                collaborationAccepted: collaborationAccepted,
-                removeCollaborator: removeCollaborator,
-                showRemoveConfirmation: showRemoveConfirmation,
-                hideRemoveConfirmation: hideRemoveConfirmation,
-                deactivate: deactivate
-            }
+export default class Collaborator {
+    constructor(courseOwner, collaborator) {
+        this.id = collaborator.id;
+        this.email = collaborator.email;
+        this.isOwner = collaborator.email === courseOwner;
+        this.isCurrentUser = collaborator.email === userContext.identity.email;
+        this.isRegistered = ko.observable(collaborator.registered);
+        this.isAccepted = ko.observable(collaborator.isAccepted);
+        this.name = ko.observable(_.isNullOrUndefined(collaborator.fullName) || _.isEmptyOrWhitespace(collaborator.fullName) ? collaborator.email : collaborator.fullName);
+        this.avatarLetter = ko.computed(() => {
+            return this.isRegistered() ? this.name().charAt(0) : '';
+        });
 
-            viewModel.avatarLetter = ko.computed(function () {
-                return viewModel.isRegistered() ? viewModel.name().charAt(0) : '';
+        this.canBeRemoved = userContext.identity.email === courseOwner && !this.isOwner;
+        this.isRemoving = ko.observable(collaborator.state === constants.collaboratorStates.deleting);
+        this.isRemoveConfirmationShown = ko.observable(this.isRemoving());
+        this.isRemoveSuccessMessageShown = ko.observable(false);
+
+        this._collaboratorRegisteredProxy = this.collaboratorRegistered.bind(this);
+        this._collaborationAcceptedProxy = this.collaborationAccepted.bind(this);
+
+        if (!this.isRegistered()) {
+            app.on(constants.messages.course.collaboration.collaboratorRegistered + this.email, this._collaboratorRegisteredProxy);
+        }
+
+        if (!this.isAccepted()) {
+            app.on(constants.messages.course.collaboration.inviteAccepted + this.id, this._collaborationAcceptedProxy);
+        }
+    }
+
+    deactivate() {
+        if (!this.isRemoving()) {
+            this.isRemoveConfirmationShown(false);
+        }
+
+        app.off(constants.messages.course.collaboration.collaboratorRegistered + this.email, this._collaboratorRegisteredProxy);
+        app.off(constants.messages.course.collaboration.inviteAccepted + this.id, this._collaborationAcceptedProxy);
+    }
+
+    showRemoveConfirmation() {
+        this.isRemoveConfirmationShown(true);
+    }
+
+    hideRemoveConfirmation() {
+        this.isRemoveConfirmationShown(false);
+    }
+
+    removeCollaborator() {
+        eventTracker.publish(events.removeCollaborator);
+        var collaborationId = this.id,
+            collaboratorEmail = this.email,
+            courseId = router.routeData().courseId;
+
+        this.isRemoving(true);
+        app.trigger(constants.messages.course.collaboration.deleting.started + collaborationId, collaborationId);
+
+        return collaboratorRepository.remove(courseId, collaboratorEmail)
+            .then(collaboration => {
+                this.isRemoveSuccessMessageShown(true);
+                app.trigger(constants.messages.course.collaboration.deleting.completed + collaborationId, collaboration);
+                app.trigger(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaboration.email);
+            })
+            .fail(errorMessage => {
+                this.hideRemoveConfirmation();
+                app.trigger(constants.messages.course.collaboration.deleting.failed + collaborationId, errorMessage);
+            })
+            .fin(() => {
+                this.isRemoving(false);
             });
+    }
 
-            viewModel.canBeRemoved = !viewModel.isOwner,
-            viewModel.isRemoving = ko.observable(collaborator.state === constants.collaboratorStates.deleting);
-            viewModel.isRemoveConfirmationShown = ko.observable(viewModel.isRemoving());
-            viewModel.isRemoveSuccessMessageShown = ko.observable(false);
+    collaboratorRegistered(userInfo) {
+        this.name(userInfo.fullName);
+        this.isRegistered(true);
 
-            if (!viewModel.isRegistered()) {
-                app.on(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
-            }
+        app.off(constants.messages.course.collaboration.collaboratorRegistered + this.email, this._collaboratorRegisteredProxy);
+    }
 
-            if (!viewModel.isAccepted()) {
-                app.on(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-            }
+    collaborationAccepted() {
+        this.isAccepted(true);
 
-            return viewModel;
-
-            function deactivate() {
-                if (!viewModel.isRemoving()) {
-                    viewModel.isRemoveConfirmationShown(false);
-                }
-
-                app.off(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
-                app.off(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-            }
-
-            function showRemoveConfirmation() {
-                viewModel.isRemoveConfirmationShown(true);
-            }
-
-            function hideRemoveConfirmation() {
-                viewModel.isRemoveConfirmationShown(false);
-            }
-
-            function removeCollaborator() {
-                eventTracker.publish(events.removeCollaborator);
-                var collaborationId = viewModel.id,
-                    collaboratorEmail = viewModel.email,
-                    courseId = router.routeData().courseId;
-
-                viewModel.isRemoving(true);
-                app.trigger(constants.messages.course.collaboration.deleting.started + collaborationId, collaborationId);
-
-                return collaboratorRepository.remove(courseId, collaboratorEmail)
-                    .then(function (collaboration) {
-                        viewModel.isRemoveSuccessMessageShown(true);
-                        app.trigger(constants.messages.course.collaboration.deleting.completed + collaborationId, collaboration);
-                        app.trigger(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaboration.email);
-                    })
-                    .fail(function (errorMessage) {
-                        viewModel.hideRemoveConfirmation();
-                        app.trigger(constants.messages.course.collaboration.deleting.failed + collaborationId, errorMessage);
-                    })
-                    .fin(function () {
-                        viewModel.isRemoving(false);
-                    });
-            }
-
-            function collaboratorRegistered(userInfo) {
-                viewModel.name(userInfo.fullName);
-                viewModel.isRegistered(true);
-
-                app.off(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
-            }
-
-            function collaborationAccepted() {
-                viewModel.isAccepted(true);
-
-                app.off(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-            }
-        };
-
-        return ctor;
-    });
+        app.off(constants.messages.course.collaboration.inviteAccepted + this.id, this._collaborationAcceptedProxy);
+    }
+};

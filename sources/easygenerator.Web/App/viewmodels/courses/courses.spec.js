@@ -15,6 +15,7 @@ import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 import waiter from 'utils/waiter';
 import createCourseDialog from 'dialogs/course/createCourse/createCourse';
 import deleteCourseDialog from 'dialogs/course/delete/deleteCourse';
+import stopCollaborationDialog from 'dialogs/course/stopCollaboration/stopCollaboration';
 
 var
     userName = 'user@user.com',
@@ -463,6 +464,22 @@ describe('viewModel [courses]', function () {
         it('should show deleteCourse dialog', function() {
             viewModel.deleteCourse(course);
             expect(deleteCourseDialog.show).toHaveBeenCalledWith(course.id, course.title());
+        });
+    });
+
+    describe('stopCollaboration:', function () {
+        var course = {
+            id: '0',
+            title: ko.observable('title')
+        };
+
+        beforeEach(function () {
+            spyOn(stopCollaborationDialog, 'show');
+        });
+
+        it('should show stopCollaboration dialog', function() {
+            viewModel.stopCollaboration(course);
+            expect(stopCollaborationDialog.show).toHaveBeenCalledWith(course.id, course.title());
         });
     });
 
