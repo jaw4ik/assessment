@@ -33,7 +33,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private PublishSettingsProvider _publishSettingsProvider;
         private ITemplateStorage _templateStorage;
         private IEnumerable<PackageModule> _packageModules;
-        
+
         [TestInitialize]
         public void InitializeContext()
         {
@@ -263,6 +263,39 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
+        #region AddSettingsFileToPackageDirectory
+
+        [TestMethod]
+        public void AddSettingsFileToPackageDirectory_ShouldWriteCourseTemplateSettingsToFile()
+        {
+            //Arrange		
+            string settingsFileName = "settingsFileName";
+            string settings = "settings";
+            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+
+            //Act		
+            _buildContentProvider.AddSettingsFileToPackageDirectory(Arg.Any<string>(), settings);
+
+            //Assert		
+            _fileManager.Received().WriteToFile(settingsFileName, settings);
+        }
+
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteEmptyCourseTemplateSettingsToFile_WhenTemplateSettingsDoNotExist()
+        {
+            //Arrange		
+            const string settingsFileName = "settingsFileName";
+            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+
+            //Act		
+            _buildContentProvider.AddSettingsFileToPackageDirectory(Arg.Any<string>(), null);
+
+            //Assert		
+            _fileManager.Received().WriteToFile(settingsFileName, "{}");
+        }
+
+        #endregion
+
         #region Add course data file
 
         [TestMethod]
@@ -281,51 +314,6 @@ namespace easygenerator.Web.Tests.BuildCourse
             //Assert
             _packageModelSerializer.Received().Serialize(_coursePackageModel);
             _fileManager.Received().WriteToFile(packageModelFilePath, serializedPackageModel);
-        }
-
-        #endregion
-
-        #region Add template settings file
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldWriteCourseTemplateSettingsToFile()
-        {
-            //Arrange
-            string settingsFileName = "settingsFileName";
-            string settings = "settings";
-
-            var course = Substitute.For<Course>();
-            course.Template.Returns(Substitute.For<Template>());
-            course.GetTemplateSettings(Arg.Any<Template>()).Returns(settings);
-
-            _packageModelMapper.MapCourse(course).Returns(_coursePackageModel);
-            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), course, _packageModules);
-
-            //Assert
-            _fileManager.Received().WriteToFile(settingsFileName, settings);
-        }
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldWriteEmptyCourseTemplateSettingsToFile_WhenTemplateSettingsDoNotExist()
-        {
-            //Arrange
-            const string settingsFileName = "settingsFileName";
-
-            var course = Substitute.For<Course>();
-            course.Template.Returns(Substitute.For<Template>());
-            course.GetTemplateSettings(course.Template).Returns((string)null);
-
-            _packageModelMapper.MapCourse(course).Returns(_coursePackageModel);
-            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
-
-            //Assert
-            _fileManager.Received().WriteToFile(settingsFileName, "{}");
         }
 
         #endregion

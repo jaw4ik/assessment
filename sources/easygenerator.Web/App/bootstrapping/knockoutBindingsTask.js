@@ -18,7 +18,7 @@
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
     require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
-    require('viewmodels/courses/bindingHandlers/publishTabBinding');
+    require('viewmodels/courses/bindingHandlers/tabsBinding');
     require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
@@ -41,6 +41,7 @@
     require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
+    
 
     var task = {
         execute: execute

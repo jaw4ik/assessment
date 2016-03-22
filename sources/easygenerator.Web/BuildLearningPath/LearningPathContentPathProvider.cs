@@ -24,6 +24,11 @@ namespace easygenerator.Web.BuildLearningPath
             return Path.Combine(GetContentDirectoryName(buildDirectory), "data.json");
         }
 
+        public virtual string GetSettingsFileName(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "settings.js");
+        }
+
         public virtual string GetLearningPathTemplatePath()
         {
             return Path.Combine(WebsitePath, "BuildLearningPath", "Template");

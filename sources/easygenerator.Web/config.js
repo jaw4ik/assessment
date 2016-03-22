@@ -99,7 +99,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:velocity-animate@1.2.3": {
-      "jquery": "npm:jquery@2.2.1",
+      "jquery": "npm:jquery@2.2.2",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }

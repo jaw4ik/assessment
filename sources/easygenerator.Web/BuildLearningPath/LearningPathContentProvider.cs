@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildLearningPath.PackageModel;
+using Newtonsoft.Json;
 
 namespace easygenerator.Web.BuildLearningPath
 {
@@ -34,19 +35,26 @@ namespace easygenerator.Web.BuildLearningPath
             _fileManager.DeleteDirectory(contentDirectoryName);
             _fileManager.CreateDirectory(contentDirectoryName);
 
-            AddEntitiesToPackageDirectory(buildDirectory, learningPath.Entities);
+            AddSettingsFileToPackageDirectory(buildDirectory, learningPath);
+            AddEntitiesToPackageDirectory(buildDirectory, learningPath);
 
             var packageModel = _packageModelMapper.MapLearningPath(learningPath);
             AddModelToPackageDirectory(buildDirectory, packageModel);
         }
 
-        private void AddEntitiesToPackageDirectory(string buildDirectory, IEnumerable<ILearningPathEntity> entities)
+        private void AddSettingsFileToPackageDirectory(string buildDirectory, LearningPath learningPath)
         {
-            foreach (var entity in entities)
+            _fileManager.WriteToFile(_contentPathProvider.GetSettingsFileName(buildDirectory),
+                learningPath.GetLearningPathSettings());
+        }
+
+        private void AddEntitiesToPackageDirectory(string buildDirectory, LearningPath learningPath)
+        {
+            foreach (var entity in learningPath.Entities)
             {
                 if (entity is Course)
                 {
-                    _courseBuilder.Build(buildDirectory, (Course) entity);
+                    _courseBuilder.Build(buildDirectory, (Course) entity, learningPath);
                 }
                 else if (entity is Document)
                 {

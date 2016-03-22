@@ -107,5 +107,23 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         }
 
         #endregion
+
+        #region GetSettingsFileName
+
+        [TestMethod]
+        public void GetSettingsFileName_ShouldReturnSettingsFile()
+        {
+            //Arrange
+            var buildDirectoryPath = "buildDirectory";
+            var expectedPath = "buildDirectory\\settings.js";
+
+            //Act
+            var result = _contentPathProvider.GetSettingsFileName(buildDirectoryPath);
+
+            //Assert
+            result.Should().Be(expectedPath);
+        }
+
+        #endregion
     }
 }

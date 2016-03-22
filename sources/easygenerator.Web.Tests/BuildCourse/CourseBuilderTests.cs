@@ -32,6 +32,8 @@ namespace easygenerator.Web.Tests.BuildCourse
         private Course _course;
         private CoursePackageModel _coursePackageModel;
 
+        private const string TemplateSettings = "template settings";
+
         [TestInitialize]
         public void InitializeContext()
         {
@@ -95,6 +97,24 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Assert
             _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<IEnumerable<PackageModule>>());
+        }
+
+        [TestMethod]
+        public void Build_ShouldAddTemplateSettingsToPackage()
+        {
+            //Arrange
+            var settings = "settings";
+            var buildDirectory = "SomeBuildPath";
+            var buildPackageFileName = "SomePackageFileName";
+
+            _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
+            _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
+            
+            //Act
+            _builder.Build(_course);
+
+            //Assert
+            _buildContentProvider.Received().AddSettingsFileToPackageDirectory(Arg.Any<string>(), TemplateSettings);
         }
 
         [TestMethod]
@@ -262,9 +282,12 @@ namespace easygenerator.Web.Tests.BuildCourse
             section.AddQuestion(question, "SomeUser");
 
             var course = CourseObjectMother.Create("CourseTitle");
-            course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
-            course.RelateSection(section, null, "SomeUser");
+            var template = TemplateObjectMother.Create(name: "Default");
 
+            course.UpdateTemplate(template, "SomeUser");
+            course.SaveTemplateSettings(template, TemplateSettings, "");
+            course.RelateSection(section, null, "SomeUser");
+            
             return course;
         }
 

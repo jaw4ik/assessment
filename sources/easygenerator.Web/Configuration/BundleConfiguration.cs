@@ -105,7 +105,8 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/scenario.css")
                 .Include("~/Content/wintoweb.css")
                 .Include("~/Content/rankingText.css")
-                .Include("~/Content/slider.css");
+                .Include("~/Content/slider.css")
+                .Include("~/Content/configure.css");
 
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);

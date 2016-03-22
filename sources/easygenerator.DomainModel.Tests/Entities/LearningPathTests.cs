@@ -176,6 +176,69 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region GetLearningPathSettings
+
+        [TestMethod]
+        public void GetLearningPathSettings_ShouldReturnDefaultSettingsWhenTheyNotExist()
+        {
+            var learningPath = LearningPathObjectMother.Create();
+            var defaultSettings = "{\"xApi\":{\"enabled\":true,\"required\":false,\"selectedLrs\":\"default\",\"lrs\":{\"uri\":\"\",\"credentials\":{\"username\":\"\",\"password\":\"\"},\"authenticationRequired\":false},\"allowedVerbs\":[\"started\",\"stopped\",\"passed\",\"failed\",\"mastered\",\"answered\",\"experienced\",\"progressed\"]}}";
+            var result = learningPath.GetLearningPathSettings();
+            
+            result.Should().Be(defaultSettings);
+        }
+        
+        [TestMethod]
+        public void GetLearningPathSettings_ShouldReturnSettingsDataWhenTheyExist()
+        {
+            var learningPath = LearningPathObjectMother.Create();
+            var settings = "some settings";
+            learningPath.Settings = new LearningPathSettings()
+            {
+                Data = settings
+            };
+
+            var result = learningPath.GetLearningPathSettings();
+
+            result.Should().Be(settings);
+        }
+
+        #endregion
+
+        #region SaveLearningPathSettings
+
+        [TestMethod]
+        public void SaveLearningPathSettings_ShouldUpdateSettings_WhenTheyAlreadyExist()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            const string settings = "settings";
+            learningPath.Settings = new LearningPathSettings();
+
+            //Act
+            learningPath.SaveLearningPathSettings(settings);
+
+            //Assert
+            learningPath.Settings.Data.Should().Be(settings);
+        }
+
+        [TestMethod]
+        public void SaveLearningPathSettings_ShouldAddSettings_WhenTheyDoNotExistYet()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            const string settings = "settings";
+            
+            //Act
+            learningPath.SaveLearningPathSettings(settings);
+
+            //Assert
+            learningPath.Settings.LearningPath.Should().Be(learningPath);
+            learningPath.Settings.Data.Should().Be(settings);
+        }
+
+        #endregion
+
         #region UpdatePackageUrl
 
         [TestMethod]

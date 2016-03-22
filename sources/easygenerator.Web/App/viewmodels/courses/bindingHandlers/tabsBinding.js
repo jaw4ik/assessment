@@ -1,4 +1,4 @@
-﻿ko.bindingHandlers.publishTabs = {
+﻿ko.bindingHandlers.tabs = {
     init: function (element) {
         var $element = $(element),
             dataTabLink = 'data-tab-link',

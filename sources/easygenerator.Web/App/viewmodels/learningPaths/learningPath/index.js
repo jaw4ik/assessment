@@ -16,6 +16,7 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
     var events = {
         updateTitle: 'Update learning path title',
         navigateToDetails: 'Navigate to learning path details',
+        navigateToConfigure: 'Navigate to configure learning path',
         navigateToPublish: 'Navigate to publish learning path',
         navigateToResults: 'Navigate to learning path results',
         openShareDialog: 'Open \'share\' dialog'
@@ -41,10 +42,24 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
                 }
             },
             {
+                route: 'configure',
+                moduleId: 'viewmodels/learningPaths/learningPath/configure/index',
+                title: localizationManager.localize('courseConfigureItem'),
+                nav: 2,
+                hash: '#learningPaths/:learningPathId/configure',
+                settings: {
+                    localizationKey: 'course'
+                },
+                navigate: function () {
+                    eventTracker.publish(events.navigateToConfigure);
+                    router.navigate(this.dynamicHash());
+                }
+            },
+            {
                 route: 'publish',
                 moduleId: 'viewmodels/learningPaths/learningPath/publish',
                 title: localizationManager.localize('coursePublishItem'),
-                nav: 2,
+                nav: 3,
                 hash: '#learningPaths/:learningPathId/publish',
                 settings: {
                     localizationKey: 'course'
@@ -58,7 +73,7 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
                 route: 'results',
                 moduleId: 'viewmodels/learningPaths/learningPath/results',
                 title: localizationManager.localize('courseResultsItem'),
-                nav: 3,
+                nav: 4,
                 hash: '#learningPaths/:learningPathId/results',
                 settings: {
                     localizationKey: 'course'

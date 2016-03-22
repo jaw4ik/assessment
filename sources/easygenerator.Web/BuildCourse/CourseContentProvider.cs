@@ -41,9 +41,13 @@ namespace easygenerator.Web.BuildCourse
             AddTemplateToPackageDirectory(buildDirectory, course);
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);
             AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel);
-            AddTemplateSettingsFileToPackageDirectory(buildDirectory, course);
             AddPublishSettingsFileToPackageDirectory(buildDirectory, _publishSettingsProvider.GetPublishSettings(modules));
             AddModulesFilesToPackageDirectory(buildDirectory, modules);
+        }
+        public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings)
+        {
+            _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory),
+                settings ?? GetEmptyJsonContent());
         }
 
         private void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
@@ -110,12 +114,6 @@ namespace easygenerator.Web.BuildCourse
         private void AddCourseDataFileToPackageDirectory(string buildDirectory, CoursePackageModel coursePackageModel)
         {
             _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildDirectory), _packageModelSerializer.Serialize(coursePackageModel));
-        }
-
-        private void AddTemplateSettingsFileToPackageDirectory(string buildDirectory, Course course)
-        {
-            _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory),
-                course.GetTemplateSettings(course.Template) ?? GetEmptyJsonContent());
         }
 
         private static string GetEmptyJsonContent()
