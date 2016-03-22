@@ -51,6 +51,10 @@
         '$rootScope', '$location', 'settings', 'htmlTemplatesCache', '$templateCache', 'attemptsLimiter',
         function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache, attemptsLimiter) {
             $rootScope.$on('$routeChangeStart', function (event, next) {
+				if (isXapiDisabled()) {
+					settings.xApi.enabled = false;
+                }
+
                 var xApiEnabled = settings.xApi.enabled;
                 if (xApiEnabled && !$rootScope.isXApiInitialized) {
                     forbidRedirects('/login');
@@ -58,6 +62,18 @@
                 else if (!attemptsLimiter.hasAvailableAttempt()) {
                     forbidRedirects('/summary');
                 }
+				
+				function isXapiDisabled() {
+					var xapi = getQueryStringValue('xapi');
+					return !settings.xApi.required && !_.isNull(xapi) && !_.isUndefined(xapi) && xapi.toLowerCase() === 'false';
+				}
+				
+				function getQueryStringValue(key) {
+					var urlParams = window.location.search;
+					var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
+					var results = regex.exec(urlParams);
+					return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+				}
 
                 function forbidRedirects(urlHash) {
                     if (next.originalPath !== urlHash) {
@@ -78,3 +94,5 @@
         }
     ]);
 })(window.angular, window._, window.angularDragula);
+
+
