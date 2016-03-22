@@ -54,7 +54,7 @@
             "authenticationRequired":false,
             "credentials":{}
         },
-        "allowedVerbs":["started","stopped","experienced","mastered","answered","passed","failed"]
+        "allowedVerbs":["started","stopped","experienced","mastered","answered","passed","failed","progressed"]
     },
     "masteryScore":{
         "score":"75"

@@ -38,6 +38,14 @@ describe('class [FilterCriteriaFactory]', () => {
             });
         });
 
+        describe('when spec contains type', () => {
+            it('should fill instance with type', () => {
+                var spec = { type: 'type' };
+                var criteria = FilterCriteriaFactory.create(spec);
+                expect(criteria[constants.reporting.filterKeys.type]).toBe(spec.type);
+            });
+        });
+
         describe('when spec contains learningPathId', () => {
             it('should fill instance with learningPathId', () => {
                 var spec = { learningPathId: "learningPathId" };

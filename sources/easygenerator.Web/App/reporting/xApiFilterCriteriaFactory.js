@@ -24,6 +24,10 @@ export default class {
             }
         }
 
+        if (spec.type) {
+            criteria[constants.reporting.filterKeys.type] = spec.type;
+        }
+
         if (spec.learnerEmail) {
             var mailto = spec.learnerEmail;
 

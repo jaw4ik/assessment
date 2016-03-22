@@ -1,6 +1,6 @@
 ﻿define(['constants', 'moment', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel',
- 'reporting/viewmodels/startedStatement', 'reporting/viewmodels/finishStatement', 'reporting/viewmodels/questionStatements/answeredStatement', 'reporting/viewmodels/questionStatements/experiencedStatement'],
-    function (constants, moment, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement, AnsweredStatement, ExperiencedStatement) {
+ 'reporting/viewmodels/startedStatement', 'reporting/viewmodels/progressedStatement', 'reporting/viewmodels/questionStatements/answeredStatement', 'reporting/viewmodels/questionStatements/experiencedStatement', 'reporting/statementsCacheManager'],
+    function (constants, moment, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, ProgressedStatement, AnsweredStatement, ExperiencedStatement, statementsCacheManager) {
         "use strict";
 
         var viewModel = function (getEntity, getLrsStatements, noResultsViewLocation, generateDetailedResults) {
@@ -98,12 +98,12 @@
             that.viewUrl = 'reporting/views/results';
 
             that.extendStatement = function (statement) {
-                statement.isFinished = statement instanceof FinishStatement;
+                statement.isProgressed = statement instanceof ProgressedStatement;
                 return statement;
             }
 
-            function loadLrsStatements(entityId, embeded, take, skip) {
-                return getLrsStatements({ entityId: entityId, embeded: embeded, take: take, skip: skip });
+            function loadLrsStatements(entityId, embeded, take, skip, progressedHistory) {
+                return getLrsStatements({ entityId: entityId, embeded: embeded, take: take, skip: skip, progressedHistory: progressedHistory });
             }
 
             function loadStatements(entityId, take, skip) {
@@ -144,33 +144,14 @@
                         return that.loadedResults;
                     }
 
-                    return loadLrsStatements(entityId, true).then(function (statements) {
-                        that.loadedResults = statements;
+                    return loadLrsStatements(entityId, true, null, null, true).then(function (statements) {
+                        statementsCacheManager.applyLoadedChanges(that.results(), statements);
+                        that.loadedResults = statementsCacheManager.clearProgressedHistory(statements);
                         that.allResultsLoaded = true;
                         that.allDetailedResultsLoaded = true;
-                        applyLoadedChanges(that.results(), that.loadedResults);
 
                         return that.loadedResults;
                     });
-                });
-            }
-
-            function applyLoadedChanges(viewResults, loadedResults) {
-                _.each(viewResults, function (viewResult) {
-                    if (!viewResult.isExpandable || viewResult.children === null) {
-                        return;
-                    }
-                    var loadedResult = _.find(loadedResults, function (result) {
-                        return viewResult.lrsStatement.attemptId === result.lrsStatement.attemptId && viewResult.lrsStatement.verb === result.lrsStatement.verb && viewResult.lrsStatement.date.valueOf() === result.lrsStatement.date.valueOf();
-                    });
-                    if (!loadedResult) {
-                        return;
-                    }
-                    if (viewResult.children().length && loadedResult.children().length) {
-                        applyLoadedChanges(viewResult.children(), loadedResult.children());
-                        return;
-                    }
-                    loadedResult.children ? viewResult.children(loadedResult.children()) : viewResult.children = null;
                 });
             }
 
@@ -196,7 +177,6 @@
                 ];
 
                 var csvList = [generateCsvRow(csvHeader)];
-
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
                         var resultCsv = generateCsvRow([
@@ -229,8 +209,8 @@
                     startedTimeHeader = localizationManager.localize('startedTime'),
                     finishedTimeHeader = localizationManager.localize('finishedTime'),
 
-                    objectiveTitleHeader = localizationManager.localize('section'),
-                    objectiveScoreHeader = localizationManager.localize('sectionScore'),
+                    sectionTitleHeader = localizationManager.localize('section'),
+                    sectionScoreHeader = localizationManager.localize('sectionScore'),
 
                     questionTitleHeader = localizationManager.localize('questionTitle'),
                     questionResultHeader = localizationManager.localize('questionResult'),
@@ -252,9 +232,9 @@
                     finishedTimeHeader
                 ];
 
-                var objectiveCsvHeader = [
-                    objectiveTitleHeader,
-                    objectiveScoreHeader
+                var sectionCsvHeader = [
+                    sectionTitleHeader,
+                    sectionScoreHeader
                 ];
 
                 var questionCsvHeader = [
@@ -270,32 +250,32 @@
                 ];
 
                 var courseResultRightPart = [];
-                _(objectiveCsvHeader.length + questionCsvHeader.length + contentCsvHeaders.length).times(function () { courseResultRightPart.push(emptyCellSymbol); });
+                _(sectionCsvHeader.length + questionCsvHeader.length + contentCsvHeaders.length).times(function () { courseResultRightPart.push(emptyCellSymbol); });
 
-                var csvList = [generateCsvRow(courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader).concat(contentCsvHeaders))];
+                var csvList = [generateCsvRow(courseCsvHeader.concat(sectionCsvHeader).concat(questionCsvHeader).concat(contentCsvHeaders))];
 
                 return loadAllDetailedStatements(that.entityId).then(function (statements) {
                     _.each(statements, function (result) {
                         var courseResultCsv = generateCsvRow([
                             result.learnerDisplayName,
-                            result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
+                            result instanceof StartedStatement ? inProgress : result.isFinished ? result.passed ? passed : failed : inProgress,
                             result.hasScore ? result.lrsStatement.score : noScore,
                             result instanceof StartedStatement ? moment(result.lrsStatement.date).format('YYYY-MM-D') : result.startedLrsStatement ? moment(result.startedLrsStatement.date).format('YYYY-MM-D') : noScore,
                             result instanceof StartedStatement ? moment(result.lrsStatement.date).format('h:mm:ss a') : result.startedLrsStatement ? moment(result.startedLrsStatement.date).format('h:mm:ss a') : noScore,
-                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
-                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                            result instanceof StartedStatement ? notFinished : result.isFinished ? moment(result.lrsStatement.date).format('YYYY-MM-D') : notFinished,
+                            result instanceof StartedStatement ? notFinished : result.isFinished ? moment(result.lrsStatement.date).format('h:mm:ss a') : notFinished
                         ].concat(courseResultRightPart));
 
                         csvList.push(courseResultCsv);
 
-                        pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, contentCsvHeaders.length, emptyCellSymbol, noScore);
+                        pushEmbededResults(result, csvList, courseCsvHeader.length, sectionCsvHeader.length, questionCsvHeader.length, contentCsvHeaders.length, emptyCellSymbol, noScore);
                     });
 
                     return generateCsvTable(csvList);
                 });
             }
 
-            function pushEmbededResults(result, csvList, courseColumnsNumber, objectiveColumnsNumber, questionColumnsNumber, contentColumnsLength, emptyCellSymbol, noScoreMessage) {
+            function pushEmbededResults(result, csvList, courseColumnsNumber, sectionColumnsNumber, questionColumnsNumber, contentColumnsLength, emptyCellSymbol, noScoreMessage) {
                 if (!result.children || !result.children().length) {
                     return;
                 }
@@ -305,31 +285,31 @@
                     statementTrue = localizationManager.localize('statementTrue'),
                     statementFalse = localizationManager.localize('statementFalse');
 
-                var objectiveResultLeftPart = [],
-                    objectiveResultRightPart = [],
+                var sectionResultLeftPart = [],
+                    sectionResultRightPart = [],
                     questionResultLeftPart = [],
                     questionResultRightPart = [],
                     contentResultLeftPart = [];
 
-                _(courseColumnsNumber).times(function () { objectiveResultLeftPart.push(emptyCellSymbol); });
-                _(questionColumnsNumber + contentColumnsLength).times(function () { objectiveResultRightPart.push(emptyCellSymbol); });
-                _(courseColumnsNumber + objectiveColumnsNumber).times(function () { questionResultLeftPart.push(emptyCellSymbol); });
+                _(courseColumnsNumber).times(function () { sectionResultLeftPart.push(emptyCellSymbol); });
+                _(questionColumnsNumber + contentColumnsLength).times(function () { sectionResultRightPart.push(emptyCellSymbol); });
+                _(courseColumnsNumber + sectionColumnsNumber).times(function () { questionResultLeftPart.push(emptyCellSymbol); });
                 _(contentColumnsLength).times(function () { questionResultRightPart.push(emptyCellSymbol); });
-                _(courseColumnsNumber + objectiveColumnsNumber + questionColumnsNumber).times(function () { contentResultLeftPart.push(emptyCellSymbol); });
+                _(courseColumnsNumber + sectionColumnsNumber + questionColumnsNumber).times(function () { contentResultLeftPart.push(emptyCellSymbol); });
 
-                _.forEach(result.children(), function (objectiveResult) {
+                _.forEach(result.children(), function (sectionResult) {
 
-                    var objectiveResultCsv = generateCsvRow(objectiveResultLeftPart.concat([
-                        objectiveResult.lrsStatement.name,
-                        objectiveResult.hasScore ? objectiveResult.lrsStatement.score : noScoreMessage
-                    ]).concat(objectiveResultRightPart));
+                    var sectionResultCsv = generateCsvRow(sectionResultLeftPart.concat([
+                        sectionResult.lrsStatement.name,
+                        sectionResult.hasScore ? sectionResult.lrsStatement.score : noScoreMessage
+                    ]).concat(sectionResultRightPart));
 
-                    csvList.push(objectiveResultCsv);
+                    csvList.push(sectionResultCsv);
 
-                    if (!objectiveResult.children || !objectiveResult.children().length) {
+                    if (!sectionResult.children || !sectionResult.children().length) {
                         return;
                     }
-                    _.forEach(objectiveResult.children(), function (questionResult) {
+                    _.forEach(sectionResult.children(), function (questionResult) {
                         if (questionResult instanceof AnsweredStatement) {
                             var questionAnsweredResultCsv = generateCsvRow(questionResultLeftPart.concat([
                                 questionResult.lrsStatement.name,

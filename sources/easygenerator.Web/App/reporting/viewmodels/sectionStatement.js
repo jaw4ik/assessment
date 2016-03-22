@@ -4,8 +4,8 @@ import questionStatementFactory from 'reporting/viewmodels/questionStatements/qu
 import XApiProvider from 'reporting/xApiProvider';
 
 export default class extends ExpandableStatement  {
-    constructor(masteredLrsStatement, childStatements) {
-        super(masteredLrsStatement);
+    constructor(sectionLrsStatement, childStatements) {
+        super(sectionLrsStatement);
         this.hasScore = this.lrsStatement.score != null;
         if (childStatements === null || childStatements) {
             childStatements ? this.children(childStatements) : this.children = null;
@@ -13,7 +13,7 @@ export default class extends ExpandableStatement  {
     }
 
     async expandLoadAction() {
-        let statements = await XApiProvider.getObjectiveStatements(this.lrsStatement.attemptId, this.lrsStatement.id);
+        let statements = await XApiProvider.getQuestionStatements(this.lrsStatement.attemptId, this.lrsStatement.id, this.lrsStatement.date.getTime());
         if (statements && statements.length) {
             const questionStatements = _.map(statements, statement => questionStatementFactory.createQuestionStatement(statement));
             this.children(questionStatements);

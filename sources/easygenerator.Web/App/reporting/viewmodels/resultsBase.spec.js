@@ -1,7 +1,8 @@
 ﻿import ResultsBase from './resultsBase';
 
 import StartedStatement from './startedStatement';
-import FinishStatement from './finishStatement';
+import ProgressedStatement from './progressedStatement';
+import statementsCacheManager from 'reporting/statementsCacheManager';
 import dialog from 'plugins/dialog';
 import moment from 'moment';
 import eventTracker from 'eventTracker';
@@ -84,6 +85,8 @@ describe('ResultsBase instance', function () {
         window.moment = moment;
         spyOn(window, 'moment').and.returnValue(fakeMoment);
         spyOn(fakeMoment, 'format').and.returnValue(time);
+        spyOn(statementsCacheManager, 'applyLoadedChanges');
+        spyOn(statementsCacheManager, 'clearProgressedHistory');
         viewModel = new ResultsBase(repository.getById, statementsProvider.getLrsStatements, viewLocation);
     });
 
@@ -178,22 +181,22 @@ describe('ResultsBase instance', function () {
         });
 
         it('should extend statement', function () {
-            var finishStatement = new FinishStatement(statements[0]);
+            var progressedStatement = new ProgressedStatement(statements[0]);
             var startedStatement = new StartedStatement(statements[0]);
-            viewModel.extendStatement(finishStatement);
+            viewModel.extendStatement(progressedStatement);
             viewModel.extendStatement(startedStatement);
 
-            expect(finishStatement).toBeInstanceOf(FinishStatement);
-            expect(finishStatement.isFinished).toBeTruthy();
+            expect(progressedStatement).toBeInstanceOf(ProgressedStatement);
+            expect(progressedStatement.isProgressed).toBeTruthy();
 
             expect(startedStatement).toBeInstanceOf(StartedStatement);
-            expect(startedStatement.isFinished).toBeFalsy();
+            expect(startedStatement.isProgressed).toBeFalsy();
         });
 
         it('should return extended statement', function () {
-            var finishStatement = new FinishStatement(statements[0]);
-            var extended = viewModel.extendStatement(finishStatement);
-            expect(finishStatement).toBe(extended);
+            var progressedStatement = new ProgressedStatement(statements[0]);
+            var extended = viewModel.extendStatement(progressedStatement);
+            expect(progressedStatement).toBe(extended);
         });
 
     });
@@ -307,7 +310,8 @@ describe('ResultsBase instance', function () {
                     entityId: entityId,
                     embeded: false,
                     take: constants.results.pageSize + 1,
-                    skip: 0
+                    skip: 0,
+                    progressedHistory: undefined
                 });
                 done();
             });
@@ -550,7 +554,8 @@ describe('ResultsBase instance', function () {
                                 entityId: entityId,
                                 embeded: false,
                                 take: constants.results.pageSize + 1,
-                                skip: 5
+                                skip: 5,
+                                progressedHistory: undefined
                             });
                             done();
                         });
@@ -585,7 +590,7 @@ describe('ResultsBase instance', function () {
             viewModel.activate(entityId);
 
             statementsProvider.getLrsStatements.and.returnValue(getLrsStatementsDfd.promise);
-            getLrsStatementsDfd.resolve(_.map(statements, function(statement) { return new FinishStatement(statement);  }));
+            getLrsStatementsDfd.resolve(_.map(statements, function(statement) { return new ProgressedStatement(statement);  }));
 
             fileSaverWrapper.saveAs = function () { };
             spyOn(fileSaverWrapper, 'saveAs');
@@ -657,7 +662,7 @@ describe('ResultsBase instance', function () {
 
                 it('should get LRS statements', function (done) {
                     viewModel.downloadResults().fin(function () {
-                        expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith({ entityId: viewModel.entityId, embeded: undefined, take: undefined, skip: undefined });
+                        expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith({ entityId: viewModel.entityId, embeded: undefined, take: undefined, skip: undefined, progressedHistory: undefined });
                         done();
                     });
                 });

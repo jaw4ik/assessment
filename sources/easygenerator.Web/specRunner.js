@@ -177,12 +177,13 @@ function runSpecs(env) {
                 'reporting/viewmodels/questionStatements/experiencedStatement.spec',
                 'reporting/viewmodels/questionStatements/answeredStatement.spec',
                 'reporting/viewmodels/questionStatements/questionStatementFactory.spec',
-                'reporting/viewmodels/objectiveStatement.spec',
+                'reporting/viewmodels/sectionStatement.spec',
                 'reporting/viewmodels/startedStatement.spec',
-                'reporting/viewmodels/finishStatement.spec',
+                'reporting/viewmodels/progressedStatement.spec',
                 'reporting/viewmodels/resultsBase.spec',
                 'reporting/learningPathStatementsProvider.spec',
                 'reporting/courseStatementsProvider.spec',
+                'reporting/statementsCacheManager.spec',
                 //#endregion
 
                 //#region synchronization

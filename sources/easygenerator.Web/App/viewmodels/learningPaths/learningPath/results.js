@@ -1,4 +1,4 @@
-﻿define(['reporting/viewmodels/resultsBase', 'repositories/learningPathRepository', 'reporting/learningPathStatementsProvider', 'reporting/viewmodels/finishStatement'],
+﻿define(['reporting/viewmodels/resultsBase', 'repositories/learningPathRepository', 'reporting/learningPathStatementsProvider'],
     function (ResultsBase, learningPathRepository, LearningPathStatementsProvider) {
         "use strict";
 

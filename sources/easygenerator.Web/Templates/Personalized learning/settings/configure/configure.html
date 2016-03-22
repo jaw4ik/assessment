@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/configure.css?v=1458309731778" rel="stylesheet" />
-    <script src="../api.js?v=1458309731778"></script>
+    <link href="css/configure.css?v=1458399006764" rel="stylesheet" />
+    <script src="../api.js?v=1458399006764"></script>
 
-    <script src="js/vendor.min.js?v=1458309731778"></script>
-    <script src="js/configure.min.js?v=1458309731778"></script>
+    <script src="js/vendor.min.js?v=1458399006764"></script>
+    <script src="js/configure.min.js?v=1458399006764"></script>
 </head>
 
 <body>
@@ -176,6 +176,18 @@
                                             <div class="switcher-text" data-bind="localize: 'failed'"></div>
                                         </div>
                                     </div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.progressed }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'progressed'"></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="preview-disabled" data-bind="visible: !customLrsEnabled()"></div>
                             </div>
@@ -186,7 +198,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1458309731778">
+                        <img src="img/language.png?v=1458399006764">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">

@@ -75,7 +75,7 @@ describe('XApiProvider', () => {
     ];
 
     var embededStatements = [{
-        mastered: {
+        root: [{
             verb: { id: "http://adlnet.gov/expapi/verbs/mastered" },
             timestamp: "2014-11-15T07:45:59+00:00",
             actor: { mbox: "mailto:test@example.com", name: "vasyl" },
@@ -92,7 +92,7 @@ describe('XApiProvider', () => {
             context: {
                 registration: '223'
             }
-        },
+        }],
         answered: [
             {
                 verb: { id: "http://adlnet.gov/expapi/verbs/answered" },
@@ -255,7 +255,7 @@ describe('XApiProvider', () => {
                                     ],
                                     embeded: [
                                         {
-                                            mastered: embededStatements[0].mastered,
+                                            root: embededStatements[0].root,
                                             answered: embededStatements[0].answered,
                                             experienced: embededStatements[0].experienced
                                         }
@@ -276,7 +276,7 @@ describe('XApiProvider', () => {
                         expect(statements[0].root[0]).toBeInstanceOf(Statement);
                         expect(statements[0].root[1]).toBeInstanceOf(Statement);
                         expect(statements[1].root[0]).toBeInstanceOf(Statement);
-                        expect(statements[0].embeded[0].mastered).toBeInstanceOf(Statement);
+                        expect(statements[0].embeded[0].root[0]).toBeInstanceOf(Statement);
                         expect(statements[0].embeded[0].answered[0]).toBeInstanceOf(Statement);
                     })().then(done));
 
@@ -391,34 +391,35 @@ describe('XApiProvider', () => {
 
     });
 
-    describe('getMasteredStatements:', () => {
+    describe('getSectionStatements:', () => {
 
         it('should be method of XApiProvider', () => {
-            expect(XApiProvider.getMasteredStatements).toBeFunction();
+            expect(XApiProvider.getSectionStatements).toBeFunction();
         });
 
         it('should return promise', () => {
-            expect(XApiProvider.getMasteredStatements(attemptId)).toBePromise();
+            expect(XApiProvider.getSectionStatements(attemptId)).toBePromise();
         });
 
         it('should pass correct params to FilterCriteriaFactory create method', () => {
-            XApiProvider.getMasteredStatements(attemptId);
+            XApiProvider.getSectionStatements(attemptId);
             expect(FilterCriteriaFactory.create).toHaveBeenCalledWith({ 
                 attemptIds: attemptId,
-                verbs: constants.reporting.xApiVerbIds.mastered
+                verbs: [constants.reporting.xApiVerbIds.mastered, constants.reporting.xApiVerbIds.progressed],
+                type: constants.reporting.xApiActivityTypes.objective
             });
         });
 
         it('should pass filterCriteria to httpRequestSender', () => {
             filterCriteria.attemptIds = attemptId;
             
-            XApiProvider.getMasteredStatements(attemptId);
+            XApiProvider.getSectionStatements(attemptId);
             var args = httpRequestSender.get.calls.mostRecent().args;
             expect(args[1]).toBe(filterCriteria);
         });
 
         it('should do request to proper lrs uri', () => {
-            XApiProvider.getMasteredStatements(attemptId);
+            XApiProvider.getSectionStatements(attemptId);
             var args = httpRequestSender.get.calls.mostRecent().args;
             expect(args[0]).toBe(config.lrs.uri + config.lrs.statementsPath);
         });
@@ -426,7 +427,7 @@ describe('XApiProvider', () => {
         describe('when lrs does not require authentication', () => {
 
             it('should pass proper httpHeaders to httpRequestSender', () => {
-                XApiProvider.getMasteredStatements(attemptId);
+                XApiProvider.getSectionStatements(attemptId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
@@ -443,7 +444,7 @@ describe('XApiProvider', () => {
             });
 
             it('should pass proper httpHeaders to httpRequestSender', () => {
-                XApiProvider.getMasteredStatements(attemptId);
+                XApiProvider.getSectionStatements(attemptId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
@@ -461,7 +462,7 @@ describe('XApiProvider', () => {
                 });
 
                 it('should return null', done => (async () => {
-                    var statements = await XApiProvider.getMasteredStatements(attemptId);
+                    var statements = await XApiProvider.getSectionStatements(attemptId);
                     expect(statements).toBeNull();
                 })().then(done));
 
@@ -472,13 +473,13 @@ describe('XApiProvider', () => {
                 beforeEach(() => {
                     dfd.resolve({
                         statements: [
-                            embededStatements[0].mastered
+                            embededStatements[0].root[0]
                         ]
                     });
                 });
 
                 it('should return all statements mapped as Statement instances', done => (async () => {
-                    var statements = await XApiProvider.getMasteredStatements(attemptId);
+                    var statements = await XApiProvider.getSectionStatements(attemptId);
                     expect(statements.length).toBe(1);
                     expect(statements[0]).toBeInstanceOf(Statement);
                 })().then(done));
@@ -489,18 +490,18 @@ describe('XApiProvider', () => {
 
     });
 
-    describe('getObjectiveStatements:', () => {
+    describe('getQuestionStatements:', () => {
 
         it('should be method of XApiProvider', () => {
-            expect(XApiProvider.getObjectiveStatements).toBeFunction();
+            expect(XApiProvider.getQuestionStatements).toBeFunction();
         });
 
         it('should return promise', () => {
-            expect(XApiProvider.getObjectiveStatements(attemptId, parentActivityId)).toBePromise();
+            expect(XApiProvider.getQuestionStatements(attemptId, parentActivityId)).toBePromise();
         });
 
         it('should pass correct params to FilterCriteriaFactory create method', () => {
-            XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+            XApiProvider.getQuestionStatements(attemptId, parentActivityId);
             expect(FilterCriteriaFactory.create).toHaveBeenCalledWith({ 
                 attemptIds: attemptId,
                 parentId: parentActivityId,
@@ -511,13 +512,13 @@ describe('XApiProvider', () => {
         it('should pass filterCriteria to httpRequestSender', () => {
             filterCriteria.attemptIds = attemptId;
 
-            XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+            XApiProvider.getQuestionStatements(attemptId, parentActivityId);
             var args = httpRequestSender.get.calls.mostRecent().args;
             expect(args[1]).toBe(filterCriteria);
         });
 
         it('should do request to proper lrs uri', () => {
-            XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+            XApiProvider.getQuestionStatements(attemptId, parentActivityId);
             var args = httpRequestSender.get.calls.mostRecent().args;
             expect(args[0]).toBe(config.lrs.uri + config.lrs.statementsPath);
         });
@@ -525,7 +526,7 @@ describe('XApiProvider', () => {
         describe('when lrs does not require authentication', () => {
 
             it('should pass proper httpHeaders to httpRequestSender', () => {
-                XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+                XApiProvider.getQuestionStatements(attemptId, parentActivityId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
@@ -542,7 +543,7 @@ describe('XApiProvider', () => {
             });
 
             it('should pass proper httpHeaders to httpRequestSender', () => {
-                XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+                XApiProvider.getQuestionStatements(attemptId, parentActivityId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
@@ -560,7 +561,7 @@ describe('XApiProvider', () => {
                 });
 
                 it('should return null', done => (async () => {
-                    var statements = await XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+                    var statements = await XApiProvider.getQuestionStatements(attemptId, parentActivityId);
                     expect(statements).toBeNull();
                 })().then(done));
 
@@ -577,7 +578,7 @@ describe('XApiProvider', () => {
                 });
 
                 it('should return all statements mapped as Statement instances', done => (async () => {
-                    var statements = await XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
+                    var statements = await XApiProvider.getQuestionStatements(attemptId, parentActivityId);
                     expect(statements.length).toBe(1);
                     expect(statements[0]).toBeInstanceOf(Statement);
                 })().then(done));

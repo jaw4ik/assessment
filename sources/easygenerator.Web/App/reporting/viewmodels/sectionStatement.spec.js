@@ -1,11 +1,11 @@
-﻿import ObjectiveStatement from './objectiveStatement';
+﻿import SectionStatement from './sectionStatement';
 
 import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
 import AnsweredStatement from 'reporting/viewmodels/questionStatements/answeredStatement';
 import ExpandableStatement from './expandableStatement';
 import XApiProvider from './../xApiProvider';
 
-describe('viewmodel [ObjectiveStatement]', () => {
+describe('viewmodel [SectionStatement]', () => {
     var lrsStatement,
         statement,
         attemptId,
@@ -17,12 +17,12 @@ describe('viewmodel [ObjectiveStatement]', () => {
         statementsDefer = Q.defer();
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50 };
-        spyOn(XApiProvider, 'getObjectiveStatements').and.returnValue(statementsDefer.promise);
-        statement = new ObjectiveStatement(lrsStatement);
+        spyOn(XApiProvider, 'getQuestionStatements').and.returnValue(statementsDefer.promise);
+        statement = new SectionStatement(lrsStatement);
     });
 
     it('should be class', () => {
-        expect(ObjectiveStatement).toBeFunction();
+        expect(SectionStatement).toBeFunction();
     });
 
     describe('[class]', () => {
@@ -36,7 +36,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
 
         it('should set hasScore to false if lrsStatement.score is null', () => {
             lrsStatement.score = null;
-            statement = new ObjectiveStatement(lrsStatement);
+            statement = new SectionStatement(lrsStatement);
             expect(statement.hasScore).toBeFalsy();
         });
 
@@ -45,7 +45,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
             describe('and equals null', () => {
 
                 it('should set children to null', () => {
-                    statement = new ObjectiveStatement(lrsStatement, null);
+                    statement = new SectionStatement(lrsStatement, null);
                     expect(statement.children).toBeNull();
                 });
 
@@ -55,7 +55,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
 
                 it('should set children to masteredStatements', () => {
                     var answered = [{ id: 1 }, { id: 2 }];
-                    statement = new ObjectiveStatement(lrsStatement, answered);
+                    statement = new SectionStatement(lrsStatement, answered);
                     expect(statement.children()).toBe(answered);
                 });
 
@@ -68,13 +68,15 @@ describe('viewmodel [ObjectiveStatement]', () => {
     describe('[expandLoadAction]', () => {
 
         it('should return promise', () => {
+            statement.lrsStatement.date = new Date(Date.now());
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call xApiProvider.getObjectiveStatements with correct args', done => (async () => {
+        it('should call xApiProvider.getQuestionStatements with correct args', done => (async () => {
             statementsDefer.resolve([]);
+            statement.lrsStatement.date = new Date(Date.now());
             await statement.expandLoadAction();
-            expect(XApiProvider.getObjectiveStatements).toHaveBeenCalledWith(attemptId, statementId);
+            expect(XApiProvider.getQuestionStatements).toHaveBeenCalledWith(attemptId, statementId, statement.lrsStatement.date.getTime());
         })().then(done));
 
         describe('if there are no answered statements', () => {
@@ -84,6 +86,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
             });
 
             it('should set children to null', done => (async () => {
+                statement.lrsStatement.date = new Date(Date.now());
                 await statement.expandLoadAction();
                 expect(statement.children).toBeNull();
             })().then(done));
@@ -108,6 +111,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
             });
 
             it('should fill children collection with QuestionStatement instances', done => (async () => {
+                statement.lrsStatement.date = new Date(Date.now());
                 await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
                 expect(statement.children()[0]).toBeInstanceOf(AnsweredStatement);
