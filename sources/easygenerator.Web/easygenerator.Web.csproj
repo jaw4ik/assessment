@@ -676,6 +676,11 @@
     </Content>
     <Content Include="App\core\bootstrap\visible.js" />
     <Content Include="App\editor\course\bindingHandlers\hightlightSection.js" />
+    <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.html" />
+    <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.js" />
+    <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.spec.js">
+      <DependentUpon>deleteQuestion.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\questions\questionModalView.spec.js">
       <DependentUpon>questionModalView.js</DependentUpon>
     </Content>

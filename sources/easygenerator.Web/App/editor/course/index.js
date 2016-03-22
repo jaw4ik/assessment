@@ -6,6 +6,8 @@ import eventTracker from 'eventTracker';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import courseRepository from 'repositories/courseRepository';
+import questionRepository from 'repositories/questionRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import vmContentField from 'viewmodels/common/contentField';
 import createSectionCommand from './commands/createSectionCommand';
 import createQuestionCommand from './commands/createQuestionCommand';
@@ -332,8 +334,27 @@ export default class {
             this.highlightedSectionId(sectionId);
         }
     }
-
     canReuseForRoute(courseId) {
         return this.id === courseId;
+    }
+    canActivate(courseId, sectionId, questionId) {
+        if (!courseId) {
+            throw 'Invalid arguments';
+        }
+
+        let promises = [];
+        promises.push(courseRepository.getById(courseId));
+        
+        if (sectionId) {
+            promises.push(sectionRepository.getById(sectionId));
+
+            if (questionId) {
+                promises.push(questionRepository.getById(sectionId, questionId));
+            }
+        }
+
+        return Promise.all(promises)
+            .then(() => { return true; })
+            .catch(() => { return { redirect: '404' }; });
     }
 };

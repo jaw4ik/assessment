@@ -28,6 +28,7 @@ function runSpecs(env) {
 
                 //#region new editor questions popup
                 'editor/questions/questionModalView.spec',
+                'editor/questions/dialogs/deleteQuestion/deleteQuestion.spec',
                 //#endregion
 
                 //#region design

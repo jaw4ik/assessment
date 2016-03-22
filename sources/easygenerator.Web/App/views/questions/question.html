@@ -7,7 +7,7 @@
                         <div class="btn-head bold"></div>
                         <ul class="dropdown-list">
                             <li class="dropdown-list-item" data-bind="click: showMoveCopyDialog">
-                                <span class="advanced-features-item" data-bind="localize: { text: 'moveCopyQuestionTo' }">Move/Copy question to...</span>
+                                <span class="advanced-features-item" data-bind="localize: { text: isContent ? 'moveCopyContentTo' : 'moveCopyQuestionTo' }">Move/Copy question to...</span>
                             </li>
                             <li class="dropdown-list-item" data-bind="click: duplicateQuestion">
                                 <span class="advanced-features-item" data-bind="localize: { text: 'duplicate' }">Duplicate</span>

@@ -451,8 +451,9 @@ describe('viewModel [question]', () => {
             viewModel.courseId = '1';
             viewModel.sectionId = '2';
             viewModel.questionId = '3';
+            viewModel.isContent = false;
             viewModel.showMoveCopyDialog();
-            expect(moveCopyDialog.show).toHaveBeenCalledWith(viewModel.courseId, viewModel.sectionId, viewModel.questionId);
+            expect(moveCopyDialog.show).toHaveBeenCalledWith(viewModel.courseId, viewModel.sectionId, viewModel.questionId, viewModel.isContent);
         });
 
     });

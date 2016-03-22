@@ -14,6 +14,7 @@
         courseId: '',
         questionId: '',
         sectionId: ko.observable(''),
+        isContent: ko.observable(false),
         show: show,
         close:close,
         isCopy: ko.observable(true),
@@ -34,10 +35,10 @@
 
     return viewModel;
 
-    function show(courseId, sectionId, questionId) {
+    function show(courseId, sectionId, questionId, isContent) {
         eventTracker.publish(events.showDialog);
         dialog.show(viewModel, constants.dialogs.moveCopyQuestion.settings);
-        reset(courseId, sectionId, questionId);
+        reset(courseId, sectionId, questionId, isContent);
     }
 
     function close() {
@@ -111,20 +112,16 @@
         eventTracker.publish(events.copyItem);
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedSectionId()).then(function (response) {
             viewModel.close();
-            //if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
-            //        router.navigate('courses/' + viewModel.selectedCourse().id + '/sections/' + viewModel.selectedSectionId() + '/questions/' + response.id);
-            //} else {
-            //        router.navigate('library/sections/' + viewModel.selectedSectionId() + '/questions/' + response.id);
-            //}
         });
     }
 
-    function reset(courseId, sectionId, questionId) {
+    function reset(courseId, sectionId, questionId, isContent) {
         viewModel.isCopy(true);
         viewModel.courses(mapCourses());
         viewModel.courseId = courseId;
         viewModel.sectionId(sectionId);
         viewModel.questionId = questionId;
+        viewModel.isContent(isContent);
         viewModel.selectedSectionId(viewModel.sectionId());
         viewModel.allSections({
             title: localizationManager.localize('allSections'),
