@@ -51,7 +51,6 @@
         '$rootScope', '$location', 'settings', 'htmlTemplatesCache', '$templateCache', 'attemptsLimiter',
         function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache, attemptsLimiter) {
             $rootScope.$on('$routeChangeStart', function (event, next) {
-				var xapi = $location.search()['xapi'];
 				if (isXapiDisabled()) {
 					settings.xApi.enabled = false;
                 }
@@ -65,8 +64,15 @@
                 }
 				
 				function isXapiDisabled() {
-					var xapi = $location.search()['xapi'];
+					var xapi = getQueryStringValue('xapi');
 					return !settings.xApi.required && !_.isNull(xapi) && !_.isUndefined(xapi) && xapi.toLowerCase() === 'false';
+				}
+				
+				function getQueryStringValue(key) {
+					var urlParams = window.location.search;
+					var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
+					var results = regex.exec(urlParams);
+					return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 				}
 
                 function forbidRedirects(urlHash) {
