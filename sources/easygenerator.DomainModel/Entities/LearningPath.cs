@@ -44,7 +44,7 @@ namespace easygenerator.DomainModel.Entities
                         },
                         authenticationRequired = false
                     },
-                    allowedVerbs = new JArray("started", "stopped", "passed", "failed", "mastered", "answered", "experienced")
+                    allowedVerbs = new JArray("started", "stopped", "passed", "failed", "mastered", "answered", "experienced", "progressed")
                 }
             }); 
         }

@@ -100,7 +100,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             var course = CourseObjectMother.Create();
 
             var template = TemplateObjectMother.Create();
-            var courseSettings = "{\"name\":\"course\",\"other\":\"text\"}";
+            var courseSettings = "{\"name\":{\"key1\":\"course1\",\"key2\":\"course2\"},\"other\":\"text\"}";
             course.UpdateTemplate(template, "user");
             course.SaveTemplateSettings(template, courseSettings, "");
 
@@ -108,14 +108,14 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
 
             var learningPath = LearningPathObjectMother.Create();
-            var learningPathSettings = "{\"name\":\"learning path\"}";
+            var learningPathSettings = "{\"name\":{\"key1\":\"learning path1\",\"key3\":\"course3\"}}";
             learningPath.SaveLearningPathSettings(learningPathSettings);
 
             //Act
             _builder.Build(buildDirectoryPath, course, learningPath);
 
             //Assert
-            _buildContentProvider.Received().AddSettingsFileToPackageDirectory(courseDirectory, "{\"name\":\"learning path\",\"other\":\"text\"}");
+            _buildContentProvider.Received().AddSettingsFileToPackageDirectory(courseDirectory, "{\"name\":{\"key1\":\"learning path1\",\"key2\":\"course2\",\"key3\":\"course3\"},\"other\":\"text\"}");
         }
     }
 }

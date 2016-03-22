@@ -145,6 +145,16 @@
                                                 </div>
                                                 <div class="switcher-text" data-bind="localize: { text: 'mastered' }"></div>
                                             </div>
+                                            <div class="switcher statement">
+                                                <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.progressed, onValueChanged: settingsChanged.bind($data) }">
+                                                    <div class="switch-toggle-wrapper">
+                                                        <div class="switch-toggle-on"></div>
+                                                        <div class="switch-toogle-blob"></div>
+                                                        <div class="switch-toggle-off"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="switcher-text" data-bind="localize: { text: 'progressed' }"></div>
+                                            </div>
                                         </div>
                                         <div class="statements-container">
                                             <div class="switcher statement">

@@ -182,7 +182,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void GetLearningPathSettings_ShouldReturnDefaultSettingsWhenTheyNotExist()
         {
             var learningPath = LearningPathObjectMother.Create();
-            var defaultSettings = "{\"xApi\":{\"enabled\":true,\"required\":false,\"selectedLrs\":\"default\",\"lrs\":{\"uri\":\"\",\"credentials\":{\"username\":\"\",\"password\":\"\"},\"authenticationRequired\":false},\"allowedVerbs\":[\"started\",\"stopped\",\"passed\",\"failed\",\"mastered\",\"answered\",\"experienced\"]}}";
+            var defaultSettings = "{\"xApi\":{\"enabled\":true,\"required\":false,\"selectedLrs\":\"default\",\"lrs\":{\"uri\":\"\",\"credentials\":{\"username\":\"\",\"password\":\"\"},\"authenticationRequired\":false},\"allowedVerbs\":[\"started\",\"stopped\",\"passed\",\"failed\",\"mastered\",\"answered\",\"experienced\",\"progressed\"]}}";
             var result = learningPath.GetLearningPathSettings();
             
             result.Should().Be(defaultSettings);

@@ -196,6 +196,7 @@ describe('[trackingDataModel]', function () {
                 expect(viewModel.statements['passed']()).toBeTruthy();
                 expect(viewModel.statements['experienced']()).toBeTruthy();
                 expect(viewModel.statements['failed']()).toBeTruthy();
+                expect(viewModel.statements['progressed']()).toBeTruthy();
             });
         });
 
@@ -262,6 +263,7 @@ describe('[trackingDataModel]', function () {
                 expect(viewModel.statements['passed']()).toBeTruthy();
                 expect(viewModel.statements['experienced']()).toBeFalsy();
                 expect(viewModel.statements['failed']()).toBeTruthy();
+                expect(viewModel.statements['progressed']()).toBeFalsy();
             });
         });
 
@@ -371,6 +373,7 @@ describe('[trackingDataModel]', function () {
             viewModel.statements['passed'](false);
             viewModel.statements['experienced'](false);
             viewModel.statements['failed'](false);
+            viewModel.statements['progressed'](false);
         });
 
         it('should return json settings', () => {

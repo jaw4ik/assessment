@@ -45,7 +45,8 @@ export default class TrackingDataModel {
             answered: ko.observable(true),
             passed: ko.observable(true),
             experienced: ko.observable(true),
-            failed: ko.observable(true)
+            failed: ko.observable(true),
+            progressed: ko.observable(true)
         };
 
         this.init(xApiSettings, callback);
