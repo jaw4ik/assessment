@@ -103,7 +103,6 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void Build_ShouldAddTemplateSettingsToPackage()
         {
             //Arrange
-            var settings = "settings";
             var buildDirectory = "SomeBuildPath";
             var buildPackageFileName = "SomePackageFileName";
 
