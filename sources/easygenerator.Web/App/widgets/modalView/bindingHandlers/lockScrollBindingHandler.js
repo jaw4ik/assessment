@@ -32,9 +32,9 @@ class ScrollLocker{
         if (window.removeEventListener) {
             window.removeEventListener('DOMMouseScroll', this._preventDefault, false);
         }
+        window.onmousewheel = document.onmousewheel = null;
 
         if (this.hideScroll) {
-            window.onmousewheel = document.onmousewheel = null;
             $('html').css('overflow',  this._overflow);
             $(window).scrollTop(this._currentScrollPosition);
         }
