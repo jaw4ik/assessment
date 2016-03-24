@@ -33,8 +33,8 @@
                 <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button', events: { drag: hideQuestions, dragend: restoreQuestionsExpandingState } }">
                     <!-- ko foreach: sections -->
                     <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }, highlightSection: { hightlightSectionId: $parent.highlightedSectionId, sectionId: id }">
-                        <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessed }">
-                            <!-- ko if: isProcessed -->
+                        <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessing }">
+                            <!-- ko if: isProcessing -->
                             <div class="preloader-container" data-bind="preloader: { settings: 'align-center medium' }"></div>
                             <!-- /ko -->
                             <div class="sections-list-item" data-section-highlight-item="">
@@ -97,7 +97,7 @@
                                         <!-- /ko -->
                                     </div>
                                 </div>
-                                <div class="sections-list-item-learning-section-container" data-bind="expandBlock: { expanded: learningObjective.isVisible }">
+                                <div class="sections-list-item-learning-section-container" data-bind="slideToggle: learningObjective.isVisible">
                                     <h3 class="sections-list-item-learning-section-header" data-bind="localize: { text: 'learningObjectiveWithColon' }"></h3>
                                     <div class="sections-list-item-learning-section-title-container">
                                         <div class="sections-list-item-learning-section-title-wrapper" data-bind="css: { active: learningObjective.isEditing, error: !learningObjective.isValid() }">
@@ -118,7 +118,7 @@
                             <div class="questions-fake-placeholder" data-bind="draggableContainer: { events: { over: expandQuestionsStartTimer, out: expandQuestionsClearTimer } }, draggableData: { sectionId: id, expandQuestions: true }"></div>
                             <!-- /ko -->
                         </div>
-                        <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
+                        <div class="questions-list-container" data-bind="slideToggle: questionsExpanded, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list" data-bind="foreachAnimated: { data: questions, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
                                 <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed, editing: title.isEditing() }, draggableData: { id: id }">
                                     <!-- ko if: isProcessed -->

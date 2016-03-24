@@ -36,8 +36,8 @@ const events = {
 
 const eventCategory = 'Course editor (drag and drop)';
 
-var mapSections = (courseId, sections) => _.map(sections, section => mapSection(courseId, section));
-var mapSection = (courseId, section) => new SectionViewModel(courseId, section, false);
+var mapSections = (courseId, sections) => _.map(sections, (section, index) => mapSection(courseId, section, index === 0));
+var mapSection = (courseId, section, isExpanded) => new SectionViewModel(courseId, section, false, false, isExpanded);
 
 var _introductionContentUpdated = new WeakMap();
 var _sectionConnected = new WeakMap();

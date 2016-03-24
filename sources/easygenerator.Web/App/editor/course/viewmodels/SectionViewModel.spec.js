@@ -22,7 +22,8 @@ describe('[SectionViewModel]', () => {
     let sectionViewModel;
     let courseId;
     let section;
-    let isProcessed;
+    let isProcessing;
+    let isExpanded;
 
     beforeEach(() => {
         courseId = 'courseId';
@@ -34,8 +35,9 @@ describe('[SectionViewModel]', () => {
             questions: [],
             learningObjective: 'learningObjective'
         };
-        isProcessed = false;
-        sectionViewModel = new SectionViewModel(courseId, section, isProcessed);
+        isProcessing = false;
+        isExpanded = true;
+        sectionViewModel = new SectionViewModel(courseId, section, isProcessing, false, isExpanded);
         spyOn(eventTracker, 'publish');
         spyOn(notify, 'saved');
     });
@@ -55,10 +57,10 @@ describe('[SectionViewModel]', () => {
         expect(sectionViewModel.image()).toBe(section.image);
         expect(sectionViewModel.imageLoading()).toBeFalsy();
         expect(sectionViewModel.menuExpanded()).toBeFalsy();
-        expect(sectionViewModel.questionsExpanded()).toBe(!isProcessed);
+        expect(sectionViewModel.questionsExpanded()).toBe(isExpanded);
         expect(sectionViewModel.questions()).toBeArray();
         expect(sectionViewModel.notContainQuestions()).toBe(section.questions.length === 0);
-        expect(sectionViewModel.isProcessed()).toBe(isProcessed);
+        expect(sectionViewModel.isProcessing()).toBe(isProcessing);
         expect(sectionViewModel.startEditingTitle).toBeFunction();
         expect(sectionViewModel.stopEditingTitle).toBeFunction();
         expect(sectionViewModel.updateFields).toBeFunction();
