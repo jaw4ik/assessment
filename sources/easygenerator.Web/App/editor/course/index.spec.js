@@ -131,6 +131,8 @@ describe('[drag and drop course editor]', () => {
             await promise;
             expect(courseViewModel.sections()[0]).toBeInstanceOf(SectionViewModel);
             expect(courseViewModel.sections().length).toBe(2);
+            expect(courseViewModel.sections()[0].questionsExpanded()).toBeTruthy();
+            expect(courseViewModel.sections()[1].questionsExpanded()).toBeFalsy();
         })().then(done));
 
         it('should set courseIntroductionContent', done => (async () => {

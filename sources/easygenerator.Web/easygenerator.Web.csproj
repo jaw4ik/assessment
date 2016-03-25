@@ -922,7 +922,6 @@
     <Content Include="App\dialogs\document\preview\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
-    <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
     <Content Include="App\editor\course\bindingHandlers\heightAnimation.js" />

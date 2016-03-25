@@ -36,7 +36,7 @@ const events = {
 const questionsExpandDelay = 500;
 
 export default class SectionViewModel{
-    constructor (courseId, section, isProcessed, justCreated) {
+    constructor (courseId, section, isProcessing, isJustCreated, isExpanded) {
         this.courseId = courseId;
         this.id = ko.observable(section.id || '');
         this.title = ko.observable(section.title || '');
@@ -59,11 +59,11 @@ export default class SectionViewModel{
         this.image = ko.observable(section.image || '');
         this.imageLoading = ko.observable(false);
         this.menuExpanded = ko.observable(false);
-        this.questionsExpanded = ko.observable(!isProcessed);
+        this.questionsExpanded = ko.observable(isExpanded);
         this.questions = ko.observableArray(mapQuestions(this.courseId, this.id(), section.questions));
         this.notContainQuestions = ko.computed(() => this.questions().length === 0, this);
-        this.isProcessed = ko.observable(isProcessed);
-        this.justCreated = ko.observable(justCreated);
+        this.isProcessing = ko.observable(isProcessing);
+        this.justCreated = ko.observable(isJustCreated);
 
         _sectionTitleUpdated.set(this, section => {
             if (section.id !== this.id() || this.title.isEditing()) {
@@ -199,7 +199,7 @@ export default class SectionViewModel{
         this.image(section.image);
         this.questions(mapQuestions(this.id(), section.questions));
         this.questionsExpanded(true);
-        this.isProcessed(false);
+        this.isProcessing(false);
 
         if (this.justCreated()) {
             this.title.isEditing(true);
@@ -219,51 +219,51 @@ export default class SectionViewModel{
             startLoading: () => that.imageLoading(true),
             success: async url => {
                 let result = await sectionRepository.updateImage(that.id(), url);
-                that.image(result.imageUrl);
-                that.modifiedOn(updateModifiedOn(result.modifiedOn));
-                that.imageLoading(false);
-                notify.saved();
-            },
-            error: () => that.imageLoading(false)
-        });
+        that.image(result.imageUrl);
+        that.modifiedOn(updateModifiedOn(result.modifiedOn));
+        that.imageLoading(false);
+        notify.saved();
+    },
+    error: () => that.imageLoading(false)
+});
+}
+deleteQuestion(question) {
+    if (_.contains(this.questions(), question)) {
+        this.questions.remove(question);
     }
-    deleteQuestion(question) {
-        if (_.contains(this.questions(), question)) {
-            this.questions.remove(question);
-        }
+}
+addQuestion(question, index) {
+    if (!_.isObject(question)) {
+        return undefined;
     }
-    addQuestion(question, index) {
-        if (!_.isObject(question)) {
-            return undefined;
-        }
 
-        let questionViewModel = null;
+    let questionViewModel = null;
 
-        if (_.isEmpty(question)) {
-            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true, true);
-        } else if (question instanceof QuestionViewModel) {
-            question.sectionId = this.id();
-            questionViewModel = question;
-        } else {
-            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
-        }
+    if (_.isEmpty(question)) {
+        questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true, true);
+    } else if (question instanceof QuestionViewModel) {
+        question.sectionId = this.id();
+        questionViewModel = question;
+    } else {
+        questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
+    }
 
-        if (_.isNumber(index)) {
-            this.questions.splice(index, 0, questionViewModel);
-        } else {
-            this.questions.push(questionViewModel);
-        }
+    if (_.isNumber(index)) {
+        this.questions.splice(index, 0, questionViewModel);
+    } else {
+        this.questions.push(questionViewModel);
+    }
 
-        return questionViewModel;
+    return questionViewModel;
+}
+expandQuestionsStartTimer(question, section) {
+    if (section && section.sectionId === this.id() && section.expandQuestions) {
+        this.timeoutId = setTimeout(() => this.questionsExpanded(true), questionsExpandDelay);
     }
-    expandQuestionsStartTimer(question, section) {
-        if (section && section.sectionId === this.id() && section.expandQuestions) {
-            this.timeoutId = setTimeout(() => this.questionsExpanded(true), questionsExpandDelay);
-        }
+}
+expandQuestionsClearTimer(question, section) {
+    if (section && section.sectionId === this.id() && section.expandQuestions && this.timeoutId) {
+        clearTimeout(this.timeoutId);
     }
-    expandQuestionsClearTimer(question, section) {
-        if (section && section.sectionId === this.id() && section.expandQuestions && this.timeoutId) {
-            clearTimeout(this.timeoutId);
-        }
-    }
+}
 }

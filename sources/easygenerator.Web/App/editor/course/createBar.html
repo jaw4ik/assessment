@@ -1,7 +1,7 @@
 ﻿<section class="editor-create-bar-container create left-side-bar" data-bind="with: createBar">
     <div class="editor-create-bar-wrapper" data-bind="scrollbar: { checkDOMChanges: true }">
         <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
-        <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
+        <div class="editor-create-bar-list-container" data-bind="slideToggle: sectionExpanded">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': { callback: $parent.createSectionWithOrder, forbidDropToEnd: true }, '.sections-placeholder': $parent.createSection }, useTargetWidth: true }">
                 <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}">
                     <div class="editor-create-bar-list-icon" data-bind="click: $root.createSectionAtFirstPosition.bind($root), tooltipPopover: {}">
@@ -22,7 +22,7 @@
             </ul>
         </div>
         <h2 class="editor-create-bar-header" data-bind="click: function() { !$root.notContainSections() && toggleQuestions();}, css: { 'collapsed': !questionsExpanded(), disabled: $root.notContainSections }, localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
-        <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: {'no-section': $root.notContainSections}">
+        <div class="editor-create-bar-list-container" data-bind="slideToggle: questionsExpanded, css: {'no-section': $root.notContainSections}">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': { callback: $parent.createQuestionWithOrder, forbidDropToEnd: true }, '.question-placeholder': $parent.createQuestion, '.questions-fake-placeholder': function () {} }, useTargetWidth: true }">
                 <!-- ko foreach: questions -->
                 <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { 'not-accessible': $root.notContainSections() || !hasAccess, disabled: $root.notContainSections() }, draggableData: { type: type }">

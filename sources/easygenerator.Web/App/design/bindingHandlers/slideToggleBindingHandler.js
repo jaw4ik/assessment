@@ -1,27 +1,36 @@
-﻿import $ from 'jquery';
-import ko from 'knockout';
+﻿import ko from 'knockout';
+import animate from 'velocity-animate';
+
 
 ko.bindingHandlers.slideToggle = {
-    init: (element, valueAccess) => {
-        var value = valueAccess();
+    init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
+        const value = valueAccessor();
+        
+        const expanded = ko.unwrap(value);
+        const duration = 300;
 
-        if (ko.unwrap(value)) {
-            $(element).show();
-        } else {
-            $(element).hide();
-        }
-    },
-    update: (element, valueAccess) => {
-        var value = valueAccess();
+        const wrapper = ko.observable(expanded);
 
-        if (ko.unwrap(value)) {
-            $(element).slideDown(250, () => {
-            });
+        element.style.display = expanded ? 'block' : 'none';
 
-        } else {
-            $(element).slideUp(250, () => {
-                $(element).hide();
-            });
-        }
+        const subscription = value.subscribe(newValue => {
+            if (newValue) {
+                animate(element, 'slideDown', {
+                    duration: duration,
+                    begin: () => wrapper(true)
+                });
+            } else {
+                animate(element, 'slideUp', {
+                    duration: duration,
+                    complete: () => wrapper(false)
+                });
+            }
+        });
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            subscription.dispose();
+        });
+
+        return ko.bindingHandlers.if.init(element, () => wrapper, allBindings, viewModel, bindingContext);
     }
-}
+};

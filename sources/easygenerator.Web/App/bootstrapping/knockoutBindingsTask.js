@@ -22,7 +22,6 @@
     require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
-    require('editor/course/bindingHandlers/expandBlock');
     require('editor/course/bindingHandlers/hightlightSection');
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
@@ -41,7 +40,7 @@
     require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
-    
+
 
     var task = {
         execute: execute
@@ -63,15 +62,15 @@
                 }
             },
             sort: function (event, ui) {
-                
+
                 var $target = $(event.target);
-                var customScrollContainerClass= '.question-view-holder-wrapper';
+                var customScrollContainerClass = '.question-view-holder-wrapper';
                 if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
                     var top = event.pageY - $target.offsetParent().offset().top - (ui.helper.outerHeight(true) / 2);
-                    if ($target.closest(customScrollContainerClass)){
+                    if ($target.closest(customScrollContainerClass)) {
                         top += $(customScrollContainerClass).scrollTop();
                     }
-                    
+
                     ui.helper.css({
                         'top': top + 'px'
                     });

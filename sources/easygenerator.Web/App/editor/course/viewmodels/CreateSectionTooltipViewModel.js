@@ -20,7 +20,7 @@ export default class CreateSectionTooltip {
         let createSectionTooltipClosed = clientContext.get(userContext.identity.email + createSectionTooltipClosedKey);
         
         if (createSectionTooltipClosed) {
-            this.visible(false);    
+            this.visible(false);
         }
     }
 };
