@@ -1,17 +1,17 @@
 ﻿import fileUpload from 'fileUpload';
 import Command from 'Command';
 import dataContext from 'dataContext';
-import objectiveModelMapper from 'mappers/objectiveModelMapper';
+import sectionModelMapper from 'mappers/sectionModelMapper';
 import courseModelMapper from 'mappers/courseModelMapper';
 import constants from 'constants';
 import app from 'durandal/app';
 import _ from 'underscore';
 import getTicket from './getTicket';
 
-function processImportedCourse(courseData, objectivesData) {
-    _.each(objectivesData, objectiveData => {
-        var objective = objectiveModelMapper.map(objectiveData);
-        dataContext.sections.push(objective);
+function processImportedCourse(courseData, sectionsData) {
+    _.each(sectionsData, sectionData => {
+        var section = sectionModelMapper.map(sectionData);
+        dataContext.sections.push(section);
     });
 
     var course = courseModelMapper.map(courseData, dataContext.sections, dataContext.templates);
@@ -20,7 +20,7 @@ function processImportedCourse(courseData, objectivesData) {
     app.trigger(constants.messages.course.created, course);
 
     if (course.sections.length) {
-        app.trigger(constants.messages.objective.createdInCourse);
+        app.trigger(constants.messages.section.createdInCourse);
     }
 
     if (course.sections.length && course.sections[0].questions.length) {
