@@ -116,10 +116,10 @@ describe('dialog [deleteQuestion]', () => {
                 });
             });
 
-            it('should set false for isDeleting', () => {
+            it('should set false for isDeleting', done => {
                 viewModel.isDeleting(null);
 
-                viewModel.deleteQuestion().then(done => {
+                viewModel.deleteQuestion().then( () => {
                     expect(viewModel.isDeleting()).toBeFalsy();
                     done();
                 });

@@ -155,7 +155,7 @@
 
                     router.on('router:route:activating').then(function (instance, instruction) {
                         var editorStateKey = userContext.identity.email + (userContext.identity.newEditor ? constants.newCourseEditor.switchToOldEditorMessageClosed : constants.newCourseEditor.switchToNewEditorMessageClosed);
-                        viewModel.switchEditorMessageVisible(!clientContext.get(editorStateKey) && constants.patterns.coursePage.test(instruction.fragment));
+                        viewModel.switchEditorMessageVisible(!userContext.identity.isNewEditorByDefault && !clientContext.get(editorStateKey) && constants.patterns.coursePage.test(instruction.fragment));
                     });
 
                     router.on('router:navigation:composition-complete').then(function () {

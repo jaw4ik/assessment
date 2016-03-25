@@ -79,6 +79,7 @@
     <Compile Include="Entities\Questions\Statement.cs" />
     <Compile Include="Entities\Questions\TextMatching.cs" />
     <Compile Include="Entities\Questions\TextMatchingAnswer.cs" />
+    <Compile Include="Entities\UserSettings.cs" />
     <Compile Include="EntityCloner.cs" />
     <Compile Include="Entities\AccessType.cs" />
     <Compile Include="Entities\Feedback.cs" />

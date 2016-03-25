@@ -16,7 +16,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            if (args.User.IsCreatedThroughLti)
+            if (args.User.Settings.IsCreatedThroughLti)
             {
                 Task.Run(() => _wooCommerceApiService.RegisterUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword));
             }
@@ -28,7 +28,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserUpdateEvent args)
         {
-            if (args.User.IsCreatedThroughLti)
+            if (args.User.Settings.IsCreatedThroughLti)
             {
                 Task.Run(() => _wooCommerceApiService.UpdateUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword));
             }

@@ -202,13 +202,16 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
-            modelBuilder.Entity<User>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
-            modelBuilder.Entity<User>().Property(e => e.IsCreatedThroughLti).IsRequired();
-            modelBuilder.Entity<User>().Property(e => e.NewEditor).IsOptional();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().HasMany(e => e.CompaniesCollection).WithMany(e => e.Users).Map(m => m.ToTable("CompanyUsers"));
             modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
+
+            modelBuilder.Entity<UserSettings>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
+            modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughLti).IsRequired();
+            modelBuilder.Entity<UserSettings>().Property(e => e.NewEditor).IsOptional();
+            modelBuilder.Entity<UserSettings>().Property(e => e.IsNewEditorByDefault).IsRequired();
+            modelBuilder.Entity<UserSettings>().HasRequired(e => e.User).WithRequiredDependent(p => p.Settings).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);

@@ -14,6 +14,7 @@
         this.showReleaseNote = spec.showReleaseNote;
         this.newEditor = spec.newEditor;
         this.isCreatedThroughLti = spec.isCreatedThroughLti;
+        this.isNewEditorByDefault = spec.isNewEditorByDefault;
         this.companies = spec.companies && spec.companies.length ? spec.companies.map(companyMapper.map) : [];
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');

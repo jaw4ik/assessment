@@ -51,6 +51,7 @@ describe('model [user]', function () {
             phone: '0123',
             newEditor: null,
             isCreatedThroughLti: false,
+            isNewEditorByDefault: true,
             companies: [{}],
             subscription: {
                 accessType: constants.accessType.starter
@@ -67,6 +68,7 @@ describe('model [user]', function () {
         expect(user.phone).toEqual(spec.phone);
         expect(user.newEditor).toEqual(spec.newEditor);
         expect(user.isCreatedThroughLti).toEqual(spec.isCreatedThroughLti);
+        expect(user.isNewEditorByDefault).toEqual(spec.isNewEditorByDefault);
         expect(user.companies.length).toBe(1);
 
     });
