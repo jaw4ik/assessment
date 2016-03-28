@@ -416,7 +416,7 @@ describe('[drag and drop course editor]', () => {
 
             it('should execute createQuestion command', () => {
                 courseViewModel.createQuestion({ type: questionType }, null, { sectionId: sectionId });
-                expect(createQuestionCommand.execute).toHaveBeenCalledWith(sectionId, questionType);
+                expect(createQuestionCommand.execute).toHaveBeenCalledWith(sectionId, questionType, eventCategory);
             });
 
             it('should update created question fields', done => (async () => {
@@ -462,121 +462,154 @@ describe('[drag and drop course editor]', () => {
     });
 
     describe('reorderQuestion:', () => {
-
-        let question, nextQuestion, sourceSection, targetSection;
+        let question, nextQuestion, source, target;
         let moveQuestionCommandPromise, reorderQuestionCommandPromise;
 
         beforeEach(() => {
             question = { id: 'question_id' };
             nextQuestion = { id: 'next_question_id' };
-            sourceSection = { sectionId: 'source_section_id' };
-            targetSection = { sectionId: 'target_section_id' };
-
-            courseViewModel.sections = ko.observableArray([
-                new SectionViewModel(null, { id: sourceSection.sectionId, questions: [{ id: question.id }]}),
-                new SectionViewModel(null, { id: targetSection.sectionId, questions: [{ id: nextQuestion.id }]})
-            ]);
-
+            source = { sectionId: 'source_section_id' };
+            target = { sectionId: 'target_section_id' };
+                
             moveQuestionCommandPromise = Promise.resolve();
             spyOn(moveQuestionCommand, 'execute').and.returnValue(moveQuestionCommandPromise);
             reorderQuestionCommandPromise = Promise.resolve();
             spyOn(reorderQuestionCommand, 'execute').and.returnValue(reorderQuestionCommandPromise);
         });
 
-        it('should delete question from section viewmodel', done => (async () => {
-            spyOn(courseViewModel.sections()[0], 'deleteQuestion');
-            courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-            await reorderQuestionCommandPromise;
-            expect(courseViewModel.sections()[0].deleteQuestion).toHaveBeenCalledWith(courseViewModel.sections()[0].questions()[0]);
-        })().then(done));
-
-        describe('when target section not equal source section', () => {
+        describe('when target and source are equal', () => {
+            let sectionModel;
+            let questionModel;
 
             beforeEach(() => {
-                targetSection.sectionId = 'target_section_id';
+                questionModel = { id: ko.observable(question.id) };
+                
+                sectionModel = {
+                    id: ko.observable(source.sectionId), 
+                    questions: ko.observableArray([questionModel]),
+                    deleteQuestion: () => {},
+                    addQuestion: () => {}
+                };
+
+                spyOn(sectionModel, 'deleteQuestion');
+                spyOn(sectionModel, 'addQuestion');
+
+                courseViewModel.sections = ko.observableArray([sectionModel]);
             });
 
-            it('should send event \'Move item\'', done => (async () => {
-                courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-                await reorderQuestionCommandPromise;
-                expect(eventTracker.publish).toHaveBeenCalledWith('Move item', eventCategory);
-            })().then(done));
+            it('should delete question from section viewmodel', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, source, source);
+                expect(sectionModel.deleteQuestion).toHaveBeenCalledWith(questionModel);
+            });
 
-            it('should execute moveQuestion command', done => (async () => {
-                courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-                await reorderQuestionCommandPromise;
-                expect(moveQuestionCommand.execute).toHaveBeenCalledWith(question.id, sourceSection.sectionId, targetSection.sectionId);
-            })().then(done));
-        });
+            it('should add question with next question id', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, source, source);
+                expect(sectionModel.addQuestion).toHaveBeenCalledWith(questionModel, nextQuestion.id);
+            });
 
-        describe('when target section is equal source section', () => {
-
-            beforeEach(() => {
-                targetSection.sectionId = sourceSection.sectionId;
+            describe('and next question is not defined', () => {
+                it('should add question with null', () => {
+                    courseViewModel.reorderQuestion(question, null, source, source);
+                    expect(sectionModel.addQuestion).toHaveBeenCalledWith(questionModel, null);
+                });
             });
 
             it('should send event \'Change order of questions\'', () => {
-                courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+                courseViewModel.reorderQuestion(question, nextQuestion, source, source);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions', eventCategory);
             });
 
-        });
-
-        describe('when next question not null', () => {
-
-            beforeEach(() => {
-                targetSection.sectionId = sourceSection.sectionId;
-                nextQuestion.id = 'next_question_id';
+            it('should call reorder questions command', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, source, source);
+                expect(reorderQuestionCommand.execute).toHaveBeenCalledWith(sectionModel.id(), sectionModel.questions());
             });
 
-            it('should add question to section in correct order', done => (async () => {
-                let section = courseViewModel.sections()[0];
-                let questionInSection = section.questions()[0];
-                spyOn(section, 'addQuestion');
-                
-                courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-                
-                let nextQuestionInSection = _.find(section.questions(), question => question.id() === nextQuestion.id);
-                let nextQuestionIndex = section.questions.indexOf(nextQuestionInSection);
-
-                await moveQuestionCommandPromise;
-                expect(section.addQuestion).toHaveBeenCalledWith(questionInSection, nextQuestionIndex);
-            })().then(done));
-
+            describe('and reorder is complete', () => {
+                it('should show notify saved message', done => (async () => {
+                    courseViewModel.reorderQuestion(question, nextQuestion, source, source);
+                    await reorderQuestionCommandPromise;
+                    expect(notify.saved).toHaveBeenCalled();
+                })().then(done));
+            });
         });
 
-        describe('when next question is null', () => {
+        describe('when target and source are not equal', () => {
+            let targetSectionModel;
+            let sourceSectionModel;
+            let questionModel;
 
             beforeEach(() => {
-                targetSection.sectionId = sourceSection.sectionId;
-                nextQuestion = null;
+                questionModel = { id: ko.observable(question.id) };
+                
+                targetSectionModel = {
+                    id: ko.observable(target.sectionId), 
+                    questions: ko.observableArray([]),
+                    addQuestion: () => {}
+                };
+                
+                sourceSectionModel = {
+                    id: ko.observable(source.sectionId), 
+                    questions: ko.observableArray([questionModel]),
+                    deleteQuestion: () => {}
+                };
+
+                spyOn(sourceSectionModel, 'deleteQuestion');
+                spyOn(targetSectionModel, 'addQuestion');
+
+                courseViewModel.sections = ko.observableArray([sourceSectionModel, targetSectionModel]);
             });
 
-            it('should add question to section', done => (async () => {
-                let section = courseViewModel.sections()[0];
-                let questionInSection = section.questions()[0];
-                spyOn(section, 'addQuestion');
-                
-                courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-                
-                await moveQuestionCommandPromise;
-                expect(section.addQuestion).toHaveBeenCalledWith(questionInSection);
-            })().then(done));
+            it('should delete question from source section viewmodel', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, target, source);
+                expect(sourceSectionModel.deleteQuestion).toHaveBeenCalledWith(questionModel);
+            });
 
+            it('should add question to target section with next question id', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, target, source);
+                expect(targetSectionModel.addQuestion).toHaveBeenCalledWith(questionModel, nextQuestion.id);
+            });
+
+            describe('and next question is not defined', () => {
+                it('should add question to the target section with null', () => {
+                    courseViewModel.reorderQuestion(question, null, target, source);
+                    expect(targetSectionModel.addQuestion).toHaveBeenCalledWith(questionModel, null);
+                });
+            });
+
+            it('should send event \'Move item\'', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, target, source);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Move item', eventCategory);
+            });
+
+            it('should call move questions command', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, target, source);
+                expect(moveQuestionCommand.execute).toHaveBeenCalledWith(question.id, source.sectionId, target.sectionId);
+            });
+
+            describe('and move is complete', () => {
+
+                describe('and next question undefined', () => {
+                    it('should show notify saved message', done => (async () => {
+                        courseViewModel.reorderQuestion(question, null, target, source);
+                        await moveQuestionCommandPromise;
+                        expect(notify.saved).toHaveBeenCalled();
+                    })().then(done));
+                });
+
+                it('should reorder target section questions', done => (async () => {
+                    courseViewModel.reorderQuestion(question, nextQuestion, target, source);
+                    await moveQuestionCommandPromise;
+                    expect(reorderQuestionCommand.execute).toHaveBeenCalledWith(targetSectionModel.id(), targetSectionModel.questions());
+                })().then(done));
+
+                it('should show notify saved message', done => (async () => {
+                    courseViewModel.reorderQuestion(question, nextQuestion, target, source);
+                    await moveQuestionCommandPromise;
+                    await reorderQuestionCommandPromise;
+                    expect(notify.saved).toHaveBeenCalled();
+                })().then(done));
+            });
         });
-
-        it('should execute reorderQuestion command', done => (async () => {
-            courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-            await moveQuestionCommandPromise;
-            expect(reorderQuestionCommand.execute).toHaveBeenCalled();
-        })().then(done));
-
-        it('should show notify saved message', done => (async () => {
-            courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
-            await moveQuestionCommandPromise;
-            await reorderQuestionCommandPromise;
-            expect(notify.saved).toHaveBeenCalled();
-        })().then(done));
 
     });
 
@@ -614,15 +647,12 @@ describe('[drag and drop course editor]', () => {
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions', eventCategory);
             })().then(done));
 
-            it('should add question to section in correct order', done => (async () => {
+            it('should add question to section next question id', done => (async () => {
                 let section = courseViewModel.sections()[0];
                 
                 courseViewModel.createQuestionWithOrder(question, nextQuestion, targetSection);
-                
-                let nextQuestionInSection = _.find(section.questions(), question => question.id() === nextQuestion.id);
-                let nextQuestionIndex = section.questions.indexOf(nextQuestionInSection);
 
-                expect(section.addQuestion).toHaveBeenCalledWith({}, nextQuestionIndex);
+                expect(section.addQuestion).toHaveBeenCalledWith({}, nextQuestion.id);
             })().then(done));
 
         });
@@ -643,7 +673,7 @@ describe('[drag and drop course editor]', () => {
 
         it('should execute createQuestion command', () => {
             courseViewModel.createQuestionWithOrder(question, nextQuestion, targetSection);
-            expect(createQuestionCommand.execute).toHaveBeenCalledWith(targetSection.sectionId, question.type);
+            expect(createQuestionCommand.execute).toHaveBeenCalledWith(targetSection.sectionId, question.type, eventCategory);
         });
 
         it('should update question fields', done => (async () => {

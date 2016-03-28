@@ -246,18 +246,9 @@ describe('command [createQuestionCommand]', function () {
             });
 
             it('should navigate to this question', function (done) {
-                command.execute('sectionId').fin(function () {
-                    expect(router.navigate).toHaveBeenCalledWith('library/sections/sectionId/questions/questionId');
+                command.execute('sectionId', 'courseId').fin(function () {
+                    expect(router.navigate).toHaveBeenCalledWith('courses/courseId/sections/sectionId/questions/questionId');
                     done();
-                });
-            });
-
-            describe('and courseId is defined', function () {
-                it('should navigate to this question with courseId in query string', function (done) {
-                    command.execute('sectionId', 'courseId').fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('courses/courseId/sections/sectionId/questions/questionId');
-                        done();
-                    });
                 });
             });
 

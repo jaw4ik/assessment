@@ -1,5 +1,5 @@
-﻿define(['./TreeNode', './QuestionTreeNode', './queries/getSectionByIdQuery', 'commands/createQuestionCommand', 'eventTracker', 'plugins/router'],
-    function (TreeNode, QuestionTreeNode, getSectionByIdQuery, createQuestionCommand, eventTracker, router) {
+﻿define(['./TreeNode', './QuestionTreeNode', './queries/getSectionByIdQuery', 'eventTracker', 'plugins/router'],
+    function (TreeNode, QuestionTreeNode, getSectionByIdQuery, eventTracker, router) {
 
         return function (sectionId, courseId, title, url) {
             TreeNode.call(this, sectionId, title, url);

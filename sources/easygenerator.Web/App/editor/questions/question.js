@@ -6,6 +6,8 @@ import questionRepository from 'repositories/questionRepository';
 import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import createQuestionCommand from 'commands/createQuestionCommand';
+import createNextQuestionCommand from 'editor/questions/commands/createNextQuestion';
+import duplicateQuestionCommand from 'editor/questions/commands/duplicateQuestion';
 import router from 'plugins/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
@@ -111,8 +113,8 @@ class QuestionViewModel  {
     duplicateQuestion() {
         this.eventTracker.publish(events.duplicateItem);
         let that = this;
-        questionRepository.copyQuestion(this.questionId, this.sectionId).then(function (response) {
-            router.navigate('courses/' + that.courseId + '/sections/' + that.sectionId + '/questions/' + response.id);
+        duplicateQuestionCommand.execute(this.questionId, this.sectionId).then(function (response) {
+            router.navigate(`courses/${that.courseId}/sections/${that.sectionId}/questions/${response.id}`);
         });
     }
 
@@ -163,7 +165,7 @@ class QuestionViewModel  {
     setActiveViewModel(question) {
         var activeViewModel = questionViewModelFactory[question.type];
         if (!activeViewModel) {
-            throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
+            throw `Question with type ${question.type} is not found in questionViewModelFactory`;
         }
         return activeViewModel;
     }
@@ -172,16 +174,8 @@ class QuestionViewModel  {
         return questionRepository.updateContent(this.questionId, content);
     }
 
-    back() {
-        if (this.courseId) {
-            router.navigate('#courses/' + this.courseId + '/sections/' + this.sectionId);
-        } else {
-            router.navigate('#library/sections/' + this.sectionId);
-        }
-    }
-
     titleUpdatedByCollaborator(questionData) {
-        if (questionData.id != this.questionId || this.questionTitle.text.isEditing()) {
+        if (questionData.id !== this.questionId || this.questionTitle.text.isEditing()) {
             return;
         }
 
@@ -198,7 +192,11 @@ class QuestionViewModel  {
     }
 
     createQuestion(item) {
-        return createQuestionCommand.execute(this.sectionId, this.courseId, item.type);
+        let that = this;
+        createNextQuestionCommand.execute(this.sectionId, item.type, '', this.questionId)
+            .then(response => {
+                router.navigate(`courses/${that.courseId}/sections/${that.sectionId}/questions/${response.id}`);
+            });
     }
 
     openUpgradePlanUrl() {

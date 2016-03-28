@@ -136,13 +136,17 @@ class ContentTreeView {
             }
         });
 
-        _questionCreated.set(this, (sectionId, question) => {
+        _questionCreated.set(this, (sectionId, question, index) => {
             let changedSection = _.find(this.sections(), item => item.id === sectionId);
             if (!changedSection) {
                 return;
             }
 
-            changedSection.questions.push(mapQuestion(this.id, sectionId, question));
+            if (index) {
+                changedSection.questions.splice(index, 0, mapQuestion(this.id, sectionId, question));
+            } else {
+                changedSection.questions.push(mapQuestion(this.id, sectionId, question));
+            }
         });
 
         _questionsReordered.set(this, section => {

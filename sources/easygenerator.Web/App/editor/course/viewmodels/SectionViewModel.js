@@ -116,12 +116,17 @@ export default class SectionViewModel{
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
 
-        _questionCreated.set(this, (sectionId, question) => {
-            if (this.id() !== sectionId || _.some(this.questions(), item => item.id() === '')) {
+        _questionCreated.set(this, (sectionId, question, index) => {
+            if (this.id() !== sectionId || _.some(this.questions(), item => item.id() === '' || item.id() === question.id)) {
                 return;
             }
 
-            this.questions.push(mapQuestion(this.courseId, this.id(), question));
+            if (index) {
+                this.questions.splice(index, 0, mapQuestion(this.courseId, this.id(), question));
+            } else {
+                this.questions.push(mapQuestion(this.courseId, this.id(), question));
+            }
+            
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
 
@@ -131,7 +136,6 @@ export default class SectionViewModel{
             }
 
             this.questions(mapQuestions(this.courseId, this.id(), section.questions));
-
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
 
@@ -219,51 +223,53 @@ export default class SectionViewModel{
             startLoading: () => that.imageLoading(true),
             success: async url => {
                 let result = await sectionRepository.updateImage(that.id(), url);
-        that.image(result.imageUrl);
-        that.modifiedOn(updateModifiedOn(result.modifiedOn));
-        that.imageLoading(false);
-        notify.saved();
-    },
-    error: () => that.imageLoading(false)
-});
-}
-deleteQuestion(question) {
-    if (_.contains(this.questions(), question)) {
-        this.questions.remove(question);
+                that.image(result.imageUrl);
+                that.modifiedOn(updateModifiedOn(result.modifiedOn));
+                that.imageLoading(false);
+                notify.saved();
+            },
+            error: () => that.imageLoading(false)
+        });
     }
-}
-addQuestion(question, index) {
-    if (!_.isObject(question)) {
-        return undefined;
+    deleteQuestion(question) {
+        if (_.contains(this.questions(), question)) {
+            this.questions.remove(question);
+        }
     }
+    addQuestion(question, nextQuestionId) {
+        if (!_.isObject(question)) {
+            return undefined;
+        }
 
-    let questionViewModel = null;
+        let questionViewModel = null;
 
-    if (_.isEmpty(question)) {
-        questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true, true);
-    } else if (question instanceof QuestionViewModel) {
-        question.sectionId = this.id();
-        questionViewModel = question;
-    } else {
-        questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
-    }
+        if (_.isEmpty(question)) {
+            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true, true);
+        } else if (question instanceof QuestionViewModel) {
+            question.sectionId = this.id();
+            questionViewModel = question;
+        } else {
+            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
+        }
 
-    if (_.isNumber(index)) {
-        this.questions.splice(index, 0, questionViewModel);
-    } else {
-        this.questions.push(questionViewModel);
-    }
+        let index = _.findIndex(this.questions(), item => item.id() === nextQuestionId);
 
-    return questionViewModel;
-}
-expandQuestionsStartTimer(question, section) {
-    if (section && section.sectionId === this.id() && section.expandQuestions) {
-        this.timeoutId = setTimeout(() => this.questionsExpanded(true), questionsExpandDelay);
+        if (index !== -1) {
+            this.questions.splice(index, 0, questionViewModel);
+        } else {
+            this.questions.push(questionViewModel);
+        }
+
+        return questionViewModel;
     }
-}
-expandQuestionsClearTimer(question, section) {
-    if (section && section.sectionId === this.id() && section.expandQuestions && this.timeoutId) {
-        clearTimeout(this.timeoutId);
+    expandQuestionsStartTimer(question, section) {
+        if (section && section.sectionId === this.id() && section.expandQuestions) {
+            this.timeoutId = setTimeout(() => this.questionsExpanded(true), questionsExpandDelay);
+        }
     }
-}
+    expandQuestionsClearTimer(question, section) {
+        if (section && section.sectionId === this.id() && section.expandQuestions && this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+    }
 }

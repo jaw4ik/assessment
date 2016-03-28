@@ -67,11 +67,13 @@ describe('dialog course [stopCollaboration]', () => {
         });
 
         it('should publish \'Stop being a co-author\' event', () => {
+            spyOn(finishCollaborationCommand, 'execute');
             viewModel.stopCollaboration();
             expect(eventTracker.publish).toHaveBeenCalledWith('Stop being a co-author');
         });
 
         it('should set isStopping to true', () => {
+            spyOn(finishCollaborationCommand, 'execute');
             viewModel.isStopping(false);
             viewModel.stopCollaboration();
             expect(viewModel.isStopping()).toBeTruthy();
