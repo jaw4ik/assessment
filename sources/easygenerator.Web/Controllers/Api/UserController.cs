@@ -199,7 +199,7 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult UpdateLastReadReleaseNoteVersion()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
-            user.UpdateLastReadReleaseNote(_releaseNoteFileReader.GetReleaseVersion(), GetCurrentUsername());
+            user.Settings.UpdateLastReadReleaseNote(_releaseNoteFileReader.GetReleaseVersion(), GetCurrentUsername());
             return JsonSuccess();
         }
 
@@ -208,7 +208,7 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult SwitchEditor()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
-            user.SwitchEditor(GetCurrentUsername());
+            user.Settings.SwitchEditor(GetCurrentUsername());
             return JsonSuccess();
         }
     }

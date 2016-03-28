@@ -240,10 +240,12 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ModifiedBy.Should().Be(CreatedBy);
             user.AccessType.Should().Be(accessPlan);
             user.ExpirationDate.Should().Be(expirationDate);
-            user.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
-            user.IsCreatedThroughLti.Should().Be(false);
-            user.NewEditor.Should().Be(null);
             user.CompaniesCollection.Should().Contain(company);
+
+            user.Settings.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
+            user.Settings.IsCreatedThroughLti.Should().Be(false);
+            user.Settings.NewEditor.Should().Be(true);
+            user.Settings.IsNewEditorByDefault.Should().Be(true);
         }
 
         [TestMethod]
@@ -1436,174 +1438,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-
-        #region UpdateLastReadReleaseNote
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdateLastReadReleaseNote("UA", null);
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdateLastReadReleaseNote("UA", string.Empty);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldThrowArgumentNullException_WhenLastReadReleaseNoteIsNull()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdateLastReadReleaseNote(null, "aaa");
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("lastReadReleaseNote");
-        }
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldThrowArgumentException_WhenLastReadReleaseNoteIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdateLastReadReleaseNote(string.Empty, "aaa");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("lastReadReleaseNote");
-        }
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldSetCountry()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-
-            //Act
-            user.UpdateLastReadReleaseNote("Ukraine", "someUser");
-
-            //Assert
-            user.Country.Should().Be("Ukraine");
-            user.ModifiedBy.Should().Be("someUser");
-        }
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldUpdateMoidifiedBy()
-        {
-            const string modifiedBy = "admin";
-            var user = UserObjectMother.Create();
-            user.UpdateLastReadReleaseNote("aaa", modifiedBy);
-
-            user.ModifiedBy.Should().Be(modifiedBy);
-        }
-
-        [TestMethod]
-        public void UpdateLastReadReleaseNote_ShouldUpdateModificationDate()
-        {
-            DateTimeWrapper.Now = () => DateTime.Now;
-            const string modifiedBy = "admin";
-            var user = UserObjectMother.Create();
-
-            var dateTime = DateTime.Now.AddDays(2);
-            DateTimeWrapper.Now = () => dateTime;
-
-            user.UpdateLastReadReleaseNote("aaa", modifiedBy);
-
-            user.ModifiedOn.Should().Be(dateTime);
-        }
-
-        #endregion
-
-        #region SwitchEditor
-
-        [TestMethod]
-        public void SwitchEditor_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.SwitchEditor(null);
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void SwitchEditor_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.SwitchEditor(string.Empty);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void SwitchEditor_ShouldUpdateMoidifiedBy()
-        {
-            const string modifiedBy = "admin";
-            var user = UserObjectMother.Create();
-            user.SwitchEditor(modifiedBy);
-
-            user.ModifiedBy.Should().Be(modifiedBy);
-        }
-
-        [TestMethod]
-        public void SwitchEditor_ShouldUpdateModificationDate()
-        {
-            DateTimeWrapper.Now = () => DateTime.Now;
-            const string modifiedBy = "admin";
-            var user = UserObjectMother.Create();
-
-            var dateTime = DateTime.Now.AddDays(2);
-            DateTimeWrapper.Now = () => dateTime;
-
-            user.SwitchEditor(modifiedBy);
-
-            user.ModifiedOn.Should().Be(dateTime);
-        }
-
-        [TestMethod]
-        public void SwitchEditor_WhenNewEditorIsNull_ShouldSetNewEditorToTrue()
-        {
-            var user = UserObjectMother.Create();
-            const string modifiedBy = "admin";
-
-            user.SwitchEditor(modifiedBy);
-
-            user.NewEditor.Should().Be(true);
-        }
-
-        [TestMethod]
-        public void SwitchEditor_WhenNewEditorIsFalse_ShouldSetNewEditorToTrue()
-        {
-            var user = UserObjectMother.Create(newEditor: false);
-
-            const string modifiedBy = "admin";
-
-            user.SwitchEditor(modifiedBy);
-
-            user.NewEditor.Should().Be(true);
-        }
-
-        [TestMethod]
-        public void SwitchEditor_WhenNewEditorIsTrue_ShouldSetNewEditorToFalse()
-        {
-            var user = UserObjectMother.Create(newEditor: true);
-
-            const string modifiedBy = "admin";
-
-            user.SwitchEditor(modifiedBy);
-
-            user.NewEditor.Should().Be(false);
-        }
-
-        #endregion
-
+        
         #region UpgradePlanToStarter
 
         [TestMethod]
@@ -1918,39 +1753,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-
-        #region IsCreatedThroughLti
-
-        [TestMethod]
-        public void IsCreatedThroughLti_ShouldReturnFalseIfUserIsCreatedDirectly()
-        {
-            var user = new User();
-            user.IsCreatedThroughLti.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void IsCreatedThroughLti_ShouldReturnTrueIfUserIsCreatedThroughLti()
-        {
-            var email = "easygenerator3@easygenerator.com";
-            var password = "Easy123!";
-            var firstname = "easygenerator user firstname";
-            var lastname = "easygenerator user lastname";
-            var phone = "some phone";
-            var country = "some country";
-            var role = "Teacher";
-            var creationDate = CurrentDate;
-            var accessPlan = AccessType.Starter;
-            var lastReadReleaseNote = "1.0.0";
-            var company = new Company();
-
-            var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, true, new Collection<Company>() { company });
-
-            user.IsCreatedThroughLti.Should().BeTrue();
-        }
-
-        #endregion
-
+        
         #region User Companies
 
         [TestMethod]

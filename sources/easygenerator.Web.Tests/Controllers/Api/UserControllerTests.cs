@@ -584,7 +584,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
            _controller.UpdateLastReadReleaseNoteVersion();
 
-            user.LastReadReleaseNote.Should().Be("255");
+            user.Settings.LastReadReleaseNote.Should().Be("255");
         }
 
         [TestMethod]
@@ -614,7 +614,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             
             _controller.SwitchEditor();
 
-            user.NewEditor.Should().Be(true);
+            user.Settings.NewEditor.Should().Be(false);
         }
 
         [TestMethod]

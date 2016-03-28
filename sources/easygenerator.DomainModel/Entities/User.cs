@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, ICollection<Company> companiesCollection = null, bool? newEditor = null)
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, ICollection<Company> companiesCollection = null, bool? newEditor = true, bool isNewEditorByDefault = true)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -34,11 +34,9 @@ namespace easygenerator.DomainModel.Entities
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
+            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault);
 
             AccessType = accessPlan;
-            LastReadReleaseNote = lastReadReleaseNote;
-            IsCreatedThroughLti = isCreatedThroughLti;
-            NewEditor = newEditor;
 
             if (expirationDate.HasValue)
             {
@@ -53,7 +51,6 @@ namespace easygenerator.DomainModel.Entities
 
         public string Email { get; protected set; }
         public string PasswordHash { get; private set; }
-
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Phone { get; private set; }
@@ -86,10 +83,7 @@ namespace easygenerator.DomainModel.Entities
 
             MarkAsModified(modifiedBy);
         }
-
-        public string LastReadReleaseNote { get; private set; }
-        public bool? NewEditor { get; private set; }
-
+        
         public virtual bool VerifyPassword(string password)
         {
             return Cryptography.VerifyHash(password, PasswordHash);
@@ -210,30 +204,7 @@ namespace easygenerator.DomainModel.Entities
             Country = country;
             MarkAsModified(modifiedBy);
         }
-
-        public virtual void UpdateLastReadReleaseNote(string lastReadReleaseNote, string modifiedBy)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(lastReadReleaseNote, nameof(lastReadReleaseNote));
-            ThrowIfModifiedByIsInvalid(modifiedBy);
-
-            LastReadReleaseNote = lastReadReleaseNote;
-            MarkAsModified(modifiedBy);
-        }
-
-        public virtual void SwitchEditor(string modifiedBy)
-        {
-            ThrowIfModifiedByIsInvalid(modifiedBy);
-            if (NewEditor.HasValue && (bool)NewEditor)
-            {
-                NewEditor = false;
-            }
-            else
-            {
-                NewEditor = true;
-            }
-            MarkAsModified(modifiedBy);
-        }
-
+        
         public virtual void UpgradePlanToStarter(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);
@@ -270,6 +241,8 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new UserDowngraded(this));
         }
 
+        public virtual UserSettings Settings { get; set; }
+
         private void ThrowIfEmailIsNotValid(string email)
         {
             ArgumentValidation.ThrowIfNotValidEmail(email, nameof(email));
@@ -295,7 +268,6 @@ namespace easygenerator.DomainModel.Entities
         }
 
         #region LtiUserInfo
-        public bool IsCreatedThroughLti { get; private set; }
         protected internal virtual ICollection<LtiUserInfo> LtiUserInfoes { get; set; }
 
         public virtual LtiUserInfo GetLtiUserInfo(string ltiUserId, ConsumerTool consumerTool)

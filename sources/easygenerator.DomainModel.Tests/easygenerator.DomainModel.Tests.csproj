@@ -97,6 +97,7 @@
     <Compile Include="Entities\Questions\RankingTextTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
+    <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityClonerTests.cs" />
     <Compile Include="ObjectMothers\RankingTextAnswerObjectMother.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="ObjectMothers\TextMatchingObjectMother.cs" />
     <Compile Include="ObjectMothers\LtiUserInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
+    <Compile Include="ObjectMothers\UserSettingsObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\EntityFluentAssertions.cs" />
   </ItemGroup>
