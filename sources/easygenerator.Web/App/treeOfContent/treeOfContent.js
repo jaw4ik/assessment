@@ -52,6 +52,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
 
     app.on(constants.messages.course.collaboration.started, self.handler.collaborationStarted);
     app.on(constants.messages.course.collaboration.finished, self.handler.collaborationFinished);
+    app.on(constants.messages.course.collaboration.finishedByCollaborator, self.handler.collaborationFinished);
 
     router.routeData.subscribe(function (navigationContext) {
         treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {

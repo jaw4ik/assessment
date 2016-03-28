@@ -84,30 +84,15 @@
                                 </div>
                                 <!-- ko if: isProcessed -->
                                 <div class="list-item-open">
-                                    <div class="list-item-open-btn course-action-btn info-tooltip-holder">
-                                        <div class="info-tooltip open-item">
-                                            <span data-bind="localize: { text: 'open' }">Open</span>
-                                        </div>
-                                    </div>
+                                    <div class="list-item-open-btn course-action-btn" data-bind="tip: { key: 'open' }"></div>
                                 </div>
                                 <!-- /ko -->
                             </div>
                             <div class="course-actions-panel">
                                 <!-- ko if: isProcessed -->
-                                <button class="course-action-btn delete-course-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.deleteCourse">
-                                    <div class="info-tooltip delete-course-item">
-                                        <span data-bind="localize: { text: 'deleteCourse' }">Delete course</span>
-                                    </div>
-                                </button>
-                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
-                                    <div class="info-tooltip duplicate-item">
-                                        <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
-                                    </div>
-                                </button>
-                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
-                                    <div class="info-tooltip publish-item">
-                                        <span data-bind="localize: { text: 'publish' }">Publish</span>
-                                    </div>
+                                <button class="course-action-btn delete-course-btn" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.deleteCourse, tip: { key: 'deleteCourse' }"></button>
+                                <button class="course-action-btn duplicate-btn" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, tip: { key: 'duplicate' }"></button>
+                                <a class="course-action-btn publish-btn" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }, tip: { key: 'publish' }">
                                 </a>
                                 <!-- /ko -->
                             </div>
@@ -138,7 +123,7 @@
                 <!-- ko foreach: sharedCourses -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                            <div class="list-item-info-holder">
+                        <div class="list-item-info-holder">
                             <div class="info-holder-table">
                                 <div class="list-item-logo">
                                     <span class="list-item-logo-image-wrapper">
@@ -154,23 +139,13 @@
                                     </div>
                                 </div>
                                 <div class="list-item-open">
-                                    <div class="list-item-open-btn course-action-btn info-tooltip-holder">
-                                        <div class="info-tooltip open-item">
-                                            <span data-bind="localize: { text: 'open' }">Open</span>
-                                        </div>
-                                    </div>
+                                    <div class="list-item-open-btn course-action-btn" data-bind="tip: { key: 'open' }"></div>
                                 </div>
                             </div>
                             <div class="course-actions-panel">
-                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
-                                    <div class="info-tooltip duplicate-item">
-                                        <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
-                                    </div>
-                                </button>
-                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
-                                    <div class="info-tooltip publish-item">
-                                        <span data-bind="localize: { text: 'publish' }">Publish</span>
-                                    </div>
+                                <button class="course-action-btn stop-collaboration-btn" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.stopCollaboration, tip: { key: 'stopCoauthoring' }"></button>
+                                <button class="course-action-btn duplicate-btn" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, tip: { key: 'duplicate' }"></button>
+                                <a class="course-action-btn publish-btn" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }, tip: { key: 'publish' }">
                                 </a>
                             </div>
                         </div>

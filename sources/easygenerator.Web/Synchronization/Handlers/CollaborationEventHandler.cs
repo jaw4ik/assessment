@@ -7,6 +7,7 @@ using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
+using System.Web;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
@@ -34,6 +35,11 @@ namespace easygenerator.Web.Synchronization.Handlers
             _collaborationInviteMapper = collaborationInviteMapper;
         }
 
+        protected string CurrentUsername
+        {
+            get { return HttpContext.Current.User.Identity.Name; }
+        }
+
         public void Handle(UserSignedUpEvent args)
         {
             _userBroadcaster.OtherCollaborators(args.User.Email)
@@ -55,12 +61,16 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseCollaboratorRemovedEvent args)
         {
-            _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Course.CreatedBy, args.Collaborator.Email)
+            _courseCollaborationBroadcaster.OtherCollaborators(args.Course)
                 .collaboratorRemoved(args.Course.Id.ToNString(), args.Collaborator.Email);
+
+            if (CurrentUsername == args.Collaborator.Email)
+                return;
 
             if (args.Collaborator.IsAccepted)
             {
-                _courseCollaborationBroadcaster.User(args.Collaborator.Email).courseCollaborationFinished(args.Course.Id.ToNString());
+                _courseCollaborationBroadcaster.User(args.Collaborator.Email)
+                    .courseCollaborationFinished(args.Course.Id.ToNString());
             }
             else
             {
@@ -81,7 +91,7 @@ namespace easygenerator.Web.Synchronization.Handlers
                      args.Collaborator.Course.RelatedSections.Select(o => _entityMapper.Map(o)),
                      _entityMapper.Map(args.Collaborator.Course.Template));
 
-            _userBroadcaster.User(args.Course.CreatedBy)
+            _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Collaborator.Email)
                 .collaborationInviteAccepted(args.Course.Id.ToNString(), args.Collaborator.Email);
         }
 

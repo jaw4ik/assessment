@@ -182,6 +182,7 @@ export default {
                 started: 'course:collaboration-started',
                 disabled: 'course:collaboration-disabled',
                 finished: 'course:collaboration-finished',
+                finishedByCollaborator: 'course:collaboration-finishedByCollaborator',
                 deleting: {
                     started: 'collaborator:deleting-started:',
                     completed: 'collaborator:deleting-completed:',

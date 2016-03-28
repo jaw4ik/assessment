@@ -219,42 +219,6 @@ describe('viewModel [course index]', function () {
 
             expect(collaboration.show).toHaveBeenCalledWith(id, createdBy);
         });
-
-        describe('enabled:', function () {
-
-            beforeEach(function () {
-                userContext.identity = {
-                    email: 'a@a.a'
-                };
-            });
-
-            it('should be computed', function () {
-                expect(viewModel.collaborate.enabled).toBeComputed();
-            });
-
-            describe('when current user is an owner', function () {
-
-                beforeEach(function () {
-                    viewModel.createdBy('a@a.a');
-                });
-
-                it('should be true', function () {
-                    expect(viewModel.collaborate.enabled()).toEqual(true);
-                });
-            });
-
-            describe('when current user is not owner', function () {
-                beforeEach(function () {
-                    viewModel.createdBy('b@b.b');
-                });
-
-                it('should be false', function () {
-                    expect(viewModel.collaborate.enabled()).toEqual(false);
-                });
-            });
-
-        });
-
     });
 
     describe('canActivate:', function () {

@@ -424,7 +424,7 @@
             box-shadow: 0px 0px 3px 1px #e5e6e6;
         }
 
-        .cs-scroll-enabled ~ .templates-list-container-bottom-shadow  {
+        .cs-scroll-enabled ~ .templates-list-container-bottom-shadow {
             position: absolute;
             bottom: 0;
             left: 21px;
@@ -442,7 +442,7 @@
             position: relative;
             width: 225px;
 
-            & > .ps-scrollbar-y-rail{
+            & > .ps-scrollbar-y-rail {
                 right: 13px !important;
             }
         }
@@ -646,7 +646,7 @@
 
 /*#endregion */
 
-/*#region Delete course or learning path */
+/*#region Delete item */
 
 .dialog-wrapper.delete-item {
     @dialog-title-font: 20px 'OpenSans-Semibold';
@@ -656,6 +656,21 @@
 
     .dialog {
         padding-top: 30px;
+
+        &.stop-coauthoring {
+            .dialog-title-wrapper {
+                .dialog-title-img {
+                    background-position: -282px -617px;
+                    width: 50px;
+                    height: 45px;
+                    margin-top: 15px;
+                }
+
+                .dialog-title {
+                    padding: 15px 0px 0px 0px;
+                }
+            }
+        }
     }
 
     .dialog-title-wrapper {
@@ -691,6 +706,14 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+
+            &.single-line {
+                max-width: 100%;
+
+                span {
+                    white-space: nowrap;
+                }
             }
         }
 

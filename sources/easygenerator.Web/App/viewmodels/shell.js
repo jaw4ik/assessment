@@ -83,7 +83,7 @@
         });
 
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
-        app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
+        app.on(constants.messages.course.collaboration.finishedByCollaborator, viewModel.courseCollaborationFinished);
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.sectionsUnrelated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
         app.on(constants.messages.user.planChanged, checkUpgradeNowVisibility);

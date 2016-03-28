@@ -1,0 +1,25 @@
+﻿<div class="stop-collaboration">
+    <div class="stop-collaboration-tip-wrapper">
+        <div class="stop-collaboration-tip">
+            <div class="stop-collaboration-tip-text" data-bind="localize: { text: 'doYouWantToStopCoauthoring' }"></div>
+            <button class="btn medium white grey-border stop-collaboration-tip-btn" data-bind="click: showStopCollaborationPopover, localize: { text: 'stopCoauthoring' }"></button>
+        </div>
+    </div>
+    <div class="stop-collaboration-popover" data-bind="css: { shown: isStopCollaborationPopoverShown }">
+        <div class="stop-collaboration-popover-body">
+            <div class="stop-collaboration-popover-header" data-bind="localize: { text: 'stopBeingACoauthorQuestion' }"></div>
+            <div class="stop-collaboration-popover-text" data-bind="localize: { text: 'youWillNotBeAbleToEditTheCourseAnymore' }"></div>
+            <div class="stop-collaboration-popover-actions">
+                <button class="btn medium white grey-border" data-bind="click: hideStopCollaborationPopover, localize: { text: 'cancel' }, disable: isCollaborationFinishing, css: {disabled: isCollaborationFinishing}"></button>
+                <button class="btn medium red" data-bind="click: stopCollaboration, disable: isCollaborationFinishing, css: {progress: isCollaborationFinishing }">
+                    <!-- ko if: isCollaborationFinishing -->
+                    <div class="preloader" data-bind="preloader: { type: 'circular', settings: 'small white align-center' }"></div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isCollaborationFinishing -->
+                    <span class="btn-text" data-bind="localize: { text: 'confirm' }"></span>
+                    <!-- /ko -->
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

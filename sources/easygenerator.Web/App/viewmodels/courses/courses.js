@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
     'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
-    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse'],
+    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse','dialogs/course/stopCollaboration/stopCollaboration'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog) {
+        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog, stopCollaborationDialog) {
         "use strict";
 
         var
@@ -44,6 +44,7 @@
             createNewCourse: createNewCourse,
             createCourseCallback: createCourseCallback,
             importCourseFromPresentation: importCourseFromPresentation,
+            stopCollaboration: stopCollaboration,
 
             courseCollaborationStarted: courseCollaborationStarted,
             deletedByCollaborator: deletedByCollaborator,
@@ -66,6 +67,7 @@
         app.on(constants.messages.course.sectionRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
+        app.on(constants.messages.course.collaboration.finishedByCollaborator, viewModel.collaborationFinished);
         app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
         app.on(constants.messages.course.deleted, viewModel.courseDeleted);
         app.on(constants.messages.course.created, viewModel.newCourseCreated);
@@ -83,6 +85,10 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);
             router.openUrl(constants.upgradeUrl);
+        }
+
+        function stopCollaboration(course) {
+            stopCollaborationDialog.show(course.id, course.title());
         }
 
         function duplicateCourse(course) {

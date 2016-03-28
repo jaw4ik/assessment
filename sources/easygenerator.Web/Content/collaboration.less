@@ -144,6 +144,94 @@
     position: relative;
 }
 
+.stop-collaboration {
+    .stop-collaboration-tip-wrapper {
+        display: flex;
+
+        .stop-collaboration-tip {
+            padding: 10px 10px 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            min-height: 80px;
+            align-items: center;
+
+            .stop-collaboration-tip-text {
+                font-size: 12px;
+                font-family: Open Sans;
+                color: #63798e;
+            }
+
+            .stop-collaboration-tip-btn {
+                margin-left: 20px;
+                color: #91a4b1;
+                flex-grow: 1;
+                flex-shrink: 0;
+                max-width: 170px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .stop-collaboration-popover {
+        display: flex;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.95);
+        z-index: -1;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+
+        &.shown {
+            z-index: 1;
+            transform: scale(1);
+            opacity: 1;
+            animation: grow .3s ease-in-out;
+        }
+
+        .stop-collaboration-popover-body {
+            margin: 20px 45px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .stop-collaboration-popover-header {
+                font-family: Open Sans;
+                font-weight: 600;
+                font-size: 20px;
+                color: #42515f;
+            }
+
+            .stop-collaboration-popover-text {
+                color: #63798e;
+                font-family: Open Sans;
+                font-size: 13px;
+                margin-top: 15px;
+            }
+
+            .stop-collaboration-popover-actions {
+                margin-top: 25px;
+
+                .btn + .btn {
+                    margin-left: 20px;
+                }
+
+                .preloader {
+                    display: inline-block;
+                }
+
+                .btn.progress:disabled {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
 /*#endregion Collaboration */
 
 /*#region Add collaborator */

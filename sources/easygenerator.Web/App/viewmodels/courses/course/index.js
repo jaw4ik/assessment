@@ -121,10 +121,6 @@
 
         viewModel.titleField = titleField('', constants.validation.courseTitleMaxLength, null, getTitle, updateTitle);
 
-        collaborate.enabled = ko.computed(function () {
-            return (userContext.identity && userContext.identity.email) === viewModel.createdBy();
-        });
-
         return viewModel;
 
         function getTitle() {

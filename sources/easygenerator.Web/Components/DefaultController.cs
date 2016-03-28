@@ -18,6 +18,11 @@ namespace easygenerator.Web.Components
             return new JsonSuccessResult();
         }
 
+        protected ActionResult ForbiddenResult()
+        {
+            return new ForbiddenResult();
+        }
+
         protected ActionResult JsonSuccess(object data)
         {
             return new JsonSuccessResult(data);

@@ -239,6 +239,73 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
         #endregion
 
+
+        #region FinishCollaboration
+
+        [TestMethod]
+        public void FinishCollaboration_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.FinishCollaboration(null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void FinishCollaboration_ShouldReturnHttpNotFoundResult_WnenCollaboratorIsNotFound()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(CreatedBy);
+            var course = Substitute.For<Course>();
+            course.RemoveCollaborator(Arg.Any<ICloner>(), Arg.Any<string>()).ReturnsForAnyArgs(false);
+
+            //Act
+            var result = _controller.FinishCollaboration(course, CreatedBy);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
+        }
+
+        [TestMethod]
+        public void FinishCollaboration_ShouldReturnForbiddenResult_WnenCollaboratorIsNotCurrentUser()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(CreatedBy);
+
+            //Act
+            var result = _controller.FinishCollaboration(CourseObjectMother.Create(), UserEmail);
+
+            //Assert
+            result.Should().BeForbiddenResult();
+        }
+
+        [TestMethod]
+        public void FinishCollaboration_ShouldCallCourseRemoveCollaboratorMethod()
+        {
+            var course = Substitute.For<Course>();
+            var collaboratorEmail = "aa@aa.aa";
+            _user.Identity.Name.Returns(collaboratorEmail);
+
+            _controller.FinishCollaboration(course, collaboratorEmail);
+
+            course.Received().RemoveCollaborator(_cloner, collaboratorEmail);
+        }
+
+        [TestMethod]
+        public void FinishCollaboration_ShouldReturnJsonSuccess_WhenCollaboratorRemoved()
+        {
+            var course = CourseObjectMother.Create();
+            var collaboratorEmail = "aa@aa.aa";
+            _user.Identity.Name.Returns(collaboratorEmail);
+            course.Collaborate(collaboratorEmail, "createdBy");
+
+            var result = _controller.FinishCollaboration(course, collaboratorEmail);
+
+            result.Should().BeJsonSuccessResult();
+        }
+        #endregion
+
         #region DeclineCollaborationInvite
 
         [TestMethod]

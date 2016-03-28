@@ -12,10 +12,10 @@
             });
 
             dataContext.sections = _.reject(dataContext.sections, function (section) {
-                return  section.createdBy !== username && !sectionRelatedToAvailableCourses(section.id);
+                return section.createdBy !== username && !sectionRelatedToAvailableCourses(section.id);
             });
 
-            app.trigger(constants.messages.course.collaboration.finished, courseId);
+            app.trigger(constants.messages.course.collaboration.finishedByCollaborator, courseId);
         }
 
         function sectionRelatedToAvailableCourses(sectionId) {
