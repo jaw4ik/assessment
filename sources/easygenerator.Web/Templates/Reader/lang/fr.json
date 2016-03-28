@@ -10,5 +10,6 @@
     "[page not found code]": "404",
     "[page not found title]": "Page introuvable",
     "[page not found message]": "Cliquez sur Page d'accueil. Si le problème subsiste, veuillez prendre contact avec support@easygenerator.com.",
-    "[thank you message]": "Merci. Il est maintenant permis de fermer cette page."
+    "[thank you message]": "Merci. Il est maintenant permis de fermer cette page.",
+    "[back to sections]": "Retour aux sections"
 }
