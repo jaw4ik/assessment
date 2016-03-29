@@ -9,14 +9,7 @@
                     clientContext.set(constants.clientContextKeys.lastCreatedQuestionId, question.id);
                     uiLocker.unlock();
 
-                    var navigateUrl = 'sections/' + sectionId + '/questions/' + question.id;
-
-                    if (_.isString(courseId)) {
-                        router.navigate('courses/' + courseId + '/' + navigateUrl);
-                    } else {
-                        router.navigate('library/' + navigateUrl);
-                    }
-
+                    router.navigate('courses/' + courseId + '/sections/' + sectionId + '/questions/' + question.id);
                 }).fail(function () {
                     uiLocker.unlock();
                 });

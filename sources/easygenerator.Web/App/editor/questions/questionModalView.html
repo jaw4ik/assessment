@@ -19,7 +19,9 @@
                         </ul>
                     </div>
                     <div class="new-item action-container" data-bind="dropDown: {}">
-                        <button class="action-button"><span class="action-button-caption" data-bind="localize: { text: 'createNewQuestion' }"></span></button>
+                        <button class="action-button">
+                            <span class="action-button-caption" data-bind="localize: { text: 'createNewQuestion' }"></span>
+                        </button>
                         <ul class="new-item-list">
                             <!-- ko foreach: questions -->
                             <li class="item" data-bind="css: type, css2 : { disabled: !hasAccess } , click : $parent.createQuestion">

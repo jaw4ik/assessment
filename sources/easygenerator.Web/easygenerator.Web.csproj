@@ -710,6 +710,8 @@
       <DependentUpon>stopCollaboration.js</DependentUpon>
     </Content>
     <Content Include="App\editor\course\bindingHandlers\hightlightSection.js" />
+    <Content Include="App\editor\questions\commands\createNextQuestion.js" />
+    <Content Include="App\editor\questions\commands\duplicateQuestion.js" />
     <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.html" />
     <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.js" />
     <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.spec.js">

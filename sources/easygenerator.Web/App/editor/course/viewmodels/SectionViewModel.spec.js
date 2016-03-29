@@ -1,5 +1,6 @@
 ﻿import SectionViewModel from './SectionViewModel';
 
+import ko from 'knockout';
 import constants from 'constants';
 import moment from 'moment';
 import imageUpload from 'imageUpload';
@@ -437,27 +438,40 @@ describe('[SectionViewModel]', () => {
 
         });
 
-        describe('when index is Number', () => {
+        describe('when next question id is defined', () => {
 
-            it('should push question to index', () => {
-                sectionViewModel.questions.push({});
-                sectionViewModel.questions.push({});
+            describe('and next question exists', () => {
+                it('should push question before next question', () => {
+                    sectionViewModel.questions.push({ id: ko.observable('0') });
+                    sectionViewModel.questions.push({ id: ko.observable('1') });
+                    let question = {
+                        id: 'id',
+                        title: 'title',
+                        type: 'type'
+                    };
+                    let result = sectionViewModel.addQuestion(question, '1');
+                    expect(sectionViewModel.questions.indexOf(result)).toBe(1);
+                });    
+            });
+
+            it('should push question to the end', () => {
+                sectionViewModel.questions.push({ id: ko.observable('0') });
+                sectionViewModel.questions.push({ id: ko.observable('1') });
                 let question = {
                     id: 'id',
                     title: 'title',
                     type: 'type'
                 };
-                let result = sectionViewModel.addQuestion(question, 1);
-                expect(sectionViewModel.questions.indexOf(result)).toBe(1);
+                let result = sectionViewModel.addQuestion(question, 'next');
+                expect(sectionViewModel.questions.indexOf(result)).toBe(2);
             });
-
         });
 
-        describe('when index is not a Number', () => {
+        describe('when next question id is undefined', () => {
            
             it('should push question to end', () => {
-                sectionViewModel.questions.push({});
-                sectionViewModel.questions.push({});
+                sectionViewModel.questions.push({ id: ko.observable('0') });
+                sectionViewModel.questions.push({ id: ko.observable('1') });
                 let question = {
                     id: 'id',
                     title: 'title',

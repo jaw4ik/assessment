@@ -228,7 +228,7 @@ export default class {
             return;
         }
         let createdQuestionViewModel = sectionViewModel.addQuestion({});
-        let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
+        let createdQuestion = await createQuestionCommand.execute(sectionId, questionType, eventCategory);
         createdQuestionViewModel.updateFields(createdQuestion);
     }
     async deleteQuestion(question) {
@@ -239,36 +239,49 @@ export default class {
         }
         notify.saved();
     }
-    async reorderQuestion(question, nextQuestion, targetSection, sourceSection) {
+    async reorderQuestion(question, nextQuestion, target, source) {
         let questionId = question && question.id;
         let nextQuestionId = nextQuestion && nextQuestion.id;
-        let targetSectionId = targetSection && targetSection.sectionId;
-        let sourceSectionId = sourceSection && sourceSection.sectionId;
-
-        let sectionInCourse = _.find(this.sections(), section => section.id() === sourceSectionId);
-        if (!sectionInCourse) {
-            return;
-        }
-       
-        let questionInSection = _.find(sectionInCourse.questions(), question => question.id() === questionId);
-        sectionInCourse.deleteQuestion(questionInSection);
+        let targetSectionId = target && target.sectionId;
+        let sourceSectionId = source && source.sectionId;
 
         if (targetSectionId !== sourceSectionId) {
-            eventTracker.publish(events.moveQuestion, eventCategory);
-            sectionInCourse = _.find(this.sections(), section => section.id() === targetSectionId);
-            await moveQuestionCommand.execute(questionId, sourceSectionId, targetSectionId);
+            await this.moveQuestion(questionId, targetSectionId, sourceSectionId, nextQuestionId);
         } else {
-            eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
+            await this.changeQuestionOrder(questionId, nextQuestionId, sourceSectionId);
+        }
+    }
+    async changeQuestionOrder(questionId, nextQuestionId, sectionId) {
+        let section = _.find(this.sections(), section => section.id() === sectionId);
+
+        if (!section) {
+            return;
         }
 
-        if (nextQuestionId) {
-            let nextQuestionInSection = _.find(sectionInCourse.questions(), question => question.id() === nextQuestionId);
-            let nextQuestionIndex = sectionInCourse.questions.indexOf(nextQuestionInSection);
-            sectionInCourse.addQuestion(questionInSection, nextQuestionIndex);
-        } else {
-            sectionInCourse.addQuestion(questionInSection);
+        let question = _.find(section.questions(), item => item.id() === questionId);
+        section.deleteQuestion(question);
+        section.addQuestion(question, nextQuestionId);
+        eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
+        await reorderQuestionCommand.execute(section.id(), section.questions());
+        notify.saved();
+    }
+    async moveQuestion(questionId, targetSectionId, sourceSectionId, nextQuestionId) {
+        let sourceSection = _.find(this.sections(), section => section.id() === sourceSectionId);
+        let targetSection = _.find(this.sections(), section => section.id() === targetSectionId);
+
+        if (!sourceSection || !targetSection) {
+            return;
         }
-        await reorderQuestionCommand.execute(sectionInCourse.id(), sectionInCourse.questions());
+
+        let question = _.find(sourceSection.questions(), item => item.id() === questionId);
+        sourceSection.deleteQuestion(question);
+        targetSection.addQuestion(question, nextQuestionId);
+        eventTracker.publish(events.moveQuestion, eventCategory);
+        await moveQuestionCommand.execute(questionId, sourceSectionId, targetSectionId);
+
+        if (nextQuestionId) {
+            await reorderQuestionCommand.execute(targetSection.id(), targetSection.questions());
+        }
         notify.saved();
     }
     async createQuestionWithOrder(question, nextQuestion, targetSection) {
@@ -290,14 +303,12 @@ export default class {
 
         if (nextQuestionId) {
             eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
-            let nextQuestionInSection = _.find(section.questions(), question => question.id() === nextQuestionId);
-            let nextQuestionIndex = section.questions.indexOf(nextQuestionInSection);
-            createdQuestionViewModel = section.addQuestion({}, nextQuestionIndex);
+            createdQuestionViewModel = section.addQuestion({}, nextQuestionId);
         } else {
             createdQuestionViewModel = section.addQuestion({});
         }
 
-        let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
+        let createdQuestion = await createQuestionCommand.execute(sectionId, questionType, eventCategory);
         createdQuestionViewModel.updateFields(createdQuestion, true);
         await reorderQuestionCommand.execute(section.id(), section.questions());
         createdQuestionViewModel.isProcessed(false);

@@ -206,30 +206,33 @@ describe('viewModel [question]', () => {
         });
 
         describe('when activated without course id', () => {
-            it('should reject promise', () => {
+            it('should reject promise', done => {
                 viewModel.activate().catch(reason => {
                     expect(reason).toBeDefined();
+                    done();
                 });
             });
         });
 
         describe('when activated without section id', () => {
-            it('should reject promise', () => {
+            it('should reject promise', done => {
                 viewModel.activate('courseId').catch(reason => {
                     expect(reason).toBeDefined();
+                    done();
                 });
             });
         });
 
         describe('when activated without question id', () => {
-            it('should reject promise', () => {
+            it('should reject promise', done => {
                 viewModel.activate('courseId', 'sectionId').catch(reason => {
                     expect(reason).toBeDefined();
+                    done();
                 });
             });
         });
 
-        it('should set courseId', (done) => (async () => {
+        it('should set courseId', done => (async () => {
             viewModel.courseId = null;
             viewModel.activate('courseId', 'sectionId', 'questionId');
             expect(viewModel.courseId).toEqual('courseId');

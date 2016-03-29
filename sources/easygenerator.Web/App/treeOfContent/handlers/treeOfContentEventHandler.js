@@ -123,10 +123,15 @@
             });
         }
 
-        function questionCreated(sectionId, question) {
+        function questionCreated(sectionId, question, index) {
             _.each(treeOfContentTraversal.getSectionTreeNodeCollection(sectionId), function (sectionTreeNode) {
                 if (sectionTreeNode.isExpanded()) {
-                    sectionTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#courses/" + sectionTreeNode.courseId + "/sections/" + sectionTreeNode.id + "/questions/" + question.id));
+                    var questionNode = new QuestionTreeNode(question.id, question.title, "#courses/" + sectionTreeNode.courseId + "/sections/" + sectionTreeNode.id + "/questions/" + question.id);
+                    if (index) {
+                        sectionTreeNode.children.splice(index, 0, questionNode);
+                    } else {
+                        sectionTreeNode.children.push(questionNode);
+                    }
                 }
             });
         }
