@@ -10,5 +10,6 @@
     "[page not found code]": "404",
     "[page not found title]": "Сторінку не знайдено",
     "[page not found message]": "Натисніть \"Головна\". Пишіть на support@easygenerator.com, якщо проблема не вирішилась.",
-    "[thank you message]": "Дякуємо. Тепер сторінку можна закрити."
+    "[thank you message]": "Дякуємо. Тепер сторінку можна закрити.",
+    "[back to sections]": "Назад до секцій"
 }
