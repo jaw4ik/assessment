@@ -44,6 +44,11 @@
       "url": "lang/pt-br.json"
     },
     {
+      "code": "ru",
+      "name": "Russian",
+      "url": "lang/ru.json"
+    },
+    {
       "code": "es",
       "name": "Spanish",
       "url": "lang/es.json"
