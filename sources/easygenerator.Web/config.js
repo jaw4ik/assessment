@@ -15,8 +15,8 @@ System.config({
   },
 
   map: {
-    "babel": "npm:babel-core@5.8.35",
-    "babel-runtime": "npm:babel-runtime@5.8.35",
+    "babel": "npm:babel-core@5.8.38",
+    "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
     "dragula": "github:jaw4ik/dragula@3.5.5",
@@ -52,7 +52,7 @@ System.config({
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:babel-runtime@5.8.35": {
+    "npm:babel-runtime@5.8.38": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:contra@1.9.1": {
