@@ -45,6 +45,7 @@ var _sectionsDisconnected = new WeakMap();
 var _sectionsReordered = new WeakMap();
 var _sectionDeleted = new WeakMap();
 var _navigateToSection = new WeakMap();
+var _navigateToQuestion = new WeakMap();
 
 var instance = null;
 
@@ -124,6 +125,10 @@ export default class {
             this.hightlightSectionIfNeeded();
         });
 
+        _navigateToQuestion.set(this, () => {
+            this.openQuestionIfNeeded();
+        });
+
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
         app.on(constants.messages.course.sectionRelatedByCollaborator, _sectionConnected.get(this).bind(this));
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
@@ -131,6 +136,7 @@ export default class {
         app.on(constants.messages.course.sectionsReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
         app.on(constants.messages.section.deleted, _sectionDeleted.get(this).bind(this));
         app.on(constants.messages.section.navigated, _navigateToSection.get(this).bind(this));
+        app.on(constants.messages.question.navigated, _navigateToQuestion.get(this).bind(this));
 
         return instance;
     }
@@ -147,7 +153,7 @@ export default class {
         }
 
         this.hightlightSectionIfNeeded();
-        await questionModalView.open(sectionId, questionId);
+        this.openQuestionIfNeeded();
     }
     async createSection(section) {
         eventTracker.publish(events.createSection, eventCategory);
@@ -298,7 +304,7 @@ export default class {
         if (!section) {
             return;
         }
-        
+
         let createdQuestionViewModel = null;
 
         if (nextQuestionId) {
@@ -337,12 +343,27 @@ export default class {
         }
         sectionInCourse.questionsExpanded(this.lastDraggingSectionState);
     }
-
     hightlightSectionIfNeeded() {
         let sectionId = clientContext.get(constants.clientContextKeys.highlightedSectionId);
-        if(sectionId) {
+        if (sectionId) {
             clientContext.remove(constants.clientContextKeys.highlightedSectionId);
             this.highlightedSectionId(sectionId);
+        }
+    }
+    openQuestionIfNeeded() {
+        let questionData = clientContext.get(constants.clientContextKeys.questionDataToNavigate);
+        if (questionData) {
+            clientContext.remove(constants.clientContextKeys.questionDataToNavigate);
+
+            let section = _.find(this.sections(), section => section.id() === questionData.sectionId);
+            if (!section)
+                return;
+
+            let question = _.find(section.questions(), item => item.id() === questionData.questionId);
+            if (!question)
+                return;
+
+            question.open();
         }
     }
     canReuseForRoute(courseId) {
@@ -355,7 +376,7 @@ export default class {
 
         let promises = [];
         promises.push(courseRepository.getById(courseId));
-        
+
         if (sectionId) {
             promises.push(sectionRepository.getById(sectionId));
 

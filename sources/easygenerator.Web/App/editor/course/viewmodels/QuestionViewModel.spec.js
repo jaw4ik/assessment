@@ -4,6 +4,7 @@ import constants from 'constants';
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import updateQuestionTitleCommand from '../commands/updateQuestionTitleCommand';
+import questionModalView from 'editor/questions/questionModalView';
 
 describe('[QuestionViewModel]', () => {
     let questionViewModel;
@@ -149,6 +150,17 @@ describe('[QuestionViewModel]', () => {
 
         });
         
+    });
+
+    describe('open:', () => {
+        beforeEach(() => {
+            spyOn(questionModalView, 'open');
+        });
+
+        it('should open question modal view', () => {
+            questionViewModel.open();
+            expect(questionModalView.open).toHaveBeenCalledWith(sectionId, question.id);
+        });
     });
  
 });

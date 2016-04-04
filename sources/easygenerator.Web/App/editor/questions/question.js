@@ -114,7 +114,7 @@ class QuestionViewModel  {
         this.eventTracker.publish(events.duplicateItem);
         let that = this;
         duplicateQuestionCommand.execute(this.questionId, this.sectionId).then(function (response) {
-            router.navigate(`courses/${that.courseId}/sections/${that.sectionId}/questions/${response.id}`);
+            app.trigger(constants.messages.questionNavigation.navigateToQuestion, {questionId: response.id, sectionId: that.sectionId});
         });
     }
 
@@ -195,7 +195,7 @@ class QuestionViewModel  {
         let that = this;
         createNextQuestionCommand.execute(this.sectionId, item.type, '', this.questionId)
             .then(response => {
-                router.navigate(`courses/${that.courseId}/sections/${that.sectionId}/questions/${response.id}`);
+                app.trigger(constants.messages.questionNavigation.navigateToQuestion, {questionId: response.id, sectionId: that.sectionId});
             });
     }
 
@@ -206,4 +206,4 @@ class QuestionViewModel  {
 
 }
 
-    export default new QuestionViewModel();
+export default new QuestionViewModel();

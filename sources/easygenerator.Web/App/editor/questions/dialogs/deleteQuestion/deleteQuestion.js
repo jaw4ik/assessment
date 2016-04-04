@@ -6,6 +6,7 @@ import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
 import deleteQuestionCommand from 'editor/course/commands/deleteQuestionCommand';
 import router from 'plugins/router';
+import app from 'durandal/app';
 
 let events = {
     deleteQuestion: 'Delete question',
@@ -38,7 +39,7 @@ class DeleteQuestion {
             notify.saved();
             this.isDeleting(false);
             dialog.close();
-            router.navigate(`#courses/${this.courseId}`);
+            app.trigger(constants.messages.questionNavigation.navigateToCourse);
         }).catch((reason) => {
             notify.error(reason);
             this.isDeleting(false);

@@ -3,6 +3,7 @@
 import notify from 'notify';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
+import questionModalView from 'editor/questions/questionModalView';
 
 import updateQuestionTitleCommand from '../commands/updateQuestionTitleCommand';
 
@@ -71,5 +72,7 @@ export default class QuestionViewmodel{
 
         this.justCreated(false);
     }
-
+    open() {
+        questionModalView.open(this.sectionId, this.id());
+    }
 }

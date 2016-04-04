@@ -8,10 +8,12 @@ import router from 'plugins/router';
 import navigationPanel from 'editor/questions/panels/questionsNavigationView';
 import eventTracker from 'eventTracker';
 
-let _courseDeleted = new WeakMap();
-let _sectionsDisconnected = new WeakMap();
-let _questionsDeleted = new WeakMap();
-let _routerNavigationProcessing = new WeakMap();
+let _courseDeleted = new WeakMap(),
+    _sectionsDisconnected = new WeakMap(),
+    _questionsDeleted = new WeakMap(),
+    _navigateToQuestion = new WeakMap(),
+    _navigateToCourse = new WeakMap()
+;
 
 const events = {
     previewCourse: 'Preview course'
@@ -45,15 +47,20 @@ class QuestionModalView {
             }
         });
 
-        _routerNavigationProcessing.set(this, () => {
-            this.isQuestionViewReady(false);
+        _navigateToQuestion.set(this, (data) => {
+            this.loadQuestion(data.sectionId, data.questionId);
+        });
+
+        _navigateToCourse.set(this, () => {
+            this.close();
         });
 
         app.on(constants.messages.course.collaboration.finishedByCollaborator, _courseDeleted.get(this).bind(this));
         app.on(constants.messages.course.deletedByCollaborator, _courseDeleted.get(this).bind(this));
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionsDeleted.get(this).bind(this));
-        router.on('router:navigation:processing', _routerNavigationProcessing.get(this).bind(this));
+        app.on(constants.messages.questionNavigation.navigateToQuestion, _navigateToQuestion.get(this).bind(this));
+        app.on(constants.messages.questionNavigation.navigateToCourse, _navigateToCourse.get(this).bind(this));
     }
     async initialize(courseId) {
         this.courseId = courseId;
@@ -66,16 +73,19 @@ class QuestionModalView {
             return;
         }
 
+        await this.loadQuestion(sectionId, questionId);
+        modalView.open();
+    }
+
+    async loadQuestion(sectionId, questionId){
         this.sectionId = sectionId;
         this.questionId = questionId;
         this.isQuestionViewReady(false);
         this.navigationPanel.activate(sectionId, questionId);
         await questionViewModel.activate(this.courseId, sectionId, questionId);
         this.questionViewModel(questionViewModel);
-        modalView.open();
     }
     close() {
-        router.navigate(`#courses/${this.courseId}`);
         modalView.close();
     }
 
