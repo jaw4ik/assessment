@@ -298,6 +298,18 @@
     {
       "code": "ua",
       "url": "lang/ua.json"
+    },
+    {
+      "code": "ru",
+      "url": "lang/ru.json"
+    },
+    {
+      "code": "malay",
+      "url": "lang/malay.json"
+    },
+    {
+      "code": "kr",
+      "url": "lang/kr.json"
     }
   ]
 }
