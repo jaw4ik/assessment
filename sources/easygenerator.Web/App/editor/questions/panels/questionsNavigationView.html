@@ -13,7 +13,7 @@
                         <div class="navigation-view-question-title" data-bind="text: title"></div>
                         <!-- /ko -->
                         <!-- ko ifnot: isActive -->
-                        <a class="navigation-view-question-title" data-bind="text: title, attr: { href: url }, click: navigateToUrl"></a>
+                        <a class="navigation-view-question-title" href="#" data-bind="text: title, click: function(){$root.navigateToQuestion($data.sectionId, $data.id)}"></a>
                         <!-- /ko -->
                     </li>
                 </ul>

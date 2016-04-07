@@ -124,6 +124,10 @@ export default {
         library: {
             defaultActivate: 'library:default:activate'
         },
+        questionNavigation: {
+            navigateToQuestion: 'navigation:navigateToQuestion',
+            navigateToCourse: 'navigation:navigateToCurse'
+        },
         course: {
             created: 'course:created',
             deleted: 'course:deleted',
@@ -234,6 +238,7 @@ export default {
             incorrectFeedbackUpdatedByCollaborator: 'question:incorrectFeedbackUpdatedByCollaborator',
             deletedByCollaborator: 'question:deletedByCollaborator',
             learningContentsReorderedByCollaborator: 'question:learningContentsReorderedByCollaborator',
+            navigated: 'question:navigatedTo',
 
             answer: {
                 addedByCollaborator: 'question:answer:addedByCollaborator',
@@ -364,7 +369,8 @@ export default {
         lastVistedCourse: 'lastVistedCourse',
         lastVisitedSection: 'lastVisitedSection',
         showCreateCoursePopup: 'showCreateCoursePopup',
-        highlightedSectionId: 'highlightedSectionId'
+        highlightedSectionId: 'highlightedSectionId',
+        questionDataToNavigate: 'questionDataToNavigate'
     },
 
     reporting: {

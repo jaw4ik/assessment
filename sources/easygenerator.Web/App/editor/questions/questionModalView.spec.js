@@ -127,12 +127,6 @@ describe('viewmodel [questionModalView]', () => {
             viewModel.close();
             expect(modalView.close).toHaveBeenCalled();
         });
-
-        it('should navigate to course', () => {
-            viewModel.courseId = courseId;
-            viewModel.close();
-            expect(router.navigate).toHaveBeenCalledWith(`#courses/${courseId}`);
-        });
     });
 
     describe('toggleExpandNavigationPanel:', () => {

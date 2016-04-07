@@ -170,14 +170,43 @@ describe('[drag and drop course editor]', () => {
             })().then(done));
         });
 
-        it('should open questions popup', done => (async () => {
-            let sectionId = 'sectionId';
-            let questionId = 'questionId';
+        describe('when client context question data to navigate is defined', () => {
+            let sectionId = 'objId',
+                questionId = 'questionId';
+            beforeEach(() => {
+                spyOn(clientContext, 'get').and.returnValue({questionId: questionId, sectionId: sectionId});
+                spyOn(clientContext, 'remove');
+            });
 
-            await courseViewModel.activate(courseId, sectionId, questionId);
-            expect(questionModalView.open).toHaveBeenCalledWith(sectionId, questionId);
-        })().then(done));
+            it('should remove question data to navigate from client context', done => (async () => {
+                courseViewModel.activate(courseId);
+                await promise;
+                await modalViewInit;
+                expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.questionDataToNavigate);
+            })().then(done));
 
+            describe('and when section found', () => {
+                let section = { id: ko.observable(sectionId) };
+                beforeEach(() => {
+                    courseViewModel.sections = ko.observableArray([section]);
+                });
+
+                describe('and when question found', () => {
+                    let question = {id: ko.observable(questionId), open: ()=> {} };
+                    beforeEach(() => {
+                        section.questions = ko.observableArray([question]);
+                        spyOn(question, 'open');
+                    });
+
+                    it('when open question', done => (async () => {
+                        courseViewModel.activate(courseId);
+                        await promise;
+                        await modalViewInit;
+                        expect(question.open).toHaveBeenCalled();
+                    })().then(done));
+                });
+            });
+        });
     });
 
     describe('createSection:', () => {

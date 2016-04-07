@@ -677,33 +677,14 @@ describe('viewModel [learningContents]', function () {
             expect(viewModel.initialize(activationData)).toBePromise();
         });
 
-        describe('when route data has questionId', function () {
-            beforeEach(function () {
-                spyOn(router, 'routeData').and.returnValue({ questionId: 'questionId' });
-            });
-
-            it('should call repository method to get learning contents', function (done) {
-                getLearningContentFeedbackDeferred.resolve([]);
-                viewModel.initialize(activationData).fin(function () {
-                    expect(repository.getCollection).toHaveBeenCalledWith(questionId);
-                    done();
-                });
-            });
-
-        });
-
-        describe('when route data does not have questionId', function () {
-            beforeEach(function () {
-                spyOn(router, 'routeData').and.returnValue({});
-            });
-
-            it('should not call repository method to get learning contents', function (done) {
-                viewModel.initialize(activationData).fin(function () {
-                    expect(repository.getCollection).not.toHaveBeenCalled();
-                    done();
-                });
+        it('should call repository method to get learning contents', function (done) {
+            getLearningContentFeedbackDeferred.resolve([]);
+            viewModel.initialize(activationData).fin(function () {
+                expect(repository.getCollection).toHaveBeenCalledWith(questionId);
+                done();
             });
         });
+
     });
 
     describe('localizationManager:', function () {

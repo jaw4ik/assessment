@@ -7,6 +7,7 @@ import deleteQuestionCommand from 'editor/course/commands/deleteQuestionCommand'
 import localizationManager from 'localization/localizationManager';
 import notify from 'notify';
 import router from 'plugins/router';
+import app from 'durandal/app';
 
 describe('dialog [deleteQuestion]', () => {
     let courseId;
@@ -26,6 +27,7 @@ describe('dialog [deleteQuestion]', () => {
         spyOn(dialog, 'close');
         spyOn(eventTracker, 'publish');
         spyOn(router, 'navigate');
+        spyOn(app, 'trigger');
         spyOn(localizationManager, 'localize').and.callFake(function (arg) {
             return arg;
         });
@@ -154,11 +156,11 @@ describe('dialog [deleteQuestion]', () => {
                 });
             });
 
-            it('should navigate to course details', done => {
+            it('should trigger app event', done => {
                 viewModel.courseId = courseId;
 
                 viewModel.deleteQuestion().then(() => {
-                    expect(router.navigate).toHaveBeenCalledWith(`#courses/${courseId}`);
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.questionNavigation.navigateToCourse);
                     done();
                 }); 
             });

@@ -57,15 +57,11 @@
         return viewModel;
 
         function initialize(question) {
-
-            if (_.isNullOrUndefined(router.routeData().questionId)) {
-                return Q.fcall(function () { });
-            }
-
             var questionId = question.id;
             var questionType = question.type;
 
             return learningContentRepository.getCollection(questionId).then(function (learningContentsList) {
+                debugger;
                 viewModel.questionId = questionId;
                 viewModel.questionType = questionType;
                 viewModel.learningContents([]);

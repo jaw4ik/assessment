@@ -66,10 +66,10 @@ class SectionTreeNode extends TreeNode{
 }
 
 class QuestionTreeNode extends TreeNode{
-    constructor(id, title, url) {
-        super(id, title);
+    constructor(sectionId, questionId, title) {
+        super(questionId, title);
         this.isActive = ko.observable(false);
-        this.url = url;
+        this.sectionId = sectionId;
 
         _sectionTitleUpdated.set(this, question => {
             if (question.id !== this.id) {
@@ -81,15 +81,10 @@ class QuestionTreeNode extends TreeNode{
         app.on(constants.messages.question.titleUpdatedByCollaborator, _sectionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.titleUpdated, _sectionTitleUpdated.get(this).bind(this));
     }
-    navigateToUrl() {
-        eventTracker.publish('[Question event name]', '[control name]');
-        router.navigate(this.url);
-    }
 }
 
 var mapSection = (courseId, section) => new SectionTreeNode(section.id, section.title, _.map(section.questions, question => mapQuestion(courseId, section.id, question)));
-var mapQuestion = (courseId, sectionId, question) => new QuestionTreeNode(question.id, question.title, getQuestionLink(courseId, sectionId, question.id));
-var getQuestionLink = (courseId, sectionId, questionId) => `#courses/${courseId}/sections/${sectionId}/questions/${questionId}`;
+var mapQuestion = (courseId, sectionId, question) => new QuestionTreeNode(sectionId, question.id, question.title);
 
 class ContentTreeView {
     constructor() {
@@ -167,7 +162,7 @@ class ContentTreeView {
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.course.sectionsReordered, _sectionsReordered.get(this).bind(this));
         app.on(constants.messages.course.sectionsReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
-		app.on(constants.messages.section.deleted, _sectionDeleted.get(this).bind(this));
+        app.on(constants.messages.section.deleted, _sectionDeleted.get(this).bind(this));
 
         app.on(constants.messages.question.created, _questionCreated.get(this).bind(this));
         app.on(constants.messages.question.createdByCollaborator, _questionCreated.get(this).bind(this));
@@ -191,6 +186,10 @@ class ContentTreeView {
             activeSection.isExpanded(true);
             activeSection.activate(questionId);
         }
+    }
+    navigateToQuestion(sectionId ,questionId) {
+        eventTracker.publish('[Question event name]', '[control name]');
+        app.trigger(constants.messages.questionNavigation.navigateToQuestion, {questionId: questionId, sectionId: sectionId});
     }
 }
 

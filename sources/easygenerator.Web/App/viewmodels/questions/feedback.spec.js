@@ -498,191 +498,155 @@ describe('viewModel [feedback]', function () {
             spyOn(repository, 'getQuestionFeedback').and.returnValue(getQuestionFeedbackDeferred.promise);
         });
 
-        describe('when route data has questionId', function() {
+        it('should set isExpanded to true', function (done) {
+            viewModel.isExpanded(false);
+            getQuestionFeedbackDeferred.resolve({
+                correctFeedbackText: 'correct',
+                incorrectFeedbackText: 'incorrect'
+            });
+            viewModel.initialize(activationData).fin(function () {
+                expect(viewModel.isExpanded()).toBeTruthy();
+                done();
+            });
+        });
+
+        it('should set questionId', function (done) {
+            viewModel.questionId = null;
+            getQuestionFeedbackDeferred.resolve({
+                correctFeedbackText: 'correct',
+                incorrectFeedbackText: 'incorrect'
+            });
+            viewModel.initialize(activationData).fin(function () {
+                expect(viewModel.questionId).toBe(questionId);
+                done();
+            });
+        });
+
+        it('should get question feedback', function (done) {
+            getQuestionFeedbackDeferred.resolve({
+                correctFeedbackText: 'correct',
+                incorrectFeedbackText: 'incorrect'
+            });
+            viewModel.initialize(activationData).fin(function () {
+                expect(repository.getQuestionFeedback).toHaveBeenCalledWith(questionId);
+                done();
+            });
+        });
+
+        describe('and when question feedback received', function () {
             beforeEach(function() {
-                spyOn(router, 'routeData').and.returnValue({ questionId: 'questionId' });
-            });
-
-            it('should set isExpanded to true', function (done) {
-                viewModel.isExpanded(false);
                 getQuestionFeedbackDeferred.resolve({
                     correctFeedbackText: 'correct',
                     incorrectFeedbackText: 'incorrect'
                 });
-                viewModel.initialize(activationData).fin(function () {
-                    expect(viewModel.isExpanded()).toBeTruthy();
-                    done();
-                });
             });
 
-            it('should set questionId', function (done) {
-                viewModel.questionId = null;
-                getQuestionFeedbackDeferred.resolve({
-                    correctFeedbackText: 'correct',
-                    incorrectFeedbackText: 'incorrect'
-                });
-                viewModel.initialize(activationData).fin(function () {
-                    expect(viewModel.questionId).toBe(questionId);
-                    done();
-                });
-            });
-
-            it('should get question feedback', function (done) {
-                getQuestionFeedbackDeferred.resolve({
-                    correctFeedbackText: 'correct',
-                    incorrectFeedbackText: 'incorrect'
-                });
-                viewModel.initialize(activationData).fin(function () {
-                    expect(repository.getQuestionFeedback).toHaveBeenCalledWith(questionId);
-                    done();
-                });
-            });
-
-            describe('and when question feedback received', function () {
-                beforeEach(function() {
-                    getQuestionFeedbackDeferred.resolve({
-                        correctFeedbackText: 'correct',
-                        incorrectFeedbackText: 'incorrect'
-                    });
+            describe('and when feedback captions are defined', function () {
+                var captions = {
+                    correctFeedback: {
+                        hint: 'correct hint',
+                        instruction: 'correct instruction'
+                    },
+                    incorrectFeedback: {
+                        hint: 'incorrect hint',
+                        instruction: 'incorrect instruction'
+                    }
+                };
+                beforeEach(function () {
+                    activationData.captions = captions;
                 });
 
-                describe('and when feedback captions are defined', function () {
-                    var captions = {
-                        correctFeedback: {
-                            hint: 'correct hint',
-                            instruction: 'correct instruction'
-                        },
-                        incorrectFeedback: {
-                            hint: 'incorrect hint',
-                            instruction: 'incorrect instruction'
-                        }
-                    };
-                    beforeEach(function () {
-                        activationData.captions = captions;
-                    });
-
-                    it('should init correct feedback', function (done) {
-                        spyOn(viewModel.correctFeedback, 'init');
-                        viewModel.initialize(activationData).fin(function () {
-                            expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
-                            done();
-                        });
-                    });
-
-                    it('should init incorrect feedback', function (done) {
-                        spyOn(viewModel.incorrectFeedback, 'init');
-                        viewModel.initialize(activationData).fin(function () {
-                            expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', captions.incorrectFeedback);
-                            done();
-                        });
-                    });
-                });
-
-                describe('and when feedback captions are not defined', function () {
-                    beforeEach(function () {
-                        activationData.captions = undefined;
-                    });
-
-                    it('should init correct feedback', function (done) {
-                        spyOn(viewModel.correctFeedback, 'init');
-                        viewModel.initialize(activationData).fin(function () {
-                            expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', {
-                                hint: 'correctFeedback',
-                                instruction: 'putYourPositiveFeedback'
-                            });
-                            done();
-                        });
-                    });
-
-                    it('should init incorrect feedback', function (done) {
-                        spyOn(viewModel.incorrectFeedback, 'init');
-                        viewModel.initialize(activationData).fin(function () {
-                            expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
-                                hint: 'incorrectFeedback',
-                                instruction: 'putYourNegativeFeedback'
-                            });
-                            done();
-                        });
-                    });
-                });
-
-                describe('and when feedback captions are partually defined', function () {
-                    var captions = {
-                        correctFeedback: {
-                            hint: 'correct hint',
-                            instruction: 'correct instruction'
-                        }
-                    };
-
-                    beforeEach(function () {
-                        activationData.captions = captions;
-                    });
-
-                    it('should init correct feedback', function (done) {
-                        spyOn(viewModel.correctFeedback, 'init');
-                        viewModel.initialize(activationData).fin(function () {
-                            expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
-                            done();
-                        });
-                    });
-
-                    it('should init incorrect feedback', function (done) {
-                        spyOn(viewModel.incorrectFeedback, 'init');
-                        viewModel.initialize(activationData).fin(function () {
-                            expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
-                                hint: 'incorrectFeedback',
-                                instruction: 'putYourNegativeFeedback'
-                            });
-                            done();
-                        });
-                    });
-                });
-            });
-
-            describe('and when promise is rejected', function() {
-                beforeEach(function() {
-                    spyOn(notify, 'error');
-                    getQuestionFeedbackDeferred.reject('error');
-                });
-
-                it('should show error notification', function (done) {
+                it('should init correct feedback', function (done) {
+                    spyOn(viewModel.correctFeedback, 'init');
                     viewModel.initialize(activationData).fin(function () {
-                        expect(notify.error).toHaveBeenCalledWith('error');
+                        expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
+                        done();
+                    });
+                });
+
+                it('should init incorrect feedback', function (done) {
+                    spyOn(viewModel.incorrectFeedback, 'init');
+                    viewModel.initialize(activationData).fin(function () {
+                        expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', captions.incorrectFeedback);
+                        done();
+                    });
+                });
+            });
+
+            describe('and when feedback captions are not defined', function () {
+                beforeEach(function () {
+                    activationData.captions = undefined;
+                });
+
+                it('should init correct feedback', function (done) {
+                    spyOn(viewModel.correctFeedback, 'init');
+                    viewModel.initialize(activationData).fin(function () {
+                        expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', {
+                            hint: 'correctFeedback',
+                            instruction: 'putYourPositiveFeedback'
+                        });
+                        done();
+                    });
+                });
+
+                it('should init incorrect feedback', function (done) {
+                    spyOn(viewModel.incorrectFeedback, 'init');
+                    viewModel.initialize(activationData).fin(function () {
+                        expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
+                            hint: 'incorrectFeedback',
+                            instruction: 'putYourNegativeFeedback'
+                        });
+                        done();
+                    });
+                });
+            });
+
+            describe('and when feedback captions are partually defined', function () {
+                var captions = {
+                    correctFeedback: {
+                        hint: 'correct hint',
+                        instruction: 'correct instruction'
+                    }
+                };
+
+                beforeEach(function () {
+                    activationData.captions = captions;
+                });
+
+                it('should init correct feedback', function (done) {
+                    spyOn(viewModel.correctFeedback, 'init');
+                    viewModel.initialize(activationData).fin(function () {
+                        expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
+                        done();
+                    });
+                });
+
+                it('should init incorrect feedback', function (done) {
+                    spyOn(viewModel.incorrectFeedback, 'init');
+                    viewModel.initialize(activationData).fin(function () {
+                        expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
+                            hint: 'incorrectFeedback',
+                            instruction: 'putYourNegativeFeedback'
+                        });
                         done();
                     });
                 });
             });
         });
 
-        describe('when route data does not have questionId', function () {
-            beforeEach(function () {
-                spyOn(router, 'routeData').and.returnValue({});
+        describe('and when promise is rejected', function() {
+            beforeEach(function() {
+                spyOn(notify, 'error');
+                getQuestionFeedbackDeferred.reject('error');
             });
 
-            it('should not set isExpanded', function (done) {
-                viewModel.isExpanded(false);
+            it('should show error notification', function (done) {
                 viewModel.initialize(activationData).fin(function () {
-                    expect(viewModel.isExpanded()).toBeFalsy();
-                    done();
-                });
-            });
-
-            it('should not set questionId', function (done) {
-                viewModel.questionId = null;
-                viewModel.initialize(activationData).fin(function () {
-                    expect(viewModel.questionId).toBeNull();
-                    done();
-                });
-            });
-
-            it('should not get question feedback', function (done) {
-                viewModel.initialize(activationData).fin(function () {
-                    expect(repository.getQuestionFeedback).not.toHaveBeenCalledWith(questionId);
+                    expect(notify.error).toHaveBeenCalledWith('error');
                     done();
                 });
             });
         });
-
     });
 
 });
