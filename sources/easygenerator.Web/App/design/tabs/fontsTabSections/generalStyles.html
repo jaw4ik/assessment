@@ -1,0 +1,33 @@
+﻿<section class="branding-section-content">
+    <!-- ko if: !available -->
+    <div class="no-access-container">
+        <div class="no-access-img"></div>
+        <div class="no-access-text" data-bind="localize: { html: 'upgradeAccountHintGeneralContentStylesSection' }">
+        </div>
+    </div>
+    <!-- /ko-->
+    <span class="branding-color-label" data-bind="localize: { text: 'mainFont' }"></span>
+
+    <div class="fontpicker" data-bind="dropDown: {}">
+        <span class="font-title" data-bind="text: mainFont.fontFamily, style:{ 'font-family' : mainFont.fontFamily }"></span>
+        <ul class="fonts-list unstyled" data-bind="foreach: fontFamilies">
+            <li class="fonts-list-item" data-bind="css:{ selected : $parent.mainFont.fontFamily() === name }, click: $parent.mainFont.changeMainFontFamily.bind($parent.mainFont) ">
+                <span data-bind="text:name, style:{ 'font-family' : name } "></span>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="branding-colors unstyled" data-bind="foreach: colors">
+        <li class="branding-color-wrapper">
+            <label class="branding-color-label">
+                <span data-bind="localize: { text: key.replace('@','').replace(/-/g, ' ').toCamelCase() }"></span>:
+            </label>
+            <div class="branding-color-input-wrapper">
+                <div class="branding-color-input" data-bind="click: showPopover, css: { active: popover.isVisible }, popover: popover">
+                    <div class="branding-color-input-preview" data-bind="style: { backgroundColor: value }"></div>
+                    <div class="branding-color-input-value" data-bind="text: value"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>

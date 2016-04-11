@@ -679,6 +679,15 @@
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
     <Content Include="App\core\bootstrap\visible.js" />
+    <Content Include="App\design\tabs\FontsTab.spec.js">
+      <DependentUpon>FontsTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\fontsTabSections\contentStyles.spec.js">
+      <DependentUpon>contentStyles.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\fontsTabSections\generalStyles.spec.js">
+      <DependentUpon>generalStyles.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\collaboration\addCollaborator.js">
       <DependentUpon>addCollaborator.html</DependentUpon>
     </Content>
@@ -717,6 +726,21 @@
     <Content Include="App\editor\questions\dialogs\deleteQuestion\deleteQuestion.spec.js">
       <DependentUpon>deleteQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\design\bindingHandlers\textStyleBindingHandler.js" />
+    <Content Include="App\design\tabs\FontsTab.html" />
+    <Content Include="App\design\tabs\FontsTab.js">
+      <DependentUpon>FontsTab.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\fontsTabSections\contentStyles.html" />
+    <Content Include="App\design\tabs\fontsTabSections\contentStyles.js">
+      <DependentUpon>contentStyles.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\fontsTabSections\generalStyles.html" />
+    <Content Include="App\design\tabs\fontsTabSections\generalStyles.js">
+      <DependentUpon>generalStyles.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\fontsTabSections\textStyle.html" />
+    <Content Include="App\design\textStyleService.js" />
     <Content Include="App\editor\questions\questionModalView.spec.js">
       <DependentUpon>questionModalView.js</DependentUpon>
     </Content>
@@ -3152,6 +3176,7 @@
     <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\css\colors.less" />
+    <Content Include="Templates\Simple course\css\fonts.css" />
     <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\img\browsers\android.png" />
@@ -3298,6 +3323,7 @@
     <Content Include="Templates\Personalized learning\lang\ru.json" />
     <Content Include="Templates\Reader\lang\ru.json" />
     <Content Include="Templates\Simple course\lang\kr.json" />
+    <Content Include="Templates\Simple course\fonts\MaterialIcons-Regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3723,7 +3749,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53532</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

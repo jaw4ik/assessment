@@ -288,6 +288,30 @@ describe('viewModel [design]', () => {
                 });
             });
 
+            it('should subscribe to font events', done => {
+                viewModel.subscriptions = [];
+                resolve(course);
+                getCourseTemplateSettings.resolve();
+
+                viewModel.activate(course.id).then(() => {
+                    expect(viewModel.subscriptions[4].events).toEqual('font:settings-changed');
+                    done();
+                });
+            
+            });
+
+            it('should subscribe to text color change event', done => {
+                viewModel.subscriptions = [];
+                resolve(course);
+                getCourseTemplateSettings.resolve();
+
+                viewModel.activate(course.id).then(() => {
+                    expect(viewModel.subscriptions[5].events).toEqual('text-color:changed');
+                    done();
+                });
+            
+            });
+
             describe('when template supports default branding', () => {
 
                 beforeEach(() => {
@@ -1238,9 +1262,11 @@ describe('viewModel [design]', () => {
 
             it('should update top background color', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.colors.colors([{ key: 'key1', value: ko.observable('value1') }, { key: 'key2', value: ko.observable('value2') }]);
                 viewModel.brandingTab.background.header.brightness(0.3);
                 viewModel.brandingTab.background.header.color('#aabbcc');
                 viewModel.brandingTab.background.header.image(null);
+
 
                 viewModel.settingsChanged().then(() => {
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
@@ -1260,6 +1286,7 @@ describe('viewModel [design]', () => {
 
             it('should update header background image', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.colors.colors([{ key: 'key1', value: ko.observable('value1') }, { key: 'key2', value: ko.observable('value2') }]);
                 viewModel.brandingTab.background.header.brightness(0.3);
                 viewModel.brandingTab.background.header.color(null);
                 viewModel.brandingTab.background.header.image('imageUrl');
@@ -1284,6 +1311,7 @@ describe('viewModel [design]', () => {
 
             it('should update secondary background color', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.colors.colors([{ key: 'key1', value: ko.observable('value1') }, { key: 'key2', value: ko.observable('value2') }]);
                 viewModel.brandingTab.background.body.enabled(true);
                 viewModel.brandingTab.background.body.brightness(0.3);
                 viewModel.brandingTab.background.body.color('#aabbcc');
@@ -1308,6 +1336,7 @@ describe('viewModel [design]', () => {
 
             it('should update secondary background texture', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.colors.colors([{ key: 'key1', value: ko.observable('value1') }, { key: 'key2', value: ko.observable('value2') }]);
                 viewModel.brandingTab.background.body.enabled(true);
                 viewModel.brandingTab.background.body.brightness(0.3);
                 viewModel.brandingTab.background.body.color(null);

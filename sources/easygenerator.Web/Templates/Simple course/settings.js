@@ -42,6 +42,76 @@
             }
           }
     },
+    "fonts": [
+          {
+              "key": "main-font",
+              "fontFamily": "Roboto Slab"
+          },
+          {
+              "key": "h1",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          },
+          {
+              "key": "h2",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          },
+          {
+              "key": "h3",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          },
+          {
+              "key": "p",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          },
+          {
+              "key": "cite",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          },
+          {
+              "key": "mark",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          },
+          {
+              "key": "links",
+              "size": 14,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal"
+          }
+    ],
+
     "pdfExport":{
         "enabled":false
     },

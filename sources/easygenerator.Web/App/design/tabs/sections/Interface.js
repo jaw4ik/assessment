@@ -1,4 +1,5 @@
 ﻿import ko from 'knockout';
+import app from 'durandal/app';
 
 import eventTracker from 'eventTracker';
 import userContext from 'userContext';
@@ -42,7 +43,17 @@ export class Color{
         this.title = spec.key.replace('@', '').replace(/-/g, ' ').capitalize();
 
         this.popover = new ColorpickerPopover(spec.value);
-        this.popover.on(EVENT_COLORPICKER_COLOR_SELECTED).then(value => this.updateValue(value));
+        let that = this;
+
+        this.popover.on(EVENT_COLORPICKER_COLOR_SELECTED).then(value => {
+            if(that.key == '@text-color'){
+                that.value(value);
+                app.trigger('text-color:changed', value);
+                eventTracker.publish('Change interface color');
+            }else{
+                this.updateValue(value);
+            }
+        });
     }
 
     showPopover() {

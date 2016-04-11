@@ -1,43 +1,44 @@
 ﻿<section class="colorpicker">
-    <div class="spectrum-wrapper">
-        <div data-bind="spectrum: { color: hex }"></div>
-    </div>
-    <div class="rgba-wrapper">
-        <div>
-            <label class="colorpicker-label">R:</label>
+        <div class="spectrum-wrapper">
+            <div data-bind="spectrum: { color: hex }"></div>
+        </div>
+        <div class="rgba-wrapper">
             <div>
-                <input class="colorpicker-input" data-bind="value: rgb.r" />
+                <label class="colorpicker-label">R:</label>
+                <div>
+                    <input class="colorpicker-input" data-bind="value: rgb.r, stopEventPropagation: { event: 'click'}" />
+                </div>
+            </div>
+            <div>
+                <label class="colorpicker-label">G:</label>
+                <div>
+                    <input class="colorpicker-input" data-bind="value: rgb.g, stopEventPropagation: { event: 'click'}" />
+                </div>
+            </div>
+            <div>
+                <label class="colorpicker-label">B:</label>
+                <div>
+                    <input class="colorpicker-input" data-bind="value: rgb.b, stopEventPropagation: { event: 'click'}" />
+                </div>
             </div>
         </div>
-        <div>
-            <label class="colorpicker-label">G:</label>
+        <div class="hex-wrapper">
+            <label class="colorpicker-label" data-bind="localize: { text: 'colorCode' }"></label>
             <div>
-                <input class="colorpicker-input" data-bind="value: rgb.g" />
+                <input class="colorpicker-input" data-bind="value: hex, stopEventPropagation: { event: 'click'}" />
             </div>
+            <div class="colorpicker-palette-color" data-bind="style: { backgroundColor: hex }"></div>
         </div>
-        <div>
-            <label class="colorpicker-label">B:</label>
-            <div>
-                <input class="colorpicker-input" data-bind="value: rgb.b" />
-            </div>
+        <!-- ko if:  isPaletteVisible -->
+        <div class="palette-wrapper">
+            <label class="colorpicker-label">
+                <span data-bind="localize: { text: 'commonColors' }"></span>:
+            </label>
+            <ul class="unstyled colorpicker-palette" data-bind="foreach: palette">
+                <li class="colorpicker-palette-color-wrapper">
+                    <a class="colorpicker-palette-color" data-bind="click: $parent.select.bind($parent), css: { selected: $parent.hex() === $data }, style: { backgroundColor: $data }"></a>
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="hex-wrapper">
-        <label class="colorpicker-label" data-bind="localize: { text: 'colorCode' }"></label>
-        <div>
-            <input class="colorpicker-input" data-bind="value: hex" />
-        </div>
-    </div>
-    <!-- ko if:  isPaletteVisible -->
-    <div class="palette-wrapper">
-        <label class="colorpicker-label">
-            <span data-bind="localize: { text: 'commonColors' }"></span>:
-        </label>
-        <ul class="unstyled colorpicker-palette" data-bind="foreach: palette">
-            <li class="colorpicker-palette-color-wrapper">
-                <a class="colorpicker-palette-color" data-bind="click: $parent.select.bind($parent), css: { selected: $parent.hex() === $data }, style: { backgroundColor: $data }"></a>
-            </li>
-        </ul>
-    </div>
-    <!-- /ko -->
+        <!-- /ko -->
 </section>
