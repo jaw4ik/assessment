@@ -56,8 +56,8 @@ export class Color{
         });
     }
 
-    showPopover() {
-        this.popover.isVisible(true);
+    togglePopover() {
+        this.popover.isVisible(!this.popover.isVisible());
     }
 
     updateValue(value) {
