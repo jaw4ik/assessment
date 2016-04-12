@@ -20,9 +20,9 @@
                         
 								$element.addClass('hotspot-on-image-container');
 								$element.html(hotspotOnImage.element);
-
-								ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-									HotspotStorage.remove(hotspotOnImage);
+                                
+								$element.on('$destroy', function () {
+								    HotspotStorage.remove(hotspotOnImage);
 								});
                                 break;
                             default:
