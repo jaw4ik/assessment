@@ -58,12 +58,32 @@ describe('Interface Color', () => {
 
     });
 
-    describe('showPopover:', () => {
+    describe('togglePopover:', () => {
 
-        it('should show popover with colorpicker', () => {
-            let color = new Color();
-            color.showPopover();
-            expect(color.popover.isVisible()).toBeTruthy();
+        describe('when popover is closed', ()=>{
+        
+            it('should show popover with colorpicker', ()=>{
+            
+                let color = new Color();
+                color.popover.isVisible(false);
+                color.togglePopover();
+                expect(color.popover.isVisible()).toBeTruthy();
+
+            });
+
+        });
+
+        describe('when popover is opened', ()=>{
+        
+            it('should hide popover with colorpicker', ()=>{
+            
+                let color = new Color();
+                color.popover.isVisible(true);
+                color.togglePopover();
+                expect(color.popover.isVisible()).toBeFalsy();
+
+            });
+
         });
 
     });
