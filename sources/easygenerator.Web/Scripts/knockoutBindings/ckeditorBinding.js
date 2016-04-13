@@ -97,7 +97,8 @@
                 }
             });
 
-            $(element).on('input', function () {
+            //fix for IE.  compositionend is fired in order to process multi-byte symbols (japanese, chinese, arabic etc.)
+            $(element).on('compositionend', function () {
                 editor.fire('change');
             });
 
