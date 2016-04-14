@@ -47,8 +47,8 @@ export default class BodyBackground{
         }
     }
 
-    changeBackground() {
-        this.popover.isVisible(true);
+    toggleBackgroundPopover() {
+        this.popover.isVisible(!this.popover.isVisible());
     }
 
     updateColor(color) {

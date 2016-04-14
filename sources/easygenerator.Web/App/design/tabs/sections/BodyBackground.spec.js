@@ -71,12 +71,32 @@ describe('BodyBackground section', () => {
 
         });
 
-        describe('changeBackground:', () => {
+        describe('toggleBackgroundPopover:', () => {
 
-            it('should show header background popover', () => {
-                let background = new BodyBackground();
-                background.changeBackground(null);
-                expect(background.popover.isVisible()).toBeTruthy();
+            describe('when popover is hidden',()=>{
+            
+                it('should show body background popover',()=>{
+                
+                    let background = new BodyBackground();
+                    background.popover.isVisible(false);
+                    background.toggleBackgroundPopover();
+                    expect(background.popover.isVisible()).toBeTruthy();
+
+                });
+            
+            });
+
+            describe('when popover is shown',()=>{
+            
+                it('should hide body background popover',()=>{
+                
+                    let background = new BodyBackground();
+                    background.popover.isVisible(true);
+                    background.toggleBackgroundPopover();
+                    expect(background.popover.isVisible()).toBeFalsy();
+
+                });
+            
             });
 
         });

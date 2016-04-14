@@ -22,12 +22,32 @@ describe('Header background design section', () => {
         spyOn(eventTracker, 'publish');
     });
 
-    describe('changeBackground:', () => {
+    describe('toggleBackgroundPopover:', () => {
 
-        it('should show popover', () => {
-            let background = new HeaderBackground();
-            background.changeBackground();
-            expect(background.popover.isVisible()).toBeTruthy();
+        describe('when popover is hidden',()=>{
+            
+            it('should show header background popover',()=>{
+                
+                let background = new HeaderBackground();
+                background.popover.isVisible(false);
+                background.toggleBackgroundPopover();
+                expect(background.popover.isVisible()).toBeTruthy();
+
+            });
+            
+        });
+
+        describe('when popover is shown',()=>{
+            
+            it('should hide header background popover',()=>{
+                
+                let background = new HeaderBackground();
+                background.popover.isVisible(true);
+                background.toggleBackgroundPopover();
+                expect(background.popover.isVisible()).toBeFalsy();
+
+            });
+            
         });
 
     });

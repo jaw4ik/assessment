@@ -52,7 +52,7 @@
             <div data-bind="brightness: { value: brightness, change: changeBrightness.bind($data) }"></div>
         </div>
         <div class="branding-change-background-wrapper">
-            <button class="branding-change-background-button" data-bind="click: changeBackground, css: { active: popover.isVisible }, popover: popover">
+            <button class="branding-change-background-button" data-bind="click: toggleBackgroundPopover, css: { active: popover.isVisible }, popover: popover">
                 <span data-bind="localize: { text: 'changeBackground' }"></span>
             </button>
         </div>
@@ -79,7 +79,7 @@
                 <div data-bind="brightness: { value: brightness, change: changeBrightness.bind($data) }"></div>
             </div>
             <div class="branding-change-background-wrapper">
-                <button class="branding-change-background-button" data-bind="click: changeBackground, css: { active: popover.isVisible }, popover: popover">
+                <button class="branding-change-background-button" data-bind="click: toggleBackgroundPopover, css: { active: popover.isVisible }, popover: popover">
                     <span>
                         <!-- ko if: texture -->
                         <i class="branding-background-body-preview" data-bind="backgroundImage: texture"></i>
