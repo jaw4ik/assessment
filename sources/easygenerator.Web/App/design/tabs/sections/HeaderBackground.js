@@ -67,8 +67,8 @@ export default class HeaderBackground {
         eventTracker.publish('Change primary background');
     }
 
-    changeBackground() {
-        this.popover.isVisible(true);
+    toggleBackgroundPopover() {
+        this.popover.isVisible(!this.popover.isVisible());
     }
 
     changeBrightness(value) {
