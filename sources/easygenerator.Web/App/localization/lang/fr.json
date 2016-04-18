@@ -802,8 +802,8 @@
     "resetDefaults": "Rétablir les paramètres par défaut",
     "editStyles": "Modifier les styles",
     "useGeneral": "Utiliser le style général",
-    "useGeneralColor": "Use general color",
-    "customColor": "Custom color",
+    "useGeneralColor": "Utiliser la couleur générale",
+    "customColor": "Couleur personnalisée",
     "changeOrder": "Changer l'ordre",
     "classicTabName": "Classic",
     "interactiveTabName": "Interactive",
@@ -854,5 +854,5 @@
     "defineSectionOnboardingTaskDescription": "<section><header>Dans quel but ?</header><article>Indiquez précisément ce que vous aimeriez que les étudiants aient appris ou sachent faire à la fin du cours.</article></section><section><header>Comment définir une section ?</header><ol><li>Cliquez sur <b>« Nouvelle section »</b> dans l'éditeur de cours</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">En savoir plus</a></div></section>",
     "hideSection": "Masquer la section",
     "showSection": "Afficher la section",
-    "clickToSelectBackgroundImage": "Click to select background image"
+    "clickToSelectBackgroundImage": "Cliquez pour sélectionner une image d'arrière-plan"
 }

@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountAlreadyExists" xml:space="preserve">
+    <value>Questo account esiste già. Fare clic su Accedi e riprova.</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Controllo...</value>
+  </data>
+  <data name="ChooseYourCountry" xml:space="preserve">
+    <value>Seleziona il tuo paese...</value>
+  </data>
+  <data name="Chrome" xml:space="preserve">
+    <value>Google Chrome</value>
+  </data>
+  <data name="CommentWasNotSent" xml:space="preserve">
+    <value>Il commento non è stato inviato.</value>
+  </data>
+  <data name="CommentWasSent" xml:space="preserve">
+    <value>Il commento è stato inviato</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continua</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright © 2016 easygenerator. Tutti i diritti riservati.</value>
+  </data>
+  <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
+    <value>Si è verificato un errore, riprovare. Contatta support@easygenerator.com se il problema persiste.</value>
+  </data>
+  <data name="CreateAccountTitle" xml:space="preserve">
+    <value>Inizia a cerare i corsi!</value>
+  </data>
+  <data name="ElearningExpert" xml:space="preserve">
+    <value>Esperto eLearning</value>
+  </data>
+  <data name="ELearningManager" xml:space="preserve">
+    <value>Direttore eLearning</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EmailCaption" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnterValidCountry" xml:space="preserve">
+    <value>Inserisci il tuo paese</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Inserisci un'e-mail valida</value>
+  </data>
+  <data name="EnterValidEmailMessage" xml:space="preserve">
+    <value>Inserisci un indirizzo e-mail valido</value>
+  </data>
+  <data name="EnterValidFirstName" xml:space="preserve">
+    <value>Inserisci il tuo nome</value>
+  </data>
+  <data name="EnterValidLastName" xml:space="preserve">
+    <value>Inserisci il tuo cognome</value>
+  </data>
+  <data name="EnterValidPhoneNumber" xml:space="preserve">
+    <value>Inserisci il tuo numero di telefono</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Inserisci un nome valido</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finitura</value>
+  </data>
+  <data name="FirstNameCaption" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="ForgotPassMailBestRegards" xml:space="preserve">
+    <value> Cordiali saluti</value>
+  </data>
+  <data name="ForgotPassMailGreeting" xml:space="preserve">
+    <value>
+Ciao</value>
+  </data>
+  <data name="ForgotPassMailIgnoreSuggestion" xml:space="preserve">
+    <value>Se non hai effettuato questa richiesta, ignora questo messaggio. La password non verrà modificata.</value>
+  </data>
+  <data name="ForgotPassMailLinkExplanation" xml:space="preserve">
+    <value>Per reimpostare la password clicca sul link qui sotto:</value>
+  </data>
+  <data name="ForgotPassMailRequested" xml:space="preserve">
+    <value>Una reimpostazione della password è stata richiesta per il tuo account a</value>
+  </data>
+  <data name="ForgotPassMailTeam" xml:space="preserve">
+    <value>easygenerator team</value>
+  </data>
+  <data name="ForgotPassMailThankYou" xml:space="preserve">
+    <value>Grazie per aver scelto easygenerator.com e buona giornata!</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Password dimenticata?</value>
+  </data>
+  <data name="ForgotPasswordSent" xml:space="preserve">
+    <value>Ti abbiamo inviato una e-mail con le istruzioni su come reimpostare la password.</value>
+  </data>
+  <data name="ForgotPasswordSubject" xml:space="preserve">
+    <value>Password per easygenerator</value>
+  </data>
+  <data name="HidePassword" xml:space="preserve">
+    <value>Nascondi password</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Si prega di identificarsi</value>
+  </data>
+  <data name="IE" xml:space="preserve">
+    <value>Internet Explorer</value>
+  </data>
+  <data name="IncorrectEmailOrPassword" xml:space="preserve">
+    <value>La combinazione e-mail e password non esiste. Riprova o reimposta la password.</value>
+  </data>
+  <data name="InstructionalDesigner" xml:space="preserve">
+    <value>Progettista didattico</value>
+  </data>
+  <data name="InviteCollaboratorBody" xml:space="preserve">
+    <value>&lt;div&gt;
+ &lt;p&gt;{0} vuole lavorare con voi su un corso di eLearning in easygenerator.&lt;/p&gt;
+ &lt;p&gt;È possibile creare un account easygenerator gratuitamente. Vai su: &lt;a href="{1}"&gt;{1}&lt;/a&gt; e registrati con questo indirizzo di posta elettronica e il corso sarà disponibile dopo l'accesso.&lt;/p&gt;
+ &lt;p&gt;Corsiali saluti,&lt;br/&gt;
+ easygenerator Team&lt;/p&gt;
+ &lt;/div&gt;</value>
+  </data>
+  <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
+    <value>{0} (easygenerator)</value>
+  </data>
+  <data name="InviteCollaboratorSubject" xml:space="preserve">
+    <value>Sei stato invitato da {0} a co-autore di un corso e-learning su {1}</value>
+  </data>
+  <data name="LastNameCaption" xml:space="preserve">
+    <value>Cognome</value>
+  </data>
+  <data name="LeaveYourComment" xml:space="preserve">
+    <value>Lascia il tuo commento</value>
+  </data>
+  <data name="LicenseAgreeCaption" xml:space="preserve">
+    <value>Cliccando su "Registrati" accetto &lt;a href="{0}" target="_blank"&gt;Termini e condizioni&lt;/a&gt; di easygenerator e il &lt;a href="{1}" target="_blank"&gt;Trattamento dei dati personali&lt;/a&gt;</value>
+  </data>
+  <data name="Mozilla" xml:space="preserve">
+    <value>Mozilla Firefox</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="NoSpaces" xml:space="preserve">
+    <value>Senza spazi</value>
+  </data>
+  <data name="NotLessThanSevenSymbols" xml:space="preserve">
+    <value>Almeno 7 caratteri</value>
+  </data>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Non preoccuparti, c'è una soluzione semplice. Tutto quello che devi fare è cliccare su una delle icone qui sotto e seguire le istruzioni.</value>
+  </data>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>lasciami provare comunque...</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Il tuo browser non è attualmente supportato</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>Il sistema operativo del dispositivo non è supportato. Si prega di trovare l'elenco dei sistemi operativi supportati</value>
+  </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Il tuo dispositivo non è supportato</value>
+  </data>
+  <data name="OtherRole" xml:space="preserve">
+    <value>Altro</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>La pagina richiesta non è stata trovata</value>
+  </data>
+  <data name="PageNotFoundDescription" xml:space="preserve">
+    <value>Fare clic su Home. Aprire il corso e riprovare. Contattare support@easygenerator.com se il problema persiste.</value>
+  </data>
+  <data name="PasswordCaption" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Reimposta password</value>
+  </data>
+  <data name="PhoneNumberCaption" xml:space="preserve">
+    <value>Numero di telefono</value>
+  </data>
+  <data name="PleaseUse" xml:space="preserve">
+    <value>Si prega di utilizzare:</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Politica sulla Privacy</value>
+  </data>
+  <data name="RequestError" xml:space="preserve">
+    <value>Si è verificato un errore. Riprovare Contattare support@easygenerator.com se il problema persiste.</value>
+  </data>
+  <data name="RoleQuestion" xml:space="preserve">
+    <value>Qual è il tuo ruolo?</value>
+  </data>
+  <data name="Safari" xml:space="preserve">
+    <value>Apple Safari</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Invia commento</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Si è verificato un errore</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Clicca sui Corsi. Aprire il corso e riprovare. Contattare support@easygenerator.com se il problema persiste.</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Mostra</value>
+  </data>
+  <data name="ShowPassword" xml:space="preserve">
+    <value>Mostra password</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Accedi</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="SignUpButton" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="SignUpSecondStepTitle" xml:space="preserve">
+    <value>Ci siamo quasi...</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Allievo</value>
+  </data>
+  <data name="SubjectMatterExpert" xml:space="preserve">
+    <value>Esperto in materia</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Insegnante</value>
+  </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Termini e condizioni</value>
+  </data>
+  <data name="Trainer" xml:space="preserve">
+    <value>Allenatore</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Riprova</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Digita il tuo messaggio...</value>
+  </data>
+</root>

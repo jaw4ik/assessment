@@ -460,7 +460,7 @@
     "removeAnswer": "移除答案",
     "processing": "处理中…",
     "typeDescription": "Type description...",
-    "hotspotOnAnImageEmptyTooltip": "<b>Click and drag on image</b> to create the hotspot",
+    "hotspotOnAnImageEmptyTooltip": "<b>单击并拖动图像</b>以创建热点",
     "changeImage": "更换图片",
     "rankText": "排名文本",
     "newMultipleChoiceQuestionTitle": "未命名的多选问题",
@@ -802,8 +802,8 @@
     "resetDefaults": "恢复默认设置",
     "editStyles": "编辑样式",
     "useGeneral": "使用一般性",
-    "useGeneralColor": "Use general color",
-    "customColor": "Custom color",
+    "useGeneralColor": "使用一般颜色",
+    "customColor": "自定义颜色",
     "changeOrder": "更改顺序",
     "classicTabName": "Classic",
     "interactiveTabName": "Interactive",
@@ -854,5 +854,5 @@
     "defineSectionOnboardingTaskDescription": "<section><header>用来做什么？</header><article>准确说明您希望学生在本课程结束时学到些什么或者能够做些什么。</article></section><section><header>如何定义章节？</header><ol><li>在课程编辑器中点击<b>“新章节”</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">阅读更多</a></div></section>",
     "hideSection": "隐藏章节",
     "showSection": "显示章节",
-    "clickToSelectBackgroundImage": "Click to select background image"
+    "clickToSelectBackgroundImage": "单击选择背景图像"
 }

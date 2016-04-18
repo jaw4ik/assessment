@@ -88,14 +88,18 @@
     "[authorize with]": "Authorize with:",
     "[confirn your name and email]": "OK, name and email are correct",
     "[secret link]": "Secret link:",
-    "[password]": "Password:",
+    "[password]": "Password",
+    "[password:]": "Password:",
     "[continue anytime]": "Continue anytime on any device",
     "[explanation for cross device saving]": "Use either a secret link, a combination email/password or authorization via social media to access the course with your saved progress. We also sent this info to your mailbox.",
     "[course already started]": "This course has already been started by",
     "[continue with the password]": "Continue with the password",
-    "[request secret link]": "or <a>request a secret link</a> to your progress via email",
+    "[request secret link]": "or request a secret link to your progress via email",
     "[continue anytime in browser]": "Continue anytime in your browser",
     "[note about continue course]": "Note: you can continue only in a current browser",
     "[show]": "Show",
-    "[hide]": "Hide"
+    "[hide]": "Hide",
+    "[login pasword is not valid]": "Enter a valid passsword",
+    "[no questions]": "No questions",
+    "[sections]": "Sections"
 }

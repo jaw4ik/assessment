@@ -2000,6 +2000,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\dialogs\audioembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\icons\audioembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\en.js" />
@@ -2013,6 +2014,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\no-audio.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\en.js" />
@@ -2028,6 +2030,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\icons\otherdocuments.png" />
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\icons\slideshare.png" />
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\documentembed\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\lang\fr.js" />
@@ -2039,6 +2042,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\documentembed\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\eqneditor.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\pt-br.js" />
@@ -2051,6 +2055,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\info.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\en.js" />
@@ -2064,6 +2069,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlankDropDown.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\fr.js" />
@@ -2078,6 +2084,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\no-images.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\fr.js" />
@@ -2092,6 +2099,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\fr.js" />
@@ -2179,6 +2187,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\dialogs\mediaembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\de.js" />
@@ -2190,6 +2199,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\fr.js" />
@@ -2204,6 +2214,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\video-icon.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\it.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\fr.js" />
@@ -2217,6 +2228,7 @@
     <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\ckeditor\lang\es.js" />
     <Content Include="Scripts\ckeditor\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\lang\it.js" />
     <Content Include="Scripts\ckeditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\lang\uk.js" />
@@ -2444,6 +2456,7 @@
     <Content Include="Mail\MailTemplates\IntercomSubscriptionFailedTemplate.cshtml" />
     <Content Include="Content\questionModalView.less" />
     <Content Include="Content\configure.less" />
+    <Content Include="App\localization\lang\it.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -3324,6 +3337,9 @@
     <Content Include="Templates\Reader\lang\ru.json" />
     <Content Include="Templates\Simple course\lang\kr.json" />
     <Content Include="Templates\Simple course\fonts\MaterialIcons-Regular.woff" />
+    <Content Include="Templates\Assessment\lang\it.json" />
+    <Content Include="Templates\Personalized learning\lang\it.json" />
+    <Content Include="Templates\Reader\lang\it.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3716,6 +3732,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\Resources.es.resx" />
+    <EmbeddedResource Include="Resources\Controllers\Resources.it.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.de.resx" />
@@ -3728,6 +3745,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewsResources</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Resources.it.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.zh.resx" />
   </ItemGroup>

@@ -4,7 +4,7 @@ import moment from 'moment';
 
 let
     defaultCulture = 'en',
-    supportedCultures = ['en', 'uk', 'zh-cn', 'pt-br', 'de', 'nl', 'fr', 'es'];
+    supportedCultures = ['en', 'uk', 'zh-cn', 'pt-br', 'de', 'nl', 'fr', 'es', 'it'];
 
 class LocalizationManager{
     constructor() {

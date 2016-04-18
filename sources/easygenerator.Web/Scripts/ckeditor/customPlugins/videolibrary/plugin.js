@@ -2,7 +2,7 @@
 
     CKEDITOR.plugins.videolibrary = {
         requires: 'dialogui',
-        lang: 'en,uk,zh-cn,pt-br,de,nl,es',
+        lang: 'en,uk,zh-cn,pt-br,de,nl,es,it',
 
         commands: {
             selectVideo: 'selectVideo',

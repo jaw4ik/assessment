@@ -88,14 +88,16 @@
     "[authorize with]": "Autorisieren mit:",
     "[confirn your name and email]": "OK, Name und E-Mail sind korrekt",
     "[secret link]": "Geheimer Link:",
-    "[password]": "Kennwort:",
+    "[password]": "Kennwort",
+    "[password:]": "Kennwort:",
     "[continue anytime]": "Jederzeit auf jedem Gerät fortfahren",
     "[explanation for cross device saving]": "Verwenden Sie entweder einen geheimen Link, eine Kombination aus E-Mail/Kennwort oder eine Autorisierung über soziale Medien, um auf den Kurs mit Ihrem gespeicherten Fortschritt zuzugreifen. Wir haben diese E-Mail auch an Ihren Posteingang gesendet.",
     "[course already started]": "Dieser Kurs wurde bereits begonnen von",
     "[continue with the password]": "Mit dem Kennwort fortfahren",
-    "[request secret link]": "oder <a>einen geheimen Link beantragen</a>, um per E-Mail fortzufahren",
+    "[request secret link]": "oder einen geheimen Link beantragen, um per E-Mail fortzufahren",
     "[continue anytime in browser]": "Jederzeit in Ihrem Browser fortfahren",
     "[note about continue course]": "Hinweis: Sie können nur in einem aktuellen Browser fortfahren",
     "[show]": "Anzeigen",
-    "[hide]": "Ausblenden"
+    "[hide]": "Ausblenden",
+    "[login pasword is not valid]": "Geben Sie ein gültiges Kennwort ein"
 }

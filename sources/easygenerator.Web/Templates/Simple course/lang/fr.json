@@ -88,14 +88,16 @@
     "[authorize with]": "Autoriser avec :",
     "[confirn your name and email]": "Ok, le nom est l'e-mail sont correct",
     "[secret link]": "Lien secret :",
-    "[password]": "Mot de passe :",
+    "[password]": "Mot de passe",
+    "[password:]": "Mot de passe:",
     "[continue anytime]": "Continuez à tout moment sur n'importe quel périphérique",
     "[explanation for cross device saving]": "Utilisez un lien secret, une combinaison email/mot de passe ou l'autorisation par le biais d'un réseau social pour accéder au cours avec vos progrès enregistrés. Nous avons également envoyé cette information à votre adresse email.",
     "[course already started]": "Ce cours a déjà été commencé par",
     "[continue with the password]": "Poursuivez avec la saisie du mot de passe",
-    "[request secret link]": "ou <a>demandez un lien secret vers vos progrès</a> par e-mail",
+    "[request secret link]": "ou demandez un lien secret vers vos progrès par e-mail",
     "[continue anytime in browser]": "Continuez à tout moment dans votre navigateur",
     "[note about continue course]": "Remarque : vous ne pouvez continuer que dans une version de navigateur récente",
     "[show]": "Afficher",
-    "[hide]": "Cacher"
+    "[hide]": "Cacher",
+    "[login pasword is not valid]": "Veuillez saisir un mot de passe valable"
 }

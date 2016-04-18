@@ -88,14 +88,16 @@
     "[authorize with]": "确认方式：",
     "[confirn your name and email]": "好，姓名和电子邮件正确无误",
     "[secret link]": "密码链接：",
-    "[password]": "密码：",
+    "[password]": "密码",
+    "[password:]": "密码：",
     "[continue anytime]": "在任一设备上随时继续",
     "[explanation for cross device saving]": "使用密码链接、电子邮件/密码组合或通过社交媒体的授权前往该课程已保存的进度。我们同时已将此信息发送到您的邮箱。",
     "[course already started]": "该课程已通过以下方式启动：",
     "[continue with the password]": "使用密码继续",
-    "[request secret link]": "或通过电子邮件<a>请求密码链接</a>以前往您的进度",
+    "[request secret link]": "或通过电子邮件请求密码链接以前往您的进度",
     "[continue anytime in browser]": "在浏览器上随时继续",
     "[note about continue course]": "注：您只能在当前浏览器中继续。",
     "[show]": "显示",
-    "[hide]": "隐藏"
+    "[hide]": "隐藏",
+    "[login pasword is not valid]": "输入有效的密码"
 }

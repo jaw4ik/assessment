@@ -52,6 +52,11 @@
       "code": "es",
       "name": "Spanish",
       "url": "lang/es.json"
+    },
+    {
+      "code": "it",
+      "name": "Italian",
+      "url": "lang/it.json"
     }
   ]
 }
