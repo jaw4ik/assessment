@@ -140,5 +140,10 @@ namespace easygenerator.Web.Components.Configuration
         {
             get { return ConfigurationManager.AppSettings["version"]; }
         }
+
+        public bool ImageLibraryOnlyHttps
+        {
+            get { return Convert.ToBoolean(ConfigurationManager.AppSettings["ImageLibraryOnlyHttps"]); }
+        }
     }
 }

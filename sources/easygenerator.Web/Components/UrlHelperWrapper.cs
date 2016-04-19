@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Components
 {
@@ -18,6 +19,13 @@ namespace easygenerator.Web.Components
 
     public class UrlHelperWrapper : IUrlHelperWrapper
     {
+        private readonly ConfigurationReader _configurationReader;
+
+        public UrlHelperWrapper(ConfigurationReader configurationReader)
+        {
+            _configurationReader = configurationReader;
+        }
+
         public HttpRequest HttpRequest
         {
             get { return HttpContext.Current.Request; }
@@ -45,7 +53,7 @@ namespace easygenerator.Web.Components
 
         private string RouteUrlWithUrlHelper(string routeName, object routeValues)
         {
-            return new UrlHelper(HttpRequest.RequestContext).RouteUrl(routeName, routeValues, HttpRequest.Url.Scheme);
+            return new UrlHelper(HttpRequest.RequestContext).RouteUrl(routeName, routeValues, _configurationReader.ImageLibraryOnlyHttps ? Uri.UriSchemeHttps : HttpRequest.Url.Scheme);
         }
 
         public string AddCurrentSchemeToUrl(string url)
