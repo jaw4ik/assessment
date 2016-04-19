@@ -137,6 +137,10 @@ namespace easygenerator.DomainModel.Entities
         {
             return AccessType >= AccessType.Academy && !IsAccessExpired();
         }
+        public virtual bool HasAcademyBTAccess()
+        {
+            return AccessType >= AccessType.AcademyBT && !IsAccessExpired();
+        }
 
         public virtual bool HasTrialAccess()
         {
@@ -231,6 +235,15 @@ namespace easygenerator.DomainModel.Entities
             AccessType = AccessType.Academy;
             ExpirationDate = expirationDate;
             RaiseEvent(new UserUpgradedToAcademy(this));
+        }
+
+        public void UpgradePlanToAcademyBT(DateTime expirationDate)
+        {
+            ThrowIfExpirationDateIsInvalid(expirationDate);
+
+            AccessType = AccessType.AcademyBT;
+            ExpirationDate = expirationDate;
+            RaiseEvent(new UserUpgradedToAcademyBT(this));
         }
 
         public virtual void DowngradePlanToFree()

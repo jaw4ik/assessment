@@ -8,6 +8,7 @@ export default {
         starter: 1,
         plus: 2,
         academy: 3,
+        academyBT: 4,
         trial: 100
     },
 
@@ -119,6 +120,7 @@ export default {
             upgradedToStarter: 'user:upgradedToStarter',
             upgradedToPlus: 'user:upgradedToPlus',
             upgradedToAcademy: 'user:upgradedToAcademy',
+            upgradedToAcademyBT: 'user:upgradedToAcademyBT',
             planChanged: 'user:planChanged'
         },
         library: {

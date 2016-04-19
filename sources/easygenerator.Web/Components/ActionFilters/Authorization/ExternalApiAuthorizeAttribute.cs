@@ -1,9 +1,9 @@
 ﻿using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.Configuration.ExternalApi;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Components.Configuration.ApiKeys;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {

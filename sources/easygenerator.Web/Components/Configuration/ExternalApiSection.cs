@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using easygenerator.Web.Components.Configuration.ApiKeys;
 
-namespace easygenerator.Web.Components.Configuration.ExternalApi
+namespace easygenerator.Web.Components.Configuration
 {
     public class ExternalApiSection : ConfigurationSection
     {

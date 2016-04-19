@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace easygenerator.Web.Components.Configuration.ExternalApi
+namespace easygenerator.Web.Components.Configuration.ApiKeys
 {
     [ConfigurationCollection(typeof(ApiKeyElement), CollectionType = ConfigurationElementCollectionType.BasicMapAlternate)]
     public class ApiKeyCollection : ConfigurationElementCollection

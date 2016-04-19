@@ -114,19 +114,25 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError(Errors.UserWithSpecifiedEmailDoesntExist);
             }
 
-            return JsonSuccess(_branchTrackProvider.GetDashboardInfo(user.Id.ToNString()));
+            return JsonSuccess(_branchTrackProvider.GetDashboardInfo(user.Id.ToNString(), user.AccessType));
         }
 
         [HttpPost]
         [Route("api/question/scenario/getprojectinfo")]
         public ActionResult GetProjectInfo(string projectId)
         {
+            var user = _userRepository.GetUserByEmail(GetCurrentUsername());
+            if (user == null)
+            {
+                return JsonError(Errors.UserWithSpecifiedEmailDoesntExist);
+            }
+
             if (projectId == null)
             {
                 return JsonError(Errors.ProjectDoesntExist);
             }
 
-            return JsonSuccess(_branchTrackProvider.GetProjectInfo(projectId));
+            return JsonSuccess(_branchTrackProvider.GetProjectInfo(projectId, user.AccessType));
         }
 
         [HttpPost]
@@ -144,7 +150,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError(Errors.ProjectDoesntExist);
             }
 
-            return JsonSuccess(_branchTrackProvider.GetProjectEditingInfo(user.Id.ToNString(), projectId));
+            return JsonSuccess(_branchTrackProvider.GetProjectEditingInfo(user.Id.ToNString(), projectId, user.AccessType));
         }
     }
 }

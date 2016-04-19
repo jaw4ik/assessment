@@ -319,7 +319,7 @@ describe('model [user]', function () {
         });
     });
 
-    describe('upgradeToPlus:', function () {
+    describe('upgradeToAcademy:', function () {
         var user;
 
         beforeEach(function () {
@@ -350,6 +350,45 @@ describe('model [user]', function () {
             it('should throw exception', function () {
                 var f = function () {
                     user.upgradeToAcademy();
+                };
+
+                expect(f).toThrow();
+            });
+
+        });
+    });
+
+    describe('upgradeToAcademyBT:', function () {
+        var user;
+
+        beforeEach(function () {
+            user = new User({
+                firstname: 'firstname',
+                lastname: 'lastname',
+                email: 'a.drebot@gmail.com',
+                subscription: {
+                    accessType: constants.accessType.free
+                }
+            });
+        });
+
+        it('should be function', function () {
+            expect(user.upgradeToAcademyBT).toBeFunction();
+        });
+
+        it('should upgrade user to plus', function () {
+            user.upgradeToAcademyBT("2014-03-19T12:49:34.7396182Z");
+
+            expect(user.subscription.accessType).toEqual(constants.accessType.academy);
+            expect(user.subscription.expirationDate).toEqual(new Date("2014-03-19T12:49:34.7396182Z"));
+        });
+
+
+        describe('when expiration date is not specified', function () {
+
+            it('should throw exception', function () {
+                var f = function () {
+                    user.upgradeToAcademyBT();
                 };
 
                 expect(f).toThrow();

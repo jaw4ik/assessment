@@ -10,7 +10,7 @@ using easygenerator.Web.Newsletter.Intercom;
 namespace easygenerator.Web.DomainEvents.Handlers
 {
     public class IntercomSubscriptionHandler : IDomainEventHandler<UserUpgradedToStarter>, IDomainEventHandler<UserUpgradedToPlus>,
-        IDomainEventHandler<UserUpgradedToAcademy>, IDomainEventHandler<UserDowngraded>
+        IDomainEventHandler<UserUpgradedToAcademy>, IDomainEventHandler<UserUpgradedToAcademyBT>, IDomainEventHandler<UserDowngraded>
     {
         private readonly IIntercomSubscriptionManager _subscriptionManager;
         private readonly IMailNotificationManager _mailNotificationManager;
@@ -35,6 +35,11 @@ namespace easygenerator.Web.DomainEvents.Handlers
         }
 
         public void Handle(UserUpgradedToAcademy args)
+        {
+            HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
+        }
+
+        public void Handle(UserUpgradedToAcademyBT args)
         {
             HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
         }

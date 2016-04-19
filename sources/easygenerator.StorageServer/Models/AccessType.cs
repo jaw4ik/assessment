@@ -11,6 +11,7 @@ namespace easygenerator.StorageServer.Models
         Starter = 1,
         Plus = 2,
         Academy = 3,
+        AcademyBT = 4,
         Trial = 100
     }
 }

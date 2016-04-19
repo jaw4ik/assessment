@@ -185,6 +185,7 @@
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />
     <Compile Include="Events\UserEvents\UserDonwgraded.cs" />
     <Compile Include="Events\UserEvents\UserUpdateEvent.cs" />
+    <Compile Include="Events\UserEvents\UserUpgradedToAcademyBT.cs" />
     <Compile Include="Events\UserEvents\UserUpgradedToAcademy.cs" />
     <Compile Include="Events\UserEvents\UserUpgradedToPlus.cs" />
     <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />

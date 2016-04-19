@@ -50,6 +50,11 @@ namespace easygenerator.Web.Newsletter.Intercom
                             plan = "Academy";
                             break;
                         }
+                    case AccessType.AcademyBT:
+                        {
+                            plan = "AcademyBT";
+                            break;
+                        }
                     case AccessType.Trial:
                         {
                             plan = "Trial";

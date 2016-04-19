@@ -40,6 +40,11 @@
                             userPlan = 'Academy';
                             break;
                         }
+                    case 4:
+                        {
+                            userPlan = 'AcademyBT';
+                            break;
+                        }
                     case 100:
                         {
                             userPlan = 'Trial';

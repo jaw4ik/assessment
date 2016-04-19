@@ -1,5 +1,5 @@
 ﻿using System;
-using easygenerator.Web.Components.Configuration.ExternalApi;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using System.Configuration;
 

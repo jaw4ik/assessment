@@ -227,7 +227,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.GetDashboardInfo();
 
-            _branchTrackProvider.Received().GetDashboardInfo(user.Id.ToNString());
+            _branchTrackProvider.Received().GetDashboardInfo(user.Id.ToNString(), AccessType.Trial);
         }
 
         [TestMethod]
@@ -236,7 +236,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = UserObjectMother.Create();
             var expectedResult = new { someData = "data" };
             _userRepository.GetUserByEmail(CreatedBy).Returns(user);
-            _branchTrackProvider.GetDashboardInfo(Arg.Any<string>()).Returns(expectedResult);
+            _branchTrackProvider.GetDashboardInfo(Arg.Any<string>(), AccessType.Trial).Returns(expectedResult);
 
             var result = _controller.GetDashboardInfo();
 
@@ -252,6 +252,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void GetProjectInfo_ShouldReturnJsonError_WhenProjectIdIsNull()
         {
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(CreatedBy).Returns(user);
+
             var result = _controller.GetProjectInfo(null);
 
             result.Should().BeJsonErrorResultWithMessage(Errors.ProjectDoesntExist);
@@ -260,10 +263,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void GetProjectInfo_ShouldCallProviderGetProjectInfo()
         {
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(CreatedBy).Returns(user);
             var projectId = "some_project_id";
+
             _controller.GetProjectInfo(projectId);
 
-            _branchTrackProvider.Received().GetProjectInfo(projectId);
+            _branchTrackProvider.Received().GetProjectInfo(projectId, AccessType.Trial);
         }
 
         [TestMethod]
@@ -271,7 +277,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var projectId = "some_project_id";
             var expectedResult = new { someData = "data" };
-            _branchTrackProvider.GetProjectInfo(projectId).Returns(expectedResult);
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(CreatedBy).Returns(user);
+
+            _branchTrackProvider.GetProjectInfo(projectId, AccessType.Trial).Returns(expectedResult);
 
             var result = _controller.GetProjectInfo(projectId);
 
@@ -314,7 +323,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.GetProjectEditingInfo(projectId);
 
-            _branchTrackProvider.Received().GetProjectEditingInfo(user.Id.ToNString(), projectId);
+            _branchTrackProvider.Received().GetProjectEditingInfo(user.Id.ToNString(), projectId, AccessType.Trial);
         }
 
         [TestMethod]
@@ -324,7 +333,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var expectedResult = new { someData = "data" };
             var user = UserObjectMother.Create();
             _userRepository.GetUserByEmail(CreatedBy).Returns(user);
-            _branchTrackProvider.GetProjectEditingInfo(user.Id.ToNString(), projectId).Returns(expectedResult);
+            _branchTrackProvider.GetProjectEditingInfo(user.Id.ToNString(), projectId, AccessType.Trial).Returns(expectedResult);
 
             var result = _controller.GetProjectEditingInfo(projectId);
 

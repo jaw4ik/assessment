@@ -4,11 +4,13 @@ using System.Linq;
 
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using easygenerator.Infrastructure.Http;
+using easygenerator.Web.Components.Configuration.ApiKeys;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -33,7 +35,7 @@ namespace easygenerator.Web.Tests.Components
             _configurationReader = Substitute.For<ConfigurationReader>();
             _branchtrackProvider = new BranchTrackProvider(_httpClient, _configurationReader);
 
-            var _branchTrackConfiguration = new BranchTrackConfigurationSection() { ServiceUrl = BranchTrackServiceUrl, ApiKey = BranchTrackApiKey };
+            var _branchTrackConfiguration = new BranchTrackConfigurationSection() { ServiceUrl = BranchTrackServiceUrl, ApiKeys = new ApiKeyCollection() };
             _configurationReader.BranchTrackConfiguration.Returns(_branchTrackConfiguration);
         }
 
@@ -45,7 +47,7 @@ namespace easygenerator.Web.Tests.Components
             var userId = Guid.NewGuid().ToNString();
             var requestUrl = BranchTrackServiceUrl + "/api/1/clients/" + userId + "/request_url";
 
-            _branchtrackProvider.GetDashboardInfo(userId);
+            _branchtrackProvider.GetDashboardInfo(userId, AccessType.Academy);
 
             _httpClient.Received().Get<object>(Arg.Is(requestUrl), Arg.Any<Dictionary<string, string>>(), Arg.Any<Dictionary<string, string>>());
         }
@@ -58,7 +60,7 @@ namespace easygenerator.Web.Tests.Components
             _httpClient.Get<object>(Arg.Any<string>(), Arg.Any<Dictionary<string, string>>(),
                 Arg.Any<Dictionary<string, string>>()).ReturnsForAnyArgs(expectedResult);
 
-            var result = _branchtrackProvider.GetDashboardInfo(userId);
+            var result = _branchtrackProvider.GetDashboardInfo(userId, AccessType.Academy);
 
             result.ShouldBeSimilar(expectedResult);
         }
@@ -73,7 +75,7 @@ namespace easygenerator.Web.Tests.Components
             var projectId = Guid.NewGuid().ToNString();
             var requestUrl = BranchTrackServiceUrl + "/api/1/projects/" + projectId + ".json";
 
-            _branchtrackProvider.GetProjectInfo(projectId);
+            _branchtrackProvider.GetProjectInfo(projectId, AccessType.Academy);
 
             _httpClient.Received().Get<object>(Arg.Is(requestUrl), Arg.Any<Dictionary<string, string>>(), Arg.Any<Dictionary<string, string>>());
         }
@@ -86,7 +88,7 @@ namespace easygenerator.Web.Tests.Components
             _httpClient.Get<object>(Arg.Any<string>(), Arg.Any<Dictionary<string, string>>(),
                 Arg.Any<Dictionary<string, string>>()).ReturnsForAnyArgs(expectedResult);
 
-            var result = _branchtrackProvider.GetProjectInfo(projectId);
+            var result = _branchtrackProvider.GetProjectInfo(projectId, AccessType.Academy);
 
             result.ShouldBeSimilar(expectedResult);
         }
@@ -102,7 +104,7 @@ namespace easygenerator.Web.Tests.Components
             var projectId = Guid.NewGuid().ToNString();
             var requestUrl = BranchTrackServiceUrl + "/api/1/clients/" + userId + "/request_url?project_id=" + projectId;
 
-            _branchtrackProvider.GetProjectEditingInfo(userId, projectId);
+            _branchtrackProvider.GetProjectEditingInfo(userId, projectId, AccessType.Academy);
 
             _httpClient.Received().Get<object>(Arg.Is(requestUrl), Arg.Any<Dictionary<string, string>>(), Arg.Any<Dictionary<string, string>>());
         }
@@ -116,7 +118,7 @@ namespace easygenerator.Web.Tests.Components
             _httpClient.Get<object>(Arg.Any<string>(), Arg.Any<Dictionary<string, string>>(),
                 Arg.Any<Dictionary<string, string>>()).ReturnsForAnyArgs(expectedResult);
 
-            var result = _branchtrackProvider.GetProjectEditingInfo(userId, projectId);
+            var result = _branchtrackProvider.GetProjectEditingInfo(userId, projectId, AccessType.Academy);
 
             result.ShouldBeSimilar(expectedResult);
         }
@@ -129,7 +131,7 @@ namespace easygenerator.Web.Tests.Components
             _httpClient.Get<object>(Arg.Any<string>(), Arg.Any<Dictionary<string, string>>(),
                 Arg.Any<Dictionary<string, string>>()).Returns(x => { throw new Exception(); });
 
-            var result = _branchtrackProvider.GetProjectEditingInfo(userId, projectId);
+            var result = _branchtrackProvider.GetProjectEditingInfo(userId, projectId, AccessType.Academy);
 
             result.Should().BeNull();
         }

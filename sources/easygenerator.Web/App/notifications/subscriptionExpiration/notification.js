@@ -29,6 +29,8 @@
                 return localizationManager.localize("upgradePlusPlan");
             case constants.accessType.academy:
                 return localizationManager.localize("upgradeAcademyPlan");
+            case constants.accessType.academyBT:
+                return localizationManager.localize("upgradeAcademyBtPlan");
             default:
                 throw "Undefined access type";
         }

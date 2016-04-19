@@ -390,7 +390,58 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.UpgradeToAcademy(email, expDate);
 
-            user.Received().UpgradePlanToPlus(expDate);
+            user.Received().UpgradePlanToAcademy(expDate);
+        }
+
+        #endregion
+
+        #region UpgradeToAcademyBT
+
+        [TestMethod]
+        public void UpgradeToAcademyBT_ShouldThrowArgumentException_WhenUserDoesNotExists()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            Action action = () => _controller.UpgradeToAcademyBT(email, DateTime.MaxValue);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void UpgradeToAcademyBT_ShouldThrowArgumentException_WhenExpirationDateIsNull()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            Action action = () => _controller.UpgradeToAcademyBT(email, null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradeToAcademyBT_ShouldReturnSuccessResult_WhenUserExists()
+        {
+            const string email = "test@test.test";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var result = _controller.UpgradeToAcademyBT(email, DateTime.MaxValue);
+
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void UpgradeToAcademyBT_ShouldSetSubscriptionAcademyBTPlan()
+        {
+            const string email = "test@test.test";
+            DateTime expDate = DateTime.MaxValue;
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.UpgradeToAcademyBT(email, expDate);
+
+            user.Received().UpgradePlanToAcademyBT(expDate);
         }
 
         #endregion

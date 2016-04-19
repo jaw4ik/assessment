@@ -13,7 +13,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 {
     public class PublicationServerUserHandler : IDomainEventHandler<UserSignedUpEvent>, 
         IDomainEventHandler<UserUpgradedToStarter>, IDomainEventHandler<UserUpgradedToPlus>, IDomainEventHandler<UserDowngraded>,
-        IDomainEventHandler<UserUpgradedToAcademy>
+        IDomainEventHandler<UserUpgradedToAcademy>, IDomainEventHandler<UserUpgradedToAcademyBT>
     {
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly HttpClient _httpClient;
@@ -49,6 +49,11 @@ namespace easygenerator.Web.DomainEvents.Handlers
         }
 
         public void Handle(UserUpgradedToAcademy args)
+        {
+            Handle(UpdateUserMethodName, args.User.Email, args.User.AccessType);
+        }
+
+        public void Handle(UserUpgradedToAcademyBT args)
         {
             Handle(UpdateUserMethodName, args.User.Email, args.User.AccessType);
         }

@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace easygenerator.Web.Components.Configuration.ExternalApi
+namespace easygenerator.Web.Components.Configuration.ApiKeys
 {
     public class ApiKeyElement : ConfigurationElement
     {

@@ -34,6 +34,7 @@
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
                     userUpgradedToPlus: userEventHandler.upgradedToPlus,
                     userUpgradedToAcademy: userEventHandler.upgradedToAcademy,
+                    userUpgradedToAcademyBT: userEventHandler.upgradedToAcademyBT,
 
                     courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
                     courseCollaborationStarted: collaborationEventHandler.started,

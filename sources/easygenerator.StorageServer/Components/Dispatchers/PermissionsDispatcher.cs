@@ -57,6 +57,8 @@ namespace easygenerator.StorageServer.Components.Dispatchers
                     return 10737418240; //10GB
                 case AccessType.Academy:
                     return 107374182400; //100GB
+                case AccessType.AcademyBT:
+                    return 107374182400; //100GB
                 default:
                     return 0;
             }

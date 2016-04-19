@@ -1,6 +1,5 @@
 ﻿using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.Configuration.ExternalApi;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,6 +10,7 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.Web.Components.Configuration.ApiKeys;
 
 namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 {

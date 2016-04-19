@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.Configuration.ExternalApi;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -42,6 +42,12 @@
                     expirationDate: new Date(spec.subscription.expirationDate)
                 };
                 break;
+            case 4:
+                this.subscription = {
+                    accessType: constants.accessType.academyBT,
+                    expirationDate: new Date(spec.subscription.expirationDate)
+                };
+                break;
             case 100:
                 this.subscription = {
                     accessType: constants.accessType.trial,
@@ -79,6 +85,14 @@
         guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
         this.subscription = {
             accessType: constants.accessType.academy,
+            expirationDate: new Date(expirationDate)
+        };
+    };
+
+    User.prototype.upgradeToAcademyBT = function (expirationDate) {
+        guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
+        this.subscription = {
+            accessType: constants.accessType.academyBT,
             expirationDate: new Date(expirationDate)
         };
     };

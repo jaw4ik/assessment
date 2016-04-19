@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using easygenerator.Web.Components.Configuration.ApiKeys;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -20,16 +21,11 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
-        [ConfigurationProperty("apiKey", IsRequired = true)]
-        public string ApiKey {
-            get
-            {
-                return (string)this["apiKey"];
-            }
-            set
-            {
-                this["apiKey"] = value;
-            }
+        [ConfigurationProperty("apiKeys", IsRequired = true)]
+        public virtual ApiKeyCollection ApiKeys
+        {
+            get { return ((ApiKeyCollection)(base["apiKeys"])); }
+            set { base["apiKeys"] = value; }
         }
     }
 }

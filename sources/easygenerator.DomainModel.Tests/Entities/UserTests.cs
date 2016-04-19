@@ -1575,7 +1575,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpgradePlanToAcademy_ShouldSetAccessTypeToPlus()
+        public void UpgradePlanToAcademy_ShouldSetAccessTypeToAcademy()
         {
             //Arrange
             var user = UserObjectMother.Create();
@@ -1602,7 +1602,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpgradePlanToAcademy_ShouldAddUserUpgradedToPlus()
+        public void UpgradePlanToAcademy_ShouldAddUserUpgradedToAcademy()
         {
             //Arrange
             var user = UserObjectMother.Create();
@@ -1612,6 +1612,65 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             user.ShouldContainSingleEvent<UserUpgradedToAcademy>();
+        }
+
+        #endregion
+
+        #region UpgradePlanToAcademyBT
+
+        [TestMethod]
+        public void UpgradePlanToAcademyBT_ShouldThrowArgumentException_WhenExpirationTimeLessThanSqlMinDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var minDate = new DateTime(2000, 1, 1);
+            DateTimeWrapper.MinValue = () => minDate;
+
+            //Act
+            Action action = () => user.UpgradePlanToAcademyBT(new DateTime(1999, 12, 30));
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradePlanToAcademyBT_ShouldSetAccessTypeToAcademyBT()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToAcademyBT(DateTime.Now);
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.AcademyBT);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToAcademyBT_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var expirationDate = DateTime.MaxValue;
+
+            //Act
+            user.UpgradePlanToAcademyBT(expirationDate);
+
+            //Assert
+            user.ExpirationDate.Should().Be(expirationDate);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToAcademyBT_ShouldAddUserUpgradedToAcademyBT()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToAcademyBT(DateTime.Now);
+
+            //Assert
+            user.ShouldContainSingleEvent<UserUpgradedToAcademyBT>();
         }
 
         #endregion

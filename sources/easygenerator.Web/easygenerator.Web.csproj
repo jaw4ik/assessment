@@ -450,9 +450,9 @@
     <Compile Include="Components\AuthenticationProvider.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
     <Compile Include="Components\Configuration\ConfigurationReader.cs" />
-    <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
-    <Compile Include="Components\Configuration\ExternalApi\ApiKeyElement.cs" />
-    <Compile Include="Components\Configuration\ExternalApi\ExternalApiSection.cs" />
+    <Compile Include="Components\Configuration\ApiKeys\ApiKeyCollection.cs" />
+    <Compile Include="Components\Configuration\ApiKeys\ApiKeyElement.cs" />
+    <Compile Include="Components\Configuration\ExternalApiSection.cs" />
     <Compile Include="Components\Configuration\FileStorageConfigurationSection.cs" />
     <Compile Include="Components\Configuration\HttpRequestsSenderConfigurationSection.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
@@ -1254,9 +1254,13 @@
       <DependentUpon>masteryScoreUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\questions\scenario\handler.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademyBT.js" />
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.js" />
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.spec.js">
       <DependentUpon>upgradedToAcademy.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademyBT.spec.js">
+      <DependentUpon>upgradedToAcademyBT.js</DependentUpon>
     </Content>
     <Content Include="App\treeOfContent\queries\getSectionByIdQuery.spec.js">
       <DependentUpon>getSectionByIdQuery.js</DependentUpon>

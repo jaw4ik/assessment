@@ -150,6 +150,25 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("wooCommerce")]
+        [Route("api/user/subscription/academyBT")]
+        public ActionResult UpgradeToAcademyBT(string email, DateTime? expirationDate)
+        {
+            if (!expirationDate.HasValue)
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
+
+            var user = _repository.GetUserByEmail(email);
+            if (user == null)
+                throw new ArgumentException("User with specified email does not exist", nameof(email));
+
+            user.UpgradePlanToAcademyBT(expirationDate.Value);
+
+            return Success();
+        }
+
+        [HttpPost]
         [AllowAnonymous]
         public ActionResult Signup(UserSignUpViewModel profile)
         {
