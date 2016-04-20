@@ -61,7 +61,6 @@
             var questionType = question.type;
 
             return learningContentRepository.getCollection(questionId).then(function (learningContentsList) {
-                debugger;
                 viewModel.questionId = questionId;
                 viewModel.questionType = questionType;
                 viewModel.learningContents([]);

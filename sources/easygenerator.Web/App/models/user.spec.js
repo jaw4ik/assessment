@@ -376,10 +376,10 @@ describe('model [user]', function () {
             expect(user.upgradeToAcademyBT).toBeFunction();
         });
 
-        it('should upgrade user to plus', function () {
+        it('should upgrade user to academyBT', function () {
             user.upgradeToAcademyBT("2014-03-19T12:49:34.7396182Z");
 
-            expect(user.subscription.accessType).toEqual(constants.accessType.academy);
+            expect(user.subscription.accessType).toEqual(constants.accessType.academyBT);
             expect(user.subscription.expirationDate).toEqual(new Date("2014-03-19T12:49:34.7396182Z"));
         });
 
