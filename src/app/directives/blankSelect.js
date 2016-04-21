@@ -39,8 +39,11 @@
                 }
             },
             template: '<div class="select-wrapper">' +
+                        '<div class="hiden">' +
+                            '<div ng-repeat="(key, value) in group.answers">{{ value.text }}</div>' +
+                        '</div>' +
                         '<div class="current default">{{ "[fill in the blank choose answer]" | translate }}</div>' +
-                        '<div class="highlight">' +
+                        '<div class="highlight"></div>' +
                       '</div>'
         };
     }

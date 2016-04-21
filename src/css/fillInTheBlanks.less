@@ -84,15 +84,16 @@
     }
 
     .select-wrapper {
-        cursor: pointer;
-        display: inline-block;
-        outline: none;
         position: relative;
+        display: inline-block;
+        max-width: 300px;
+        min-width: 170px;
+        height: 50px;
+        margin: 1px 3px 0;
+        outline: none;
         vertical-align: middle;
         line-height: 45px;
-        height: 50px;
-        width: 225px;
-        margin: 0 5px;
+        cursor: pointer;
 
         &:focus {
             outline: none;
@@ -106,8 +107,15 @@
             position: relative;
 
             &.default {
+                font-size: 14px;
                 color: @text-alt-color;
             }
+        }
+        
+        .hiden {
+            visibility: hidden;
+            height: 0;
+            border: none;
         }
 
         .highlight {
