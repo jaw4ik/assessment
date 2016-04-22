@@ -18,7 +18,7 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.6",
-    "css": "github:systemjs/plugin-css@0.1.20",
+    "css": "github:systemjs/plugin-css@0.1.21",
     "dragula": "github:jaw4ik/dragula@3.5.5",
     "durandal": "core/durandal",
     "has": "npm:has@1.0.1",
