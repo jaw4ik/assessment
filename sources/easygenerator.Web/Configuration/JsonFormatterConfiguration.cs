@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
@@ -17,7 +18,8 @@ namespace easygenerator.Web.Configuration
                 {
                     new IsoDateTimeConverter()
                     {
-                        DateTimeFormat = "yyyy-MM-dd\\THH:mm:ss.fffK"
+                        DateTimeFormat = "yyyy-MM-dd\\THH:mm:ss.fffK",
+                        Culture = CultureInfo.InvariantCulture
                     }
                 }
             };
