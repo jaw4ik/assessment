@@ -95,8 +95,18 @@
     "[continue with the password]": "Poursuivez avec la saisie du mot de passe",
     "[request secret link]": "ou demandez un lien secret pour visualiser votre progression par e-mail",
     "[continue anytime in browser]": "Continuez à tout moment dans votre navigateur",
+    "[using either]": "using either:",
     "[note about continue course]": "Remarque : vous ne pouvez continuer que dans une version de navigateur récente",
     "[show]": "Afficher",
     "[hide]": "Cacher",
-    "[login pasword is not valid]": "Veuillez saisir un mot de passe valable"
+    "[login pasword is not valid]": "Veuillez saisir un mot de passe valable",
+    "[no questions]": "No questions",
+    "[sections]": "Sections",
+    "[request a secret link]": "request a secret link",
+    "[to your progress via email]": "to your progress via email",
+    "[credentials]": "Credentials",
+    "[social accounts]": "Social accounts:",
+    "[message about mailbox]": "We also sent this info to your mailbox",
+    "[expand]": "Expand",
+    "[collapse]": "Collapse"
 }

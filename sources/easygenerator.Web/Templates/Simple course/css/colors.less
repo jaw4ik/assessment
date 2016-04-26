@@ -714,3 +714,144 @@ body {
         }
     }
 }
+
+.tree-of-content-panel {
+    .tree-of-content-panel-tail {
+        background-color: @main-color;
+
+        &:hover {
+            background-color: shade(@main-color,10%);
+        }
+
+        .tree-of-content-panel-tail-icon {
+            color: @content-body-color;
+        }
+    }
+
+    &.expanded {
+        .tree-of-content-panel-tail {
+            background-color: shade(@content-body-color,10%);
+
+            .tree-of-content-panel-tail-icon {
+                color: fade(@text-color,80%);
+            }
+
+            &:hover {
+                background-color: shade(@content-body-color,15%);
+            }
+        }
+    }
+
+    .tree-of-content-container {
+        background-color: shade(@content-body-color,10%);
+
+        .tree-of-content-section-title-icon {
+            color: fade(@text-color,80%);
+        }
+
+        .tree-of-content {
+            color: fade(@text-color, 80%);
+            font-family: @main-font-fontFamily;
+
+            .tree-of-content-header {
+                color: @text-color;
+            }
+
+            .tree-of-content-section-item {
+                &.active {
+                    .tree-of-content-section-title-wrapper {
+                        color: @text-color;
+                        border-color: @main-color;
+                    }
+                }
+
+                .tree-of-content-section-title-wrapper, .tree-of-content-question-title-wrapper {
+                    border-color: fade(@text-color, 10%);
+                    color: fade(@text-color, 80%);
+
+                    .tree-of-content-question-title {
+                        color: fade(@text-color, 80%);
+                    }
+
+                    &:last-child:hover, &:hover {
+                        border-color: @main-color;
+                        color: @text-color;
+
+                        .tree-of-content-question-title {
+                            color: @text-color;
+                        }
+                    }
+                }
+
+                .tree-of-content-questions-wrapper {
+                    background-color: @content-body-color;
+                    border-bottom-color: fade(@text-color, 20%);
+
+                    .tree-of-content-question-item {
+                        &.active {
+                            background-color: fade(@main-color,10%);
+
+                            .tree-of-content-question-title-wrapper {
+                                border-color: @main-color;
+
+                                .tree-of-content-question-title-icon {
+                                    color: @main-color;
+
+                                    &.question:before {
+                                        background-color: @button-text-color;
+                                    }
+                                }
+
+                                .tree-of-content-question-title {
+                                    color: @text-color;
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            .tree-of-content-question-title-wrapper:hover {
+                                border-color: @main-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 820px) {
+    .tree-of-content-panel {
+        .tree-of-content-container {
+            background-color: @content-body-color;
+
+            .tree-of-content {
+                .tree-of-content-header {
+                    .tree-of-content-header-btn {
+                        .tree-of-content-header-btn-icon {
+                            color: fade(@text-color,70%);
+                        }
+
+                        &:hover {
+                            .tree-of-content-header-btn-icon {
+                                color: @text-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*#region CUSTOM SROLLBAR*/
+
+.ps-container {
+    & > .ps-scrollbar-y-rail {
+        & > .ps-scrollbar-y {
+            background-color: fade(@text-color, 20%) !important;
+        }
+    }
+}
+
+/*#endregion CUSTOM SROLLBAR*/

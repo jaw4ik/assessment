@@ -135,5 +135,8 @@
     "sectionsLayout":{
         "key":"Tiles"
     },
+    "treeOfContent":{
+        "enabled": true
+    },
     "showConfirmationPopup":true
 }

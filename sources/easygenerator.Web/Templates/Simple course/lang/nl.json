@@ -95,7 +95,18 @@
     "[continue with the password]": "Ga verder met het wachtwoord",
     "[request secret link]": "of vraag om een geheime link in uw email om de cursus weer te starten",
     "[continue anytime in browser]": "U kunt verder gaan wanneer u wilt",
+    "[using either]": "using either:",
     "[note about continue course]": "Let op: U kunt alleen verder gaan in uw huidige browser",
     "[show]": "Toon",
-    "[hide]": "Verberg"
+    "[hide]": "Verberg",
+    "[login pasword is not valid]": "Enter a valid passsword",
+    "[no questions]": "No questions",
+    "[sections]": "Sections",
+    "[request a secret link]": "request a secret link",
+    "[to your progress via email]": "to your progress via email",
+    "[credentials]": "Credentials",
+    "[social accounts]": "Social accounts:",
+    "[message about mailbox]": "We also sent this info to your mailbox",
+    "[expand]": "Expand",
+    "[collapse]": "Collapse"
 }

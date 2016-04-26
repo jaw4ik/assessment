@@ -95,8 +95,18 @@
     "[continue with the password]": "Mit dem Kennwort fortfahren",
     "[request secret link]": "oder einen geheimen Link beantragen, um per E-Mail fortzufahren",
     "[continue anytime in browser]": "Jederzeit in Ihrem Browser fortfahren",
+    "[using either]": "using either:",
     "[note about continue course]": "Hinweis: Sie können nur in einem aktuellen Browser fortfahren",
     "[show]": "Anzeigen",
     "[hide]": "Ausblenden",
-    "[login pasword is not valid]": "Geben Sie ein gültiges Kennwort ein"
+    "[login pasword is not valid]": "Geben Sie ein gültiges Kennwort ein",
+    "[no questions]": "No questions",
+    "[sections]": "Sections",
+    "[request a secret link]": "request a secret link",
+    "[to your progress via email]": "to your progress via email",
+    "[credentials]": "Credentials",
+    "[social accounts]": "Social accounts:",
+    "[message about mailbox]": "We also sent this info to your mailbox",
+    "[expand]": "Expand",
+    "[collapse]": "Collapse"
 }
