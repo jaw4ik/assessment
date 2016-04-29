@@ -63,5 +63,15 @@ namespace easygenerator.Web.BuildCourse
         {
             return Path.Combine(buildDirectory, "includedModules");
         }
+
+        public virtual string GetIncludedMediaDirectoryPath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "media");
+        }
+
+        public virtual string GetIncludedMediaWebPath()
+        {
+            return "media";
+        }
     }
 }

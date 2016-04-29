@@ -74,6 +74,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
             builder.RegisterType<CourseContentPathProvider>();
             builder.RegisterType<CourseContentProvider>().As<ICourseContentProvider>();
+            builder.RegisterType<PackageMediaEquiper>();
 
             builder.RegisterType<DocumentContentPathProvider>();
             builder.RegisterType<DocumentContentProvider>().As<IDocumentContentProvider>();

@@ -2,6 +2,7 @@
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Modules;
+using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -14,27 +15,30 @@ namespace easygenerator.Web.BuildLearningPath
         private readonly LearningPathContentPathProvider _contentPathProvider;
         private readonly ICourseContentProvider _buildContentProvider;
         private readonly IPackageModulesProvider _packageModulesProvider;
+        private readonly PublishSettingsProvider _publishSettingsProvider;
 
-        public LearningPathCourseBuilder(PhysicalFileManager fileManager, LearningPathContentPathProvider contentPathProvider,
-            ICourseContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider)
+        public LearningPathCourseBuilder(PhysicalFileManager fileManager, 
+            LearningPathContentPathProvider contentPathProvider,
+            ICourseContentProvider buildContentProvider, 
+            PackageModulesProvider packageModulesProvider,
+            PublishSettingsProvider publishSettingsProvider)
         {
             _fileManager = fileManager;
             _contentPathProvider = contentPathProvider;
             _buildContentProvider = buildContentProvider;
             _packageModulesProvider = packageModulesProvider;
+            _publishSettingsProvider = publishSettingsProvider;
         }
 
         public virtual void Build(string buildDirectory, Course course, LearningPath learningPath)
         {
             var courseId = course.Id.ToNString();
             var courseDirectoryPath = _contentPathProvider.GetEntityDirectoryName(buildDirectory, courseId);
-            CreateCourseDirectory(courseDirectoryPath);
 
-            var modulesList = _packageModulesProvider.GetModulesList(course);
-            _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course, modulesList);
+            CreatePackageDirectory(buildDirectory);
 
-            var settings = getLearningPathCourseSettings(course, learningPath);
-            _buildContentProvider.AddSettingsFileToPackageDirectory(courseDirectoryPath, settings);
+            _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course, false);
+            _buildContentProvider.AddSettingsFileToPackageDirectory(courseDirectoryPath, getLearningPathCourseSettings(course, learningPath));
         }
 
         private string getLearningPathCourseSettings(Course course, LearningPath learningPath)
@@ -56,9 +60,9 @@ namespace easygenerator.Web.BuildLearningPath
             return courseSettings.ToString(Formatting.None);
         }
 
-        private void CreateCourseDirectory(string directoryPath)
+        private void CreatePackageDirectory(string buildDirectory)
         {
-            _fileManager.CreateDirectory(directoryPath);
+            _fileManager.CreateDirectory(buildDirectory);
         }
     }
 }

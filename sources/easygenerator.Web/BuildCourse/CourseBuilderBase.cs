@@ -3,6 +3,8 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.Extensions;
 using System;
+using easygenerator.Web.BuildCourse.PublishSettings;
+using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -13,20 +15,27 @@ namespace easygenerator.Web.BuildCourse
         private readonly BuildPackageCreator _buildPackageCreator;
         private readonly ICourseContentProvider _buildContentProvider;
         private readonly IPackageModulesProvider _packageModulesProvider;
+        private readonly PublishSettingsProvider _publishSettingsProvider;
         private readonly ILog _logger;
 
-        protected CourseBuilderBase(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator,
-            ICourseContentProvider buildContentProvider, IPackageModulesProvider packageModulesProvider, ILog logger)
+        protected CourseBuilderBase(PhysicalFileManager fileManager,
+            BuildPathProvider buildPathProvider,
+            BuildPackageCreator buildPackageCreator,
+            ICourseContentProvider buildContentProvider,
+            IPackageModulesProvider packageModulesProvider,
+            PublishSettingsProvider publishSettingsProvider,
+            ILog logger)
         {
             FileManager = fileManager;
             BuildPathProvider = buildPathProvider;
             _buildPackageCreator = buildPackageCreator;
             _buildContentProvider = buildContentProvider;
             _packageModulesProvider = packageModulesProvider;
+            _publishSettingsProvider = publishSettingsProvider;
             _logger = logger;
         }
 
-        public virtual bool Build(Course course)
+        public virtual bool Build(Course course, bool equip)
         {
             var courseId = course.Id.ToNString();
             var buildId = GenerateBuildId(courseId);
@@ -38,10 +47,13 @@ namespace easygenerator.Web.BuildCourse
 
                 CreatePackageDirectory(buildDirectoryPath);
 
-                var modulesList = _packageModulesProvider.GetModulesList(course);
-                _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, modulesList);
+                _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, equip);
                 _buildContentProvider.AddSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateSettings(course.Template));
-                
+
+                var modulesList = _packageModulesProvider.GetModulesList(course);
+                _buildContentProvider.AddPublishSettingsFileToPackageDirectory(buildDirectoryPath, _publishSettingsProvider.GetPublishSettings(modulesList));
+                _buildContentProvider.AddModulesFilesToPackageDirectory(buildDirectoryPath, modulesList);
+
                 OnAfterBuildContentAdded(course, buildId);
 
                 CreatePackageFromDirectory(buildId);

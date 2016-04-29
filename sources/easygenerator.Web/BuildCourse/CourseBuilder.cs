@@ -3,6 +3,8 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules;
+using easygenerator.Web.BuildCourse.PublishSettings;
+using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -10,17 +12,29 @@ namespace easygenerator.Web.BuildCourse
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
-        public CourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator,
-            ICourseContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider, ILog logger, IDomainEventPublisher eventPublisher)
-            : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider, packageModulesProvider, logger)
+        public CourseBuilder(PhysicalFileManager fileManager, 
+            BuildPathProvider buildPathProvider, 
+            BuildPackageCreator buildPackageCreator,
+            ICourseContentProvider buildContentProvider, 
+            PackageModulesProvider packageModulesProvider, 
+            PublishSettingsProvider publishSettingsProvider,
+            ILog logger, 
+            IDomainEventPublisher eventPublisher)
+            : base(fileManager, 
+                  buildPathProvider, 
+                  buildPackageCreator, 
+                  buildContentProvider, 
+                  packageModulesProvider, 
+                  publishSettingsProvider,
+                  logger)
         {
             _eventPublisher = eventPublisher;
         }
 
-        public override bool Build(Course course)
+        public override bool Build(Course course, bool equip)
         {
             _eventPublisher.Publish(new CourseBuildStartedEvent(course));
-            return base.Build(course);
+            return base.Build(course, equip);
         }
 
         protected override void OnAfterBuildPackageCreated(Course course, string buildId)

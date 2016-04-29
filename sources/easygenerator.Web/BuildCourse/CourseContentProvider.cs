@@ -4,7 +4,6 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
-using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Storage;
 using Newtonsoft.Json;
 
@@ -15,34 +14,38 @@ namespace easygenerator.Web.BuildCourse
         private readonly PhysicalFileManager _fileManager;
         private readonly CourseContentPathProvider _buildPathProvider;
         private readonly PackageModelSerializer _packageModelSerializer;
-        private readonly PackageModelMapper _packageModelMapper;
-        private readonly PublishSettingsProvider _publishSettingsProvider;
         private readonly ITemplateStorage _templateStorage;
+        private readonly PackageModelMapper _packageModelMapper;
+        private readonly PackageMediaEquiper _packageMediaEquiper;
 
         public CourseContentProvider(PhysicalFileManager fileManager,
                                     CourseContentPathProvider buildPathProvider,
                                     PackageModelSerializer packageModelSerializer,
+                                    ITemplateStorage templateStorage,
                                     PackageModelMapper packageModelMapper,
-                                    PublishSettingsProvider publishSettingsProvider,
-                                    ITemplateStorage templateStorage)
+                                    PackageMediaEquiper packageMediaEquiper)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
             _packageModelSerializer = packageModelSerializer;
-            _packageModelMapper = packageModelMapper;
-            _publishSettingsProvider = publishSettingsProvider;
             _templateStorage = templateStorage;
+            _packageModelMapper = packageModelMapper;
+            _packageMediaEquiper = packageMediaEquiper;
         }
 
-        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules)
+        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, bool equip)
         {
+            AddTemplateToPackageDirectory(buildDirectory, course);
+
             var coursePackageModel = _packageModelMapper.MapCourse(course);
 
-            AddTemplateToPackageDirectory(buildDirectory, course);
+            if (equip)
+            {
+                _packageMediaEquiper.EquipContentsMedia(buildDirectory, coursePackageModel);
+            }
+
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);
             AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel);
-            AddPublishSettingsFileToPackageDirectory(buildDirectory, _publishSettingsProvider.GetPublishSettings(modules));
-            AddModulesFilesToPackageDirectory(buildDirectory, modules);
         }
         public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings)
         {
@@ -50,12 +53,12 @@ namespace easygenerator.Web.BuildCourse
                 settings ?? GetEmptyJsonContent());
         }
 
-        private void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
+        public void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
         {
             _fileManager.WriteToFile(_buildPathProvider.GetPublishSettingsFileName(buildDirectory), publishSettings);
         }
 
-        private void AddModulesFilesToPackageDirectory(string buildDirectory, IEnumerable<PackageModule> modules)
+        public void AddModulesFilesToPackageDirectory(string buildDirectory, IEnumerable<PackageModule> modules)
         {
             if (modules.Any())
             {
