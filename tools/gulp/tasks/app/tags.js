@@ -17,7 +17,6 @@ gulp.task('create-tags', function () {
             'personalized-learning',
             'assessment',
             'reader',
-            'quiz-for-learni',
             'ICEMD',
             'ac-nielsen'
         ],
