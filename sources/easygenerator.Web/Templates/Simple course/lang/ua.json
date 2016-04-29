@@ -95,18 +95,11 @@
     "[continue with the password]": "Продовжити з паролем",
     "[request secret link]": "або відправити серектне посилання з вашим прогресом на електронну скриньку",
     "[continue anytime in browser]": "Продовжуйте будь коли з вашого браузера",
-    "[using either]": "using either:",
     "[note about continue course]": "Примітка: Ви можете продовжити лише в цьому браузері",
     "[show]": "Показати",
     "[hide]": "Сховати",
     "[login pasword is not valid]": "Введіть валідний пароль",
+    "[login email / password combination is not valid]": "Така комбінація email та пароля не валідна.",
     "[no questions]": "Немає запитань",
-    "[sections]": "Розділи",
-    "[request a secret link]": "request a secret link",
-    "[to your progress via email]": "to your progress via email",
-    "[credentials]": "Credentials",
-    "[social accounts]": "Social accounts:",
-    "[message about mailbox]": "We also sent this info to your mailbox",
-    "[expand]": "Expand",
-    "[collapse]": "Collapse"
+    "[sections]": "Розділи"
 }

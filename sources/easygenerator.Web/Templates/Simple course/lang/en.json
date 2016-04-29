@@ -100,6 +100,7 @@
     "[show]": "Show",
     "[hide]": "Hide",
     "[login pasword is not valid]": "Enter a valid passsword",
+    "[login email / password combination is not valid]": "That email / password combination is not valid.",
     "[no questions]": "No questions",
     "[sections]": "Sections",
     "[request a secret link]": "request a secret link",
