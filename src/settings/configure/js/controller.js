@@ -447,13 +447,6 @@
 
         })();
 
-        $scope.$watch('assessmentMode.mode', function (mode, prevMode) {
-            that.assessmentMode.attemptsSettings[prevMode] = that.attempt.getData();
-            that.attempt.init(that.assessmentMode.attemptsSettings[mode]);
-        });
-
-        angular.element($window).on('blur', saveChanges);
-
         function saveChanges() {
             var newSettings = getCurrentSettings();
 
@@ -498,6 +491,12 @@
 
             currentSettings = getCurrentSettings(settings);
 
+            $scope.$watch('assessmentMode.mode', function (mode, prevMode) {
+                that.assessmentMode.attemptsSettings[prevMode] = that.attempt.getData();
+                that.attempt.init(that.assessmentMode.attemptsSettings[mode]);
+            });
+
+            angular.element($window).on('blur', saveChanges);
         }).fail(function () {
             that.isError = true;
         }).always(function () {
