@@ -25,7 +25,7 @@ System.config({
     "jquery": "core/jquery",
     "knockout": "core/knockout",
     "moment": "npm:moment@2.13.0",
-    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.10",
+    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.11",
     "plugins": "core/durandal/plugins",
     "spectrum-colorpicker": "npm:spectrum-colorpicker@1.7.1",
     "text": "github:systemjs/plugin-text@0.0.3",
@@ -44,7 +44,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.2"
+      "process": "npm:process@0.11.3"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
@@ -63,7 +63,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:crossvent@1.5.4": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
@@ -71,7 +71,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:has@1.0.1": {
       "function-bind": "npm:function-bind@1.1.0"
@@ -82,7 +82,7 @@ System.config({
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.2": {
+    "npm:process@0.11.3": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
     "npm:spectrum-colorpicker@1.7.1": {
