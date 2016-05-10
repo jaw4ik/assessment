@@ -228,7 +228,7 @@
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
-    <Compile Include="BuildCourse\PackageMediaEquiper.cs" />
+    <Compile Include="BuildCourse\PackageMediaFetcher.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextPackageModel.cs" />

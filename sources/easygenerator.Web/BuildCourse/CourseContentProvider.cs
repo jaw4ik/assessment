@@ -16,32 +16,32 @@ namespace easygenerator.Web.BuildCourse
         private readonly PackageModelSerializer _packageModelSerializer;
         private readonly ITemplateStorage _templateStorage;
         private readonly PackageModelMapper _packageModelMapper;
-        private readonly PackageMediaEquiper _packageMediaEquiper;
+        private readonly PackageMediaFetcher _packageMediaFetcher;
 
         public CourseContentProvider(PhysicalFileManager fileManager,
                                     CourseContentPathProvider buildPathProvider,
                                     PackageModelSerializer packageModelSerializer,
                                     ITemplateStorage templateStorage,
                                     PackageModelMapper packageModelMapper,
-                                    PackageMediaEquiper packageMediaEquiper)
+                                    PackageMediaFetcher packageMediaFetcher)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
             _packageModelSerializer = packageModelSerializer;
             _templateStorage = templateStorage;
             _packageModelMapper = packageModelMapper;
-            _packageMediaEquiper = packageMediaEquiper;
+            _packageMediaFetcher = packageMediaFetcher;
         }
 
-        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, bool equip)
+        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, bool includeMedia = false)
         {
             AddTemplateToPackageDirectory(buildDirectory, course);
 
             var coursePackageModel = _packageModelMapper.MapCourse(course);
 
-            if (equip)
+            if (includeMedia)
             {
-                _packageMediaEquiper.EquipContentsMedia(buildDirectory, coursePackageModel);
+                _packageMediaFetcher.AddMediaToPackage(buildDirectory, coursePackageModel);
             }
 
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);

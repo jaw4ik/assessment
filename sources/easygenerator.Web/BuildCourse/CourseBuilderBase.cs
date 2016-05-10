@@ -4,7 +4,6 @@ using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.Extensions;
 using System;
 using easygenerator.Web.BuildCourse.PublishSettings;
-using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -35,7 +34,7 @@ namespace easygenerator.Web.BuildCourse
             _logger = logger;
         }
 
-        public virtual bool Build(Course course, bool equip)
+        public virtual bool Build(Course course, bool includeMedia = false)
         {
             var courseId = course.Id.ToNString();
             var buildId = GenerateBuildId(courseId);
@@ -47,7 +46,7 @@ namespace easygenerator.Web.BuildCourse
 
                 CreatePackageDirectory(buildDirectoryPath);
 
-                _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, equip);
+                _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, includeMedia);
                 _buildContentProvider.AddSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateSettings(course.Template));
 
                 var modulesList = _packageModulesProvider.GetModulesList(course);

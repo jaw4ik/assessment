@@ -1,34 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Security.Policy;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Http.Routing;
-using DocumentFormat.OpenXml.Math;
-using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Net;
 using easygenerator.Web.BuildCourse.PackageModel;
 using HtmlAgilityPack;
-using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.BuildCourse
 {
-    public class PackageMediaEquiper
+    public class PackageMediaFetcher
     {
         private readonly CourseContentPathProvider _buildPathProvider;
         private readonly PhysicalFileManager _fileManager;
         private readonly ILog _logger;
+        private readonly FileDownloader _fileDownloader;
 
-        public PackageMediaEquiper(CourseContentPathProvider buildPathProvider, PhysicalFileManager fileManager, ILog logger)
+        public PackageMediaFetcher(CourseContentPathProvider buildPathProvider, PhysicalFileManager fileManager, ILog logger, FileDownloader fileDownloader)
         {
             _buildPathProvider = buildPathProvider;
             _fileManager = fileManager;
             _logger = logger;
+            _fileDownloader = fileDownloader;
         }
-        public void EquipContentsMedia(string buildDirectory, CoursePackageModel coursePackageModel)
+
+        public void AddMediaToPackage(string buildDirectory, CoursePackageModel coursePackageModel)
         {
             var folderForMedia = GetFolderForMedia(buildDirectory);
 
@@ -38,20 +34,20 @@ namespace easygenerator.Web.BuildCourse
 
         private void IncludeManifestMediaToPackage(string buildDirectory, string folderForMedia)
         {
-            var manifestFilePath = Path.Combine(buildDirectory, "manifest.json");
+            var manifestFilePath = _buildPathProvider.GetManifestFilePath(buildDirectory);
+
             if (!_fileManager.FileExists(manifestFilePath))
             {
                 return;
             }
 
             var manifestData = _fileManager.ReadAllFromFile(manifestFilePath);
-            var matches = Regex.Matches(manifestData, @"((http|ftp|https)*:*\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase)
+            var matches = Regex.Matches(manifestData, @"((http|ftp|https)*:*\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
                                .Cast<Match>()
                                .Select(match => match.Value)
-                               .Distinct()
-                               .ToList();
+                               .Distinct();
 
-            manifestData = matches.Aggregate(manifestData, (current, match) => current.Replace(match, ReplaceImage(match, folderForMedia)));
+            manifestData = matches.Aggregate(manifestData, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
             _fileManager.WriteToFile(manifestFilePath, manifestData);
         }
 
@@ -66,7 +62,7 @@ namespace easygenerator.Web.BuildCourse
 
         private void ProcessSection(SectionPackageModel section, string folderForMedia)
         {
-            section.ImageUrl = ReplaceImage(section.ImageUrl, folderForMedia);
+            section.ImageUrl = DownloadImage(section.ImageUrl, folderForMedia);
             section.Questions.ForEach(question => ProcessQuestion(question, folderForMedia));
         }
 
@@ -92,49 +88,39 @@ namespace easygenerator.Web.BuildCourse
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlContent);
 
-            var imageSources = doc.DocumentNode.Descendants("img")
-                .Select(img => img.Attributes["src"].Value)
-                .ToArray();
+            var imagesReplacements = new Dictionary<string, string>();
 
-            return imageSources.Aggregate(htmlContent, (current, imageSource) => current.Replace(imageSource, ReplaceImage(imageSource, folderForMedia)));
+            foreach (var imageElement in doc.DocumentNode.Descendants("img"))
+            {
+                var imageSource = imageElement.Attributes["src"].Value;
+                if (!imagesReplacements.ContainsKey(imageSource))
+                {
+                    var newImageUrl = DownloadImage(imageSource, folderForMedia);
+                    imageElement.Attributes["src"].Value = newImageUrl;
+                    imagesReplacements[imageSource] = newImageUrl;
+                }
+                else
+                {
+                    imageElement.Attributes["src"].Value = imagesReplacements[imageSource];
+                }
+            }
+
+            return doc.DocumentNode.OuterHtml;
         }
 
-        private string ReplaceImage(string imageUrl, string folderForMedia)
+        private string DownloadImage(string imageUrl, string folderForMedia)
         {
             try
             {
-                var newImagePath = GetNewImagePath(folderForMedia, imageUrl);
-                DownloadImage(imageUrl, newImagePath);
-                return GetNewImageWebPath(newImagePath);
+                var newImagePath = _buildPathProvider.GetNewImagePath(folderForMedia, imageUrl);
+                _fileDownloader.DownloadFile(imageUrl, newImagePath);
+                return _buildPathProvider.GetNewImageWebPath(newImagePath);
             }
             catch (Exception e)
             {
                 _logger.LogException(e);
                 return imageUrl;
             }
-        }
-
-        private void DownloadImage(string imageUrl, string destinationPath)
-        {
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(CheckForProtocol(imageUrl), destinationPath);
-            }
-        }
-
-        private string CheckForProtocol(string url)
-        {
-            return url.StartsWith("//") ? "http:" + url : url;
-        }
-
-        private string GetNewImagePath(string basePath, string imageUrl)
-        {
-            return Path.Combine(basePath, Guid.NewGuid().ToString() + Path.GetExtension(new Uri(imageUrl).AbsolutePath));
-        }
-
-        private string GetNewImageWebPath(string absoluteImageFilePath)
-        {
-            return Path.Combine(_buildPathProvider.GetIncludedMediaWebPath(), Path.GetFileName(absoluteImageFilePath)).Replace("\\", "/");
         }
 
         private string GetFolderForMedia(string buildDirectory)

@@ -150,7 +150,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/build")]
         public ActionResult Build(Course course)
         {
-            return Deliver(course, () => _builder.Build(course), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course, true), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
         }
 
         [EntityCollaborator(typeof(Course))]

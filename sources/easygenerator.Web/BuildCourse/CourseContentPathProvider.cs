@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -69,9 +70,19 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(buildDirectory, "media");
         }
 
-        public virtual string GetIncludedMediaWebPath()
+        public virtual string GetNewImageWebPath(string absoluteImageFilePath)
         {
-            return "media";
+            return Path.Combine("media", Path.GetFileName(absoluteImageFilePath)).Replace("\\", "/");
+        }
+
+        public virtual string GetNewImagePath(string mediaPath, string imageUrl)
+        {
+            return Path.Combine(mediaPath, Guid.NewGuid() + Path.GetExtension(new Uri(imageUrl).AbsolutePath));
+        }
+
+        public virtual string GetManifestFilePath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "manifest.json");
         }
     }
 }

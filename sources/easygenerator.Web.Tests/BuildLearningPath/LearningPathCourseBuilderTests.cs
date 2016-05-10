@@ -10,6 +10,7 @@ using easygenerator.Web.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using easygenerator.Web.BuildCourse.PublishSettings;
 
 namespace easygenerator.Web.Tests.BuildLearningPath
 {
@@ -21,6 +22,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         private LearningPathContentPathProvider _contentPathProvider;
         private ICourseContentProvider _buildContentProvider;
         private PackageModulesProvider _packageModulesProvider;
+        private PublishSettingsProvider _publishSettingsProvider;
 
         [TestInitialize]
         public void InitializeContext()
@@ -29,8 +31,9 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _contentPathProvider = Substitute.For<LearningPathContentPathProvider>(Substitute.For<HttpRuntimeWrapper>());
             _buildContentProvider = Substitute.For<ICourseContentProvider>();
             _packageModulesProvider = Substitute.For<PackageModulesProvider>(Substitute.For<IUserRepository>());
+            _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
-            _builder = new LearningPathCourseBuilder(_fileManager, _contentPathProvider, _buildContentProvider, _packageModulesProvider);
+            _builder = new LearningPathCourseBuilder(_fileManager, _contentPathProvider, _buildContentProvider, _packageModulesProvider, _publishSettingsProvider);
         }
 
         [TestMethod]
@@ -68,7 +71,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _builder.Build(buildDirectoryPath, course, learningPath);
 
             //Assert
-            _buildContentProvider.Received().AddBuildContentToPackageDirectory(courseDirectory, course, modules);
+            _buildContentProvider.Received().AddBuildContentToPackageDirectory(courseDirectory, course);
         }
 
         [TestMethod]

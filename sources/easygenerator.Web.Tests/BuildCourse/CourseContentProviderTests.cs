@@ -33,6 +33,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private PublishSettingsProvider _publishSettingsProvider;
         private ITemplateStorage _templateStorage;
         private IEnumerable<PackageModule> _packageModules;
+        private PackageMediaFetcher _packageMediaFetcher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -55,7 +56,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
             _templateStorage = Substitute.For<ITemplateStorage>();
-            _buildContentProvider = new CourseContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _packageModelMapper, _publishSettingsProvider, _templateStorage);
+            _buildContentProvider = new CourseContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _templateStorage, _packageModelMapper, _packageMediaFetcher);
         }
 
         #region AddBuildContentToPackageDirectory
@@ -72,7 +73,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _templateStorage.GetTemplateDirectoryPath(_course.Template).Returns(templateDirectory);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectory, _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectory, _course);
 
             //Assert
             _fileManager.Received().CopyDirectory(templateDirectory, buildDirectory);
@@ -90,7 +91,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().DeleteDirectory(contentDirectory);
@@ -104,7 +105,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().CreateDirectory(contentDirectory);
@@ -118,7 +119,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().WriteToFile(courseContentPath, _course.IntroductionContent);
@@ -134,7 +135,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _course.UpdateIntroductionContent(null, "SomeUser");
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.DidNotReceive().WriteToFile(courseContentPath, _course.IntroductionContent);
@@ -148,7 +149,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetSectionDirectoryName(Arg.Any<string>(), _course.RelatedSections.ToArray()[0].Id.ToNString()).Returns(sectionDirectory);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().CreateDirectory(sectionDirectory);
@@ -165,7 +166,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Returns(questionDirectory);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().CreateDirectory(questionDirectory);
@@ -182,7 +183,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Returns(questionContentPath);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().WriteToFile(questionContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Content);
@@ -201,7 +202,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Returns(questionContentPath);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.DidNotReceive().WriteToFile(questionContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Content);
@@ -219,7 +220,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Returns(learningContentsFilePath);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
@@ -237,7 +238,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Returns(feedbackContentPath);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Feedback.CorrectText);
@@ -255,7 +256,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Returns(feedbackContentPath);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedSections.ToArray()[0].Questions.ToArray()[0].Feedback.IncorrectText);
@@ -309,99 +310,11 @@ namespace easygenerator.Web.Tests.BuildCourse
             _packageModelSerializer.Serialize(_coursePackageModel).Returns(serializedPackageModel);
 
             //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
 
             //Assert
             _packageModelSerializer.Received().Serialize(_coursePackageModel);
             _fileManager.Received().WriteToFile(packageModelFilePath, serializedPackageModel);
-        }
-
-        #endregion
-
-        #region AddPublishSettingsFileToPackageDirectory
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldWritePublishSettingsFileToPackageDirectory()
-        {
-            //Arrange
-            const string publishSettings = "publishSettings";
-            const string publishSettingsFileName = "publishSettingsFileName";
-
-            _publishSettingsProvider.GetPublishSettings(_packageModules).Returns(publishSettings);
-            _buildPathProvider.GetPublishSettingsFileName(Arg.Any<string>()).Returns(publishSettingsFileName);
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
-
-            //Assert
-            _fileManager.Received().WriteToFile(publishSettingsFileName, publishSettings);
-        }
-
-        #endregion
-
-        #region AddModulesFilesToPackageDirectory
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldNotCreateIncludedModulesDirectory_WhenModulesListEmpty()
-        {
-            //Arrange
-            const string includedModulesDirectoryPath = "includedModulesDirectoryPath";
-
-            _buildPathProvider.GetIncludedModulesDirectoryPath(Arg.Any<string>()).Returns(includedModulesDirectoryPath);
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
-
-            //Assert
-            _fileManager.DidNotReceive().CreateDirectory(includedModulesDirectoryPath);
-        }
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldCreateIncludedModulesDirectory_WhenModulesExists()
-        {
-            //Arrange
-            const string includedModulesDirectoryPath = "includedModulesDirectoryPath";
-
-            _buildPathProvider.GetIncludedModulesDirectoryPath(Arg.Any<string>()).Returns(includedModulesDirectoryPath);
-            _packageModules = new List<PackageModule>() { new PackageModule("name", "filePath") };
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
-
-            //Assert
-            _fileManager.Received().CreateDirectory(includedModulesDirectoryPath);
-        }
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldNotWriteModulesFiles_WhenModulesListEmpty()
-        {
-            //Arrange
-            const string includedModulesDirectoryPath = "includedModulesDirectoryPath";
-
-            _buildPathProvider.GetIncludedModulesDirectoryPath(Arg.Any<string>()).Returns(includedModulesDirectoryPath);
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
-
-            //Assert
-            _fileManager.DidNotReceive().CopyFileToDirectory(Arg.Any<string>(), includedModulesDirectoryPath);
-        }
-
-        [TestMethod]
-        public void AddBuildContentToPackageDirectory_ShouldWriteModulesFiles_WhenModulesExists()
-        {
-            //Arrange
-            const string includedModulesDirectoryPath = "includedModulesDirectoryPath";
-            var module = new PackageModule("name", "filePath");
-
-            _buildPathProvider.GetIncludedModulesDirectoryPath(Arg.Any<string>()).Returns(includedModulesDirectoryPath);
-            _packageModules = new List<PackageModule>() { module };
-
-            //Act
-            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
-
-            //Assert
-            _fileManager.Received().CopyFileToDirectory(module.GetFilePath(), includedModulesDirectoryPath);
         }
 
         #endregion

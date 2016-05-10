@@ -35,7 +35,7 @@ namespace easygenerator.Web.BuildLearningPath
             var courseId = course.Id.ToNString();
             var courseDirectoryPath = _contentPathProvider.GetEntityDirectoryName(buildDirectory, courseId);
 
-            CreatePackageDirectory(buildDirectory);
+            CreatePackageDirectory(courseDirectoryPath);
 
             _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course, false);
             _buildContentProvider.AddSettingsFileToPackageDirectory(courseDirectoryPath, getLearningPathCourseSettings(course, learningPath));
