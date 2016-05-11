@@ -61,7 +61,10 @@
     }
     exports._ = _;
   } else {
-    root._ = _;
+    Object.defineProperty(root, '_', {
+      get: function () { return _; },
+      set: function () { }
+    });
   }
 
   // Current version.
