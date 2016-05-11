@@ -149,7 +149,7 @@ class QuestionViewModel  {
                 this.viewCaption = viewModelData.viewCaption;
                 this.questionTitle = vmQuestionTitle(this.sectionId, question);
                 this.hasQuestionView = viewModelData.hasQuestionView;
-                this.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, this.updateQuestionContent.bind(this)) : null;
+                this.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, content => questionRepository.updateContent(question.id, content)) : null;
                 this.hasFeedback = viewModelData.hasFeedback;
                 this.feedbackCaptions = viewModelData.feedbackCaptions;
 
@@ -168,10 +168,6 @@ class QuestionViewModel  {
             throw `Question with type ${question.type} is not found in questionViewModelFactory`;
         }
         return activeViewModel;
-    }
-
-    updateQuestionContent(content) {
-        return questionRepository.updateContent(this.questionId, content);
     }
 
     titleUpdatedByCollaborator(questionData) {
