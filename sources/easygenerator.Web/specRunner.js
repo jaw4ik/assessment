@@ -1,11 +1,4 @@
-﻿function setProgress(value) {
-    document.querySelector('#progress').textContent = 'Loading progress: ' + value + '%';
-}
-
-function runSpecs(env) {
-
-    setProgress(0);
-
+﻿function runSpecs(env) {
     Q.stopUnhandledRejectionTracking();
     System.cacheBust = '?v=' + Date.now();
 
@@ -496,11 +489,9 @@ function runSpecs(env) {
             ];
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
-
-                var processedCount = 0;
                 Promise.all(specs.map(function (spec) {
                     return System.import(spec).then(function () {
-                        setProgress(Math.round(++processedCount / specs.length * 100));
+                        
                     });
                 })).then(function () {
                     env.execute();

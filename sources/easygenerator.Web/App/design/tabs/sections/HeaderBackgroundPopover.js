@@ -59,11 +59,14 @@ export class HeaderPopover {
     }
     upload(file) {
         if (!file) {
-            return Promise.reject();
+            return Promise.reject('File was not provided.');
         }
 
         return imageUpload.v2(file)
-            .then(response => this.selectImage(response.url))
+            .then(response => {
+                this.selectImage(response.url);
+                return response.url;
+            })
             .catch(reason => {
                 notify.error(reason);
             });

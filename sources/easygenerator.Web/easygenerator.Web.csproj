@@ -3015,6 +3015,7 @@
     <Content Include="Scripts\external-helpers.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
+    <Content Include="specRunner.js" />
     <Content Include="Templates\Assessment\app\app.js" />
     <Content Include="Templates\Assessment\app\modules\xApi\views\login.html" />
     <Content Include="Templates\Assessment\app\modules\xApi\views\xApiError.html" />
@@ -3526,7 +3527,6 @@
     <Content Include="App\services\publishService.spec.js">
       <DependentUpon>publishService.js</DependentUpon>
     </Content>
-    <Content Include="specRunner.js" />
     <Content Include="specs.html" />
     <Content Include="App\synchronization\listener.js" />
     <Content Include="App\treeOfContent\CourseTreeNode.html" />

@@ -33,11 +33,12 @@ describe('[convertion getTicket]', function () {
         describe('when request failed', function() {
 
             beforeEach(function() {
-                dfd.reject();
+                dfd.reject('reason');
             });
 
             it('should reject promise', function (done) {
-                command.execute().catch(function() {
+                command.execute().catch(function(reason) {
+                    expect(reason).toBeDefined();
                     done();
                 }).done();
             });
@@ -47,11 +48,12 @@ describe('[convertion getTicket]', function () {
         describe('when request finished successfully', function() {
 
             beforeEach(function () {
-                dfd.resolve();
+                dfd.resolve({});
             });
 
             it('should resolve promise', function(done) {
-                command.execute().then(function () {
+                command.execute().then(function (result) {
+                    expect(result).toEqual({});
                     done();
                 }).done();
             });

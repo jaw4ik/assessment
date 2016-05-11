@@ -6,12 +6,14 @@ import imageUpload from 'imageUpload';
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import userContext from 'userContext';
+import localizationManager from 'localization/localizationManager';
 
 describe('Logo design section', () => {
 
     beforeEach(() => {
         spyOn(bus, 'trigger');
         spyOn(eventTracker, 'publish');
+        spyOn(localizationManager, 'localize').and.returnValue('localized');
     });
 
     it('should create logo object', () => {

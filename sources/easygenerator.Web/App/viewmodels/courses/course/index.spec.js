@@ -295,11 +295,12 @@ describe('viewModel [course index]', function () {
         describe('when course does not exist', function () {
 
             beforeEach(function () {
-                getById.reject();
+                getById.reject('reason');
             });
 
             it('should reject promise', function (done) {
-                viewModel.activate().catch(function () {
+                viewModel.activate().catch(function (reason) {
+                    expect(reason).toEqual('reason');
                     done();
                 });
             });
@@ -420,8 +421,9 @@ describe('viewModel [course index]', function () {
                 });
             });
 
-            it('should resolve promise', function (done) {
-                viewModel.activate(course.id).fin(function () {
+            it('should resolve promise', function(done) {
+                viewModel.activate(course.id).fin(function() {
+                    expect(arguments.length).toEqual(0);
                     done();
                 });
             });

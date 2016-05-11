@@ -14,11 +14,12 @@ describe('review commands [restoreComment]', () => {
             comment = {
                 id: 'id',
                 text: 'text',
-                email:'email',
+                email: 'email',
                 name: 'name',
                 context: null,
                 createdOn: new Date()
-            }, promise;
+            },
+            promise;
 
         describe('when course is not found', () => {
             beforeEach(() => {
@@ -27,8 +28,10 @@ describe('review commands [restoreComment]', () => {
 
             it('should reject promise', done => (async () => {
                 await command.execute(course.id, comment);
-                
-            })().catch(done));
+            })().catch(reason => {
+                expect(reason).toBeDefined();
+                done();
+            }));
         });
 
         describe('when course is found', () => {
@@ -43,13 +46,13 @@ describe('review commands [restoreComment]', () => {
                 await  command.execute(course.id, comment);
 
                 expect(http.post).toHaveBeenCalledWith('api/comment/restore', {
-                        courseId: course.id,
-                        text: comment.text,
-                        createdByName: comment.name,
-                        createdBy: comment.email,
-                        createdOn: comment.createdOn,
-                        context: comment.context ? JSON.stringify(comment.context) : comment.context
-                    }
+                    courseId: course.id,
+                    text: comment.text,
+                    createdByName: comment.name,
+                    createdBy: comment.email,
+                    createdOn: comment.createdOn,
+                    context: comment.context ? JSON.stringify(comment.context) : comment.context
+                }
                 );
 
             })().then(done));

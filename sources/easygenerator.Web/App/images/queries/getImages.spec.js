@@ -14,8 +14,9 @@ describe('query [getImages]', () => {
     describe('when request failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'get').and.returnValue($.Deferred().reject());
-            query.execute().catch(() => {
+            spyOn(http, 'get').and.returnValue($.Deferred().reject('reason'));
+            query.execute().catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -25,11 +26,12 @@ describe('query [getImages]', () => {
     describe('when response is succeed', () => {
 
         beforeEach(() => {
-            spyOn(http, 'get').and.returnValue($.Deferred().resolve({ success: true }));
+            spyOn(http, 'get').and.returnValue($.Deferred().resolve({ success: true, data: [] }));
         });
 
         it('should resolve promise', done => {
-            query.execute().then(() => {
+            query.execute().then(images => {
+                expect(images).toEqual([]);
                 done();
             });
         });
@@ -43,7 +45,8 @@ describe('query [getImages]', () => {
         });
 
         it('should reject promise', done => {
-            query.execute().catch(() => {
+            query.execute().catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });

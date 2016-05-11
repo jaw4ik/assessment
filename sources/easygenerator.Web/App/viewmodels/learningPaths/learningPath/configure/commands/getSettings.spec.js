@@ -20,8 +20,9 @@ describe('command [getSettings]', () => {
     describe('when request failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'get').and.returnValue($.Deferred().reject());
-            command.execute(learningPathId).catch(() => {
+            spyOn(http, 'get').and.returnValue($.Deferred().reject('reason'));
+            command.execute(learningPathId).catch(reason => {
+                expect(reason).toEqual(reason);
                 done();
             });
         });
@@ -35,7 +36,8 @@ describe('command [getSettings]', () => {
         });
 
         it('should reject promise', done => {
-            command.execute(learningPathId).catch(() => {
+            command.execute(learningPathId).catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -48,7 +50,8 @@ describe('command [getSettings]', () => {
         });
 
         it('should reject promise', done => {
-            command.execute(learningPathId).catch(() => {
+            command.execute(learningPathId).catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -57,11 +60,12 @@ describe('command [getSettings]', () => {
     describe('when response contains settings', () => {
 
         beforeEach(() => {
-            spyOn(http, 'get').and.returnValue($.Deferred().resolve({ settings:  settings}));
+            spyOn(http, 'get').and.returnValue($.Deferred().resolve({ settings: settings}));
         });
 
         it('should resolve promise', done => {
-            command.execute(learningPathId).then(() => {
+            command.execute(learningPathId).then(result => {
+                expect(result).toEqual({});
                 done();
             });
         });

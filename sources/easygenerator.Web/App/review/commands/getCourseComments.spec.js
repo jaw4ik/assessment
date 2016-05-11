@@ -33,8 +33,10 @@ describe('review commands [getCourseComments]', () => {
 
             it('should reject promise', done => (async () => {
                 await command.execute(course.id);
-
-            })().catch(done));
+            })().catch(reason => {
+                expect(reason).toBeDefined();
+                done();
+            }));
         });
 
         describe('when course comments are defined', () => {

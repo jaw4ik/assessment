@@ -14,8 +14,9 @@ describe('command [addAnswer]', () => {
     describe('when post failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'post').and.returnValue($.Deferred().reject());
-            command.execute(questionId).catch(() => {
+            spyOn(http, 'post').and.returnValue($.Deferred().reject('reason'));
+            command.execute(questionId).catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -30,6 +31,7 @@ describe('command [addAnswer]', () => {
 
         it('should resolve promise', done => {
             command.execute(questionId).then(() => {
+                expect(arguments.length).toEqual(0);
                 done();
             });
         });

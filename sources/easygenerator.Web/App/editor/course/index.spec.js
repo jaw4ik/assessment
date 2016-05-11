@@ -105,30 +105,26 @@ describe('[drag and drop course editor]', () => {
             spyOn(courseRepository, 'getById').and.returnValue(promise);
             spyOn(questionModalView, 'initialize').and.returnValue(modalViewInit);
             spyOn(questionModalView, 'open').and.returnValue(Promise.resolve());
+            spyOn(courseViewModel.createBar, 'activate');
         });
 
         it('should set course id', done => (async () => {
-            courseViewModel.activate(courseId);
-            await promise;
+            await courseViewModel.activate(courseId);
             expect(courseViewModel.id).toBe(courseId);
         })().then(done));
 
         it('should activate createBar', done => (async () => {
-            spyOn(courseViewModel.createBar, 'activate');
-            courseViewModel.activate(courseId);
-            await promise;
+            await courseViewModel.activate(courseId);
             expect(courseViewModel.createBar.activate).toHaveBeenCalled();
         })().then(done));
 
         it('should set createdBy', done => (async () => {
-            courseViewModel.activate(courseId);
-            await promise;
+            await courseViewModel.activate(courseId);
             expect(courseViewModel.createdBy).toBe(course.createdBy);
         })().then(done));
 
         it('should set sections', done => (async () => {
-            courseViewModel.activate(courseId);
-            await promise;
+            await courseViewModel.activate(courseId);
             expect(courseViewModel.sections()[0]).toBeInstanceOf(SectionViewModel);
             expect(courseViewModel.sections().length).toBe(2);
             expect(courseViewModel.sections()[0].questionsExpanded()).toBeTruthy();
@@ -136,14 +132,12 @@ describe('[drag and drop course editor]', () => {
         })().then(done));
 
         it('should set courseIntroductionContent', done => (async () => {
-            courseViewModel.activate(courseId);
-            await promise;
+            await courseViewModel.activate(courseId);
             expect(courseViewModel.courseIntroductionContent.text()).toBe(course.introductionContent);
         })().then(done));
-            
+
         it('should initialize questions popup', done => (async () => {
-            courseViewModel.activate(courseId);
-            await promise;
+            await courseViewModel.activate(courseId);
             expect(questionModalView.initialize).toHaveBeenCalledWith(courseId);
         })().then(done));
 
@@ -155,58 +149,27 @@ describe('[drag and drop course editor]', () => {
             });
 
             it('should remove highlighted section id from client context', done => (async () => {
-                courseViewModel.activate(courseId);
-                await promise;
-                await modalViewInit;
+                await courseViewModel.activate(courseId);
                 expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.highlightedSectionId);
             })().then(done));
 
             it('should set highlightedSectionId', done => (async () => {
                 courseViewModel.highlightedSectionId(null);
-                courseViewModel.activate(courseId);
-                await promise;
-                await modalViewInit;
+                await courseViewModel.activate(courseId);
                 expect(courseViewModel.highlightedSectionId()).toBe(sectionId);
             })().then(done));
         });
 
-        describe('when client context question data to navigate is defined', () => {
-            let sectionId = 'objId',
-                questionId = 'questionId';
-            beforeEach(() => {
-                spyOn(clientContext, 'get').and.returnValue({questionId: questionId, sectionId: sectionId});
-                spyOn(clientContext, 'remove');
-            });
+        it('should open question if needed', done => {
+            spyOn(courseViewModel, 'openQuestionIfNeeded');
 
-            it('should remove question data to navigate from client context', done => (async () => {
-                courseViewModel.activate(courseId);
-                await promise;
-                await modalViewInit;
-                expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.questionDataToNavigate);
-            })().then(done));
-
-            describe('and when section found', () => {
-                let section = { id: ko.observable(sectionId) };
-                beforeEach(() => {
-                    courseViewModel.sections = ko.observableArray([section]);
+            courseViewModel.activate(courseId)
+                .then(() => {
+                    expect(courseViewModel.openQuestionIfNeeded).toHaveBeenCalled();
+                    done();
                 });
-
-                describe('and when question found', () => {
-                    let question = {id: ko.observable(questionId), open: ()=> {} };
-                    beforeEach(() => {
-                        section.questions = ko.observableArray([question]);
-                        spyOn(question, 'open');
-                    });
-
-                    it('when open question', done => (async () => {
-                        courseViewModel.activate(courseId);
-                        await promise;
-                        await modalViewInit;
-                        expect(question.open).toHaveBeenCalled();
-                    })().then(done));
-                });
-            });
         });
+
     });
 
     describe('createSection:', () => {

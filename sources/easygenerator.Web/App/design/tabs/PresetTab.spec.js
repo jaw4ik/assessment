@@ -115,13 +115,14 @@ describe('Preset tab', () => {
         describe('when template was not found', () => {
 
             beforeEach(() => {
-                spyOn(templateRepository, 'getById').and.returnValue(Promise.reject());
+                spyOn(templateRepository, 'getById').and.returnValue(Promise.reject('Template does not exist'));
             });
 
             it('should reject promise', done => {
                 let tab = new PresetTab();
                 
-                tab.activate('templateId').catch(() => {
+                tab.activate('templateId').catch(reason => {
+                    expect(reason).toEqual('Template does not exist');
                     done();
                 });
             });

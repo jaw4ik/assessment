@@ -108,7 +108,7 @@ describe('viewModel [sections]', function () {
                     });
                 });
 
-                it('should update modifiedOn date', function () {
+                it('should update modifiedOn date', function (done) {
                     section.modifiedOn(0);
                     viewModel.updateSectionImage(section);
 

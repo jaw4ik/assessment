@@ -64,11 +64,14 @@ export class BackgroundPopover {
 
     upload(file) {
         if (!file) {
-            return Promise.reject();
+            return Promise.reject('File was not provided.');
         }
 
         return imageUpload.v2(file)
-            .then(response => this.selectTexture(response.url))
+            .then(response => {
+                this.selectTexture(response.url);
+                return response.url;
+            })
             .catch(reason => {
                 notify.error(reason);
             });

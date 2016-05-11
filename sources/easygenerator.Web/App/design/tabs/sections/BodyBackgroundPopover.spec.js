@@ -291,7 +291,8 @@ describe('Background popover class', () => {
 
             it('should reject promise', done => {
                 let background = new BackgroundPopover();
-                background.upload().catch(() => {
+                background.upload().catch(reason => {
+                    expect(reason).toEqual('File was not provided.');
                     done();
                 });
             });
@@ -316,7 +317,8 @@ describe('Background popover class', () => {
 
                 it('should resolve promise', done => {
                     let background = new BackgroundPopover();
-                    background.upload({}).then(() => {
+                    background.upload({}).then(textureUrl => {
+                        expect(textureUrl).toEqual('textureUrl');
                         done();
                     });
                 });
@@ -362,6 +364,7 @@ describe('Background popover class', () => {
                 it('should resolve promise', done => {
                     let background = new BackgroundPopover();
                     background.upload({}).then(() => {
+                        expect(arguments.length).toEqual(0);
                         done();
                     });
                 });

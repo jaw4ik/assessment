@@ -126,7 +126,7 @@ describe('viewModel [audios]', () => {
                 var promise = viewModel.activate();
 
                 promise.fin(() => {
-                    expect(viewModel.storageSpaceProgressBarVisibility(false));
+                    expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(false);
                     done();
                 });
             });
@@ -134,6 +134,7 @@ describe('viewModel [audios]', () => {
 
         describe('when user has not free plan', () => {
             beforeEach(() => {
+                userContext.storageIdentity = {};
                 spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                 spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
             });
@@ -141,14 +142,13 @@ describe('viewModel [audios]', () => {
             it('should show storage space progress bar', done => {
                 viewModel.storageSpaceProgressBarVisibility(false);
                 viewModel.activate().fin(() => {
-                    expect(viewModel.storageSpaceProgressBarVisibility(true));
+                    expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(true);
                     done();
                 });
             });
 
             describe('when available storage space is greater than 1Gb', () => {
-                beforeEach(() => {
-                    userContext.storageIdentity = {};
+                beforeEach(() => {                    
                     userContext.storageIdentity.availableStorageSpace = 1073741825;
                     userContext.storageIdentity.totalStorageSpace = 1073741825 * 2;
                 });
@@ -170,7 +170,6 @@ describe('viewModel [audios]', () => {
 
             describe('when available storage space is less than 1Gb', () => {
                 beforeEach(() => {
-                    userContext.storageIdentity = {};
                     userContext.storageIdentity.availableStorageSpace = 1073741823;
                     userContext.storageIdentity.totalStorageSpace = 1073741823 * 2;
                 });

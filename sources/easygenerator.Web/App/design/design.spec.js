@@ -73,7 +73,8 @@ describe('viewModel [design]', () => {
             });
 
             it('should resolve promise', done => {
-                viewModel.canDeactivate().then(() => {
+                viewModel.canDeactivate().then(result => {
+                    expect(result).toEqual(true);
                     done();
                 });
             });
@@ -102,7 +103,8 @@ describe('viewModel [design]', () => {
             });
 
             it('should resolve promise', done => {
-                viewModel.canDeactivate().then(() => {
+                viewModel.canDeactivate().then(result => {
+                    expect(result).toEqual(true);
                     done();
                 });
             });
@@ -179,7 +181,7 @@ describe('viewModel [design]', () => {
         describe('when course was not found', () => {
 
             beforeEach(() => {
-                reject();
+                reject('reason');
             });
 
             it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', done => {
@@ -192,7 +194,8 @@ describe('viewModel [design]', () => {
             });
 
             it('should reject promise', done => {
-                viewModel.activate('courseId').catch(() => {
+                viewModel.activate('courseId').catch(reason => {
+                    expect(reason).toEqual('reason');
                     done();
                 });
             });
@@ -988,11 +991,12 @@ describe('viewModel [design]', () => {
         describe('and could not get course template settings', () => {
                 
             beforeEach(() => {
-                spyOn(getCommand, 'getCourseTemplateSettings').and.returnValue(Promise.reject());
+                spyOn(getCommand, 'getCourseTemplateSettings').and.returnValue(Promise.reject('reason'));
             });
 
             it('should reject promise', done => {
-                viewModel.loadSettings().catch(() => {
+                viewModel.loadSettings().catch(reason => {
+                    expect(reason).toEqual('reason');
                     done();
                 });
             });

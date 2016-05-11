@@ -94,7 +94,8 @@ describe('Logo popover section', () => {
             
             it('should reject promise', done => {
                 let logoPopover = new LogoPopover();
-                logoPopover.upload().catch(() => {
+                logoPopover.upload().catch(reason => {
+                    expect(reason).toEqual('File was not provided.');
                     done();
                 });
             });
@@ -119,7 +120,8 @@ describe('Logo popover section', () => {
 
                 it('should resolve promise', done => {
                     let logoPopover = new LogoPopover();
-                    logoPopover.upload({}).then(() => {
+                    logoPopover.upload({}).then(imageUrl => {
+                        expect(imageUrl).toEqual('imageUrl');
                         done();
                     });
                 });

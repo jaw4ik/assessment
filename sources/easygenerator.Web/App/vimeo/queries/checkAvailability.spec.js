@@ -2,61 +2,61 @@
 
 import getVideo from './getVideo';
 
-describe('[check video availability]', function () {
+describe('[check video availability]', function() {
 
-    it('should be object', function () {
+    it('should be object', function() {
         expect(task).toBeObject();
     });
 
-    describe('execute:', function () {
+    describe('execute:', function() {
 
         var dfd;
 
-        beforeEach(function () {
+        beforeEach(function() {
             dfd = Q.defer();
             spyOn(getVideo, 'execute').and.returnValue(dfd.promise);
         });
 
-        it('should be function', function () {
+        it('should be function', function() {
             expect(task.execute).toBeFunction();
         });
 
-        it('should return promise', function () {
+        it('should return promise', function() {
             expect(task.execute({})).toBePromise();
         });
 
-        it('should send request to get video metadata', function () {
+        it('should send request to get video metadata', function() {
             task.execute({});
             expect(getVideo.execute).toHaveBeenCalled();
         });
 
 
-        describe('when request is successful', function () {
+        describe('when request is successful', function() {
 
-            describe('and video is available', function () {
-                beforeEach(function () {
+            describe('and video is available', function() {
+                beforeEach(function() {
                     dfd.resolve({
                         status: 'available'
                     });
                 });
 
-                it('should resolve promise with true', function (done) {
-                    task.execute({}).then(function (result) {
+                it('should resolve promise with true', function(done) {
+                    task.execute({}).then(function(result) {
                         expect(result).toBeTruthy();
                         done();
                     }).done();
                 });
             });
 
-            describe('and video is not available', function () {
-                beforeEach(function () {
+            describe('and video is not available', function() {
+                beforeEach(function() {
                     dfd.resolve({
                         status: 'available'
                     });
                 });
 
-                it('should resolve promise with false', function (done) {
-                    task.execute({}).then(function (result) {
+                it('should resolve promise with false', function(done) {
+                    task.execute({}).then(function(result) {
                         expect(result).toBeTruthy();
                         done();
                     }).done();
@@ -65,14 +65,15 @@ describe('[check video availability]', function () {
 
         });
 
-        describe('when request failed', function () {
+        describe('when request failed', function() {
 
-            beforeEach(function () {
-                dfd.reject();
+            beforeEach(function() {
+                dfd.reject('reason');
             });
 
-            it('should reject promise', function (done) {
-                task.execute({}).catch(function () {
+            it('should reject promise', function(done) {
+                task.execute({}).catch(function(reason) {
+                    expect(reason).toBeDefined();
                     done();
                 }).done();
             });

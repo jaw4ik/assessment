@@ -4,12 +4,14 @@ import eventTracker from 'eventTracker';
 import constants from 'constants';
 import router from 'plugins/router';
 import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
+import localizationManager from 'localization/localizationManager';
 
 describe('[CreateBarViewModel]', () => {
     let createBar;
 
     beforeEach(() => {
         createBar = new CreateBar();
+        spyOn(localizationManager, 'localize').and.returnValue('localized');
     });
 
     it('should be function', () => {
@@ -111,14 +113,17 @@ describe('[CreateBarViewModel]', () => {
 
     describe('showQuestionTootip:', () => {
 
-        it('should change tooltip text', () => {
+        beforeEach(() => {
             spyOn(cursorTooltip, 'changeText');
+            spyOn(cursorTooltip, 'show');
+        });
+
+        it('should change tooltip text', () => {
             createBar.showQuestionTootip();
             expect(cursorTooltip.changeText).toHaveBeenCalledWith('emptySectionQuestionTooltip');
         });
 
         it('should show tooltip', () => {
-            spyOn(cursorTooltip, 'show');
             createBar.showQuestionTootip();
             expect(cursorTooltip.show).toHaveBeenCalled();
         });
