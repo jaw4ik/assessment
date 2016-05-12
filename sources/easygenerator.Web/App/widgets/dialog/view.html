@@ -2,7 +2,10 @@
     <div class="dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed, isBoundless: settings().boundless }, css:settings().containerCss">
         <button class="dialog-close-btn" data-bind="click: close"></button>
         <!-- ko if: steps().length === 1 -->
-        <!-- ko compose: { model: activeStep } --><!-- /ko -->
+        <div class="dialog-view-container" data-bind="ifExtended: { value: isShown, delayOnFalse: 300 }">
+            <!-- ko compose: { model: activeStep } --><!-- /ko -->
+            <!-- /ko -->
+        </div>
         <!-- /ko -->
         <!-- ko if: steps().length > 1 -->
         <section class="dialog-wizard-container" data-bind="dialogWizard: {activeStep: activeStep}">
@@ -11,11 +14,9 @@
                 <!-- ko compose: { model: $data } --><!-- /ko -->
             </div>
             <!-- /ko -->
-            <!-- ko if: steps().length > 1 -->
             <div class="dialog-navigation" data-bind="foreach: steps()">
                 <button class="dialog-navigation-btn" data-bind="click: $parent.navigate, css:{ active: $data===$parent.activeStep() }"></button>
             </div>
-            <!-- /ko -->
         </section>
         <!-- /ko -->
     </div>

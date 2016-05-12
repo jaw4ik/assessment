@@ -10,7 +10,7 @@
             </div>
             <!-- /ko -->
         </div>
-        <div class="review-panel-content">
+        <div class="review-panel-content" data-bind="ifExtended: { value: isExpanded, delayOnFalse: 300 }">
             <div class="review-panel-title" data-bind="localize: { text: 'reviewTabTitle' }"></div>
             <div class="review-panel-comments" data-bind="scrollbar: { checkDOMChanges: true }">
                 <!-- ko compose: { model: courseComments }-->

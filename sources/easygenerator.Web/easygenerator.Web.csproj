@@ -678,6 +678,7 @@
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\bindingHandlers\ifExtendedBindingHandler.js" />
     <Content Include="App\core\bootstrap\visible.js" />
     <Content Include="App\design\tabs\FontsTab.spec.js">
       <DependentUpon>FontsTab.js</DependentUpon>

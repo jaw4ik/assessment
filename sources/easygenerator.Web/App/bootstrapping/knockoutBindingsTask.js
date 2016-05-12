@@ -7,6 +7,7 @@
     require('components/bindingHandlers/fileBrowserBindingHandler');
     require('components/bindingHandlers/fileDropUploadBindingHandler');
     require('components/bindingHandlers/expandableBlockBindingHandler');
+    require('components/bindingHandlers/ifExtendedBindingHandler');
     require('components/bindingHandlers/customScrollbarBindingHandler');
     require('components/bindingHandlers/tipBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
