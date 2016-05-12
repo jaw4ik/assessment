@@ -13,10 +13,12 @@
             viewModel.isPublishing = ko.computed(function() {
                 return this.state() === constants.publishingStates.building;
             }, viewModel);
+            viewModel.includeMedia = ko.observable(false);
 
-            viewModel.activate = activate;
             viewModel.downloadCourse = downloadCourse;
             viewModel.openUpgradePlanUrl = openUpgradePlanUrl;
+            viewModel.activate = activate;
+
             viewModel.scromBuildStarted = scromBuildStarted;
             viewModel.scromBuildCompleted = scromBuildCompleted;
             viewModel.scrormBuildFailed = scrormBuildFailed;
@@ -42,7 +44,7 @@
                 eventTracker.publish(events.downloadScormCourse);
 
                 return repository.getById(viewModel.courseId).then(function(course) {
-                    return course.scormBuild().then(function(courseInfo) {
+                    return course.scormBuild(viewModel.includeMedia()).then(function (courseInfo) {
                         fileHelper.downloadFile('download/' + courseInfo.scormBuild.packageUrl);
                     }).fail(function(message) {
                         notify.error(message);

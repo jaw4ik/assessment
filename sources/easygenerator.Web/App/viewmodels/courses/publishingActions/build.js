@@ -14,13 +14,14 @@
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building;
             }, viewModel);
+            viewModel.includeMedia = ko.observable(false);
 
             viewModel.downloadCourse = downloadCourse;
+            viewModel.activate = activate;
 
             viewModel.courseBuildStarted = courseBuildStarted;
             viewModel.courseBuildFailed = courseBuildFailed;
             viewModel.courseBuildCompleted = courseBuildCompleted;
-            viewModel.activate = activate;
 
             return viewModel;
 
@@ -42,7 +43,7 @@
                 eventTracker.publish(events.downloadCourse);
 
                 return repository.getById(viewModel.courseId).then(function (course) {
-                    return course.build().then(function (courseInfo) {
+                    return course.build(viewModel.includeMedia()).then(function (courseInfo) {
                         fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
                     }).fail(function (message) {
                         notify.error(message);

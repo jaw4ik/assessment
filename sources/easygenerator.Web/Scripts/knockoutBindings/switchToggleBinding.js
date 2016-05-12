@@ -18,7 +18,9 @@
                 var currentValue = ko.unwrap(valueAccessor().value());
                 valueAccessor().value(!currentValue);
 
-                valueChangedHandler();
+                if (typeof valueChangedHandler === 'function') {
+                    valueChangedHandler();
+                }
             }
         });
     },

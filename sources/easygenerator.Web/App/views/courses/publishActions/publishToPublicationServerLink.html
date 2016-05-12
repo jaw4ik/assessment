@@ -1,15 +1,11 @@
 ﻿<div class="publish-tab-content" data-tab-content="private-link">
     <div class="publish-tab-content-wrapper">
         <!-- ko if: packageExists() -->
-        <div class="publish-to-publication-server-container">
+        <div class="publish-tab-default-container">
             <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
             <div class="publish-tab-link-container">
-                <h2 class="publish-tab-header" data-bind="localize: { text: 'courseUrl' }">
-                    Course URL
-                </h2>
-                <div class="publish-tab-action-content" data-bind="localize: { text: 'privateLinkCaption' }">
-                    Copy and paste the URL of your course to share or view.
-                </div>
+                <h2 class="publish-tab-header" data-bind="localize: { text: 'courseUrl' }"></h2>
+                <div class="publish-tab-action-content" data-bind="localize: { text: 'privateLinkCaption' }"></div>
                 <div class="copy-control">
                     <div class="copy-text-container">
                         <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
@@ -26,13 +22,12 @@
                 <div class="publish-tab-overlay" data-bind="visible: isCourseDelivering()"></div>
             </div>
         </div>
-        <div class="publish-to-publication-server-helper"></div>
         <!-- /ko -->
         <!-- ko ifnot: packageExists() -->
-        <div class="publish-tab-container">
-            <h2 class="publish-tab-header" data-bind="localize: { text: 'getCourseLink' }">Get course link</h2>
-            <div class="publish-tab-action-content" data-bind="localize: { text: 'privateLinkCaption' }">Copy and paste the URL of your course to share or view.</div>
-            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ disabled: isCourseDelivering(), progress : isPublishing()}">
+        <div class="publish-tab-centered-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'getCourseLink' }"></h2>
+            <div class="publish-tab-action-content" data-bind="localize: { text: 'privateLinkCaption' }"></div>
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css: { disabled: isCourseDelivering, progress: isPublishing }">
                 <!-- ko if: isPublishing() -->
                 <!-- ko if: state() === states.building || state() === states.publishing -->
                 <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>

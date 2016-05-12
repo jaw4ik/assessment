@@ -72,6 +72,12 @@ describe('viewModel [build]', function () {
         });
     });
 
+    describe('includeMedia:', function () {
+        it('should be observable', function () {
+            expect(viewModel.includeMedia).toBeObservable();
+        });
+    });
+
     describe('packageExists:', function () {
 
         it('should be computed', function () {
@@ -373,7 +379,7 @@ describe('viewModel [build]', function () {
                     courseBuildDefer.resolve();
 
                     viewModel.downloadCourse().fin(function () {
-                        expect(course.build).toHaveBeenCalled();
+                        expect(course.build).toHaveBeenCalledWith(viewModel.includeMedia());
                         done();
                     });
                 });

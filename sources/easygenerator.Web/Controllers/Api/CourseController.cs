@@ -148,17 +148,17 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/build")]
-        public ActionResult Build(Course course)
+        public ActionResult Build(Course course, bool includeMedia = false)
         {
-            return Deliver(course, () => _builder.Build(course, true), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course, includeMedia), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
         }
 
         [EntityCollaborator(typeof(Course))]
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         [Route("api/course/scormbuild")]
-        public ActionResult ScormBuild(Course course)
+        public ActionResult ScormBuild(Course course, bool includeMedia = false)
         {
-            return Deliver(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { course.ScormPackageUrl }));
+            return Deliver(course, () => _scormCourseBuilder.Build(course, includeMedia), () => JsonSuccess(new { course.ScormPackageUrl }));
         }
 
         [HttpPost]

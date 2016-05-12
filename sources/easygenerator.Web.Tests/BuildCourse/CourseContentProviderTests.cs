@@ -14,6 +14,8 @@ using easygenerator.Web.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Linq;
+using easygenerator.Infrastructure.Net;
+using easygenerator.Web.Components.Elmah;
 
 namespace easygenerator.Web.Tests.BuildCourse
 {
@@ -56,6 +58,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
             _templateStorage = Substitute.For<ITemplateStorage>();
+            _packageMediaFetcher = Substitute.For<PackageMediaFetcher>(_buildPathProvider, _fileManager, new ElmahLog(), new FileDownloader());
             _buildContentProvider = new CourseContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _templateStorage, _packageModelMapper, _packageMediaFetcher);
         }
 

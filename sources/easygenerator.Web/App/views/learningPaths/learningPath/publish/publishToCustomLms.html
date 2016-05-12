@@ -1,13 +1,13 @@
 ﻿<div class="publish-tab-content" data-bind="attr: { 'data-tab-content': 'publish-to-custom-lms-' + companyInfo.name }">
     <div class="publish-tab-content-wrapper">
-        <div class="publish-tab-container">
+        <div class="publish-tab-centered-container">
             <!-- ko ifnot: isPublished() -->
             <h2 class="publish-tab-header" data-bind="localize: { text: { key: 'publishToCompany', replace: { companyName: companyInfo.name } } }"></h2>
             <!-- /ko -->
             <!-- ko if: isPublished() -->
             <h2 class="publish-tab-header" data-bind="localize: { text: { key: 'updateInCompany', replace: { companyName: companyInfo.name } } }"></h2>
             <!-- /ko -->
-            <button class="btn green publish-tab-btn" data-bind="click: publish, css: { 'disabled': isDelivering(), 'progress': isPublishing() }, disable: isDelivering()">
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css: { disabled: isDelivering, progress: isPublishing }, disable: isDelivering">
                 <!-- ko if: isPublishing() -->
                 <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->

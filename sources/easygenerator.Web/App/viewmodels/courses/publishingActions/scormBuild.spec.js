@@ -75,6 +75,12 @@ describe('publishing action [scormBuild]', function () {
         });
     });
 
+    describe('includeMedia:', function () {
+        it('should be observable', function () {
+            expect(viewModel.includeMedia).toBeObservable();
+        });
+    });
+
     describe('packageExists:', function () {
 
         it('should be computed', function () {
@@ -403,7 +409,7 @@ describe('publishing action [scormBuild]', function () {
                     courseScormBuildDefer.resolve();
 
                     viewModel.downloadCourse().fin(function () {
-                        expect(course.scormBuild).toHaveBeenCalled();
+                        expect(course.scormBuild).toHaveBeenCalledWith(viewModel.includeMedia());
                         done();
                     });
                 });

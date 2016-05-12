@@ -1,15 +1,11 @@
 ﻿<div class="publish-tab-content" data-tab-content="embed">
     <div class="publish-tab-content-wrapper">
         <!-- ko if: publicationUrl() -->
-        <div class="publish-to-publication-server-container">
+        <div class="publish-tab-default-container">
             <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/updatePublication', model: $data, activate: false } --><!-- /ko -->
             <div class="publish-tab-link-container">
-                <h2 class="publish-tab-header" data-bind="localize: {text: 'embedAsAWidget'}">
-                    Embed as a widget
-                </h2>
-                <div class="publish-tab-action-content" data-bind="localize: {text: 'learningPathCopyEmbedCodeDescription'}">
-                    Paste this code into your HTML page where you want the learning path to appear
-                </div>
+                <h2 class="publish-tab-header" data-bind="localize: { text: 'embedAsAWidget' }"></h2>
+                <div class="publish-tab-action-content" data-bind="localize: { text: 'learningPathCopyEmbedCodeDescription' }"></div>
                 <div class="copy-control">
                     <div class="copy-text-container">
                         <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: !isPublishing()"></textarea>
@@ -37,13 +33,12 @@
                 <div class="publish-tab-overlay" data-bind="visible: isDelivering()"></div>
             </div>
         </div>
-        <div class="publish-to-publication-server-helper"></div>
         <!-- /ko -->
         <!-- ko ifnot: publicationUrl() -->
-        <div class="publish-tab-container">
-            <h2 class="publish-tab-header" data-bind="localize: { text: 'getEmbedCode' }">Get course link</h2>
-            <div class="publish-tab-action-content" data-bind="localize: {text: 'learningPathCopyEmbedCodeDescription'}">Paste this code into your HTML page where you want the learning path to appear.</div>
-            <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ disabled: isDelivering(), progress : isPublishing()}, disable: isDelivering()">
+        <div class="publish-tab-centered-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'getEmbedCode' }"></h2>
+            <div class="publish-tab-action-content" data-bind="localize: { text: 'learningPathCopyEmbedCodeDescription' }"></div>
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css: { disabled: isDelivering, progress: isPublishing }, disable: isDelivering">
                 <!-- ko if: isPublishing() -->
                 <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
