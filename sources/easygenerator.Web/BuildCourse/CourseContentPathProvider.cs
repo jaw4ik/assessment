@@ -79,10 +79,5 @@ namespace easygenerator.Web.BuildCourse
         {
             return Path.Combine(mediaPath, Guid.NewGuid() + Path.GetExtension(new Uri(imageUrl).AbsolutePath));
         }
-
-        public virtual string GetManifestFilePath(string buildDirectory)
-        {
-            return Path.Combine(buildDirectory, "manifest.json");
-        }
     }
 }

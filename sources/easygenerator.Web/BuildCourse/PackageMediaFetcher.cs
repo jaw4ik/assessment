@@ -24,31 +24,22 @@ namespace easygenerator.Web.BuildCourse
             _fileDownloader = fileDownloader;
         }
 
-        public void AddMediaToPackage(string buildDirectory, CoursePackageModel coursePackageModel)
+        public void AddMediaFromCourseModel(string buildDirectory, CoursePackageModel coursePackageModel)
         {
             var folderForMedia = GetFolderForMedia(buildDirectory);
 
             IncludeCourseContentMediaToPackage(coursePackageModel, folderForMedia);
-            IncludeManifestMediaToPackage(buildDirectory, folderForMedia);
         }
 
-        private void IncludeManifestMediaToPackage(string buildDirectory, string folderForMedia)
-        {
-            var manifestFilePath = _buildPathProvider.GetManifestFilePath(buildDirectory);
+        public string AddMediaFromSettings(string buildDirectory, string settings) {
+            var folderForMedia = GetFolderForMedia(buildDirectory);
 
-            if (!_fileManager.FileExists(manifestFilePath))
-            {
-                return;
-            }
-
-            var manifestData = _fileManager.ReadAllFromFile(manifestFilePath);
-            var matches = Regex.Matches(manifestData, @"((http|ftp|https)*:*\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
+            var matches = Regex.Matches(settings, @"((http|ftp|https)*:*\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
                                .Cast<Match>()
                                .Select(match => match.Value)
                                .Distinct();
 
-            manifestData = matches.Aggregate(manifestData, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
-            _fileManager.WriteToFile(manifestFilePath, manifestData);
+            return matches.Aggregate(settings, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
         }
 
         private void IncludeCourseContentMediaToPackage(CoursePackageModel course, string folderForMedia)

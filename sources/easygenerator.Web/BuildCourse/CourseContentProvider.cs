@@ -41,16 +41,20 @@ namespace easygenerator.Web.BuildCourse
 
             if (includeMedia)
             {
-                _packageMediaFetcher.AddMediaToPackage(buildDirectory, coursePackageModel);
+                _packageMediaFetcher.AddMediaFromCourseModel(buildDirectory, coursePackageModel);
             }
 
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);
             AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel);
         }
-        public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings)
+        public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings, bool includeMedia = false)
         {
-            _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory),
-                settings ?? GetEmptyJsonContent());
+            if (settings != null && includeMedia)
+            {
+                settings = _packageMediaFetcher.AddMediaFromSettings(buildDirectory, settings);
+            }
+
+            _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory), settings ?? GetEmptyJsonContent());
         }
 
         public void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
