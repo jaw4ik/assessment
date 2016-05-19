@@ -14,7 +14,8 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, ICollection<Company> companiesCollection = null, bool? newEditor = true, bool isNewEditorByDefault = true)
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, 
+            ICollection<Company> companiesCollection = null, bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -34,7 +35,7 @@ namespace easygenerator.DomainModel.Entities
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
-            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault);
+            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault, includeMediaToPackage);
 
             AccessType = accessPlan;
 

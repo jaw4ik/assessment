@@ -1,4 +1,4 @@
-﻿import publishingAction from './publishingAction';
+﻿import PublishingAction from './publishingAction';
 
 import constants from 'constants';
 import app from 'durandal/app';
@@ -13,7 +13,7 @@ describe('[publishingAction]', function () {
         spyOn(app, 'on').and.returnValue(Q.defer().promise);
         spyOn(app, 'off');
 
-        viewModel = publishingAction();
+        viewModel = new PublishingAction();
     });
 
     it('should be object', function () {
@@ -204,7 +204,7 @@ describe('[publishingAction]', function () {
 
         it('should fill subscriptions', function () {
             viewModel.activate(course, action);
-            expect(viewModel.subscriptions.length).toBe(2);
+            expect(viewModel.subscriptions.length).toBe(3);
         });
     });
 

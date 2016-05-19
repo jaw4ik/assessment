@@ -1,5 +1,5 @@
 ﻿define(['viewmodels/courses/publishingActions/publish', 'constants', 'eventTracker'],
-    function (publishAction, constants, eventTracker) {
+    function (PublishAction, constants, eventTracker) {
 
         "use strict";
 
@@ -9,7 +9,7 @@
         };
 
         var viewModel = {
-            publishAction: publishAction(constants.eventCategories.header),
+            publishAction: new PublishAction(constants.eventCategories.header),
 
             embedTabOpened: ko.observable(false),
             linkTabOpened: ko.observable(true),

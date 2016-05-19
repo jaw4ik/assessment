@@ -1,8 +1,8 @@
-﻿define(['viewmodels/courses/publishingActions/publishToCustomLms', 'constants'], function (publishToCustomLms, constants) {
+﻿define(['viewmodels/courses/publishingActions/publishToCustomLms', 'constants'], function (PublishToCustomLms, constants) {
     "use strict";
 
     var viewModel = {
-        publishAction: publishToCustomLms(constants.eventCategories.header),
+        publishAction: new PublishToCustomLms(constants.eventCategories.header),
         activate: activate,
         deactivate: deactivate
     };

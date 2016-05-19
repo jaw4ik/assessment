@@ -663,6 +663,7 @@
     <Content Include="App\audio\vimeo\commands\pull.spec.js">
       <DependentUpon>pull.js</DependentUpon>
     </Content>
+    <Content Include="App\binder.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\stringExtensionsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />

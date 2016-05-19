@@ -17,7 +17,7 @@
             <div class="publish-settings" data-bind="css: { disabled: isPublishing }">
                 <div class="header" data-bind="localize: { text: 'settings' }"></div>
                 <div class="body">
-                    <div class="switch-toggle-slider small" data-bind="switchToggle: { value: includeMedia }">
+                    <div class="switch-toggle-slider small" data-bind="switchToggle: { value: includeMedia, onValueChanged: includeMediaModeChanged }">
                         <div class="switch-toggle-wrapper">
                             <div class="switch-toggle-on"></div>
                             <div class="switch-toogle-blob"></div>

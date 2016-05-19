@@ -1,119 +1,107 @@
-﻿define(['constants', 'notify', 'eventTracker', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/publishingAction'],
-    function (constants, notify, eventTracker, repository, publishingAction) {
-        "use strict";
+﻿import constants from 'constants';
+import notify from 'notify';
+import eventTracker from 'eventTracker';
+import ko from 'knockout';
+import repository from 'repositories/courseRepository';
+import PublishingAction from 'viewmodels/courses/publishingActions/publishingAction';
 
-        var events = {
-            publishToCustomLms: 'Publish course to custom hosting'
-        };
+const events = {
+    publishToCustomLms: 'Publish course to custom hosting'
+};
 
-        var ctor = function (eventCategory) {
+export default class extends PublishingAction {
+    constructor(eventCategory) {
+        super();
 
-            var viewModel = publishingAction(),
-                baseActivate = viewModel.activate;
+        this.companyInfo = null;
+        this.eventCategory = eventCategory;
 
-            viewModel.courseId = null;
-            viewModel.companyInfo = null;
-            viewModel.eventCategory = eventCategory;
-
-            viewModel.isDirty = ko.observable();
-            viewModel.isPublishingToLms = ko.observable(false);
-            viewModel.isPublished = ko.observable(false);
-
-            viewModel.isPublishing = ko.computed(function () {
-                return viewModel.isCourseDelivering() || viewModel.isPublishingToLms();
-            });
-
-            viewModel.publishToCustomLms = publishToCustomLms;
-            viewModel.activate = activate;
-
-            viewModel.courseStateChanged = courseStateChanged;
-            viewModel.coursePublishStarted = coursePublishStarted;
-            viewModel.coursePublishCompleted = coursePublishCompleted;
-            viewModel.coursePublishFailed = coursePublishFailed;
-
-            return viewModel;
-
-            function activate(publishData) {
-                return repository.getById(publishData.courseId).then(function(course) {
-                    baseActivate(course, course.publish);
-
-                    viewModel.companyInfo = publishData.companyInfo;
-                    viewModel.courseId = course.id;
-                    viewModel.isPublished(!!course.courseCompanies.find(function(company) {
-                        return company.id === viewModel.companyInfo.id;
-                    }));
-                    viewModel.isDirty(course.isDirty);
-
-                    viewModel.subscribe(constants.messages.course.stateChanged + course.id, viewModel.courseStateChanged);
-                    viewModel.subscribe(constants.messages.course.publishToCustomLms.started, viewModel.coursePublishStarted);
-                    viewModel.subscribe(constants.messages.course.publishToCustomLms.completed, viewModel.coursePublishCompleted);
-                    viewModel.subscribe(constants.messages.course.publishToCustomLms.failed, viewModel.coursePublishFailed);
-                }).fail(function() {});
-            }
-
-            function publishCourse() {
-                return Q.fcall(function () {
-                    if (!viewModel.packageExists() || viewModel.isDirty()) {
-                        return repository.getById(viewModel.courseId).then(function (course) {
-                            return course.publish().fail(function (message) {
-                                notify.error(message);
-                            });
-                        });
-                    }
-                    return null;
-                });
-            }
-
-            function publishToCustomLms() {
-                eventTracker.publish(events.publishToCustomLms, viewModel.eventCategory);
-
-                return publishCourse().then(function () {
-                    if (!viewModel.isPublished()) {
-                        return repository.getById(viewModel.courseId).then(function (course) {
-                            return course.publishToCustomLms(viewModel.companyInfo.id);
-                        });
-                    }
-                });
-            }
-
-            //#region App-wide events
-
-            function courseStateChanged(state) {
-                viewModel.isDirty(state.isDirty);
-            }
-
-            function coursePublishStarted(course) {
-                if (course.id !== viewModel.courseId)
-                    return;
-
-                viewModel.isPublishingToLms(true);
-            };
-
-            function coursePublishCompleted(course) {
-                if (course.id !== viewModel.courseId)
-                    return;
-                
-                viewModel.isPublishingToLms(false);
-
-                if (course.courseCompanies.find(function (item) {
-                    return item.id === viewModel.companyInfo.id;
-                })) {
-                    viewModel.isPublished(true);
-                }
-            };
-
-            function coursePublishFailed(course, message) {
-                if (course.id !== viewModel.courseId)
-                    return;
-
-                viewModel.isPublishingToLms(false);
-                notify.error(message);
-            };
-
-            //#endregion
-
-        };
-
-        return ctor;
+        this.isDirty = ko.observable();
+        this.isPublishingToLms = ko.observable(false);
+        this.isPublished = ko.observable(false);
+        this.isPublishing = ko.computed(() => this.isCourseDelivering() || this.isPublishingToLms(), this);
     }
-);
+
+    async activate(publishData) {
+        let course = await repository.getById(publishData.courseId);
+        
+        super.activate(course, course.publish);
+
+        this.companyInfo = publishData.companyInfo;
+        this.courseId = course.id;
+        this.isPublished(!!course.courseCompanies.find(company => company.id === this.companyInfo.id));
+        this.isDirty(course.isDirty);
+
+        this.subscribe(constants.messages.course.stateChanged + course.id, this.courseStateChanged);
+        this.subscribe(constants.messages.course.publishToCustomLms.started, this.coursePublishStarted);
+        this.subscribe(constants.messages.course.publishToCustomLms.completed, this.coursePublishCompleted);
+        this.subscribe(constants.messages.course.publishToCustomLms.failed, this.coursePublishFailed);
+    }
+
+    async publishCourse() {
+        if (this.packageExists() && !this.isDirty()) {
+            return;
+        }
+
+        try {
+            let course = await repository.getById(this.courseId);
+            await course.publish();
+        } catch (e) {
+            notify.error(e);
+        }
+    }
+
+    async publishToCustomLms() {
+        eventTracker.publish(events.publishToCustomLms, this.eventCategory);
+
+        await this.publishCourse();
+
+        if (this.isPublished()) {
+            return;
+        }
+
+        try {
+            let course = await repository.getById(this.courseId);
+            await course.publishToCustomLms(this.companyInfo.id);
+        } catch (e) {
+            notify.error(e);
+        }
+    }
+
+    //#region App-wide events
+
+    courseStateChanged(state) {
+        this.isDirty(state.isDirty);
+    }
+
+    coursePublishStarted(course) {
+        if (course.id !== this.courseId) {
+            return;
+        }
+
+        this.isPublishingToLms(true);
+    }
+
+    coursePublishCompleted(course) {
+        if (course.id !== this.courseId) {
+            return;
+        }
+                
+        this.isPublishingToLms(false);
+
+        if (course.courseCompanies.find(company => company.id === this.companyInfo.id)) {
+            this.isPublished(true);
+        }
+    }
+
+    coursePublishFailed(course, message) {
+        if (course.id !== this.courseId) {
+            return;
+        }
+
+        this.isPublishingToLms(false);
+        notify.error(message);
+    }
+
+    //#endregion
+}

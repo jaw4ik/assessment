@@ -1,4 +1,4 @@
-﻿import scormBuild from './scormBuild';
+﻿import ScormBuild from './scormBuild';
 
 import app from 'durandal/app';
 import Course from 'models/course';
@@ -25,7 +25,7 @@ describe('publishing action [scormBuild]', function () {
     course.scormBuild = action;
 
     beforeEach(function () {
-        viewModel = scormBuild();
+        viewModel = new ScormBuild();
         course.scormBuild.url = 'scormBuildUrl';
         spyOn(eventTracker, 'publish');
         spyOn(notify, 'hide');
@@ -231,102 +231,70 @@ describe('publishing action [scormBuild]', function () {
                 getByIdDefer.resolve(course);
             });
 
-            it('should set state', function (done) {
+            it('should set state', done => (async () => {
                 viewModel.state('');
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.state()).toBe(action.state);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.state()).toBe(action.state);
+            })().then(done));
 
-            it('should set packageUrl', function (done) {
+            it('should set packageUrl', done => (async () => {
                 viewModel.packageUrl('');
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.packageUrl()).toBe(action.packageUrl);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.packageUrl()).toBe(action.packageUrl);
+            })().then(done));
 
-            it('should set isCourseDelivering', function (done) {
+            it('should set isCourseDelivering', done => (async () => {
                 viewModel.isCourseDelivering(false);
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.isCourseDelivering()).toBe(course.isDelivering);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.isCourseDelivering()).toBe(course.isDelivering);
+            })().then(done));
 
-            it('should set courseId', function (done) {
+            it('should set courseId', done => (async () => {
                 viewModel.courseId = '';
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.courseId).toBe(course.id);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.courseId).toBe(course.id);
+            })().then(done));
 
-            it('should subscribe to course.delivering.started event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.started);
-                    done();
-                });
-            });
+            it('should subscribe to course.delivering.started event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.started);
+            })().then(done));
 
-            it('should subscribe to course.delivering.finished event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.finished);
-                    done();
-                });
-            });
+            it('should subscribe to course.delivering.finished event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.finished);
+            })().then(done));
 
-            it('should fill subscriptions', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.subscriptions.length).toBe(5);
-                    done();
-                });
-            });
+            it('should fill subscriptions', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(viewModel.subscriptions.length).toBe(6);
+            })().then(done));
 
-            it('should subscribe to course.scormBuild.started event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.started);
-                    done();
-                });
-            });
+            it('should subscribe to course.scormBuild.started event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.started);
+            })().then(done));
 
-            it('should subscribe to course.scormBuild.completed event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.completed);
-                    done();
-                });
-            });
+            it('should subscribe to course.scormBuild.completed event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.completed);
+            })().then(done));
 
-            it('should subscribe to course.scormBuild.failed event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.failed);
-                    done();
-                });
-            });
+            it('should subscribe to course.scormBuild.failed event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.failed);
+            })().then(done));
 
             describe('when user has starter access', function () {
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                 });
 
-                it('should set hasStarterAccess to true', function (done) {
+                it('should set hasStarterAccess to true', done => (async () => {
                     viewModel.hasStarterAccess = false;
-                    viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.userHasPublishAccess).toBeTruthy();
-                        done();
-                    });
-                });
+                    await viewModel.activate(course.id);
+                    expect(viewModel.userHasPublishAccess).toBeTruthy();
+                })().then(done));
             });
 
             describe('when user does not have starter access', function () {
@@ -334,13 +302,11 @@ describe('publishing action [scormBuild]', function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                 });
 
-                it('should set hasStarterAccess to false', function (done) {
+                it('should set hasStarterAccess to false', done => (async () => {
                     viewModel.hasStarterAccess = true;
-                    viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.userHasPublishAccess).toBeFalsy();
-                        done();
-                    });
-                });
+                    await viewModel.activate(course.id);
+                    expect(viewModel.userHasPublishAccess).toBeFalsy();
+                })().then(done));
             });
         });
     });
@@ -405,26 +371,22 @@ describe('publishing action [scormBuild]', function () {
                     expect(eventTracker.publish).toHaveBeenCalledWith('Download SCORM 1.2 course');
                 });
 
-                it('should start scorm build of current course', function (done) {
+                it('should start scorm build of current course', done => (async () => {
                     courseScormBuildDefer.resolve();
 
-                    viewModel.downloadCourse().fin(function () {
-                        expect(course.scormBuild).toHaveBeenCalledWith(viewModel.includeMedia());
-                        done();
-                    });
-                });
+                    await viewModel.downloadCourse();
+                    expect(course.scormBuild).toHaveBeenCalledWith(viewModel.includeMedia());
+                })().then(done));
 
                 describe('when course scorm build finished successfully', function () {
                     beforeEach(function () {
                         courseScormBuildDefer.resolve({ scormBuild: { packageUrl: 'scorm_package_url' } });
                     });
 
-                    it('should download file', function (done) {
-                        viewModel.downloadCourse().fin(function () {
-                            expect(fileHelper.downloadFile).toHaveBeenCalledWith('download/scorm_package_url');
-                            done();
-                        });
-                    });
+                    it('should download file', done => (async () => {
+                        await viewModel.downloadCourse();
+                        expect(fileHelper.downloadFile).toHaveBeenCalledWith('download/scorm_package_url');
+                    })().then(done));
 
                 });
 
@@ -435,13 +397,11 @@ describe('publishing action [scormBuild]', function () {
                         courseScormBuildDefer.reject(message);
                     });
 
-                    it('should show error notification', function (done) {
+                    it('should show error notification', done => (async () => {
                         spyOn(notify, 'error');
-                        viewModel.downloadCourse().fin(function () {
-                            expect(notify.error).toHaveBeenCalledWith(message);
-                            done();
-                        });
-                    });
+                        await viewModel.downloadCourse();
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    })().then(done));
 
                 });
 
@@ -484,7 +444,7 @@ describe('publishing action [scormBuild]', function () {
 
     });
 
-    describe('scromBuildStarted:', function () {
+    describe('scormBuildStarted:', function () {
 
         describe('and when course is current course', function () {
 
@@ -492,7 +452,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.state('');
 
-                viewModel.scromBuildStarted(course);
+                viewModel.scormBuildStarted(course);
 
                 expect(viewModel.state()).toEqual(constants.publishingStates.building);
             });
@@ -504,7 +464,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.state('');
 
-                viewModel.scromBuildStarted({ id: '100500' });
+                viewModel.scormBuildStarted({ id: '100500' });
 
                 expect(viewModel.state()).toEqual('');
             });
@@ -513,7 +473,7 @@ describe('publishing action [scormBuild]', function () {
 
     });
 
-    describe('scromBuildCompleted:', function () {
+    describe('scormBuildCompleted:', function () {
 
         describe('and when course is current course', function () {
             it('should update scorm build action state to \'success\'', function () {
@@ -521,7 +481,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.state('');
 
                 course.buildingStatus = constants.publishingStates.succeed;
-                viewModel.scromBuildCompleted(course);
+                viewModel.scormBuildCompleted(course);
 
                 expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
             });
@@ -531,7 +491,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.packageUrl('');
 
                 course.scormBuild.packageUrl = "http://xxx.com";
-                viewModel.scromBuildCompleted(course);
+                viewModel.scormBuildCompleted(course);
 
                 expect(viewModel.packageUrl()).toEqual(course.scormBuild.packageUrl);
             });
@@ -543,7 +503,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.state(constants.publishingStates.notStarted);
 
-                viewModel.scromBuildCompleted({ id: '100500' });
+                viewModel.scormBuildCompleted({ id: '100500' });
 
                 expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
             });
@@ -552,7 +512,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.packageUrl("http://xxx.com");
 
-                viewModel.scromBuildCompleted({ id: '100500' });
+                viewModel.scormBuildCompleted({ id: '100500' });
 
                 expect(viewModel.packageUrl()).toEqual("http://xxx.com");
             });
@@ -560,7 +520,7 @@ describe('publishing action [scormBuild]', function () {
 
     });
 
-    describe('scrormBuildFailed:', function () {
+    describe('scormBuildFailed:', function () {
 
         describe('and when course is current course', function () {
 
@@ -568,7 +528,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.state('');
 
-                viewModel.scrormBuildFailed(course);
+                viewModel.scormBuildFailed(course);
 
                 expect(viewModel.state()).toEqual(constants.publishingStates.failed);
             });
@@ -577,7 +537,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.packageUrl('publishedPackageUrl');
 
-                viewModel.scrormBuildFailed(course);
+                viewModel.scormBuildFailed(course);
 
                 expect(viewModel.packageUrl()).toEqual('');
             });
@@ -590,7 +550,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.state('');
 
-                viewModel.scrormBuildFailed({ id: '100500' });
+                viewModel.scormBuildFailed({ id: '100500' });
 
                 expect(viewModel.state()).toEqual('');
             });
@@ -599,7 +559,7 @@ describe('publishing action [scormBuild]', function () {
                 viewModel.courseId = course.id;
                 viewModel.packageUrl('packageUrl');
 
-                viewModel.scrormBuildFailed({ id: '100500' });
+                viewModel.scormBuildFailed({ id: '100500' });
 
                 expect(viewModel.packageUrl()).toEqual('packageUrl');
             });

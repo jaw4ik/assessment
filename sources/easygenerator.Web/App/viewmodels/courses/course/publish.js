@@ -2,7 +2,7 @@
         'viewmodels/courses/publishingActions/build', 'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 
         'viewmodels/courses/publishingActions/publishToCustomLms'],
     function (repository, router, constants, userContext, clientContext, localizationManager, eventTracker, 
-        buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, publishToCustomLmsAction) {
+        BuildPublishingAction, ScormBuildPublishingAction, PublishPublishingAction, PublishToCustomLmsAction) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -17,9 +17,9 @@
             courseId: '',
             publishToCustomLmsModels: [],
 
-            buildAction: buildPublishingAction(),
-            scormBuildAction: scormBuildPublishingAction(),
-            publishAction: publishPublishingAction(),
+            buildAction: new BuildPublishingAction(),
+            scormBuildAction: new ScormBuildPublishingAction(),
+            publishAction: new PublishPublishingAction(),
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
@@ -69,7 +69,7 @@
                 }).map(function(company) {
                     return {
                         company: company,
-                        model: publishToCustomLmsAction()
+                        model: new PublishToCustomLmsAction()
                     }
                 });
 

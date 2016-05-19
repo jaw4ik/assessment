@@ -1,69 +1,82 @@
-﻿define(['constants', 'durandal/app'], function (constants, app) {
+﻿import constants from 'constants';
+import app from 'durandal/app';
+import _ from 'underscore';
+import binder from 'binder';
+import ko from 'knockout';
+import http from 'http/apiHttpWrapper';
+import userContext from 'userContext';
 
-    var ctor = function () {
-        var viewModel = {
-            state: ko.observable(),
-            packageUrl: ko.observable(),
-            states: constants.publishingStates,
-            isCourseDelivering: ko.observable(false),
-            courseId: '',
-            subscriptions: [],
-            subscribe: subscribe,
-            courseDeliveringStarted: courseDeliveringStarted,
-            courseDeliveringFinished: courseDeliveringFinished,
-            activate: activate,
-            deactivate: deactivate
-        };
+export default class {
+    constructor() {
+        binder.bindClass(this);
 
-        viewModel.packageExists = ko.computed(function () {
-            return !_.isNullOrUndefined(this.packageUrl()) && !_.isEmptyOrWhitespace(this.packageUrl());
-        }, viewModel);
+        this.state = ko.observable();
+        this.packageUrl = ko.observable();
+        this.states = constants.publishingStates;
+        this.isCourseDelivering = ko.observable(false);
+        this.includeMedia = ko.observable(userContext.identity ? userContext.identity.includeMediaToPackage : false);
+        this.courseId = '';
+        this.subscriptions = [];
+        this.packageExists = ko.computed(() => !_.isNullOrUndefined(this.packageUrl()) && !_.isEmptyOrWhitespace(this.packageUrl()), this);
+    }
 
-        return viewModel;
+    activate(course, action) {
+        this.state(action.state);
+        this.packageUrl(action.packageUrl);
+        this.isCourseDelivering(course.isDelivering);
+        this.courseId = course.id;
 
-        function activate(course, action) {
-            viewModel.state(action.state);
-            viewModel.packageUrl(action.packageUrl);
-            viewModel.isCourseDelivering(course.isDelivering);
-            viewModel.courseId = course.id;
+        this.clearSubscriptions();
+        
+        this.subscribe(constants.messages.course.delivering.started, this.courseDeliveringStarted);
+        this.subscribe(constants.messages.course.delivering.finished, this.courseDeliveringFinished);
+        this.subscribe(constants.messages.includeMedia.modeChanged, this.includeMediaModeChangedEvent);
+    }
 
-            clearSubscriptions();
-            subscribe(constants.messages.course.delivering.started, viewModel.courseDeliveringStarted);
-            subscribe(constants.messages.course.delivering.finished, viewModel.courseDeliveringFinished);
+    deactivate() {
+        _.each(this.subscriptions, subscription => subscription.off());
+        this.clearSubscriptions();
+    }
+
+    subscribe(eventName, handler) {
+        this.subscriptions.push(app.on(eventName).then(handler));
+    }
+
+    clearSubscriptions() {
+        this.subscriptions.splice(0, this.subscriptions.length);
+    }
+
+    async includeMediaModeChanged(newValue) {
+        await http.post('api/user/switchincludemedia');
+        userContext.identity.includeMediaToPackage = newValue;
+        app.trigger(constants.messages.includeMedia.modeChanged, newValue);
+    }
+
+    //#region App-wide events
+
+    courseDeliveringStarted(course) {
+        if (course.id !== this.courseId) {
+            return;
         }
 
-        function deactivate() {
-            _.each(viewModel.subscriptions, function (subscription) {
-                subscription.off();
-            });
+        this.isCourseDelivering(true);
+    }
 
-            clearSubscriptions();
+    courseDeliveringFinished(course) {
+        if (course.id !== this.courseId) {
+            return;
         }
 
-        function courseDeliveringStarted(course) {
-            if (course.id !== viewModel.courseId) {
-                return;
-            }
+        this.isCourseDelivering(false);
+    }
 
-            viewModel.isCourseDelivering(true);
+    includeMediaModeChangedEvent(newValue) {
+        if (this.includeMedia() === newValue) {
+            return;
         }
 
-        function courseDeliveringFinished(course) {
-            if (course.id !== viewModel.courseId) {
-                return;
-            }
+        this.includeMedia(newValue);
+    }
 
-            viewModel.isCourseDelivering(false);
-        }
-
-        function subscribe(eventName, handler) {
-            viewModel.subscriptions.push(app.on(eventName).then(handler));
-        }
-
-        function clearSubscriptions() {
-            viewModel.subscriptions.splice(0, viewModel.subscriptions.length);
-        }
-    };
-
-    return ctor;
-});
+    //#endregion
+}
