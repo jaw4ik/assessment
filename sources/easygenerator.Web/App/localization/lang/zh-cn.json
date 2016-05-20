@@ -327,6 +327,8 @@
     "scormCaptionSecond": "我们为您创建完整的SCORM 1.2包。",
     "publishHtmlCaptionFirst": "想要在您的桌面或您自己的服务器上运行课程吗？",
     "publishHtmlCaptionSecond": "我们创建了一个包供您下载，其中包含您课程中的所有HTML、CSS和JS 文件。",
+    "includeMediaTitle": "将图像和字体载入此程序包",
+    "includeMediaSubtitle": "（启用后，此程序包大小将显著增加）",
     "embedAsAWidget": "作为小部件嵌入",
     "embedCaption": "将此代码粘贴到想要显示该课程的HTML页面中",
     "courseUrl": "课程URL",
@@ -768,6 +770,7 @@
     "buttonTextColor": "按钮文本颜色",
     "contentBodyColor": "内容正文颜色",
     "scheme": "模式",
+    "theme": "主题",
     "templateDoesNotHavePresets": "所选模板不包含预置值",
     "upgradeAccountHintBackgroundSection": "您必须<a target=\"_blank\" href=\"/account/upgrade\">升级账户</a>以便设置自定义背景",
     "upgradeAccountHintLogoSection": "您必须<a target=\"_blank\" href=\"/account/upgrade\">升级账户</a>以便设置自定义课程徽标",
@@ -859,5 +862,13 @@
     "defineSectionOnboardingTaskDescription": "<section><header>用来做什么？</header><article>准确说明您希望学生在本课程结束时学到些什么或者能够做些什么。</article></section><section><header>如何定义章节？</header><ol><li>在课程编辑器中点击<b>“新章节”</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">阅读更多</a></div></section>",
     "hideSection": "隐藏章节",
     "showSection": "显示章节",
-    "clickToSelectBackgroundImage": "单击选择背景图像"
+    "clickToSelectBackgroundImage": "单击选择背景图像",
+    "createOrganization": "创建组织",
+    "manageOrganization": "管理组织",
+    "newOrganizationTitle": "My organization",
+    "organization": "Organization",
+    "organizationName": "Oragnization name",
+    "inviteUsers": "Invite users",
+    "admin": "Admin",
+    "removeUser": "Remove user"
 }

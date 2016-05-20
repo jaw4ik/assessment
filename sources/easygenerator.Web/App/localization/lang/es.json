@@ -327,6 +327,8 @@
     "scormCaptionSecond": "Empaquetamos todo el conjunto SCORM 1.2",
     "publishHtmlCaptionFirst": "¿Desea ejecutar su curso fuera de línea en su escritorio o en su propio servidor?",
     "publishHtmlCaptionSecond": "Empaquetamos todo el HTML, CSS y JS de su curso para que pueda descargarlo.",
+    "includeMediaTitle": "Incluir imágenes y fuentes en el paquete",
+    "includeMediaSubtitle": "(si se habilita esta opción, el tamaño del paquete aumentará significativamente)",
     "embedAsAWidget": "Insertar como un widget",
     "embedCaption": "Pegue este código en la página HTML donde desea que aparezca el curso",
     "courseUrl": "URL del curso",
@@ -768,6 +770,7 @@
     "buttonTextColor": "Color del texto de botón",
     "contentBodyColor": "Color del cuerpo de contenido",
     "scheme": "Esquema",
+    "theme": "Tema",
     "templateDoesNotHavePresets": "La plantilla seleccionada no tiene valores preestablecidos",
     "upgradeAccountHintBackgroundSection": "Para poder definir un fondo personalizado, debe <a target=\"_blank\" href=\"/account/upgrade\">actualizar su cuenta</a>",
     "upgradeAccountHintLogoSection": "Para poder definir un logotipo de curso personalizado, debe <a target=\"_blank\" href=\"/account/upgrade\">actualizar su cuenta</a>",
@@ -859,5 +862,13 @@
     "defineSectionOnboardingTaskDescription": "<section><header>¿Para qué?</header><article>Especifique exactamente lo que desea que sus estudiantes sepan o logren hacer al final del curso.</article></section><section><header>¿Cómo se define una sección?</header><ol><li>Haga clic en <b>\"Nueva sección\"</b> en el editor de cursos</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Leer más</a></div></section>",
     "hideSection": "Ocultar sección",
     "showSection": "Mostrar sección",
-    "clickToSelectBackgroundImage": "Haga clic para seleccionar imagen de fondo"
+    "clickToSelectBackgroundImage": "Haga clic para seleccionar imagen de fondo",
+    "createOrganization": "Crear organización",
+    "manageOrganization": "Administrar organización",
+    "newOrganizationTitle": "My organization",
+    "organization": "Organization",
+    "organizationName": "Oragnization name",
+    "inviteUsers": "Invite users",
+    "admin": "Admin",
+    "removeUser": "Remove user"
 }

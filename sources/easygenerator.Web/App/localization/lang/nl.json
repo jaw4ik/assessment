@@ -327,6 +327,8 @@
     "scormCaptionSecond": "We maken een SCORM 1.2 dowload voor u",
     "publishHtmlCaptionFirst": "Wilt u uw cursus offline op uw desktop of op uw eigen server laten werken?",
     "publishHtmlCaptionSecond": "We pakken alle HTML, CSS en JS van uw cursus in om die te downloaden",
+    "includeMediaTitle": "Include images and fonts into the package",
+    "includeMediaSubtitle": "(if enabled, the size of the package will increase significantly)",
     "embedAsAWidget": "Embed cursus",
     "embedCaption": "Plak deze code, waar u het leerpad wilt, in de HTML pagina",
     "courseUrl": "Cursus URL",
@@ -768,6 +770,7 @@
     "buttonTextColor": "Kleur voor tekstt op knoppen",
     "contentBodyColor": "Kleur voor standaard tekst",
     "scheme": "Schema",
+    "theme": "Theme",
     "templateDoesNotHavePresets": "Het geselecteerde template heeft geen instellingen",
     "upgradeAccountHintBackgroundSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de achtergrond aan te passen",
     "upgradeAccountHintLogoSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de het logo aan te passen",
@@ -859,5 +862,13 @@
     "defineSectionOnboardingTaskDescription": "<section><header>Waarom?</header><article>Scrijf op wat een student aan het einde van de cursus moet kunnen of weten.</article></section><section><header>Een sectie maken</header><ol><li>Klik op<b>\"Nieuwe sectie\"</b> in de cursus edtor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Meer informatie</a></div></section>",
     "hideSection": "Verberg sectie",
     "showSection": "Toon sectie",
-    "clickToSelectBackgroundImage": "Click to select background image"
+    "clickToSelectBackgroundImage": "Click to select background image",
+    "createOrganization": "Create organization",
+    "manageOrganization": "Manage organization",
+    "newOrganizationTitle": "My organization",
+    "organization": "Organization",
+    "organizationName": "Oragnization name",
+    "inviteUsers": "Invite users",
+    "admin": "Admin",
+    "removeUser": "Remove user"
 }

@@ -327,6 +327,8 @@
     "scormCaptionSecond": "Nous rassemblons tout le pack SCORM 1.2.",
     "publishHtmlCaptionFirst": "Souhaitez-vous exécuter votre cours hors-ligne sur votre bureau ou sur votre propre serveur ?",
     "publishHtmlCaptionSecond": "Nous rassemblons pour vous tous les HTML, CSS et JS de votre cours pour qu'ils soient disponibles au téléchargement.",
+    "includeMediaTitle": "Inclure des images et des polices dans le pack",
+    "includeMediaSubtitle": "(une fois cette option activée, la taille du pack augmente sensiblement)",
     "embedAsAWidget": "Intégrer en tant que gadget",
     "embedCaption": "Collez ce code sur votre page HTML où vous souhaitez que le cours apparaisse",
     "courseUrl": "URL du cours",
@@ -768,6 +770,7 @@
     "buttonTextColor": "Couleur du texte de bouton",
     "contentBodyColor": "Couleur du corps de contenu",
     "scheme": "Modèle",
+    "theme": "Thème",
     "templateDoesNotHavePresets": "Le modèle sélectionné ne comporte pas de paramètres prédéfinis",
     "upgradeAccountHintBackgroundSection": "Pour définir un arrière-plan personnalisé, vous devez <a target=\"_blank\" href=\"/account/upgrade\">mettre votre compte à niveau</a>",
     "upgradeAccountHintLogoSection": "Pour définir un logo de cours personnalisé, vous devez <a target=\"_blank\" href=\"/account/upgrade\">mettre votre compte à niveau</a>",
@@ -859,5 +862,13 @@
     "defineSectionOnboardingTaskDescription": "<section><header>Dans quel but ?</header><article>Indiquez précisément ce que vous aimeriez que les étudiants aient appris ou sachent faire à la fin du cours.</article></section><section><header>Comment définir une section ?</header><ol><li>Cliquez sur <b>« Nouvelle section »</b> dans l'éditeur de cours</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">En savoir plus</a></div></section>",
     "hideSection": "Masquer la section",
     "showSection": "Afficher la section",
-    "clickToSelectBackgroundImage": "Cliquez pour sélectionner une image d'arrière-plan"
+    "clickToSelectBackgroundImage": "Cliquez pour sélectionner une image d'arrière-plan",
+    "createOrganization": "Créer une organisation",
+    "manageOrganization": "Gérer une organisation",
+    "newOrganizationTitle": "My organization",
+    "organization": "Organization",
+    "organizationName": "Oragnization name",
+    "inviteUsers": "Invite users",
+    "admin": "Admin",
+    "removeUser": "Remove user"
 }

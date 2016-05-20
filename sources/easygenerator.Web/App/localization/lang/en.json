@@ -327,6 +327,8 @@
     "scormCaptionSecond": "We create a complete SCORM 1.2 package for you.",
     "publishHtmlCaptionFirst": "Want to run your course offline on your desktop or on your own server?",
     "publishHtmlCaptionSecond": "We create a package of all HTML, CSS and JS files of your course for you to download.",
+    "includeMediaTitle": "Include images and fonts into the package",
+    "includeMediaSubtitle": "(if enabled, the size of the package will increase significantly)",
     "embedAsAWidget": "Embed as a widget",
     "embedCaption": "Paste this code into your HTML page where you want to display the course",
     "courseUrl": "Course URL",
@@ -768,6 +770,7 @@
     "buttonTextColor": "Button text color",
     "contentBodyColor": "Content body color",
     "scheme": "Scheme",
+    "theme": "Theme",
     "templateDoesNotHavePresets": "Selected template does not have presets",
     "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
     "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change the logo",
@@ -859,5 +862,13 @@
     "defineSectionOnboardingTaskDescription": "<section><header>What for?</header><article>Specify what exactly you want students to know or be able to do at the end of the course.</article></section><section><header>How to define an section?</header><ol><li>Click on <b>\"New section\"</b> in the course editor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Read more</a></div></section>",
     "hideSection": "Hide section",
     "showSection": "Show section",
-    "clickToSelectBackgroundImage": "Click to select background image"
+    "clickToSelectBackgroundImage": "Click to select background image",
+    "createOrganization": "Create organization",
+    "manageOrganization": "Manage organization",
+    "newOrganizationTitle": "My organization",
+    "organization": "Organization",
+    "organizationName": "Oragnization name",
+    "inviteUsers": "Invite users",
+    "admin": "Admin",
+    "removeUser": "Remove user"
 }

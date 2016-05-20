@@ -327,6 +327,8 @@
     "scormCaptionSecond": "Wir erstellen alle Ihre SCORM 1.2-Pakete.",
     "publishHtmlCaptionFirst": "Möchten Sie den Kurs offline auf Ihrem Desktop oder auf Ihrem eigenen Server installieren?",
     "publishHtmlCaptionSecond": "Wir packen alle HTML, CSS und JS Ihres course für den Download zusammen.",
+    "includeMediaTitle": "Schließt Bilder und Schriftarten in das Paket ein",
+    "includeMediaSubtitle": "(falls aktiviert, erhöht sich die Paketgröße erheblich)",
     "embedAsAWidget": "Als Widget einbetten",
     "embedCaption": "Kopieren Sie diesen Code in Ihre HTML-Seite, auf der Ihr Kurs erscheinen soll.",
     "courseUrl": "Kurs-URL",
@@ -768,6 +770,7 @@
     "buttonTextColor": "Schaltflächentext-Farbe",
     "contentBodyColor": "Farbe des Inhaltteils",
     "scheme": "Schema",
+    "theme": "Thema",
     "templateDoesNotHavePresets": "Ausgewählte Vorlage hat keine Voreinstellungen",
     "upgradeAccountHintBackgroundSection": "Sie müssen <a target=\"_blank\" href=\"/account/upgrade\">Ihr Konto upgraden</a>, um einen benutzerdefinierten Hintergrund einzurichten.",
     "upgradeAccountHintLogoSection": "Sie müssen <a target=\"_blank\" href=\"/account/upgrade\">Ihr Konto upgraden</a>, um ein benutzerdefiniertes Kurslogo einzurichten.",
@@ -859,5 +862,13 @@
     "defineSectionOnboardingTaskDescription": "<section><header>Wozu?</header><article>Geben Sie genau an, was Studenten am Ende des Kurses wissen oder ausführen können sollen.</article></section><section><header>Wie definiert man einen Abschnitt?</header><ol><li>Klicken Sie auf<b>„Neuer Abschnitt\"</b> im Kurs-Editor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Mehr lesen</a></div></section>",
     "hideSection": "Abschnitt ausblenden",
     "showSection": "Abschnitt anzeigen",
-    "clickToSelectBackgroundImage": "Klicken Sie auf diese Option, um das Hintergrundbild auszuwählen"
+    "clickToSelectBackgroundImage": "Klicken Sie auf diese Option, um das Hintergrundbild auszuwählen",
+    "createOrganization": "Organisation erstellen",
+    "manageOrganization": "Organisation verwalten",
+    "newOrganizationTitle": "My organization",
+    "organization": "Organization",
+    "organizationName": "Oragnization name",
+    "inviteUsers": "Invite users",
+    "admin": "Admin",
+    "removeUser": "Remove user"
 }
