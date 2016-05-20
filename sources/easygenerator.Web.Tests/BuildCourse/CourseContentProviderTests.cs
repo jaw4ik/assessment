@@ -36,6 +36,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private ITemplateStorage _templateStorage;
         private IEnumerable<PackageModule> _packageModules;
         private PackageMediaFetcher _packageMediaFetcher;
+        private IPackageFontsFetcher _packageFontsFetcher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -59,7 +60,8 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _templateStorage = Substitute.For<ITemplateStorage>();
             _packageMediaFetcher = Substitute.For<PackageMediaFetcher>(_buildPathProvider, _fileManager, new ElmahLog(), new FileDownloader());
-            _buildContentProvider = new CourseContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _templateStorage, _packageModelMapper, _packageMediaFetcher);
+            _packageFontsFetcher = Substitute.For<IPackageFontsFetcher>();
+            _buildContentProvider = new CourseContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _templateStorage, _packageModelMapper, _packageMediaFetcher, _packageFontsFetcher);
         }
 
         #region AddBuildContentToPackageDirectory

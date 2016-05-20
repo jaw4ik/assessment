@@ -17,13 +17,15 @@ namespace easygenerator.Web.BuildCourse
         private readonly ITemplateStorage _templateStorage;
         private readonly PackageModelMapper _packageModelMapper;
         private readonly PackageMediaFetcher _packageMediaFetcher;
+        private readonly IPackageFontsFetcher _packageFontsFetcher;
 
         public CourseContentProvider(PhysicalFileManager fileManager,
                                     CourseContentPathProvider buildPathProvider,
                                     PackageModelSerializer packageModelSerializer,
                                     ITemplateStorage templateStorage,
                                     PackageModelMapper packageModelMapper,
-                                    PackageMediaFetcher packageMediaFetcher)
+                                    PackageMediaFetcher packageMediaFetcher,
+                                    IPackageFontsFetcher packageFontsFetcher)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
@@ -31,6 +33,7 @@ namespace easygenerator.Web.BuildCourse
             _templateStorage = templateStorage;
             _packageModelMapper = packageModelMapper;
             _packageMediaFetcher = packageMediaFetcher;
+            _packageFontsFetcher = packageFontsFetcher;
         }
 
         public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, bool includeMedia = false)
@@ -42,6 +45,7 @@ namespace easygenerator.Web.BuildCourse
             if (includeMedia)
             {
                 _packageMediaFetcher.AddMediaFromCourseModel(buildDirectory, coursePackageModel);
+                _packageFontsFetcher.AddFontsToPackage(buildDirectory, course);
             }
 
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);
@@ -125,7 +129,7 @@ namespace easygenerator.Web.BuildCourse
 
         private static string GetEmptyJsonContent()
         {
-            return JsonConvert.SerializeObject(new {});
+            return JsonConvert.SerializeObject(new { });
         }
     }
 }

@@ -70,14 +70,30 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(buildDirectory, "media");
         }
 
+        public virtual string GetIncludedFontsDirectoryPath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "fonts");
+        }
+
         public virtual string GetNewImageWebPath(string absoluteImageFilePath)
         {
             return Path.Combine("media", Path.GetFileName(absoluteImageFilePath)).Replace("\\", "/");
         }
 
+        public virtual string GetFontWebPath(string fontFilePath)
+        {
+            return Path.Combine("fonts", Path.GetFileName(fontFilePath)).Replace("\\", "/");
+        }
+
         public virtual string GetNewImagePath(string mediaPath, string imageUrl)
         {
             return Path.Combine(mediaPath, Guid.NewGuid() + Path.GetExtension(new Uri(imageUrl).AbsolutePath));
+        }
+
+
+        public virtual string GetFontsStylesheetFilePath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "css", "fonts.css");
         }
     }
 }

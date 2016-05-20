@@ -112,6 +112,14 @@ namespace easygenerator.Infrastructure
             File.WriteAllBytes(path, content);
         }
 
+        public virtual void AppendToFile(string path, string content)
+        {
+            if (content == null)
+                throw new ArgumentException();
+
+            File.AppendAllText(path, content);
+        }
+
         public virtual string ReadAllFromFile(string fileName)
         {
             if (FileExists(fileName))

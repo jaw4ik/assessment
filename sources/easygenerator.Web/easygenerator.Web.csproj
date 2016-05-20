@@ -224,10 +224,14 @@
     <Compile Include="BuildCourse\BuildPathProvider.cs" />
     <Compile Include="BuildCourse\CourseBuilder.cs" />
     <Compile Include="BuildCourse\CourseBuilderBase.cs" />
+    <Compile Include="BuildCourse\FontsPathProvider.cs" />
+    <Compile Include="BuildCourse\GoogleFonts\GoogleFontsApiService.cs" />
+    <Compile Include="BuildCourse\GoogleFonts\Entities\GoogleFonts.cs" />
     <Compile Include="BuildCourse\ICourseContentProvider.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
+    <Compile Include="BuildCourse\PackageFontsFetcher.cs" />
     <Compile Include="BuildCourse\PackageMediaFetcher.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
@@ -294,6 +298,7 @@
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\BranchTrackConfigurationSection.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\GoogleFontsApiConfigurationSection.cs" />
     <Compile Include="Components\Configuration\IntercomConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
@@ -2468,6 +2473,14 @@
     <Content Include="Content\questionModalView.less" />
     <Content Include="Content\configure.less" />
     <Content Include="App\localization\lang\it.json" />
+    <Content Include="Content\google-fonts\badscript-regular.ttf" />
+    <Content Include="Content\google-fonts\ledger-regular.ttf" />
+    <Content Include="Content\google-fonts\opensans-regular.ttf" />
+    <Content Include="Content\google-fonts\ptsans-regular.ttf" />
+    <Content Include="Content\google-fonts\ptserif-regular.ttf" />
+    <Content Include="Content\google-fonts\roboto-regular.ttf" />
+    <Content Include="Content\google-fonts\robotomono-regular.ttf" />
+    <Content Include="Content\google-fonts\robotoslab-regular.ttf" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
