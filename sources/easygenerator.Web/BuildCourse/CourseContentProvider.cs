@@ -2,6 +2,7 @@
 using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
+using easygenerator.Web.BuildCourse.Fonts;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.Storage;

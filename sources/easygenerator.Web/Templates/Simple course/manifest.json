@@ -16,6 +16,15 @@
     "branding",
     "fonts"
   ],
+  "fonts": [
+    {
+        "fontFamily": "Advent Pro",
+        "variants": [
+            "100"
+        ],
+        "local": false
+    }
+  ],
   "presets": [
     {
       "title": "default",

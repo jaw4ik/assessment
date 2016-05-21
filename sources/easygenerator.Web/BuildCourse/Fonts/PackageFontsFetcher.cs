@@ -6,8 +6,9 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using Newtonsoft.Json.Linq;
+using easygenerator.Web.BuildCourse.Fonts.Entities;
 
-namespace easygenerator.Web.BuildCourse
+namespace easygenerator.Web.BuildCourse.Fonts
 {
     public interface IPackageFontsFetcher
     {
@@ -31,28 +32,68 @@ namespace easygenerator.Web.BuildCourse
 
         public void AddFontsToPackage(string buildDirectory, Course course)
         {
-            if (!TemplateSupportsCustomFonts(course.Template))
+            var manifest = JObject.Parse(_manifestFileManager.ReadManifest(course.Template));
+            if (manifest["supports"].ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
             {
-                return;
+                AddCustomFontsToPackage(buildDirectory, course);
             }
 
-            var fontsFolder = GetFolderForFonts(buildDirectory);
+            var fontsToLoad = new List<Font>();
 
+            var manifestFonts = manifest["fonts"]?.ToArray();
+            if (manifestFonts != null)
+            {
+                var manifestWasModified = false;
+                foreach (var font in manifestFonts)
+                {
+                    if (!font["local"].Value<bool>())
+                    {
+                        var fontFamilyName = font["fontFamily"].Value<string>();
+                        var fontVariantsToLoad =
+                            font["variants"].ToArray().Select(_ => new Font(fontFamilyName, _.Value<string>())).ToList();
+                        fontsToLoad.AddRange(fontVariantsToLoad);
+                        font["local"] = "true";
+                        manifestWasModified = true;
+                    }
+                }
+                if (manifestWasModified)
+                {
+                    _fileManager.WriteToFile(_buildPathProvider.GetManifestFilePath(buildDirectory), manifest.ToString());
+                }
+            }
+
+            AddFontsToThePackageAndToCss(buildDirectory, fontsToLoad);
+        }
+
+        private void AddCustomFontsToPackage(string buildDirectory, Course course)
+        {
             var courseSettings = course.GetTemplateSettings(course.Template);
-            List<string> fontsToAdd = new List<string>();
+            var fontsToAdd = new List<Font>();
 
             if (courseSettings != null)
             {
                 var settings = JObject.Parse(courseSettings);
                 var fonts = settings["fonts"].ToArray();
-                fontsToAdd.AddRange(fonts.Select(font => font["fontFamily"].Value<string>()).Distinct());
+                fontsToAdd.AddRange(fonts.Select(font => new Font(font["fontFamily"].Value<string>())).Distinct());
             }
 
             // as default we have to load Roboto Slab
             if (fontsToAdd.Count == 0)
             {
-                fontsToAdd.Add("Roboto Slab");
+                fontsToAdd.Add(new Font("Roboto Slab"));
             }
+
+            AddFontsToThePackageAndToCss(buildDirectory, fontsToAdd);
+        }
+
+        private void AddFontsToThePackageAndToCss(string buildDirectory, IEnumerable<Font> fontsToAdd)
+        {
+            if (!fontsToAdd.Any())
+            {
+                return;
+            }
+
+            var fontsFolder = GetFolderForFonts(buildDirectory);
 
             var includeFontsCssStringBuilder = new StringBuilder();
 
@@ -66,13 +107,6 @@ namespace easygenerator.Web.BuildCourse
             }
 
             _fileManager.AppendToFile(_buildPathProvider.GetFontsStylesheetFilePath(buildDirectory), includeFontsCssStringBuilder.ToString());
-        }
-
-        private bool TemplateSupportsCustomFonts(Template template)
-        {
-            var manifest = JObject.Parse(_manifestFileManager.ReadManifest(template));
-            var supportsFeatures = manifest["supports"].ToArray();
-            return supportsFeatures.Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase));
         }
 
         private string GetFolderForFonts(string buildDirectory)

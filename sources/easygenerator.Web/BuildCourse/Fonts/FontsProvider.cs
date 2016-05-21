@@ -1,18 +1,18 @@
 ﻿using System.IO;
 using easygenerator.Infrastructure;
-using easygenerator.Web.BuildCourse.GoogleFonts;
 using easygenerator.Web.Components;
+using easygenerator.Web.BuildCourse.Fonts.Entities;
 
-namespace easygenerator.Web.BuildCourse
+namespace easygenerator.Web.BuildCourse.Fonts
 {
     public class FontsProvider
     {
         private readonly HttpRuntimeWrapper _httpRuntimeWrapper;
         private readonly PhysicalFileManager _physicalFileManager;
-        private readonly GoogleFontsApiService _fontsApiService;
+        private readonly IFontsApiService _fontsApiService;
         private readonly CourseContentPathProvider _contentPathProvider;
 
-        public FontsProvider(HttpRuntimeWrapper httpRuntimeWrapper, PhysicalFileManager physicalFileManager, GoogleFontsApiService fontsApiService, CourseContentPathProvider contentPathProvider)
+        public FontsProvider(HttpRuntimeWrapper httpRuntimeWrapper, PhysicalFileManager physicalFileManager, IFontsApiService fontsApiService, CourseContentPathProvider contentPathProvider)
         {
             _httpRuntimeWrapper = httpRuntimeWrapper;
             _physicalFileManager = physicalFileManager;
@@ -20,32 +20,32 @@ namespace easygenerator.Web.BuildCourse
             _contentPathProvider = contentPathProvider;
         }
 
-        public string GetFontPath(string fontName)
+        public string GetFontPath(Font font)
         {
-            var fontFilePath = GetFontFilePath(fontName);
+            var fontFilePath = GetFontFilePath(font);
             if (!_physicalFileManager.FileExists(fontFilePath))
             {
-                _fontsApiService.DownloadFont(fontName, fontFilePath);
+                _fontsApiService.DownloadFont(font, fontFilePath);
             }
             return fontFilePath;
         }
 
-        public string GetIncludeFontCss(string fontName, string fontFilePath)
+        public string GetIncludeFontCss(Font font, string fontFilePath)
         {
             var fontWebPath = _contentPathProvider.GetFontWebPath(fontFilePath);
 
             return @"@font-face {
-                      font-family: '" + fontName + @"';
-                      font-weight: 400;
+                      font-family: '" + font.FontFamily + @"';
+                      font-weight: " + font.Weight + @";
                       font-style: normal;                      
-                      src: local('" + fontName + @" Regular'),                           
+                      src: local('" + font.FontFamily + @" Regular'),                           
                            url('" + fontWebPath + @"') format('truetype');
                     }";
         }
 
-        private string GetFontFilePath(string fontName)
+        private string GetFontFilePath(Font font)
         {
-            var fontFileName = $"{fontName.ToLower().Replace(" ", "")}-regular.ttf";
+            var fontFileName = $"{font.FontFamily.ToLower().Replace(" ", "")}-{font.Weight}.ttf";
             return Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), "Content", "google-fonts", fontFileName);
         }
     }

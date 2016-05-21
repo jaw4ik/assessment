@@ -34,6 +34,11 @@ namespace easygenerator.Infrastructure.Http
             return Deserialize<TResponse>(DoHttpAction(url, postJsonData, client => client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result, userName, password));
         }
 
+        public virtual string Get(string url, Dictionary<string, string> queryStringParameters)
+        {
+            return DoHttpAction(url, null, client => client.GetAsync(BuildUrl(url, queryStringParameters)).Result);
+        }
+
         public virtual TResponse Get<TResponse>(string url, Dictionary<string, string> queryStringParameters, string userName = null, string password = null)
         {
             return Deserialize<TResponse>(DoHttpAction(url, null, client => client.GetAsync(BuildUrl(url, queryStringParameters)).Result, userName, password));
