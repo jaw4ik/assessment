@@ -18,11 +18,11 @@
   ],
   "fonts": [
     {
-        "fontFamily": "Advent Pro",
+        "fontFamily": "Material Icons",
         "variants": [
-            "100"
+            "400"
         ],
-        "local": false
+        "local": true
     }
   ],
   "presets": [

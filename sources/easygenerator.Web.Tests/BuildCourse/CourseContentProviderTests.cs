@@ -15,6 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Linq;
 using easygenerator.Infrastructure.Net;
+using easygenerator.Web.BuildCourse.Fonts;
 using easygenerator.Web.Components.Elmah;
 
 namespace easygenerator.Web.Tests.BuildCourse

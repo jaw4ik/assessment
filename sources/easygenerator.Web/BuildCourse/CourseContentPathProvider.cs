@@ -82,7 +82,7 @@ namespace easygenerator.Web.BuildCourse
 
         public virtual string GetFontWebPath(string fontFilePath)
         {
-            return Path.Combine("fonts", Path.GetFileName(fontFilePath)).Replace("\\", "/");
+            return $"../fonts/{Path.GetFileName(fontFilePath)}";
         }
 
         public virtual string GetNewImagePath(string mediaPath, string imageUrl)

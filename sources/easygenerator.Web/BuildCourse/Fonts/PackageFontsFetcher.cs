@@ -33,66 +33,83 @@ namespace easygenerator.Web.BuildCourse.Fonts
         public void AddFontsToPackage(string buildDirectory, Course course)
         {
             var manifest = JObject.Parse(_manifestFileManager.ReadManifest(course.Template));
-            if (manifest["supports"].ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
+            var fontsToAdd = GetDesignTabFonts(manifest, course);
+            var templateFonts = GetTemplateFonts(manifest);
+
+            if (templateFonts.Any())
             {
-                AddCustomFontsToPackage(buildDirectory, course);
+                fontsToAdd.AddRange(templateFonts);
+                ChangeManifestToUseLocalFonts(manifest);
+                _fileManager.WriteToFile(_buildPathProvider.GetManifestFilePath(buildDirectory), manifest.ToString());
             }
 
-            var fontsToLoad = new List<Font>();
+            AddFontsToPackage(buildDirectory, fontsToAdd);
+        }
 
+        private List<Font> GetDesignTabFonts(JObject manifest, Course course)
+        {
+            var designTabFonts = new List<Font>();
+
+            if (manifest["supports"].ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
+            {
+                var courseSettings = course.GetTemplateSettings(course.Template);
+                if (courseSettings != null)
+                {
+                    var settings = JObject.Parse(courseSettings);
+                    var fonts = settings["fonts"].ToArray();
+                    designTabFonts.AddRange(fonts.Select(font => new Font(font["fontFamily"].Value<string>())));
+                }
+
+                // as default we have to load Roboto Slab
+                if (designTabFonts.Count == 0)
+                {
+                    designTabFonts.Add(new Font("Roboto Slab"));
+                }
+            }
+            return designTabFonts;
+        }
+
+        private List<Font> GetTemplateFonts(JObject manifest)
+        {
+            var templateFonts = new List<Font>();
             var manifestFonts = manifest["fonts"]?.ToArray();
+
             if (manifestFonts != null)
             {
-                var manifestWasModified = false;
                 foreach (var font in manifestFonts)
                 {
                     if (!font["local"].Value<bool>())
                     {
                         var fontFamilyName = font["fontFamily"].Value<string>();
-                        var fontVariantsToLoad =
-                            font["variants"].ToArray().Select(_ => new Font(fontFamilyName, _.Value<string>())).ToList();
-                        fontsToLoad.AddRange(fontVariantsToLoad);
-                        font["local"] = "true";
-                        manifestWasModified = true;
+                        var fontVariants = font["variants"].ToArray().Select(_ => new Font(fontFamilyName, _.Value<string>())).ToList();
+                        templateFonts.AddRange(fontVariants);
                     }
                 }
-                if (manifestWasModified)
+            }
+            return templateFonts;
+        }
+
+        private void ChangeManifestToUseLocalFonts(JObject manifest)
+        {
+            var manifestFonts = manifest["fonts"]?.ToArray();
+
+            if (manifestFonts != null)
+            {
+                foreach (var font in manifestFonts.Where(font => !font["local"].Value<bool>()))
                 {
-                    _fileManager.WriteToFile(_buildPathProvider.GetManifestFilePath(buildDirectory), manifest.ToString());
+                    font["local"] = "true";
                 }
             }
-
-            AddFontsToThePackageAndToCss(buildDirectory, fontsToLoad);
         }
 
-        private void AddCustomFontsToPackage(string buildDirectory, Course course)
-        {
-            var courseSettings = course.GetTemplateSettings(course.Template);
-            var fontsToAdd = new List<Font>();
-
-            if (courseSettings != null)
-            {
-                var settings = JObject.Parse(courseSettings);
-                var fonts = settings["fonts"].ToArray();
-                fontsToAdd.AddRange(fonts.Select(font => new Font(font["fontFamily"].Value<string>())).Distinct());
-            }
-
-            // as default we have to load Roboto Slab
-            if (fontsToAdd.Count == 0)
-            {
-                fontsToAdd.Add(new Font("Roboto Slab"));
-            }
-
-            AddFontsToThePackageAndToCss(buildDirectory, fontsToAdd);
-        }
-
-        private void AddFontsToThePackageAndToCss(string buildDirectory, IEnumerable<Font> fontsToAdd)
+        private void AddFontsToPackage(string buildDirectory, IEnumerable<Font> fontsToAdd)
         {
             if (!fontsToAdd.Any())
             {
                 return;
             }
 
+            fontsToAdd = fontsToAdd.Distinct();
             var fontsFolder = GetFolderForFonts(buildDirectory);
 
             var includeFontsCssStringBuilder = new StringBuilder();
@@ -103,7 +120,7 @@ namespace easygenerator.Web.BuildCourse.Fonts
                 _fileManager.CopyFileToDirectory(fontPath, fontsFolder);
 
                 var includeFontCss = _fontsProvider.GetIncludeFontCss(fontToAdd, fontPath);
-                includeFontsCssStringBuilder.Append(includeFontCss);
+                includeFontsCssStringBuilder.AppendLine(includeFontCss);
             }
 
             _fileManager.AppendToFile(_buildPathProvider.GetFontsStylesheetFilePath(buildDirectory), includeFontsCssStringBuilder.ToString());
