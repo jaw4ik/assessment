@@ -16,12 +16,16 @@ namespace easygenerator.Web.BuildCourse
         private readonly ILog _logger;
         private readonly FileDownloader _fileDownloader;
 
+        private Dictionary<string, string> loadedImages;
+
         public PackageMediaFetcher(CourseContentPathProvider buildPathProvider, PhysicalFileManager fileManager, ILog logger, FileDownloader fileDownloader)
         {
             _buildPathProvider = buildPathProvider;
             _fileManager = fileManager;
             _logger = logger;
             _fileDownloader = fileDownloader;
+
+            loadedImages = new Dictionary<string, string>();
         }
 
         public void AddMediaFromCourseModel(string buildDirectory, CoursePackageModel coursePackageModel)
@@ -79,21 +83,10 @@ namespace easygenerator.Web.BuildCourse
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlContent);
 
-            var imagesReplacements = new Dictionary<string, string>();
-
             foreach (var imageElement in doc.DocumentNode.Descendants("img"))
             {
                 var imageSource = imageElement.Attributes["src"].Value;
-                if (!imagesReplacements.ContainsKey(imageSource))
-                {
-                    var newImageUrl = DownloadImage(imageSource, folderForMedia);
-                    imageElement.Attributes["src"].Value = newImageUrl;
-                    imagesReplacements[imageSource] = newImageUrl;
-                }
-                else
-                {
-                    imageElement.Attributes["src"].Value = imagesReplacements[imageSource];
-                }
+                imageElement.Attributes["src"].Value = DownloadImage(imageSource, folderForMedia);
             }
 
             return doc.DocumentNode.OuterHtml;
@@ -103,9 +96,16 @@ namespace easygenerator.Web.BuildCourse
         {
             try
             {
+                if (loadedImages.ContainsKey(imageUrl)) {
+                    return loadedImages[imageUrl];
+                }
+
                 var newImagePath = _buildPathProvider.GetNewImagePath(folderForMedia, imageUrl);
                 _fileDownloader.DownloadFile(imageUrl, newImagePath);
-                return _buildPathProvider.GetNewImageWebPath(newImagePath);
+                var newImageWebPath = _buildPathProvider.GetNewImageWebPath(newImagePath);
+
+                loadedImages.Add(imageUrl, newImageWebPath);
+                return newImageWebPath;
             }
             catch (Exception e)
             {
