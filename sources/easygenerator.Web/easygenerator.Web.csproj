@@ -2489,6 +2489,9 @@
     <Content Include="Content\google-fonts\roboto-700.ttf" />
     <Content Include="Content\google-fonts\robotocondensed-400.ttf" />
     <Content Include="Content\google-fonts\robotoslab-700.ttf" />
+    <Content Include="Content\google-fonts\sourcesanspro-300.ttf" />
+    <Content Include="Content\google-fonts\sourcesanspro-400.ttf" />
+    <Content Include="Content\google-fonts\sourcesanspro-700.ttf" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
