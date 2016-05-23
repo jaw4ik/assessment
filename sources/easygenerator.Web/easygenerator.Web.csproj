@@ -2482,6 +2482,13 @@
     <Content Include="Content\google-fonts\roboto-400.ttf" />
     <Content Include="Content\google-fonts\robotomono-400.ttf" />
     <Content Include="Content\google-fonts\robotoslab-400.ttf" />
+    <Content Include="Content\google-fonts\lato-300.ttf" />
+    <Content Include="Content\google-fonts\roboto-100.ttf" />
+    <Content Include="Content\google-fonts\roboto-300.ttf" />
+    <Content Include="Content\google-fonts\roboto-500.ttf" />
+    <Content Include="Content\google-fonts\roboto-700.ttf" />
+    <Content Include="Content\google-fonts\robotocondensed-400.ttf" />
+    <Content Include="Content\google-fonts\robotoslab-700.ttf" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -3159,6 +3166,7 @@
     <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\design\layout.html" />
     <Content Include="Templates\Reader\app\main.js" />
+    <Content Include="Templates\Reader\css\fonts.css" />
     <Content Include="Templates\Reader\css\general.css" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
     <Content Include="Templates\Reader\css\img\browsers\chrome.png" />

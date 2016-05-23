@@ -49,8 +49,8 @@ namespace easygenerator.Web.BuildCourse.Fonts
         private List<Font> GetDesignTabFonts(JObject manifest, Course course)
         {
             var designTabFonts = new List<Font>();
-
-            if (manifest["supports"].ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
+            var supportFeatures = manifest["supports"];
+            if (supportFeatures != null && supportFeatures.ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
             {
                 var courseSettings = course.GetTemplateSettings(course.Template);
                 if (courseSettings != null)
