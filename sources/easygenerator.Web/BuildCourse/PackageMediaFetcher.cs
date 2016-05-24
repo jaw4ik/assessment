@@ -35,15 +35,15 @@ namespace easygenerator.Web.BuildCourse
             IncludeCourseContentMediaToPackage(coursePackageModel, folderForMedia);
         }
 
-        public string AddMediaFromSettings(string buildDirectory, string settings) {
+        public string AddMediaFromJson(string buildDirectory, string jsonContent) {
             var folderForMedia = GetFolderForMedia(buildDirectory);
 
-            var matches = Regex.Matches(settings, @"((http|ftp|https)*:*\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
+            var matches = Regex.Matches(jsonContent, @"((http|ftp|https)*:*\/\/[\w\-_]+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
                                .Cast<Match>()
                                .Select(match => match.Value)
                                .Distinct();
 
-            return matches.Aggregate(settings, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
+            return matches.Aggregate(jsonContent, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
         }
 
         private void IncludeCourseContentMediaToPackage(CoursePackageModel course, string folderForMedia)

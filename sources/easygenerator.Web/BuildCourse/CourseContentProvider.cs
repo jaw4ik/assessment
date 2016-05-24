@@ -50,13 +50,13 @@ namespace easygenerator.Web.BuildCourse
             }
 
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);
-            AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel);
+            AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel, includeMedia);
         }
         public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings, bool includeMedia = false)
         {
             if (settings != null && includeMedia)
             {
-                settings = _packageMediaFetcher.AddMediaFromSettings(buildDirectory, settings);
+                settings = _packageMediaFetcher.AddMediaFromJson(buildDirectory, settings);
             }
 
             _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory), settings ?? GetEmptyJsonContent());
@@ -123,9 +123,16 @@ namespace easygenerator.Web.BuildCourse
             }
         }
 
-        private void AddCourseDataFileToPackageDirectory(string buildDirectory, CoursePackageModel coursePackageModel)
+        private void AddCourseDataFileToPackageDirectory(string buildDirectory, CoursePackageModel coursePackageModel, bool includeMedia = false)
         {
-            _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildDirectory), _packageModelSerializer.Serialize(coursePackageModel));
+            var dataFileContent = _packageModelSerializer.Serialize(coursePackageModel);
+
+            if (includeMedia)
+            {
+                dataFileContent = _packageMediaFetcher.AddMediaFromJson(buildDirectory, dataFileContent);
+            }
+
+            _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildDirectory), dataFileContent);
         }
 
         private static string GetEmptyJsonContent()
