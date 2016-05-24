@@ -47,10 +47,19 @@ namespace easygenerator.Web.BuildCourse.Fonts.Google
                     }
                     else
                     {
-                        throw new ArgumentException($"Google doesn't have requested font (or its weight). Requested font family: {font.FontFamily}, weight: {font.Weight}.");
+                        ThrowFontNotFoundException(font);
                     }
                 }
+                else
+                {
+                    ThrowFontNotFoundException(font);
+                }
             }
+        }
+
+        private void ThrowFontNotFoundException(Font font)
+        {
+            throw new ArgumentException($"Google doesn't have requested font (or its weight). Requested font family: {font.FontFamily}, weight: {font.Weight}.");
         }
     }
 }

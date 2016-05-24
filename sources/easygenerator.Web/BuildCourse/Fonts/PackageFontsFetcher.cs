@@ -21,6 +21,7 @@ namespace easygenerator.Web.BuildCourse.Fonts
         private readonly PhysicalFileManager _fileManager;
         private readonly FontsProvider _fontsProvider;
         private readonly ManifestFileManager _manifestFileManager;
+        private static readonly IEnumerable<string> StandardFonts = new[] { "Arial", "Times new roman", "Verdana" };
 
         public PackageFontsFetcher(CourseContentPathProvider buildPathProvider, PhysicalFileManager fileManager, FontsProvider fontsProvider, ManifestFileManager manifestFileManager)
         {
@@ -104,6 +105,9 @@ namespace easygenerator.Web.BuildCourse.Fonts
 
         private void AddFontsToPackage(string buildDirectory, IEnumerable<Font> fontsToAdd)
         {
+            //remove standard fonts
+            fontsToAdd = fontsToAdd.Where(_ => !StandardFonts.Any(fontName => _.FontFamily.Equals(fontName, StringComparison.CurrentCultureIgnoreCase)));
+
             if (!fontsToAdd.Any())
             {
                 return;
