@@ -76,7 +76,8 @@ namespace easygenerator.Web.Controllers
                 showReleaseNote = releaseVersion != user.Settings.LastReadReleaseNote,
                 newEditor = user.Settings.NewEditor,
                 isCreatedThroughLti = user.Settings.IsCreatedThroughLti,
-                isNewEditorByDefault = user.Settings.IsNewEditorByDefault
+                isNewEditorByDefault = user.Settings.IsNewEditorByDefault,
+                includeMediaToPackage = user.Settings.IncludeMediaToPackage
             });
 
         }

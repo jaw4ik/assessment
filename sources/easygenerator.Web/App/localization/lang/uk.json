@@ -782,6 +782,17 @@
     "attach": "Застосувати",
     "themes": "Теми",
     "saveAsANewTheme": "Зберегти нову тему",
+    "myThemes": "Мої теми:",
+    "publicThemes": "Загальні теми:",
+    "unsavedTheme": "Нова тема",
+    "nameYourTheme": "Назвіть тему...",
+    "saveTheme": "Зберегти тему",
+    "unsavedChanges": "Є зміни, які не буди збережені",
+    "saveAsCurrentTheme": "Зберегти як поточну тему",
+    "unsavedChangesPopupTitle": "Є зміни в темі, які не буди збережені",
+    "unsavedChangesPopupHint": "Виберіть необхідну дію перед зміною теми",
+    "discardChanges": "Скасувати зміни",
+    "saveAsNew": "Зберегти як нову",
     "backToSettings": "Назад до налаштувань",
     "backToCourse": "Повернутись до курсу",
     "duplicateQuestion": "Дублювати питання",
@@ -870,5 +881,9 @@
     "organizationName": "Назва організації",
     "inviteUsers": "Запросити користувачів",
     "admin": "Адміністратор",
-    "removeUser": "Видалити користувача"
+    "removeUser": "Видалити користувача",
+    "fromYourOrganization": "з Вашої організації",
+    "wantAutoUserAddingByDomain": "Бажаєте автоматично додавати користувачів за e-mail доменом?",
+    "useSpaceCommaOrSemocolonBtwEmails": "Використовуйте пробіл, кому або двокрапку між e-mail адресами",
+    "sendInvites": "Надіслати запрошення"
 }

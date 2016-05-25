@@ -2,7 +2,7 @@
 
 import eventTracker from 'eventTracker';
 import constants from 'constants';
-import publish from 'viewmodels/courses/publishingActions/publish';
+import Publish from 'viewmodels/courses/publishingActions/publish';
 
 describe('publish course dialog [defaultPublish]', function () {
 
@@ -125,7 +125,7 @@ describe('publish course dialog [defaultPublish]', function () {
             activateDfr;
 
         beforeEach(function () {
-            publishAction = publish();
+            publishAction = new Publish();
             viewModel.publishAction = publishAction;
             activateDfr = Q.defer();
             spyOn(publishAction, 'activate').and.returnValue(activateDfr.promise);
@@ -153,7 +153,7 @@ describe('publish course dialog [defaultPublish]', function () {
             deactivateDfr;
 
         beforeEach(function () {
-            publishAction = publish();
+            publishAction = new Publish();
             viewModel.publishAction = publishAction;
             deactivateDfr = Q.defer();
             spyOn(publishAction, 'deactivate').and.returnValue(deactivateDfr.promise);

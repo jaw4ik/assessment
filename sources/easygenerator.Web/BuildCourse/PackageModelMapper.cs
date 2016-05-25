@@ -239,9 +239,9 @@ namespace easygenerator.Web.BuildCourse
             packageModel.Content = question.Content;
             packageModel.LearningContents =
                 (question.LearningContents ?? new Collection<LearningContent>()).Select(MapLearningContent).ToList();
-            packageModel.Feedback = question.Feedback ?? new Feedback();
             packageModel.HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText);
             packageModel.HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText);
+            packageModel.Feedback = new Feedback(question.Feedback.CorrectText, question.Feedback.IncorrectText);
             packageModel.VoiceOver = question.VoiceOver;
         }
 

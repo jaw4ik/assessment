@@ -2,9 +2,7 @@
     <div class="update-publication-control">
         <div class="update-publication-message">
             <div class="update-publication-message-image"></div>
-            <div class="update-publication-message-text" data-bind="localize: {text: 'updateChangedCourseDescription'}">
-                Apply the latest changes to the published course by clicking this button
-            </div>
+            <div class="update-publication-message-text" data-bind="localize: { text: 'updateChangedCourseDescription' }"></div>
         </div>
         <div class="update-publication-button-container">
             <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }, disable: isCourseDelivering() || !courseIsDirty()">

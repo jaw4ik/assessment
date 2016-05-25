@@ -782,6 +782,17 @@
     "attach": "Bevestig",
     "themes": "Thema's",
     "saveAsANewTheme": "Bewaar als nieuw thema",
+    "myThemes": "My themes:",
+    "publicThemes": "Public themes:",
+    "unsavedTheme": "Unsaved theme",
+    "nameYourTheme": "Name your theme...",
+    "saveTheme": "Save theme",
+    "unsavedChanges": "You have unsaved changes",
+    "saveAsCurrentTheme": "Save as a current theme",
+    "unsavedChangesPopupTitle": "You have unsaved changes in this theme",
+    "unsavedChangesPopupHint": "Choose necessary action before switching",
+    "discardChanges": "Discard changes",
+    "saveAsNew": "Save as new",
     "backToSettings": "Terug naar instellingen",
     "backToCourse": "Bewaar en terug",
     "duplicateQuestion": "Copy question",
@@ -870,5 +881,9 @@
     "organizationName": "Oragnization name",
     "inviteUsers": "Invite users",
     "admin": "Admin",
-    "removeUser": "Remove user"
+    "removeUser": "Remove user",
+    "fromYourOrganization": "from your organization",
+    "wantAutoUserAddingByDomain": "Want automatically adding by user mail domain?",
+    "useSpaceCommaOrSemocolonBtwEmails": "Use space, coma or semicolon between emails for multiple inviting",
+    "sendInvites": "Send invites"
 }

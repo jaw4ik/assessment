@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -62,6 +63,41 @@ namespace easygenerator.Web.BuildCourse
         public virtual string GetIncludedModulesDirectoryPath(string buildDirectory)
         {
             return Path.Combine(buildDirectory, "includedModules");
+        }
+
+        public virtual string GetIncludedMediaDirectoryPath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "media");
+        }
+
+        public virtual string GetIncludedFontsDirectoryPath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "fonts");
+        }
+
+        public virtual string GetNewImageWebPath(string absoluteImageFilePath)
+        {
+            return Path.Combine("media", Path.GetFileName(absoluteImageFilePath)).Replace("\\", "/");
+        }
+
+        public virtual string GetFontWebPath(string fontFilePath)
+        {
+            return $"../fonts/{Path.GetFileName(fontFilePath)}";
+        }
+
+        public virtual string GetNewImagePath(string mediaPath, string imageUrl)
+        {
+            return Path.Combine(mediaPath, Guid.NewGuid() + Path.GetExtension(new Uri(imageUrl).AbsolutePath));
+        }
+
+        public virtual string GetFontsStylesheetFilePath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "css", "fonts.css");
+        }
+
+        public virtual string GetManifestFilePath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "manifest.json");
         }
     }
 }

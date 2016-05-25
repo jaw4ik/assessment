@@ -16,6 +16,15 @@
     "branding",
     "fonts"
   ],
+  "fonts": [
+    {
+        "fontFamily": "Material Icons",
+        "variants": [
+            "400"
+        ],
+        "local": true
+    }
+  ],
   "presets": [
     {
       "title": "default",

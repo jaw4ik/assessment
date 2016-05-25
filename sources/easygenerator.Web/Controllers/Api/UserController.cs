@@ -230,5 +230,14 @@ namespace easygenerator.Web.Controllers.Api
             user.Settings.SwitchEditor(GetCurrentUsername());
             return JsonSuccess();
         }
+
+        [HttpPost]
+        [Route("api/user/switchincludemedia")]
+        public ActionResult SwitchIncludeMediaToPackage()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            user.Settings.SwitchIncludeMediaToPackage(GetCurrentUsername());
+            return JsonSuccess();
+        }
     }
 }

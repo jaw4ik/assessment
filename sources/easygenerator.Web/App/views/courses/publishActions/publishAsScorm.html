@@ -1,13 +1,13 @@
-﻿<div class="publish-tab-content" data-tab-content="scorm">
+﻿<div class="publish-tab-content scorm" data-tab-content="scorm">
     <div class="publish-tab-content-wrapper">
         <!-- ko if: userHasPublishAccess -->
-        <div class="publish-tab-container">
-            <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
+        <div class="publish-tab-default-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'downloadScorm12Package' }"></h2>
             <div class="publish-tab-action-content">
-                <p data-bind="localize: {text: 'scormCaptionFirst'}">Want to run your course on LMS or on your SCROM cloud?</p>
-                <p data-bind="localize: {text: 'scormCaptionSecond'}">We package up all the SCORM 1.2 package.</p>
+                <p data-bind="localize: { text: 'scormCaptionFirst' }"></p>
+                <p data-bind="localize: { text: 'scormCaptionSecond' }"></p>
             </div>
-            <button class="btn green publish-tab-btn" data-bind="click: downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : isPublishing()}">
+            <button class="btn green publish-tab-btn" data-bind="click: downloadCourse, css: { disabled: isCourseDelivering, progress: isPublishing }">
                 <!-- ko if: isPublishing() -->
                 <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
@@ -15,15 +15,31 @@
                 <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
             </button>
+            <div class="publish-settings" data-bind="css: { disabled: isPublishing }">
+                <div class="header" data-bind="localize: { text: 'settings' }"></div>
+                <div class="body">
+                    <div class="switch-toggle-slider small" data-bind="switchToggle: { value: includeMedia, onValueChanged: includeMediaModeChanged }">
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch-toggle-on"></div>
+                            <div class="switch-toogle-blob"></div>
+                            <div class="switch-toggle-off"></div>
+                        </div>
+                    </div>
+                    <div class="description" data-bind="css: { enabled: includeMedia }">
+                        <div class="title" data-bind="localize: { text: 'includeMediaTitle' }"></div>
+                        <div class="subtitle" data-bind="localize: { text: 'includeMediaSubtitle' }"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /ko -->
         <!-- ko ifnot: userHasPublishAccess -->
-        <div class="publish-tab-container">
+        <div class="publish-tab-centered-container">
             <span class="publish-tab-scorm-locked"></span>
-            <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'downloadScorm12Package' }"></h2>
             <div class="publish-tab-action-content scorm-locked">
-                <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
-                <a class="publish-tab-action-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
+                <span data-bind="localize: { text: 'youHaveTo' }"></span>
+                <a class="publish-tab-action-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }"></a>
                 <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }"></span>
             </div>
         </div>

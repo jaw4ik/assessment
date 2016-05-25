@@ -10,6 +10,12 @@ namespace easygenerator.DomainModel.Entities
     {
         public Feedback() { }
 
+        public Feedback(string correctText, string incorrectText)
+        {
+            CorrectText = correctText;
+            IncorrectText = incorrectText;
+        }
+
         public string CorrectText { get; set; }
 
         public string IncorrectText { get; set; }

@@ -13,16 +13,18 @@ namespace easygenerator.DomainModel.Entities
         {
         }
 
-        public UserSettings(string createdBy, string lastReadReleaseNote, bool isCreatedThroughLti, bool? newEditor, bool isNewEditorByDefault)
+        public UserSettings(string createdBy, string lastReadReleaseNote, bool isCreatedThroughLti, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
         :base(createdBy)
         {
             LastReadReleaseNote = lastReadReleaseNote;
             IsCreatedThroughLti = isCreatedThroughLti;
             NewEditor = newEditor;
             IsNewEditorByDefault = isNewEditorByDefault;
+            IncludeMediaToPackage = includeMediaToPackage;
         }
 
         public virtual User User { get; set; }
+
         public string LastReadReleaseNote { get; private set; }
         public virtual void UpdateLastReadReleaseNote(string lastReadReleaseNote, string modifiedBy)
         {
@@ -32,6 +34,7 @@ namespace easygenerator.DomainModel.Entities
             LastReadReleaseNote = lastReadReleaseNote;
             MarkAsModified(modifiedBy);
         }
+
         public bool? NewEditor { get; private set; }
         public virtual void SwitchEditor(string modifiedBy)
         {
@@ -46,7 +49,17 @@ namespace easygenerator.DomainModel.Entities
             }
             MarkAsModified(modifiedBy);
         }
+
         public bool IsCreatedThroughLti { get; private set; }
         public bool IsNewEditorByDefault { get; private set; }
+
+        public bool IncludeMediaToPackage { get; private set; }
+        public void SwitchIncludeMediaToPackage(string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            IncludeMediaToPackage = !IncludeMediaToPackage;
+            MarkAsModified(modifiedBy);
+        }
     }
 }

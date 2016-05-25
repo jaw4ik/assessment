@@ -1,180 +1,165 @@
-﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'plugins/router', 'clientContext', 'repositories/courseRepository'],
-    function (constants, publishingAction, app, notify, eventTracker, router, clientContext, repository) {
+﻿import constants from 'constants';
+import app from 'durandal/app';
+import notify from 'notify';
+import eventTracker from 'eventTracker';
+import router from 'plugins/router';
+import clientContext from 'clientContext';
+import repository from 'repositories/courseRepository';
+import _ from 'underscore';
+import ko from 'knockout';
+import PublishingAction from './publishingAction';
 
-        var events = {
-            publishCourse: 'Publish course',
-            copyEmbedCode: 'Copy embed code',
-            copyPublishLink: 'Copy publish link'
-        };
+const events = {
+    publishCourse: 'Publish course',
+    copyEmbedCode: 'Copy embed code',
+    copyPublishLink: 'Copy publish link'
+};
 
-        var ctor = function (eventCategory) {
+export default class extends PublishingAction {
+    constructor(eventCategory) {
+        super();
 
-            var viewModel = publishingAction(),
-                baseActivate = viewModel.activate;
+        this.eventCategory = eventCategory;
+        this.isPublishing = ko.computed(() => this.state() === constants.publishingStates.building || this.state() === constants.publishingStates.publishing, this);
+        this.courseIsDirty = ko.observable();
+        this.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
+        this.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
+        this.embedCode = ko.observable();
+        this.linkCopied = ko.observable(false);
+        this.embedCodeCopied = ko.observable(false);
+        this.copyBtnDisabled = ko.observable(false);
+        this.subscriptions = [];
+        this.embedCode = ko.computed({
+            read: () => {
+                clientContext.set(constants.frameSize.width.name, this.frameWidth());
+                clientContext.set(constants.frameSize.height.name, this.frameHeight());
+                return this.getEmbedCode();
+            },
+            write: () => {}
+        }, this);
+    }
 
-            viewModel.isPublishing = ko.computed(function () {
-                return this.state() === constants.publishingStates.building || this.state() === constants.publishingStates.publishing;
-            }, viewModel);
+    async activate(courseId) {
+        let course = await repository.getById(courseId);
+        
+        super.activate(course, course.publish);
 
-            viewModel.publishCourse = publishCourse;
-            viewModel.openPublishedCourse = openPublishedCourse;
+        this.courseIsDirty(course.isDirty);
+        this.linkCopied(false);
+        this.embedCodeCopied(false);
+        this.copyBtnDisabled(false);
 
-            viewModel.courseBuildStarted = courseBuildStarted;
-            viewModel.courseBuildFailed = courseBuildFailed;
-            viewModel.coursePublishStarted = coursePublishStarted;
-            viewModel.coursePublishCompleted = coursePublishCompleted;
-            viewModel.coursePublishFailed = coursePublishFailed;
-            viewModel.courseStateChanged = courseStateChanged;
+        this.subscribe(constants.messages.course.build.started, this.courseBuildStarted);
+        this.subscribe(constants.messages.course.build.failed, this.courseBuildFailed);
 
-            viewModel.courseIsDirty = ko.observable();
+        this.subscribe(constants.messages.course.publish.started, this.coursePublishStarted);
+        this.subscribe(constants.messages.course.publish.completed, this.coursePublishCompleted);
+        this.subscribe(constants.messages.course.publish.failed, this.coursePublishFailed);
+        this.subscribe(constants.messages.course.stateChanged + courseId, this.courseStateChanged);
+    }
 
-            viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
-            viewModel.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
-            viewModel.embedCode = ko.observable();
-            viewModel.validateFrameWidth = validateFrameWidth;
-            viewModel.validateFrameHeight = validateFrameHeight;
+    validateFrameWidth() {
+        if (!this.frameWidth() || this.frameWidth() == 0) {
+            this.frameWidth(constants.frameSize.width.value);
+        }
+    }
 
-            viewModel.linkCopied = ko.observable(false);
-            viewModel.copyLinkToClipboard = copyLinkToClipboard;
-            viewModel.embedCodeCopied = ko.observable(false);
-            viewModel.copyEmbedCodeToClipboard = copyEmbedCodeToClipboard;
+    validateFrameHeight() {
+        if (!this.frameHeight() || this.frameHeight() == 0) {
+            this.frameHeight(constants.frameSize.height.value);
+        }
+    }
 
-            viewModel.copyBtnDisabled = ko.observable(false);
-            viewModel.activate = activate;
-            viewModel.subscriptions = [];
+    copyLinkToClipboard() {
+        eventTracker.publish(events.copyPublishLink, this.eventCategory);
+        this.copyToClipboard(this.linkCopied);
+    }
 
-            viewModel.embedCode = ko.computed({
-                read: function () {
-                    clientContext.set(constants.frameSize.width.name, viewModel.frameWidth());
-                    clientContext.set(constants.frameSize.height.name, viewModel.frameHeight());
-                    return constants.embedCode.replace('{W}', viewModel.frameWidth()).replace('{H}', viewModel.frameHeight()).replace('{src}', viewModel.packageUrl());
-                },
-                write: function () { }
-            });
+    copyEmbedCodeToClipboard() {
+        eventTracker.publish(events.copyEmbedCode, this.eventCategory);
+        this.copyToClipboard(this.embedCodeCopied);
+    }
 
-            return viewModel;
+    copyToClipboard(value) {
+        value(true);
+        _.delay(() => value(false), constants.copyToClipboardWait);
+    }
 
-            function activate(courseId) {
-                return repository.getById(courseId).then(function (course) {
-                    baseActivate(course, course.publish);
+    getEmbedCode() {
+        return constants.embedCode.replace('{W}', this.frameWidth()).replace('{H}', this.frameHeight()).replace('{src}', this.packageUrl());
+    }
 
-                    viewModel.eventCategory = eventCategory;
-                    viewModel.courseIsDirty(course.isDirty);
-                    viewModel.linkCopied(false);
-                    viewModel.embedCodeCopied(false);
-                    viewModel.copyBtnDisabled(false);
+    async publishCourse() {
+        if (this.isCourseDelivering()) {
+            return;
+        }
 
-                    viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
-                    viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
+        eventTracker.publish(events.publishCourse, this.eventCategory);
 
-                    viewModel.subscribe(constants.messages.course.publish.started, viewModel.coursePublishStarted);
-                    viewModel.subscribe(constants.messages.course.publish.completed, viewModel.coursePublishCompleted);
-                    viewModel.subscribe(constants.messages.course.publish.failed, viewModel.coursePublishFailed);
-                    viewModel.subscribe(constants.messages.course.stateChanged + courseId, viewModel.courseStateChanged);
-                }).fail(function () { });
-            }
+        try {
+            let course = await repository.getById(this.courseId);
+            await course.publish();
+        } catch (e) {
+            notify.error(e);
+        }
+    }
 
-            function validateFrameWidth() {
-                if (!viewModel.frameWidth() || viewModel.frameWidth() == 0) {
-                    viewModel.frameWidth(constants.frameSize.width.value);
-                }
-            }
+    openPublishedCourse() {
+        if (this.packageExists()) {
+            router.openUrl(this.packageUrl());
+        }
+    }
 
-            function validateFrameHeight() {
-                if (!viewModel.frameHeight() || viewModel.frameHeight() == 0) {
-                    viewModel.frameHeight(constants.frameSize.height.value);
-                }
-            }
+    //#region App-wide events
 
-            function copyLinkToClipboard() {
-                eventTracker.publish(events.copyPublishLink, viewModel.eventCategory);
-                copyToClipboard(viewModel.linkCopied);
-            }
+    courseStateChanged(state) {
+        this.courseIsDirty(state.isDirty);
+    }
 
-            function copyEmbedCodeToClipboard() {
-                eventTracker.publish(events.copyEmbedCode, viewModel.eventCategory);
-                copyToClipboard(viewModel.embedCodeCopied);
-            }
+    courseBuildStarted(course) {
+        if (course.id !== this.courseId || course.publish.state !== constants.publishingStates.building) {
+            return;
+        }
 
-            function copyToClipboard(value) {
-                value(true);
-                _.delay(function () {
-                    value(false);
-                }, constants.copyToClipboardWait);
-            }
+        this.state(constants.publishingStates.building);
+    }
 
-            function getEmbedCode() {
-                return constants.embedCode.replace('{W}', viewModel.frameWidth()).replace('{H}', viewModel.frameHeight()).replace('{src}', viewModel.packageUrl());
-            }
+    courseBuildFailed(course) {
+        if (course.id !== this.courseId || course.publish.state !== constants.publishingStates.failed) {
+            return;
+        }
 
-            function publishCourse() {
-                if (viewModel.isCourseDelivering())
-                    return undefined;
+        this.state(constants.publishingStates.failed);
+        this.packageUrl('');
+        this.embedCode('');
+    }
 
-                eventTracker.publish(events.publishCourse, viewModel.eventCategory);
-                return repository.getById(viewModel.courseId).then(function (course) {
-                    return course.publish().fail(function (message) {
-                        notify.error(message);
-                    });
-                });
-            }
+    coursePublishStarted(course) {
+        if (course.id !== this.courseId) {
+            return;
+        }
 
-            function openPublishedCourse() {
-                if (viewModel.packageExists()) {
-                    router.openUrl(viewModel.packageUrl());
-                }
-            }
+        this.state(constants.publishingStates.publishing);
+    }
 
-            //#region App-wide events
+    coursePublishCompleted(course) {
+        if (course.id !== this.courseId) {
+            return;
+        }
 
-            function courseStateChanged(state) {
-                viewModel.courseIsDirty(state.isDirty);
-            }
+        this.state(constants.publishingStates.succeed);
+        this.packageUrl(course.publish.packageUrl);
+        this.embedCode(this.getEmbedCode());
+    }
 
-            function courseBuildStarted(course) {
-                if (course.id !== viewModel.courseId || course.publish.state !== constants.publishingStates.building)
-                    return;
+    coursePublishFailed(course) {
+        if (course.id !== this.courseId) {
+            return;
+        }
 
-                viewModel.state(constants.publishingStates.building);
-            };
+        this.state(constants.publishingStates.failed);
+        this.packageUrl('');
+    }
 
-            function courseBuildFailed(course) {
-                if (course.id !== viewModel.courseId || course.publish.state !== constants.publishingStates.failed)
-                    return;
-
-                viewModel.state(constants.publishingStates.failed);
-                viewModel.packageUrl('');
-                viewModel.embedCode('');
-            };
-
-            function coursePublishStarted(course) {
-                if (course.id !== viewModel.courseId)
-                    return;
-
-                viewModel.state(constants.publishingStates.publishing);
-            };
-
-            function coursePublishCompleted(course) {
-                if (course.id !== viewModel.courseId)
-                    return;
-
-                viewModel.state(constants.publishingStates.succeed);
-                viewModel.packageUrl(course.publish.packageUrl);
-                viewModel.embedCode(getEmbedCode());
-            };
-
-            function coursePublishFailed(course) {
-                if (course.id !== viewModel.courseId)
-                    return;
-
-                viewModel.state(constants.publishingStates.failed);
-                viewModel.packageUrl('');
-            };
-
-            //#endregion
-
-        };
-
-        return ctor;
-
-    });
+    //#endregion
+}

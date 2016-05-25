@@ -12,6 +12,36 @@
     },
     "configure": "settings/configure/configure.html"
   },
+  "fonts": [
+    {
+        "fontFamily": "Roboto",
+        "variants": [
+            "500", "400", "300", "100", "700"
+        ],
+        "local": false
+    },
+    {
+        "fontFamily": "Roboto Condensed",
+        "variants": [
+            "400"
+        ],
+        "local": false
+    },
+    {
+        "fontFamily": "Roboto Slab",
+        "variants": [
+            "400", "700"
+        ],
+        "local": false
+    },
+    {
+        "fontFamily": "Lato",
+        "variants": [
+            "300"
+        ],
+        "local": false
+    }
+  ],
   "progressTrackable": false,
   "languages": [
     {

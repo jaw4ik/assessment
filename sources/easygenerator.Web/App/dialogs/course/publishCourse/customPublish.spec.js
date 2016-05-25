@@ -1,6 +1,6 @@
 ﻿import viewModel from './customPublish';
 
-import publishToCustomLms from 'viewmodels/courses/publishingActions/publishToCustomLms';
+import PublishToCustomLms from 'viewmodels/courses/publishingActions/publishToCustomLms';
 
 describe('course publish dialog [customPublish]', function () {
 
@@ -19,7 +19,7 @@ describe('course publish dialog [customPublish]', function () {
             activateDfr;
 
         beforeEach(function () {
-            publishAction = publishToCustomLms();
+            publishAction = new PublishToCustomLms();
             viewModel.publishAction = publishAction;
             activateDfr = Q.defer();
             spyOn(publishAction, 'activate').and.returnValue(activateDfr.promise);
@@ -46,7 +46,7 @@ describe('course publish dialog [customPublish]', function () {
             deactivateDfr;
 
         beforeEach(function () {
-            publishAction = publishToCustomLms();
+            publishAction = new PublishToCustomLms();
             viewModel.publishAction = publishAction;
             deactivateDfr = Q.defer();
             spyOn(publishAction, 'deactivate').and.returnValue(deactivateDfr.promise);

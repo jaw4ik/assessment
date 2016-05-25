@@ -145,5 +145,13 @@ namespace easygenerator.Web.Components.Configuration
         {
             get { return Convert.ToBoolean(ConfigurationManager.AppSettings["ImageLibraryOnlyHttps"]); }
         }
+
+        public virtual GoogleFontsApiConfigurationSection GoogleFontsApiConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("googleFontsApi") as GoogleFontsApiConfigurationSection;
+            }
+        }
     }
 }

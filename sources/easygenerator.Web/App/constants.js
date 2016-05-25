@@ -321,6 +321,9 @@ export default {
         branchtrack: {
             projectSelected: 'branchtrack:projectSelected',
             dialogClosed: 'branchtrack:dialogClosed'
+        },
+        includeMedia: {
+            modeChanged: 'includeMedia:modeChanged'
         }
     },
 

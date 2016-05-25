@@ -32,11 +32,11 @@
         function buildingAction(actionHandler, packageUrl) {
             var course = this;
 
-            var self = function () {
+            var self = function (includeMedia) {
                 course.isDelivering = true;
                 app.trigger(constants.messages.course.delivering.started, course);
 
-                return actionHandler.call(course, self)
+                return actionHandler.call(course, self, includeMedia)
                     .fin(function () {
                         course.isDelivering = false;
                         app.trigger(constants.messages.course.delivering.finished, course);
@@ -54,8 +54,8 @@
         function deliveringAction(actionHandler, packageUrl) {
             var course = this;
 
-            return buildingAction.call(course, function (action) {
-                return buildPackage.call(course, action).then(function (buildInfo) {
+            return buildingAction.call(course, function (action, includeMedia) {
+                return buildPackage.call(course, action, includeMedia).then(function (buildInfo) {
                     return actionHandler.call(course, action, buildInfo);
                 });
             }, packageUrl);
@@ -65,7 +65,7 @@
             return this._lastState;
         }
 
-        function buildPackage(action) {
+        function buildPackage(action, includeMedia) {
             var that = this;
             return Q.fcall(function () {
                 if (action.state === constants.publishingStates.building) {
@@ -75,7 +75,7 @@
                 action.setState(constants.publishingStates.building);
                 app.trigger(constants.messages.course.build.started, that);
 
-                return publishService.buildCourse(that.id).then(function (buildInfo) {
+                return publishService.buildCourse(that.id, includeMedia).then(function (buildInfo) {
                     that.builtOn = buildInfo.builtOn;
 
                     action.setState(constants.publishingStates.succeed);
@@ -106,7 +106,7 @@
             });
         }
 
-        function scormBuildActionHandler(action) {
+        function scormBuildActionHandler(action, includeMedia) {
             var that = this;
             return Q.fcall(function () {
                 if (action.state === constants.publishingStates.building) {
@@ -116,7 +116,7 @@
                 action.setState(constants.publishingStates.building);
                 app.trigger(constants.messages.course.scormBuild.started, that);
 
-                return publishService.scormBuildCourse(that.id).then(function (buildInfo) {
+                return publishService.scormBuildCourse(that.id, includeMedia).then(function (buildInfo) {
                     action.packageUrl = buildInfo.scormPackageUrl;
 
                     action.setState(constants.publishingStates.succeed);

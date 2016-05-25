@@ -2,8 +2,8 @@
     function (publishHttpWrapper) {
         "use strict";
 
-        function buildCourse(courseId) {
-            return publishHttpWrapper.post('api/course/build', { courseId: courseId }).then(function (data) {
+        function buildCourse(courseId, includeMedia) {
+            return publishHttpWrapper.post('api/course/build', { courseId: courseId, includeMedia: includeMedia }).then(function (data) {
                 return {
                     packageUrl: data.PackageUrl,
                     builtOn: new Date(data.BuildOn)
@@ -19,8 +19,8 @@
             });
         };
 
-        function scormBuildCourse(courseId) {
-            return publishHttpWrapper.post('api/course/scormbuild', { courseId: courseId }).then(function (data) {
+        function scormBuildCourse(courseId, includeMedia) {
+            return publishHttpWrapper.post('api/course/scormbuild', { courseId: courseId, includeMedia: includeMedia }).then(function (data) {
                 return {
                     scormPackageUrl: data.ScormPackageUrl
                 };

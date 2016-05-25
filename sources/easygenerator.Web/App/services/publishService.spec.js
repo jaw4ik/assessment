@@ -26,13 +26,39 @@ describe('service [publishCourse]', function () {
             expect(promise).toBePromise();
         });
 
-        it('should send request', function (done) {
-            post.resolve({});
+        let includeMediaToPackage;
+        describe('when includeMedia false', () => {
+        
+            beforeEach(() => {
+                includeMediaToPackage = false;
+            });
 
-            var promise = service.buildCourse(course.id);
-            promise.fin(done);
+            it('should send request with includeMedia false', function (done) {
+                post.resolve({});
 
-            expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id });
+                var promise = service.buildCourse(course.id, includeMediaToPackage);
+                promise.fin(done);
+
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage });
+            });
+        
+        });
+
+        describe('when includeMedia true', () => {
+        
+            beforeEach(() => {
+                includeMediaToPackage = true;
+            });
+
+            it('should send request with includeMedia true', function (done) {
+                post.resolve({});
+
+                var promise = service.buildCourse(course.id, includeMediaToPackage);
+                promise.fin(done);
+
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage });
+            });
+        
         });
 
         describe('and send request to server', function () {
@@ -73,13 +99,39 @@ describe('service [publishCourse]', function () {
             expect(promise).toBePromise();
         });
 
-        it('should send request', function (done) {
-            post.resolve({});
-            var promise = service.scormBuildCourse(course.id);
-            promise.fin(function () {
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id });
-                done();
+        let includeMediaToPackage;
+        describe('when includeMedia false', () => {
+        
+            beforeEach(() => {
+                includeMediaToPackage = false;
             });
+
+            it('should send request with includeMedia false', function (done) {
+                post.resolve({});
+                var promise = service.scormBuildCourse(course.id, includeMediaToPackage);
+                promise.fin(function () {
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id, includeMedia: includeMediaToPackage });
+                    done();
+                });
+            });
+        
+        });
+
+        describe('when includeMedia true', () => {
+        
+            beforeEach(() => {
+                includeMediaToPackage = true;
+            });
+
+            it('should send request with includeMedia true', function (done) {
+                post.resolve({});
+                var promise = service.scormBuildCourse(course.id, includeMediaToPackage);
+                promise.fin(function () {
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id, includeMedia: includeMediaToPackage });
+                    done();
+                });
+            });
+        
         });
 
         describe('and send request to server', function () {

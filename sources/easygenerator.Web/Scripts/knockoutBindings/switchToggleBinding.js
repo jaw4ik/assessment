@@ -5,7 +5,7 @@
             viewModel = switchToggle.viewModel(element, speed),
             valueChangedHandler = valueAccessor().onValueChanged,
             onClickHandler = valueAccessor().onClick,
-            value = ko.unwrap(valueAccessor().value());
+            value = ko.unwrap(valueAccessor().value);
 
         viewModel.setInitialValue(value);
 
@@ -15,10 +15,12 @@
             } else {
                 viewModel.toggle();
 
-                var currentValue = ko.unwrap(valueAccessor().value());
-                valueAccessor().value(!currentValue);
+                var newValue = !ko.unwrap(valueAccessor().value);
+                valueAccessor().value(newValue);
 
-                valueChangedHandler();
+                if (typeof valueChangedHandler === 'function') {
+                    valueChangedHandler(newValue);
+                }
             }
         });
     },
@@ -26,7 +28,7 @@
     update: function (element, valueAccessor) {
         var speed = valueAccessor().speed || 250,
             viewModel = ko.bindingHandlers.switchToggle.viewModel(element, speed),
-            value = ko.unwrap(valueAccessor().value());
+            value = ko.unwrap(valueAccessor().value);
 
         viewModel.updateValue(value);
     },

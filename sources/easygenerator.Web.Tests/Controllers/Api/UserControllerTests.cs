@@ -654,7 +654,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region UpdateLastReadReleaseNoteVersion
+        #region SwitchEditor
 
         [TestMethod]
         public void SwitchEditor_ShouldSwitchEditor()
@@ -676,6 +676,34 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
             
             var result = _controller.SwitchEditor();
+
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
+
+        #region SwitchIncludeMediaToPackage
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldSwitchIncludeMediaToPackage()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            _controller.SwitchIncludeMediaToPackage();
+
+            user.Settings.IncludeMediaToPackage.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldReturnJsonSuccessResult()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            var result = _controller.SwitchIncludeMediaToPackage();
 
             result.Should().BeJsonSuccessResult();
         }

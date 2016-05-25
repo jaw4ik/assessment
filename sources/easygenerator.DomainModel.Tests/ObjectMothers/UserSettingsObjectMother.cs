@@ -17,9 +17,10 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             string lastReadReleaseNote = LastReadReleaseNote,
             bool? newEditor = null,
             bool isCreatedThroughLti = false, 
-            bool isNewEditorByDefault = true)
+            bool isNewEditorByDefault = true,
+            bool includeMediaToPackage = false)
         {
-            return new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault);
+            return new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault, includeMediaToPackage);
         }
     }
 }

@@ -74,6 +74,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="IntercomDotNet">
       <HintPath>..\..\packages\intercom-dotnet.2.0.4\lib\net45\IntercomDotNet.dll</HintPath>
       <Private>True</Private>
@@ -220,10 +224,16 @@
     <Compile Include="BuildCourse\BuildPathProvider.cs" />
     <Compile Include="BuildCourse\CourseBuilder.cs" />
     <Compile Include="BuildCourse\CourseBuilderBase.cs" />
+    <Compile Include="BuildCourse\Fonts\Entities\Font.cs" />
+    <Compile Include="BuildCourse\Fonts\FontsProvider.cs" />
+    <Compile Include="BuildCourse\Fonts\Google\GoogleFontsApiService.cs" />
+    <Compile Include="BuildCourse\Fonts\IFontsApiService.cs" />
     <Compile Include="BuildCourse\ICourseContentProvider.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
+    <Compile Include="BuildCourse\Fonts\PackageFontsFetcher.cs" />
+    <Compile Include="BuildCourse\PackageMediaFetcher.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextPackageModel.cs" />
@@ -289,6 +299,7 @@
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\BranchTrackConfigurationSection.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\GoogleFontsApiConfigurationSection.cs" />
     <Compile Include="Components\Configuration\IntercomConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
@@ -658,6 +669,7 @@
     <Content Include="App\audio\vimeo\commands\pull.spec.js">
       <DependentUpon>pull.js</DependentUpon>
     </Content>
+    <Content Include="App\binder.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\stringExtensionsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
@@ -2462,6 +2474,24 @@
     <Content Include="Content\questionModalView.less" />
     <Content Include="Content\configure.less" />
     <Content Include="App\localization\lang\it.json" />
+    <Content Include="Content\google-fonts\badscript-400.ttf" />
+    <Content Include="Content\google-fonts\ledger-400.ttf" />
+    <Content Include="Content\google-fonts\opensans-400.ttf" />
+    <Content Include="Content\google-fonts\ptsans-400.ttf" />
+    <Content Include="Content\google-fonts\ptserif-400.ttf" />
+    <Content Include="Content\google-fonts\roboto-400.ttf" />
+    <Content Include="Content\google-fonts\robotomono-400.ttf" />
+    <Content Include="Content\google-fonts\robotoslab-400.ttf" />
+    <Content Include="Content\google-fonts\lato-300.ttf" />
+    <Content Include="Content\google-fonts\roboto-100.ttf" />
+    <Content Include="Content\google-fonts\roboto-300.ttf" />
+    <Content Include="Content\google-fonts\roboto-500.ttf" />
+    <Content Include="Content\google-fonts\roboto-700.ttf" />
+    <Content Include="Content\google-fonts\robotocondensed-400.ttf" />
+    <Content Include="Content\google-fonts\robotoslab-700.ttf" />
+    <Content Include="Content\google-fonts\sourcesanspro-300.ttf" />
+    <Content Include="Content\google-fonts\sourcesanspro-400.ttf" />
+    <Content Include="Content\google-fonts\sourcesanspro-700.ttf" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -3139,6 +3169,7 @@
     <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\design\layout.html" />
     <Content Include="Templates\Reader\app\main.js" />
+    <Content Include="Templates\Reader\css\fonts.css" />
     <Content Include="Templates\Reader\css\general.css" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
     <Content Include="Templates\Reader\css\img\browsers\chrome.png" />
@@ -3203,17 +3234,16 @@
     <Content Include="Templates\Simple course\css\img\browsers\firefox.png" />
     <Content Include="Templates\Simple course\css\img\browsers\ie.png" />
     <Content Include="Templates\Simple course\css\img\browsers\safari.png" />
+    <Content Include="Templates\Simple course\css\img\default-bkg.jpg" />
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-browser-bg.png" />
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-logo.png" />
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-top-part-bg.png" />
-    <Content Include="Templates\Simple course\css\img\loader.gif" />
     <Content Include="Templates\Simple course\css\img\pdf\pdf-button-bkg.png" />
     <Content Include="Templates\Simple course\css\img\pdf\pdf-button-default.png" />
     <Content Include="Templates\Simple course\css\img\pdf\pdf-button-error.png" />
     <Content Include="Templates\Simple course\css\img\pdf\pdf-button-proggress.gif" />
     <Content Include="Templates\Simple course\css\img\review-sprites.png" />
-    <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
-    <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
+    <Content Include="Templates\Simple course\css\img\single-select-image-anwer.png" />
     <Content Include="Templates\Simple course\css\vendor.css" />
     <Content Include="Templates\Simple course\index.html" />
     <Content Include="Templates\Simple course\js\less.min.js" />
@@ -3247,7 +3277,6 @@
     <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Simple course\settings\configure\css\img\preview-templates-sprite.png" />
     <Content Include="Templates\Simple course\settings\configure\css\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />

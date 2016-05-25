@@ -1,4 +1,4 @@
-﻿import publish from './publish';
+﻿import Publish from './publish';
 
 import app from 'durandal/app';
 import constants from 'constants';
@@ -21,7 +21,7 @@ describe('course delivering action [publish]', function () {
     var course = { id: 'someId', isDelivering: true, publish: action, isDirty: true };
 
     beforeEach(function () {
-        viewModel = publish(eventCategory);
+        viewModel = new Publish(eventCategory);
         course.publish.packageUrl = 'packageUrl';
         spyOn(eventTracker, 'publish');
         spyOn(notify, 'hide');
@@ -222,157 +222,103 @@ describe('course delivering action [publish]', function () {
                 getByIdDefer.resolve(course);
             });
 
-            it('should set state', function (done) {
+            it('should set state', done => (async () => {
                 viewModel.state('');
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.state()).toBe(action.state);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.state()).toBe(action.state);
+            })().then(done));
 
-            it('should set eventCategory', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.eventCategory).toBe(eventCategory);
-                    done();
-                });
-            });
+            it('should set eventCategory', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(viewModel.eventCategory).toBe(eventCategory);
+            })().then(done));
 
-            it('should set packageUrl', function (done) {
+            it('should set packageUrl', done => (async () => {
                 viewModel.packageUrl('');
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.packageUrl()).toBe(action.packageUrl);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.packageUrl()).toBe(action.packageUrl);
+            })().then(done));
 
-            it('should set isCourseDelivering', function (done) {
+            it('should set isCourseDelivering', done => (async () => {
                 viewModel.isCourseDelivering(false);
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.isCourseDelivering()).toBe(course.isDelivering);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.isCourseDelivering()).toBe(course.isDelivering);
+            })().then(done));
 
-            it('should set courseId', function (done) {
+            it('should set courseId', done => (async () => {
                 viewModel.courseId = '';
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.courseId).toBe(course.id);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.courseId).toBe(course.id);
+            })().then(done));
 
-            it('should subscribe to course.delivering.started event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.started);
-                    done();
-                });
-            });
+            it('should subscribe to course.delivering.started event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.started);
+            })().then(done));
 
-            it('should subscribe to course.delivering.finished event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.finished);
-                    done();
-                });
-            });
+            it('should subscribe to course.delivering.finished event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.finished);
+            })().then(done));
 
-            it('should fill subscriptions', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.subscriptions.length).toBe(8);
-                    done();
-                });
-            });
+            it('should fill subscriptions', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(viewModel.subscriptions.length).toBe(9);
+            })().then(done));
 
-            it('should subscribe to course.build.started event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.build.started);
-                    done();
-                });
-            });
+            it('should subscribe to course.build.started event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.build.started);
+            })().then(done));
 
-            it('should subscribe to course.build.failed event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.build.failed);
-                    done();
-                });
-            });
+            it('should subscribe to course.build.failed event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.build.failed);
+            })().then(done));
 
-            it('should subscribe to course.publish.started event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.started);
-                    done();
-                });
-            });
+            it('should subscribe to course.publish.started event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.started);
+            })().then(done));
 
-            it('should subscribe to course.publish.completed event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.completed);
-                    done();
-                });
-            });
+            it('should subscribe to course.publish.completed event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.completed);
+            })().then(done));
 
-            it('should subscribe to course.publish.failed event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.failed);
-                    done();
-                });
-            });
+            it('should subscribe to course.publish.failed event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.failed);
+            })().then(done));
 
-            it('should subscribe to course.stateChanged event', function (done) {
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.stateChanged + course.id);
-                    done();
-                });
-            });
+            it('should subscribe to course.stateChanged event', done => (async () => {
+                await viewModel.activate(course.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.stateChanged + course.id);
+            })().then(done));
 
-            it('should set courseIsDirty', function (done) {
+            it('should set courseIsDirty', done => (async () => {
                 viewModel.courseIsDirty(false);
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.courseIsDirty()).toBe(course.isDirty);
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.courseIsDirty()).toBe(course.isDirty);
+            })().then(done));
 
-            it('should set linkCopied to false', function (done) {
+            it('should set linkCopied to false', done => (async () => {
                 viewModel.linkCopied(true);
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.linkCopied()).toBeFalsy();
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.linkCopied()).toBeFalsy();
+            })().then(done));
 
-            it('should set embedCodeCopied to false', function (done) {
+            it('should set embedCodeCopied to false', done => (async () => {
                 viewModel.embedCodeCopied(true);
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.embedCodeCopied()).toBeFalsy();
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.embedCodeCopied()).toBeFalsy();
+            })().then(done));
 
-            it('should set copyBtnDisabled to false', function (done) {
+            it('should set copyBtnDisabled to false', done => (async () => {
                 viewModel.copyBtnDisabled(true);
-                var promise = viewModel.activate(course.id);
-                promise.fin(function () {
-                    expect(viewModel.copyBtnDisabled()).toBeFalsy();
-                    done();
-                });
-            });
+                await viewModel.activate(course.id);
+                expect(viewModel.copyBtnDisabled()).toBeFalsy();
+            })().then(done));
         });
     });
 
@@ -456,23 +402,17 @@ describe('course delivering action [publish]', function () {
                     expect(viewModel.publishCourse()).toBePromise();
                 });
 
-                it('should send event \"Publish course\"', function (done) {
+                it('should send event \"Publish course\"', done => (async () => {
                     coursePublishDefer.resolve();
-                    var promise = viewModel.publishCourse();
-                    promise.fin(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Publish course', eventCategory);
-                        done();
-                    });
-                });
+                    await viewModel.publishCourse();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Publish course', eventCategory);
+                })().then(done));
 
-                it('should start publish of current course', function (done) {
+                it('should start publish of current course', done => (async () => {
                     coursePublishDefer.resolve();
-                    var promise = viewModel.publishCourse();
-                    promise.fin(function () {
-                        expect(course.publish).toHaveBeenCalled();
-                        done();
-                    });
-                });
+                    await viewModel.publishCourse();
+                    expect(course.publish).toHaveBeenCalled();
+                })().then(done));
 
                 describe('when course publish failed', function () {
 
@@ -481,14 +421,11 @@ describe('course delivering action [publish]', function () {
                         coursePublishDefer.reject(message);
                     });
 
-                    it('should show error notification', function (done) {
+                    it('should show error notification', done => (async () => {
                         spyOn(notify, 'error');
-                        var promise = viewModel.publishCourse();
-                        promise.fin(function () {
-                            expect(notify.error).toHaveBeenCalledWith(message);
-                            done();
-                        });
-                    });
+                        await viewModel.publishCourse();
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    })().then(done));
                 });
             });
 
@@ -497,9 +434,9 @@ describe('course delivering action [publish]', function () {
                     viewModel.isCourseDelivering(true);
                 });
 
-                it('should return undefined', function () {
-                    expect(viewModel.publishCourse()).toBeUndefined();
-                });
+                it('should return undefined', done => (async () => {
+                    expect(await viewModel.publishCourse()).toBeUndefined();
+                })().then(done));
 
                 it('should not send event \"Publish course\"', function () {
                     viewModel.publishCourse();

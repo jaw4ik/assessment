@@ -211,6 +211,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughLti).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.NewEditor).IsOptional();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsNewEditorByDefault).IsRequired();
+            modelBuilder.Entity<UserSettings>().Property(e => e.IncludeMediaToPackage).IsRequired();
             modelBuilder.Entity<UserSettings>().HasRequired(e => e.User).WithRequiredDependent(p => p.Settings).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);

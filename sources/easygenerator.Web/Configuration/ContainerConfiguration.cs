@@ -45,7 +45,10 @@ using System.Reflection;
 using System.Web.Mvc;
 using easygenerator.Auth.Providers.Cryptography;
 using easygenerator.Auth.Security.Providers;
+using easygenerator.Infrastructure.Net;
 using easygenerator.Infrastructure.Serialization.Providers;
+using easygenerator.Web.BuildCourse.Fonts;
+using easygenerator.Web.BuildCourse.Fonts.Google;
 using easygenerator.Web.BuildDocument;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.WinToWeb;
@@ -74,6 +77,10 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
             builder.RegisterType<CourseContentPathProvider>();
             builder.RegisterType<CourseContentProvider>().As<ICourseContentProvider>();
+            builder.RegisterType<PackageMediaFetcher>();
+            builder.RegisterType<PackageFontsFetcher>().As<IPackageFontsFetcher>();
+            builder.RegisterType<FontsProvider>();
+            builder.RegisterType<GoogleFontsApiService>().As<IFontsApiService>();
 
             builder.RegisterType<DocumentContentPathProvider>();
             builder.RegisterType<DocumentContentProvider>().As<IDocumentContentProvider>();
@@ -112,7 +119,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ScormPackageModulesProvider>();
             builder.RegisterType<PublishSettingsProvider>();
             builder.RegisterType<BranchTrackProvider>();
-            
+            builder.RegisterType<FileDownloader>();
+
             builder.RegisterModule(new DataAccessModule());
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();

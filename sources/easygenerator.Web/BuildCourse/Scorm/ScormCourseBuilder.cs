@@ -6,6 +6,8 @@ using easygenerator.Web.Components;
 using System;
 using System.IO;
 using System.Web.Hosting;
+using easygenerator.Web.BuildCourse.PublishSettings;
+using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.BuildCourse.Scorm
 {
@@ -16,9 +18,21 @@ namespace easygenerator.Web.BuildCourse.Scorm
         private const string ImsManifestRazorTemplatePath = "~/BuildCourse/Scorm/Templates/imsmanifest.cshtml";
         private const string MetadataRazorTemplatePath = "~/BuildCourse/Scorm/Templates/metadata.cshtml";
 
-        public ScormCourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator,
-            ICourseContentProvider buildContentProvider, RazorTemplateProvider razorTemplateProvider, ScormPackageModulesProvider scormPackageModulesProvider, ILog logger)
-            : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider, scormPackageModulesProvider, logger)
+        public ScormCourseBuilder(PhysicalFileManager fileManager, 
+            BuildPathProvider buildPathProvider, 
+            BuildPackageCreator buildPackageCreator,
+            ICourseContentProvider buildContentProvider, 
+            RazorTemplateProvider razorTemplateProvider, 
+            ScormPackageModulesProvider scormPackageModulesProvider,
+            PublishSettingsProvider publishSettingsProvider,
+            ILog logger)
+            : base(fileManager, 
+                  buildPathProvider, 
+                  buildPackageCreator, 
+                  buildContentProvider, 
+                  scormPackageModulesProvider,
+                  publishSettingsProvider,
+                  logger)
         {
             _razorTemplateProvider = razorTemplateProvider;
         }

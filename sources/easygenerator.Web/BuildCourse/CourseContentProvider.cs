@@ -2,9 +2,9 @@
 using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
+using easygenerator.Web.BuildCourse.Fonts;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
-using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Storage;
 using Newtonsoft.Json;
 
@@ -15,47 +15,59 @@ namespace easygenerator.Web.BuildCourse
         private readonly PhysicalFileManager _fileManager;
         private readonly CourseContentPathProvider _buildPathProvider;
         private readonly PackageModelSerializer _packageModelSerializer;
-        private readonly PackageModelMapper _packageModelMapper;
-        private readonly PublishSettingsProvider _publishSettingsProvider;
         private readonly ITemplateStorage _templateStorage;
+        private readonly PackageModelMapper _packageModelMapper;
+        private readonly PackageMediaFetcher _packageMediaFetcher;
+        private readonly IPackageFontsFetcher _packageFontsFetcher;
 
         public CourseContentProvider(PhysicalFileManager fileManager,
                                     CourseContentPathProvider buildPathProvider,
                                     PackageModelSerializer packageModelSerializer,
+                                    ITemplateStorage templateStorage,
                                     PackageModelMapper packageModelMapper,
-                                    PublishSettingsProvider publishSettingsProvider,
-                                    ITemplateStorage templateStorage)
+                                    PackageMediaFetcher packageMediaFetcher,
+                                    IPackageFontsFetcher packageFontsFetcher)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
             _packageModelSerializer = packageModelSerializer;
-            _packageModelMapper = packageModelMapper;
-            _publishSettingsProvider = publishSettingsProvider;
             _templateStorage = templateStorage;
+            _packageModelMapper = packageModelMapper;
+            _packageMediaFetcher = packageMediaFetcher;
+            _packageFontsFetcher = packageFontsFetcher;
         }
 
-        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules)
+        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, bool includeMedia = false)
         {
+            AddTemplateToPackageDirectory(buildDirectory, course);
+
             var coursePackageModel = _packageModelMapper.MapCourse(course);
 
-            AddTemplateToPackageDirectory(buildDirectory, course);
+            if (includeMedia)
+            {
+                _packageMediaFetcher.AddMediaFromCourseModel(buildDirectory, coursePackageModel);
+                _packageFontsFetcher.AddFontsToPackage(buildDirectory, course);
+            }
+
             AddCourseContentToPackageDirectory(buildDirectory, coursePackageModel);
-            AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel);
-            AddPublishSettingsFileToPackageDirectory(buildDirectory, _publishSettingsProvider.GetPublishSettings(modules));
-            AddModulesFilesToPackageDirectory(buildDirectory, modules);
+            AddCourseDataFileToPackageDirectory(buildDirectory, coursePackageModel, includeMedia);
         }
-        public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings)
+        public void AddSettingsFileToPackageDirectory(string buildDirectory, string settings, bool includeMedia = false)
         {
-            _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory),
-                settings ?? GetEmptyJsonContent());
+            if (settings != null && includeMedia)
+            {
+                settings = _packageMediaFetcher.AddMediaFromJson(buildDirectory, settings);
+            }
+
+            _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory), settings ?? GetEmptyJsonContent());
         }
 
-        private void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
+        public void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
         {
             _fileManager.WriteToFile(_buildPathProvider.GetPublishSettingsFileName(buildDirectory), publishSettings);
         }
 
-        private void AddModulesFilesToPackageDirectory(string buildDirectory, IEnumerable<PackageModule> modules)
+        public void AddModulesFilesToPackageDirectory(string buildDirectory, IEnumerable<PackageModule> modules)
         {
             if (modules.Any())
             {
@@ -111,14 +123,21 @@ namespace easygenerator.Web.BuildCourse
             }
         }
 
-        private void AddCourseDataFileToPackageDirectory(string buildDirectory, CoursePackageModel coursePackageModel)
+        private void AddCourseDataFileToPackageDirectory(string buildDirectory, CoursePackageModel coursePackageModel, bool includeMedia = false)
         {
-            _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildDirectory), _packageModelSerializer.Serialize(coursePackageModel));
+            var dataFileContent = _packageModelSerializer.Serialize(coursePackageModel);
+
+            if (includeMedia)
+            {
+                dataFileContent = _packageMediaFetcher.AddMediaFromJson(buildDirectory, dataFileContent);
+            }
+
+            _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildDirectory), dataFileContent);
         }
 
         private static string GetEmptyJsonContent()
         {
-            return JsonConvert.SerializeObject(new {});
+            return JsonConvert.SerializeObject(new { });
         }
     }
 }

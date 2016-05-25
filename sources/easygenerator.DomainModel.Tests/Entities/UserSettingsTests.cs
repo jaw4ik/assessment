@@ -30,14 +30,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             var lastReadReleaseNote = "1.0.0";
 
             //Act
-            var settings = new UserSettings(createdBy, lastReadReleaseNote, false, true, true);
+            var settings = new UserSettings(createdBy, lastReadReleaseNote, false, true, true, false);
 
             //Assert
             settings.CreatedBy.Should().Be(createdBy);
             settings.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
-            settings.IsCreatedThroughLti.Should().Be(false);
-            settings.NewEditor.Should().Be(true);
-            settings.IsNewEditorByDefault.Should().Be(true);
+            settings.IsCreatedThroughLti.Should().BeFalse();
+            settings.NewEditor.Should().BeTrue();
+            settings.IsNewEditorByDefault.Should().BeTrue();
+            settings.IncludeMediaToPackage.Should().BeFalse();
         }
 
         #endregion
@@ -208,6 +209,70 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-        
+
+        #region SwitchIncludeMediaToPackage
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.SwitchIncludeMediaToPackage(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.SwitchIncludeMediaToPackage(string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldChangeIncludeMediaToPackage()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var includeMediaLastValue = settings.IncludeMediaToPackage;
+
+            //Act
+            settings.SwitchIncludeMediaToPackage("someUser");
+
+            //Assert
+            settings.IncludeMediaToPackage.Should().Be(!includeMediaLastValue);
+            settings.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var settings = UserSettingsObjectMother.Create();
+            settings.SwitchIncludeMediaToPackage(modifiedBy);
+
+            settings.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void SwitchIncludeMediaToPackage_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var settings = UserSettingsObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            settings.SwitchIncludeMediaToPackage(modifiedBy);
+
+            settings.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
     }
 }
