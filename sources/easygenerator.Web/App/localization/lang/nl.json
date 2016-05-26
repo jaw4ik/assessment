@@ -885,5 +885,11 @@
     "fromYourOrganization": "from your organization",
     "wantAutoUserAddingByDomain": "Want automatically adding by user mail domain?",
     "useSpaceCommaOrSemocolonBtwEmails": "Use space, coma or semicolon between emails for multiple inviting",
-    "sendInvites": "Send invites"
+    "sendInvites": "Send invites",
+    "confirmMembership": "Confirm membership",
+    "pleaseConfirmYourMembershipIn": "Please confirm your membership in",
+    "confirmMembershipOrganization": "organization",
+    "confirmMembershipFrom": "Van",
+    "watchToturial": "Watch tutorial",
+    "aboutOneMinute": "(about 1 minute)"
 }
