@@ -885,5 +885,11 @@
     "fromYourOrganization": "з Вашої організації",
     "wantAutoUserAddingByDomain": "Бажаєте автоматично додавати користувачів за e-mail доменом?",
     "useSpaceCommaOrSemocolonBtwEmails": "Використовуйте пробіл, кому або двокрапку між e-mail адресами",
-    "sendInvites": "Надіслати запрошення"
+    "sendInvites": "Надіслати запрошення",
+    "confirmMembership": "Прийняти запрошення",
+    "pleaseConfirmYourMembershipIn": "Будь-ласка, прийміть запрошення стати членом організації",
+    "confirmMembershipOrganization": "organization",
+    "confirmMembershipFrom": "Від",
+    "watchToturial": "Допоміжне відео",
+    "aboutOneMinute": "(Близько 1 хвилини)"
 }
