@@ -32,7 +32,7 @@ namespace easygenerator.Web.Mail
             var templateSettings = _senderSettings.MailTemplatesSettings[ForgotPasswordTemplateName];
             var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
 
-            _mailSender.Send(new MailMessage(templateSettings.From, email, title, body) { IsBodyHtml = true });
+            _mailSender.Send(new MailMessage(templateSettings.From, email, _mailSender.NormalizeMailMessageSubject(title), body) { IsBodyHtml = true });
         }
 
         public void SendInviteCollaboratorMessage(string email, string userName, string courseTitle)
@@ -42,7 +42,7 @@ namespace easygenerator.Web.Mail
             var fromDisplayName = String.Format(ViewsResources.Resources.InviteCollaboratorFromDisplayName, userName);
             var mailMessage = new MailMessage(new MailAddress(templateSettings.From, fromDisplayName), new MailAddress(email))
                 {
-                    Subject = String.Format(ViewsResources.Resources.InviteCollaboratorSubject, userName, courseTitle),
+                    Subject = _mailSender.NormalizeMailMessageSubject(String.Format(ViewsResources.Resources.InviteCollaboratorSubject, userName, courseTitle)),
                     Body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, WebsiteUrl = websiteUrl, Email = email }),
                     IsBodyHtml = true
                 };
