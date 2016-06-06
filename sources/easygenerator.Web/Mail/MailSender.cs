@@ -14,6 +14,8 @@ namespace easygenerator.Web.Mail
             string bccAddresses = null);
 
         bool Send(MailMessage msg);
+
+        string NormalizeMailMessageSubject(string subject);
     }
 
     public class MailSender : IMailSender
@@ -48,7 +50,7 @@ namespace easygenerator.Web.Mail
                 message.To.Add(new MailAddress(toEmail));
             }
 
-            message.Subject = subject;
+            message.Subject = NormalizeMailMessageSubject(subject);
             message.IsBodyHtml = true;
             message.Body = body;
             message.From = new MailAddress(fromAddress);
@@ -74,6 +76,11 @@ namespace easygenerator.Web.Mail
         private IEnumerable<string> SplitEmailAddresses(string emailAddresses)
         {
             return !String.IsNullOrEmpty(emailAddresses) ? emailAddresses.Split(AddressesSeparator) : new string[] { };
+        }
+
+        public string NormalizeMailMessageSubject(string subject)
+        {
+            return subject?.Replace('\r', ' ').Replace('\n', ' ');
         }
     }
 }
