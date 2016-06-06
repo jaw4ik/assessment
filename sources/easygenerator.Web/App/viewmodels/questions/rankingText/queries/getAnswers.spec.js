@@ -14,8 +14,9 @@ describe('query [getAnswers]', () => {
     describe('when request failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'post').and.returnValue($.Deferred().reject());
-            query.execute(questionId).catch(() => {
+            spyOn(http, 'post').and.returnValue($.Deferred().reject('reason'));
+            query.execute(questionId).catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -25,11 +26,12 @@ describe('query [getAnswers]', () => {
     describe('when response is succeed', () => {
 
         beforeEach(() => {
-            spyOn(http, 'post').and.returnValue($.Deferred().resolve({ success: true }));
+            spyOn(http, 'post').and.returnValue($.Deferred().resolve({ success: true, answers: [] }));
         });
 
         it('should resolve promise', done => {
-            query.execute(questionId).then(() => {
+            query.execute(questionId).then(answers => {
+                expect(answers).toEqual([]);
                 done();
             });
         });
@@ -43,7 +45,8 @@ describe('query [getAnswers]', () => {
         });
 
         it('should reject promise', done => {
-            query.execute(questionId).catch(() => {
+            query.execute(questionId).catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });

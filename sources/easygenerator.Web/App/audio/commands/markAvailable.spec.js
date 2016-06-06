@@ -47,7 +47,8 @@ describe('[audio markAvailable command]', function () {
             });
 
             it('should resolve promise', function (done) {
-                command.execute({}).then(function () {
+                command.execute(audio).then(function () {
+                    expect(arguments[0]).toEqual(audio);
                     done();
                 }).done();
             });
@@ -57,11 +58,12 @@ describe('[audio markAvailable command]', function () {
         describe('when request failed', function () {
 
             beforeEach(function () {
-                dfd.reject();
+                dfd.reject('reason');
             });
 
             it('should reject promise', function (done) {
-                command.execute({}).catch(function () {
+                command.execute({}).catch(function (reason) {
+                    expect(reason).toBeDefined();
                     done();
                 }).done();
             });

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
 EndProject
@@ -17,7 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DataAccess", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFBFF1F0-08AF-48A6-B6BD-7409FE8F062B}"
 	ProjectSection(SolutionItems) = preProject
-		..\gulpfile.js = ..\gulpfile.js
+		..\.babelrc = ..\.babelrc
+		..\.csscomb.json = ..\.csscomb.json
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\package.json = ..\package.json
 		WE-browsers.xml = WE-browsers.xml
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection

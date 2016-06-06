@@ -14,8 +14,9 @@ describe('command [deleteImage]', () => {
     describe('when post failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'post').and.returnValue($.Deferred().reject());
-            command.execute().catch(() => {
+            spyOn(http, 'post').and.returnValue($.Deferred().reject('reason'));
+            command.execute().catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -30,6 +31,7 @@ describe('command [deleteImage]', () => {
 
         it('should resolve promise', done => {
             command.execute().then(() => {
+                expect(arguments.length).toEqual(0);
                 done();
             });
         });

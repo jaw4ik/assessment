@@ -255,7 +255,7 @@ describe('viewModel [section]', function () {
                 });
             });
 
-            it('should set image url', function () {
+            it('should set image url', function (done) {
                 viewModel.imageUrl('');
 
                 var promise = viewModel.activate(section.id);

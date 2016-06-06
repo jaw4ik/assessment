@@ -562,7 +562,7 @@ describe('viewModel [singleSelectTextAnswers]', function () {
 
             describe('and length of answer option equal 2', function () {
 
-                it('should not update text', function () {
+                it('should not update text', function (done) {
                     viewModel.answers([answer, answer1]);
                     viewModel.updateText(answer).fin(function () {
                         expect(repository.updateText).not.toHaveBeenCalled();

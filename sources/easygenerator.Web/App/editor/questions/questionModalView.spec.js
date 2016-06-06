@@ -100,14 +100,12 @@ describe('viewmodel [questionModalView]', () => {
         describe('when question view model activated', () => {
             it('should set question view model', done => (async () => {
                 viewModel.questionViewModel(null);
-                viewModel.open(sectionId, questionId);
-                await questionViewModelActivated;
+                await viewModel.open(sectionId, questionId);
                 expect(viewModel.questionViewModel()).toBe(questionViewModel);
             })().then(done));
 
             it('should open modal view', done => (async () => {
-                viewModel.open(sectionId, questionId);
-                await questionViewModelActivated;
+                await viewModel.open(sectionId, questionId);
                 expect(modalView.open).toHaveBeenCalled();
             })().then(done));
         });

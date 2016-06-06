@@ -123,7 +123,8 @@ describe('dialog [collaboration]', () => {
 
         describe('when courseId is not a string', () => {
             it('should reject promise', done => {
-                viewModel.show().catch(() => {
+                viewModel.show().catch(reason => {
+                    expect(reason).toBeDefined();
                     done();
                 });
             });
@@ -131,7 +132,8 @@ describe('dialog [collaboration]', () => {
 
         describe('when courseOwner is not a string', () => {
             it('should reject promise', done => {
-                viewModel.show(courseId).catch(() => {
+                viewModel.show(courseId).catch(reason => {
+                    expect(reason).toBeDefined();
                     done();
                 });
             });

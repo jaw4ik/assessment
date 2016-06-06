@@ -63,7 +63,13 @@ describe('component [colorpicker]', () => {
                     expect(colorpicker.hex()).toEqual('#aabbcc');
                 });
                 it('should trigger callback', done => {
-                    let colorpicker = new Colorpicker({ hex: '#bababa', callback: done });
+                    let colorpicker = new Colorpicker({
+                        hex: '#bababa',
+                        callback: () => {
+                            expect(arguments.length).toEqual(0);
+                            done();
+                        }
+                    });
                     colorpicker.hex('#aabbcc');
                 });
             });
@@ -127,7 +133,13 @@ describe('component [colorpicker]', () => {
                     });
                 });
                 it('should trigger callback', done => {
-                    let colorpicker = new Colorpicker({ hex: '#bababa', callback: done });
+                    let colorpicker = new Colorpicker({
+                        hex: '#bababa',
+                        callback: () => {
+                            expect(arguments.length).toEqual(0);
+                            done();
+                        }
+                    });
                     colorpicker.rgb.r(25);
                 });
             });
@@ -188,7 +200,13 @@ describe('component [colorpicker]', () => {
                     });
                 });
                 it('should trigger callback', done => {
-                    let colorpicker = new Colorpicker({ hex: '#bababa', callback: done });
+                    let colorpicker = new Colorpicker({
+                        hex: '#bababa',
+                        callback: () => {
+                            expect(arguments.length).toEqual(0);
+                            done();
+                        }
+                    });
                     colorpicker.rgb.g(25);
                 });
             });
@@ -249,7 +267,13 @@ describe('component [colorpicker]', () => {
                     });
                 });
                 it('should trigger callback', done => {
-                    let colorpicker = new Colorpicker({ hex: '#bababa', callback: done });
+                    let colorpicker = new Colorpicker({
+                        hex: '#bababa',
+                        callback: () => {
+                            expect(arguments.length).toEqual(0);
+                            done();
+                        }
+                    });
                     colorpicker.rgb.b(25);
                 });
             });
