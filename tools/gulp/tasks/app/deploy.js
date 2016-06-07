@@ -52,12 +52,12 @@ gulp.task('remove-app-sources', function (cb) {
 gulp.task('deploy-main-app', function () {
     gulp.src('./sources/easygenerator.Web/app/localization/lang/**')
         .pipe(gulp.dest(outputDirectory + '/app/localization/lang/'));
-    
+
     return gulp.src('./sources/easygenerator.Web/app/main-built.js')
-		.pipe(has({
-			'release': true
+        .pipe(has({
+            'release': true
         }))
-		.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(outputDirectory + '/app'));
 });
 
@@ -99,7 +99,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', /*'run-unit-tests', */'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
+    runSequence('build', 'run-unit-tests', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {

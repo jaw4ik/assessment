@@ -275,6 +275,7 @@ describe('[SectionViewModel]', () => {
     describe('updateImage:', () => {
 
         it(`should send event ${events.openChangeObjectiveImageDialog}`, () => {
+            spyOn(imageUpload, 'upload');
             sectionViewModel.updateImage();
             expect(eventTracker.publish).toHaveBeenCalledWith(events.openChangeObjectiveImageDialog, eventCategory);
         });
