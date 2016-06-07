@@ -96,6 +96,7 @@
     "[continue with the password]": "Продовжити з паролем",
     "[request secret link]": "або відправити серектне посилання з вашим прогресом на електронну скриньку",
     "[continue anytime in browser]": "Продовжуйте будь коли з вашого браузера",
+    "[using]": "використовуючи:",
     "[note about continue course]": "Примітка: Ви можете продовжити лише в цьому браузері",
     "[show]": "Показати",
     "[hide]": "Сховати",
@@ -108,5 +109,6 @@
     "[sections]": "Розділи",
     "[the letter has been successfully sent]": "Лист було успішно відправлено",
     "[copy]": "Скопіювати",
-    "[copied]": "Скопійовано"
+    "[copied]": "Скопійовано",
+    "[keep me logged-in for the next courses]": "Залишитись аторизованим в наступних курсах"
 }

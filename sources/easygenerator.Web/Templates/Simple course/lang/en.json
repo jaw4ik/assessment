@@ -96,7 +96,7 @@
     "[continue with the password]": "Continue with the password",
     "[request secret link]": "or request a secret link to your progress via email",
     "[continue anytime in browser]": "Continue anytime in your browser",
-    "[using either]": "using either:",
+    "[using]": "using:",
     "[note about continue course]": "Note: you can continue only in a current browser",
     "[show]": "Show",
     "[hide]": "Hide",
@@ -116,5 +116,6 @@
     "[copy]": "Copy",
     "[copied]": "Copied",
     "[expand]": "Expand",
-    "[collapse]": "Collapse"
+    "[collapse]": "Collapse",
+    "[keep me logged-in for the next courses]": "Keep me logged-in for the next courses"
 }
