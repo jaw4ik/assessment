@@ -12,6 +12,7 @@ class UserContext {
         this.identity = null;
         this.storageIdentity = null;
         this.ltiData = {};
+        this.samlData = {};
     }
 
     async identify() {
@@ -65,6 +66,23 @@ class UserContext {
         }
         if (response.companyId) {
             this.ltiData.companyId = response.companyId;
+        }
+        return true;
+    }
+
+    async identifySamlUser() {
+        if (!this.samlData.samlIdPUserInfoToken) {
+            return false;
+        }
+        let response = await authHttpWrapper.post('auth/identifySamlUser', { token: this.samlData.samlIdPUserInfoToken });
+        if (!response) {
+            return true;
+        }
+        if (response.unauthorized) {
+            throw {
+                logout: true,
+                samlIdPUserInfoToken: this.samlData.samlIdPUserInfoToken
+            };
         }
         return true;
     }

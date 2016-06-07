@@ -44,8 +44,9 @@ namespace easygenerator.DomainModel
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, ICollection<Company> companies, bool? newEditor = true, bool isNewEditorByDefault = true);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, bool? newEditor = true, bool isNewEditorByDefault = true);
         LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user);
+        SamlIdPUserInfo SamlIdPUserInfo(SamlIdentityProvider samlIdP, User user);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
@@ -164,14 +165,19 @@ namespace easygenerator.DomainModel
             return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, ICollection<Company> companies, bool? newEditor, bool isNewEditorByDefault = true)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, bool? newEditor, bool isNewEditorByDefault = true)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, companies, newEditor);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, newEditor);
         }
 
         public LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user)
         {
             return new LtiUserInfo(ltiUserId, consumerTool, user);
+        }
+
+        public SamlIdPUserInfo SamlIdPUserInfo(SamlIdentityProvider samlIdP, User user)
+        {
+            return new SamlIdPUserInfo(samlIdP, user);
         }
 
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)

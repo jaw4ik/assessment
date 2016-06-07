@@ -144,6 +144,7 @@
     <Compile Include="Providers\Cryptography\CryptographyConfigurationProvider.cs" />
     <Compile Include="Providers\Cryptography\ICryptographyConfigurationProvider.cs" />
     <Compile Include="Security\Models\ISecure.cs" />
+    <Compile Include="Security\Models\SamlIdPUserInfoSecure.cs" />
     <Compile Include="Security\Models\LtiUserInfoSecure.cs" />
     <Compile Include="Security\Providers\ISecureTokenProvider.cs" />
     <Compile Include="Security\Providers\SecureTokenProvider.cs" />

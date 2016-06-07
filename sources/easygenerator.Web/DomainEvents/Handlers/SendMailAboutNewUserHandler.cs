@@ -17,7 +17,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            if (!args.User.Settings.IsCreatedThroughLti)
+            if (!args.User.Settings.IsCreatedThroughLti && !args.User.Settings.IsCreatedThroughSamlIdP)
             {
                 Task.Run(
                     () =>

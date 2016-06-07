@@ -54,6 +54,9 @@ using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.WinToWeb;
 using easygenerator.Web.Import.WinToWeb.Mappers;
 using easygenerator.Web.Newsletter.Intercom;
+using easygenerator.Web.SAML.IdentityProvider.Providers;
+using easygenerator.Web.SAML.ServiceProvider.Mappers;
+using easygenerator.Web.SAML.ServiceProvider.Providers;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -274,6 +277,21 @@ namespace easygenerator.Web.Configuration
             #region Lti
 
             builder.RegisterType<LtiAuthProvider>().SingleInstance();
+
+            #endregion
+
+            #region SAML
+
+            builder.RegisterType<CertificateProvider>().As<ICertificateProvider>().SingleInstance();
+            builder.RegisterType<UrlResolverProvider>().As<IUrlResolverProvider>().SingleInstance();
+            builder.RegisterType<Saml2ResponseProvider>().As<ISaml2ResponseProvider>().SingleInstance();
+            builder.RegisterType<MetadataProvider>().As<IMetadataProvider>().SingleInstance();
+
+            builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
+            builder.RegisterType<CommandRunner>().As<ICommandRunner>().SingleInstance();
+            builder.RegisterType<SignInCommandRunner>().As<ISignInCommandRunner>().SingleInstance();
+            builder.RegisterType<OptionsProvider>().As<IOptionsProvider>().SingleInstance();
+            builder.RegisterType<IdentityProviderMapper>().As<IIdentityProviderMapper>().SingleInstance();
 
             #endregion
 

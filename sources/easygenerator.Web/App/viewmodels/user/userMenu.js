@@ -13,6 +13,7 @@
 
             signOut: signOut,
             newEditor: ko.observable(false),
+            coggnoSPUrl: constants.coggno.serviceProviderUrl,
             switchEditor: function () { },
 
             activate: activate

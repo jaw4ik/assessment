@@ -42,7 +42,7 @@ namespace easygenerator.Web.Controllers
             return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
         }
 
-        [HttpPost, Scope("lti")]
+        [HttpPost, Scope("lti", "samlAuth")]
         public ActionResult Tokens(string[] endpoints)
         {
             var tokens = _tokenProvider.GenerateTokens(GetCurrentUsername(), Request.Url.Host, endpoints);
@@ -76,6 +76,7 @@ namespace easygenerator.Web.Controllers
                 showReleaseNote = releaseVersion != user.Settings.LastReadReleaseNote,
                 newEditor = user.Settings.NewEditor,
                 isCreatedThroughLti = user.Settings.IsCreatedThroughLti,
+                isCreatedThroughSamlIdP = user.Settings.IsCreatedThroughSamlIdP,
                 isNewEditorByDefault = user.Settings.IsNewEditorByDefault,
                 includeMediaToPackage = user.Settings.IncludeMediaToPackage
             });
@@ -99,6 +100,19 @@ namespace easygenerator.Web.Controllers
 
             user.AddCompany(company, GetCurrentUsername());
             return JsonSuccess(new { companyId = company.Id.ToNString() });
+        }
+
+        [HttpPost, Scope("auth")]
+        public ActionResult IdentifySamlUser(SamlIdPUserInfoSecure samlIdPUserInfoSecure)
+        {
+            var samlIdPUserInfo = samlIdPUserInfoSecure.GetObject();
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+
+            if (samlIdPUserInfo.User != user)
+                return JsonSuccess(new { unauthorized = true });
+
+            user.AddSamlIdPUserInfo(samlIdPUserInfo);
+            return JsonSuccess();
         }
     }
 }

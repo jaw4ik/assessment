@@ -74,9 +74,24 @@ app.signinViewModel = function () {
                 if (response.success && window.auth.login(response.data)) {
                     app.trackEvent(app.constants.events.signin, response.data).done(function () {
                         var hash = null;
+                        var query = window.location.search;
+                        var returnUrlParam = '?ReturnUrl=';
+                        if (query && query.indexOf(returnUrlParam) !== -1) {
+                            var startIndex = query.indexOf(returnUrlParam) + returnUrlParam.length;
+                            hash = query.substring(startIndex);
+                            var endIndex = hash.indexOf('&');
+                            hash = endIndex !== -1
+                                ? decodeURIComponent(hash.substring(0, endIndex))
+                                : decodeURIComponent(hash);
+                        }
                         var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
                         if (ltiUserInfoToken) {
                             hash = '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
+                        } else {
+                            var samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
+                            if (samlIdPUserInfoToken) {
+                                hash = '#token.user.saml=' + encodeURIComponent(samlIdPUserInfoToken);
+                            }
                         }
                         app.openHomePage(hash);
                     });

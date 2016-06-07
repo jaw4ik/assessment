@@ -479,6 +479,10 @@ export default {
         }
     },
 
+    coggno: {
+        serviceProviderUrl: window.coggnoSPUrl
+    },
+
     dialogs: {
         stepSubmitted: 'dialog:step-submitted',
         dialogClosed: 'dialog:dialogClosed',

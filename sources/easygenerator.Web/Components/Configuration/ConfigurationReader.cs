@@ -2,6 +2,7 @@
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using System.Configuration;
+using easygenerator.Web.Components.Configuration.SAML;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -110,6 +111,8 @@ namespace easygenerator.Web.Components.Configuration
                 return ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection;
             }
         }
+
+        public virtual SamlIdPConfigurationSection SamlIdPConfiguration => ConfigurationManager.GetSection("samlIdP") as SamlIdPConfigurationSection;
 
         public virtual string ConnectionString
         {

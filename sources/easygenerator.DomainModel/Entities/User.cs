@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, 
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
             ICollection<Company> companiesCollection = null, bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
             : base(createdBy)
         {
@@ -35,7 +35,8 @@ namespace easygenerator.DomainModel.Entities
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
-            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault, includeMediaToPackage);
+            SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
+            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
 
             AccessType = accessPlan;
 
@@ -303,6 +304,32 @@ namespace easygenerator.DomainModel.Entities
             if (GetLtiUserInfo(ltiUserInfo.LtiUserId, ltiUserInfo.ConsumerTool) == null)
             {
                 LtiUserInfoes.Add(ltiUserInfo);
+            }
+        }
+        #endregion
+
+        #region SamlIdPInfo
+        protected internal virtual ICollection<SamlIdPUserInfo> SamlIdPUserInfoes { get; set; }
+
+        public virtual SamlIdPUserInfo GetSamlIdPUserInfo(SamlIdentityProvider samlIdP)
+        {
+            ArgumentValidation.ThrowIfNull(samlIdP, nameof(samlIdP));
+            return SamlIdPUserInfoes.SingleOrDefault(e => e.SamlIdP == samlIdP);
+        }
+
+        public virtual void AddSamlIdPUserInfo(SamlIdentityProvider samlIdP)
+        {
+            if (GetSamlIdPUserInfo(samlIdP) == null)
+            {
+                SamlIdPUserInfoes.Add(new SamlIdPUserInfo(samlIdP, this));
+            }
+        }
+
+        public virtual void AddSamlIdPUserInfo(SamlIdPUserInfo samlIdPUserInfo)
+        {
+            if (GetSamlIdPUserInfo(samlIdPUserInfo.SamlIdP) == null)
+            {
+                SamlIdPUserInfoes.Add(samlIdPUserInfo);
             }
         }
         #endregion

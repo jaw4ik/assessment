@@ -104,6 +104,12 @@
             window.winToWebConvertionServiceUrl = '@ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]';
             </text>
         }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["CoggnoSPUrl"]))
+        {
+            <text>
+            window.coggnoSPUrl = '@ConfigurationManager.AppSettings["CoggnoSPUrl"]';
+            </text>
+        }
     </script>
 
     @Scripts.Render("~/bundles/scripts/system")

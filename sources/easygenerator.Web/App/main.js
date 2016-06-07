@@ -33,6 +33,7 @@ app.configurePlugins({
 
 userContext.ltiData.companyId = window.auth.getCompanyIdFromHash();
 userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
+userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
 
 (async () => {
     if (window.auth.isAuthTokenPresentInHash()) {
@@ -57,6 +58,23 @@ userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash()
             window.auth.logout();
             if (reason.ltiUserInfoToken) {
                 window.location.replace(`/signin#token.user.lti=${encodeURIComponent(reason.ltiUserInfoToken)}`);
+                return;
+            }
+            window.location.replace('/#signin');
+            return;
+        }
+    }
+    else if (userContext.samlData.samlIdPUserInfoToken) {
+        try {
+            await userContext.identifySamlUser();
+        } catch(reason) {
+            if (!reason || !reason.logout) {
+                window.location.replace('/#');
+                return;
+            }
+            window.auth.logout();
+            if (reason.samlIdPUserInfoToken) {
+                window.location.replace(`/signin#token.user.saml=${encodeURIComponent(reason.samlIdPUserInfoToken)}`);
                 return;
             }
             window.location.replace('/#signin');

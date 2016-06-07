@@ -1,7 +1,7 @@
 ﻿(function () {
     var tokenNamespace = 'token.';
-    var cookieTokens = ['preview', 'upgradeAccount'];
-    var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount', 'settings'];
+    var cookieTokens = ['preview', 'upgradeAccount', 'saml'];
+    var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount', 'settings', 'saml'];
 
     window.auth = window.auth || {
         isUserLoggedIn: isUserLoggedIn,
@@ -13,17 +13,18 @@
         isAuthTokenPresentInHash: isAuthTokenPresentInHash,
         loginByAuthToken: loginByAuthToken,
         getCompanyIdFromHash: getCompanyIdFromHash,
-        getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash
+        getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash,
+        getSamlIdPUserInfoTokenFromHash: getSamlIdPUserInfoTokenFromHash
     };
 
     function isAuthTokenPresentInHash() {
         var hashParams = getHashParams(window.location.hash);
-        return hashParams && !_.isNullOrUndefined(hashParams['token.lti']);
+        return hashParams && (!_.isNullOrUndefined(hashParams['token.lti']) || !_.isNullOrUndefined(hashParams['token.samlAuth']));
     }
 
     function loginByAuthToken() {
         var hashParams = getHashParams(window.location.hash);
-        var authToken = hashParams['token.lti'];
+        var authToken = hashParams['token.lti'] || hashParams['token.samlAuth'];
         
         return $.ajax({
             url: '/auth/tokens',
@@ -42,6 +43,11 @@
     function getLtiUserInfoTokenFromHash() {
         var hashParams = getHashParams(window.location.hash);
         return hashParams && hashParams['token.user.lti'];
+    }
+
+    function getSamlIdPUserInfoTokenFromHash() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && hashParams['token.user.saml'];
     }
 
     function getCompanyIdFromHash() {

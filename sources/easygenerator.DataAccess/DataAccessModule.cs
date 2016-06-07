@@ -133,6 +133,10 @@ namespace easygenerator.DataAccess
                 .As<IQuerableRepository<ConsumerTool>>()
                 .As<IConsumerToolRepository>();
 
+            builder.RegisterType<SamlIdentityProviderRepository>()
+                .As<IQuerableRepository<SamlIdentityProvider>>()
+                .As<ISamlIdentityProviderRepository>();
+
             builder.RegisterType<CompanyRepository>()
                 .As<IQuerableRepository<Company>>()
                 .As<ICompanyRepository>();
