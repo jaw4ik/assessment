@@ -1,5 +1,5 @@
 import viewModel from 'viewmodels/questions/question';
-import router from 'plugins/router';
+import router from 'routing/router';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
 import questionRepository from 'repositories/questionRepository';

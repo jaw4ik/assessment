@@ -10,7 +10,7 @@ import eventTracker from 'eventTracker';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import changeTemplateDialog from 'dialogs/course/changeTemplate/changeTemplate';
-import router from 'plugins/router';
+import router from 'routing/router';
 import publishDialog from 'dialogs/course/publishCourse/publishDialog';
 import collaboration from 'dialogs/collaboration/collaboration';
 

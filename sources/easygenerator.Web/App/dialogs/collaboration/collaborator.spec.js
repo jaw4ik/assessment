@@ -4,7 +4,7 @@ import app from 'durandal/app';
 import constants from 'constants';
 import repository from 'repositories/collaboratorRepository';
 import notify from 'notify';
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import userContext from 'userContext';
 

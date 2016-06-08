@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'plugins/router', 'repositories/sectionRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
+﻿define(['durandal/app', 'constants', 'eventTracker', 'routing/router', 'repositories/sectionRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
     'clientContext', 'userContext', 'viewmodels/sections/sectionBrief', 'imageUpload','commands/createSectionCommand'],
     function (app, constants, eventTracker, router, sectionRepository, courseRepository, notify, localizationManager, clientContext, userContext, sectionBrief, imageUpload, createSectionCommand) {
         "use strict";

@@ -8,7 +8,7 @@ import courseRepository from 'repositories/courseRepository';
 import createQuestionCommand from 'commands/createQuestionCommand';
 import createNextQuestionCommand from 'editor/questions/commands/createNextQuestion';
 import duplicateQuestionCommand from 'editor/questions/commands/duplicateQuestion';
-import router from 'plugins/router';
+import router from 'routing/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
 import questionViewModelFactory from 'viewmodels/questions/questionViewModelFactory';

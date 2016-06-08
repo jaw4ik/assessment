@@ -1,6 +1,6 @@
 ﻿import errorHandler from './unauthorizedHttpErrorHandler';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 
 describe('[unauthorizedHttpErrorHandler]', function () {
 

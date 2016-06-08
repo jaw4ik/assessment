@@ -1,4 +1,4 @@
-﻿define(['http/apiHttpWrapper', 'localization/localizationManager', 'uiLocker', 'plugins/router', 'mappers/learningPathModelMapper', 'dataContext', 'clientContext', 'constants'],
+﻿define(['http/apiHttpWrapper', 'localization/localizationManager', 'uiLocker', 'routing/router', 'mappers/learningPathModelMapper', 'dataContext', 'clientContext', 'constants'],
     function (apiHttpWrapper, localizationManager, uiLocker, router, mapper, dataContext, clientContext, constants) {
         "use strict";
 

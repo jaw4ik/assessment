@@ -1,5 +1,5 @@
 ﻿import ko from 'knockout';
-import router from 'plugins/router';
+import router from 'routing/router';
 import finishCollaborationCommand from 'commands/collaboration/finishCollaborationCommand';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';

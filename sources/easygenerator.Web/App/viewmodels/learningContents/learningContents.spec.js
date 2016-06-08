@@ -7,7 +7,7 @@ import questionRepository from 'repositories/questionRepository';
 import eventTracker from 'eventTracker';
 import notify from 'notify';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 
 describe('viewModel [learningContents]', function () {
 

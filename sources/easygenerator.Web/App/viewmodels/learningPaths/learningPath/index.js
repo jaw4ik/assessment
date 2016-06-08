@@ -1,6 +1,6 @@
 ﻿define(['eventTracker',
         'viewmodels/learningPaths/index',
-        'plugins/router',
+        'routing/router',
         'routing/isViewReadyMixin',
         'viewmodels/common/titleField',
         'constants',

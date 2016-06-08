@@ -5,7 +5,7 @@ import constants from 'constants';
 import guard from 'guard';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
-import router from 'plugins/router';
+import router from 'routing/router';
 import notify from 'notify';
 import Comment from 'review/comments/Comment';
 import CommentModel from 'models/comment';

@@ -1,6 +1,6 @@
 ﻿import viewModel from 'dialogs/moveCopyQuestion/moveCopyQuestion';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import dataContext from 'dataContext';
 import userContext from 'userContext';

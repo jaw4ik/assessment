@@ -1,7 +1,7 @@
 ﻿import QuestionTreeNode from './QuestionTreeNode';
 
 import eventTracker from 'eventTracker';
-import router from 'plugins/router';
+import router from 'routing/router';
 
 describe('[QuestionTreeNode]', function () {
 

@@ -1,6 +1,6 @@
 ﻿import ko from 'knockout';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 import cursorTooltip from 'widgets/cursorTooltip/viewmodel';

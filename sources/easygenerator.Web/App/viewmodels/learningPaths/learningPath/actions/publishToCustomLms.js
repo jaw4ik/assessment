@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'userContext', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'],
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'routing/router', 'durandal/app', 'userContext', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'],
     function (ko, notify, eventTracker, clientContext, constants, router, app, userContext, getLearningPathByIdQuery) {
 
         var

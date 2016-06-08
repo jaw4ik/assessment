@@ -4,7 +4,7 @@ import constants from 'constants';
 import questionRepository from 'repositories/questionRepository';
 import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
-import router from 'plugins/router';
+import router from 'routing/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
 import questionViewModelFactory from 'viewmodels/questions/questionViewModelFactory';

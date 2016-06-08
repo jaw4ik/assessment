@@ -2,7 +2,7 @@
 
 import getCourseByIdQuery from './queries/getCourseByIdQuery';
 import eventTracker from 'eventTracker';
-import router from 'plugins/router';
+import router from 'routing/router';
 
 describe('[CourseTreeNode]', function () {
 

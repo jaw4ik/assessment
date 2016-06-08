@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants',
+﻿define(['routing/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants',
     'utils/waiter', 'durandal/app'],
     function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, constants, waiter, app) {
 

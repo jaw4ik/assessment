@@ -685,9 +685,7 @@
     </Content>
     <Content Include="App\binder.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
-    <Content Include="App\bootstrapping\stringExtensionsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
-    <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\commands\collaboration\finishCollaborationCommand.js" />
     <Content Include="App\commands\collaboration\finishCollaborationCommand.spec.js">
@@ -706,6 +704,7 @@
     </Content>
     <Content Include="App\components\bindingHandlers\ifExtendedBindingHandler.js" />
     <Content Include="App\core\bootstrap\visible.js" />
+    <Content Include="App\core\underscore.js" />
     <Content Include="App\design\tabs\FontsTab.spec.js">
       <DependentUpon>FontsTab.js</DependentUpon>
     </Content>
@@ -1302,6 +1301,7 @@
     <Content Include="App\review\reviewPanel.spec.js">
       <DependentUpon>reviewPanel.js</DependentUpon>
     </Content>
+    <Content Include="App\routing\router.js" />
     <Content Include="App\synchronization\handlers\comment\eventHandlers\created.spec.js">
       <DependentUpon>created.js</DependentUpon>
     </Content>
@@ -3146,9 +3146,9 @@
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\system-hooks.js" />
-    <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\external-helpers.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="specRunner.js" />
@@ -3453,7 +3453,6 @@
     </Content>
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
-    <Content Include="Scripts\underscore-min.map" />
     <Content Include="Templates\Reader\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.eot" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.ttf" />
@@ -3511,6 +3510,7 @@
     <Content Include="Templates\Assessment\lang\it.json" />
     <Content Include="Templates\Personalized learning\lang\it.json" />
     <Content Include="Templates\Reader\lang\it.json" />
+    <Content Include="Scripts\underscore.min.map" />
     <Content Include="Templates\Personalized learning\lang\no.json" />
     <Content Include="Templates\Reader\lang\no.json" />
     <Content Include="Templates\Simple course\lang\nb-no.json" />
@@ -3565,7 +3565,6 @@
     <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
-    <Content Include="App\bootstrapping\routingTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\clientContext.js" />
     <Content Include="App\commands\createQuestionCommand.js" />
@@ -3661,7 +3660,6 @@
     <Content Include="App\repositories\templateRepository.spec.js">
       <DependentUpon>templateRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\routing\routerExtender.js" />
     <Content Include="App\routing\routes.js" />
     <Content Include="App\services\publishService.js" />
     <Content Include="App\services\publishService.spec.js">

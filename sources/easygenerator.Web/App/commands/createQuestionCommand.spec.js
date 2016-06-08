@@ -2,7 +2,7 @@
 
 import questionRepository from 'repositories/questionRepository';
 import localizationManager from 'localization/localizationManager';
-import router from 'plugins/router';
+import router from 'routing/router';
 import uiLocker from 'uiLocker';
 import clientContext from 'clientContext';
 import eventTracker from 'eventTracker';

@@ -2,7 +2,7 @@
 import modalView from 'widgets/modalView/viewmodel';
 import navigationPanel from 'editor/questions/panels/questionsNavigationView';
 import questionViewModel from 'editor/questions/question';
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 
 let courseId = 'courseId';

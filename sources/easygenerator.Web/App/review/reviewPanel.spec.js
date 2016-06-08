@@ -2,7 +2,7 @@
 
 import constants from 'constants';
 import app from 'durandal/app';
-import router from 'plugins/router';
+import router from 'routing/router';
 import courseComments from 'review/comments/courseComments';
 import coursePublish from 'review/publish/coursePublish';
 import eventTracker from 'eventTracker';

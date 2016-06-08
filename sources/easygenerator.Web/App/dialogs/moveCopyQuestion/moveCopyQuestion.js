@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'widgets/dialog/viewmodel', 'constants'],
+﻿define(['routing/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'widgets/dialog/viewmodel', 'constants'],
     function (router, eventTracker, dataContext, userContext, questionRepository, localizationManager, notify, dialog, constants) {
     'use strict';
 

@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'analytics/providers'],
+﻿define(['routing/router', 'analytics/providers'],
     function (router, analyticsProviders) {
 
         return {

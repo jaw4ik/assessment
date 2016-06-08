@@ -1,7 +1,7 @@
 ﻿import QuestionCommentContextEntity from 'review/comments/context/contextEntities/QuestionCommentContextEntity';
 
 import notify from 'notify';
-import router from 'plugins/router';
+import router from 'routing/router';
 import localizationManager from 'localization/localizationManager';
 import eventTracker from 'eventTracker';
 import getQuestionDataQuery from 'review/comments/context/queries/getQuestionData';

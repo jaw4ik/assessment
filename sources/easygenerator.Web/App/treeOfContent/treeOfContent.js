@@ -1,7 +1,7 @@
 ﻿define([
     'durandal/app',
     'eventTracker',
-    'plugins/router',
+    'routing/router',
     'constants',
     'authorization/limitCoursesAmount',
     './handlers/treeOfContentEventHandler',
