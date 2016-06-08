@@ -32,10 +32,11 @@ class ShareLearningPathDialog extends IShareLearningPathDialog {
     activate() {
         var company = userContext.identity.companies.sort((company1, company2) => {
             if (company1.priority === company2.priority) {
-                return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();
+                return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime() ? 1 : -1;
             }
-            return company1.priority < company2.priority;
+            return company1.priority < company2.priority ? 1 : -1;
         })[0];
+        
         this.publishModel = company ? customPublishModel : defaultPublishModel;
         this.company = company || null;
     }

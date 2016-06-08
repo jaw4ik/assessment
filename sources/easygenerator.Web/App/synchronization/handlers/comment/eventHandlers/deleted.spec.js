@@ -2,14 +2,17 @@
 
 import app from 'durandal/app';
 import constants from 'constants';
+import dataContext from 'dataContext';
 
 describe('synchronization comment [deleted]', function () {
 
     var courseId = 'courseId',
+        course = { id: courseId },
         commentId = 'commentId';
 
     beforeEach(function () {
         spyOn(app, 'trigger');
+        dataContext.courses = [course];
     });
 
     it('should trigger app event \'course:comment:deletedByCollaborator\'', function () {

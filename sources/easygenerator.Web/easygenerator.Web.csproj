@@ -3006,6 +3006,7 @@
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\paper-full-0.9.22.js" />
     <Content Include="Scripts\paper-full-0.9.22.min.js" />
+    <Content Include="Scripts\polyfills.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />

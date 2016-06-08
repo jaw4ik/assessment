@@ -29,6 +29,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/scripts/zeroclipboard.js")
                 .Include("~/scripts/Blob.js")
                 .Include("~/scripts/FileSaver.js")
+                .Include("~/scripts/polyfills.js")
                 .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
             );
 
