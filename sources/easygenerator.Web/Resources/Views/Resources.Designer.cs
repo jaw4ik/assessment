@@ -441,8 +441,8 @@ namespace ViewsResources {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;div&gt;
-        ///&lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;
-        ///&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href=&quot;{1}&quot;&gt;{1}&lt;/a&gt; and register with this e-mail address and the course will be available after logging in.&lt;/p&gt;
+        ///&lt;p&gt;{0} invites you to become a member of {1} organization in Easygenerator.&lt;/p&gt;
+        ///&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href=&quot;{2}&quot;&gt;{2}&lt;/a&gt; and register with this e-mail address to become a member of the organization.&lt;/p&gt;
         ///&lt;p&gt;Kind regards,&lt;br/&gt;
         ///easygenerator Team&lt;/p&gt;
         ///&lt;/div&gt;.
@@ -468,6 +468,38 @@ namespace ViewsResources {
         public static string InviteCollaboratorSubject {
             get {
                 return ResourceManager.GetString("InviteCollaboratorSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;div&gt;
+        ///&lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;
+        ///&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href=&quot;{1}&quot;&gt;{1}&lt;/a&gt; and register with this e-mail address and the course will be available after logging in.&lt;/p&gt;
+        ///&lt;p&gt;Kind regards,&lt;br/&gt;
+        ///easygenerator Team&lt;/p&gt;
+        ///&lt;/div&gt;.
+        /// </summary>
+        public static string InviteOrganizationUserBody {
+            get {
+                return ResourceManager.GetString("InviteOrganizationUserBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (easygenerator).
+        /// </summary>
+        public static string InviteOrganizationUserFromDisplayName {
+            get {
+                return ResourceManager.GetString("InviteOrganizationUserFromDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} invites you to {1} organization in easygenerator.
+        /// </summary>
+        public static string InviteOrganizationUserSubject {
+            get {
+                return ResourceManager.GetString("InviteOrganizationUserSubject", resourceCulture);
             }
         }
         

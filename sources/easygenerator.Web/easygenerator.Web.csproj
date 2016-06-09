@@ -292,6 +292,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AcademyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\OrganizationAdminAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
@@ -309,6 +310,10 @@
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\CollaborationInviteMapper.cs" />
     <Compile Include="Components\Mappers\CommentMapper.cs" />
+    <Compile Include="Components\Mappers\Organizations\IOrganizationInviteMapper.cs" />
+    <Compile Include="Components\Mappers\Organizations\IOrganizationMapper.cs" />
+    <Compile Include="Components\Mappers\Organizations\OrganizationInviteMapper.cs" />
+    <Compile Include="Components\Mappers\Organizations\OrganizationMapper.cs" />
     <Compile Include="Components\Mappers\CompanyMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
@@ -316,6 +321,7 @@
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\DocumentMapper.cs" />
     <Compile Include="Components\Mappers\LearningPathMapper.cs" />
+    <Compile Include="Components\Mappers\Organizations\OrganizationUserMapper.cs" />
     <Compile Include="Components\Mappers\RankingtextAnswerMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
@@ -330,6 +336,7 @@
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\DocumentController.cs" />
+    <Compile Include="Controllers\Api\OrganizationController.cs" />
     <Compile Include="Controllers\Api\RankingTextController.cs" />
     <Compile Include="Controllers\Api\ScenarioController.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
@@ -580,6 +587,12 @@
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\QuestionCollaboratorProvider.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\IUserCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\UserCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IOrganizationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IOrganizationUserProvider.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IUserOrganizationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\OrganizationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\OrganizationUserProvider.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\UserOrganizationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\MultipleClientsProxy.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
@@ -591,6 +604,7 @@
     <Compile Include="Synchronization\Handlers\HotSpotEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CommentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\OrganizationEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\SectionEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\RankingTextEventHandler.cs" />
@@ -731,6 +745,15 @@
     <Content Include="App\dialogs\course\stopCollaboration\stopCollaboration.spec.js">
       <DependentUpon>stopCollaboration.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\organizations\inviteUsers\inviteUsers.html" />
+    <Content Include="App\dialogs\organizations\inviteUsers\inviteUsers.js" />
+    <Content Include="App\dialogs\organizations\inviteUsers\inviteUsers.spec.js">
+      <DependentUpon>inviteUsers.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\organizations\removeUser\removeUser.js" />
+    <Content Include="App\dialogs\organizations\removeUser\removeUser.spec.js">
+      <DependentUpon>removeUser.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\bindingHandlers\hightlightSection.js" />
     <Content Include="App\editor\questions\commands\createNextQuestion.js" />
     <Content Include="App\editor\questions\commands\duplicateQuestion.js" />
@@ -758,6 +781,76 @@
       <DependentUpon>questionModalView.js</DependentUpon>
     </Content>
     <Content Include="App\mappers\commentModelMapper.js" />
+    <Content Include="App\mappers\organizationInviteMapper.js" />
+    <Content Include="App\mappers\organizationUserMapper.js" />
+    <Content Include="App\mappers\organizationMapper.js" />
+    <Content Include="App\models\organizations\organization.js" />
+    <Content Include="App\models\organizations\organizationInvite.js" />
+    <Content Include="App\models\organizations\organizationUser.js" />
+    <Content Include="App\notifications\organizationInvite\commands\acceptInvite.spec.js">
+      <DependentUpon>acceptInvite.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInvite\commands\declineInvite.spec.js">
+      <DependentUpon>declineInvite.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInvite\commands\getInvites.js" />
+    <Content Include="App\notifications\organizationInvite\commands\declineInvite.js" />
+    <Content Include="App\notifications\organizationInvite\commands\acceptInvite.js" />
+    <Content Include="App\notifications\organizationInvite\commands\getInvites.spec.js">
+      <DependentUpon>getInvites.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInvite\notification.html" />
+    <Content Include="App\notifications\organizationInvite\notification.js" />
+    <Content Include="App\notifications\organizationInvite\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInvite\notificationController.js" />
+    <Content Include="App\notifications\organizationInvite\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\reinviteUser.js" />
+    <Content Include="App\organizations\commands\addUsers.spec.js">
+      <DependentUpon>addUsers.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\createOrganization.js" />
+    <Content Include="App\organizations\commands\createOrganization.spec.js">
+      <DependentUpon>createOrganization.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\getOrganization.js" />
+    <Content Include="App\organizations\commands\getOrganization.spec.js">
+      <DependentUpon>getOrganization.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\getOrganizationUsers.js" />
+    <Content Include="App\organizations\commands\getOrganizationUsers.spec.js">
+      <DependentUpon>getOrganizationUsers.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\addUsers.js" />
+    <Content Include="App\organizations\commands\reinviteUser.spec.js">
+      <DependentUpon>reinviteUser.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\removeUser.js" />
+    <Content Include="App\organizations\commands\removeUser.spec.js">
+      <DependentUpon>removeUser.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\commands\updateOrganizationTitle.js" />
+    <Content Include="App\dialogs\organizations\removeUser\removeUser.html" />
+    <Content Include="App\organizations\commands\updateOrganizationTitle.spec.js">
+      <DependentUpon>updateOrganizationTitle.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\index.html" />
+    <Content Include="App\organizations\index.js">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\organization\organization.html" />
+    <Content Include="App\organizations\organization\organization.js" />
+    <Content Include="App\organizations\organization\organization.spec.js">
+      <DependentUpon>organization.js</DependentUpon>
+    </Content>
+    <Content Include="App\organizations\organization\OrganizationUser.html" />
+    <Content Include="App\organizations\organization\OrganizationUser.js" />
+    <Content Include="App\organizations\organization\OrganizationUser.spec.js">
+      <DependentUpon>OrganizationUser.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\courseStatementsProvider.spec.js">
       <DependentUpon>courseStatementsProvider.js</DependentUpon>
     </Content>
@@ -1230,6 +1323,42 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\sectionsUnrelated.spec.js">
       <DependentUpon>sectionsUnrelated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteAccepted.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteAccepted.spec.js">
+      <DependentUpon>inviteAccepted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteCreated.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteCreated.spec.js">
+      <DependentUpon>inviteCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteDeclined.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteDeclined.spec.js">
+      <DependentUpon>inviteDeclined.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteRemoved.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\inviteRemoved.spec.js">
+      <DependentUpon>inviteRemoved.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipFinished.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipFinished.spec.js">
+      <DependentUpon>membershipFinished.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipStarted.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipStarted.spec.js">
+      <DependentUpon>membershipStarted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\userRegistered.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\titleUpdated.spec.js">
+      <DependentUpon>titleUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\userRegistered.spec.js">
+      <DependentUpon>userRegistered.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\handler.js" />
+    <Content Include="App\synchronization\handlers\organizations\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\section\eventHandlers\learningObjectiveUpdated.js" />
     <Content Include="App\synchronization\handlers\section\eventHandlers\learningObjectiveUpdated.spec.js">
       <DependentUpon>learningObjectiveUpdated.js</DependentUpon>
@@ -1516,6 +1645,14 @@
     </Content>
     <Content Include="App\widgets\preloader\view.html" />
     <Content Include="App\widgets\preloader\viewmodel.js" />
+    <Content Include="App\widgets\searchInput\view.html" />
+    <Content Include="App\widgets\searchInput\viewmodel.js" />
+    <Content Include="App\widgets\selectPopover\view.html" />
+    <Content Include="App\widgets\selectPopover\viewmodel.js" />
+    <Content Include="App\widgets\tags\bindingHandlers\dynamicWidthInput.js" />
+    <Content Include="App\widgets\tags\bindingHandlers\setFocusByClick.js" />
+    <Content Include="App\widgets\tags\view.html" />
+    <Content Include="App\widgets\tags\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -1731,10 +1868,6 @@
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningContents\learningContentsViewModelFactory.js" />
-    <Content Include="App\viewmodels\learningPaths\courseSelector\courseFilter.js" />
-    <Content Include="App\viewmodels\learningPaths\courseSelector\courseFilter.spec.js">
-      <DependentUpon>courseFilter.js</DependentUpon>
-    </Content>
     <Content Include="App\dialogs\learningPath\commands\deleteLearningPathCommand.js" />
     <Content Include="App\dialogs\learningPath\commands\deleteLearningPathCommand.spec.js">
       <DependentUpon>deleteLearningPathCommand.js</DependentUpon>
@@ -1833,7 +1966,6 @@
     <Content Include="App\views\learningContents\learningContents.html" />
     <Content Include="App\views\learningContents\types\hotspot.html" />
     <Content Include="App\views\learningContents\types\content.html" />
-    <Content Include="App\views\learningPaths\courseSelector\courseFilter.html" />
     <Content Include="App\views\learningPaths\courseSelector\courseSelector.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />
@@ -1923,6 +2055,7 @@
     <Content Include="Content\images\image-not-found.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
     <Content Include="Content\images\media\media-upload.png" />
+    <Content Include="Content\images\oragnizationUserBg.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
     <Content Include="Content\images\question-types-small-icon.png" />
     <Content Include="Content\images\ranking-text-icon-small.png" />
@@ -2474,6 +2607,8 @@
     <Content Include="Content\questionModalView.less" />
     <Content Include="Content\configure.less" />
     <Content Include="App\localization\lang\it.json" />
+    <Content Include="Content\organization.less" />
+    <Content Include="Mail\MailTemplates\InviteOrganizationUserTemplate.cshtml" />
     <Content Include="Content\google-fonts\badscript-400.ttf" />
     <Content Include="Content\google-fonts\ledger-400.ttf" />
     <Content Include="Content\google-fonts\opensans-400.ttf" />

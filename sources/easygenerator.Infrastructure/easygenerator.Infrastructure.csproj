@@ -70,6 +70,7 @@
     <Compile Include="DomainModel\Mappings\CollaborationInvite.cs" />
     <Compile Include="DomainModel\HttpRequest.cs" />
     <Compile Include="DomainModel\MailNotification.cs" />
+    <Compile Include="DomainModel\Mappings\OrganizationInvite.cs" />
     <Compile Include="DomainModel\Validation\Comments\CommentContextValidator.cs" />
     <Compile Include="DomainModel\Validation\Comments\Contexts\CourseCommentContext.cs" />
     <Compile Include="DomainModel\Validation\Comments\Contexts\ICommentContext.cs" />

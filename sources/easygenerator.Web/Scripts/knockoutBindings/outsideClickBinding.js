@@ -4,7 +4,15 @@
             action = valueAccessor().action,
             debounce = valueAccessor().debounce;
 
-        var clickHandler = function () {
+        var clickHandler = function (event) {
+            if (event.target === this) { // fix for dragula container, it fire unclear 'click' event with target 'html'
+                return;
+            }
+
+            if (event.target === element || $element.has(event.target).length > 0) {
+                return;
+            }
+
             action();
         };
 
@@ -18,10 +26,6 @@
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $('html').unbind('click', clickHandler);
-        });
-
-        $element.on('click', function (evt) {
-            evt.stopPropagation();
         });
     }
 };

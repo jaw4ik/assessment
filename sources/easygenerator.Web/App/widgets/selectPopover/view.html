@@ -1,0 +1,8 @@
+﻿<section class="select-popover">
+    <span class="selected-text" data-bind="css: { expanded: expanded }, click: toggleExpand, outsideClick: { action: collapse }">
+        <span data-bind="text: selectedText"></span><!-- Fix for Microsoft Edge (https://trello.com/c/AH36HopA) --> 
+    </span>
+    <ul class="popover" data-bind="foreach: options, css: { expanded: expanded }">
+        <li class="option" data-bind="text: text, css: { selected: $parent.value() === key }, click: function () { $parent.selectValue(key); }"></li>
+    </ul>
+</section>

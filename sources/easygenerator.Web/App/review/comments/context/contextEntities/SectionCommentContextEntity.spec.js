@@ -37,6 +37,7 @@ describe('review context [SectionCommentContextEntity]', () => {
 
     describe('open:', () => {
         it('should publish \'Open commented item in the editor\' event', () => {
+            spyOn(getSectionQuery, 'execute');
             spyOn(contextEntity, 'getEntityUrl');
             contextEntity.open();
             expect(eventTracker.publish).toHaveBeenCalledWith('Open commented item in the editor');

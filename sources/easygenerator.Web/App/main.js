@@ -27,7 +27,7 @@ app.configurePlugins({
     dialog: true,
     http: true,
     widget: {
-        kinds: ['preloader']
+        kinds: ['preloader', 'tags', 'searchInput', 'selectPopover']
     }
 });
 
@@ -70,7 +70,7 @@ userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash()
     bootstrapper.run();
 
     await* [
-        fonts.load(['Open+Sans::latin,cyrillic-ext', 'Droid+Sans+Mono::latin']),
+        fonts.load(['Open+Sans:400,400italic,300italic,300,600,600italic:latin,cyrillic-ext', 'Droid+Sans+Mono::latin']),
         userContext.identify(),
         userContext.identifyStoragePermissions(),
         synchronization.start(),

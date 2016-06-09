@@ -64,6 +64,9 @@
     <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\LearningPath.cs" />
     <Compile Include="Entities\Onboarding.cs" />
+    <Compile Include="Entities\Organizations\Organization.cs" />
+    <Compile Include="Entities\Organizations\OrganizationUser.cs" />
+    <Compile Include="Entities\Organizations\OrganizationUserStatus.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
     <Compile Include="Entities\Questions\RankingText.cs" />
     <Compile Include="Entities\Questions\RankingTextAnswer.cs" />
@@ -134,6 +137,14 @@
     <Compile Include="Events\LearningContentEvents\LearningContentDeletedEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationUserReinvitedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationTitleUpdatedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationUserRemovedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationUserAddedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationInviteAcceptedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationInviteDeclinedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationUserEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionImageUrlUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionLearningObjectiveUpdatedEvent.cs" />
@@ -199,6 +210,8 @@
     <Compile Include="Repositories\IDocumentRepository.cs" />
     <Compile Include="Repositories\ILearningPathRepository.cs" />
     <Compile Include="Repositories\IOnboardingRepository.cs" />
+    <Compile Include="Repositories\IOrganizationRepository.cs" />
+    <Compile Include="Repositories\IOrganizationUserRepository.cs" />
     <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />
     <Compile Include="Repositories\IQueryableRepository.cs" />
     <Compile Include="Repositories\ICourseRepository.cs" />

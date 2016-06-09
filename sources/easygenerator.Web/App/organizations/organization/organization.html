@@ -1,0 +1,36 @@
+﻿<section class="organization">
+    <header class="content-section-wrapper">
+        <div class="content-section organization-header-content-section">
+            <!-- ko compose: { model: title, view: 'views/common/titleField.html' } -->
+            <!-- /ko -->
+            <div class="content-section-actions-wrapper">
+                <div class="content-section-action-wrapper">
+                    <button class="action-item-btn btn green invite-users-action" data-bind="click: inviteUsers, css: { inactive: isInviteUsersDialogShown }">
+                        <span class="btn-caption" data-bind="localize: { text: 'inviteUsers' }"></span>
+                    </button>
+                    <!-- ko compose: 'dialogs/organizations/inviteUsers/inviteUsers' -->
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="view-module">
+        <div class="content-section-wrapper">
+            <div class="content-section">
+                <div class="controls">
+                    <div class="users-search-filter" data-bind="searchInput: { value: usersFilterValue, placeholderKey: 'searchPeople' }"></div>
+                    <div class="users-select-filter" data-bind="selectPopover: { options: filterOptions, value: filterOptionsValue }"></div>
+                    <div class="users-select-sorting" data-bind="selectPopover: { options: sortingOptions, value: sortingOptionsValue }"></div>
+                </div>
+                <ul class="unstyled box-list organization-users-list" data-bind="foreach: filteredUsers">
+                    <!-- ko compose: { model: $data, preserveContext: true }-->
+                    <!-- /ko -->
+                </ul>
+                <div class="no-results" data-bind="visible: filteredUsers().length === 0">
+                    <div class="title" data-bind="localize: { text: 'noResultsTitle' }"></div>
+                    <div class="subtitle" data-bind="localize: { text: 'noResultsSubtitle' }"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

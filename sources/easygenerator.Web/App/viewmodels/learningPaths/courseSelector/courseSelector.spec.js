@@ -4,7 +4,6 @@ import getOwnedCoursesQuery from './queries/getOwnedCoursesQuery';
 import getLearningPathByIdQuery from './../learningPath/queries/getLearningPathByIdQuery';
 import app from 'durandal/app';
 import constants from 'constants';
-import courseFilter from 'viewmodels/learningPaths/courseSelector/courseFilter';
 
 describe('viewmodel learning path [courseSelector]', function () {
 
@@ -48,9 +47,9 @@ describe('viewmodel learning path [courseSelector]', function () {
             viewModel.courses(courses);
         });
 
-        describe('when filter does not have a value', function () {
+        describe('when filterValue does not have a value', function () {
             beforeEach(function () {
-                viewModel.filter.value('');
+                viewModel.filterValue('');
             });
 
             it('should return courses collection', function () {
@@ -58,10 +57,10 @@ describe('viewmodel learning path [courseSelector]', function () {
             });
         });
 
-        describe('when filter has value', function () {
+        describe('when filterValue has value', function () {
             describe('and when value is in upper case', function () {
                 beforeEach(function () {
-                    viewModel.filter.value('TITLE');
+                    viewModel.filterValue('TITLE');
                 });
 
                 it('should courses collection', function () {
@@ -71,9 +70,9 @@ describe('viewmodel learning path [courseSelector]', function () {
                 });
             });
 
-            describe('and when value is in lower case', function () {
+            describe('and when filterValue is in lower case', function () {
                 beforeEach(function () {
-                    viewModel.filter.value('title');
+                    viewModel.filterValue('title');
                 });
 
                 it('should return filtered courses collection', function () {
@@ -86,10 +85,10 @@ describe('viewmodel learning path [courseSelector]', function () {
     });
 
     describe('expand:', function () {
-        it('should clear course filter', function () {
-            spyOn(courseFilter, 'clear');
+        it('should clear course filterValue', function () {
+            viewModel.filterValue('some value');
             viewModel.expand();
-            expect(courseFilter.clear).toHaveBeenCalled();
+            expect(viewModel.filterValue()).toBe('');
         });
 
         it('should set isExpanded to true', function () {

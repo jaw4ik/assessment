@@ -4,6 +4,8 @@ namespace easygenerator.Infrastructure
     public class Errors
     {
         public const string CourseNotFoundError = "Course is not found";
+        public const string OrganizationNotFoundError = "Organization is not found";
+        public const string OrganizationUserNotFoundError = "Organization user is not found";
         public const string DocumentNotFoundError = "Document is not found";
         public const string SectionNotFoundError = "Section is not found";
         public const string SectionsNotFoundError = "Sections are not found";

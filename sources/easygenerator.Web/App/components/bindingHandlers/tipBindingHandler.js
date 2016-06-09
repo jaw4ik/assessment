@@ -8,14 +8,15 @@ ko.bindingHandlers.tip = {
     init: (element, valueAccessor) => {
         let value = valueAccessor(),
             key = ko.unwrap(value.key),
-            text = ko.unwrap(value.text),
+            text = value.text,
             date = ko.unwrap(value.date),
+            placement = value.placement || 'auto top',
             displayText = '';
 
         if(key) {
             displayText = localizationManager.localize(key);
         }else if(text){
-            displayText = ko.unwrap(value.text);
+            displayText = value.text;
         }else if (date){
             let dateValue = ko.unwrap(date.value),
                 dateFormat= ko.unwrap(date.format) || 'l';
@@ -26,7 +27,8 @@ ko.bindingHandlers.tip = {
         $(element).tooltip({
             title: displayText,
             trigger: 'hover',
-            container: 'body'
+            container: 'body',
+            placement: placement
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {

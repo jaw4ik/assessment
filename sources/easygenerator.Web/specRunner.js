@@ -8,6 +8,18 @@
 
             var specs = [
 
+                //#region organizations
+                'organizations/commands/createOrganization.spec',
+                'organizations/commands/getOrganization.spec',
+                'organizations/commands/getOrganizationUsers.spec',
+                'organizations/commands/addUsers.spec',
+                'organizations/commands/removeUser.spec',
+                'organizations/commands/reinviteUser.spec',
+                'organizations/commands/updateOrganizationTitle.spec',
+                'organizations/organization/OrganizationUser.spec',
+                'organizations/organization/organization.spec',
+                //#endregion
+
                 //#region drag and drop editor
                 'editor/course/viewmodels/CreateBarViewModel.spec',
                 'editor/course/viewmodels/QuestionViewModel.spec',
@@ -114,6 +126,8 @@
                 'dialogs/branchtrack/branchtrack.spec',
                 'dialogs/document/create/index.spec',
                 'dialogs/document/preview/index.spec',
+                'dialogs/organizations/removeUser/removeUser.spec',
+                'dialogs/organizations/inviteUsers/inviteUsers.spec',
                 //#endregion dialogs
 
                 //#region errorHandling
@@ -135,6 +149,13 @@
                 'notifications/collaborationInvite/commands/acceptInvite.spec',
                 'notifications/collaborationInvite/commands/declineInvite.spec',
                 'notifications/collaborationInvite/notificationController.spec',
+
+                'notifications/organizationInvite/notification.spec',
+                'notifications/organizationInvite/commands/getInvites.spec',
+                'notifications/organizationInvite/commands/acceptInvite.spec',
+                'notifications/organizationInvite/commands/declineInvite.spec',
+                'notifications/organizationInvite/notificationController.spec',
+
                 //#endregion 
 
                 'localization/localizationManager.spec',
@@ -231,6 +252,21 @@
                 'synchronization/handlers/comment/eventHandlers/created.spec',
                 'synchronization/handlers/comment/handler.spec',
 
+
+                // #region organinizations synchronization
+
+                'synchronization/handlers/organizations/handler.spec',
+                'synchronization/handlers/organizations/eventHandlers/userRegistered.spec',
+                'synchronization/handlers/organizations/eventHandlers/titleUpdated.spec',
+                'synchronization/handlers/organizations/eventHandlers/inviteRemoved.spec',
+                'synchronization/handlers/organizations/eventHandlers/inviteDeclined.spec',
+                'synchronization/handlers/organizations/eventHandlers/inviteCreated.spec',
+                'synchronization/handlers/organizations/eventHandlers/inviteAccepted.spec',
+                'synchronization/handlers/organizations/eventHandlers/membershipStarted.spec',
+                'synchronization/handlers/organizations/eventHandlers/membershipFinished.spec',
+
+                // #endregion
+
                 //#region synchronization questions
                 'synchronization/handlers/questions/handler.spec',
                 'synchronization/handlers/questions/question/handler.spec',
@@ -284,7 +320,6 @@
                 'viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery.spec',
                 'viewmodels/learningPaths/courseSelector/courseSelector.spec',
                 'viewmodels/learningPaths/courseSelector/courseBrief.spec',
-                'viewmodels/learningPaths/courseSelector/courseFilter.spec',
                 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand.spec',
                 'viewmodels/learningPaths/learningPath/commands/addCourseCommand.spec',
                 'viewmodels/learningPaths/learningPath/commands/addDocumentCommand.spec',

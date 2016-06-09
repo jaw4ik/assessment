@@ -1,5 +1,6 @@
-﻿define(['durandal/app', 'notifications/subscriptionExpiration/notificationController', 'notifications/collaborationInvite/notificationController', 'constants'],
-    function (app, subscriptionExpirationNotificationController, collaborationInviteNotificationController, constants) {
+﻿define(['durandal/app', 'notifications/subscriptionExpiration/notificationController', 'notifications/collaborationInvite/notificationController',
+    'notifications/organizationInvite/notificationController', 'constants'],
+    function (app, subscriptionExpirationNotificationController, collaborationInviteNotificationController, organizationInviteNotificationController, constants) {
         "use strict";
 
         var viewModel = {
@@ -15,7 +16,7 @@
             next: next,
             prev: prev
         },
-            controllers = [subscriptionExpirationNotificationController, collaborationInviteNotificationController];
+            controllers = [subscriptionExpirationNotificationController, collaborationInviteNotificationController, organizationInviteNotificationController];
 
         viewModel.isVisible = ko.computed(function () {
             return viewModel.collection().length != 0;

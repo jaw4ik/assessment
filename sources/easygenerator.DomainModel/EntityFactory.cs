@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,7 @@ namespace easygenerator.DomainModel
         CourseState CourseState(Course course, bool isDirty);
         LearningPath LearningPath(string title, string createdBy);
         Scenario Scenario(string title, int masteryScore, string createdBy);
+        Organization Organization(string title, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -259,6 +261,11 @@ namespace easygenerator.DomainModel
         public Scenario Scenario(string title, int masteryScore, string createdBy)
         {
             return new Scenario(title, masteryScore, createdBy);
+        }
+
+        public Organization Organization(string title, string createdBy)
+        {
+            return new Organization(title, createdBy);
         }
 
         public RankingText RankingTextQuestion(string title, string createdBy)

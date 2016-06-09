@@ -2,6 +2,8 @@
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.Auth.Lti;
+using easygenerator.Auth.Providers.Cryptography;
+using easygenerator.Auth.Security.Providers;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
@@ -10,25 +12,35 @@ using easygenerator.Infrastructure.Clonning;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Infrastructure.ImageProcessors;
 using easygenerator.Infrastructure.Mail;
+using easygenerator.Infrastructure.Net;
+using easygenerator.Infrastructure.Serialization.Providers;
 using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.Fonts;
+using easygenerator.Web.BuildCourse.Fonts.Google;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.BuildCourse.Scorm.Modules;
+using easygenerator.Web.BuildDocument;
 using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
+using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.Presentation.HtmlComposers;
 using easygenerator.Web.Import.Presentation.Mappers;
+using easygenerator.Web.Import.WinToWeb;
+using easygenerator.Web.Import.WinToWeb.Mappers;
 using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
+using easygenerator.Web.Newsletter.Intercom;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.External;
@@ -37,23 +49,13 @@ using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting.CollaboratorProviders;
+using easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcasting;
 using easygenerator.Web.WooCommerce;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using easygenerator.Auth.Providers.Cryptography;
-using easygenerator.Auth.Security.Providers;
-using easygenerator.Infrastructure.Net;
-using easygenerator.Infrastructure.Serialization.Providers;
-using easygenerator.Web.BuildCourse.Fonts;
-using easygenerator.Web.BuildCourse.Fonts.Google;
-using easygenerator.Web.BuildDocument;
-using easygenerator.Web.Extensions;
-using easygenerator.Web.Import.WinToWeb;
-using easygenerator.Web.Import.WinToWeb.Mappers;
-using easygenerator.Web.Newsletter.Intercom;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -91,7 +93,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<LearningPathContentProvider>().As<ILearningPathContentProvider>();
             builder.RegisterType<LearningPathPackageModelMapper>();
             builder.RegisterType<LearningPathBuilder>().As<ILearningPathBuilder>();
-            
+
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
 
@@ -135,6 +137,9 @@ namespace easygenerator.Web.Configuration
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityCollaboratorProvider<>));
             builder.RegisterGeneric(typeof(CollaborationBroadcaster<>)).As(typeof(ICollaborationBroadcaster<>));
             builder.RegisterType<UserCollaborationBroadcaster>().As<IUserCollaborationBroadcaster>();
+            builder.RegisterType<OrganizationUserProvider>().As<IOrganizationUserProvider>();
+            builder.RegisterType<OrganizationBroadcaster>().As<IOrganizationBroadcaster>();
+            builder.RegisterType<UserOrganizationBroadcaster>().As<IUserOrganizationBroadcaster>();
 
             #endregion
 
@@ -157,6 +162,8 @@ namespace easygenerator.Web.Configuration
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityModelMapper<>));
             builder.RegisterType<EntityMapper>().As<IEntityMapper>();
             builder.RegisterType<CollaborationInviteMapper>().As<ICollaborationInviteMapper>();
+            builder.RegisterType<OrganizationMapper>().As<IOrganizationMapper>();
+            builder.RegisterType<OrganizationInviteMapper>().As<IOrganizationInviteMapper>();
 
             #endregion
 

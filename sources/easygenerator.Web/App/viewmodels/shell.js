@@ -227,6 +227,11 @@
                             }
                         },
                         {
+                            route: 'organizations*details',
+                            moduleId: 'organizations/index',
+                            title: localizationManager.localize('organization')
+                        },
+                        {
                             route: 'wintoweb',
                             moduleId: 'wintoweb/index',
                             title: 'Coverter from windows edition to web'

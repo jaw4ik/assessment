@@ -42,7 +42,8 @@
     require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
-
+    require('widgets/tags/bindingHandlers/dynamicWidthInput');
+    require('widgets/tags/bindingHandlers/setFocusByClick');
 
     var task = {
         execute: execute

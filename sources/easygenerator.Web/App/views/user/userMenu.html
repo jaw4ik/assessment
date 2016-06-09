@@ -11,31 +11,45 @@
     <div class="dropdown-section">
         <header>
             <div class="dropdown-header">
-                <div class="username-avatar">
-                    <div class="username-avatar-circle">
-                        <span class="username-avatar-letter" data-bind="text: avatarLetter"></span>
-                    </div>
-                </div>
+                <div class="dropdown-header-user-avatar" data-bind="tip: { text: useremail }"></div>
                 <div class="dropdown-header-info">
                     <h3 class="dropdown-header-title" data-bind="text: username"></h3>
-                    <h4 class="dropdown-header-subtitle" data-bind="text: useremail"></h4>
+                    <!-- ko if: isOrganizationMember  -->
+                    <h4 class="dropdown-header-subtitle user-organization">
+                        <span class="user-organization-label">
+                            <span data-bind="localize: { text: 'organization'}"></span>
+                            <span>:&nbsp;</span>
+                        </span>
+                        <span class="user-organization-text" data-bind="text: organizationTitle, tip: { text: organizationTitle }"></span>
+                    </h4>
+                    <!-- /ko -->
                 </div>
             </div>
         </header>
         <ul class="dropdown-list header-submenu-list">
             <li class="header-submenu-item buy-btn">
-                <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: isFreeUser() ?  'upgradeNow' : 'renewMyPlan' }">Upgrade account</a>
+                <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: isFreeUser() ?  'upgradeNow' : 'renewMyPlan' }"></a>
             </li>
+            <!-- ko if: isOrganizationAdmin  -->
+            <!--<li class="header-submenu-item manage-organizations">
+                <a class="header-submenu-link" href="" data-bind="click: manageOrganization, localize: { text: 'manageOrganization'}"></a>
+            </li>-->
+            <!-- /ko -->
+            <!-- ko if: !isOrganizationAdmin() && !isOrganizationMember() && !hasOrganizationInvites()  -->
+            <!--<li class="header-submenu-item manage-organizations">
+                <a class="header-submenu-link" href="" data-bind="click: createOrganization, localize: { text: 'createOrganization' }"></a>
+            </li>-->
+            <!-- /ko -->
             <li class="header-submenu-item switch-editor">
                 <!-- ko if: newEditor -->
-                <a class="header-submenu-link" href="" data-bind="click: switchEditor, localize: { text: 'switchToOld' }">Switch to old version</a>
+                <a class="header-submenu-link" href="" data-bind="click: switchEditor, localize: { text: 'switchToOld' }"></a>
                 <!-- /ko -->
                 <!-- ko ifnot: newEditor -->
-                <a class="header-submenu-link new" href="" data-bind="click: switchEditor, localize: { text: 'switchToNew' }">Switch to new version</a>
+                <a class="header-submenu-link new" href="" data-bind="click: switchEditor, localize: { text: 'switchToNew' }"></a>
                 <!-- /ko -->
             </li>
             <li class="header-submenu-item sign-out">
-                <a class="header-submenu-link" href="" data-bind="click: signOut, localize: { text: 'signOutButton' }">Sign out</a>
+                <a class="header-submenu-link" href="" data-bind="click: signOut, localize: { text: 'signOutButton' }"></a>
             </li>
         </ul>
     </div>
