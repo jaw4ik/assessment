@@ -1,6 +1,6 @@
 ﻿import viewModel from './configure';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import notify from 'notify';
 import courseRepository from 'repositories/courseRepository';

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository', 'plugins/router'],
+﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository', 'routing/router'],
     function (app, eventTracker, localizationManager, constants, notify, repository, router) {
         "use strict";
 

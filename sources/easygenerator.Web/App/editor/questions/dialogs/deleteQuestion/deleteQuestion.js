@@ -5,7 +5,7 @@ import localizationManager from 'localization/localizationManager';
 import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
 import deleteQuestionCommand from 'editor/course/commands/deleteQuestionCommand';
-import router from 'plugins/router';
+import router from 'routing/router';
 import app from 'durandal/app';
 
 let events = {

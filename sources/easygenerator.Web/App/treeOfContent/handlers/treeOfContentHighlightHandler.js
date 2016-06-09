@@ -1,4 +1,4 @@
-﻿define(['plugins/router'], function (router) {
+﻿define(['routing/router'], function (router) {
     var selector = '.navigation-tree-node';
     var activeSelector = selector + '.active';
 

@@ -6,7 +6,7 @@ import constants from 'constants';
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import fileHelper from 'fileHelper';
-import router from 'plugins/router';
+import router from 'routing/router';
 import userContext from 'userContext';
 import repository from 'repositories/courseRepository';
 

@@ -1,4 +1,4 @@
-﻿define(['guard', 'commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext', 'eventTracker'], function (guard, createQuestionCommand, router, constants, userContext, eventTracker) {
+﻿define(['guard', 'commands/createQuestionCommand', 'routing/router', 'constants', 'userContext', 'eventTracker'], function (guard, createQuestionCommand, router, constants, userContext, eventTracker) {
 
     "use strict";
 

@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'eventTracker'],
+﻿define(['routing/router', 'eventTracker'],
     function (router, eventTracker) {
         "use strict";
 

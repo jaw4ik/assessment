@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/sectionRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'durandal/app', 'imageUpload', 'userContext'],
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'routing/router', 'repositories/sectionRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'durandal/app', 'imageUpload', 'userContext'],
     function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, app, imageUpload, userContext) {
         "use strict";
 

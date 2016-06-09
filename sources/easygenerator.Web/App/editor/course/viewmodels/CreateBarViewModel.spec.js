@@ -2,7 +2,7 @@
 
 import eventTracker from 'eventTracker';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
 import localizationManager from 'localization/localizationManager';
 

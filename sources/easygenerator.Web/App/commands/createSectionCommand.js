@@ -1,4 +1,4 @@
-﻿define(['repositories/sectionRepository', 'repositories/courseRepository', 'localization/localizationManager', 'eventTracker', 'plugins/router', 'clientContext', 'constants', 'durandal/app', 'uiLocker'],
+﻿define(['repositories/sectionRepository', 'repositories/courseRepository', 'localization/localizationManager', 'eventTracker', 'routing/router', 'clientContext', 'constants', 'durandal/app', 'uiLocker'],
     function (sectionRepository, courseRepository, localizationManager, eventTracker, router, clientContext, constants, app, uiLocker) {
 
         return {

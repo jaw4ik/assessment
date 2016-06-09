@@ -6,7 +6,7 @@ import eventTracker from 'eventTracker';
 import deleteQuestionCommand from 'editor/course/commands/deleteQuestionCommand';
 import localizationManager from 'localization/localizationManager';
 import notify from 'notify';
-import router from 'plugins/router';
+import router from 'routing/router';
 import app from 'durandal/app';
 
 describe('dialog [deleteQuestion]', () => {

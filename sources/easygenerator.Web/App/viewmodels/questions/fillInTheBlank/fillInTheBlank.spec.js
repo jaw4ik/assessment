@@ -1,6 +1,6 @@
 ﻿import viewModel from './fillInTheBlank';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import questionRepository from 'repositories/questionRepository';
 import http from 'plugins/http';

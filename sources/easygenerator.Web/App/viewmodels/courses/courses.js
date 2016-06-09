@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
+﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'routing/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
     'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
     'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse','dialogs/course/stopCollaboration/stopCollaboration'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,

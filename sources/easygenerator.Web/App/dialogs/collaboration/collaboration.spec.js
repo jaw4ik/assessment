@@ -5,7 +5,7 @@ import localizationManager from 'localization/localizationManager';
 import repository from 'repositories/collaboratorRepository';
 import app from 'durandal/app';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import userContext from 'userContext';
 import addCollaboratorViewModel from 'dialogs/collaboration/addCollaborator';
 import StopCollaborationViewModel from 'dialogs/collaboration/stopCollaboration';

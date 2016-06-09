@@ -1,6 +1,6 @@
 ﻿import viewModel from 'organizations/organization/organization';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import getOrganizationCommand from 'organizations/commands/getOrganization';
 import getOrganizationUsersCommand from 'organizations/commands/getOrganizationUsers';
 import updateOrganizationTitleCommand from 'organizations/commands/updateOrganizationTitle';

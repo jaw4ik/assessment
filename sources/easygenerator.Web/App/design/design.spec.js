@@ -1,7 +1,7 @@
 ﻿import ko from 'knockout';
 
 import viewModel from './design.js';
-import router from 'plugins/router';
+import router from 'routing/router';
 import notify from 'notify';
 import courseRepository from 'repositories/courseRepository';
 import waiter from 'utils/waiter';

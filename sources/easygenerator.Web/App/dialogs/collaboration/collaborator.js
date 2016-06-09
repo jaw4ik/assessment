@@ -4,7 +4,7 @@ import constants from 'constants';
 import collaboratorRepository from 'repositories/collaboratorRepository';
 import app from 'durandal/app';
 import userContext from 'userContext';
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 
 var events = {

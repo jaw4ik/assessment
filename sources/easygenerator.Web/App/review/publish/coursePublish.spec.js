@@ -1,6 +1,6 @@
 ﻿import viewModel from 'review/publish/coursePublish';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import constants from 'constants';
 import repository from 'repositories/courseRepository';
 import eventTracker from 'eventTracker';

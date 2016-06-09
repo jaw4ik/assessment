@@ -1,6 +1,6 @@
 ﻿import viewModel from './course';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import repository from 'repositories/courseRepository';
 import sectionRepository from 'repositories/sectionRepository';

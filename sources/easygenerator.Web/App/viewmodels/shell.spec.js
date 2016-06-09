@@ -1,6 +1,6 @@
 ﻿import viewModel from './shell';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import dataContext from 'dataContext';
 import notify from 'notify';

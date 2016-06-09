@@ -1,4 +1,4 @@
-﻿define(['repositories/courseRepository', 'plugins/router', 'clientContext', 'constants'],
+﻿define(['repositories/courseRepository', 'routing/router', 'clientContext', 'constants'],
     function (repository, router, clientContext, constants) {
 
         return {

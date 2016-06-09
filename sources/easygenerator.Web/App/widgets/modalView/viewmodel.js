@@ -1,6 +1,6 @@
 ﻿import ko from 'knockout';
 import app from 'durandal/app';
-import router from 'plugins/router';
+import router from 'routing/router';
 
 let _routerNavigationProcessing = new WeakMap();
 
