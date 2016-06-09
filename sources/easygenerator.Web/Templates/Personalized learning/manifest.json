@@ -57,6 +57,11 @@
       "code": "it",
       "name": "Italian",
       "url": "lang/it.json"
+    },
+    {
+      "code": "no",
+      "name": "Norwegian",
+      "url": "lang/no.json"
     }
   ]
 }

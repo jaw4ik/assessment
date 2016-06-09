@@ -770,6 +770,14 @@
     {
       "code": "kr",
       "url": "lang/kr.json"
+    },
+    {
+      "code": "nb-no",
+      "url": "lang/nb-no.json"
+    },
+    {
+      "code": "nn-no",
+      "url": "lang/nn-no.json"
     }
   ]
 }

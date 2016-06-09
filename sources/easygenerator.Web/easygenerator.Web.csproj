@@ -3511,6 +3511,10 @@
     <Content Include="Templates\Assessment\lang\it.json" />
     <Content Include="Templates\Personalized learning\lang\it.json" />
     <Content Include="Templates\Reader\lang\it.json" />
+    <Content Include="Templates\Personalized learning\lang\no.json" />
+    <Content Include="Templates\Reader\lang\no.json" />
+    <Content Include="Templates\Simple course\lang\nb-no.json" />
+    <Content Include="Templates\Simple course\lang\nn-no.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
