@@ -1,4 +1,4 @@
-﻿import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+﻿import ExpandableStatement from './../expandableStatement';
 
 export default class extends ExpandableStatement {
     constructor(statement) {

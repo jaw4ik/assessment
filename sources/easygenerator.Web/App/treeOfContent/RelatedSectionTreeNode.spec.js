@@ -1,6 +1,6 @@
 ﻿import RelatedSectionTreeNode from './RelatedSectionTreeNode';
 
-import getSectionByIdQuery from 'treeOfContent/queries/getSectionByIdQuery';
+import getSectionByIdQuery from './queries/getSectionByIdQuery';
 import eventTracker from 'eventTracker';
 import router from 'routing/router';
 

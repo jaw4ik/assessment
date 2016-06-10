@@ -16,6 +16,7 @@ describe('viewModel [videos]', function () {
 
     beforeEach(function () {
         spyOn(localizationManager, 'localize');
+        userContext.storageIdentity = {};
     });
 
     it('should be object', function () {
@@ -200,8 +201,6 @@ describe('viewModel [videos]', function () {
         describe('when user has free plan', function () {
 
             beforeEach(function () {
-                userContext.storageIdentity = {};
-
                 spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                 spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
             });
@@ -221,8 +220,6 @@ describe('viewModel [videos]', function () {
         describe('when user has not free plan', function () {
 
             beforeEach(function () {
-                userContext.storageIdentity = {};
-
                 spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                 spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
             });

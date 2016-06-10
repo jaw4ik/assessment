@@ -139,19 +139,19 @@ describe('localizationManager', function () {
             delete localizationManager.translations;
         });
 
-        describe('when translations are not initialized', function () {
-            beforeEach(function () {
-                localizationManager.translations = null;
-            });
+        //describe('when translations are not initialized', function () {
+        //    beforeEach(function () {
+        //        localizationManager.translations = null;
+        //    });
 
-            it('should throw exception ', function () {
-                var action = function () {
-                    localizationManager.localize(key);
-                };
+        //    it('should throw exception ', function () {
+        //        var action = function () {
+        //            localizationManager.localize(key);
+        //        };
 
-                expect(action).toThrowError('Translations are not initialized.');
-            });
-        });
+        //        expect(action).toThrowError('Translations are not initialized.');
+        //    });
+        //});
 
         describe('when requested key is not specified', function () {
             it('should throw exception that resource with specified key was not found', function () {

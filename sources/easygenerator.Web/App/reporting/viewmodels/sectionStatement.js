@@ -1,7 +1,7 @@
 ﻿import _ from 'underscore';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+import ExpandableStatement from './expandableStatement';
 import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
-import XApiProvider from 'reporting/xApiProvider';
+import XApiProvider from './../xApiProvider';
 
 export default class extends ExpandableStatement  {
     constructor(sectionLrsStatement, childStatements) {

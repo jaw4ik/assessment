@@ -5,12 +5,12 @@
         'durandal/app',
         'localization/localizationManager',
         'widgets/imagePreview/viewmodel',
-        'viewmodels/questions/singleSelectImage/answer',
-        'viewmodels/questions/singleSelectImage/commands/addAnswer',
-        'viewmodels/questions/singleSelectImage/commands/removeAnswer',
-        'viewmodels/questions/singleSelectImage/commands/setCorrectAnswer',
-        'viewmodels/questions/singleSelectImage/commands/updateAnswerImage',
-        'viewmodels/questions/singleSelectImage/queries/getQuestionContentById'],
+        './answer',
+        './commands/addAnswer',
+        './commands/removeAnswer',
+        './commands/setCorrectAnswer',
+        './commands/updateAnswerImage',
+        './queries/getQuestionContentById'],
     function (imageUpload, notify, constants, eventTracker, app, localizationManager, imagePreview, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
         "use strict";
 

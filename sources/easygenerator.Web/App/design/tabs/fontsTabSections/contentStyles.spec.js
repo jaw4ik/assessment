@@ -1,4 +1,4 @@
-﻿import ContentStyles from './ContentStyles';
+﻿import ContentStyles from './contentStyles';
 
 import userContext from 'userContext';
 

@@ -1,5 +1,4 @@
-﻿
-define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guard', 'repositories/sectionRepository', 'models/question', 'mappers/questionModelMapper'],
+﻿define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guard', './sectionRepository', 'models/question', 'mappers/questionModelMapper'],
     function (app, dataContext, constants, apiHttpWrapper, guard, sectionRepository, Question, questionModelMapper) {
 
         var

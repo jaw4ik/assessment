@@ -1,4 +1,8 @@
-﻿function getCustomMatchers() {
+﻿jasmine.getEnv().beforeEach(function () {
+    jasmine.addMatchers(getCustomMatchers());
+});
+
+function getCustomMatchers() {
 
     return {
         toBeFunction: toBeFunction,
@@ -350,7 +354,7 @@ function toBeInstanceOf(util, customEqualityTesters) {
                 result.message = "Ok";
                 result.pass = true;
             }
-            
+
             return result;
         }
     };

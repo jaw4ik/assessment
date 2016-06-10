@@ -24,6 +24,9 @@
     <script type="text/javascript" src="Scripts/vendor/system.js"></script>
     <script type="text/javascript" src="Scripts/system-hooks.js"></script>
     <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript">
+        System.cacheBust = '?v=' + Date.now();
+    </script>
 
     <!-- Source scripts -->
     <script type="text/javascript" src="Scripts/common/app.js"></script>
@@ -42,9 +45,9 @@
     <script type="text/javascript" src="Scripts/jasmine/jasmine.js"></script>
     <script type="text/javascript" src="Scripts/jasmine/jasmine-html.js"></script>
     <script type="text/javascript" src="Scripts/jasmine/PhantomReporter.js"></script>
-    <script type="text/javascript" src="Scripts/jasmine/matchers.js"></script>
     <script type="text/javascript" src="Scripts/jasmine/utils.js"></script>
     <script type="text/javascript" src="Scripts/jasmine/boot.js"></script>
+    <script type="text/javascript" src="Scripts/jasmine/matchers.js"></script>
     <script type="text/javascript" src="specRunner.js"></script>
 
 </head>

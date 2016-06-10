@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'notify', './commands/storage', './commands/vimeo', 'userContext', 'videoUpload/uploadDataContext', 'eventTracker'], function (app, constants, notify, storageCommands, vimeoCommands, userContext, uploadDataContext, eventTracker) {
+﻿define(['durandal/app', 'constants', 'notify', './commands/storage', './commands/vimeo', 'userContext', './uploadDataContext', 'eventTracker'], function (app, constants, notify, storageCommands, vimeoCommands, userContext, uploadDataContext, eventTracker) {
 
     var videoConstants = constants.storage.video,
         eventCategory = 'Video library',

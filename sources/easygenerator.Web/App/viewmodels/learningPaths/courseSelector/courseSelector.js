@@ -1,5 +1,5 @@
-﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
-    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants'],
+﻿define(['./queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
+    './../learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants'],
     function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery, app, constants) {
         "use strict";
 

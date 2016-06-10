@@ -1,9 +1,9 @@
-﻿define(['Query', 'vimeo/queries/getVideo'], function (Query, getVideo) {
+﻿import Query from 'Query';
+import getVideo from './getVideo';
 
-    return new Query(function (obj) {
-        return getVideo.execute(obj.vimeoId).then(function(video) {
-            return video.status === 'available';
-        });
+export default new Query(function(obj) {
+    return getVideo.execute(obj.vimeoId).then(function(video) {
+        return video.status === 'available';
     });
-
 });
+

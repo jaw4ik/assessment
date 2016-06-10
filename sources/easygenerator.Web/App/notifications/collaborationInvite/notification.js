@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'notifications/collaborationInvite/commands/acceptInvite', 'notifications/collaborationInvite/commands/declineInvite', 'constants'],
+﻿define(['durandal/app', './commands/acceptInvite', './commands/declineInvite', 'constants'],
 function (app, acceptInvite, declineInvite, constants) {
 
     "use strict";

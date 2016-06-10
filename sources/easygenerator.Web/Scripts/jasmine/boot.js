@@ -118,10 +118,6 @@
       currentWindowOnload();
     }
     htmlReporter.initialize();
-    env.beforeEach(function () {
-        window.jasmine.addMatchers(getCustomMatchers());
-    });
-
     runSpecs(env);
   };
 

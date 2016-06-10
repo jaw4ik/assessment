@@ -9,6 +9,7 @@ describe('viewModel [audios]', () => {
     beforeEach(() => {
         spyOn(audioLibrary, 'addAudio');
         spyOn(eventTracker, 'publish');
+        userContext.storageIdentity = {};
     });
 
     describe('storageSpaceProgressBarVisibility:', () => {
@@ -44,7 +45,7 @@ describe('viewModel [audios]', () => {
         it('should turn off library', function (done) {
             spyOn(viewModel.library, 'off');
 
-            viewModel.deactivate().fin(function () {
+            viewModel.deactivate().then(function () {
                 expect(viewModel.library.off).toHaveBeenCalled();
                 done();
             });
@@ -87,14 +88,10 @@ describe('viewModel [audios]', () => {
     });
 
     describe('activate:', () => {
-        let identifyStoragePermissionsDeferred = Q.defer(),
-            initializeAudioLibraryDefer = Q.defer();
 
         beforeEach(() => {
-            spyOn(audioLibrary, 'initialize').and.returnValue(initializeAudioLibraryDefer.promise);
-            spyOn(userContext, 'identifyStoragePermissions').and.returnValue(identifyStoragePermissionsDeferred.promise);
-            identifyStoragePermissionsDeferred.resolve();
-            initializeAudioLibraryDefer.resolve();
+            spyOn(audioLibrary, 'initialize').and.returnValue(Promise.resolve());
+            spyOn(userContext, 'identifyStoragePermissions').and.returnValue(Promise.resolve());
         });
 
         it('should return promise', () => {
@@ -102,14 +99,14 @@ describe('viewModel [audios]', () => {
         });
 
         it('should identify storage permissions', done => {
-            viewModel.activate().fin(() => {
+            viewModel.activate().then(() => {
                 expect(userContext.identifyStoragePermissions).toHaveBeenCalled();
                 done();
             });
         });
 
         it('should initialize audio library', done => {
-            viewModel.activate().fin(() => {
+            viewModel.activate().then(() => {
                 expect(audioLibrary.initialize).toHaveBeenCalled();
                 done();
             });
@@ -123,9 +120,8 @@ describe('viewModel [audios]', () => {
 
             it('should not show storage space progress bar', (done) => {
                 viewModel.storageSpaceProgressBarVisibility(true);
-                var promise = viewModel.activate();
 
-                promise.fin(() => {
+                viewModel.activate().then(() => {
                     expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(false);
                     done();
                 });
@@ -134,34 +130,34 @@ describe('viewModel [audios]', () => {
 
         describe('when user has not free plan', () => {
             beforeEach(() => {
-                userContext.storageIdentity = {};
+                spyOn(userContext, 'hasTrialAccess').and.returnValue(false);
                 spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                 spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
             });
 
             it('should show storage space progress bar', done => {
                 viewModel.storageSpaceProgressBarVisibility(false);
-                viewModel.activate().fin(() => {
+                viewModel.activate().then(() => {
                     expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(true);
                     done();
                 });
             });
 
             describe('when available storage space is greater than 1Gb', () => {
-                beforeEach(() => {                    
+                beforeEach(() => {
                     userContext.storageIdentity.availableStorageSpace = 1073741825;
                     userContext.storageIdentity.totalStorageSpace = 1073741825 * 2;
                 });
 
                 it('should set available storage space in Gb', done => {
-                    viewModel.activate().fin(() => {
+                    viewModel.activate().then(() => {
                         expect(viewModel.availableStorageSpace()).toBe('1.0' + localizationManager.localize('gb'));
                         done();
                     });
                 });
 
                 it('should set available storage space in perseteges on progress bar', done => {
-                    viewModel.activate().fin(() => {
+                    viewModel.activate().then(() => {
                         expect(viewModel.availableStorageSpacePersentages()).toBe(50);
                         done();
                     });
@@ -175,14 +171,14 @@ describe('viewModel [audios]', () => {
                 });
 
                 it('should set available storage space in Mb', done => {
-                    viewModel.activate().fin(() => {
+                    viewModel.activate().then(() => {
                         expect(viewModel.availableStorageSpace()).toBe('1024.0' + localizationManager.localize('mb'));
                         done();
                     });
                 });
 
                 it('should set available storage space in perseteges on progress bar', done => {
-                    viewModel.activate().fin(() => {
+                    viewModel.activate().then(() => {
                         expect(viewModel.availableStorageSpacePersentages()).toBe(50);
                         done();
                     });

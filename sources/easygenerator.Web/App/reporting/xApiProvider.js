@@ -4,7 +4,7 @@ import httpRequestSender from 'http/httpRequestSender';
 import base64 from 'utils/base64';
 import constants from 'constants';
 import _ from 'underscore';
-import FilterCriteriaFactory from 'reporting/xApiFilterCriteriaFactory';
+import FilterCriteriaFactory from './xApiFilterCriteriaFactory';
 
 export default class {
     static getCourseStatements(courseId, embeded, take, skip) {
