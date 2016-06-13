@@ -77,6 +77,7 @@ namespace easygenerator.Web.Controllers.Api
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
 
             _courseRepository.Add(course);
+            _eventPublisher.Publish(new CourseCreatedEvent(course, GetCurrentUsername()));
 
             return JsonSuccess(_entityMapper.Map(course));
         }
@@ -93,6 +94,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var duplicatedCourse = GetDuplicatedCourse(course);
             _courseRepository.Add(duplicatedCourse);
+            _eventPublisher.Publish(new CourseCreatedEvent(duplicatedCourse, GetCurrentUsername()));
 
             return JsonSuccess(new
             {

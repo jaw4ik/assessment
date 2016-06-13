@@ -142,6 +142,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
             ActionResultAssert.IsJsonSuccessResult(result);
         }
 
+        [TestMethod]
+        public void Create_ShouldPublishDomainEvent()
+        {
+            const string title = "Course title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var course = CourseObjectMother.CreateWithTitle(title);
+            var template = TemplateObjectMother.Create();
+            _entityFactory.Course(title, template, user).Returns(course);
+            _templateRepository.GetDefaultTemplate().Returns(template);
+
+            _controller.Create(title, null);
+
+            _eventPublisher.Received().Publish(Arg.Any<CourseCreatedEvent>());
+        }
+
         #endregion
 
         #region Duplicate course
@@ -220,6 +236,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             var result = _controller.Duplicate(courseToDuplicate);
             result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void Duplicate_ShouldPublishDomainEvent()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate);
+
+            _eventPublisher.Received().Publish(Arg.Any<CourseCreatedEvent>());
         }
 
         #endregion

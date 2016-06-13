@@ -365,4 +365,12 @@ Time Easygenerator&lt;/p&gt;
   <data name="ForgotPassMailThankYou" xml:space="preserve">
     <value>Obrigado por usar easygenerator.com e tenha um bom dia!</value>
   </data>
+  <data name="InviteOrganizationUserBody" xml:space="preserve">
+    <value>&lt;div&gt;
+&lt;p&gt;{0} convida você para se tornar um membro da {1} organização no Easygenerator.&lt;/p&gt;
+&lt;p&gt; Você pode criar uma conta Easygenerator grátis. Vá para: &lt;a href="{2}"&gt;{2}&lt;/a&gt; e registre com este endereço de e-mail para se tornar um membro da organização.&lt;/p&gt;
+&lt;p&gt;Atenciosamente,&lt;br/&gt;
+Time Easygenerator&lt;/p&gt;
+&lt;/div&gt;</value>
+  </data>
 </root>

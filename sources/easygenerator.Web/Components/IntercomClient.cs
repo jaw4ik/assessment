@@ -1,7 +1,12 @@
 ﻿using easygenerator.Web.Components.Configuration;
 
-namespace easygenerator.Web.Newsletter.Intercom
+namespace easygenerator.Web.Components
 {
+    public interface IIntercomClient
+    {
+        IntercomDotNet.IntercomClient Client { get; }
+    }
+
     public class IntercomClient: IIntercomClient
     {
         public IntercomClient()

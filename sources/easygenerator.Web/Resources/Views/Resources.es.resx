@@ -365,4 +365,12 @@ Equipo de easygenerator&lt;/p&gt;
   <data name="ForgotPassMailThankYou" xml:space="preserve">
     <value>¡Gracias por utilizar easygenerator.com y que tenga un buen dia!</value>
   </data>
+  <data name="InviteOrganizationUserBody" xml:space="preserve">
+    <value>&lt;div&gt;
+&lt;p&gt;{0} le invita a ser miembro de la organización {1} de easygenerator.&lt;/p&gt;
+&lt;p&gt;Puede crear una cuenta gratuita en easygenerator. Para ello, vaya a &lt;a href="{2}"&gt;{2}&lt;/a&gt; y registre esta dirección de correo electrónico para ser miembro de la organización.&lt;/p&gt;
+&lt;p&gt;Un cordial saludo,&lt;br/&gt;
+El equipo de easygenerator&lt;/p&gt;
+&lt;/div&gt;</value>
+  </data>
 </root>
