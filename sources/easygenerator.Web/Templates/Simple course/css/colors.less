@@ -103,24 +103,114 @@ body {
             border-bottom-color: @text-color;
         }
     }
+    
+    &.check{
+        border-color: fade(@main-color, 10%);
+        color: fade(@text-color, 70%);
+        
+        &:hover{
+            border-color: fade(@main-color, 20%);
+            color: fade(@text-color, 80%);
+            &:before{
+                border-color: @main-color; 
+            }
+        }
+        
+        &:before{
+            border-color: fade(@text-color, 20%);
+        }
+        
+        &.active{
+            
+            &:before{
+                border-color: @main-color; 
+                background-color: @main-color; 
+            }
+        }
+    }
+    
+    &.transparent{
+        background-color: transparent;
+        border-color: fade(@main-color, 30%);
+        color: @main-color;
+        
+        &:hover{
+            border-color: @main-color;
+        }
+    }
 }
 
 .login {
     h2 {
-        color: fade(@text-color,90%);
+        color: @text-color;
+    }
+    
+    h3{
+        color: @text-color;
+    }
+    
+    h4{
+        color: fade(@text-color, 70%);
     }
 
     footer {
         color: fade(@text-color,50%);
     }
+    
+    .icon-container{
+        color: @main-color;
+        background: fade(@main-color, 20%);
+    }
 
     form {
         .form-row {
+            h4{
+                color: fade(@text-color, 70%);
+            }
+            
             input {
                 color: @text-color;
 
                 + label {
                     color: fade(@text-color,50%);
+                }
+            }
+            
+            .link{
+                a{
+                    color: fade(@main-color, 70%);
+                    
+                    &:hover{
+                        color: @main-color;
+                        text-decoration: underline;
+                    }
+                }
+            }
+            
+            .checkbox-container{
+                color: fade(@text-color, 50%);
+                
+                &:hover{
+                    color: fade(@text-color, 70%);
+                }
+                
+                &.active{
+                    
+                    .checkbox-box{
+                        background-color: @main-color;
+                        border-color: @main-color;
+                    }
+                }
+            }
+            
+            .secret-link-confirm-container{
+                color: fade(@text-color, 70%);
+                
+                .secret-link-confirm-wrapper{
+                    background-color: fade(@main-color, 10%);
+                    .icon-envelope{
+                        color: fade(@main-color, 70%);
+                    }
                 }
             }
         }
@@ -608,12 +698,82 @@ body {
     background-color: fade(@content-body-color,90%);
 
     .popup {
+        
         article {
             background-color: @content-body-color;
+            
+            .icon-container{
+                
+                .icon-wrapper{
+                    color: @main-color;
+                    background-color: fade(@main-color, 10%);
+                }
+            }
+            
+            header{
+                p{
+                    color: fade(@text-color, 50%);
+                }
+                .icon-container{
+                    color: @main-color;
+                    background: fade(@main-color, 20%);
+                }
+            }
+            aside{
+                background-color: fade(@main-color, 20%);
+                color: @text-color;
+                .icon-envelope{
+                    color: @main-color;
+                }
+            }
         }
 
         footer {
             background-color: fade(@main-color, 10%);
+            
+            &.background-transparent{
+                background-color: transparent;
+            }
+        }
+        .popup-switch-options{
+            color: fade(@text-color, 50%);
+        }
+        .popup-table{
+            .popup-cell{
+                p{
+                    color: fade(@text-color, 70%);
+                }
+                
+                &.seperator{
+                    color: fade(@text-color, 50%);
+                }
+                
+                .icon-container{
+                    color: @main-color;
+                    background: fade(@main-color, 10%);
+                }
+                
+                .input-wrapper{
+                    [class^="icon-"], [class*=" icon-"]{
+                        color: fade(@text-color, 50%);
+                    }
+                }
+                
+                input{
+                    color: fade(@text-color, 90%);
+                    background-color: fade(@main-color, 10%);
+
+                    &::selection{
+                        background-color: @main-color;
+                        color:@button-text-color;
+                    }
+                    
+                    &::-moz-selection{
+                        background-color: @main-color;
+                        color:@button-text-color;
+                    }
+                }
+            }
         }
     }
 }
@@ -693,17 +853,6 @@ body {
 }
 
 .exit-course-wrapper {
-    .exit-course-separator {
-        .exit-course-separator-text {
-            color: fade(@text-color, 50%);
-
-            &:before,
-            &:after {
-                background: fade(@text-color, 10%);
-            }
-        }
-    }
-
     .exit-course-link-wrapper {
         .exit-course-link {
             color: fade(@text-color, 80%);
@@ -855,3 +1004,47 @@ body {
 }
 
 /*#endregion CUSTOM SROLLBAR*/
+
+.or-separator {
+    .or-separator-text {
+        color: fade(@text-color, 50%);
+
+        &:before,
+        &:after {
+            background: fade(@text-color, 10%);
+        }
+    }
+}
+
+.social-networks-btn{
+    color: fade(@main-color, 70%);
+    
+    &:hover{
+        color: @main-color;
+    }
+}
+
+.helper-tooltip-container{
+    
+    .material-icons{
+        color: fade(@text-color, 50%);
+        
+        &:hover{
+            color: @main-color;
+        }
+    }
+}
+
+.pulsar-loader {
+    .pulsar-loader-item {
+        background-color: @button-text-color;
+    }
+}
+
+.blockout{
+
+    .blockout-text{
+        background-color: fade(@main-color, 20%);
+        color: fade(@text-color, 80%);
+    }
+}

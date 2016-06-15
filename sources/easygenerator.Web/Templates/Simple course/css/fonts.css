@@ -2,10 +2,20 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1465470414312); /* For IE6-8 */
+  src: url(../fonts/MaterialIcons-Regular.woff?v=1465994401612); /* For IE6-8 */
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1465470414312) format('woff'),
+       url(MaterialIcons-Regular.woff?v=1465994401612) format('woff'),
+}
+
+@font-face {
+    font-family: 'Custom Icons';
+    font-weight: normal;
+    font-style: normal;
+    src: url(../fonts/Custom-Icons.woff?v=1465994401612); /* For IE6-8 */
+    src: local('Custom Icons'),
+        local('Custom-Icons'),
+        url(Custom-Icons.woff?v=1465994401612) format('woff'),
 }
 
 .material-icons {
@@ -31,4 +41,65 @@
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'Custom Icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-envelope:before {
+    content: "\e90e";
+}
+.icon-lock:before {
+    content: "\e90d";
+}
+.icon-link:before {
+    content: "\e908";
+}
+.icon-all_devices:before {
+    content: "\e904";
+}
+.icon-no_connection:before {
+    content: "\e905";
+}
+.icon-user:before {
+    content: "\e903";
+}
+.icon-linkedin:before {
+    content: "\e907";
+}
+.icon-google:before {
+    content: "\e900";
+}
+.icon-facebook:before {
+    content: "\e901";
+}
+.icon-twitter:before {
+    content: "\e902";
+}
+.icon-password:before {
+    content: "\e906";
+}
+.icon-google2:before {
+    content: "\e909";
+}
+.icon-facebook2:before {
+    content: "\e90a";
+}
+.icon-linkedin2:before {
+    content: "\e90b";
+}
+.icon-email:before {
+    content: "\e90c";
 }

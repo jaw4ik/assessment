@@ -23,6 +23,13 @@
             "400"
         ],
         "local": true
+    },
+    {
+        "fontFamily": "Custom Icons",
+        "variants": [
+            "400"
+        ],
+        "local": true
     }
   ],
   "presets": [
