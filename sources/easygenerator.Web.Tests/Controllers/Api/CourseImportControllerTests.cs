@@ -15,6 +15,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.DomainModel.Events;
 using easygenerator.Web.Import.WinToWeb;
 using easygenerator.Web.Import.WinToWeb.Mappers;
 
@@ -33,6 +34,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IPresentationCourseImporter _presentationCourseImporter;
         private IWinToWebModelMapper _winToWebModelMapper;
         private IWinToWebCourseImporter _winToWebCourseImporter;
+        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -46,8 +48,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _presentationCourseImporter = Substitute.For<IPresentationCourseImporter>();
             _winToWebCourseImporter = Substitute.For<IWinToWebCourseImporter>();
             _winToWebModelMapper = Substitute.For<IWinToWebModelMapper>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
 
-            _controller = new CourseImportController(_entityMapper, _courseRepository, _configurationReader, _presentationModelMapper, _presentationCourseImporter, _winToWebModelMapper, _winToWebCourseImporter);
+            _controller = new CourseImportController(_entityMapper, _courseRepository, _configurationReader, _presentationModelMapper, _presentationCourseImporter, _winToWebModelMapper, _winToWebCourseImporter, _eventPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 

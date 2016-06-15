@@ -356,6 +356,8 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
+    <Compile Include="DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
     <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
     <Compile Include="Publish\External\ExternalPublisher.cs" />
     <Compile Include="Publish\External\IExternalPublisher.cs" />
@@ -363,7 +365,7 @@
     <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
-    <Compile Include="DomainEvents\Handlers\IntercomSubscriptionHandler.cs" />
+    <Compile Include="DomainEvents\Handlers\Intercom\UserEventsHandler.cs" />
     <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
     <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
     <Compile Include="Import\WinToWeb\Model\WinCourse.cs" />
@@ -372,10 +374,7 @@
     <Compile Include="Import\WinToWeb\Model\WinObjective.cs" />
     <Compile Include="Import\WinToWeb\Model\WinQuestion.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporter.cs" />
-    <Compile Include="Newsletter\Intercom\IIntercomClient.cs" />
-    <Compile Include="Newsletter\Intercom\IntercomClient.cs" />
-    <Compile Include="Newsletter\Intercom\IntercomSubscriptionManager.cs" />
-    <Compile Include="Newsletter\Intercom\IIntercomSubscriptionManager.cs" />
+    <Compile Include="Components\IntercomClient.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Publish\Publisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">

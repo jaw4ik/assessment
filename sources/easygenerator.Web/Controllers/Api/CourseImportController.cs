@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.Import.WinToWeb;
 using easygenerator.Web.Import.WinToWeb.Mappers;
 
@@ -23,11 +25,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IPresentationCourseImporter _presentationCourseImporter;
         private readonly IWinToWebModelMapper _winToWebModelMapper;
         private readonly IWinToWebCourseImporter _winToWebCourseImporter;
-
+        private readonly IDomainEventPublisher _eventPublisher;
 
         public CourseImportController(IEntityMapper entityMapper, ICourseRepository courseRepository, ConfigurationReader configurationReader, 
             IPresentationModelMapper presentationModelMapper, IPresentationCourseImporter presentationCourseImporter,
-            IWinToWebModelMapper winToWebModelMapper, IWinToWebCourseImporter winToWebCourseImporter)
+            IWinToWebModelMapper winToWebModelMapper, IWinToWebCourseImporter winToWebCourseImporter, IDomainEventPublisher eventPublisher)
         {
             _entityMapper = entityMapper;
             _courseRepository = courseRepository;
@@ -36,6 +38,7 @@ namespace easygenerator.Web.Controllers.Api
             _presentationCourseImporter = presentationCourseImporter;
             _winToWebModelMapper = winToWebModelMapper;
             _winToWebCourseImporter = winToWebCourseImporter;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -61,6 +64,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var course = _presentationCourseImporter.Import(model, file.FileName, GetCurrentUsername());
             _courseRepository.Add(course);
+            _eventPublisher.Publish(new CourseCreatedEvent(course, GetCurrentUsername()));
 
             return JsonSuccess(new
             {
@@ -83,6 +87,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var course = _winToWebCourseImporter.Import(model, GetCurrentUsername());
             _courseRepository.Add(course);
+            _eventPublisher.Publish(new CourseCreatedEvent(course, GetCurrentUsername()));
 
             return JsonSuccess(new
             {

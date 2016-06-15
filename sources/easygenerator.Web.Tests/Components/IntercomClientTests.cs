@@ -2,9 +2,9 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using easygenerator.Web.Newsletter.Intercom;
+using easygenerator.Web.Components;
 
-namespace easygenerator.Web.Tests.Newsletter.Intercom
+namespace easygenerator.Web.Tests.Components
 {
     [TestClass]
     public class IntercomClientTests
