@@ -1,4 +1,4 @@
-﻿define(['userContext', 'constants', 'notifications/collaborationInvite/notification', 'durandal/app', 'notifications/collaborationInvite/queries/getInvites'],
+﻿define(['userContext', 'constants', 'notifications/collaborationInvite/notification', 'durandal/app', './queries/getInvites'],
     function (userContext, constants, Notification, app, getInvitesQuery) {
         "use strict";
 

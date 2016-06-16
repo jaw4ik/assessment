@@ -1,4 +1,4 @@
-﻿import QuestionStatementBase from 'reporting/viewmodels/questionStatements/questionStatementBase';
+﻿import QuestionStatementBase from './questionStatementBase';
 
 export default class extends QuestionStatementBase {
     constructor(statement) {

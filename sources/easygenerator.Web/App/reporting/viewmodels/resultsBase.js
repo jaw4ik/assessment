@@ -1,5 +1,5 @@
 ﻿define(['constants', 'moment', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel',
- 'reporting/viewmodels/startedStatement', 'reporting/viewmodels/progressedStatement', 'reporting/viewmodels/questionStatements/answeredStatement', 'reporting/viewmodels/questionStatements/experiencedStatement', 'reporting/statementsCacheManager'],
+ './startedStatement', './progressedStatement', 'reporting/viewmodels/questionStatements/answeredStatement', 'reporting/viewmodels/questionStatements/experiencedStatement', 'reporting/statementsCacheManager'],
     function (constants, moment, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, ProgressedStatement, AnsweredStatement, ExperiencedStatement, statementsCacheManager) {
         "use strict";
 

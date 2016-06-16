@@ -5,8 +5,8 @@
         'viewmodels/common/titleField',
         'constants',
         'localization/localizationManager',
-        'viewmodels/learningPaths/learningPath/commands/updateTitleCommand',
-        'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery',
+        './commands/updateTitleCommand',
+        './queries/getLearningPathByIdQuery',
         'clientContext',
         'dialogs/learningPath/shareLearningPath'
 ],
