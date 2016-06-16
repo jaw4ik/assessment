@@ -3360,7 +3360,7 @@
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\app\main.js.map" />
-    <Content Include="Templates\Simple course\css\colors.less" />
+    <Content Include="Templates\Simple course\css\colors.css" />
     <Content Include="Templates\Simple course\css\fonts.css" />
     <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
