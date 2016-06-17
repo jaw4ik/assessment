@@ -795,6 +795,8 @@
     "discardChanges": "Discard changes",
     "saveAsNew": "Save as new",
     "backToSettings": "Terug naar instellingen",
+    "saveThemesUpgradeSubtitle": "to save your own themes",
+    "saveThemesUpgradeText": "<ul><li>Create and re-use course themes</li><li>Share with co-authors</li><li>Apply your Corporate Identity everywhere</li></ul>",
     "backToCourse": "Bewaar en terug",
     "duplicateQuestion": "Copy question",
     "duplicateContent": "Dupliceer",
@@ -916,5 +918,7 @@
     "noResultsTitle": "No results found",
     "noResultsSubtitle": "Try adjusting your search or filter to find what you're looking for.",
     "watchToturial": "Watch tutorial",
-    "aboutOneMinute": "(about 1 minute)"
+    "aboutOneMinute": "(about 1 minute)",
+    "editImage": "Edit image",
+    "pasteOrTypeImageLink": "Paste or type image link here..."
 }
