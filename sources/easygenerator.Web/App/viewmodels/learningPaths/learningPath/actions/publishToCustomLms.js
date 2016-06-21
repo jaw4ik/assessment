@@ -1,5 +1,5 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'routing/router', 'durandal/app', 'userContext', './../queries/getLearningPathByIdQuery'],
-    function (ko, notify, eventTracker, clientContext, constants, router, app, userContext, getLearningPathByIdQuery) {
+﻿define(['knockout', 'underscore', 'notify', 'eventTracker', 'clientContext', 'constants', 'routing/router', 'durandal/app', 'userContext', './../queries/getLearningPathByIdQuery'],
+    function (ko, _, notify, eventTracker, clientContext, constants, router, app, userContext, getLearningPathByIdQuery) {
 
         var
            events = {
@@ -56,6 +56,7 @@
                         viewModel.isPublishing(learningPath.isPublishing);
                         viewModel.isDelivering(learningPath.isDelivering());
                         viewModel.isPublished(!!learningPath.learningPathCompanies.find(function (company) {
+                        viewModel.isPublished(!!_.find(learningPath.learningPathCompanies, function (company) {
                             return company.id === viewModel.companyInfo.id;
                         }));
 
@@ -77,7 +78,7 @@
             function onDeliveringFinished(learningPath) {
                 viewModel.isDelivering(false);
                 viewModel.isPublishing(learningPath.isPublishing);
-                viewModel.isPublished(!!learningPath.learningPathCompanies.find(function (company) {
+                viewModel.isPublished(!!_.find(learningPath.learningPathCompanies, function (company) {
                     return company.id === viewModel.companyInfo.id;
                 }));
             }
