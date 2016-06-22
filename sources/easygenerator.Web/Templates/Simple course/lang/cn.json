@@ -102,18 +102,20 @@
     "[login pasword is not valid]": "输入有效的密码",
     "[login email / password combination is not valid]": "该电子邮件/密码组合无效。",
     "[remember me on this device]": "保持登录",
-    "[show other options]": "显示其他选项",
-    "[hide other options]": "隐藏其他选项",
+    "[show other options]": "现在请显示信息",
+    "[hide other options]": "隐藏信息",
     "[no questions]": "无问题",
     "[sections]": "章节",
     "[request a secret link]": "请求密码链接",
     "[to your progress via email]": "通过电子邮件前往您的进度点",
     "[credentials]": "凭证",
     "[social accounts]": "社交帐户：",
+    "[message about mailbox]": "我们已发送至您邮箱的信息",
     "[the letter has been successfully sent]": "邮件已成功发送",
     "[copy]": "复制",
     "[copied]": "已复制",
     "[expand]": "展开",
     "[collapse]": "折叠",
-    "[keep me logged-in for the next courses]": "后续课程均保持登录状态"
+    "[keep me logged-in for the next courses]": "后续课程均保持登录状态",
+    "[please close the browser tab now]": "现在请关闭浏览器选项卡"
 }

@@ -102,18 +102,20 @@
     "[login pasword is not valid]": "Introduzca una contraseña válida",
     "[login email / password combination is not valid]": "Esta combinación de correo electrónico y contraseña no es válida.",
     "[remember me on this device]": "Mantenerse conectado",
-    "[show other options]": "Mostrar otras opciones",
-    "[hide other options]": "Ocultar otras opciones",
+    "[show other options]": "Mostrar información ahora",
+    "[hide other options]": "Ocultar información",
     "[no questions]": "No hay preguntas",
     "[sections]": "Secciones",
     "[request a secret link]": "solicite un vínculo secreto",
     "[to your progress via email]": "a su progreso por correo electrónico",
     "[credentials]": "Credenciales",
     "[social accounts]": "Cuentas sociales:",
+    "[message about mailbox]": "Hemos enviado esta información a su correo",
     "[the letter has been successfully sent]": "La carta se ha enviado correctamente",
     "[copy]": "Copiar",
     "[copied]": "Copiado",
     "[expand]": "Expandir",
     "[collapse]": "Contraer",
-    "[keep me logged-in for the next courses]": "Mantenerme conectado para los siguientes cursos"
+    "[keep me logged-in for the next courses]": "Mantenerme conectado para los siguientes cursos",
+    "[please close the browser tab now]": "Cierre la pestaña del navegador ahora"
 }
