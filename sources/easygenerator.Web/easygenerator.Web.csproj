@@ -3512,7 +3512,6 @@
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <Content Include="Templates\Assessment\lang\es.json" />
     <Content Include="Templates\Reader\lang\es.json" />
-    <Content Include="Templates\Simple course\lang\malay.json" />
     <Content Include="Templates\Simple course\lang\ru.json" />
     <Content Include="Templates\Assessment\lang\ru.json" />
     <Content Include="Templates\Personalized learning\lang\ru.json" />

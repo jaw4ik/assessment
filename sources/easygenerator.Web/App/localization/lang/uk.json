@@ -795,6 +795,8 @@
     "discardChanges": "Скасувати зміни",
     "saveAsNew": "Зберегти як нову",
     "backToSettings": "Назад до налаштувань",
+    "saveThemesUpgradeSubtitle": "щоб зберігати влсні теми",
+    "saveThemesUpgradeText": "<ul><li>Створювати та використовувати теми для курсів</li><li>Ділитись зі співавторами</li><li>Скрізь застосувати свій фірмовий стиль</li></ul>",
     "backToCourse": "Повернутись до курсу",
     "duplicateQuestion": "Дублювати питання",
     "duplicateContent": "Дублювати матеріал",
@@ -916,5 +918,7 @@
     "noResultsTitle": "Нічого не знайдено",
     "noResultsSubtitle": "Спробуйте змінити параметри пошуку або фільтрації, щоб знайти те, що ви шукаєте.",
     "watchToturial": "Допоміжне відео",
-    "aboutOneMinute": "(Близько 1 хвилини)"
+    "aboutOneMinute": "(Близько 1 хвилини)",
+    "editImage": "Редагувати зображення",
+    "pasteOrTypeImageLink": "Вставте або введіть посилання на картинку тут..."
 }
