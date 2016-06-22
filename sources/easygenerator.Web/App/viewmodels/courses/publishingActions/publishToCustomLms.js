@@ -2,6 +2,7 @@
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import ko from 'knockout';
+import _ from 'underscore';
 import repository from 'repositories/courseRepository';
 import PublishingAction from 'viewmodels/courses/publishingActions/publishingAction';
 
@@ -29,7 +30,7 @@ export default class extends PublishingAction {
 
         this.companyInfo = publishData.companyInfo;
         this.courseId = course.id;
-        this.isPublished(!!course.courseCompanies.find(company => company.id === this.companyInfo.id));
+        this.isPublished(!!_.find(course.courseCompanies, company => company.id === this.companyInfo.id));
         this.isDirty(course.isDirty);
 
         this.subscribe(constants.messages.course.stateChanged + course.id, this.courseStateChanged);
@@ -89,7 +90,7 @@ export default class extends PublishingAction {
                 
         this.isPublishingToLms(false);
 
-        if (course.courseCompanies.find(company => company.id === this.companyInfo.id)) {
+        if (_.find(course.courseCompanies, company => company.id === this.companyInfo.id)) {
             this.isPublished(true);
         }
     }

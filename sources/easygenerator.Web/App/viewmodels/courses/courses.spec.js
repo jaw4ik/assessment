@@ -1,6 +1,7 @@
 ﻿import viewModel from './courses';
 
 import ko from 'knockout';
+import _ from 'underscore';
 import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import dataContext from 'dataContext';
@@ -586,7 +587,7 @@ describe('viewModel [courses]', function () {
                 course.isDuplicate = true;
                 viewModel.newCourseCreated(course);
                 expect(course.isDuplicate).not.toBeDefined();
-                expect(viewModel.courses().find(function(item) { return item.id === course.id })).not.toBeDefined();
+                expect(_.find(viewModel.courses(), function(item) { return item.id === course.id })).not.toBeDefined();
             });
 
         });
