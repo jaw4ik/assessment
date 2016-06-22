@@ -55,7 +55,6 @@
 
                         viewModel.isPublishing(learningPath.isPublishing);
                         viewModel.isDelivering(learningPath.isDelivering());
-                        viewModel.isPublished(!!learningPath.learningPathCompanies.find(function (company) {
                         viewModel.isPublished(!!_.find(learningPath.learningPathCompanies, function (company) {
                             return company.id === viewModel.companyInfo.id;
                         }));
