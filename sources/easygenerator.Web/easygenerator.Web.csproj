@@ -3528,6 +3528,8 @@
     <Content Include="Templates\Simple course\lang\nb-no.json" />
     <Content Include="Templates\Simple course\lang\nn-no.json" />
     <Content Include="Templates\Simple course\fonts\Custom-Icons.woff" />
+    <Content Include="Templates\Simple course\lang\ms.json" />
+    <Content Include="Templates\Simple course\lang\vi.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
