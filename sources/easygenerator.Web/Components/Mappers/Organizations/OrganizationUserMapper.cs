@@ -4,7 +4,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers.Organizations
 {
-    public class OrganizationUserMapper : IEntityModelMapper<OrganizationUser>
+    public class OrganizationUserMapper : EntityModelMapper<OrganizationUser>
     {
         private readonly IUserRepository _userRepository;
 
@@ -13,7 +13,7 @@ namespace easygenerator.Web.Components.Mappers.Organizations
             _userRepository = userRepository;
         }
 
-        public dynamic Map(OrganizationUser organizationUser)
+        public override dynamic Map(OrganizationUser organizationUser)
         {
             var user = _userRepository.GetUserByEmail(organizationUser.Email);
 

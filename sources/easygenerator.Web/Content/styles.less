@@ -988,6 +988,7 @@
         padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 15px;
+        position: relative;
     }
 
     .list-item-separator {
@@ -1064,10 +1065,32 @@
 
 .main-content-list .list-item-saved {
     position: absolute;
-    bottom: 7px;
+    bottom: 0px;
     color: #9c9fa6;
     font-family: 'OpenSans';
     font-size: 12px;
+}
+
+.main-content-list {
+    .list-item-details {
+        position: absolute;
+        bottom: 0px;
+        display: flex;
+        width: 100%;
+        font-family: 'Open Sans';
+        font-size: 12px;
+        color: #9c9fa6;
+
+        .list-item-details-author {
+            flex: 0 0 212px;
+            .dynamic-text();
+            padding-right: 10px;
+        }
+
+        .list-item-details-saved {
+            .dynamic-text();
+        }
+    }
 }
 
 .custom-checkbox-wrapper {

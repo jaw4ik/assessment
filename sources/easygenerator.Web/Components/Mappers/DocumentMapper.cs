@@ -1,12 +1,11 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Extensions;
-using System.Linq;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class DocumentMapper : IEntityModelMapper<Document>
+    public class DocumentMapper : EntityModelMapper<Document>
     {
-        public dynamic Map(Document entity)
+        public override dynamic Map(Document entity)
         {
             return new
             {

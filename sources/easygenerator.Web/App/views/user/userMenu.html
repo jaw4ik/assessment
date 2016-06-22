@@ -31,14 +31,14 @@
                 <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: isFreeUser() ?  'upgradeNow' : 'renewMyPlan' }"></a>
             </li>
             <!-- ko if: isOrganizationAdmin  -->
-            <!--<li class="header-submenu-item manage-organizations">
+            <li class="header-submenu-item manage-organizations">
                 <a class="header-submenu-link" href="" data-bind="click: manageOrganization, localize: { text: 'manageOrganization'}"></a>
-            </li>-->
+            </li>
             <!-- /ko -->
             <!-- ko if: !isOrganizationAdmin() && !isOrganizationMember() && !hasOrganizationInvites()  -->
-            <!--<li class="header-submenu-item manage-organizations">
+            <li class="header-submenu-item manage-organizations">
                 <a class="header-submenu-link" href="" data-bind="click: createOrganization, localize: { text: 'createOrganization' }"></a>
-            </li>-->
+            </li>
             <!-- /ko -->
             <li class="header-submenu-item switch-editor">
                 <!-- ko if: newEditor -->

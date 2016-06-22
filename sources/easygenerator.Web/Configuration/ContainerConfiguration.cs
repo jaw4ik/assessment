@@ -25,6 +25,7 @@ using easygenerator.Web.BuildDocument;
 using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
@@ -39,6 +40,7 @@ using easygenerator.Web.Import.WinToWeb.Mappers;
 using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 using easygenerator.Web.Mail;
+using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.External;
@@ -54,7 +56,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using easygenerator.Web.Newsletter;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -108,6 +109,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<MagickAnyCPUWrapper>();
             builder.RegisterType<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
+            builder.RegisterType<UserIdentityProvider>().As<IUserIdentityProvider>();
             builder.RegisterType<BuildPackageCreator>();
             builder.RegisterType<CoursePackageModelMapper>();
             builder.RegisterType<CoursePackageModelSerializer>();
@@ -121,6 +123,9 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PublishSettingsProvider>();
             builder.RegisterType<BranchTrackProvider>();
             builder.RegisterType<FileDownloader>();
+            builder.RegisterType<CreateCourseOperation>();
+            builder.RegisterType<DomainOperationExecutor>().As<IDomainOperationExecutor>();
+            builder.RegisterType<CourseOwnershipProvider>();
 
             builder.RegisterModule(new DataAccessModule());
 
@@ -138,7 +143,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<UserCollaborationBroadcaster>().As<IUserCollaborationBroadcaster>();
             builder.RegisterType<OrganizationUserProvider>().As<IOrganizationUserProvider>();
             builder.RegisterType<OrganizationBroadcaster>().As<IOrganizationBroadcaster>();
-            builder.RegisterType<UserOrganizationBroadcaster>().As<IUserOrganizationBroadcaster>();
+            builder.RegisterType<OrganizationUserBroadcaster>().As<IOrganizationUserBroadcaster>();
 
             #endregion
 

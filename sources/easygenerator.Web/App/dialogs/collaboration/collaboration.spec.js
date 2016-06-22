@@ -9,12 +9,16 @@ import router from 'routing/router';
 import userContext from 'userContext';
 import addCollaboratorViewModel from 'dialogs/collaboration/addCollaborator';
 import StopCollaborationViewModel from 'dialogs/collaboration/stopCollaboration';
+import courseRepository from 'repositories/courseRepository';
 
 describe('dialog [collaboration]', () => {
 
     var localizedMessage = 'message',
         courseId = 'courseId',
         courseOwner = 'admin',
+        course= {
+            ownership: constants.courseOwnership.owned
+        },
          collaborators = [
          {
              email: "contoso@ua.com",
@@ -113,12 +117,44 @@ describe('dialog [collaboration]', () => {
         });
     });
 
+    describe('canStopCollaboration:', () => {
+        it('should be observable', () => {
+            expect(viewModel.canStopCollaboration).toBeObservable();
+        });
+    });
+
     describe('show:', () => {
 
         beforeEach(() => {
             spyOn(repository, 'getCollection').and.returnValue(Promise.resolve(collaborators));
+            spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve(course));
+            
             router.routeData({ courseId: courseId });
             userContext.identity = { email: 'anonymous' };
+        });
+
+        describe('when course ownership is shared', () => {
+            beforeEach(() => {
+                course.ownership = constants.courseOwnership.shared;
+            });
+
+            it('should set canStopCollaboration to true', done => (async () => {
+                viewModel.canStopCollaboration(false);
+                await viewModel.show(courseId, courseOwner);
+                expect(viewModel.canStopCollaboration()).toBeTruthy();
+            })().then(done));
+        });
+
+        describe('when course ownership is not shared', () => {
+            beforeEach(() => {
+                course.ownership = constants.courseOwnership.organization;
+            });
+
+            it('should set canStopCollaboration to false', done => (async () => {
+                viewModel.canStopCollaboration(true);
+                await viewModel.show(courseId, courseOwner);
+                expect(viewModel.canStopCollaboration()).toBeFalsy();
+            })().then(done));
         });
 
         describe('when courseId is not a string', () => {

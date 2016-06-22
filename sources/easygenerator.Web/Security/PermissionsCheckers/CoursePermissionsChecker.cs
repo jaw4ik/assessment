@@ -9,7 +9,9 @@ namespace easygenerator.Web.Security.PermissionsCheckers
         public override bool HasCollaboratorPermissions(string username, Course course)
         {
             return HasOwnerPermissions(username, course) ||
-                (course.Collaborators.Any(e => e.Email.Equals(username, StringComparison.InvariantCultureIgnoreCase) && e.IsAccepted));
+                   (course.Collaborators.Any(
+                       e => e.Email.Equals(username, StringComparison.InvariantCultureIgnoreCase) && e.IsAccepted));
+
         }
     }
 }

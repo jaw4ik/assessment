@@ -8,6 +8,7 @@ import app from 'durandal/app';
 import userContext from 'userContext';
 import Collaborator from 'dialogs/collaboration/collaborator';
 import guard from 'guard';
+import courseRepository from 'repositories/courseRepository';
 
 class Collaboration{
     constructor() {
@@ -22,6 +23,7 @@ class Collaboration{
         this.isLoadingCollaborators = ko.observable(false);
         this.collaborators = ko.observableArray([]);
         this.isUserCourseOwner = ko.observable(false);
+        this.canStopCollaboration = ko.observable(false);
 
         this.stopCollaborationViewModel.init(this.hide.bind(this));
     }
@@ -41,6 +43,9 @@ class Collaboration{
         this.courseId = courseId;
         app.on(constants.messages.course.collaboration.collaboratorAdded + this.courseId, this._collaboratorAddedProxy);
         app.on(constants.messages.course.collaboration.collaboratorRemoved + this.courseId, this._collaboratorRemovedProxy);
+
+        var course = await courseRepository.getById(this.courseId);
+        this.canStopCollaboration(course.ownership === constants.courseOwnership.shared);
 
         var collaborators = await repository.getCollection(this.courseId);
         var collaboratorsList = _.chain(collaborators)

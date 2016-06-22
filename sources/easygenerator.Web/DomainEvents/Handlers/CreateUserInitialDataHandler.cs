@@ -1,8 +1,9 @@
-﻿using easygenerator.DomainModel.Events;
+﻿using easygenerator.DomainModel;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
-using easygenerator.Infrastructure.Clonning;
-using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure.Clonning;
+using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.InMemoryStorages;
 
 namespace easygenerator.Web.DomainEvents.Handlers
@@ -15,9 +16,10 @@ namespace easygenerator.Web.DomainEvents.Handlers
         private readonly ITemplateRepository _templateRepository;
         private readonly IDemoCoursesStorage _demoCoursesInMemoryStorage;
         private readonly ICloner _cloner;
+        private readonly IDomainOperationExecutor _domainOperationExecutor;
 
         public CreateUserInitialDataHandler(IEntityFactory entityFactory, ICourseRepository courseRepository, IOnboardingRepository onboardingRepository,
-            ITemplateRepository templateRepository, IDemoCoursesStorage demoCoursesInMemoryStorage, ICloner cloner)
+            ITemplateRepository templateRepository, IDemoCoursesStorage demoCoursesInMemoryStorage, ICloner cloner, IDomainOperationExecutor domainOperationExecutor)
         {
             _entityFactory = entityFactory;
             _courseRepository = courseRepository;
@@ -25,6 +27,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
             _templateRepository = templateRepository;
             _demoCoursesInMemoryStorage = demoCoursesInMemoryStorage;
             _cloner = cloner;
+            _domainOperationExecutor = domainOperationExecutor;
         }
 
         public void Handle(CreateUserInitialDataEvent args)
@@ -39,7 +42,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
             {
                 var clonedCourse = _cloner.Clone(demoCourse, args.User.Email);
                 clonedCourse.UpdateTemplate(defaultTemplate, clonedCourse.CreatedBy);
-                _courseRepository.Add(clonedCourse);
+                _domainOperationExecutor.CreateCourse(clonedCourse, false);
             }
         }
     }

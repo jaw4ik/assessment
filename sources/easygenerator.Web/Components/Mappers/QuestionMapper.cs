@@ -1,14 +1,13 @@
 ﻿using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Extensions;
 using System;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class QuestionEntityModelMapper : IEntityModelMapper<Question>
+    public class QuestionEntityModelMapper : EntityModelMapper<Question>
     {
-        public dynamic Map(Question entity)
+        public override dynamic Map(Question entity)
         {
             return new
             {

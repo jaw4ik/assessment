@@ -26,7 +26,6 @@ describe('collaboration invite [notificationController]', function () {
 
         beforeEach(function () {
             spyOn(controller, 'pushNotification');
-            spyOn(controller, 'removeNotification');
         });
 
         it('should be function', function () {
@@ -96,15 +95,6 @@ describe('collaboration invite [notificationController]', function () {
                 });
             });
 
-            it('should subscribe on course.collaboration.inviteRemoved event', function (done) {
-                getInvitesDefer.resolve();
-                var promise = controller.execute();
-                promise.fin(function () {
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteRemoved, controller.removeNotification);
-                    done();
-                });
-            });
-
             describe('when invites loaded', function () {
                 var invites = [
                 {
@@ -140,6 +130,10 @@ describe('collaboration invite [notificationController]', function () {
             CourseTitle: 'titile'
         };
 
+        beforeEach(() => {
+            spyOn(controller, 'removeNotification');
+        });
+
         it('should push notification', function () {
             controller.pushNotification(invite);
 
@@ -151,6 +145,12 @@ describe('collaboration invite [notificationController]', function () {
             expect(app.trigger.calls.mostRecent().args[1].courseAuthorLastname).toBe( invite.CourseAuthorLastName);
             expect(app.trigger.calls.mostRecent().args[1].courseTitle()).toBe( invite.CourseTitle);
         });
+
+        it('should subscribe on invite removed event', () => {
+            controller.pushNotification(invite);
+
+            expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteRemoved + invite.CourseId, jasmine.any(Function));
+        });
     });
 
     describe('removeNotification:', function () {
@@ -159,9 +159,7 @@ describe('collaboration invite [notificationController]', function () {
         it('should remove notification', function () {
             controller.removeNotification(id);
 
-            expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.remove);
-            expect(app.trigger.calls.mostRecent().args[1]).toBe(constants.notification.keys.collaborationInvite + id);
+            expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, id);
         });
     });
 });

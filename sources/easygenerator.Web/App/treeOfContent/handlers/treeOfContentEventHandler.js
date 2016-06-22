@@ -2,6 +2,7 @@
 import CourseTreeNode from '../CourseTreeNode';
 import SectionTreeNode from '../RelatedSectionTreeNode';
 import QuestionTreeNode from '../QuestionTreeNode';
+import constants from 'constants';
 
 export default function() {
 
@@ -11,67 +12,47 @@ export default function() {
         questionTitleUpdated: questionTitleUpdated,
         questionsReordered: questionsReordered,
 
-        courseCreated: courseCreated,
-        courseDeleted: courseDeleted,
+        courseCreated: addCourse,
+        courseDeleted: deleteCourse,
         courseTitleUpdated: courseTitleUpdated,
-
-        collaborationStarted: collaborationStarted,
-        collaborationFinished: collaborationFinished,
+        courseOwnershipUpdated: courseOwnershipUpdated,
 
         sectionRelated: sectionRelated,
         sectionsUnrelated: sectionsUnrelated,
         sectionsReordered: sectionsReordered,
-        sectionTitleUpdated: sectionTitleUpdated,
-        courseDeletedByCollaborator: courseDeletedByCollaborator
+        sectionTitleUpdated: sectionTitleUpdated
     };
 
-    function courseCreated(course) {
+    function addCourse(course) {
         var treeOfContent = treeOfContentTraversal.getTreeOfContent();
         if (_.isNullOrUndefined(treeOfContent))
             return;
 
-        treeOfContent.children.unshift(new CourseTreeNode(course.id, course.title, "#courses/" + course.id, course.createdOn));
+        var courseNode = _.find(treeOfContent.courses(), c => c.id === course.id);
+        if (courseNode) {
+            courseNode.ownership(course.ownership);
+        } else {
+            treeOfContent.courses.push(new CourseTreeNode(course.id, course.title, "#courses/" + course.id, course.createdOn, course.ownership));
+        }
     }
 
-    function collaborationStarted(course) {
+    function deleteCourse(courseId) {
         var treeOfContent = treeOfContentTraversal.getTreeOfContent();
         if (_.isNullOrUndefined(treeOfContent))
             return;
 
-        var sharedCourses = treeOfContent.sharedChildren();
-        sharedCourses.push(new CourseTreeNode(course.id, course.title, "#courses/" + course.id, course.createdOn));
-        sharedCourses = _.sortBy(sharedCourses, function(item) {
-            return -item.createdOn;
-        });
-        treeOfContent.sharedChildren(sharedCourses);
+        treeOfContent.courses(_.reject(treeOfContent.courses(), course => course.id === courseId));
     }
 
-    function collaborationFinished(courseId) {
+    function courseOwnershipUpdated(courseId, ownership) {
         var treeOfContent = treeOfContentTraversal.getTreeOfContent();
         if (_.isNullOrUndefined(treeOfContent))
             return;
 
-        deleteCourse(treeOfContent.sharedChildren, courseId);
-    }
-
-    function courseDeleted(courseId) {
-        var treeOfContent = treeOfContentTraversal.getTreeOfContent();
-        if (_.isNullOrUndefined(treeOfContent))
-            return;
-
-        deleteCourse(treeOfContent.children, courseId);
-    }
-
-    function courseDeletedByCollaborator(courseId) {
-        var treeOfContent = treeOfContentTraversal.getTreeOfContent();
-        if (_.isNullOrUndefined(treeOfContent))
-            return;
-
-        deleteCourse(treeOfContent.sharedChildren, courseId);
-    }
-
-    function deleteCourse(courses, courseId) {
-        courses(_.reject(courses(), course => course.id === courseId));
+        var courseNode = _.find(treeOfContent.courses(), c => c.id === courseId);
+        if (courseNode) {
+            courseNode.ownership(ownership);
+        }
     }
 
     function courseTitleUpdated(course) {
@@ -109,7 +90,7 @@ export default function() {
             if (courseTreeNode.children().length) {
                 courseTreeNode.children(_.map(course.sections, function(section) {
                     return _.find(courseTreeNode.children(), function(sectionTreeNode) {
-                        return sectionTreeNode.id == section.id;
+                        return sectionTreeNode.id === section.id;
                     });
                 }));
             }

@@ -19,18 +19,23 @@ export default class Collaborator {
         this.isCurrentUser = collaborator.email === userContext.identity.email;
         this.isRegistered = ko.observable(collaborator.registered);
         this.isAccepted = ko.observable(collaborator.isAccepted);
+        this.isAdmin = ko.observable(collaborator.isAdmin);
         this.name = ko.observable(_.isNullOrUndefined(collaborator.fullName) || _.isEmptyOrWhitespace(collaborator.fullName) ? collaborator.email : collaborator.fullName);
         this.avatarLetter = ko.computed(() => {
             return this.isRegistered() ? this.name().charAt(0) : '';
         });
 
-        this.canBeRemoved = userContext.identity.email === courseOwner && !this.isOwner;
+        this.canBeRemoved = ko.computed(() => {
+            return userContext.identity.email === courseOwner && !this.isOwner && !this.isAdmin();
+        });
+
         this.isRemoving = ko.observable(collaborator.state === constants.collaboratorStates.deleting);
         this.isRemoveConfirmationShown = ko.observable(this.isRemoving());
         this.isRemoveSuccessMessageShown = ko.observable(false);
 
         this._collaboratorRegisteredProxy = this.collaboratorRegistered.bind(this);
         this._collaborationAcceptedProxy = this.collaborationAccepted.bind(this);
+        this._collaboratorAccessTypeUpdatedProxy = this.collaboratorAccessTypeUpdated.bind(this);
 
         if (!this.isRegistered()) {
             app.on(constants.messages.course.collaboration.collaboratorRegistered + this.email, this._collaboratorRegisteredProxy);
@@ -38,6 +43,10 @@ export default class Collaborator {
 
         if (!this.isAccepted()) {
             app.on(constants.messages.course.collaboration.inviteAccepted + this.id, this._collaborationAcceptedProxy);
+        }
+
+        if (!this.isAdmin()) {
+            app.on(constants.messages.course.collaboration.collaboratorAccessTypeUpdated + this.id, this._collaboratorAccessTypeUpdatedProxy);
         }
     }
 
@@ -48,6 +57,7 @@ export default class Collaborator {
 
         app.off(constants.messages.course.collaboration.collaboratorRegistered + this.email, this._collaboratorRegisteredProxy);
         app.off(constants.messages.course.collaboration.inviteAccepted + this.id, this._collaborationAcceptedProxy);
+        app.off(constants.messages.course.collaboration.collaboratorAccessTypeUpdated + this.id, this._collaboratorAccessTypeUpdatedProxy);
     }
 
     showRemoveConfirmation() {
@@ -93,5 +103,11 @@ export default class Collaborator {
         this.isAccepted(true);
 
         app.off(constants.messages.course.collaboration.inviteAccepted + this.id, this._collaborationAcceptedProxy);
+    }
+
+    collaboratorAccessTypeUpdated(isAdmin) {
+        this.isAdmin(isAdmin);
+
+        app.off(constants.messages.course.collaboration.collaboratorAccessTypeUpdated + this.id, this._collaboratorAccessTypeUpdatedProxy);
     }
 };

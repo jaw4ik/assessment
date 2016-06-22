@@ -9,6 +9,7 @@
             this.fullName = spec.fullName;
             this.state = '';
             this.isAccepted = spec.isAccepted;
+            this.isAdmin = spec.isAdmin;
         };
 
         return Collaborator;

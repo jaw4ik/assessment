@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Security.PermissionsCheckers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
+using System;
+using System.Linq;
 
 namespace easygenerator.Web.Tests.Security.PermissionsCheckers
 {

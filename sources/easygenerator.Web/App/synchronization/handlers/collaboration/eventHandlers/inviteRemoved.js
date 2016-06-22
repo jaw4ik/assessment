@@ -2,9 +2,9 @@
     function (guard, app, constants) {
         "use strict";
 
-        return function (inviteId) {
-            guard.throwIfNotString(inviteId, 'InviteId is not a string');
+        return function (courseId) {
+            guard.throwIfNotString(courseId, 'CourseId is not a string');
 
-            app.trigger(constants.messages.course.collaboration.inviteRemoved, inviteId);
+            app.trigger(constants.messages.course.collaboration.inviteRemoved, courseId);
         }
     });

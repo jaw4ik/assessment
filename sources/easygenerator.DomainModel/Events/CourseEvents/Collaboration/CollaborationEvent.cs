@@ -1,7 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 
-namespace easygenerator.DomainModel.Events.CourseEvents
+namespace easygenerator.DomainModel.Events.CourseEvents.Collaboration
 {
     public abstract class CollaborationEvent : CourseEvent
     {

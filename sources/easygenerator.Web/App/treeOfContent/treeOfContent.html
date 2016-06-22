@@ -1,12 +1,12 @@
 ﻿<section class="navigation-tree-content">
-    <!-- ko if: children().length == 0 && sharedChildren().length == 0 -->
+    <!-- ko if: courses().length === 0 -->
     <div class="navigation-tree-no-courses-wrapper">
         <span class="navigation-tree-no-courses-icon"></span>
-        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }">No courses yet</span>
+        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }"></span>
     </div>
     <!-- /ko -->
     <ul>
-        <!-- ko ifnot: children().length -->
+        <!-- ko ifnot: ownedCourses().length -->
         <li class="navigation-tree-node course empty">
             <div class="navigation-tree-node-caption-wrapper disabled">
                 <span class="navigation-tree-node-icon empty"></span>
@@ -14,17 +14,28 @@
             </div>
         </li>
         <!-- /ko -->
-        <!-- ko foreach: children -->
+        <!-- ko foreach: ownedCourses -->
         <!-- ko compose: { model: $data, view: 'treeOfContent/CourseTreeNode', preserveContext: true }-->
         <!-- /ko -->
         <!-- /ko -->
     </ul>
-    <!-- ko if: sharedChildren().length != 0 -->
+    <!-- ko if: sharedCourses().length != 0 -->
     <div class="navigation-tree-title-wrapper">
         <span class="navigation-tree-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
     </div>
     <ul>
-        <!-- ko foreach: sharedChildren -->
+        <!-- ko foreach: sharedCourses -->
+        <!-- ko compose: { model: $data, view: 'treeOfContent/CourseTreeNode', preserveContext: true }-->
+        <!-- /ko -->
+        <!-- /ko -->
+    </ul>
+    <!-- /ko -->
+    <!-- ko if: organizationCourses().length != 0 -->
+    <div class="navigation-tree-title-wrapper">
+        <span class="navigation-tree-list-title" data-bind="localize: { text: 'myOrganization' }"></span>
+    </div>
+    <ul>
+        <!-- ko foreach: organizationCourses -->
         <!-- ko compose: { model: $data, view: 'treeOfContent/CourseTreeNode', preserveContext: true }-->
         <!-- /ko -->
         <!-- /ko -->

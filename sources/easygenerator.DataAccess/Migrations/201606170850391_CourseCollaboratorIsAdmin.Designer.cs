@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddOrganizations : IMigrationMetadata
+    public sealed partial class CourseCollaboratorIsAdmin : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddOrganizations));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CourseCollaboratorIsAdmin));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605161053553_AddOrganizations"; }
+            get { return "201606170850391_CourseCollaboratorIsAdmin"; }
         }
         
         string IMigrationMetadata.Source

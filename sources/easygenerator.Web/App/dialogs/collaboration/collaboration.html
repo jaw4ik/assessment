@@ -27,7 +27,7 @@
     <!-- ko compose: { view: 'dialogs/collaboration/addCollaborator', model: addCollaboratorViewModel } -->
     <!-- /ko -->
     <!-- /ko -->
-    <!-- ko ifnot: isUserCourseOwner -->
+    <!-- ko if: canStopCollaboration -->
     <!-- ko compose: { view: 'dialogs/collaboration/stopCollaboration', model: stopCollaborationViewModel } -->
     <!-- /ko -->
     <!-- /ko -->

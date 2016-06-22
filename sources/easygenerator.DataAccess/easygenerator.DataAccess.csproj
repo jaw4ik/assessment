@@ -463,6 +463,10 @@
     <Compile Include="Migrations\201606031100242_AddOrganizations.Designer.cs">
       <DependentUpon>201606031100242_AddOrganizations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.cs" />
+    <Compile Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.Designer.cs">
+      <DependentUpon>201606170850391_CourseCollaboratorIsAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -803,6 +807,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606031100242_AddOrganizations.resx">
       <DependentUpon>201606031100242_AddOrganizations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.resx">
+      <DependentUpon>201606170850391_CourseCollaboratorIsAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

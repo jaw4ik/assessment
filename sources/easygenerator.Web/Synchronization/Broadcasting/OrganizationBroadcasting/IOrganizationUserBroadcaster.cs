@@ -1,6 +1,6 @@
 ﻿namespace easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcasting
 {
-    public interface IUserOrganizationBroadcaster : IBroadcaster
+    public interface IOrganizationUserBroadcaster : IBroadcaster
     {
         dynamic OrganizationAdmins(string userEmail);
     }

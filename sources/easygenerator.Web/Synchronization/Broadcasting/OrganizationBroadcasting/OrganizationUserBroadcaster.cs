@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcasting
 {
-    public class UserOrganizationBroadcaster : Broadcaster, IUserOrganizationBroadcaster
+    public class OrganizationUserBroadcaster : Broadcaster, IOrganizationUserBroadcaster
     {
         private readonly IOrganizationRepository _organizationRepository;
 
-        public UserOrganizationBroadcaster(IOrganizationRepository organizationRepository)
+        public OrganizationUserBroadcaster(IOrganizationRepository organizationRepository)
         {
             _organizationRepository = organizationRepository;
         }

@@ -3,7 +3,6 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Mail;
@@ -101,6 +100,12 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
+            var collaborator = course.Collaborators.FirstOrDefault(c => c.Email == collaboratorEmail);
+            if (collaborator != null && collaborator.IsAdmin)
+            {
+                return ForbiddenResult();
+            }
+
             if (!course.RemoveCollaborator(_cloner, collaboratorEmail))
             {
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
@@ -120,6 +125,12 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             if (collaboratorEmail != GetCurrentUsername())
+            {
+                return ForbiddenResult();
+            }
+
+            var collaborator = course.Collaborators.FirstOrDefault(c => c.Email == collaboratorEmail);
+            if (collaborator != null && collaborator.IsAdmin)
             {
                 return ForbiddenResult();
             }
@@ -154,6 +165,11 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
             }
 
+            if (collaborator.IsAdmin)
+            {
+                return ForbiddenResult();
+            }
+
             course.AcceptCollaboration(collaborator);
 
             return JsonSuccess();
@@ -171,6 +187,11 @@ namespace easygenerator.Web.Controllers.Api
             if (collaborator == null)
             {
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            if (collaborator.IsAdmin)
+            {
+                return ForbiddenResult();
             }
 
             course.DeclineCollaboration(collaborator);

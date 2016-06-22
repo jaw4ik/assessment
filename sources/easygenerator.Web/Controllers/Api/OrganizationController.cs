@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
@@ -24,9 +25,12 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _userRepository;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
+        private readonly ICourseRepository _courseRepository;
+        private readonly ICloner _cloner;
 
         public OrganizationController(IOrganizationRepository organizationRepository, IOrganizationMapper organizationMapper, IEntityFactory entityFactory, IEntityMapper entityMapper,
-            IUserRepository userRepository, IMailSenderWrapper mailSenderWrapper, IOrganizationInviteMapper organizationInviteMapper, IOrganizationUserRepository organizationUserRepository)
+            IUserRepository userRepository, IMailSenderWrapper mailSenderWrapper, IOrganizationInviteMapper organizationInviteMapper, IOrganizationUserRepository organizationUserRepository,
+            ICourseRepository courseRepository, ICloner cloner)
         {
             _organizationRepository = organizationRepository;
             _organizationMapper = organizationMapper;
@@ -36,6 +40,8 @@ namespace easygenerator.Web.Controllers.Api
             _mailSenderWrapper = mailSenderWrapper;
             _organizationInviteMapper = organizationInviteMapper;
             _organizationUserRepository = organizationUserRepository;
+            _courseRepository = courseRepository;
+            _cloner = cloner;
         }
 
         [HttpPost]
@@ -120,6 +126,18 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             organization.RemoveUser(userEmail, GetCurrentUsername());
+
+            foreach (var organizationAdmin in organization.Users.Where(u => u.IsAdmin && u.Status == OrganizationUserStatus.Accepted))
+            {
+                if (_organizationUserRepository.HasMultipleOrganizationAdminRelations(userEmail, organizationAdmin.Email))
+                    continue;
+
+                foreach (var course in _courseRepository.GetOwnedCourses(userEmail))
+                {
+                    course.RemoveCollaborator(_cloner, organizationAdmin.Email);
+                }
+            }
+
             return JsonSuccess();
         }
 
@@ -156,6 +174,14 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             organizationUser.AcceptInvite();
+
+            foreach (var course in _courseRepository.GetOwnedCourses(organizationUser.Email))
+            {
+                foreach (var organizationAdmin in organizationUser.Organization.Users.Where(u => u.IsAdmin && u.Status == OrganizationUserStatus.Accepted))
+                {
+                    course.CollaborateAsAdmin(organizationAdmin.Email);
+                }
+            }
 
             return JsonSuccess();
         }

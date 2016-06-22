@@ -1,7 +1,6 @@
-﻿
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 
-namespace easygenerator.DomainModel.Events.CourseEvents
+namespace easygenerator.DomainModel.Events.CourseEvents.Collaboration
 {
     public class CollaborationInviteAcceptedEvent : CollaborationEvent
     {

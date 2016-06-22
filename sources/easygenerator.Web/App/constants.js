@@ -13,9 +13,15 @@ appVersion: window.egVersion,
     },
 
 organizationUserStatus: {
-    waitingForAcceptance: 0,
-    accepted: 1,
-    declined: 2
+        waitingForAcceptance: 0,
+        accepted: 1,
+        declined: 2
+},
+
+courseOwnership: {
+        owned: 0,
+        shared: 1,
+        organization: 2
 },
 
 documentType: Object.assign({
@@ -147,7 +153,8 @@ messages: {
             titleUpdated: 'organization:titleUpdated',
             userStatusUpdated: 'organization:userStatusUpdated',
             membershipStarted: 'organization:membershipStarted',
-            membershipFinished: 'organization:membershipFinished'
+            membershipFinished: 'organization:membershipFinished',
+            courseCollaborationStarted: 'organization:courseCollaborationStarted'
     },
     course: {
             created: 'course:created',
@@ -166,6 +173,7 @@ messages: {
             templateUpdatedByCollaborator: 'course:templateUpdatedByCollaborator',
             templateUpdated: 'course:templateUpdated',
             stateChanged: 'course:stateChanged',
+            ownershipUpdated: 'course:ownershipUpdated',
 
             build: {
             started: 'course:build-started',
@@ -204,6 +212,7 @@ messages: {
                 collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                 collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                 collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
+                collaboratorAccessTypeUpdated: 'course:collaboration-collaboratorAccessTypeUpdated',
                 started: 'course:collaboration-started',
                 disabled: 'course:collaboration-disabled',
                 finished: 'course:collaboration-finished',

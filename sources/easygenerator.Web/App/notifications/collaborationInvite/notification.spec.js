@@ -27,12 +27,32 @@ describe('collaboration invite [notification]:', function () {
             notification.on();
             expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, notification.courseTitleUpdated);
         });
+
+        it('should subscribe on event \'course.collaboration.inviteRemoved\'', function () {
+            notification.on();
+            expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteRemoved + courseId, jasmine.any(Function));
+        });
+
+        it('should subscribe on event \'course.collaboration.started\'', function () {
+            notification.on();
+            expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.started, jasmine.any(Function));
+        });
     });
 
     describe('off:', function() {
-        it('should unsubscribe on event \'course.collaboration.inviteCourseTitleUpdated\'', function () {
+        it('should unsubscribe of event \'course.collaboration.inviteCourseTitleUpdated\'', function () {
             notification.off();
             expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, notification.courseTitleUpdated);
+        });
+
+        it('should unsubscribe of event \'course.collaboration.inviteRemoved\'', function () {
+            notification.off();
+            expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteRemoved + courseId, jasmine.any(Function));
+        });
+
+        it('should unsubscribe of event \'course.collaboration.started\'', function () {
+            notification.off();
+            expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.started, jasmine.any(Function));
         });
     });
 
@@ -85,6 +105,32 @@ describe('collaboration invite [notification]:', function () {
             var value = 'new title';
             notification.courseTitleUpdated(value);
             expect(notification.courseTitle()).toBe(value);
+        });
+    });
+
+    describe('collaborationStarted:', () => {
+        var course = {};
+
+        describe('when course is current course', () => {
+            beforeEach(() => {
+                course.id = courseId;
+            });
+
+            it('should trigger remove notification event', () => {
+                notification.collaborationStarted(course);
+                expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, notification.key);
+            });
+        });
+
+        describe('when course is not current course', () => {
+            beforeEach(() => {
+                course.id = 'blablacourse';
+            });
+
+            it('should not trigger remove notification event', () => {
+                notification.collaborationStarted(course);
+                expect(app.trigger).not.toHaveBeenCalled();
+            });
         });
     });
 

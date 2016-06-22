@@ -305,11 +305,14 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\DomainOperations\CourseOwnershipProvider.cs" />
+    <Compile Include="Components\DomainOperations\DomainOperationExecutor.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\CollaborationInviteMapper.cs" />
     <Compile Include="Components\Mappers\CommentMapper.cs" />
+    <Compile Include="Components\Mappers\EntityModelMapper.cs" />
     <Compile Include="Components\Mappers\Organizations\IOrganizationInviteMapper.cs" />
     <Compile Include="Components\Mappers\Organizations\IOrganizationMapper.cs" />
     <Compile Include="Components\Mappers\Organizations\OrganizationInviteMapper.cs" />
@@ -332,8 +335,10 @@
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinder.cs" />
     <Compile Include="Components\ModelBinding\SecureModelBinder.cs" />
     <Compile Include="Components\ModelBinding\SecureModelBinderProvider.cs" />
+    <Compile Include="Components\DomainOperations\CreateCourseOperation.cs" />
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
+    <Compile Include="Components\UserIdentityProvider.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\DocumentController.cs" />
     <Compile Include="Controllers\Api\OrganizationController.cs" />
@@ -588,10 +593,10 @@
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\UserCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IOrganizationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IOrganizationUserProvider.cs" />
-    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IUserOrganizationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\IOrganizationUserBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\OrganizationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\OrganizationUserProvider.cs" />
-    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\UserOrganizationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\OrganizationBroadcasting\OrganizationUserBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\MultipleClientsProxy.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
@@ -1301,6 +1306,10 @@
       <DependentUpon>reviewPanel.js</DependentUpon>
     </Content>
     <Content Include="App\routing\router.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorAccessTypeUpdated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorAccessTypeUpdated.spec.js">
+      <DependentUpon>collaboratorAccessTypeUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\comment\eventHandlers\created.spec.js">
       <DependentUpon>created.js</DependentUpon>
     </Content>
@@ -1310,6 +1319,10 @@
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\comment\handler.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\ownershipUpdated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\ownershipUpdated.spec.js">
+      <DependentUpon>ownershipUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\sectionRelated.spec.js">
       <DependentUpon>sectionRelated.js</DependentUpon>
     </Content>
@@ -3749,7 +3762,6 @@
     </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\courses\course\create\course.html" />
-    <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courses.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\sections\section.html" />

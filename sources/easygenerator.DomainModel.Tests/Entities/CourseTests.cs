@@ -1,7 +1,10 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CommentEvents;
 using easygenerator.DomainModel.Events.CourseEvents;
+using easygenerator.DomainModel.Events.CourseEvents.Collaboration;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using FluentAssertions;
@@ -11,8 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.DomainModel.Events.CommentEvents;
-using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -226,7 +227,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.RelateSection(SectionObjectMother.Create(), null, "user");
 
-            course.ShouldContainSingleEvent<CourseSectionRelatedEvent>();
+            course.ShouldContainSingleEventOfType<CourseSectionRelatedEvent>();
         }
 
         #endregion
@@ -442,7 +443,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateTitle("updated title", "user");
 
-            course.ShouldContainSingleEvent<CourseTitleUpdatedEvent>();
+            course.ShouldContainSingleEventOfType<CourseTitleUpdatedEvent>();
         }
 
         #endregion
@@ -536,7 +537,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateTemplate(TemplateObjectMother.Create(), "user");
 
-            course.ShouldContainSingleEvent<CourseTemplateUpdatedEvent>();
+            course.ShouldContainSingleEventOfType<CourseTemplateUpdatedEvent>();
         }
 
         [TestMethod]
@@ -734,7 +735,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdatePublicationUrl("url");
 
-            course.ShouldContainSingleEvent<CoursePublishedEvent>();
+            course.ShouldContainSingleEventOfType<CoursePublishedEvent>();
         }
 
         #endregion
@@ -823,7 +824,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateIntroductionContent("updated introduction", "user");
 
-            course.ShouldContainSingleEvent<CourseIntroductionContentUpdated>();
+            course.ShouldContainSingleEventOfType<CourseIntroductionContentUpdated>();
         }
 
         #endregion UpdateIntroductionContent
@@ -933,7 +934,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create(createdBy: UserEmail);
             course.Collaborate(email, CreatedBy);
 
-            course.ShouldContainSingleEvent<CourseCollaboratorAddedEvent>();
+            course.ShouldContainSingleEventOfType<CourseCollaboratorAddedEvent>();
         }
 
         [TestMethod]
@@ -943,6 +944,105 @@ namespace easygenerator.DomainModel.Tests.Entities
             var template = Substitute.For<Template>();
             var course = CourseObjectMother.CreateWithTemplate(template);
             course.Collaborate(email, CreatedBy);
+
+            template.Received().GrantAccessTo(new[] { email });
+        }
+
+        #endregion
+
+        #region CollaborateAsAdmin
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldThrowArgumentNullException_WhenUserEmailIsNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            Action action = () => course.CollaborateAsAdmin(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("userEmail");
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldThrowArgumentNullException_WhenUserEmailIsNInvalid()
+        {
+            var course = CourseObjectMother.Create();
+
+            Action action = () => course.CollaborateAsAdmin("email");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("userEmail");
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldNotAddCollaborator_WhenUserIsCourseOwner()
+        {
+            var course = CourseObjectMother.CreateWithCreatedBy(UserEmail);
+
+            course.CollaborateAsAdmin(UserEmail);
+
+            course.CollaboratorsCollection.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldGrantAdminAccess_WhenCollaboratorExists()
+        {
+            var course = CourseObjectMother.Create(UserEmail);
+            course.Collaborate(UserEmail, CreatedBy);
+
+            course.CollaborateAsAdmin(UserEmail);
+
+            course.CollaboratorsCollection.First().IsAdmin.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldAcceptCollaboration_WhenCollaboratorExists()
+        {
+            var course = CourseObjectMother.Create(UserEmail);
+            course.Collaborate(UserEmail, CreatedBy);
+
+            course.CollaborateAsAdmin(UserEmail);
+
+            course.CollaboratorsCollection.First().IsAccepted.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldAddCollaborator()
+        {
+            const string owner = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: owner);
+
+            course.CollaborateAsAdmin(UserEmail);
+
+            course.CollaboratorsCollection.Should().NotBeEmpty().And.HaveCount(1);
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldReturnCourseCollaborator()
+        {
+            const string owner = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: owner);
+
+            var result = course.CollaborateAsAdmin(UserEmail);
+
+            result.Should().BeOfType<CourseCollaborator>();
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldAddCourseCollaboratorAddedEvent()
+        {
+            const string email = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: UserEmail);
+            course.CollaborateAsAdmin(email);
+
+            course.ShouldContainSingleEventOfType<CourseCollaboratorAddedEvent>();
+        }
+
+        [TestMethod]
+        public void CollaborateAsAdmin_ShouldGrantTemplateAccessToCollaborator()
+        {
+            const string email = "owner@www.com";
+            var template = Substitute.For<Template>();
+            var course = CourseObjectMother.CreateWithTemplate(template);
+            course.CollaborateAsAdmin(email);
 
             template.Received().GrantAccessTo(new[] { email });
         }
@@ -994,7 +1094,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.AddComment(comment);
 
             // Assert
-            course.ShouldContainSingleEvent<CommentCreatedEvent>();
+            course.ShouldContainSingleEventOfType<CommentCreatedEvent>();
         }
 
         #endregion
@@ -1167,7 +1267,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateSectionsOrder(new Collection<Section> { section }, "user");
 
-            course.ShouldContainSingleEvent<CourseSectionsReorderedEvent>();
+            course.ShouldContainSingleEventOfType<CourseSectionsReorderedEvent>();
         }
 
         #endregion UpdateSectionsOrder
@@ -1475,7 +1575,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.AcceptCollaboration(collaborator);
 
             // Assert
-            course.ShouldContainSingleEvent<CollaborationInviteAcceptedEvent>();
+            course.ShouldContainSingleEventOfType<CollaborationInviteAcceptedEvent>();
         }
 
         #endregion
@@ -1522,7 +1622,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.DeclineCollaboration(collaborator);
 
             // Assert
-            course.ShouldContainSingleEvent<CollaborationInviteDeclinedEvent>();
+            course.ShouldContainSingleEventOfType<CollaborationInviteDeclinedEvent>();
         }
 
         #endregion
@@ -1726,7 +1826,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.SaveTemplateSettings(template, settings, extraData);
 
             //Assert
-            course.ShouldContainSingleEvent<CourseTemplateSettingsUpdated>();
+            course.ShouldContainSingleEventOfType<CourseTemplateSettingsUpdated>();
         }
 
         [TestMethod]
@@ -1764,7 +1864,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.SaveTemplateSettings(template, settings, extraData);
 
             //Assert
-            course.ShouldContainSingleEvent<CourseTemplateSettingsUpdated>();
+            course.ShouldContainSingleEventOfType<CourseTemplateSettingsUpdated>();
         }
 
         #endregion

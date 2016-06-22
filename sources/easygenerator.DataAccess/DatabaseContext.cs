@@ -116,6 +116,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().HasMany(e => e.CourseCompanies).WithMany(e => e.CompanyCourses).Map(m => m.ToTable("CompanyCourses"));
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
+            modelBuilder.Entity<CourseCollaborator>().Property(e => e.IsAdmin).IsRequired();
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
 
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Settings);

@@ -3,7 +3,6 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.OrganizationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcasting;
@@ -21,18 +20,17 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<OrganizationUserReinvitedEvent>
     {
         private readonly IOrganizationBroadcaster _organizationBroadcaster;
-        private readonly IUserOrganizationBroadcaster _userOrganizationBroadcaster;
-        private readonly IEntityMapper _entityMapper;
+        private readonly IOrganizationUserBroadcaster _organizationUserBroadcaster;
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
         private readonly IOrganizationUserRepository _organizationUserRepository;
         private readonly IOrganizationMapper _organizationMapper;
 
-        public OrganizationEventHandler(IOrganizationBroadcaster organizationBroadcaster, IUserOrganizationBroadcaster userOrganizationBroadcaster, IEntityMapper entityMapper,
-            IOrganizationInviteMapper organizationInviteMapper, IOrganizationUserRepository organizationUserRepository, IOrganizationMapper organizationMapper)
+        public OrganizationEventHandler(IOrganizationBroadcaster organizationBroadcaster, IOrganizationUserBroadcaster organizationUserBroadcaster,
+            IOrganizationInviteMapper organizationInviteMapper, IOrganizationUserRepository organizationUserRepository,
+            IOrganizationMapper organizationMapper)
         {
             _organizationBroadcaster = organizationBroadcaster;
-            _userOrganizationBroadcaster = userOrganizationBroadcaster;
-            _entityMapper = entityMapper;
+            _organizationUserBroadcaster = organizationUserBroadcaster;
             _organizationInviteMapper = organizationInviteMapper;
             _organizationUserRepository = organizationUserRepository;
             _organizationMapper = organizationMapper;
@@ -45,7 +43,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            _userOrganizationBroadcaster.OrganizationAdmins(args.User.Email)
+            _organizationUserBroadcaster.OrganizationAdmins(args.User.Email)
                .organizationUserRegistered(args.User.Email, args.User.FullName);
         }
 
@@ -78,10 +76,10 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(OrganizationUserAddedEvent args)
         {
-            var invite = _organizationUserRepository.GetCollaborationInvite(args.User);
+            var invite = _organizationUserRepository.GetOrganizationInvite(args.User);
             if (invite != null)
             {
-                _userOrganizationBroadcaster.User(args.User.Email)
+                _organizationUserBroadcaster.User(args.User.Email)
                     .organizationInviteCreated(_organizationInviteMapper.Map(invite));
             }
         }
@@ -97,10 +95,10 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(OrganizationUserReinvitedEvent args)
         {
-            var invite = _organizationUserRepository.GetCollaborationInvite(args.User);
+            var invite = _organizationUserRepository.GetOrganizationInvite(args.User);
             if (invite != null)
             {
-                _userOrganizationBroadcaster.User(args.User.Email)
+                _organizationUserBroadcaster.User(args.User.Email)
                     .organizationInviteCreated(_organizationInviteMapper.Map(invite));
             }
         }

@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'routing/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
     'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
-    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse','dialogs/course/stopCollaboration/stopCollaboration'],
+    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse', 'dialogs/course/stopCollaboration/stopCollaboration'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
         uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog, stopCollaborationDialog) {
         "use strict";
@@ -23,11 +23,8 @@
 
         var viewModel = {
             courses: ko.observableArray([]),
-            sharedCourses: ko.observableArray([]),
             isCreateCourseAvailable: ko.observable(true),
             lastVistedCourseId: '',
-
-            currentLanguage: '',
 
             currentCoursesLimit: limitCoursesAmount.getCurrentLimit(),
 
@@ -46,11 +43,10 @@
             importCourseFromPresentation: importCourseFromPresentation,
             stopCollaboration: stopCollaboration,
 
-            courseCollaborationStarted: courseCollaborationStarted,
-            deletedByCollaborator: deletedByCollaborator,
+            courseAdded: courseAdded,
             titleUpdated: titleUpdated,
             courseUpdated: courseUpdated,
-            collaborationFinished: collaborationFinished,
+            courseOwnershipUpdated: courseOwnershipUpdated,
 
             openUpgradePlanUrl: openUpgradePlanUrl,
             newCourseCreated: newCourseCreated,
@@ -58,19 +54,42 @@
             activate: activate
         };
 
-        app.on(constants.messages.course.collaboration.started, viewModel.courseCollaborationStarted);
-        app.on(constants.messages.course.deletedByCollaborator, viewModel.deletedByCollaborator);
+        function getCoursesSubCollection(ownership) {
+            return _.chain(viewModel.courses())
+               .filter(function (item) {
+                   return item.ownership() === ownership;
+               })
+               .sortBy(function (item) {
+                   return -item.createdOn;
+               })
+               .value();
+        }
+
+        viewModel.ownedCourses = ko.computed(function () {
+            return getCoursesSubCollection(constants.courseOwnership.owned);
+        });
+        viewModel.sharedCourses = ko.computed(function () {
+            return getCoursesSubCollection(constants.courseOwnership.shared);
+        });
+        viewModel.organizationCourses = ko.computed(function () {
+            return getCoursesSubCollection(constants.courseOwnership.organization);
+        });
+
+        app.on(constants.messages.course.collaboration.started, viewModel.courseAdded);
+        app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.sectionsReorderedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.sectionRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
-        app.on(constants.messages.course.collaboration.finishedByCollaborator, viewModel.collaborationFinished);
+        app.on(constants.messages.course.collaboration.finished, viewModel.courseDeleted);
+        app.on(constants.messages.course.collaboration.finishedByCollaborator, viewModel.courseDeleted);
+        app.on(constants.messages.course.ownershipUpdated, viewModel.courseOwnershipUpdated);
         app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
         app.on(constants.messages.course.deleted, viewModel.courseDeleted);
         app.on(constants.messages.course.created, viewModel.newCourseCreated);
+        app.on(constants.messages.organization.courseCollaborationStarted, viewModel.courseAdded);
 
         return viewModel;
 
@@ -127,95 +146,22 @@
             deleteCourseDialog.show(course.id, course.title());
         }
 
-        function courseDeleted(courseId) {
-            viewModel.courses(_.reject(viewModel.courses(), function (item) {
-                return item.id === courseId;
-            }));
-            notify.success(localizationManager.localize('courseWasDeletedMessage'));
-        }
-
-        function courseCollaborationStarted(course) {
-            var sharedCourses = viewModel.sharedCourses();
-            sharedCourses.push(mapCourse(course));
-            sharedCourses = _.sortBy(sharedCourses, function (item) {
-                return -item.createdOn;
-            });
-
-            viewModel.sharedCourses(sharedCourses);
-        }
-
-        function titleUpdated(course) {
-            var vmCourse = getCourseViewModel(course.id);
-
-            if (_.isObject(vmCourse)) {
-                vmCourse.title(course.title);
-                vmCourse.modifiedOn(course.modifiedOn);
-            }
-        }
-
-        function deletedByCollaborator(courseId) {
-            deleteSharedCourse(courseId);
-        }
-
-        function collaborationFinished(courseId) {
-            deleteSharedCourse(courseId);
-        }
-
-        function deleteSharedCourse(courseId) {
-            viewModel.sharedCourses(_.reject(viewModel.sharedCourses(), function (item) {
-                return item.id == courseId;
-            }));
-        }
-
-        function courseUpdated(course) {
-            var vmCourse = getCourseViewModel(course.id);
-
-            if (_.isObject(vmCourse)) {
-                vmCourse.modifiedOn(course.modifiedOn);
-            }
-        }
-
-        function getCourseViewModel(courseId) {
-            var courses = viewModel.sharedCourses().concat(viewModel.courses());
-
-            return _.find(courses, function (item) {
-                return item.id == courseId;
-            });
-        }
-
         function activate() {
             viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
             clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
-            viewModel.currentLanguage = localizationManager.currentLanguage;
-
             return userContext.identify().then(function () {
-                var userEmail = userContext.identity.email;
+                viewModel.courses(_.chain(dataContext.courses)
+                             .map(function (item) {
+                                 return mapCourse(item);
+                             })
+                             .value());
 
-                viewModel.courses(mapCourses(_.filter(dataContext.courses, function (item) {
-                    return item.createdBy == userEmail;
-                })));
-
-                viewModel.sharedCourses(mapCourses(_.filter(dataContext.courses, function (item) {
-                    return item.createdBy != userEmail;
-                })));
-
-                viewModel.courses.subscribe(function () {
+                viewModel.ownedCourses.subscribe(function () {
                     viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
                 });
                 viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
             });
-        }
-
-        function mapCourses(courses) {
-            return _.chain(courses)
-                 .sortBy(function (item) {
-                     return -item.createdOn;
-                 })
-                 .map(function (item) {
-                     return mapCourse(item);
-                 })
-                 .value();
         }
 
         function mapCourse(item) {
@@ -226,9 +172,13 @@
             course.thumbnail = item.template.thumbnail;
             course.modifiedOn = ko.observable(item.modifiedOn);
             course.createdOn = item.createdOn;
+            course.createdBy = item.createdBy;
+            course.createdByName = item.createdByName;
             course.isSelected = ko.observable(false);
             course.sections = item.sections;
             course.isProcessed = true;
+
+            course.ownership = ko.observable(item.ownership);
 
             return course;
         }
@@ -240,11 +190,15 @@
                 thumbnail: course.thumbnail,
                 createdOn: new Date(),
                 modifiedOn: new Date(),
+                createdBy: '',
+                createdByName: '',
                 isSelected: ko.observable(false),
                 sections: course.sections,
                 isProcessed: false,
                 isDuplicatingFinished: ko.observable(false),
-                finishDuplicating: false
+                finishDuplicating: false,
+
+                ownership: ko.observable(constants.courseOwnership.owned)
             };
         }
 
@@ -282,5 +236,52 @@
                 }
             });
         }
+
+        // #region event handlers
+
+        function getCourseById(courseId) {
+            return _.find(viewModel.courses(), function (item) {
+                return item.id === courseId;
+            });
+        }
+
+        function courseOwnershipUpdated(courseId, ownership) {
+            var vmCourse = getCourseById(courseId);
+            if (vmCourse) {
+                vmCourse.ownership(ownership);
+            }
+        }
+
+        function courseDeleted(courseId) {
+            viewModel.courses(_.reject(viewModel.courses(), function (item) {
+                return item.id === courseId;
+            }));
+        }
+
+        function courseAdded(course) {
+            var vmCourse = getCourseById(course.id);
+            if (vmCourse) {
+                vmCourse.ownership(course.ownership);
+            } else {
+                viewModel.courses.push(mapCourse(course));
+            }
+        }
+
+        function titleUpdated(course) {
+            var vmCourse = getCourseById(course.id);
+            if (vmCourse) {
+                vmCourse.title(course.title);
+                vmCourse.modifiedOn(course.modifiedOn);
+            }
+        }
+
+        function courseUpdated(course) {
+            var vmCourse = getCourseById(course.id);
+            if (vmCourse) {
+                vmCourse.modifiedOn(course.modifiedOn);
+            }
+        }
+
+        // #endregion
     }
 );

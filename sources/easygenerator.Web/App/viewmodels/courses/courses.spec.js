@@ -1,5 +1,6 @@
 ﻿import viewModel from './courses';
 
+import ko from 'knockout';
 import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import dataContext from 'dataContext';
@@ -88,14 +89,6 @@ describe('viewModel [courses]', function () {
 
     });
 
-    describe('currentLanguage', function () {
-
-        it('should be defined', function () {
-            expect(viewModel.currentLanguage).toBeDefined();
-        });
-
-    });
-
     describe('currentCoursesLimit', function () {
 
         beforeEach(function() {
@@ -134,12 +127,6 @@ describe('viewModel [courses]', function () {
             expect(viewModel.activate).toBeFunction();
         });
 
-        it('should set current language', function () {
-            viewModel.currentLanguage = null;
-            viewModel.activate();
-            expect(viewModel.currentLanguage).toBe(localizationManage.currentLanguage);
-        });
-
         it('should identify user', function (done) {
 
             identifyUserDeferred.resolve();
@@ -159,25 +146,17 @@ describe('viewModel [courses]', function () {
             it('should set courses data from dataContext', function (done) {
                 identifyUserDeferred.resolve();
                 viewModel.activate().fin(function () {
-                    expect(viewModel.courses().length).toEqual(3);
+                    expect(viewModel.courses().length).toEqual(5);
                     done();
                 });
             });
 
-            it('should set shared courses data from dataContext', function (done) {
+            it('should subscribe on owned courses array change', function (done) {
                 identifyUserDeferred.resolve();
-                viewModel.activate().fin(function () {
-                    expect(viewModel.sharedCourses().length).toEqual(2);
-                    done();
-                });
-            });
-
-            it('should subscribe on courses array change', function (done) {
-                identifyUserDeferred.resolve();
-                spyOn(viewModel.courses, 'subscribe');
+                spyOn(viewModel.ownedCourses, 'subscribe');
 
                 viewModel.activate().fin(function () {
-                    expect(viewModel.courses.subscribe).toHaveBeenCalled();
+                    expect(viewModel.ownedCourses.subscribe).toHaveBeenCalled();
                     done();
                 });
 
@@ -486,54 +465,17 @@ describe('viewModel [courses]', function () {
     describe('courseDeleted:', function() {
         var course = {
             id: '0',
-            title: ko.observable('title')
+            title: ko.observable('title'),
+            ownership: ko.observable(constants.courseOwnership.owned)
         };
 
         beforeEach(function () {
             viewModel.courses([course]);
         });
 
-        it('should remove learning path from collection', function () {
+        it('should remove course from collection', function () {
             viewModel.courseDeleted(course.id);
             expect(viewModel.courses().length).toBe(0);
-        });
-    });
-
-    describe('courseCollaborationStartedHandler:', function () {
-        var course = new CourseModel({
-            id: 'testId3',
-            title: 'Test Course 3',
-            sections: [],
-            template: template,
-            createdBy: userName,
-            createdOn: new Date(2013, 12, 31)
-        });
-
-        var collaboratedCourse = new CourseModel({
-            id: 'testId',
-            title: 'Test Course',
-            sections: [],
-            template: template,
-            createdBy: userName,
-            createdOn: new Date(2014, 12, 31)
-        });
-
-        it('should be function', function () {
-            expect(viewModel.courseCollaborationStarted).toBeFunction();
-        });
-
-        it('should add course to shared courses', function () {
-            viewModel.sharedCourses([]);
-            viewModel.courseCollaborationStarted(collaboratedCourse);
-            expect(viewModel.sharedCourses().length).toBe(1);
-        });
-
-        it('should sort courses by created on date', function () {
-            viewModel.sharedCourses([course]);
-
-            viewModel.courseCollaborationStarted(collaboratedCourse);
-            expect(viewModel.sharedCourses()[0].id).toBe(collaboratedCourse.id);
-            expect(viewModel.sharedCourses()[1].id).toBe(course.id);
         });
     });
 
@@ -542,7 +484,8 @@ describe('viewModel [courses]', function () {
         var vmCourse = {
             id: courseId,
             title: ko.observable(""),
-            modifiedOn: ko.observable("")
+            modifiedOn: ko.observable(""),
+            ownership: ko.observable()
         };
         var course = {
             id: courseId,
@@ -574,16 +517,13 @@ describe('viewModel [courses]', function () {
         var courseId = "courseId";
         var vmCourse = {
             id: courseId,
-            modifiedOn: ko.observable("")
+            modifiedOn: ko.observable(""),
+            ownership: ko.observable()
         };
         var course = {
             id: courseId,
             modifiedOn: new Date()
         };
-
-        it('should be function', function () {
-            expect(viewModel.courseUpdated).toBeFunction();
-        });
 
         it('should update course modified on date', function () {
             viewModel.courses([vmCourse]);
@@ -594,30 +534,21 @@ describe('viewModel [courses]', function () {
 
     });
 
-    describe('deletedByCollaborator:', function () {
-        it('should be function', function () {
-            expect(viewModel.deletedByCollaborator).toBeFunction();
+    describe('courseOwnershipUpdated:', function () {
+        var courseId = "courseId";
+        var vmCourse = {
+            id: courseId,
+            modifiedOn: ko.observable(""),
+            ownership: ko.observable(constants.courseOwnership.owned)
+        };
+
+        it('should update course ownership', function () {
+            viewModel.courses([vmCourse]);
+            viewModel.courseOwnershipUpdated(courseId, constants.courseOwnership.shared);
+
+            expect(vmCourse.ownership()).toBe(constants.courseOwnership.shared);
         });
 
-        it('should delete shared course from list', function () {
-            var course = { id: 'id' };
-            viewModel.sharedCourses([course]);
-            viewModel.deletedByCollaborator(course.id);
-            expect(viewModel.sharedCourses().length).toBe(0);
-        });
-    });
-
-    describe('collaborationFinished:', function () {
-        it('should be function', function () {
-            expect(viewModel.collaborationFinished).toBeFunction();
-        });
-
-        it('should delete shared course from list', function () {
-            var course = { id: 'id' };
-            viewModel.sharedCourses([course]);
-            viewModel.collaborationFinished(course.id);
-            expect(viewModel.sharedCourses().length).toBe(0);
-        });
     });
 
     describe('openUpgradePlanUrl:', function () {

@@ -1,11 +1,15 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.Presentation.Mappers;
 using easygenerator.Web.Import.Presentation.Model;
+using easygenerator.Web.Import.WinToWeb;
+using easygenerator.Web.Import.WinToWeb.Mappers;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,9 +19,6 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using easygenerator.DomainModel.Events;
-using easygenerator.Web.Import.WinToWeb;
-using easygenerator.Web.Import.WinToWeb.Mappers;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -35,6 +36,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IWinToWebModelMapper _winToWebModelMapper;
         private IWinToWebCourseImporter _winToWebCourseImporter;
         private IDomainEventPublisher _eventPublisher;
+        private IDomainOperationExecutor _domainOperationExecutor;
 
         [TestInitialize]
         public void InitializeContext()
@@ -49,8 +51,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _winToWebCourseImporter = Substitute.For<IWinToWebCourseImporter>();
             _winToWebModelMapper = Substitute.For<IWinToWebModelMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
+            _domainOperationExecutor = Substitute.For<IDomainOperationExecutor>();
 
-            _controller = new CourseImportController(_entityMapper, _courseRepository, _configurationReader, _presentationModelMapper, _presentationCourseImporter, _winToWebModelMapper, _winToWebCourseImporter, _eventPublisher);
+            _controller = new CourseImportController(_entityMapper, _courseRepository, _configurationReader, _presentationModelMapper,
+                _presentationCourseImporter, _winToWebModelMapper, _winToWebCourseImporter, _eventPublisher, _domainOperationExecutor);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -104,7 +108,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void ImportFromPresentation_ShouldAddCourseToRepository()
+        public void ImportFromPresentation_ShouldExecuteDomainOperation()
         {
             //Arrange
             var file = Substitute.For<HttpPostedFileBase>();
@@ -123,7 +127,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
             //Assert
-            _courseRepository.Received().Add(course);
+            _domainOperationExecutor.Received().CreateCourse(course);
         }
 
         [TestMethod]

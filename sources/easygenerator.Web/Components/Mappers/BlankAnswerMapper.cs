@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class BlankAnswerMapper : IEntityModelMapper<BlankAnswer>
+    public class BlankAnswerMapper : EntityModelMapper<BlankAnswer>
     {
-        public dynamic Map(BlankAnswer answer)
+        public override dynamic Map(BlankAnswer answer)
         {
             return new
             {

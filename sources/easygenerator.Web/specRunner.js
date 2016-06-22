@@ -223,6 +223,7 @@
         'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
         'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
         'synchronization/handlers/course/eventHandlers/stateChanged.spec',
+        'synchronization/handlers/course/eventHandlers/ownershipUpdated.spec',
         'synchronization/handlers/learningContent/handler.spec',
         'synchronization/handlers/learningContent/eventHandlers/created.spec',
         'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
@@ -241,6 +242,7 @@
         'synchronization/handlers/comment/eventHandlers/created.spec',
         'synchronization/handlers/comment/handler.spec',
 
+            'synchronization/handlers/collaboration/eventHandlers/collaboratorAccessTypeUpdated.spec',
 
         // #region organinizations synchronization
         'synchronization/handlers/organizations/handler.spec',

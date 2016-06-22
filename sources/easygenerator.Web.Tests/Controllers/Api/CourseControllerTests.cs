@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
@@ -9,9 +10,11 @@ using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.External;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,8 +26,6 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -49,6 +50,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IExternalPublisher _externalPublisher;
         private IUserRepository _userRepository;
         private ICloner _cloner;
+        private IDomainOperationExecutor _domainOperationExecutor;
 
         [TestInitialize]
         public void InitializeContext()
@@ -68,31 +70,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
+            _domainOperationExecutor = Substitute.For<IDomainOperationExecutor>();
 
             _context.User.Returns(_user);
 
             _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _sectionRepository, _entityFactory, _urlHelper, _publisher,
-                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner);
+                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _domainOperationExecutor);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
         #region Create
-
-        [TestMethod]
-        public void Create_WhenTemplateDefined_ShouldAddCourse()
-        {
-            const string title = "Course title";
-            var template = TemplateObjectMother.Create();
-            _user.Identity.Name.Returns(CreatedBy);
-            var course = CourseObjectMother.CreateWithTitle(title);
-            course.UpdateTemplate(template, CreatedBy);
-
-            _entityFactory.Course(title, template, CreatedBy).Returns(course);
-
-            _controller.Create(title, template);
-
-            _courseRepository.Received().Add(Arg.Is<Course>(exp => exp.Title == title));
-        }
 
         [TestMethod]
         public void Create_WhenTemplateDefined_ShouldReturnJsonSuccessResult()
@@ -123,7 +110,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Create(title, null);
 
-            _courseRepository.Received().Add(Arg.Is<Course>(exp => exp.Title == title));
+            _domainOperationExecutor.Received().CreateCourse(Arg.Is<Course>(exp => exp.Title == title));
         }
 
         [TestMethod]
@@ -143,7 +130,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Create_ShouldPublishDomainEvent()
+        public void Create_ShouldexecuteDomainOperation()
         {
             const string title = "Course title";
             var user = "Test user";
@@ -155,7 +142,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Create(title, null);
 
-            _eventPublisher.Received().Publish(Arg.Any<CourseCreatedEvent>());
+            _domainOperationExecutor.Received().CreateCourse(course);
         }
 
         #endregion
@@ -170,14 +157,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Duplicate_ShouldAddDuplicatedCourseToRepository()
+        public void Duplicate_ShouldExecuteDomainOperation()
         {
-
             Course courseToDuplicate = CourseObjectMother.Create();
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
 
-            _courseRepository.Received().Add(courseToDuplicate);
+            _domainOperationExecutor.Received().CreateCourse(courseToDuplicate);
         }
 
         [TestMethod]
@@ -236,16 +222,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             var result = _controller.Duplicate(courseToDuplicate);
             result.Should().BeJsonSuccessResult();
-        }
-
-        [TestMethod]
-        public void Duplicate_ShouldPublishDomainEvent()
-        {
-            Course courseToDuplicate = CourseObjectMother.Create();
-            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
-            _controller.Duplicate(courseToDuplicate);
-
-            _eventPublisher.Received().Publish(Arg.Any<CourseCreatedEvent>());
         }
 
         #endregion

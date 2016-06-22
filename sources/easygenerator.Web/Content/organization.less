@@ -52,7 +52,19 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background: url(images/oragnizationUserBg.png) no-repeat;
+                    z-index: 0;
+
+                    &:after {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background: url(images/oragnizationUserBg.png) no-repeat;
+                        width: 100%;
+                        height: 100%;
+                        z-index: -1;
+                    }
 
                     .organization-user-avatar {
                         height: 80px;
@@ -73,12 +85,36 @@
                         overflow: hidden;
                         flex-direction: column;
                         align-items: center;
+                        position: relative;
+
+                        .organization-user-description {
+                            font-size: 13px;
+                            font-weight: 600;
+                            font-style: italic;
+                            color: #546677;
+                            padding: 0px 10px;
+                            .limited-length-line();
+
+                            &.emphasized {
+                                color: #42515f;
+                                font-size: 18px;
+                                font-style: normal;
+                                font-weight: 300;
+                                margin-top: 20px;
+                            }
+
+                            &::first-letter {
+                                text-transform: capitalize;
+                            }
+                        }
 
                         .organization-user-resend-invite-wrapper {
-                            margin-top: 5px;
-                            position: relative;
+                            margin-top: 3px;
                             min-height: 22px;
                             min-width: 22px;
+                            max-width: 100%;
+                            display: flex;
+                            position: relative;
 
                             .organization-user-resend-invite-link {
                                 .limited-length-line();
@@ -87,31 +123,12 @@
                                 font-size: 13px;
                                 text-decoration: underline;
                                 cursor: pointer;
+                                padding: 0px 10px;
 
                                 &:hover {
                                     color: #3088c1;
                                 }
                             }
-                        }
-                    }
-
-                    .organization-user-description {
-                        font-size: 13px;
-                        font-weight: 600;
-                        font-style: italic;
-                        color: #546677;
-                        padding: 0px 10px;
-                        .limited-length-line();
-
-                        &.emphasized {
-                            color: #42515f;
-                            font-size: 18px;
-                            font-style: normal;
-                            font-weight: 300;
-                        }
-
-                        &::first-letter {
-                            text-transform: capitalize;
                         }
                     }
 
@@ -168,6 +185,16 @@
                     .organization-user-info {
                         .organization-user-info-name, .organization-user-info-email {
                             opacity: 0.7;
+                        }
+                    }
+                }
+            }
+
+            &.declined {
+                .box-list-item-container {
+                    .organization-user-content {
+                        &:after {
+                            opacity: 0.5;
                         }
                     }
                 }

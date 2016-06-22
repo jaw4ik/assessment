@@ -47,6 +47,7 @@
                     collaborationInviteCreated: collaborationEventHandler.inviteCreated,
                     collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
                     collaborationInviteCourseTitleUpdated: collaborationEventHandler.inviteCourseTitleUpdated,
+                    collaboratorAccessTypeUpdated: collaborationEventHandler.collaboratorAccessTypeUpdated,
 
                     courseStateChanged: courseEventHandler.stateChanged,
                     courseTitleUpdated: courseEventHandler.titleUpdated,
@@ -58,6 +59,7 @@
                     courseSectionRelated: courseEventHandler.sectionRelated,
                     courseSectionsUnrelated: courseEventHandler.sectionsUnrelated,
                     courseSectionsReplaced: courseEventHandler.sectionsReplaced,
+                    courseOwnershipUpdated: courseEventHandler.ownershipUpdated,
 
                     sectionTitleUpdated: sectionEventHandler.titleUpdated,
                     sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,

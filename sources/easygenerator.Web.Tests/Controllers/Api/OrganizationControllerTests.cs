@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.DomainModel.Tests.ObjectMothers.Organizations;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Infrastructure.DomainModel.Mappings;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
@@ -15,6 +16,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -42,6 +44,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IMailSenderWrapper _mailSenderWrapper;
         private IOrganizationInviteMapper _inviteMapper;
         private IOrganizationUserRepository _organizationUserRepository;
+        private ICourseRepository _courseRepository;
+        private ICloner _cloner;
+
 
         [TestInitialize]
         public void InitializeContext()
@@ -58,7 +63,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
             _user.Identity.Name.Returns(CurrentUserEmail);
-            _controller = new OrganizationController(_organizationRepository, _organizationMapper, _entityFactory, _entityMapper, _userRepository, _mailSenderWrapper, _inviteMapper, _organizationUserRepository);
+            _courseRepository = Substitute.For<ICourseRepository>();
+            _cloner = Substitute.For<ICloner>();
+            _controller = new OrganizationController(_organizationRepository, _organizationMapper, _entityFactory, _entityMapper, _userRepository,
+                _mailSenderWrapper, _inviteMapper, _organizationUserRepository, _courseRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -198,6 +206,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             organization.Received().RemoveUser(UserEmail, CurrentUserEmail);
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationUser_ShouldRemovveAdminCollaboratorsForEachUserCourse()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var organization = OrganizationObjectMother.Create();
+            var adminUser = organization.Users.First();
+
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail);
+
+            _courseRepository.GetOwnedCourses(user.Email).Returns(new List<Course>() { course });
+
+            //Act
+            _controller.RemoveOrganizationUser(organization, user.Email);
+
+            //Assert
+            course.Received().RemoveCollaborator(_cloner, adminUser.Email);
         }
 
         [TestMethod]
@@ -427,6 +454,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             user.Received().AcceptInvite();
+        }
+
+        [TestMethod]
+        public void AcceptOrganizationInvite_ShouldCollaborateAsAdminForEachUserOwnedCourse()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var organization = OrganizationObjectMother.Create();
+            var adminUser = organization.Users.First();
+
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail);
+
+            _courseRepository.GetOwnedCourses(user.Email).Returns(new List<Course>() { course });
+
+            //Act
+            _controller.AcceptOrganizationInvite(user);
+
+            //Assert
+            course.Received().CollaborateAsAdmin(adminUser.Email);
         }
 
         [TestMethod]
