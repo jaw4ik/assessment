@@ -771,8 +771,8 @@
       "url": "lang/ru.json"
     },
     {
-      "code": "malay",
-      "url": "lang/malay.json"
+      "code": "ms",
+      "url": "lang/ms.json"
     },
     {
       "code": "kr",
@@ -785,6 +785,10 @@
     {
       "code": "nn-no",
       "url": "lang/nn-no.json"
+    },
+    {
+      "code": "vi",
+      "url": "lang/vi.json"
     }
   ]
 }
