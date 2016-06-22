@@ -102,18 +102,20 @@
     "[login pasword is not valid]": "Geben Sie ein gültiges Kennwort ein",
     "[login email / password combination is not valid]": "Diese E-Mail-/Kennwort-Kombination ist nicht gültig.",
     "[remember me on this device]": "Bleiben Sie angemeldet",
-    "[show other options]": "Andere Optionen anzeigen",
-    "[hide other options]": "Andere Optionen ausblenden",
+    "[show other options]": "Informationen mir jetzt anzeigen",
+    "[hide other options]": "Informationen ausblenden",
     "[no questions]": "Keine Fragen",
     "[sections]": "Abschnitte",
     "[request a secret link]": "einen geheimen Link anfordern",
     "[to your progress via email]": "an Ihren Fortschritt per E-Mail",
     "[credentials]": "Anmeldeinformationen",
     "[social accounts]": "Soziale Konten:",
+    "[message about mailbox]": "Die Informationen haben wir an Ihren Posteingang gesendet",
     "[the letter has been successfully sent]": "Der Brief wurde erfolgreich versendet",
     "[copy]": "Kopieren",
     "[copied]": "Kopiert",
     "[expand]": "Erweitern",
     "[collapse]": "Einklappen",
-    "[keep me logged-in for the next courses]": "Für die nächsten Kurse angemeldet bleiben"
+    "[keep me logged-in for the next courses]": "Für die nächsten Kurse angemeldet bleiben",
+    "[please close the browser tab now]": "Bitte schließen Sie jetzt die Browser-Registerkarte"
 }
