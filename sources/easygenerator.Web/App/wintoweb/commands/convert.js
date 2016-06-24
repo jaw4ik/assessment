@@ -31,16 +31,18 @@ function processImportedCourse(courseData, sectionsData) {
 }
 
 export default new Command(file => {
-    var headers = window.auth.getHeader('api');
-    return getTicket.execute().then(response => {
-        headers['ticket'] = response.Token;
-        return fileUpload.xhr2(constants.winToWeb.host, file, headers).then(function(response) {
-            if (!response || !response[0] || !response[0].data)
-                return;
+    return window.auth.getHeader('api').then(value => {
+        var headers = value;
+        return getTicket.execute().then(response => {
+            headers['ticket'] = response.Token;
+            return fileUpload.xhr2(constants.winToWeb.host, file, headers).then(function(response) {
+                if (!response || !response[0] || !response[0].data)
+                    return;
 
-            let data = response[0].data;
-            let course = processImportedCourse(data.course, data.sections);
-            return course;
-        }).then(data => {}, reason => {}, progress => {});
+                let data = response[0].data;
+                let course = processImportedCourse(data.course, data.sections);
+                return course;
+            }).then(data => {}, reason => {}, progress => {});
+        });
     });
 });

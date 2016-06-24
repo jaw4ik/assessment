@@ -52,8 +52,9 @@
         }
 
         function signOut() {
-            window.auth.logout();
-            router.setLocation(constants.signinUrl);
+            return window.auth.logout().then(function() {
+                router.setLocation(constants.signinUrl);
+            });
         }
     }
 );

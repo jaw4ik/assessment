@@ -159,7 +159,8 @@
                                 return Q.allSettled(arrayPromises);
                             }
 
-                            $.ajax(plugin.constants.storage.host + plugin.constants.storage.mediaUrl, { headers: window.auth.getHeader('storage'), global: false, cache: false })
+                            window.auth.getHeader('storage').then(function(value) {
+                                $.ajax(plugin.constants.storage.host + plugin.constants.storage.mediaUrl, { headers: value, global: false, cache: false })
                                 .done(function (response) {
                                     if (!response || !response.Videos || response.Videos.length === 0) {
                                         emptyListDialogElement.show();
@@ -193,6 +194,7 @@
                                     loaderDialogElement.hide();
                                     loadingErrorDialogElement.show();
                                 });
+                            });
                         }
                     }));
 

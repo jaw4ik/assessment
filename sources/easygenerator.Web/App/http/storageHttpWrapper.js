@@ -8,17 +8,19 @@
 
     function post(url, data) {
         app.trigger('storageHttpWrapper:post-begin');
-
-        return storageHttpRequestSender.post(url, data, window.auth.getHeader('storage')).fin(function () {
-            app.trigger('storageHttpWrapper:post-end');
+        return window.auth.getHeader('storage').then(function(value) {
+            return storageHttpRequestSender.post(url, data, value).fin(function () {
+                app.trigger('storageHttpWrapper:post-end');
+            });
         });
     }
 
     function get(url, query) {
         app.trigger('storageHttpWrapper:get-begin');
-
-        return storageHttpRequestSender.get(url, query, window.auth.getHeader('storage')).fin(function () {
-            app.trigger('storageHttpWrapper:get-end');
+        return window.auth.getHeader('storage').then(function(value) {
+            return storageHttpRequestSender.get(url, query, value).fin(function() {
+                app.trigger('storageHttpWrapper:get-end');
+            });
         });
     }
 });

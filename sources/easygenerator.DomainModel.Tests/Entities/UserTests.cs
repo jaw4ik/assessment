@@ -224,7 +224,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, new Collection<Company>() { company });
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, false, new Collection<Company>() { company });
 
             //Assert
             user.Id.Should().NotBeEmpty();

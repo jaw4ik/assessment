@@ -118,20 +118,22 @@
                                     var formData = new FormData();
                                     formData.append("file", file);
 
-                                    $.ajax({
-                                        url: url,
-                                        type: 'POST',
-                                        headers: window.auth.getHeader('api'),
-                                        data: formData,
-                                        cache: false,
-                                        dataType: 'json',
-                                        processData: false, // Don't process the files
-                                        contentType: false // Set content type to false as jQuery will tell the server its a query string request,
-                                    }).done(function (response) {
-                                        handleResponse(response);
-                                    }).fail(function () {
-                                        status.failed(lang.somethingWentWrong);
-                                        input.enable();
+                                    window.auth.getHeader('api').then(function(value) {
+                                        $.ajax({
+                                            url: url,
+                                            type: 'POST',
+                                            headers: value,
+                                            data: formData,
+                                            cache: false,
+                                            dataType: 'json',
+                                            processData: false, // Don't process the files
+                                            contentType: false // Set content type to false as jQuery will tell the server its a query string request,
+                                        }).done(function (response) {
+                                            handleResponse(response);
+                                        }).fail(function () {
+                                            status.failed(lang.somethingWentWrong);
+                                            input.enable();
+                                        });
                                     });
                                 }
                             };

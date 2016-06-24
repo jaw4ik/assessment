@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/configure.css?v=1464178210586" rel="stylesheet" />
-    <script src="../api.js?v=1464178210586"></script>
+    <link href="css/configure.css?v=1467033915510" rel="stylesheet" />
+    <script src="../api.js?v=1467033915510"></script>
 
-    <script src="js/vendor.min.js?v=1464178210586"></script>
-    <script src="js/configure.min.js?v=1464178210586"></script>
+    <script src="js/vendor.min.js?v=1467033915510"></script>
+    <script src="js/configure.min.js?v=1467033915510"></script>
 </head>
 
 <body>
@@ -59,6 +59,25 @@
                                         </div>
                                     </div>
                                     <div class="switcher-text" data-bind="css: { disabled: !allowToSkipTracking() }, localize: 'allow'"></div>
+                                </div>
+                            </div>
+                            <div class="preview-disabled" data-bind="visible: !enableXAPI()"></div>
+                        </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div data-bind="localize: 'allow social media'"></div>
+                            </div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: $parent.allowSocialLogin() }, localize: 'forbid'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: $parent.allowSocialLogin }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !$parent.allowSocialLogin() }, localize: 'allow'"></div>
                                 </div>
                             </div>
                             <div class="preview-disabled" data-bind="visible: !enableXAPI()"></div>
@@ -265,7 +284,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1464178210586">
+                        <img src="img/language.png?v=1467033915510">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">

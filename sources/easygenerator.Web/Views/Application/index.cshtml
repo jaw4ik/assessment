@@ -46,6 +46,8 @@
         @Html.Partial("notSupportedDevicePage")
     }
 
+    <div id="crossProtocolStorageFrames"></div>
+
     @Scripts.Render("~/bundles/scripts/vendor")
     <script src="signalr/hubs"></script>
 
@@ -118,35 +120,42 @@
     <script type="text/javascript">
         //bootstraper
         (function() {
-            if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
-                @if (HttpContext.Current.IsDebuggingEnabled)
-                {
-                    <text>
-                    System.cacheBust = '?v=' + Date.now();
-                    </text>
-                }
-                else
-                {
-                    <text>
-                    System.config({
-                        bundles: {
-                            'main-built.js': ['main.js']
-                        },
-                        cacheBust: '?v=' + @DateTimeWrapper.InstanceStartTime.Ticks
-                    });
-                    </text>
-                }
+            window.auth.checkUserLogIn().then(function(isLoggedIn) {
+                if (isLoggedIn || window.auth.isAuthTokenPresentInHash()) {
+                    @if (HttpContext.Current.IsDebuggingEnabled)
+                    {
+                        <text>
+                        System.cacheBust = '?v=' + Date.now();
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                        System.config({
+                            bundles: {
+                                'main-built.js': ['main.js']
+                            },
+                            cacheBust: '?v=' + @DateTimeWrapper.InstanceStartTime.Ticks
+                        });
+                        </text>
+                    }
 
-                System.import('main.js');
-            }
-            else {
-                var redirectUrl = '/signin';
-                var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
-                if (ltiUserInfoToken) {
-                    redirectUrl += '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
+                    System.import('main.js');
                 }
-                window.location.replace(redirectUrl);
-            }
+                else {
+                    var redirectUrl = '/signin';
+                    var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
+                    if (ltiUserInfoToken) {
+                        redirectUrl += '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
+                    } else {
+                        var samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
+                        if (samlIdPUserInfoToken) {
+                            redirectUrl += '#token.user.saml=' + encodeURIComponent(samlIdPUserInfoToken);
+                        }
+                    }
+                    window.location.replace(redirectUrl);
+                }
+            });
         }());
     </script>
 

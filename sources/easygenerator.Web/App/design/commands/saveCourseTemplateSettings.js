@@ -2,7 +2,8 @@
 
 export function saveCourseTemplateSettings(courseId, templateId, settings, extraData) {
     return new Promise((resolve, reject) => {
-        http.post(`/api/course/${courseId}/template/${templateId}`, { settings: JSON.stringify(settings), extraData: JSON.stringify(extraData) }, window.auth.getHeader('api'))
+        window.auth.getHeader('api').then(value => {
+            http.post(`/api/course/${courseId}/template/${templateId}`, { settings: JSON.stringify(settings), extraData: JSON.stringify(extraData) }, value)
             .then(function(response) {
                 if (response) {
                     resolve();
@@ -12,5 +13,8 @@ export function saveCourseTemplateSettings(courseId, templateId, settings, extra
             }).fail(() => {
                 reject();
             });
+        }).fail(() => {
+            reject();
+        });
     });
 }

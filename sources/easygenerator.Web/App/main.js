@@ -37,7 +37,7 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
 
 (async () => {
     if (window.auth.isAuthTokenPresentInHash()) {
-        window.auth.logout();
+        await window.auth.logout();
         try {
             await window.auth.loginByAuthToken();
             window.location.replace('/#');
@@ -55,7 +55,7 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
                 window.location.replace('/#');
                 return;
             }
-            window.auth.logout();
+            await window.auth.logout();
             if (reason.ltiUserInfoToken) {
                 window.location.replace(`/signin#token.user.lti=${encodeURIComponent(reason.ltiUserInfoToken)}`);
                 return;
@@ -72,7 +72,7 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
                 window.location.replace('/#');
                 return;
             }
-            window.auth.logout();
+            await window.auth.logout();
             if (reason.samlIdPUserInfoToken) {
                 window.location.replace(`/signin#token.user.saml=${encodeURIComponent(reason.samlIdPUserInfoToken)}`);
                 return;

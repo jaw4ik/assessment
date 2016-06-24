@@ -10,23 +10,34 @@ using easygenerator.Web.SAML.IdentityProvider.Providers;
 using Kentor.AuthServices.Saml2P;
 using Kentor.AuthServices.WebSso;
 using Kentor.AuthServices.HttpModule;
+using Kentor.AuthServices.Metadata;
 
 namespace easygenerator.Web.Controllers.SAML.IdentityProvider
 {
-    public class IdPAuthController : DefaultController
+    public class IdentityProviderController : DefaultController
     {
+        private readonly IMetadataProvider _metadataProvider;
+        private readonly ICertificateProvider _certificateProvider;
         private readonly IUserRepository _repository;
         private readonly ISaml2ResponseProvider _saml2ResponseProvider;
 
-        public IdPAuthController(IUserRepository repository, ISaml2ResponseProvider saml2ResponseProvider)
+        public IdentityProviderController(IMetadataProvider metadataProvider, ICertificateProvider certificateProvider, 
+            IUserRepository repository, ISaml2ResponseProvider saml2ResponseProvider)
         {
+            _metadataProvider = metadataProvider;
+            _certificateProvider = certificateProvider;
             _repository = repository;
             _saml2ResponseProvider = saml2ResponseProvider;
         }
 
-        [Route("saml/idp/auth")]
-        [Scope("saml")]
+        [AllowAnonymous]
         public ActionResult Index()
+        {
+            return Content(_metadataProvider.GetIdpMetadata().ToXmlString(_certificateProvider.SigningCertificate), "application/samlmetadata+xml");
+        }
+
+        [Scope("saml")]
+        public ActionResult Auth()
         {
             var requestData = Request.ToHttpRequestData(true);
             if (!requestData.QueryString["SAMLRequest"].Any()) return BadRequest();

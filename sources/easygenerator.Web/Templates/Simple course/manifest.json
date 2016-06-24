@@ -23,6 +23,13 @@
             "400"
         ],
         "local": true
+    },
+    {
+        "fontFamily": "Custom Icons",
+        "variants": [
+            "400"
+        ],
+        "local": true
     }
   ],
   "presets": [
@@ -764,12 +771,24 @@
       "url": "lang/ru.json"
     },
     {
-      "code": "malay",
-      "url": "lang/malay.json"
+      "code": "ms",
+      "url": "lang/ms.json"
     },
     {
       "code": "kr",
       "url": "lang/kr.json"
+    },
+    {
+      "code": "nb-no",
+      "url": "lang/nb-no.json"
+    },
+    {
+      "code": "nn-no",
+      "url": "lang/nn-no.json"
+    },
+    {
+      "code": "vi",
+      "url": "lang/vi.json"
     }
   ]
 }

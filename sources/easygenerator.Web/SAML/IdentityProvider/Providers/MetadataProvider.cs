@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IdentityModel.Metadata;
 using System.Linq;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.SAML;
 using Kentor.AuthServices.Metadata;
@@ -14,22 +15,15 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
         private readonly SamlIdPConfigurationSection _configurationSection;
         private readonly ICertificateProvider _certificateProvider;
         private readonly IUrlResolverProvider _urlResolverProvider;
-        private readonly ExtendedEntityDescriptor _metadata;
 
         public MetadataProvider(ConfigurationReader configurationReader, ICertificateProvider certificateProvider, IUrlResolverProvider urlResolverProvider)
         {
             _configurationSection = configurationReader.SamlIdPConfiguration;
             _certificateProvider = certificateProvider;
             _urlResolverProvider = urlResolverProvider;
-            _metadata = BuildIdpMetadata(false);
         }
 
         public ExtendedEntityDescriptor GetIdpMetadata(bool includeCacheDuration = true)
-        {
-            return includeCacheDuration ? BuildIdpMetadata() : _metadata;
-        }
-
-        private ExtendedEntityDescriptor BuildIdpMetadata(bool includeCacheDuration = true)
         {
             var entityId = new EntityId(_urlResolverProvider.MetadataUrl.ToString());
             var organization = new Organization()
@@ -60,7 +54,7 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
             if (includeCacheDuration)
             {
                 metadata.CacheDuration = cacheDuration;
-                metadata.ValidUntil = DateTime.UtcNow.AddDays(_configurationSection.Metadata.ValidPeriodDays);
+                metadata.ValidUntil = DateTimeWrapper.Now().AddDays(_configurationSection.Metadata.ValidPeriodDays);
             }
 
             var idpSsoDescriptor = new IdentityProviderSingleSignOnDescriptor()

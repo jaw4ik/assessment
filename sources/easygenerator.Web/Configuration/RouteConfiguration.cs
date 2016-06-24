@@ -133,9 +133,21 @@ namespace easygenerator.Web.Configuration
             #endregion
 
             routes.MapRoute(
+               name: "SamlIdP",
+               url: "saml/idp/{action}",
+               defaults: new { controller = "IdentityProvider", action = "Index" }
+            );
+
+            routes.MapRoute(
                name: "SamlSP",
                url: "saml/sp/{action}",
-               defaults: new { controller = "ServiceProvider", action= "Index" }
+               defaults: new { controller = "ServiceProvider", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "CrossProtocolStorage",
+                url: "storageframe",
+                defaults: new { controller = "CrossProtocolStorage", action = "Index" }
             );
 
             routes.MapRoute(

@@ -362,11 +362,11 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Controllers\CrossProtocolStorageController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="Controllers\SAML\IdentityProvider\IdPMetadataController.cs" />
-    <Compile Include="Controllers\SAML\IdentityProvider\IdPAuthController.cs" />
+    <Compile Include="Controllers\SAML\IdentityProvider\IdentityProviderController.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderController.cs" />
     <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
     <Compile Include="Publish\External\ExternalPublisher.cs" />
@@ -3048,6 +3048,7 @@
     <Content Include="Scripts\knockoutBindings\sliderControlBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
+    <Content Include="Scripts\localStorageProvider.js" />
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\paper-full-0.9.22.js" />
     <Content Include="Scripts\paper-full-0.9.22.min.js" />
@@ -3269,7 +3270,7 @@
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\app\main.js.map" />
-    <Content Include="Templates\Simple course\css\colors.less" />
+    <Content Include="Templates\Simple course\css\colors.css" />
     <Content Include="Templates\Simple course\css\fonts.css" />
     <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
@@ -3409,7 +3410,6 @@
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <Content Include="Templates\Assessment\lang\es.json" />
     <Content Include="Templates\Reader\lang\es.json" />
-    <Content Include="Templates\Simple course\lang\malay.json" />
     <Content Include="Templates\Simple course\lang\ru.json" />
     <Content Include="Templates\Assessment\lang\ru.json" />
     <Content Include="Templates\Personalized learning\lang\ru.json" />
@@ -3419,6 +3419,14 @@
     <Content Include="Templates\Assessment\lang\it.json" />
     <Content Include="Templates\Personalized learning\lang\it.json" />
     <Content Include="Templates\Reader\lang\it.json" />
+    <Content Include="Views\CrossProtocolStorage\index.cshtml" />
+    <Content Include="Templates\Simple course\lang\ms.json" />
+    <Content Include="Templates\Simple course\lang\nb-no.json" />
+    <Content Include="Templates\Simple course\lang\nn-no.json" />
+    <Content Include="Templates\Simple course\lang\vi.json" />
+    <Content Include="Templates\Simple course\fonts\Custom-Icons.woff" />
+    <Content Include="Templates\Personalized learning\lang\no.json" />
+    <Content Include="Templates\Reader\lang\no.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3846,7 +3854,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53532</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

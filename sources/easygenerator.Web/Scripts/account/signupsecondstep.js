@@ -112,6 +112,7 @@ app.signUpSecondStepModel = function () {
     };
 
     function login(username, password) {
+        var defer = $.Deferred();
         var data = {
             username: username,
             password: password,
@@ -125,9 +126,18 @@ app.signUpSecondStepModel = function () {
             type: 'POST'
         };
 
-        return $.ajax(requestArgs).done(function (response) {
-            return response && response.success && window.auth.login(response.data);
+        $.ajax(requestArgs).done(function (response) {
+            if (!response || !response.success) {
+                defer.resolve(false);
+                return;
+            }
+            window.auth.login(response.data).then(function(success) {
+                defer.resolve(success);
+            });
+        }).fail(function(reason) {
+            defer.reject(reason);
         });
+        return defer.promise();
     }
 
 }

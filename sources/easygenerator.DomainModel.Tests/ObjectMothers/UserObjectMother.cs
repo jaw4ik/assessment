@@ -66,9 +66,10 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             string lastReadReleaseNote = LastReadReleaseNote,
             DateTime? expirationDate = null,
             bool isCreatedThroughLti = false,
+            bool isCreatedThroughSamlIdP = false,
             ICollection<Company> companies = null)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, isCreatedThroughLti, companies);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies);
         }
     }
 }

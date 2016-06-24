@@ -21,119 +21,121 @@
 
         return {
             start: function () {
-                var dfd = Q.defer();
+                return window.auth.getToken('signalr').then(function(token) {
+                    var dfd = Q.defer();
 
-                var hub = $.connection.eventHub;
+                    var hub = $.connection.eventHub;
 
-                // Send access token as query string parameter because of WebSockets doesn't support Authorization header
-                // Need to be changed as soon as another solutions will be found
-                $.connection.hub.qs = { 'access_token': window.auth.getToken('signalr') };
+                    // Send access token as query string parameter because of WebSockets doesn't support Authorization header
+                    // Need to be changed as soon as another solutions will be found
+                    $.connection.hub.qs = { 'access_token': token };
 
-                hub.client = {
-                    userDowngraded: userEventHandler.downgraded,
-                    userUpgradedToStarter: userEventHandler.upgradedToStarter,
-                    userUpgradedToPlus: userEventHandler.upgradedToPlus,
-                    userUpgradedToAcademy: userEventHandler.upgradedToAcademy,
-                    userUpgradedToAcademyBT: userEventHandler.upgradedToAcademyBT,
+                    hub.client = {
+                        userDowngraded: userEventHandler.downgraded,
+                        userUpgradedToStarter: userEventHandler.upgradedToStarter,
+                        userUpgradedToPlus: userEventHandler.upgradedToPlus,
+                        userUpgradedToAcademy: userEventHandler.upgradedToAcademy,
+                        userUpgradedToAcademyBT: userEventHandler.upgradedToAcademyBT,
 
-                    courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
-                    courseCollaborationStarted: collaborationEventHandler.started,
-                    collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
-                    courseCollaborationFinished: collaborationEventHandler.finished,
-                    collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
-                    collaborationInviteRemoved: collaborationEventHandler.inviteRemoved,
-                    collaborationInviteCreated: collaborationEventHandler.inviteCreated,
-                    collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
-                    collaborationInviteCourseTitleUpdated: collaborationEventHandler.inviteCourseTitleUpdated,
+                        courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
+                        courseCollaborationStarted: collaborationEventHandler.started,
+                        collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
+                        courseCollaborationFinished: collaborationEventHandler.finished,
+                        collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
+                        collaborationInviteRemoved: collaborationEventHandler.inviteRemoved,
+                        collaborationInviteCreated: collaborationEventHandler.inviteCreated,
+                        collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
+                        collaborationInviteCourseTitleUpdated: collaborationEventHandler.inviteCourseTitleUpdated,
 
-                    courseStateChanged: courseEventHandler.stateChanged,
-                    courseTitleUpdated: courseEventHandler.titleUpdated,
-                    courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,
-                    courseTemplateUpdated: courseEventHandler.templateUpdated,
-                    courseSectionsReordered: courseEventHandler.sectionsReordered,
-                    coursePublished: courseEventHandler.published,
-                    courseDeleted: courseEventHandler.deleted,
-                    courseSectionRelated: courseEventHandler.sectionRelated,
-                    courseSectionsUnrelated: courseEventHandler.sectionsUnrelated,
-                    courseSectionsReplaced: courseEventHandler.sectionsReplaced,
+                        courseStateChanged: courseEventHandler.stateChanged,
+                        courseTitleUpdated: courseEventHandler.titleUpdated,
+                        courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,
+                        courseTemplateUpdated: courseEventHandler.templateUpdated,
+                        courseSectionsReordered: courseEventHandler.sectionsReordered,
+                        coursePublished: courseEventHandler.published,
+                        courseDeleted: courseEventHandler.deleted,
+                        courseSectionRelated: courseEventHandler.sectionRelated,
+                        courseSectionsUnrelated: courseEventHandler.sectionsUnrelated,
+                        courseSectionsReplaced: courseEventHandler.sectionsReplaced,
 
-                    sectionTitleUpdated: sectionEventHandler.titleUpdated,
-                    sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,
-                    sectionQuestionsReordered: sectionEventHandler.questionsReordered,
+                        sectionTitleUpdated: sectionEventHandler.titleUpdated,
+                        sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,
+                        sectionQuestionsReordered: sectionEventHandler.questionsReordered,
 
-                    questionCreated: questionEventHandler.question.created,
-                    questionsDeleted: questionEventHandler.question.deleted,
-                    questionTitleUpdated: questionEventHandler.question.titleUpdated,
-                    questionVoiceOverUpdated: questionEventHandler.question.voiceOverUpdated,
-                    questionContentUpdated: questionEventHandler.question.contentUpdated,
-                    questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
-                    questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
-                    questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
-                    learningContentsReordered: questionEventHandler.question.learningContentsReordered,
+                        questionCreated: questionEventHandler.question.created,
+                        questionsDeleted: questionEventHandler.question.deleted,
+                        questionTitleUpdated: questionEventHandler.question.titleUpdated,
+                        questionVoiceOverUpdated: questionEventHandler.question.voiceOverUpdated,
+                        questionContentUpdated: questionEventHandler.question.contentUpdated,
+                        questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
+                        questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
+                        questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
+                        learningContentsReordered: questionEventHandler.question.learningContentsReordered,
 
-                    fillInTheBlankUpdated: questionEventHandler.fillInTheBlank.updated,
+                        fillInTheBlankUpdated: questionEventHandler.fillInTheBlank.updated,
 
-                    dragAndDropDropspotCreated: questionEventHandler.dragAndDropText.dropspotCreated,
-                    dragAndDropDropspotDeleted: questionEventHandler.dragAndDropText.dropspotDeleted,
-                    dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropText.dropspotTextChanged,
-                    dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDropText.dropspotPositionChanged,
+                        dragAndDropDropspotCreated: questionEventHandler.dragAndDropText.dropspotCreated,
+                        dragAndDropDropspotDeleted: questionEventHandler.dragAndDropText.dropspotDeleted,
+                        dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropText.dropspotTextChanged,
+                        dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDropText.dropspotPositionChanged,
 
-                    textMatchingAnswerCreated: questionEventHandler.textMatching.answerCreated,
-                    textMatchingAnswerDeleted: questionEventHandler.textMatching.answerDeleted,
-                    textMatchingAnswerKeyChanged: questionEventHandler.textMatching.answerKeyChanged,
-                    textMatchingAnswerValueChanged: questionEventHandler.textMatching.answerValueChanged,
+                        textMatchingAnswerCreated: questionEventHandler.textMatching.answerCreated,
+                        textMatchingAnswerDeleted: questionEventHandler.textMatching.answerDeleted,
+                        textMatchingAnswerKeyChanged: questionEventHandler.textMatching.answerKeyChanged,
+                        textMatchingAnswerValueChanged: questionEventHandler.textMatching.answerValueChanged,
 
-                    rankingTextAnswerCreated: questionEventHandler.rankingText.answerCreated,
-                    rankingTextAnswerDeleted: questionEventHandler.rankingText.answerDeleted,
-                    rankingTextAnswerTextChanged: questionEventHandler.rankingText.answerTextChanged,
-                    rankingTextAnswersReordered: questionEventHandler.rankingText.answersReordered,
+                        rankingTextAnswerCreated: questionEventHandler.rankingText.answerCreated,
+                        rankingTextAnswerDeleted: questionEventHandler.rankingText.answerDeleted,
+                        rankingTextAnswerTextChanged: questionEventHandler.rankingText.answerTextChanged,
+                        rankingTextAnswersReordered: questionEventHandler.rankingText.answersReordered,
 
-                    singleSelectImageAnswerCreated: questionEventHandler.singleSelectImage.answerCreated,
-                    singleSelectImageAnswerDeleted: questionEventHandler.singleSelectImage.answerDeleted,
-                    singleSelectImageAnswerImageUpdated: questionEventHandler.singleSelectImage.answerImageUpdated,
-                    singleSelectImageCorrectAnswerChanged: questionEventHandler.singleSelectImage.correctAnswerChanged,
+                        singleSelectImageAnswerCreated: questionEventHandler.singleSelectImage.answerCreated,
+                        singleSelectImageAnswerDeleted: questionEventHandler.singleSelectImage.answerDeleted,
+                        singleSelectImageAnswerImageUpdated: questionEventHandler.singleSelectImage.answerImageUpdated,
+                        singleSelectImageCorrectAnswerChanged: questionEventHandler.singleSelectImage.correctAnswerChanged,
 
-                    answerCreated: answerEventHandler.created,
-                    answerDeleted: answerEventHandler.deleted,
-                    answerTextUpdated: answerEventHandler.textUpdated,
-                    answerCorrectnessUpdated: answerEventHandler.answerCorrectnessUpdated,
+                        answerCreated: answerEventHandler.created,
+                        answerDeleted: answerEventHandler.deleted,
+                        answerTextUpdated: answerEventHandler.textUpdated,
+                        answerCorrectnessUpdated: answerEventHandler.answerCorrectnessUpdated,
 
-                    learningContentCreated: learningContentEventHandler.created,
-                    learningContentUpdated: learningContentEventHandler.textUpdated,
-                    learningContentDeleted: learningContentEventHandler.deleted,
+                        learningContentCreated: learningContentEventHandler.created,
+                        learningContentUpdated: learningContentEventHandler.textUpdated,
+                        learningContentDeleted: learningContentEventHandler.deleted,
 
-                    hotSpotPolygonCreated: questionEventHandler.hotSpot.polygonCreated,
-                    hotSpotPolygonDeleted: questionEventHandler.hotSpot.polygonDeleted,
-                    hotSpotPolygonChanged: questionEventHandler.hotSpot.polygonChanged,
-                    hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged,
+                        hotSpotPolygonCreated: questionEventHandler.hotSpot.polygonCreated,
+                        hotSpotPolygonDeleted: questionEventHandler.hotSpot.polygonDeleted,
+                        hotSpotPolygonChanged: questionEventHandler.hotSpot.polygonChanged,
+                        hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged,
 
-                    scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
-                    scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated,
+                        scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
+                        scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated,
 
-                    commentDeleted: commentEventHandler.deleted,
-					commentCreated: commentEventHandler.created
-                };
+                        commentDeleted: commentEventHandler.deleted,
+                        commentCreated: commentEventHandler.created
+                    };
 
-                $.connection.hub.disconnected(function () {
-                    $.ajax({
-                        type: 'get',
-                        url: '/ping.ashx'
-                    }).error(function (error) {
-                        if (error.status == 503) {
-                            window.location.reload(true);
-                        }
+                    $.connection.hub.disconnected(function () {
+                        $.ajax({
+                            type: 'get',
+                            url: '/ping.ashx'
+                        }).error(function (error) {
+                            if (error.status == 503) {
+                                window.location.reload(true);
+                            }
+                        });
                     });
+
+                    $.connection.hub.start()
+                        .done(function () {
+                            system.log("Synchronization with server was established");
+                            dfd.resolve();
+                        }).fail(function () {
+                            dfd.reject('Could not establish synchronization with server');
+                        });
+
+                    return dfd.promise;
                 });
-
-                $.connection.hub.start()
-                    .done(function () {
-                        system.log("Synchronization with server was established");
-                        dfd.resolve();
-                    }).fail(function () {
-                        dfd.reject('Could not establish synchronization with server');
-                    });
-
-                return dfd.promise;
             }
         };
     }
