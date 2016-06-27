@@ -11,7 +11,7 @@
         templateUrl = location.toString().substring(0, location.toString().indexOf('/settings/')) + '/',
         manifestUrl = templateUrl + 'manifest.json', //TODO: Change way of resolving manifest file path
 
-        headers = { 'Authorization': 'Bearer ' + (getURLParameter('token') || localStorage['token.settings']) }
+        headers = { 'Authorization': 'Bearer ' }
     ;
 
     window.egApi = {
@@ -24,45 +24,63 @@
         showSettings: showSettings
     };
 
+    function getSettingsToken() {
+        var tokenDefer = $.Deferred();
+        var localStorageProvider = window.parent.localStorageProvider;
+        if (!localStorageProvider) {
+            tokenDefer.resolve(localStorage['token.settings']);
+        }
+        localStorageProvider.getItem('token.settings').then(function(value) {
+            tokenDefer.resolve(value);
+        }).fail(function() {
+            tokenDefer.resolve('');
+        });
+        return tokenDefer.promise();
+    }
+
     function init() {
-        /* DEBUG */
-        var userDataPromise = $.Deferred().resolve([{ subscription: { accessType: 1, expirationDate: new Date(2016, 1, 1) } }]);
-        var settingsPromise = $.getJSON('../../settings.js').then(function (response) { return [{ settings: JSON.stringify(response) }]; });
-        var manifestPromise = $.getJSON(manifestUrl);
-        /* END_DEBUG */
+        return getSettingsToken().then(function (token) {
+            headers.Authorization += (getURLParameter('token') || token);
 
-        /* RELEASE
-        var userDataPromise = $.ajax({
-            url: identifyUrl,
-            headers: headers,
-            cache: false,
-            type: 'POST',
-            contentType: 'application/json',
-            dataType: 'json'
-        });
+            /* DEBUG */
+            var userDataPromise = $.Deferred().resolve([{ subscription: { accessType: 1, expirationDate: new Date(2016, 1, 1) } }]);
+            var settingsPromise = $.getJSON('../../settings.js').then(function (response) { return [{ settings: JSON.stringify(response) }]; });
+            var manifestPromise = $.getJSON(manifestUrl);
+            /* END_DEBUG */
 
-        var settingsPromise = $.ajax({
-            url: settingsUrl,
-            headers: headers,
-            cache: false,
-            contentType: 'application/json',
-            dataType: 'json'
-        });
+            /* RELEASE
+            var userDataPromise = $.ajax({
+                url: identifyUrl,
+                headers: headers,
+                cache: false,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json'
+            });
+    
+            var settingsPromise = $.ajax({
+                url: settingsUrl,
+                headers: headers,
+                cache: false,
+                contentType: 'application/json',
+                dataType: 'json'
+            });
+    
+            var manifestPromise = $.ajax({
+                url: manifestUrl,
+                headers: headers,
+                cache: false,
+                contentType: 'application/json',
+                dataType: 'json'
+            });
+            END_RELEASE */
 
-        var manifestPromise = $.ajax({
-            url: manifestUrl,
-            headers: headers,
-            cache: false,
-            contentType: 'application/json',
-            dataType: 'json'
-        });
-        END_RELEASE */
-
-        return $.when(manifestPromise, userDataPromise, settingsPromise).done(function (manifestResponse, userDataResponse, settingsResponse) {
-            apiData.manifest = getManifestModel(manifestResponse[0]);
-            apiData.user = getUserModel(userDataResponse[0]);
-            apiData.settings = getSettingsModel(settingsResponse[0]);
-            apiData.isInited = true;
+            return $.when(manifestPromise, userDataPromise, settingsPromise).done(function (manifestResponse, userDataResponse, settingsResponse) {
+                apiData.manifest = getManifestModel(manifestResponse[0]);
+                apiData.user = getUserModel(userDataResponse[0]);
+                apiData.settings = getSettingsModel(settingsResponse[0]);
+                apiData.isInited = true;
+            });
         });
     }
 
