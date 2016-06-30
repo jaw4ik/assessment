@@ -62,6 +62,7 @@ namespace easygenerator.DataAccess
         public DbSet<ConsumerTool> ConsumerTools { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<SamlIdentityProvider> SamlIdentityProviders { get; set; }
+        public DbSet<SamlServiceProvider> SamlServiceProviders { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -208,6 +209,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().HasMany(e => e.CompaniesCollection).WithMany(e => e.Users).Map(m => m.ToTable("CompanyUsers"));
+            modelBuilder.Entity<User>().HasMany(e => e.AllowedSamlServiceProviders).WithMany(e => e.Users).Map(m => m.ToTable("UserSamlSPs"));
             modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
             modelBuilder.Entity<User>().HasMany(e => e.SamlIdPUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
@@ -323,6 +325,14 @@ namespace easygenerator.DataAccess
                     new IndexAttribute("UI_SamlIdPUserInfo_SamlIdP_Id_User_Id", 2) { IsUnique = true }
                }));
 
+            modelBuilder.Entity<SamlServiceProvider>().Property(e => e.AssertionConsumerServiceUrl).IsRequired().HasMaxLength(511)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]
+                {
+                    new IndexAttribute("IX_AscUrl") { IsUnique = true }
+                }));
+            modelBuilder.Entity<SamlServiceProvider>().Property(e => e.Issuer).IsRequired().HasMaxLength(511);
+            modelBuilder.Entity<SamlServiceProvider>().HasMany(e => e.Users).WithMany(e => e.AllowedSamlServiceProviders).Map(m => m.ToTable("UserSamlSPs"));
+
             modelBuilder.Entity<Company>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.LogoUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.PublishCourseApiUrl).IsRequired();
@@ -332,7 +342,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Company>().HasMany(e => e.Users).WithMany(e => e.CompaniesCollection).Map(m => m.ToTable("CompanyUsers"));
             modelBuilder.Entity<Company>().HasMany(e => e.CompanyCourses).WithMany(e => e.CourseCompanies).Map(m => m.ToTable("CompanyCourses"));
             modelBuilder.Entity<Company>().HasMany(e => e.CompanyLearningPaths).WithMany(e => e.LearningPathCompanies).Map(m => m.ToTable("CompanyLearningPaths"));
-
 
             modelBuilder.Entity<Scenario>().Property(e => e.ProjectId);
             modelBuilder.Entity<Scenario>().Property(e => e.EmbedCode);

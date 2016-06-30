@@ -76,7 +76,7 @@ namespace easygenerator.Auth.Configuration
                 }
             }
 
-            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/saml")))
+            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/saml/idp/Auth")))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.saml"];
                 if (!string.IsNullOrEmpty(value))

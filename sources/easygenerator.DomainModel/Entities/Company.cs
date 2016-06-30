@@ -13,7 +13,6 @@ namespace easygenerator.DomainModel.Entities
             CompanyLearningPaths = new Collection<LearningPath>();
         }
 
-        public string Name { get; protected internal set; }
         protected internal Company(string name, string logoUrl, string publishApiUrl, string secretKey,
             bool hideDefaultPublishOptions, short priority = 0)
         {
@@ -28,6 +27,8 @@ namespace easygenerator.DomainModel.Entities
             CompanyCourses = new Collection<Course>();
             CompanyLearningPaths = new Collection<LearningPath>();
         }
+
+        public string Name { get; protected internal set; }
 
         public string LogoUrl { get; protected internal set; }
 

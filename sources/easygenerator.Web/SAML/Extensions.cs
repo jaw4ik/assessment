@@ -1,24 +1,19 @@
 ﻿using Kentor.AuthServices.WebSso;
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Web.Mvc;
+using System.Xml;
+using Kentor.AuthServices;
+using Kentor.AuthServices.Saml2P;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace easygenerator.Web.SAML
 {
-    /// <summary>
-    /// Extension methods for CommandResult for integrating CommandResults in
-    /// the MVC architecture.
-    /// </summary>
     public static class Extensions
     {
-        /// <summary>
-        /// Converts a command result to an action result.
-        /// </summary>
-        /// <param name="commandResult">The source command result.</param>
-        /// <returns>Action result</returns>
-        /// <remarks>The reason to use a separate command result at all, instead
-        /// of simply using ActionResult is that the core library should not
-        /// be Mvc dependant.</remarks>
         public static ActionResult ToActionResult(this CommandResult commandResult)
         {
             if (commandResult == null)
@@ -45,6 +40,44 @@ namespace easygenerator.Web.SAML
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        public static CommandResult BindSamlResponse(this Saml2Binding saml2Binding, ISaml2Message message)
+        {
+            if(message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
+            var xml = message.ToXml();
+            if (message.SigningCertificate != null)
+            {
+                var xmlDoc = new XmlDocument()
+                {
+                    PreserveWhitespace = true
+                };
+
+                xmlDoc.LoadXml(xml);
+                xmlDoc.Sign(message.SigningCertificate, true);
+                xml = xmlDoc.OuterXml;
+            }
+
+            var encodedXml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+            var relayState = string.IsNullOrEmpty(message.RelayState) ? null : message.RelayState;
+
+            var result = new Dictionary<string, string>
+            {
+                [message.MessageName] = encodedXml,
+                ["RelayState"] = relayState,
+                ["DestinationUrl"] = message.DestinationUrl.OriginalString
+            };
+
+
+            return new CommandResult()
+            {
+                ContentType = "application/json",
+                Content = JsonConvert.SerializeObject(result, new KeyValuePairConverter())
+            };
         }
     }
 }

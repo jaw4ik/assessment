@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddSamlSupport : IMigrationMetadata
+    public sealed partial class AddAllowedSAMLServiceProviders : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSamlSupport));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAllowedSAMLServiceProviders));
         
         string IMigrationMetadata.Id
         {
-            get { return "201606181116557_AddSamlSupport"; }
+            get { return "201607010821411_AddAllowedSAMLServiceProviders"; }
         }
         
         string IMigrationMetadata.Source

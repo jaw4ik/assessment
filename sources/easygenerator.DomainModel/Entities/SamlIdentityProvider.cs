@@ -21,7 +21,7 @@ namespace easygenerator.DomainModel.Entities
         public bool WantAuthnRequestsSigned { get; private set; }
         public string SigningCertificate { get; private set; }
 
-        #region LtiUserInfo
+        #region SamlIdPUserInfo
         protected internal virtual ICollection<SamlIdPUserInfo> SamlIdPUserInfoes { get; set; }
         #endregion
 

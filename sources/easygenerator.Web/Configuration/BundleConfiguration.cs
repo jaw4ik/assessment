@@ -127,6 +127,13 @@ namespace easygenerator.Web.Configuration
                 .Include("~/scripts/jquery.unobtrusive-ajax.js")
             );
 
+            bundles.Add(new ScriptBundle("~/bundless/scripts/idp/auth")
+                .Include("~/scripts/localStorageProvider.js")
+                .Include("~/scripts/auth.js")
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/q.js")
+            );
+
         }
     }
 }

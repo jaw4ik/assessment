@@ -336,5 +336,35 @@ namespace easygenerator.DomainModel.Entities
             }
         }
         #endregion
+
+        #region SamlSPInfo
+        protected internal virtual ICollection<SamlServiceProvider> AllowedSamlServiceProviders { get; set; }
+
+        public bool IsAllowed(SamlServiceProvider serviceProvider)
+        {
+            return AllowedSamlServiceProviders.Contains(serviceProvider);
+        }
+
+        public virtual void Allow(SamlServiceProvider serviceProvider, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(serviceProvider, nameof(serviceProvider));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            if (!AllowedSamlServiceProviders.Contains(serviceProvider))
+            {
+                AllowedSamlServiceProviders.Add(serviceProvider);
+                MarkAsModified(modifiedBy);
+            }
+        }
+        public virtual void Deny(SamlServiceProvider serviceProvider, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(serviceProvider, nameof(serviceProvider));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            AllowedSamlServiceProviders.Remove(serviceProvider);
+
+            MarkAsModified(modifiedBy);
+        }
+        #endregion
     }
 }

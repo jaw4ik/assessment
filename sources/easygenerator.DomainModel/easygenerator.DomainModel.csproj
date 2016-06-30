@@ -48,6 +48,7 @@
     <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\SamlServiceProvider.cs" />
     <Compile Include="Entities\SamlIdentityProvider.cs" />
     <Compile Include="Entities\ConsumerTool.cs" />
     <Compile Include="Entities\ConsumerToolSettings.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Events\UserEvents\UserUpgradedToPlus.cs" />
     <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ISamlServiceProviderRepository.cs" />
     <Compile Include="Repositories\ISamlIdentityProviderRepository.cs" />
     <Compile Include="Repositories\IConsumerToolRepository.cs" />
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />

@@ -467,12 +467,17 @@
     <Compile Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.Designer.cs">
       <DependentUpon>201606170850391_CourseCollaboratorIsAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606181116557_AddSamlSupport.cs" />
-    <Compile Include="Migrations\201606181116557_AddSamlSupport.Designer.cs">
-      <DependentUpon>201606181116557_AddSamlSupport.cs</DependentUpon>
+    <Compile Include="Migrations\201606301155245_AddSamlSupport.cs" />
+    <Compile Include="Migrations\201606301155245_AddSamlSupport.Designer.cs">
+      <DependentUpon>201606301155245_AddSamlSupport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607010821411_AddAllowedSAMLServiceProviders.cs" />
+    <Compile Include="Migrations\201607010821411_AddAllowedSAMLServiceProviders.Designer.cs">
+      <DependentUpon>201607010821411_AddAllowedSAMLServiceProviders.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
     <Compile Include="Repositories\SamlIdentityProviderRepository.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -816,8 +821,11 @@
     <EmbeddedResource Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.resx">
       <DependentUpon>201606170850391_CourseCollaboratorIsAdmin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606181116557_AddSamlSupport.resx">
-      <DependentUpon>201606181116557_AddSamlSupport.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606301155245_AddSamlSupport.resx">
+      <DependentUpon>201606301155245_AddSamlSupport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607010821411_AddAllowedSAMLServiceProviders.resx">
+      <DependentUpon>201607010821411_AddAllowedSAMLServiceProviders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

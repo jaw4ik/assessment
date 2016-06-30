@@ -21,7 +21,6 @@ class UserMenu {
         this.organizationTitle = ko.observable('');
 
         this.newEditor = ko.observable(false);
-		this.coggnoSPUrl = constants.coggno.serviceProviderUrl;
         this.switchEditor = function() {};
     }
 
