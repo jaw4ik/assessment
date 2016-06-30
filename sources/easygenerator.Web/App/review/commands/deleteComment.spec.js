@@ -9,15 +9,16 @@ describe('review commands [deleteComment]', () => {
     describe('execute:', () => {
 
         let course = {
-            id: 'courseId'
-        },
+                id: 'courseId'
+            },
             comment = {
                 id: 'id',
                 text: 'text',
-                email:'email',
+                email: 'email',
                 name: 'name',
                 createdOn: new Date()
-            }, promise;
+            },
+            promise;
 
         describe('when course is not found', () => {
             beforeEach(() => {
@@ -27,8 +28,10 @@ describe('review commands [deleteComment]', () => {
             it('should reject promise', done => (async () => {
                 await command.execute(course.id, comment.id);
 
-            })().catch(done));
-
+            })().catch(reason => {
+                expect(reason).toBeDefined();
+                done();
+            }));
         });
 
         describe('when course is found', () => {

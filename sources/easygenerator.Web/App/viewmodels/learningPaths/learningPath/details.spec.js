@@ -9,7 +9,7 @@ import addDocumentCommand from './commands/addDocumentCommand';
 import courseSelector from './../courseSelector/courseSelector';
 import CourseBrief from './courseBrief';
 import DocumentBrief from './documentBrief';
-import router from 'plugins/router';
+import router from 'routing/router';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';

@@ -14,19 +14,19 @@ describe('synchronization collaboration [inviteRemoved]', function () {
         expect(handler).toBeFunction();
     });
 
-    describe('when inviteId is not a string', function () {
+    describe('when courseId is not a string', function () {
         it('should throw an exception', function () {
             var f = function () {
                 handler(undefined);
             };
 
-            expect(f).toThrow('InviteId is not a string');
+            expect(f).toThrow('CourseId is not a string');
         });
     });
 
     it('should trigger app event', function () {
-        var inviteId = 'id';
-        handler(inviteId);
-        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteRemoved, inviteId);
+        var courseId = 'id';
+        handler(courseId);
+        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteRemoved, courseId);
     });
 });

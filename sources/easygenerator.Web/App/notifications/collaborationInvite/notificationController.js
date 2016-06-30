@@ -1,4 +1,4 @@
-﻿define(['userContext', 'constants', 'notifications/collaborationInvite/notification', 'durandal/app', 'notifications/collaborationInvite/queries/getInvites'],
+﻿define(['userContext', 'constants', 'notifications/collaborationInvite/notification', 'durandal/app', './queries/getInvites'],
     function (userContext, constants, Notification, app, getInvitesQuery) {
         "use strict";
 
@@ -17,7 +17,6 @@
                 }
 
                 app.on(constants.messages.course.collaboration.inviteCreated, controller.pushNotification);
-                app.on(constants.messages.course.collaboration.inviteRemoved, controller.removeNotification);
 
                 return getInvitesQuery.execute().then(function (invites) {
                     _.each(invites, function (invite) {
@@ -28,18 +27,23 @@
         }
 
         function pushNotification(invite) {
-            var notification = new Notification(constants.notification.keys.collaborationInvite + invite.Id,
-                invite.Id,
-                invite.CourseId,
-                userContext.identity.firstname,
-                invite.CourseAuthorFirstName,
-                invite.CourseAuthorLastName,
-                invite.CourseTitle);
+            var key = constants.notification.keys.collaborationInvite + invite.Id,
+                notification = new Notification(key,
+                    invite.Id,
+                    invite.CourseId,
+                    userContext.identity.firstname,
+                    invite.CourseAuthorFirstName,
+                    invite.CourseAuthorLastName,
+                    invite.CourseTitle);
+
+            app.on(constants.messages.course.collaboration.inviteRemoved + invite.CourseId, function() {
+                controller.removeNotification(key);
+            });
 
             app.trigger(constants.notification.messages.push, notification);
         }
 
-        function removeNotification(inviteId) {
-            app.trigger(constants.notification.messages.remove, constants.notification.keys.collaborationInvite + inviteId);
+        function removeNotification(key) {
+            app.trigger(constants.notification.messages.remove, key);
         }
     });

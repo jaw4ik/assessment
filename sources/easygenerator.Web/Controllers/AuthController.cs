@@ -1,14 +1,15 @@
-﻿using System.Linq;
-using easygenerator.Auth.Attributes.Mvc;
+﻿using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.Auth.Providers;
+using easygenerator.Auth.Security.Models;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
-using System.Web.Mvc;
-using easygenerator.Auth.Security.Models;
+using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Extensions;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
@@ -18,13 +19,23 @@ namespace easygenerator.Web.Controllers
         private readonly ITokenProvider _tokenProvider;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly IEntityModelMapper<Company> _companyMapper;
+        private readonly IOrganizationRepository _organizationRepository;
+        private readonly IOrganizationMapper _organizationMapper;
+        private readonly IOrganizationUserRepository _organizationUserRepository;
+        private readonly IOrganizationInviteMapper _organizationInviteMapper;
 
-        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IReleaseNoteFileReader releaseNoteFileReader, IEntityModelMapper<Company> companyMapper)
+        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IReleaseNoteFileReader releaseNoteFileReader, IEntityModelMapper<Company> companyMapper,
+            IOrganizationRepository organizationRepository, IOrganizationMapper organizationMapper, IOrganizationUserRepository organizationUserRepository,
+            IOrganizationInviteMapper organizationInviteMapper)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
             _releaseNoteFileReader = releaseNoteFileReader;
             _companyMapper = companyMapper;
+            _organizationRepository = organizationRepository;
+            _organizationMapper = organizationMapper;
+            _organizationUserRepository = organizationUserRepository;
+            _organizationInviteMapper = organizationInviteMapper;
         }
 
         [HttpPost, AllowAnonymous]
@@ -66,8 +77,10 @@ namespace easygenerator.Web.Controllers
                 firstname = user.FirstName,
                 lastname = user.LastName,
                 role = user.Role,
-                phone = string.IsNullOrEmpty(CountriesInfo.GetCountryPhoneCode(user.Country)) ? ""  + user.Phone ?? "": CountriesInfo.GetCountryPhoneCode(user.Country) + user.Phone ?? "",
+                phone = string.IsNullOrEmpty(CountriesInfo.GetCountryPhoneCode(user.Country)) ? "" + user.Phone ?? "" : CountriesInfo.GetCountryPhoneCode(user.Country) + user.Phone ?? "",
                 companies = user.Companies.Select(e => _companyMapper.Map(e)),
+                organizations = _organizationRepository.GetAcceptedOrganizations(user.Email).Select(e => _organizationMapper.Map(e, user.Email)),
+                organizationInvites = _organizationUserRepository.GetOrganizationInvites(GetCurrentUsername()).Select(invite => _organizationInviteMapper.Map(invite)),
                 subscription = new
                 {
                     accessType = user.AccessType,

@@ -1,4 +1,6 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Events.CourseEvents.Collaboration;
+using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +27,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             collaborator.CreatedBy.Should().Be(createdBy);
             collaborator.CreatedOn.Should().Be(DateTime.MaxValue);
             collaborator.ModifiedOn.Should().Be(DateTime.MaxValue);
-            collaborator.IsAccepted.Should().Be(false);
+            collaborator.IsAccepted.Should().BeFalse();
+            collaborator.IsAdmin.Should().BeFalse();
             collaborator.ModifiedBy.Should().Be(createdBy);
         }
 
@@ -51,6 +54,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             Action action = () => CourseCollaboratorObjectMother.CreateWithUserEmail(null);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("userEmail");
+        }
+
+        #endregion
+
+        #region GrantAdminAccess
+
+        [TestMethod]
+        public void GrantAdminAccess_ShouldSetIsAdminTrue()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.CreateWithAccess(false);
+            //Act
+            collaborator.GrantAdminAccess();
+            //Assert
+            collaborator.IsAdmin.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void GrantAdminAccess_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.CreateWithAccess(false);
+            //Act
+            collaborator.GrantAdminAccess();
+            //Assert
+            collaborator.ShouldContainSingleEventOfType<CourseCollaboratorAdminAccessGrantedEvent>();
+        }
+
+        [TestMethod]
+        public void GrantAdminAccess_ShouldNotPublishDomainEvent_WhenUserIsAlreadyAdmin()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.CreateWithAccess(true);
+            //Act
+            collaborator.GrantAdminAccess();
+            //Assert
+            collaborator.ShouldNotContainSingleEvent<CourseCollaboratorAdminAccessGrantedEvent>();
         }
 
         #endregion

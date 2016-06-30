@@ -1,4 +1,4 @@
-﻿import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+﻿import ExpandableStatement from './expandableStatement';
 import localizationManager from 'localization/localizationManager';
 
 function getLearnerDisplayName(name, email) {

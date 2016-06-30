@@ -1,4 +1,4 @@
-﻿define(['knockout', 'durandal/app', 'constants', 'viewmodels/learningContents/learningContentBase', 'viewmodels/learningContents/components/hotspotParser',
+﻿define(['knockout', 'durandal/app', 'constants', 'viewmodels/learningContents/learningContentBase', './components/hotspotParser',
         'imageUpload', 'uiLocker', 'viewmodels/learningContents/components/polygonModel'],
     function (ko, app, constants, LearningContentBase, parser, imageUpload, uiLocker, PolygonModel) {
         "use strict";

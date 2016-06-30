@@ -1,4 +1,4 @@
-﻿define(['constants', 'durandal/app', 'localization/localizationManager', 'notify', 'viewmodels/questions/dragAndDropText/designer', 'viewmodels/questions/dragAndDropText/dropspot'],
+﻿define(['constants', 'durandal/app', 'localization/localizationManager', 'notify', './designer', './dropspot'],
     function (constants, app, localizationManager, notify, designer, Dropspot) {
         "use strict";
 

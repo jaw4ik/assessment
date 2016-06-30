@@ -1,60 +1,118 @@
-﻿define(['userContext', 'constants', 'durandal/app', 'eventTracker', 'plugins/router'],
-    function (userContext, constants, app, eventTracker, router) {
-        "use strict";
+﻿import ko from 'knockout';
+import _ from 'underscore';
+import constants from 'constants';
+import app from 'durandal/app';
+import router from 'routing/router';
+import userContext from 'userContext';
+import eventTracker from 'eventTracker';
+import createOrganizationCommand from 'organizations/commands/createOrganization';
+import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 
-        var viewModel = {
-            username: null,
-            useremail: null,
-            avatarLetter: null,
+class UserMenu {
+    constructor() {
+        this.username = null;
+        this.useremail = null;
+        this.avatarLetter = null;
 
-            isFreeUser: ko.observable(false),
-            userPlanChanged: userPlanChanged,
-            openUpgradePlanUrl: openUpgradePlanUrl,
+        this.isFreeUser = ko.observable(false);
+        this.isOrganizationAdmin = ko.observable(false);
+        this.isOrganizationMember = ko.observable(false);
+        this.hasOrganizationInvites = ko.observable(false);
+        this.organizationTitle = ko.observable('');
 
-            signOut: signOut,
-            newEditor: ko.observable(false),
-            coggnoSPUrl: constants.coggno.serviceProviderUrl,
-            switchEditor: function () { },
+        this.newEditor = ko.observable(false);
+		this.coggnoSPUrl = constants.coggno.serviceProviderUrl;
+        this.switchEditor = function() {};
+    }
 
-            activate: activate
-        };
+    activate(data) {
+        this.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
 
-        return viewModel;
+        app.on(constants.messages.user.planChanged, this.userPlanChanged.bind(this));
+        let organizationMembershipUpdatedProxy = this.organizationMembershipUpdated.bind(this);
+        app.on(constants.messages.organization.created, organizationMembershipUpdatedProxy);
+        app.on(constants.messages.organization.membershipStarted, organizationMembershipUpdatedProxy);
+        app.on(constants.messages.organization.membershipFinished, organizationMembershipUpdatedProxy);
 
-        function activate(data) {
-            viewModel.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
-            app.on(constants.messages.user.planChanged, userPlanChanged);
+        var organizationInvitesUpdatedProxy = this.organizationInvitesUpdated.bind(this);
+        app.on(constants.messages.organization.inviteCreated, organizationInvitesUpdatedProxy);
+        app.on(constants.messages.organization.inviteRemoved, organizationInvitesUpdatedProxy);
+        app.on(constants.messages.organization.userStatusUpdated, organizationInvitesUpdatedProxy);
 
-            if (_.isObject(userContext.identity)) {
-                viewModel.username = _.isEmptyOrWhitespace(userContext.identity.fullname)
-                    ? userContext.identity.email
-                    : userContext.identity.fullname;
+        app.on(constants.messages.organization.titleUpdated, this.setOrganizationTitle.bind(this));
 
-                viewModel.avatarLetter = viewModel.username.charAt(0);
-                viewModel.useremail = userContext.identity.email;
+        if (_.isObject(userContext.identity)) {
+            this.isOrganizationAdmin(userContext.identity.isOrganizationAdmin());
+            this.isOrganizationMember(userContext.identity.isOrganizationMember());
+            this.hasOrganizationInvites(userContext.identity.hasOrganizationInvites());
+            this.setOrganizationTitle();
+
+            this.username = _.isEmptyOrWhitespace(userContext.identity.fullname)
+                ? userContext.identity.email
+                : userContext.identity.fullname;
+
+            this.avatarLetter = this.username.charAt(0);
+            this.useremail = userContext.identity.email;
+        }
+
+        if (data) {
+            this.newEditor(data.newEditor);
+            if (_.isFunction(data.switchEditor)) {
+                this.switchEditor = data.switchEditor;
             }
-
-            if (data) {
-                viewModel.newEditor(data.newEditor);
-                if (_.isFunction(data.switchEditor)) {
-                    viewModel.switchEditor = data.switchEditor;
-                }
-            }
-        }
-
-        function userPlanChanged() {
-            viewModel.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
-        }
-
-        function openUpgradePlanUrl() {
-            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.userMenuInHeader);
-            router.openUrl(constants.upgradeUrl);
-        }
-
-        function signOut() {
-            return window.auth.logout().then(function() {
-                router.setLocation(constants.signinUrl);
-            });
         }
     }
-);
+
+    userPlanChanged() {
+        this.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
+    }
+
+    openUpgradePlanUrl() {
+        eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.userMenuInHeader);
+        router.openUrl(constants.upgradeUrl);
+    }
+
+    async createOrganization() {
+        if (!userContext.hasAcademyAccess()) {
+            upgradeDialog.show(constants.dialogs.upgrade.settings.manageOrganization);
+            return;
+        }
+
+        var organization = await createOrganizationCommand.execute();
+        router.navigate('organizations/' + organization.id);
+    }
+
+    manageOrganization() {
+        if (!userContext.hasAcademyAccess()) {
+            upgradeDialog.show(constants.dialogs.upgrade.settings.manageOrganization);
+            return;
+        }
+
+        var organization = userContext.identity.getFirstAdminAccessOrganization();
+        if (organization) {
+            router.navigate('organizations/' + organization.id);
+        }
+    }
+
+    setOrganizationTitle() {
+        let organizationNames = _.map(userContext.identity.organizations, organization => organization.title );
+        this.organizationTitle(organizationNames.sort().join(', '));
+    }
+
+    organizationMembershipUpdated() {
+        this.isOrganizationAdmin(userContext.identity.isOrganizationAdmin());
+        this.isOrganizationMember(userContext.identity.isOrganizationMember());
+        this.setOrganizationTitle();
+    }
+
+    organizationInvitesUpdated() {
+        this.hasOrganizationInvites(userContext.identity.hasOrganizationInvites());
+    }
+
+    async signOut() {
+        await window.auth.logout();
+        router.setLocation(constants.signinUrl);
+    }
+}
+
+export default new UserMenu();

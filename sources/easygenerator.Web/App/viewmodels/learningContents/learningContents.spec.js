@@ -7,7 +7,7 @@ import questionRepository from 'repositories/questionRepository';
 import eventTracker from 'eventTracker';
 import notify from 'notify';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 
 describe('viewModel [learningContents]', function () {
 
@@ -805,7 +805,7 @@ describe('viewModel [learningContents]', function () {
 
     });
 
-    describe('restoreLearningContent', function () {
+    describe('restoreLearningContent:', function () {
         var learningContents = [
                        { id: ko.observable('id1'), isRemoved: ko.observable(false) },
                        { id: ko.observable('id2'), isRemoved: ko.observable(true) },
@@ -829,9 +829,9 @@ describe('viewModel [learningContents]', function () {
             expect(viewModel.restoreLearningContent(learningContents[1])).toBePromise();
         });
 
-        it('should set isRemoved to true', function () {
+        it('should set isRemoved to false', function() {
             viewModel.restoreLearningContent(learningContents[1]);
-            viewModel.learningContents()[1].isRemoved(false);
+            expect(viewModel.learningContents()[1].isRemoved()).toEqual(false);
         });
 
         it('should update learning contents order', function (done) {

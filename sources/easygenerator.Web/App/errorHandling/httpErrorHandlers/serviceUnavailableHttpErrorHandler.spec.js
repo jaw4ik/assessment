@@ -1,6 +1,6 @@
 ﻿import errorHandler from './serviceUnavailableHttpErrorHandler';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 
 describe('[serviceUnavailableHttpErrorHandler]', function () {
 

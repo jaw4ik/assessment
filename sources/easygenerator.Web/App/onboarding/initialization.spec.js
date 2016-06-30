@@ -49,7 +49,7 @@ describe('viewmodel [initialization]', function () {
                 httpPostDefer.resolve();
             });
 
-            it('should set isClosed to true', function () {
+            it('should set isClosed to true', function (done) {
                 viewModel.isClosed(false);
                 viewModel.closeOnboarding().fin(function () {
                     expect(viewModel.isClosed()).toBeTruthy();

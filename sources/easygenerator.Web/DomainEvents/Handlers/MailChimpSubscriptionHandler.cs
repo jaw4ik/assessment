@@ -62,28 +62,26 @@ namespace easygenerator.Web.DomainEvents.Handlers
         {
             if (!args.User.Settings.IsCreatedThroughLti && !args.User.Settings.IsCreatedThroughSamlIdP)
             {
-                Task.Run
-                    (() =>
+                Task.Run(() =>
+                {
+                    if (
+                        !subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role,
+                            args.User.AccessType, args.User.Country))
                     {
-                        if (
-                            !subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role,
-                                args.User.AccessType, args.User.Country))
-                        {
-                            _mailNotificationManager.AddMailNotificationToQueue(
-                                Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
-                                new
-                                {
-                                    FailureMessage = failureMessage,
-                                    Email = args.User.Email,
-                                    FirstName = args.User.FirstName,
-                                    LastName = args.User.LastName,
-                                    Role = args.User.Role,
-                                    AccessType = args.User.AccessType,
-                                    Country = args.User.Country
-                                });
-                        }
+                        _mailNotificationManager.AddMailNotificationToQueue(
+                            Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
+                            new
+                            {
+                                FailureMessage = failureMessage,
+                                Email = args.User.Email,
+                                FirstName = args.User.FirstName,
+                                LastName = args.User.LastName,
+                                Role = args.User.Role,
+                                AccessType = args.User.AccessType,
+                                Country = args.User.Country
+                            });
                     }
-                    );
+                });
             }
         }
     }

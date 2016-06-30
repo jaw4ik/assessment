@@ -1,4 +1,4 @@
-﻿define(['viewmodels/questions/dragAndDropText/commands/changeDropspotText', 'viewmodels/questions/dragAndDropText/commands/changeDropspotPosition', 'eventTracker', 'notify'], function (changeDropspotText, changeDropspotPosition, eventTracker, notify) {
+﻿define(['./commands/changeDropspotText', './commands/changeDropspotPosition', 'eventTracker', 'notify'], function (changeDropspotText, changeDropspotPosition, eventTracker, notify) {
     return function (id, text, x, y) {
         var
             that = this,

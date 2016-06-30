@@ -1,8 +1,8 @@
 ﻿import app from 'durandal/app';
 
 
-import GeneralStyles from './GeneralStyles';
-import { Font, ContentElement} from './GeneralStyles';
+import GeneralStyles from './generalStyles';
+import { Font, ContentElement} from './generalStyles';
 
 import userContext from 'userContext';
 

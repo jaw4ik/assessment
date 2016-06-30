@@ -2,7 +2,7 @@
 
 import ko from 'knockout';
 import _ from 'underscore';
-import router from 'plugins/router';
+import router from 'routing/router';
 import templateRepository from 'repositories/templateRepository';
 import TemplateBrief from 'dialogs/course/common/templateSelector/templateBrief';
 

@@ -1,7 +1,7 @@
-﻿define(['./TreeNode', './RelatedSectionTreeNode', './queries/getCourseByIdQuery', 'eventTracker', 'plugins/router'],
+﻿define(['./TreeNode', './RelatedSectionTreeNode', './queries/getCourseByIdQuery', 'eventTracker', 'routing/router'],
     function (TreeNode, RelatedSectionTreeNode, getCourseByIdQuery, eventTracker, router) {
 
-        return function (id, title, url, createdOn) {
+        return function (id, title, url, createdOn, ownership) {
             TreeNode.call(this, id, title, url);
             this.children = ko.observableArray([]);
 
@@ -9,6 +9,7 @@
             this.expand = expand;
             this.collapse = collapse;
             this.createdOn = createdOn;
+            this.ownership = ko.observable(ownership);
 
             this.navigateToCourse = navigateToCourse;
         };

@@ -104,7 +104,7 @@ describe('question [scenario]', function () {
                     getQuestionDataByIdQuerieDefer.resolve(questionData);
                 });
 
-                it('should update projectId', function () {
+                it('should update projectId', function (done) {
                     viewModel.initialize(sectionId, question);
 
                     questionRepositoryGetByIdDefer.promise.fin(function () {

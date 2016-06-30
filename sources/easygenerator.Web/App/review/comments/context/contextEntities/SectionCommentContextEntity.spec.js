@@ -1,7 +1,7 @@
 ﻿import SectionCommentContextEntity from 'review/comments/context/contextEntities/SectionCommentContextEntity';
 
 import notify from 'notify';
-import router from 'plugins/router';
+import router from 'routing/router';
 import localizationManager from 'localization/localizationManager';
 import eventTracker from 'eventTracker';
 import getSectionQuery from 'review/comments/context/queries/getSection';
@@ -37,6 +37,7 @@ describe('review context [SectionCommentContextEntity]', () => {
 
     describe('open:', () => {
         it('should publish \'Open commented item in the editor\' event', () => {
+            spyOn(getSectionQuery, 'execute');
             spyOn(contextEntity, 'getEntityUrl');
             contextEntity.open();
             expect(eventTracker.publish).toHaveBeenCalledWith('Open commented item in the editor');

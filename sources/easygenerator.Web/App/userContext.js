@@ -17,7 +17,6 @@ class UserContext {
 
     async identify() {
         let user = await authHttpWrapper.post('auth/identity');
-
         if (_.isNullOrUndefined(user)) {
             await window.auth.logout();
             window.location.replace('/#');

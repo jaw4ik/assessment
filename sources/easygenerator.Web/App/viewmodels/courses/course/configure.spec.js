@@ -1,6 +1,6 @@
 ﻿import viewModel from './configure';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import notify from 'notify';
 import courseRepository from 'repositories/courseRepository';
@@ -73,6 +73,7 @@ describe('viewModel [configure]', function () {
         beforeEach(function () {
             dfd = Q.defer();
             spyOn(waiter, 'waitFor').and.returnValue(dfd.promise);
+            spyOn(notify, 'error');
         });
 
         it('should be function', function () {
@@ -124,8 +125,8 @@ describe('viewModel [configure]', function () {
                 dfd.reject();
                 var promise = viewModel.canDeactivate();
                 promise.fin(function () {
-                    done();
                     expect(notify.error).toHaveBeenCalled();
+                    done();
                 });
             });
 

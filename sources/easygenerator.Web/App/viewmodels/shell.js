@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
+﻿define(['durandal/app', 'routing/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
     'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
 'editor/dialogs/editorFeedback/editorFeedback'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
@@ -225,6 +225,11 @@
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 router.navigate(this.hash);
                             }
+                        },
+                        {
+                            route: 'organizations*details',
+                            moduleId: 'organizations/index',
+                            title: localizationManager.localize('organization')
                         },
                         {
                             route: 'wintoweb',

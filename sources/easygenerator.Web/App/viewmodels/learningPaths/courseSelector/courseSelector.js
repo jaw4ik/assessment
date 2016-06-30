@@ -1,6 +1,6 @@
-﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
-    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants', 'viewmodels/learningPaths/courseSelector/courseFilter'],
-    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery, app, constants, courseFilter) {
+﻿define(['./queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
+    './../learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants'],
+    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery, app, constants) {
         "use strict";
 
         var viewModel = {
@@ -12,25 +12,24 @@
             courses: ko.observableArray([]),
             courseRemovedFromPath: courseRemovedFromPath,
             courseAddedToPath: courseAddedToPath,
-            filter: courseFilter,
+            filterValue: ko.observable(''),
             courseTitleUpdated: courseTitleUpdated
         };
 
         viewModel.filteredCourses = ko.computed(function () {
-            if (!viewModel.filter.hasValue()) {
+            if (_.isEmpty(viewModel.filterValue())) {
                 return viewModel.courses();
             }
 
-            var value = viewModel.filter.value();
             return _.filter(viewModel.courses(), function (course) {
-                return course.title().toLowerCase().indexOf(value.toLowerCase()) >= 0;
+                return course.title().toLowerCase().indexOf(viewModel.filterValue().toLowerCase()) >= 0;
             });
         });
 
         return viewModel;
 
         function expand() {
-            viewModel.filter.clear();
+            viewModel.filterValue('');
             viewModel.isExpanded(true);
         }
 

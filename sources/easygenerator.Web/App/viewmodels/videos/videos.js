@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video',
+﻿define(['durandal/app', 'routing/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video',
     'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager',
     'storageFileUploader', 'widgets/upgradeDialog/viewmodel', 'viewmodels/videos/commands/deleteVideo', 'notify'
 ],

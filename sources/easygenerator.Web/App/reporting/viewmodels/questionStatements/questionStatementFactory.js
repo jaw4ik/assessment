@@ -1,6 +1,6 @@
 ﻿import constants from 'constants';
-import AnsweredStatement from 'reporting/viewmodels/questionStatements/answeredStatement';
-import ExperiencedStatement from 'reporting/viewmodels/questionStatements/experiencedStatement';
+import AnsweredStatement from './answeredStatement';
+import ExperiencedStatement from './experiencedStatement';
 
 class QuestionStatementFactory{
     createQuestionStatement(lrsStatement) {

@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Events.UserEvents;
+﻿using easygenerator.DomainModel.Entities.Organizations;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,8 @@ namespace easygenerator.DomainModel.Entities
         public DateTime? ExpirationDate { get; protected internal set; }
         protected internal virtual ICollection<Company> CompaniesCollection { get; set; }
         public virtual IEnumerable<Company> Companies => CompaniesCollection.OrderByDescending(e => e.Priority).ThenBy(e => e.CreatedOn).AsEnumerable();
+        protected internal virtual ICollection<Organization> OrganizationsCollection { get; set; }
+        public virtual IEnumerable<Organization> Organizations => OrganizationsCollection.AsEnumerable();
 
         public virtual void AddCompany(Company company, string modifiedBy)
         {
@@ -85,7 +88,7 @@ namespace easygenerator.DomainModel.Entities
 
             MarkAsModified(modifiedBy);
         }
-        
+
         public virtual bool VerifyPassword(string password)
         {
             return Cryptography.VerifyHash(password, PasswordHash);
@@ -210,7 +213,7 @@ namespace easygenerator.DomainModel.Entities
             Country = country;
             MarkAsModified(modifiedBy);
         }
-        
+
         public virtual void UpgradePlanToStarter(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);

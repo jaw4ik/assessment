@@ -3,9 +3,9 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class SingleSelectImageAnswerMapper : IEntityModelMapper<SingleSelectImageAnswer>
+    public class SingleSelectImageAnswerMapper : EntityModelMapper<SingleSelectImageAnswer>
     {
-        public dynamic Map(SingleSelectImageAnswer entity)
+        public override dynamic Map(SingleSelectImageAnswer entity)
         {
             return new
             {

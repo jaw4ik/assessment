@@ -1,4 +1,5 @@
-﻿define(['constants', 'guard', 'mappers/companyMapper'], function (constants, guard, companyMapper) {
+﻿define(['constants', 'guard', 'mappers/companyMapper', 'mappers/organizationMapper', 'mappers/organizationInviteMapper'], function (constants, guard, companyMapper, organizationMapper,
+    organizationInviteMapper) {
 
     function User(spec) {
         guard.throwIfNotAnObject(spec, 'You should provide specification to create user');
@@ -17,6 +18,8 @@
         this.isNewEditorByDefault = spec.isNewEditorByDefault;
         this.includeMediaToPackage = spec.includeMediaToPackage;
         this.companies = spec.companies && spec.companies.length ? spec.companies.map(companyMapper.map) : [];
+        this.organizations = spec.organizations && spec.organizations.length ? spec.organizations.map(organizationMapper.map) : [];
+        this.organizationInvites = spec.organizationInvites && spec.organizationInvites.length ? spec.organizationInvites.map(organizationInviteMapper.map) : [];
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {
@@ -97,6 +100,26 @@
             expirationDate: new Date(expirationDate)
         };
     };
+
+    User.prototype.isOrganizationAdmin = function () {
+        return _.some(this.organizations, function (organization) {
+            return organization.grantsAdminAccess;
+        });
+    };
+
+    User.prototype.isOrganizationMember = function () {
+        return this.organizations.length > 0;
+    };
+
+    User.prototype.hasOrganizationInvites = function () {
+        return this.organizationInvites.length > 0;
+    };
+
+    User.prototype.getFirstAdminAccessOrganization = function () {
+        return _.find(this.organizations, function (organization) {
+            return organization.grantsAdminAccess;
+        });
+    }
 
     return User;
 

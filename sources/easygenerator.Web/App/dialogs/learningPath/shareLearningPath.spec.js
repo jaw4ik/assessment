@@ -50,6 +50,7 @@ describe('dialog [shareLearningPath]', () => {
         describe('when user doesn\'t have company', () => {
 
             beforeEach(() => {
+                userContext.identity = {};
                 userContext.identity.companies = [];
             });
 
@@ -72,6 +73,7 @@ describe('dialog [shareLearningPath]', () => {
                 company2 = { priority: 1 };
 
             beforeEach(() => {
+                userContext.identity = {};
                 userContext.identity.companies = [company1, company2];
             });
 

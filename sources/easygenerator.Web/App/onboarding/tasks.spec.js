@@ -3,6 +3,7 @@
 import constants from 'constants';
 import apiHttpWrapper from 'http/apiHttpWrapper';
 import app from 'durandal/app';
+import localizationManager from 'localization/localizationManager';
 
 function getTaskByName(name) {
     return _.find(tasks, function(task) {
@@ -19,6 +20,9 @@ describe('onboarding [tasks]', function() {
 
         spyOn(app, 'on');
         spyOn(app, 'off');
+        spyOn(localizationManager, 'localize').and.callFake(s => {
+            return (s === 'createQuestionsOnboardingTaskTitle') ? '{0}' : s;
+        });
     });
 
     it('should be defined', function() {

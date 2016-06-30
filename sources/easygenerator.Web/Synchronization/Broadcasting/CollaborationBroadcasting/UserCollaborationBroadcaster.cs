@@ -1,7 +1,9 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting.CollaboratorProviders;
 using System.Collections.Generic;
 using System.Linq;
+using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting
 {
@@ -9,11 +11,14 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
     {
         private readonly ICourseCollaboratorRepository _collaborationRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IEntityCollaboratorProvider<Course> _courseCollaboratorProvider;
 
-        public UserCollaborationBroadcaster(ICourseCollaboratorRepository collaborationRepository, ICourseRepository courseRepository)
+        public UserCollaborationBroadcaster(ICourseCollaboratorRepository collaborationRepository, ICourseRepository courseRepository,
+            IEntityCollaboratorProvider<Course> courseCollaboratorProvider)
         {
             _collaborationRepository = collaborationRepository;
             _courseRepository = courseRepository;
+            _courseCollaboratorProvider = courseCollaboratorProvider;
         }
 
         public dynamic OtherCollaborators(string userEmail)
@@ -30,16 +35,11 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
             return UsersExcept(collaborators, userEmail);
         }
 
-        private IEnumerable<string> GetCollaborators(IEnumerable<Course> sharedCourses)
+        private IEnumerable<string> GetCollaborators(IEnumerable<Course> courses)
         {
             var collaborators = new List<string>();
 
-            foreach (var course in sharedCourses)
-            {
-                var users = course.Collaborators.Select(c => c.Email).ToList();
-                users.Add(course.CreatedBy);
-                collaborators.AddRange(users);
-            }
+            courses.ForEach(c => collaborators.AddRange(_courseCollaboratorProvider.GetCollaborators(c)));
 
             return collaborators.Distinct();
         }

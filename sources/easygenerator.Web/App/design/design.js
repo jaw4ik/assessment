@@ -1,7 +1,7 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import notify from 'notify';
 import courseRepository from 'repositories/courseRepository';
 import localizationManager from 'localization/localizationManager';

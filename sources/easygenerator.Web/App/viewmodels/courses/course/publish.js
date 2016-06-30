@@ -1,4 +1,4 @@
-﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'userContext', 'clientContext', 'localization/localizationManager', 'eventTracker',
+﻿define(['repositories/courseRepository', 'routing/router', 'constants', 'userContext', 'clientContext', 'localization/localizationManager', 'eventTracker',
         'viewmodels/courses/publishingActions/build', 'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 
         'viewmodels/courses/publishingActions/publishToCustomLms'],
     function (repository, router, constants, userContext, clientContext, localizationManager, eventTracker, 

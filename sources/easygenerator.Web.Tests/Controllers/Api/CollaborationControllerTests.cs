@@ -216,11 +216,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void RemoveCollaborator_ShouldReturnForbiddenResult_WnenCollaboratorIsAdmin()
+        {
+            //Arrange
+            var course = CourseObjectMother.CreateWithCreatedBy(CreatedBy);
+            course.CollaborateAsAdmin(UserEmail);
+
+            //Act
+            var result = _controller.RemoveCollaborator(course, UserEmail);
+
+            //Assert
+            result.Should().BeForbiddenResult();
+        }
+
+        [TestMethod]
         public void RemoveCollaborator_ShouldCallCourseRemoveCollaboratorMethod()
         {
             var course = Substitute.For<Course>();
             var collaboratorEmail = "aa@aa.aa";
-            
+
             _controller.RemoveCollaborator(course, collaboratorEmail);
 
             course.Received().RemoveCollaborator(_cloner, collaboratorEmail);
@@ -234,11 +248,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             course.Collaborate(collaboratorEmail, "createdBy");
 
             var result = _controller.RemoveCollaborator(course, collaboratorEmail);
-            
+
             result.Should().BeJsonSuccessResult();
         }
         #endregion
-
 
         #region FinishCollaboration
 
@@ -265,6 +278,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
+        }
+
+        [TestMethod]
+        public void FinishCollaboration_ShouldReturnForbiddenResult_WnenCollaboratorIsAdmin()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(CreatedBy);
+            var course = CourseObjectMother.Create();
+            course.CollaborateAsAdmin(UserEmail);
+
+            //Act
+            var result = _controller.FinishCollaboration(course, UserEmail);
+
+            //Assert
+            result.Should().BeForbiddenResult();
         }
 
         [TestMethod]
@@ -329,6 +357,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void DeclineCollaborationInvite_ShouldReturnForbiddenResult_WnenCollaboratorIsAdmin()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var collaborator = course.CollaborateAsAdmin(UserEmail);
+
+            //Act
+            var result = _controller.DeclineCollaborationInvite(course, collaborator);
+
+            //Assert
+            result.Should().BeForbiddenResult();
+        }
+
+        [TestMethod]
         public void DeclineCollaborationInvite_ShouldCallCourseRemoveCollaboratorMethod()
         {
             //Arrange
@@ -382,6 +424,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
+        }
+
+        [TestMethod]
+        public void AcceptCollaborationInvite_ShouldReturnForbiddenResult_WnenCollaboratorIsAdmin()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var collaborator = course.CollaborateAsAdmin(UserEmail);
+
+            //Act
+            var result = _controller.AcceptCollaborationInvite(course, collaborator);
+
+            //Assert
+            result.Should().BeForbiddenResult();
         }
 
         [TestMethod]

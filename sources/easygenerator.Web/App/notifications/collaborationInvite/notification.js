@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'notifications/collaborationInvite/commands/acceptInvite', 'notifications/collaborationInvite/commands/declineInvite', 'constants'],
+﻿define(['durandal/app', './commands/acceptInvite', './commands/declineInvite', 'constants'],
 function (app, acceptInvite, declineInvite, constants) {
 
     "use strict";
@@ -16,6 +16,7 @@ function (app, acceptInvite, declineInvite, constants) {
         this.accept = accept;
         this.decline = decline;
         this.courseTitleUpdated = courseTitleUpdated;
+        this.collaborationStarted = collaborationStarted;
         this.isAccepting = ko.observable(false);
         this.isDeclining = ko.observable(false);
         var that = this;
@@ -24,12 +25,27 @@ function (app, acceptInvite, declineInvite, constants) {
             that.courseTitle(title);
         }
 
+        function removeNotification() {
+            app.trigger(constants.notification.messages.remove, that.key);
+        }
+
+        function collaborationStarted(course) {
+            if (course.id !== courseId)
+                return;
+
+            removeNotification();
+        }
+
         function on() {
             app.on(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, courseTitleUpdated);
+            app.on(constants.messages.course.collaboration.inviteRemoved + courseId, removeNotification);
+            app.on(constants.messages.course.collaboration.started, collaborationStarted);
         }
 
         function off() {
             app.off(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, courseTitleUpdated);
+            app.off(constants.messages.course.collaboration.inviteRemoved + courseId, removeNotification);
+            app.off(constants.messages.course.collaboration.started, collaborationStarted);
         }
 
         function accept() {

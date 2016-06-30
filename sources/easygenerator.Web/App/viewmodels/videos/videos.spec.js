@@ -16,6 +16,7 @@ describe('viewModel [videos]', function () {
 
     beforeEach(function () {
         spyOn(localizationManager, 'localize');
+        userContext.storageIdentity = {};
     });
 
     it('should be object', function () {
@@ -129,7 +130,7 @@ describe('viewModel [videos]', function () {
         });
     });
 
-    describe('activate', function () {
+    describe('activate:', function () {
         var identifyStoragePermissionsDeferred = Q.defer(),
             repositoryGetCollectionDeferred = Q.defer(),
             thumbnailLoaderGetThumbnailUrlsDeferred = Q.defer(),
@@ -206,10 +207,9 @@ describe('viewModel [videos]', function () {
 
             it('should not show storage space progress bar', function (done) {
                 viewModel.storageSpaceProgressBarVisibility(true);
-                var promise = viewModel.activate();
 
-                promise.fin(function () {
-                    expect(viewModel.storageSpaceProgressBarVisibility(false));
+                viewModel.activate().then(function () {
+                    expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(false);
                     done();
                 });
 
@@ -226,19 +226,16 @@ describe('viewModel [videos]', function () {
 
             it('should show storage space progress bar', function (done) {
                 viewModel.storageSpaceProgressBarVisibility(false);
-                var promise = viewModel.activate();
 
-                promise.fin(function () {
-                    expect(viewModel.storageSpaceProgressBarVisibility(true));
+                viewModel.activate().then(function() {
+                    expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(true);
                     done();
                 });
-
             });
 
             describe('when available storage space is greater than 1Gb', function () {
 
                 beforeEach(function () {
-                    userContext.storageIdentity = {};
                     userContext.storageIdentity.availableStorageSpace = 1073741825;
                     userContext.storageIdentity.totalStorageSpace = 1073741825 * 2;
                 });
@@ -268,7 +265,6 @@ describe('viewModel [videos]', function () {
             describe('when available storage space is less than 1Gb', function () {
 
                 beforeEach(function () {
-                    userContext.storageIdentity = {};
                     userContext.storageIdentity.availableStorageSpace = 1073741823;
                     userContext.storageIdentity.totalStorageSpace = 1073741823 * 2;
                 });

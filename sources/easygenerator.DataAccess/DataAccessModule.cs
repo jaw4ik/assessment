@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using easygenerator.DataAccess.Repositories;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -140,6 +141,14 @@ namespace easygenerator.DataAccess
             builder.RegisterType<CompanyRepository>()
                 .As<IQuerableRepository<Company>>()
                 .As<ICompanyRepository>();
+
+            builder.RegisterType<OrganizationRepository>()
+               .As<IQuerableRepository<Organization>>()
+               .As<IOrganizationRepository>();
+
+            builder.RegisterType<OrganizationUserRepository>()
+                .As<IQuerableRepository<OrganizationUser>>()
+                .As<IOrganizationUserRepository>();
 
             base.Load(builder);
         }

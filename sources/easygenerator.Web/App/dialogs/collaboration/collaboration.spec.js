@@ -5,16 +5,20 @@ import localizationManager from 'localization/localizationManager';
 import repository from 'repositories/collaboratorRepository';
 import app from 'durandal/app';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import userContext from 'userContext';
 import addCollaboratorViewModel from 'dialogs/collaboration/addCollaborator';
 import StopCollaborationViewModel from 'dialogs/collaboration/stopCollaboration';
+import courseRepository from 'repositories/courseRepository';
 
 describe('dialog [collaboration]', () => {
 
     var localizedMessage = 'message',
         courseId = 'courseId',
         courseOwner = 'admin',
+        course= {
+            ownership: constants.courseOwnership.owned
+        },
          collaborators = [
          {
              email: "contoso@ua.com",
@@ -113,17 +117,50 @@ describe('dialog [collaboration]', () => {
         });
     });
 
+    describe('canStopCollaboration:', () => {
+        it('should be observable', () => {
+            expect(viewModel.canStopCollaboration).toBeObservable();
+        });
+    });
+
     describe('show:', () => {
 
         beforeEach(() => {
             spyOn(repository, 'getCollection').and.returnValue(Promise.resolve(collaborators));
+            spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve(course));
+            
             router.routeData({ courseId: courseId });
             userContext.identity = { email: 'anonymous' };
         });
 
+        describe('when course ownership is shared', () => {
+            beforeEach(() => {
+                course.ownership = constants.courseOwnership.shared;
+            });
+
+            it('should set canStopCollaboration to true', done => (async () => {
+                viewModel.canStopCollaboration(false);
+                await viewModel.show(courseId, courseOwner);
+                expect(viewModel.canStopCollaboration()).toBeTruthy();
+            })().then(done));
+        });
+
+        describe('when course ownership is not shared', () => {
+            beforeEach(() => {
+                course.ownership = constants.courseOwnership.organization;
+            });
+
+            it('should set canStopCollaboration to false', done => (async () => {
+                viewModel.canStopCollaboration(true);
+                await viewModel.show(courseId, courseOwner);
+                expect(viewModel.canStopCollaboration()).toBeFalsy();
+            })().then(done));
+        });
+
         describe('when courseId is not a string', () => {
             it('should reject promise', done => {
-                viewModel.show().catch(() => {
+                viewModel.show().catch(reason => {
+                    expect(reason).toBeDefined();
                     done();
                 });
             });
@@ -131,7 +168,8 @@ describe('dialog [collaboration]', () => {
 
         describe('when courseOwner is not a string', () => {
             it('should reject promise', done => {
-                viewModel.show(courseId).catch(() => {
+                viewModel.show(courseId).catch(reason => {
+                    expect(reason).toBeDefined();
                     done();
                 });
             });

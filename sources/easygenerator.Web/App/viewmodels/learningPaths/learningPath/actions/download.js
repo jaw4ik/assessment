@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'fileHelper', 'durandal/app', 'constants', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'], function (ko, notify, eventTracker, fileHelper, app, constants, getLearningPathByIdQuery) {
+﻿define(['knockout', 'notify', 'eventTracker', 'fileHelper', 'durandal/app', 'constants', './../queries/getLearningPathByIdQuery'], function (ko, notify, eventTracker, fileHelper, app, constants, getLearningPathByIdQuery) {
 
     var
        events = {

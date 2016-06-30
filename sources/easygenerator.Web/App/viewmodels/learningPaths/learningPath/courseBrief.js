@@ -1,7 +1,7 @@
 ﻿import ko from 'knockout';
 import app from 'durandal/app';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 
 export default class {

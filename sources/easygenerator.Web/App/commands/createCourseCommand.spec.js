@@ -1,7 +1,7 @@
 ﻿import command from './createCourseCommand';
 
 import repository from 'repositories/courseRepository';
-import router from 'plugins/router';
+import router from 'routing/router';
 import clientContext from 'clientContext';
 import constants from 'constants';
 

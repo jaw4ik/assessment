@@ -3,17 +3,17 @@
 import http from 'plugins/http';
 import getTicket from 'audio/convertion/commands/getTicket';
 
-describe('[convertion finalize]', function () {
+describe('[convertion finalize]', function() {
 
-    it('should be object', function () {
+    it('should be object', function() {
         expect(command).toBeObject();
     });
 
-    describe('execute:', function () {
+    describe('execute:', function() {
 
         var removeDfd, getTicketDfd;
 
-        beforeEach(function () {
+        beforeEach(function() {
             removeDfd = $.Deferred();
             spyOn(http, 'remove').and.returnValue(removeDfd.promise());
 
@@ -22,31 +22,31 @@ describe('[convertion finalize]', function () {
         });
 
 
-        it('should be function', function () {
+        it('should be function', function() {
             expect(command.execute).toBeFunction();
         });
 
-        it('should return promise', function () {
+        it('should return promise', function() {
             expect(command.execute({})).toBePromise();
         });
 
-        it('should get ticket to the convertion server', function (done) {
+        it('should get ticket to the convertion server', function(done) {
             getTicketDfd.resolve('ticket');
             removeDfd.resolve();
-            command.execute({}).then(function () {
+            command.execute({}).then(function() {
                 expect(getTicket.execute).toHaveBeenCalled();
                 done();
             }).done();
         });
 
-        describe('when request to get ticked failed', function () {
+        describe('when request to get ticked failed', function() {
 
-            beforeEach(function () {
+            beforeEach(function() {
                 getTicketDfd.reject();
             });
 
-            it('should reject promise', function (done) {
-                command.execute({}).catch(function () {
+            it('should reject promise', function(done) {
+                command.execute({}).catch(function() {
                     expect(getTicket.execute).toHaveBeenCalled();
                     done();
                 });
@@ -54,42 +54,44 @@ describe('[convertion finalize]', function () {
 
         });
 
-        describe('when ticket received', function () {
+        describe('when ticket received', function() {
 
-            beforeEach(function () {
+            beforeEach(function() {
                 getTicketDfd.resolve('ticket');
             });
 
-            it('should send DELETE request to convertion server', function (done) {
+            it('should send DELETE request to convertion server', function(done) {
                 removeDfd.resolve();
-                command.execute({ source: 'url' }).then(function () {
+                command.execute({ source: 'url' }).then(function() {
                     expect(http.remove).toHaveBeenCalled();
                     done();
                 }).done();
             });
 
-            describe('when request finished successfully', function () {
+            describe('when request finished successfully', function() {
 
-                beforeEach(function () {
+                beforeEach(function() {
                     removeDfd.resolve();
                 });
 
-                it('should resolve promise', function (done) {
-                    command.execute({ source: 'url' }).then(function () {
+                it('should resolve promise', function(done) {
+                    command.execute({ source: 'url' }).then(function(result) {
+                        expect(result).toBeUndefined();
                         done();
                     }).done();
                 });
 
             });
 
-            describe('when request failed', function () {
+            describe('when request failed', function() {
 
-                beforeEach(function () {
+                beforeEach(function() {
                     removeDfd.reject();
                 });
 
-                it('should reject promise', function (done) {
-                    command.execute({ url: 'url' }).catch(function () {
+                it('should reject promise', function(done) {
+                    command.execute({ url: 'url' }).catch(function(reason) {
+                        expect(reason).toBeUndefined();
                         done();
                     }).done();
                 });

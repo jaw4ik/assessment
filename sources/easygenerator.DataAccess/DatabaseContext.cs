@@ -1,6 +1,7 @@
 ﻿using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.ACL;
+using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
@@ -59,6 +60,7 @@ namespace easygenerator.DataAccess
         public DbSet<LearningPath> LearningPaths { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<ConsumerTool> ConsumerTools { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
         public DbSet<SamlIdentityProvider> SamlIdentityProviders { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
@@ -115,6 +117,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().HasMany(e => e.CourseCompanies).WithMany(e => e.CompanyCourses).Map(m => m.ToTable("CompanyCourses"));
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
+            modelBuilder.Entity<CourseCollaborator>().Property(e => e.IsAdmin).IsRequired();
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
 
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Settings);
@@ -131,7 +134,7 @@ namespace easygenerator.DataAccess
                     new IndexAttribute("IX_Template_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
-            
+
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();
@@ -338,6 +341,14 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Scenario>().Property(e => e.MasteryScore);
             modelBuilder.Entity<Scenario>().Map(m => m.ToTable("ScenarioQuestions"));
 
+            modelBuilder.Entity<Organization>().Property(e => e.Title).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Organization>().HasMany(e => e.UserCollection).WithRequired(e => e.Organization).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<OrganizationUser>().HasRequired(e => e.Organization);
+            modelBuilder.Entity<OrganizationUser>().Property(e => e.Email).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<OrganizationUser>().Property(e => e.IsAdmin).IsRequired();
+            modelBuilder.Entity<OrganizationUser>().Property(e => e.Status).IsRequired();
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -416,6 +427,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is Comment) && (entry.Entity as Comment).Course == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is OrganizationUser) && (entry.Entity as OrganizationUser).Organization == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

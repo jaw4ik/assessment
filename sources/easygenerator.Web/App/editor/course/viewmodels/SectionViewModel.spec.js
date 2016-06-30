@@ -10,6 +10,7 @@ import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 import notify from 'notify';
 import QuestionViewModel from './QuestionViewModel';
 import updateSectionLearningObjectiveCommand from '../commands/updateSectionLearningObjectiveCommand';
+import localizationManager from 'localization/localizationManager';
 
 var eventCategory = 'Course editor (drag and drop)';
 
@@ -41,6 +42,7 @@ describe('[SectionViewModel]', () => {
         sectionViewModel = new SectionViewModel(courseId, section, isProcessing, false, isExpanded);
         spyOn(eventTracker, 'publish');
         spyOn(notify, 'saved');
+        spyOn(localizationManager, 'localize').and.returnValue('localized');
     });
 
     it('should initialize fields', () => {
@@ -273,6 +275,7 @@ describe('[SectionViewModel]', () => {
     describe('updateImage:', () => {
 
         it(`should send event ${events.openChangeObjectiveImageDialog}`, () => {
+            spyOn(imageUpload, 'upload');
             sectionViewModel.updateImage();
             expect(eventTracker.publish).toHaveBeenCalledWith(events.openChangeObjectiveImageDialog, eventCategory);
         });

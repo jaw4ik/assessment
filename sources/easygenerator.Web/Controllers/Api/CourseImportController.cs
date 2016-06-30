@@ -1,16 +1,18 @@
-﻿using easygenerator.DomainModel.Repositories;
+﻿using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.Presentation.Mappers;
+using easygenerator.Web.Import.WinToWeb;
+using easygenerator.Web.Import.WinToWeb.Mappers;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using easygenerator.Web.Import.WinToWeb;
-using easygenerator.Web.Import.WinToWeb.Mappers;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -23,11 +25,13 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IPresentationCourseImporter _presentationCourseImporter;
         private readonly IWinToWebModelMapper _winToWebModelMapper;
         private readonly IWinToWebCourseImporter _winToWebCourseImporter;
+        private readonly IDomainEventPublisher _eventPublisher;
+        private readonly IDomainOperationExecutor _domainOperationExecutor;
 
-
-        public CourseImportController(IEntityMapper entityMapper, ICourseRepository courseRepository, ConfigurationReader configurationReader, 
+        public CourseImportController(IEntityMapper entityMapper, ICourseRepository courseRepository, ConfigurationReader configurationReader,
             IPresentationModelMapper presentationModelMapper, IPresentationCourseImporter presentationCourseImporter,
-            IWinToWebModelMapper winToWebModelMapper, IWinToWebCourseImporter winToWebCourseImporter)
+            IWinToWebModelMapper winToWebModelMapper, IWinToWebCourseImporter winToWebCourseImporter, IDomainEventPublisher eventPublisher,
+            IDomainOperationExecutor domainOperationExecutor)
         {
             _entityMapper = entityMapper;
             _courseRepository = courseRepository;
@@ -36,6 +40,8 @@ namespace easygenerator.Web.Controllers.Api
             _presentationCourseImporter = presentationCourseImporter;
             _winToWebModelMapper = winToWebModelMapper;
             _winToWebCourseImporter = winToWebCourseImporter;
+            _eventPublisher = eventPublisher;
+            _domainOperationExecutor = domainOperationExecutor;
         }
 
         [HttpPost]
@@ -60,7 +66,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var course = _presentationCourseImporter.Import(model, file.FileName, GetCurrentUsername());
-            _courseRepository.Add(course);
+            _domainOperationExecutor.CreateCourse(course);
 
             return JsonSuccess(new
             {
@@ -82,7 +88,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var course = _winToWebCourseImporter.Import(model, GetCurrentUsername());
-            _courseRepository.Add(course);
+            _domainOperationExecutor.CreateCourse(course);
 
             return JsonSuccess(new
             {

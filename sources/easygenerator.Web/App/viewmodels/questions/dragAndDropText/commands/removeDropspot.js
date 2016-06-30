@@ -1,9 +1,7 @@
-﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
+﻿import apiHttpWrapper from 'http/apiHttpWrapper';
 
-    return {
-        execute: function (questionId, dropspotId) {
-            return apiHttpWrapper.post('/api/question/draganddrop/dropspot/delete', { questionId: questionId, dropspotId: dropspotId });
-        }
+export default {
+    execute: function(questionId, dropspotId) {
+        return apiHttpWrapper.post('/api/question/draganddrop/dropspot/delete', { questionId: questionId, dropspotId: dropspotId });
     }
-
-})
+};

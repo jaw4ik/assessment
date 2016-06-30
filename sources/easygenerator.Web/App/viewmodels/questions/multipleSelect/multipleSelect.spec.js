@@ -1,6 +1,6 @@
 ﻿import viewModel from './multipleSelect';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import answerRepository from 'repositories/answerRepository';
 import http from 'plugins/http';

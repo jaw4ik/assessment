@@ -4,7 +4,7 @@ import app from 'durandal/app';
 import constants from 'constants';
 import modalView from 'widgets/modalView/viewmodel';
 import questionViewModel from './question';
-import router from 'plugins/router';
+import router from 'routing/router';
 import navigationPanel from 'editor/questions/panels/questionsNavigationView';
 import eventTracker from 'eventTracker';
 

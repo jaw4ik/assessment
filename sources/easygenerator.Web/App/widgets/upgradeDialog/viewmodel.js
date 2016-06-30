@@ -1,4 +1,4 @@
-﻿define(['eventTracker', 'plugins/router', 'constants', 'localization/localizationManager'],
+﻿define(['eventTracker', 'routing/router', 'constants', 'localization/localizationManager'],
     function (eventTracker, router, constants, localizationManager) {
         "use strict";
 

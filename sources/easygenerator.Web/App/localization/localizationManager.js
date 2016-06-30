@@ -15,6 +15,7 @@ class LocalizationManager{
 
     localize(key){
         if (!this.translations) {
+            return key;
             throw new Error('Translations are not initialized.');
         }
 

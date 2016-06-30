@@ -2,7 +2,7 @@
 
 import constants from 'constants';
 import createQuestionCommand from 'commands/createQuestionCommand';
-import router from 'plugins/router';
+import router from 'routing/router';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 

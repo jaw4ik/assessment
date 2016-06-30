@@ -17,8 +17,9 @@ describe('command [saveSettings]', () => {
     describe('when post failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'post').and.returnValue($.Deferred().reject());
-            command.execute(learningPathId, settings).catch(() => {
+            spyOn(http, 'post').and.returnValue($.Deferred().reject('reason'));
+            command.execute(learningPathId, settings).catch(reason => {
+                expect(reason).toEqual('reason');
                 done();
             });
         });
@@ -31,7 +32,8 @@ describe('command [saveSettings]', () => {
         });
 
         it('should resolve promise', done => {
-            command.execute(learningPathId, settings).then(() => {
+            command.execute(learningPathId, settings).then(result => {
+                expect(result).toEqual(true);
                 done();
             });
         });

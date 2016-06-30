@@ -7,7 +7,8 @@
         'synchronization/handlers/answer/handler',
         'synchronization/handlers/comment/handler',
         'synchronization/handlers/learningContent/handler',
-        'synchronization/handlers/collaboration/handler'],
+        'synchronization/handlers/collaboration/handler',
+        'synchronization/handlers/organizations/handler'],
     function (system,
         userEventHandler,
         courseEventHandler,
@@ -16,7 +17,8 @@
         answerEventHandler,
         commentEventHandler,
         learningContentEventHandler,
-        collaborationEventHandler) {
+        collaborationEventHandler,
+        organizationEventHandler) {
         "use strict";
 
         return {
@@ -46,6 +48,7 @@
                         collaborationInviteCreated: collaborationEventHandler.inviteCreated,
                         collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
                         collaborationInviteCourseTitleUpdated: collaborationEventHandler.inviteCourseTitleUpdated,
+                    collaboratorAccessTypeUpdated: collaborationEventHandler.collaboratorAccessTypeUpdated,
 
                         courseStateChanged: courseEventHandler.stateChanged,
                         courseTitleUpdated: courseEventHandler.titleUpdated,
@@ -57,6 +60,7 @@
                         courseSectionRelated: courseEventHandler.sectionRelated,
                         courseSectionsUnrelated: courseEventHandler.sectionsUnrelated,
                         courseSectionsReplaced: courseEventHandler.sectionsReplaced,
+                    courseOwnershipUpdated: courseEventHandler.ownershipUpdated,
 
                         sectionTitleUpdated: sectionEventHandler.titleUpdated,
                         sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,
@@ -111,9 +115,18 @@
                         scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
                         scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated,
 
-                        commentDeleted: commentEventHandler.deleted,
-                        commentCreated: commentEventHandler.created
-                    };
+                    	commentDeleted: commentEventHandler.deleted,
+                    	commentCreated: commentEventHandler.created,
+
+                    	organizationUserRegistered: organizationEventHandler.userRegistered,
+                    	organizationInviteAccepted: organizationEventHandler.inviteAccepted,
+                    	organizationInviteDeclined: organizationEventHandler.inviteDeclined,
+                    	organizationInviteCreated: organizationEventHandler.inviteCreated,
+                    	organizationInviteRemoved: organizationEventHandler.inviteRemoved,
+                    	organizationTitleUpdated: organizationEventHandler.titleUpdated,
+                    	organizationMembershipStarted: organizationEventHandler.membershipStarted,
+                    	organizationMembershipFinished: organizationEventHandler.membershipFinished
+                	};
 
                     $.connection.hub.disconnected(function () {
                         $.ajax({

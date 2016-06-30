@@ -1,0 +1,50 @@
+﻿<li class="box-list-item organization-user-list-item" data-bind="css: { inactive : !isActivated(), declined: isDeclined }">
+    <div class="box-list-item-container">
+        <div class="box-list-item-content organization-user-content">
+            <!-- ko if: isAdmin -->
+            <div class="organization-user-admin-label" data-bind="localize: { text: 'admin' }"></div>
+            <!-- /ko -->
+            <!-- ko if: isActivated -->
+            <div class="organization-user-avatar" data-bind="text: avatarLetter"></div>
+            <!-- /ko -->
+            <!-- ko ifnot: isActivated -->
+            <div class="organization-user-description-wrapper">
+                <!-- ko ifnot: isRegistered -->
+                <div class="organization-user-description" data-bind="localize: { text: 'waitingForRegistration'}"></div>
+                <!-- /ko -->
+                <!-- ko if: isRegistered -->
+                <!-- ko if: isWaitingForAcceptance -->
+                <div class="organization-user-description" data-bind="localize: { text: 'waitingForAcceptance'}"></div>
+                <!-- /ko -->
+                <!-- ko if: isDeclined -->
+                <div class="organization-user-description emphasized" data-bind="localize: { text: 'declinedByUser'}"></div>
+                <div class="organization-user-resend-invite-wrapper">
+                    <!-- ko if: isReinviting -->
+                    <div data-bind="preloader: { type: 'circular', settings: 'small grey align-center' }"></div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isReinviting -->
+                    <a class="organization-user-resend-invite-link" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parentContext.$parent.reinviteUser.bind($parentContext.$parent), localize: { text: 'resendInvite' }"></a>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- ko if: canBeRemoved -->
+            <div class="list-item-context-actions-wrapper">
+                <div class="list-item-context-action info-tooltip-holder delete" data-bind="stopEventPropagation: { event: 'click' }, click: $parentContext.$parent.deleteOrganizationUser.bind($parentContext.$parent)">
+                    <div class="info-tooltip">
+                        <span data-bind="localize: { text: 'remove' }"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="box-list-item-info organization-user-info">
+            <!-- ko if: isRegistered -->
+            <div class="organization-user-info-name" data-bind="text: name"></div>
+            <!-- /ko -->
+            <div class="organization-user-info-email" data-bind="text: email"></div>
+        </div>
+    </div>
+</li>

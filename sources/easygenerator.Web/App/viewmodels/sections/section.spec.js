@@ -1,6 +1,6 @@
 ﻿import viewModel from './section';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import repository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
@@ -255,7 +255,7 @@ describe('viewModel [section]', function () {
                 });
             });
 
-            it('should set image url', function () {
+            it('should set image url', function (done) {
                 viewModel.imageUrl('');
 
                 var promise = viewModel.activate(section.id);

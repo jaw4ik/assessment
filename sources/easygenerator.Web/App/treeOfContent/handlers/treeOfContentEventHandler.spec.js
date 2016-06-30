@@ -1,14 +1,15 @@
 ﻿import ctor from './treeOfContentEventHandler';
+import constants from 'constants';
 
 import treeOfContentTraversal from './treeOfContentTraversal';
 
 describe('handler [treeOfContentEventHandler]', function () {
 
     var handler;
-    var children = ko.observableArray([]);
+    var courses = ko.observableArray([]);
 
     beforeEach(function () {
-        handler = ctor(children);
+        handler = ctor(courses);
     });
 
     describe('questionTitleUpdated:', function () {
@@ -124,7 +125,6 @@ describe('handler [treeOfContentEventHandler]', function () {
         });
 
     });
-
 
     describe('sectionTitleUpdated:', function () {
 
@@ -263,55 +263,15 @@ describe('handler [treeOfContentEventHandler]', function () {
 
     });
 
-
     describe('courseCreated:', function () {
 
-        it('should be function', function () {
-            expect(handler.courseCreated).toBeFunction();
-        });
-
         it('should add course to the tree of content', function () {
-            var treeOfContent = { children: ko.observableArray() };
+            var treeOfContent = { courses: ko.observableArray() };
             spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
             handler.courseCreated({ id: 'courseId', title: 'title' });
 
-            expect(treeOfContent.children().length).toEqual(1);
-        });
-
-    });
-
-    describe('collaborationStarted:', function () {
-
-        it('should be function', function () {
-            expect(handler.collaborationStarted).toBeFunction();
-        });
-
-        it('should add course to the tree of content', function () {
-            var treeOfContent = { sharedChildren: ko.observableArray() };
-            spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
-
-            handler.collaborationStarted({ id: 'courseId', title: 'title' });
-
-            expect(treeOfContent.sharedChildren().length).toEqual(1);
-        });
-
-    });
-
-    describe('collaborationFinished:', function () {
-
-        it('should be function', function () {
-            expect(handler.collaborationFinished).toBeFunction();
-        });
-
-        it('should remove course from section in index', function () {
-            var treeOfContent = { sharedChildren: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
-            spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
-
-            handler.collaborationFinished('courseId');
-
-            expect(treeOfContent.sharedChildren().length).toEqual(1);
-            expect(treeOfContent.sharedChildren()[0].id).not.toEqual('courseId');
+            expect(treeOfContent.courses().length).toEqual(1);
         });
 
     });
@@ -323,31 +283,27 @@ describe('handler [treeOfContentEventHandler]', function () {
         });
 
         it('should remove question from section in index', function () {
-            var treeOfContent = { children: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
+            var treeOfContent = { courses: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
             spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
             handler.courseDeleted('courseId');
 
-            expect(treeOfContent.children().length).toEqual(1);
-            expect(treeOfContent.children()[0].id).not.toEqual('courseId');
+            expect(treeOfContent.courses().length).toEqual(1);
+            expect(treeOfContent.courses()[0].id).not.toEqual('courseId');
         });
 
     });
 
-    describe('courseDeletedByCollaborator:', function () {
+    describe('courseOwnershipUpdated:', function () {
 
-        it('should be function', function () {
-            expect(handler.courseDeletedByCollaborator).toBeFunction();
-        });
-
-        it('should remove question from section in index', function () {
-            var treeOfContent = { sharedChildren: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
+        it('should update course ownership', function () {
+            var treeOfContent = { courses: ko.observableArray([{ id: 'courseId', 
+                ownership: ko.observable(constants.courseOwnership.owned) }]) };
             spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
-            handler.courseDeletedByCollaborator('courseId');
+            handler.courseOwnershipUpdated('courseId', constants.courseOwnership.shared);
 
-            expect(treeOfContent.sharedChildren().length).toEqual(1);
-            expect(treeOfContent.sharedChildren()[0].id).not.toEqual('courseId');
+            expect(treeOfContent.courses()[0].ownership()).toBe(constants.courseOwnership.shared);
         });
 
     });

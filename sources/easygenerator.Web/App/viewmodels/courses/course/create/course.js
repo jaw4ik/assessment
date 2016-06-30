@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'viewmodels/sections/sectionBrief',
+﻿define(['routing/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'viewmodels/sections/sectionBrief',
         'localization/localizationManager', 'notify', 'repositories/sectionRepository', 'viewmodels/common/contentField',
         'userContext', 'durandal/app', 'imageUpload', 'commands/createSectionCommand'],
     function (router, constants, eventTracker, repository, sectionBrief, localizationManager, notify, sectionRepository, vmContentField, userContext, app, imageUpload, createSectionCommand) {

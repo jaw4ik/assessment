@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using FluentAssertions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Utils
 {
@@ -18,12 +18,21 @@ namespace easygenerator.DomainModel.Tests.Utils
             nextEvent.Should().BeNull();
         }
 
+        public static void ShouldNotContainSingleEvent<T>(this Entity entity)
+        {
+            var raisedEvent = entity.DequeueEvent();
+            raisedEvent.Should().BeNull();
+
+            var nextEvent = entity.DequeueEvent();
+            nextEvent.Should().BeNull();
+        }
+
         public static void ShouldContainSingleEventOfType<T>(this Entity entity)
         {
             GetEventsList(entity).Should().ContainSingle(e => e.GetType() == typeof(T));
         }
 
-        public static T GetSingleEventOfType<T>(this Entity entity) where T: class
+        public static T GetSingleEventOfType<T>(this Entity entity) where T : class
         {
             var entities = GetEventsList(entity);
             entities.Should().ContainSingle(e => e.GetType() == typeof(T));

@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'constants'], function (http, constants) {
+﻿define(['plugins/http', 'constants'], function(http, constants) {
     return {
         execute: execute
     }
@@ -11,10 +11,10 @@
         }
 
         http.get(constants.storage.video.vimeoApiVideosUrl + vimeoId, null, { Authorization: constants.storage.video.vimeoToken })
-            .done(function (result) {
+            .done(function(result) {
                 dfd.resolve(result);
             })
-            .fail(function () {
+            .fail(function() {
                 dfd.reject();
             });
 

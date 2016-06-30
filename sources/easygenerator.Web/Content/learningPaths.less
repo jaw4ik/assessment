@@ -22,11 +22,6 @@
 @course-selector-checkbox-color: #76c486;
 @course-selector-inactive-checkbox-color: #c2c6cb;
 
-@course-filter-regular-color: #63798e;
-@course-filter-active-text-color: #42515f;
-@course-filter-active-color: #469dd5;
-@course-filter-inactive-color: #abbbc6;
-
 @learning-path-action-text-color: #546677;
 @learning-path-action-text-hover-color: #42515f;
 @learning-path-action-text-disable-color: #63798e;
@@ -579,85 +574,6 @@
 
     .course-filter {
         margin: 15px 15px 20px 15px;
-
-        &.active {
-            .course-filter-input-wrapper {
-                border-bottom: solid 1px @course-filter-active-color;
-                box-shadow: 0 6px 4px -7px @course-filter-active-color;
-
-                &:after {
-                    background-position: -63px -84px;
-                }
-            }
-        }
-
-        .course-filter-input-wrapper {
-            display: flex;
-            align-items: center;
-            position: relative;
-            padding-left: 30px;
-            height: 30px;
-            outline: none;
-            transition: box-shadow 0.2s ease;
-            transition: border 0.2s ease;
-            border-bottom: solid 1px @course-filter-inactive-color;
-
-            &:after {
-                content: '';
-                position: absolute;
-                top: 6px;
-                left: 0;
-                height: 16px;
-                width: 16px;
-                background-image: url(images/sprites_16.png);
-                background-position: -84px -84px;
-                background-repeat: no-repeat;
-            }
-
-            &:hover {
-                border-bottom: solid 1px @course-filter-active-color;
-
-                &:after {
-                    background-position: -63px -84px;
-                }
-            }
-
-            .course-filter-input {
-                flex: 1 0;
-                position: relative;
-                height: 100%;
-                width: 100%;
-                top: 0;
-                left: 0;
-                border: none;
-                background-color: transparent;
-                color: @course-filter-regular-color;
-                font: @course-selector-regular-font;
-
-                &:focus {
-                    color: @course-filter-active-text-color;
-                }
-
-                .placeholder-color(@course-filter-regular-color);
-            }
-
-            .course-filter-clear-btn {
-                flex: 0 0 10px;
-                align-self: flex-end;
-                visibility: hidden;
-                width: 10px;
-                height: 10px;
-                margin-bottom: 8px;
-                padding: 0px;
-                background: url(images/sprites_16.png) -129px -45px no-repeat;
-                cursor: pointer;
-                border: 0px;
-
-                &.shown {
-                    visibility: visible;
-                }
-            }
-        }
     }
 
     .course-selector-courses {

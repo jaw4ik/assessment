@@ -168,6 +168,7 @@
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttributeTest.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\NoCacheAttributeTests.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\OrganizationAdminAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Permissions\EntityCollaboratorAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Permissions\EntityOwnerAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttributeTests.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
     <Compile Include="Controllers\Api\DocumentControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
+    <Compile Include="Controllers\Api\OrganizationControllerTests.cs" />
     <Compile Include="Controllers\Api\RankingTextControllerTests.cs" />
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\Api\ScenarioControllerTests.cs" />
@@ -223,8 +225,7 @@
     <Compile Include="Publish\PublisherTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTrackerTests.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporterTests.cs" />
-    <Compile Include="Newsletter\Intercom\IntercomClientTests.cs" />
-    <Compile Include="Newsletter\Intercom\IntercomSubscriptionManagerTest.cs" />
+    <Compile Include="Components\IntercomClientTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />

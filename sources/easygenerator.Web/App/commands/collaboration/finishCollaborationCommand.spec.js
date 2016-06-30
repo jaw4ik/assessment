@@ -63,12 +63,14 @@ describe('command [finishCollaboration:]', () => {
 
     describe('when request failed', () => {
         beforeEach(() => {
-            let promise = Promise.reject();
-            spyOn(http, 'post').and.returnValue(promise);
+            spyOn(http, 'post').and.returnValue(Promise.reject('reason'));
         });
 
         it('should reject promise', done => (async () => {
             await command.execute(courseId);
-        })().catch(done));
+        })().catch(reason => {
+            expect(reason).toEqual('reason');
+            done();
+        }));
     });
 });

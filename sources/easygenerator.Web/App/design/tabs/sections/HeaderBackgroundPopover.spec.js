@@ -29,7 +29,7 @@ describe('Background header popover', () => {
 
     });
 
-    describe('color', () => {
+    describe('color:', () => {
 
         it('should be observable', () => {
             let popover = new HeaderPopover();
@@ -295,7 +295,8 @@ describe('Background header popover', () => {
 
             it('should reject promise', done => {
                 let popover = new HeaderPopover();
-                popover.upload().catch(() => {
+                popover.upload().catch(reason => {
+                    expect(reason).toEqual('File was not provided.');
                     done();
                 });
             });
@@ -320,7 +321,8 @@ describe('Background header popover', () => {
 
                 it('should resolve promise', done => {
                     let popover = new HeaderPopover();
-                    popover.upload({}).then(() => {
+                    popover.upload({}).then(imageUrl => {
+                        expect(imageUrl).toEqual('imageUrl');
                         done();
                     });
                 });
@@ -366,6 +368,7 @@ describe('Background header popover', () => {
                 it('should resolve promise', done => {
                     let popover = new HeaderPopover();
                     popover.upload({}).then(() => {
+                        expect(arguments.length).toEqual(0);
                         done();
                     });
                 });

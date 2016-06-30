@@ -1,6 +1,6 @@
 ﻿import ctor from './learningPathBrief';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 
 describe('viewModel [learningPathBrief]', function () {

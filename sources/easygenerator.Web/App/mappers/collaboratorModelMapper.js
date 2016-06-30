@@ -10,6 +10,7 @@
                     registered: item.Registered,
                     fullName: item.FullName,
                     isAccepted: item.IsAccepted,
+                    isAdmin: item.IsAdmin,
                     createdOn: new Date(item.CreatedOn)
                 });
             };

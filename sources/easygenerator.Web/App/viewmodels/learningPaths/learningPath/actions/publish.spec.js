@@ -4,7 +4,7 @@ import getLearningPathByIdQuery from './../queries/getLearningPathByIdQuery';
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import app from 'durandal/app';
 
 describe('viewModel [learningPath publish action]', function () {

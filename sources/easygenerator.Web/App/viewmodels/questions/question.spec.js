@@ -1,5 +1,5 @@
 import viewModel from 'viewmodels/questions/question';
-import router from 'plugins/router';
+import router from 'routing/router';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
 import questionRepository from 'repositories/questionRepository';
@@ -258,9 +258,9 @@ describe('viewModel [question]', () => {
                 spyOn(questionRepository, 'getById').and.returnValue(getQuestionPromise);
             });
 
-            it('should reject promise', (done) =>  (async () => {
-                viewModel.activate('courseId', 'sectionId', 'questionId').catch(reason => {
-                    expect(reason).toBe('reason');    
+            it('should reject promise', (done) => (async () => {
+                return viewModel.activate('courseId', 'sectionId', 'questionId').catch(reason => {
+                    expect(reason).toBe('reason');
                 });
             })().then(done));
 

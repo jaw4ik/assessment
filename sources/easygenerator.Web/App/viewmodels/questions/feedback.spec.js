@@ -1,7 +1,7 @@
 ﻿import viewModel from './feedback';
 
 import constants from 'constants';
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import repository from 'repositories/questionRepository';
 import localizationManager from 'localization/localizationManager';

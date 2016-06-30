@@ -27,6 +27,11 @@
             <!-- ko if: isCurrentUser -->
             <div class="collaborator-owner-mark" data-bind="localize: { text: 'you' }"></div>
             <!-- /ko -->
+            <!-- ko ifnot: isCurrentUser -->
+            <!-- ko if: isAdmin -->
+            <div class="collaborator-owner-mark" data-bind="localize: { text: 'admin' }"></div>
+            <!-- /ko -->
+            <!-- /ko -->
             <!-- /ko -->
             <!-- ko if: canBeRemoved -->
             <button class="collaborator-remove-btn info-tooltip-holder" data-bind="click: showRemoveConfirmation">

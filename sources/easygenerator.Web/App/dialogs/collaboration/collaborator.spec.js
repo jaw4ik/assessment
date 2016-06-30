@@ -4,7 +4,7 @@ import app from 'durandal/app';
 import constants from 'constants';
 import repository from 'repositories/collaboratorRepository';
 import notify from 'notify';
-import router from 'plugins/router';
+import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import userContext from 'userContext';
 
@@ -23,6 +23,9 @@ describe('viewModel dialog [collaborator]', () => {
         spyOn(notify, 'error');
         spyOn(notify, 'success');
         spyOn(eventTracker, 'publish');
+        userContext.identity = {
+            email: email
+        };
     });
 
     describe('email:', () => {
@@ -85,9 +88,9 @@ describe('viewModel dialog [collaborator]', () => {
     });
 
     describe('canBeRemoved:', () => {
-        it('should be defined', () => {
+        it('should be computed', () => {
             viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
-            expect(viewModel.canBeRemoved).toBeDefined();
+            expect(viewModel.canBeRemoved).toBeComputed();
         });
 
         describe('when current user is course owner', () => {
@@ -98,14 +101,23 @@ describe('viewModel dialog [collaborator]', () => {
             describe('when collaborator is owner', () => {
                 it('should be false', () => {
                     viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
-                    expect(viewModel.canBeRemoved).toBeFalsy();
+                    expect(viewModel.canBeRemoved()).toBeFalsy();
                 });
             });
 
             describe('when collaborator is not owner', () => {
-                it('should be false', () => {
-                    viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: 'oppa@some.style' });
-                    expect(viewModel.canBeRemoved).toBeTruthy();
+                describe('when user is admin', () => {
+                    it('should be false', () => {
+                        viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: 'oppa@some.style', isAdmin: true });
+                        expect(viewModel.canBeRemoved()).toBeFalsy();
+                    });
+                });
+
+                describe('when user is not admin', () => {
+                    it('should be false', () => {
+                        viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: 'oppa@some.style', isAdmin: false });
+                        expect(viewModel.canBeRemoved()).toBeTruthy();
+                    });
                 });
             });
         });
@@ -117,7 +129,7 @@ describe('viewModel dialog [collaborator]', () => {
 
             it('should be false', () => {
                 viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: ownerEmail });
-                expect(viewModel.canBeRemoved).toBeFalsy();
+                expect(viewModel.canBeRemoved()).toBeFalsy();
             });
         });
     });
@@ -135,6 +147,14 @@ describe('viewModel dialog [collaborator]', () => {
         it('should be observable', () => {
             viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
             expect(viewModel.isAccepted).toBeObservable();
+        });
+    });
+
+    describe('isAdmin:', () => {
+
+        it('should be observable', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
+            expect(viewModel.isAdmin).toBeObservable();
         });
     });
 
@@ -337,6 +357,17 @@ describe('viewModel dialog [collaborator]', () => {
             viewModel.collaborationAccepted();
 
             expect(viewModel.isAccepted()).toBeTruthy();
+        });
+    });
+
+    describe('collaboratorAccessTypeUpdated:', function() {
+
+        it('should set isAdmin to true', () => {
+            viewModel = new Collaborator(ownerEmail, { fullName: fullName, email: email, isAccepted: false, isAdmin: false });
+
+            viewModel.collaboratorAccessTypeUpdated(true);
+
+            expect(viewModel.isAdmin()).toBeTruthy();
         });
     });
 

@@ -9,6 +9,7 @@
             this.title = spec.title;
             this.sections = spec.sections;
             this.createdBy = spec.createdBy;
+            this.createdByName = spec.createdByName;
             this.createdOn = spec.createdOn;
             this.builtOn = spec.builtOn;
             this.template = spec.template;
@@ -25,6 +26,8 @@
 
             this.getState = getState;
             this.isDelivering = false;
+
+            this.ownership = spec.ownership;
         }
 
         return Course;

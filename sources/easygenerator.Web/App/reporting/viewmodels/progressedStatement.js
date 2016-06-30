@@ -1,7 +1,7 @@
 ﻿import _ from 'underscore';
 import constants from 'constants';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
-import SectionStatement from 'reporting/viewmodels/sectionStatement';
+import ExpandableStatement from './expandableStatement';
+import SectionStatement from './sectionStatement';
 import XApiProvider from 'reporting/xApiProvider';
 import localizationManager from 'localization/localizationManager';
 

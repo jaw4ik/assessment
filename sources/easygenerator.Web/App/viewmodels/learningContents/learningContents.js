@@ -1,5 +1,5 @@
 ﻿define(['knockout', 'repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager',
-        'notify', 'constants', 'eventTracker', 'durandal/app', 'viewmodels/learningContents/learningContentsViewModelFactory', 'plugins/router'],
+        'notify', 'constants', 'eventTracker', 'durandal/app', './learningContentsViewModelFactory', 'routing/router'],
     function (ko, learningContentRepository, questionRepository, localizationManager,
             notify, constants, eventTracker, app, learningContentsViewModelFactory, router) {
 

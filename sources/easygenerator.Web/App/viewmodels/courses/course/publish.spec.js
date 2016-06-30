@@ -1,6 +1,6 @@
 ﻿import viewModel from './publish';
 
-import router from 'plugins/router';
+import router from 'routing/router';
 import userContext from 'userContext';
 import repository from 'repositories/courseRepository';
 import eventTracker from 'eventTracker';

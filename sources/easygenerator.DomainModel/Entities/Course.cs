@@ -1,11 +1,12 @@
-﻿using easygenerator.DomainModel.Events.CourseEvents;
+﻿using easygenerator.DomainModel.Events.CommentEvents;
+using easygenerator.DomainModel.Events.CourseEvents;
+using easygenerator.DomainModel.Events.CourseEvents.Collaboration;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.DomainModel.Events.CommentEvents;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -71,10 +72,34 @@ namespace easygenerator.DomainModel.Entities
             if (CreatedBy == userEmail || Collaborators.Any(e => e.Email.Equals(userEmail, StringComparison.InvariantCultureIgnoreCase)))
                 return null;
 
-            var collaborator = new CourseCollaborator(this, userEmail, createdBy);
+            var collaborator = new CourseCollaborator(this, userEmail, false, createdBy);
             CollaboratorsCollection.Add(collaborator);
             Template.GrantAccessTo(userEmail);
             RaiseEvent(new CourseCollaboratorAddedEvent(collaborator));
+
+            return collaborator;
+        }
+
+        public virtual CourseCollaborator CollaborateAsAdmin(string userEmail)
+        {
+            ThrowIfUserEmailIsInvalid(userEmail);
+
+            if (CreatedBy == userEmail)
+                return null;
+
+            var collaborator = Collaborators.FirstOrDefault(c => c.Email.Equals(userEmail, StringComparison.InvariantCultureIgnoreCase));
+            if (collaborator != null)
+            {
+                collaborator.GrantAdminAccess();
+                AcceptCollaboration(collaborator);
+            }
+            else
+            {
+                collaborator = new CourseCollaborator(this, userEmail, true, userEmail, true);
+                CollaboratorsCollection.Add(collaborator);
+                Template.GrantAccessTo(userEmail);
+                RaiseEvent(new CourseCollaboratorAddedEvent(collaborator));
+            }
 
             return collaborator;
         }
@@ -100,6 +125,10 @@ namespace easygenerator.DomainModel.Entities
         public virtual void AcceptCollaboration(CourseCollaborator collaborator)
         {
             ThrowIfCollaboratorIsInvalid(collaborator);
+            if (collaborator.IsAccepted)
+            {
+                return;
+            }
 
             collaborator.IsAccepted = true;
             RaiseEvent(new CollaborationInviteAcceptedEvent(this, collaborator));
@@ -113,7 +142,7 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new CollaborationInviteDeclinedEvent(this, collaborator));
         }
 
-        private void CloneSectionsOfCollaborator(ICloner entityCloner, string collaboratorEmail)
+        public virtual void CloneSectionsOfCollaborator(ICloner entityCloner, string collaboratorEmail)
         {
             var clonedSections = new Dictionary<Guid, Section>();
             var sections = GetOrderedRelatedSections();
@@ -436,4 +465,3 @@ namespace easygenerator.DomainModel.Entities
 
     }
 }
-

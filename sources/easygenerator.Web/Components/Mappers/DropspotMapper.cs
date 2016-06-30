@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class DropspotMapper : IEntityModelMapper<Dropspot>
+    public class DropspotMapper : EntityModelMapper<Dropspot>
     {
-        public dynamic Map(Dropspot entity)
+        public override dynamic Map(Dropspot entity)
         {
             return new
             {

@@ -10,7 +10,7 @@ import eventTracker from 'eventTracker';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import changeTemplateDialog from 'dialogs/course/changeTemplate/changeTemplate';
-import router from 'plugins/router';
+import router from 'routing/router';
 import publishDialog from 'dialogs/course/publishCourse/publishDialog';
 import collaboration from 'dialogs/collaboration/collaboration';
 
@@ -295,11 +295,12 @@ describe('viewModel [course index]', function () {
         describe('when course does not exist', function () {
 
             beforeEach(function () {
-                getById.reject();
+                getById.reject('reason');
             });
 
             it('should reject promise', function (done) {
-                viewModel.activate().catch(function () {
+                viewModel.activate().catch(function (reason) {
+                    expect(reason).toEqual('reason');
                     done();
                 });
             });
@@ -420,8 +421,9 @@ describe('viewModel [course index]', function () {
                 });
             });
 
-            it('should resolve promise', function (done) {
-                viewModel.activate(course.id).fin(function () {
+            it('should resolve promise', function(done) {
+                viewModel.activate(course.id).fin(function() {
+                    expect(arguments.length).toEqual(0);
                     done();
                 });
             });

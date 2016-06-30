@@ -56,55 +56,55 @@ export default class {
             app.showMessage("Failed to initialize datacontext.");
         }
     }
-    static get sections() {
-        return _sections;
-    }
-    static set sections(sections) {
-        _sections = sections || [];
-    }
-    static get templates() {
-        return _templates;
-    }
-    static set templates(templates) {
-        _templates = templates || [];
-    }
-    static get courses() {
-        return _courses;
-    }
-    static set courses(courses) {
-        _courses = courses || [];
-    }
-    static get documents() {
-        return _documents;
-    }
-    static set documents(documents) {
-        _documents = documents || [];
-    }
-    static get learningPaths() {
-        return _learningPaths;
-    }
-    static set learningPaths(learningPaths) {
-        _learningPaths = learningPaths || [];
-    }
-    static get videos() {
-        return _videos;
-    }
-    static set videos(videos) {
-        _videos = videos || [];
-    }
-    static get audios() {
-        return _audios;
-    }
-    static set audios(audios) {
-        _audios = audios || [];
-    }
-    static getQuestions() {
-        var questions = [];
-        for(let section of _sections) {
-            questions.push.apply(questions, section.questions);
-        };
-        return questions;
-    }
+static get sections() {
+    return _sections;
+}
+static set sections(sections) {
+    _sections = sections || [];
+}
+static get templates() {
+    return _templates;
+}
+static set templates(templates) {
+    _templates = templates || [];
+}
+static get courses() {
+    return _courses;
+}
+static set courses(courses) {
+    _courses = courses || [];
+}
+static get documents() {
+    return _documents;
+}
+static set documents(documents) {
+    _documents = documents || [];
+}
+static get learningPaths() {
+    return _learningPaths;
+}
+static set learningPaths(learningPaths) {
+    _learningPaths = learningPaths || [];
+}
+static get videos() {
+    return _videos;
+}
+static set videos(videos) {
+    _videos = videos || [];
+}
+static get audios() {
+    return _audios;
+}
+static set audios(audios) {
+    _audios = audios || [];
+}
+static getQuestions() {
+    var questions = [];
+    for(let section of _sections) {
+        questions.push.apply(questions, section.questions);
+    };
+    return questions;
+}
 }
 
 async function getTemplates() {
@@ -119,12 +119,14 @@ async function getDocuments() {
 async function getCourses(templates, sections) {
     var courses = [];
     var data = await apiHttpWrapper.post('api/courses');
+
     for (let course of data) {
         // Temporary - do not display courses if user does not have template
         if (_.find(templates, template => course.Template.Id === template.id)) {
             courses.push(courseModelMapper.map(course, sections, templates));
         }
     }
+
     return courses;
 }
 async function getLearningPaths(courses, documents) {

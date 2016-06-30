@@ -4,7 +4,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class CourseCollaboratorEntityModelMapper : IEntityModelMapper<CourseCollaborator>
+    public class CourseCollaboratorEntityModelMapper : EntityModelMapper<CourseCollaborator>
     {
         private readonly IUserRepository _userRepository;
 
@@ -13,7 +13,7 @@ namespace easygenerator.Web.Components.Mappers
             _userRepository = userRepository;
         }
 
-        public dynamic Map(CourseCollaborator collaborator)
+        public override dynamic Map(CourseCollaborator collaborator)
         {
             var user = _userRepository.GetUserByEmail(collaborator.Email);
 
@@ -22,9 +22,10 @@ namespace easygenerator.Web.Components.Mappers
                 Id = collaborator.Id.ToNString(),
                 Email = collaborator.Email,
                 Registered = user != null,
-                FullName = user == null ? null : user.FullName,
+                FullName = user?.FullName,
                 CreatedOn = collaborator.CreatedOn,
-                IsAccepted = collaborator.IsAccepted
+                IsAccepted = collaborator.IsAccepted,
+                IsAdmin = collaborator.IsAdmin
             };
         }
     }

@@ -1,4 +1,4 @@
-﻿define(['repositories/questionRepository', 'localization/localizationManager', 'uiLocker', 'clientContext', 'eventTracker', 'plugins/router', 'constants'],
+﻿define(['repositories/questionRepository', 'localization/localizationManager', 'uiLocker', 'clientContext', 'eventTracker', 'routing/router', 'constants'],
     function (questionRepository, localizationManager, uiLocker, clientContext, eventTracker, router, constants) {
 
         return {

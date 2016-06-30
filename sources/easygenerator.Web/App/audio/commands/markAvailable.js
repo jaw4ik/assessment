@@ -4,6 +4,7 @@
     return new Command(function (audio) {
         return storageHttpWrapper.post(constants.storage.host + '/api/media/audio/update', { id: audio.id }).then(function() {
             audio.available = true;
+            return audio;
         });
     });
 

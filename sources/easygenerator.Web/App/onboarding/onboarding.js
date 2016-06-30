@@ -1,4 +1,4 @@
-﻿define(['onboarding/initialization', 'clientContext'], function (onboardingInitialization, clientContext) {
+﻿define(['./initialization', 'clientContext'], function (onboardingInitialization, clientContext) {
     "use strict";
 
     var onboardingCollapsedStateKey = 'onboarding:collapsed';

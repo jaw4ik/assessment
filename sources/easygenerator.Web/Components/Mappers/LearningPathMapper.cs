@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class LearningPathMapper : IEntityModelMapper<LearningPath>
+    public class LearningPathMapper : EntityModelMapper<LearningPath>
     {
         private readonly IUrlHelperWrapper _urlHelper;
 
@@ -13,7 +13,7 @@ namespace easygenerator.Web.Components.Mappers
             _urlHelper = urlHelper;
         }
 
-        public dynamic Map(LearningPath entity)
+        public override dynamic Map(LearningPath entity)
         {
             return new
             {

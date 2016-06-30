@@ -54,21 +54,21 @@ describe('service [publishCourse]', function () {
                 post.resolve({});
 
                 var promise = service.buildCourse(course.id, includeMediaToPackage);
-                promise.fin(done);
-
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage });
+                promise.then(function() {
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage });
+                    done();
+                });
             });
         
         });
 
         describe('and send request to server', function () {
 
-            it('should resolve promise with true', function (done) {
-                post.resolve({ PackageUrl: 'SomeUrl', BuildOn: '1378106938845' });
+            it('should resolve promise with true', function(done) {
+                post.resolve({ PackageUrl: 'SomeUrl', BuildOn: 1378106938845 });
 
-                var promise = service.buildCourse();
-                promise.then(function () {
-                    expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
+                service.buildCourse().then(function(result) {
+                    expect(result).toEqual({ packageUrl: 'SomeUrl', builtOn: new Date(1378106938845) });
                     done();
                 });
 

@@ -1,4 +1,4 @@
-﻿define(['plugins/router'], function (router) {
+﻿define(['routing/router'], function (router) {
     'use strict';
 
     var barsConfigurations = [

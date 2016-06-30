@@ -22,7 +22,7 @@ describe('dialog course [stopCollaboration]', () => {
     });
 
     describe('ctor:', () => {
-        describe('isStopping:', () => {
+        describe('isRemoving:', () => {
             it('should be observable:', () => {
                 expect(viewModel.isStopping).toBeObservable();
             });
@@ -42,7 +42,7 @@ describe('dialog course [stopCollaboration]', () => {
             expect(viewModel.courseTitle).toBe(courseTitle);
         });
 
-        it('should isStopping to false', () => {
+        it('should isRemoving to false', () => {
             viewModel.isStopping(true);
             viewModel.show(courseId, courseTitle);
             expect(viewModel.isStopping()).toBeFalsy();
@@ -72,7 +72,7 @@ describe('dialog course [stopCollaboration]', () => {
             expect(eventTracker.publish).toHaveBeenCalledWith('Stop being a co-author');
         });
 
-        it('should set isStopping to true', () => {
+        it('should set isRemoving to true', () => {
             spyOn(finishCollaborationCommand, 'execute');
             viewModel.isStopping(false);
             viewModel.stopCollaboration();
@@ -86,7 +86,7 @@ describe('dialog course [stopCollaboration]', () => {
         });
 
         describe('when stop collaboration command executed successfully', () => {
-            it('should set isStopping to false', done => (async () => {
+            it('should set isRemoving to false', done => (async () => {
                 let promise = Promise.resolve(true);
                 spyOn(finishCollaborationCommand, 'execute').and.returnValue(promise);
 
@@ -104,7 +104,7 @@ describe('dialog course [stopCollaboration]', () => {
         });
 
         describe('when stop collaboration command failed', () => {
-            it('should set isStopping to false', done => (async () => {
+            it('should set isRemoving to false', done => (async () => {
                 let promise = Promise.reject();
                 spyOn(finishCollaborationCommand, 'execute').and.returnValue(promise);
 

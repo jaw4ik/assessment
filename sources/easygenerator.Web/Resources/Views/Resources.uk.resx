@@ -365,4 +365,18 @@
   <data name="ForgotPassMailThankYou" xml:space="preserve">
     <value>Дякуємо, що використовуєте easygenerator.com і хорошого Вам дня!</value>
   </data>
+  <data name="InviteOrganizationUserBody" xml:space="preserve">
+    <value>&lt;div&gt;
+&lt;p&gt;{0} запрошує Вас приєднатися до організації {1} в Easygenerator.&lt;/p&gt;
+&lt;p&gt;Ви можете створити аккаунт в easygenerator безкоштовно. Перейдіть за посиланням: &lt;a href="{2}"&gt;{2}&lt;/a&gt; та зареєструйтеся за цією e-mail адресою щоб вступити до організації.&lt;/p&gt;
+&lt;p&gt;З найкращими побажаннями,&lt;br/&gt;
+команда easygenerator&lt;/p&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="InviteOrganizationUserFromDisplayName" xml:space="preserve">
+    <value>{0} (easygenerator)</value>
+  </data>
+  <data name="InviteOrganizationUserSubject" xml:space="preserve">
+    <value>{0} запрошує Вас до організації {1} в easygenerator</value>
+  </data>
 </root>

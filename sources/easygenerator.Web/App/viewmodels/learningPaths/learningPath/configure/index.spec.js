@@ -63,6 +63,10 @@ describe('[configure learning path]', () => {
         });
 
         describe('and when response does not contain xapi', () => {
+            beforeEach(() => {
+                spyOn(getSettings, 'execute').and.returnValue(Promise.resolve({}));
+            });
+
             it('should notify error', done => {
                 viewModel.activate(learningPathId).then(() => {
                     expect(notify.error).toHaveBeenCalled();

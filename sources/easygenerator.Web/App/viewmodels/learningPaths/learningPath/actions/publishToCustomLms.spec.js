@@ -5,6 +5,7 @@ import notify from 'notify';
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import app from 'durandal/app';
+import _ from 'underscore';
 
 describe('viewModel [learningPath publish to custom LMS action]', function () {
 
@@ -279,7 +280,7 @@ describe('viewModel [learningPath publish to custom LMS action]', function () {
                 viewModel.isPublished(null);
                 var promise = viewModel.activate({ learningPathId: learningPathId });
                 promise.fin(function () {
-                    expect(viewModel.isPublished()).toBe(!!learningPath.learningPathCompanies.find(function (company) {
+                    expect(viewModel.isPublished()).toBe(!!_.find(learningPath.learningPathCompanies, function (company) {
                         return company.id === viewModel.companyInfo.id;
                     }));
                     done();

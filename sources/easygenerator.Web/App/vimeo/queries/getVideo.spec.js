@@ -48,14 +48,15 @@ describe('[check video availability task]', function () {
 
         });
 
-        describe('when request failed', function () {
+        describe('when request failed', function() {
 
-            beforeEach(function () {
+            beforeEach(function() {
                 dfd.reject();
             });
 
-            it('should reject promise', function (done) {
-                task.execute('id').catch(function () {
+            it('should reject promise', function(done) {
+                task.execute('id').catch(function(reason) {
+                    expect(reason).toBeUndefined();
                     done();
                 }).done();
             });
@@ -65,7 +66,8 @@ describe('[check video availability task]', function () {
         describe('when vimeoId is not a string', function () {
 
             it('should reject promise', function (done) {
-                task.execute().catch(function () {
+                task.execute().catch(function (reason) {
+                    expect(reason).toBeDefined();
                     done();
                 }).done();
             });

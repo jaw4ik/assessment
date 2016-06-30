@@ -101,11 +101,9 @@ describe('subscription expiration [notificationController]', function () {
                     userContext.identity.subscription.expirationDate = undefined;
                 });
 
-                it('should remove notification', function () {
-                    it('should remove notification', function () {
-                        controller.updateNotification();
-                        expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, constants.notification.keys.subscriptionExpiration);
-                    });
+                it('should remove notification', function() {
+                    controller.updateNotification();
+                    expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, constants.notification.keys.subscriptionExpiration);
                 });
             });
 

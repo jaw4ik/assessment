@@ -459,6 +459,14 @@
     <Compile Include="Migrations\201605171140404_AddIncludeMediaToPackageField.Designer.cs">
       <DependentUpon>201605171140404_AddIncludeMediaToPackageField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606031100242_AddOrganizations.cs" />
+    <Compile Include="Migrations\201606031100242_AddOrganizations.Designer.cs">
+      <DependentUpon>201606031100242_AddOrganizations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.cs" />
+    <Compile Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.Designer.cs">
+      <DependentUpon>201606170850391_CourseCollaboratorIsAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201606181116557_AddSamlSupport.cs" />
     <Compile Include="Migrations\201606181116557_AddSamlSupport.Designer.cs">
       <DependentUpon>201606181116557_AddSamlSupport.cs</DependentUpon>
@@ -477,6 +485,8 @@
     <Compile Include="Repositories\ImageFileRepository.cs" />
     <Compile Include="Repositories\LearningPathRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
+    <Compile Include="Repositories\OrganizationRepository.cs" />
+    <Compile Include="Repositories\OrganizationUserRepository.cs" />
     <Compile Include="Repositories\SectionRepository.cs" />
     <Compile Include="Repositories\OnboardingRepository.cs" />
     <Compile Include="Repositories\PasswordRecoveryTicketRepository.cs" />
@@ -799,6 +809,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605171140404_AddIncludeMediaToPackageField.resx">
       <DependentUpon>201605171140404_AddIncludeMediaToPackageField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606031100242_AddOrganizations.resx">
+      <DependentUpon>201606031100242_AddOrganizations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606170850391_CourseCollaboratorIsAdmin.resx">
+      <DependentUpon>201606170850391_CourseCollaboratorIsAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606181116557_AddSamlSupport.resx">
       <DependentUpon>201606181116557_AddSamlSupport.cs</DependentUpon>

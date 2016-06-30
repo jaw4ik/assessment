@@ -57,7 +57,8 @@ describe('review [course comments]', () => {
 
         describe('when courseId is not a string', () => {
             it('should reject promise', done => {
-                viewModel.initialize({}).catch(() => {
+                viewModel.initialize({}).catch(reason => {
+                    expect(reason).toBeDefined();
                     done();
                 });
             });
@@ -121,12 +122,12 @@ describe('review [course comments]', () => {
 
                 describe('and user has starter access', () => {
                     let comment = {
-                            id: 'id',
-                            text: 'text',
-                            name: 'name',
-                            email: 'email',
-                            createdOn: new Date(2016, 12, 21)
-                        },
+                        id: 'id',
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: new Date(2016, 12, 21)
+                    },
                         oldComment = {
                             id: 'id2',
                             text: 'text',
@@ -263,9 +264,9 @@ describe('review [course comments]', () => {
 
     describe('removeComment:', () => {
         let comment = {
-                id: 'commentId',
-                isDeleted: ko.observable(false)
-            },
+            id: 'commentId',
+            isDeleted: ko.observable(false)
+        },
             courseId = 'courseId',
             promise;
 
@@ -466,12 +467,12 @@ describe('review [course comments]', () => {
 
     describe('commentCreatedByCollaborator:', () => {
         let comment = {
-                id: 'id',
-                text: 'text',
-                name: 'name',
-                email: 'email',
-                createdOn: new Date(2016, 12, 21)
-            },
+            id: 'id',
+            text: 'text',
+            name: 'name',
+            email: 'email',
+            createdOn: new Date(2016, 12, 21)
+        },
             existingComment = {
                 id: 'id2',
                 text: 'text',

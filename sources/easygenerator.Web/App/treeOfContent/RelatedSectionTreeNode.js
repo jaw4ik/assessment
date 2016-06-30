@@ -1,4 +1,4 @@
-﻿define(['./TreeNode', './QuestionTreeNode', './queries/getSectionByIdQuery', 'eventTracker', 'plugins/router'],
+﻿define(['./TreeNode', './QuestionTreeNode', './queries/getSectionByIdQuery', 'eventTracker', 'routing/router'],
     function (TreeNode, QuestionTreeNode, getSectionByIdQuery, eventTracker, router) {
 
         return function (sectionId, courseId, title, url) {

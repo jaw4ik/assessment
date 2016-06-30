@@ -24,12 +24,15 @@ export class LogoPopover {
 
     upload(file) {
         if (!file) {
-            return Promise.reject();
+            return Promise.reject('File was not provided.');
         }
 
         return imageUpload.v2(file)
-            .then(response => this.updateLogo(response.url))
-            .then(() => eventTracker.publish('Change logo (upload)'))
+            .then(response => {
+                this.updateLogo(response.url);
+                eventTracker.publish('Change logo (upload)');
+                return response.url;
+            })
             .catch(reason => {
                 notify.error(reason);
             });

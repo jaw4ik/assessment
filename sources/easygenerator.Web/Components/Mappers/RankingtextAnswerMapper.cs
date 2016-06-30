@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class RankingtextAnswerMapper : IEntityModelMapper<RankingTextAnswer>
+    public class RankingtextAnswerMapper : EntityModelMapper<RankingTextAnswer>
     {
-        public dynamic Map(RankingTextAnswer entity)
+        public override dynamic Map(RankingTextAnswer entity)
         {
             return new
             {

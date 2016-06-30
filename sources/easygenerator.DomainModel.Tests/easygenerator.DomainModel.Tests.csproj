@@ -74,6 +74,8 @@
     <Compile Include="Entities\LearningPathTests.cs" />
     <Compile Include="Entities\LtiUserInfoTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
+    <Compile Include="Entities\Organizations\OrganizationTests.cs" />
+    <Compile Include="Entities\Organizations\OrganizationUserTests.cs" />
     <Compile Include="Entities\Questions\AnswerTests.cs" />
     <Compile Include="Entities\Questions\FillInTheBlanksTests.cs" />
     <Compile Include="Entities\ImageFileTest.cs" />
@@ -100,6 +102,8 @@
     <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityClonerTests.cs" />
+    <Compile Include="ObjectMothers\Organizations\OrganizationObjectMother.cs" />
+    <Compile Include="ObjectMothers\Organizations\OrganizationUserObjectMother.cs" />
     <Compile Include="ObjectMothers\RankingTextAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\AnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\BlankAnswerObjectMother.cs" />

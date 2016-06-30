@@ -8,7 +8,7 @@ import moment from 'moment';
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import userContext from 'userContext';
-import router from 'plugins/router';
+import router from 'routing/router';
 import fileSaverWrapper from 'utils/fileSaverWrapper';
 import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 

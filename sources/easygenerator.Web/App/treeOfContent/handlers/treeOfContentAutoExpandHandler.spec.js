@@ -21,7 +21,7 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
             describe('and course was not found', function () {
 
                 it('should resolve promise', function (done) {
-                    var promise = handler.handle({ children: ko.observableArray([]) }, ['courseId']);
+                    var promise = handler.handle({ courses: ko.observableArray([]) }, ['courseId']);
 
                     promise.fin(function () {
                         expect(promise).toBeResolved();
@@ -34,7 +34,7 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
             describe('and course was found', function () {
 
                 var courseTreeNode = { id: 'courseId', expand: function () { } };
-                var treeOfContent = { children: ko.observableArray([courseTreeNode]), sharedChildren: ko.observableArray([]) };
+                var treeOfContent = { courses: ko.observableArray([courseTreeNode]), sharedChildren: ko.observableArray([]) };
 
                 beforeEach(function () {
                     var courseTreeNodeExpand = Q.defer();
@@ -81,7 +81,9 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
                 var courseTreeNode = { id: 'courseId', children: ko.observableArray([sectionTreeNode]), expand: function () { } };
                 var courseTreeNodeExpand = Q.defer();
 
-                treeOfContent = { children: ko.observableArray([courseTreeNode]), sharedChildren: ko.observableArray([]) };
+                treeOfContent = {
+                    courses: ko.observableArray([courseTreeNode])
+                };
 
                 spyOn(courseTreeNode, 'expand').and.returnValue(courseTreeNodeExpand.promise);
                 spyOn(sectionTreeNode, 'expand').and.returnValue(sectionTreeNodeExpand.promise);
@@ -129,7 +131,7 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
         describe('when context is not specified', function () {
 
             it('should resolve promise', function (done) {
-                var promise = handler.handle({ children: ko.observableArray([]) });
+                var promise = handler.handle({ courses: ko.observableArray([]) });
 
                 promise.fin(function () {
                     expect(promise).toBeResolved();
@@ -141,7 +143,7 @@ describe('handler [treeOfContentAutoExpandHandler]', function () {
         describe('when context is empty', function () {
 
             it('should resolve promise', function (done) {
-                var promise = handler.handle({ children: ko.observableArray([]) }, {});
+                var promise = handler.handle({ courses: ko.observableArray([]) }, {});
 
                 promise.fin(function () {
                     expect(promise).toBeResolved();

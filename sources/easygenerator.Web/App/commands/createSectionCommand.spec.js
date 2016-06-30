@@ -3,7 +3,7 @@
 import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import localizationManager from 'localization/localizationManager';
-import router from 'plugins/router';
+import router from 'routing/router';
 import uiLocker from 'uiLocker';
 import clientContext from 'clientContext';
 import eventTracker from 'eventTracker';
@@ -74,7 +74,7 @@ describe('command [createSectionCommand]', function () {
 
                 it('should set lastCreatedSectionId in client context', function (done) {
                     relateSectionDefer.resolve();
-                    command.execute(courseId).fin(function () {
+                    command.execute(courseId).then(function () {
                         expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedSectionId, sectionId);
                         done();
                     });
@@ -82,7 +82,7 @@ describe('command [createSectionCommand]', function () {
 
                 it('should relate created section to course', function (done) {
                     relateSectionDefer.resolve();
-                    command.execute(courseId).fin(function () {
+                    command.execute(courseId).then(function () {
                         expect(courseRepository.relateSection).toHaveBeenCalledWith(courseId, sectionId);
                         done();
                     });
@@ -94,21 +94,21 @@ describe('command [createSectionCommand]', function () {
                     });
 
                     it('should trigger app event', function (done) {
-                        command.execute(courseId).fin(function () {
+                        command.execute(courseId).then(function () {
                             expect(app.trigger).toHaveBeenCalledWith(constants.messages.section.createdInCourse);
                             done();
                         });
                     });
 
                     it('should unlock content', function (done) {
-                        command.execute(courseId).fin(function () {
+                        command.execute(courseId).then(function () {
                             expect(uiLocker.unlock).toHaveBeenCalled();
                             done();
                         });
                     });
 
                     it('should navigate to created section withint course', function (done) {
-                        command.execute(courseId).fin(function () {
+                        command.execute(courseId).then(function () {
                             expect(router.navigate).toHaveBeenCalledWith('courses/' + courseId + '/sections/' + sectionId);
                             done();
                         });
@@ -119,21 +119,21 @@ describe('command [createSectionCommand]', function () {
             describe('and when context course id is not a string', function () {
 
                 it('should set lastCreatedSectionId in client context', function (done) {
-                    command.execute().fin(function () {
+                    command.execute().then(function () {
                         expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedSectionId, sectionId);
                         done();
                     });
                 });
 
                 it('should unlock content', function (done) {
-                    command.execute().fin(function () {
+                    command.execute().then(function () {
                         expect(uiLocker.unlock).toHaveBeenCalled();
                         done();
                     });
                 });
 
-                it('should navigate to created section', function () {
-                    command.execute().fin(function () {
+                it('should navigate to created section', function (done) {
+                    command.execute().then(function () {
                         expect(router.navigate).toHaveBeenCalledWith('library/sections/' + sectionId);
                         done();
                     });
@@ -147,7 +147,7 @@ describe('command [createSectionCommand]', function () {
             });
 
             it('should unlock content', function (done) {
-                command.execute().fin(function () {
+                command.execute().then(function () {
                     expect(uiLocker.unlock).toHaveBeenCalled();
                     done();
                 });

@@ -1,12 +1,11 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class AnswerMapper : IEntityModelMapper<Answer>
+    public class AnswerMapper : EntityModelMapper<Answer>
     {
-        public dynamic Map(Answer answer)
+        public override dynamic Map(Answer answer)
         {
             return new
             {

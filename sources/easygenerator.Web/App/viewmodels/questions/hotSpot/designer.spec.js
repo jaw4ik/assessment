@@ -39,6 +39,7 @@ describe('viewmodel [designer] (hotspot)', function () {
             spyOn(changeTypeCommand, 'execute').and.returnValue(dfd.promise);
             spyOn(notify, 'saved');
             spyOn(eventTracker, 'publish');
+            spyOn(designer, 'removePolygon');
         });
 
         it('should be function', function () {
@@ -115,6 +116,10 @@ describe('viewmodel [designer] (hotspot)', function () {
         });
 
         describe('onload:', function () {
+
+            beforeEach(() => {
+                spyOn(designer, 'removePolygon');
+            });
 
             var width = 10;
             var height = 100;

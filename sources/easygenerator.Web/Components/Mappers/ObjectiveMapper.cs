@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Extensions;
+using System;
+using System.Linq;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class SectionEntityModelMapper : IEntityModelMapper<Section>
+    public class SectionEntityModelMapper : EntityModelMapper<Section>
     {
         private readonly IEntityModelMapper<Question> _questionEntityModelMapper;
         private readonly IUrlHelperWrapper _urlHelper;
@@ -18,7 +18,7 @@ namespace easygenerator.Web.Components.Mappers
             _urlHelper = urlHelper;
         }
 
-        public dynamic Map(Section obj)
+        public override dynamic Map(Section obj)
         {
             return new
             {

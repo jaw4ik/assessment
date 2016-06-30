@@ -1,5 +1,5 @@
-﻿define(['viewmodels/learningPaths/learningPaths/commands/createLearningPathCommand', 'viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery',
-    'viewmodels/learningPaths/learningPaths/learningPathBrief', 'dialogs/learningPath/deleteLearningPath', 'durandal/app', 'constants', 'eventTracker'],
+﻿define(['./commands/createLearningPathCommand', './queries/getLearningPathCollectionQuery',
+    './learningPathBrief', 'dialogs/learningPath/deleteLearningPath', 'durandal/app', 'constants', 'eventTracker'],
     function (createLearningPathCommand, getLearningPathCollectionQuery, LearningPathBrief, deleteLearningPathDialog, app, constants, eventTracker) {
         "use strict";
 

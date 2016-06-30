@@ -256,24 +256,23 @@ describe('viewModel [statementAnswers]', function () {
 
             describe('and id is not empty', function () {
 
-                describe('and length of answer option equal 1', function () {
+                describe('and length of answer option equal 1', function() {
 
-                    beforeEach(function () {
+                    beforeEach(function() {
                         viewModel.answers([answer]);
                     });
 
-                    it('should not update text', function () {
-
-                        viewModel.updateAnswer(answer).fin(function () {
+                    it('should not update text', function(done) {
+                        viewModel.updateAnswer(answer).fin(function() {
                             expect(repository.updateAnswer).not.toHaveBeenCalled();
                             done();
                         });
+                    });
 
-                        it('should not remove answer from the repository', function (done) {
-                            viewModel.updateAnswer(answer).fin(function () {
-                                expect(repository.removeAnswer).not.toHaveBeenCalled();
-                                done();
-                            });
+                    it('should not remove answer from the repository', function(done) {
+                        viewModel.updateAnswer(answer).fin(function() {
+                            expect(repository.removeAnswer).not.toHaveBeenCalled();
+                            done();
                         });
                     });
                 });

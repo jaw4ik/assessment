@@ -59,12 +59,12 @@
                 </div>
             </div>
             <ul class="unstyled main-content-list">
-                <!-- ko if: courses().length === 0 -->
+                <!-- ko if: ownedCourses().length === 0 -->
                 <li class="empty-list-wrapper courses-empty-list">
                     <span class="empty-list" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
                 </li>
                 <!-- /ko -->
-                <!-- ko foreach: courses -->
+                <!-- ko foreach: ownedCourses -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
@@ -78,8 +78,10 @@
                                     <div class="list-item-title">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div>
-                                    <div class="list-item-saved">
-                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    <div class="list-item-details">
+                                        <div class="list-item-details-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }"></span> <span data-bind="date: { value: modifiedOn, formatString: 'L' }"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- ko if: isProcessed -->
@@ -134,8 +136,13 @@
                                     <div class="list-item-title">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div>
-                                    <div class="list-item-saved">
-                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    <div class="list-item-details">
+                                        <div class="list-item-details-author">
+                                            <span data-bind="localize: { text: 'authorLabel' }"></span> <span data-bind="text: createdByName"></span>
+                                        </div>
+                                        <div class="list-item-details-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }"></span> <span data-bind="date: { value: modifiedOn, formatString: 'L' }"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="list-item-open">
@@ -151,6 +158,50 @@
                         </div>
                     </div>
                 </li>
+                <!-- /ko -->
+            </ul>
+            <!-- /ko -->
+            <!-- ko if: organizationCourses().length > 0 -->
+            <div class="main-content-list-title-wrapper">
+                <span class="main-content-list-title" data-bind="localize: { text: 'myOrganization' }"></span>
+            </div>
+            <ul class="unstyled main-content-list">
+                <!-- ko foreach: organizationCourses -->
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                        <div class="list-item-info-holder">
+                            <div class="info-holder-table">
+                                <div class="list-item-logo">
+                                    <span class="list-item-logo-image-wrapper">
+                                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }" src="" />
+                                    </span>
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-details">
+                                        <div class="list-item-details-author">
+                                            <span data-bind="localize: { text: 'authorLabel' }"></span> <span data-bind="text: createdByName"></span>
+                                        </div>
+                                        <div class="list-item-details-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }"></span> <span data-bind="date: { value: modifiedOn, formatString: 'L' }"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item-open">
+                                    <div class="list-item-open-btn course-action-btn" data-bind="tip: { key: 'open' }"></div>
+                                </div>
+                            </div>
+                            <div class="course-actions-panel">
+                                <button class="course-action-btn duplicate-btn" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, tip: { key: 'duplicate' }"></button>
+                                <a class="course-action-btn publish-btn" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }, tip: { key: 'publish' }">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
