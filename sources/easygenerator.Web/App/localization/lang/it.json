@@ -783,7 +783,10 @@
     "themes": "Temi",
     "saveAsANewTheme": "Salva come nuovo tema",
     "myThemes": "My themes:",
-    "publicThemes": "Public themes:",
+    "defaultThemes": "Default themes:",
+    "sharedThemes": "Shared themes:",
+    "contactWithCourseAuthorToChangeDesignSettings": "Contact with course author to allow you to change design settings.",
+    "notEnoughtPermissions": "Not enough permissions",
     "unsavedTheme": "Unsaved theme",
     "nameYourTheme": "Name your theme...",
     "saveTheme": "Save theme",
@@ -797,6 +800,10 @@
     "backToSettings": "Indietro alle impostazioni",
     "saveThemesUpgradeSubtitle": "to save your own themes",
     "saveThemesUpgradeText": "<ul><li>Create and re-use course themes</li><li>Share with co-authors</li><li>Apply your Corporate Identity everywhere</li></ul>",
+    "upgradeAccountToSaveThemes": "Please upgrade your account if you want to save themes",
+    "deleteTheme": "Delete theme",
+    "deleteThemePopupMessageTitle": "Informazioni importanti:",
+    "deleteThemePopupMessage": "Courses that are used this theme will lose theme settings",
     "backToCourse": "Indietro al corso",
     "duplicateQuestion": "Duplica domanda",
     "duplicateContent": "Duplicate content",
@@ -920,5 +927,8 @@
     "watchToturial": "Watch tutorial",
     "aboutOneMinute": "(about 1 minute)",
     "editImage": "Edit image",
-    "pasteOrTypeImageLink": "Paste or type image link here..."
+    "pasteOrTypeImageLink": "Paste or type image link here...",
+    "upgradeAccountToManageOrganization": "Please upgrade your account if you want to manage organization",
+    "zoom": "Zoom",
+    "anyImagesFormatsOr": "any image files formats, or"
 }

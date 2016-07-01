@@ -39,7 +39,7 @@
     "[tracking and tracing email is not valid]": "Digite um e-mail válido",
     "[tracking and tracing skip reporting]": "Não reportar, apenas iniciar",
     "[tracking and tracing start]": "Iniciar e reportar meus resultados",
-    "[tracking and tracing error]": "Algo está errado",
+    "[tracking and tracing error]": "Ocorreu um erro",
     "[tracking and tracing error hint]": "Se você continuar sem re-iniciar, seus resultados do aprendizado não serão relatados",
     "[tracking and tracing restart course]": "Re-iniciar curso",
     "[tracking and tracing continue anyway]": "Continuar mesmo assim",

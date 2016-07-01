@@ -142,7 +142,7 @@
     <value>Copyright © 2016 easygenerator. Todos direitos reservados.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
-    <value>Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com caso o problema persista. </value>
+    <value>Ocorreu um erro. Tente novamente. Contate support@easygenerator.com caso o problema persista.</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Inicie criando cursos agora!</value>
@@ -285,7 +285,7 @@ Time Easygenerator&lt;/p&gt;
     <value>Política de privacidade</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com caso o problema persista. </value>
+    <value>Ocorreu um erro. Tente novamente. Contate support@easygenerator.com caso o problema persista.</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>Qual sua função</value>
