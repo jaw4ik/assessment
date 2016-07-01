@@ -29,7 +29,7 @@
     "[tracking and tracing start]": "INICIAR e registrar meu progresso",
     "[tracking and tracing skip step]": "Pular passo",
     "[tracking and tracing do not report]": "Não registrar, apenas iniciar",
-    "[tracking and tracing error]": "Algo está errado",
+    "[tracking and tracing error]": "Ocorreu um erro",
     "[tracking and tracing error hint]": "Se você continuar sem re-iniciar, seus resultados do aprendizado não serão relatados. Contate sue professor se o problema persistir.",
     "[tracking and tracing restart course]": "Re-iniciar curso",
     "[tracking and tracing continue anyway]": "Continuar mesmo assim",
