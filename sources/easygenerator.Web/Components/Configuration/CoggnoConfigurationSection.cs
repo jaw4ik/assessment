@@ -29,16 +29,16 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
-        [ConfigurationProperty("assertionCnsumerServiceUrl", IsRequired = true)]
-        public string AssertionCnsumerServiceUrl
+        [ConfigurationProperty("assertionConsumerServiceUrl", IsRequired = true)]
+        public string AssertionConsumerServiceUrl
         {
             get
             {
-                return (string)this["assertionCnsumerServiceUrl"];
+                return (string)this["assertionConsumerServiceUrl"];
             }
             set
             {
-                this["assertionCnsumerServiceUrl"] = value;
+                this["assertionConsumerServiceUrl"] = value;
             }
         }
 
@@ -65,6 +65,19 @@ namespace easygenerator.Web.Components.Configuration
             set
             {
                 this["apiKey"] = value;
+            }
+        }
+
+        [ConfigurationProperty("publicationUrl", IsRequired = true)]
+        public string PublicationUrl
+        {
+            get
+            {
+                return (string)this["publicationUrl"];
+            }
+            set
+            {
+                this["publicationUrl"] = value;
             }
         }
     }

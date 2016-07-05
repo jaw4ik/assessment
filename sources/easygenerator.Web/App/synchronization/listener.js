@@ -56,6 +56,8 @@
                         courseTemplateUpdated: courseEventHandler.templateUpdated,
                         courseSectionsReordered: courseEventHandler.sectionsReordered,
                         coursePublished: courseEventHandler.published,
+                        coursePublishedForSale: courseEventHandler.publishedForSale,
+                        courseProcessedByCoggno: courseEventHandler.processedByCoggno,
                         courseDeleted: courseEventHandler.deleted,
                         courseSectionRelated: courseEventHandler.sectionRelated,
                         courseSectionsUnrelated: courseEventHandler.sectionsUnrelated,

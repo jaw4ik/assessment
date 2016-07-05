@@ -301,6 +301,8 @@
     <Compile Include="BuildLearningPath\PackageModel\LearningPathPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AcademyAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\CoggnoApiKeyAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\ApiKeyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\OrganizationAdminAttribute.cs" />
@@ -383,6 +385,8 @@
     <Compile Include="Controllers\SAML\IdentityProvider\IdentityProviderController.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderController.cs" />
     <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
+    <Compile Include="Publish\Coggno\CoggnoPublisher.cs" />
+    <Compile Include="Publish\Coggno\ICoggnoPublisher.cs" />
     <Compile Include="Publish\External\ExternalPublisher.cs" />
     <Compile Include="Publish\External\IExternalPublisher.cs" />
     <Compile Include="Publish\IPublisher.cs" />
@@ -667,6 +671,7 @@
     <Compile Include="Synchronization\Tracking\IUserConnectionTracker.cs" />
     <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
+    <Compile Include="ViewModels\Api\CoggnoPublishCompletedViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\CourseViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\UserInfoSearchViewModel.cs" />
@@ -738,6 +743,7 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\commands\allowCoggnoCommand.js" />
     <Content Include="App\commands\collaboration\finishCollaborationCommand.js" />
     <Content Include="App\commands\collaboration\finishCollaborationCommand.spec.js">
       <DependentUpon>finishCollaborationCommand.js</DependentUpon>
@@ -765,6 +771,8 @@
     <Content Include="App\design\tabs\fontsTabSections\generalStyles.spec.js">
       <DependentUpon>generalStyles.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\allowCoggno\view.html" />
+    <Content Include="App\widgets\allowCoggno\viewmodel.js" />
     <Content Include="App\dialogs\collaboration\addCollaborator.js">
       <DependentUpon>addCollaborator.html</DependentUpon>
     </Content>
@@ -1370,6 +1378,8 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\ownershipUpdated.spec.js">
       <DependentUpon>ownershipUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\processedByCoggno.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\publishedForSale.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\sectionRelated.spec.js">
       <DependentUpon>sectionRelated.js</DependentUpon>
     </Content>
@@ -1511,6 +1521,8 @@
     <Content Include="App\images\commands\deleteImage.js" />
     <Content Include="App\images\index.js" />
     <Content Include="App\images\queries\getImages.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publishToCoggno.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publishingToCoggnoAction.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.spec.js">
       <DependentUpon>publishToCustomLms.js</DependentUpon>
@@ -1667,6 +1679,8 @@
     <Content Include="App\views\courses\course\results\noResults.html" />
     <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
     <Content Include="App\images\index.html" />
+    <Content Include="App\views\courses\publishActions\publishToCoggno.html" />
+    <Content Include="App\views\courses\publishActions\updatePublishedToCoggnoCourse.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\configure\index.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
@@ -2689,6 +2703,7 @@
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.pem" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.pfx" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.private_key.pem" />
+    <Content Include="Content\allowCoggnoPopup.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

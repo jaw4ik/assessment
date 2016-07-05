@@ -54,7 +54,7 @@ namespace easygenerator.DomainModel
         OpenQuestion OpenQuestion(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
-        CourseState CourseState(Course course, bool isDirty);
+        CourseState CourseState(Course course, bool isDirty, bool isDirtyForSale);
         LearningPath LearningPath(string title, string createdBy);
         Scenario Scenario(string title, int masteryScore, string createdBy);
         Organization Organization(string title, string createdBy);
@@ -254,9 +254,9 @@ namespace easygenerator.DomainModel
             return new DemoCourseInfo(sourceCourse, demoCourse, createdBy);
         }
 
-        public CourseState CourseState(Course course, bool isDirty)
+        public CourseState CourseState(Course course, bool isDirty, bool isDirtyForSale)
         {
-            return new CourseState(course, isDirty);
+            return new CourseState(course, isDirty, isDirtyForSale);
         }
 
         public LearningPath LearningPath(string title, string createdBy)

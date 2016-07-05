@@ -44,6 +44,7 @@ namespace easygenerator.Web.Controllers.SAML.IdentityProvider
         {
             var requestData = Request.ToHttpRequestData(true);
             if (!requestData.QueryString["SAMLRequest"].Any()) return BadRequest();
+            var id = requestData.QueryString["uid"].FirstOrDefault() ?? "";
             var extractedMessage = Saml2Binding.Get(Saml2BindingType.HttpRedirect).Unbind(requestData, null);
             var request = new Saml2AuthenticationRequest(extractedMessage.Data, extractedMessage.RelayState);
 
@@ -58,7 +59,8 @@ namespace easygenerator.Web.Controllers.SAML.IdentityProvider
                 InResponseTo = request.Id.Value,
                 AssertionConsumerServiceUrl = request.AssertionConsumerServiceUrl.ToString(),
                 RelayState = extractedMessage.RelayState,
-                Audience = request.Issuer.Id
+                Audience = request.Issuer.Id,
+                Uid = id
             };
 
             var currentServiceProvider = _samlServiceProviderRepository.GetByAssertionConsumerService(request.AssertionConsumerServiceUrl.OriginalString);
@@ -103,7 +105,7 @@ namespace easygenerator.Web.Controllers.SAML.IdentityProvider
             
             var response = _saml2ResponseProvider.CreateSaml2Response(model);
             var result = Saml2Binding.Get(Saml2BindingType.HttpPost);
-            return isPostRequest ? result.BindSamlResponse(response).ToActionResult() : result.Bind(response).ToActionResult();
+            return isPostRequest ? result.BindSamlResponse(response, model.Uid).ToActionResult() : result.BindHtmlSamlResponse(response, model.Uid).ToActionResult();
         }
     }
 }

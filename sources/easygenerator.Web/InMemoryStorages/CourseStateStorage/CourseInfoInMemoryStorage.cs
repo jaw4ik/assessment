@@ -8,7 +8,7 @@ namespace easygenerator.Web.InMemoryStorages.CourseStateStorage
 {
     public class CourseInfoInMemoryStorage : ICourseInfoInMemoryStorage
     {
-        private readonly ConcurrentDictionary<Guid, CourseInfo> _infos = new ConcurrentDictionary<Guid, CourseInfo>();
+        private readonly ConcurrentDictionary<Guid, CourseInfo> _infos;
 
         public IEnumerable<CourseInfo> CourseInfos
         {

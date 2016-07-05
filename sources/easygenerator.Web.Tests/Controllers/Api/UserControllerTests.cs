@@ -21,6 +21,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -38,6 +39,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IDemoCoursesStorage _demoCoursesInMemoryStorage;
         private ITemplateRepository _templateRepository;
         private ICloner _cloner;
+        private ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private ConfigurationReader _configurationReader;
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -55,12 +58,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _templateRepository = Substitute.For<ITemplateRepository>();
             _cloner = Substitute.For<ICloner>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
+            _samlServiceProviderRepository = Substitute.For<ISamlServiceProviderRepository>();
+            _configurationReader = Substitute.For<ConfigurationReader>();
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
                 _eventPublisher,
                 _mailSenderWrapper,
-                _releaseNoteFileReader
+                _releaseNoteFileReader,
+                _samlServiceProviderRepository,
+                _configurationReader
                 );
 
             _user = Substitute.For<IPrincipal>();

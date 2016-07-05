@@ -10,7 +10,9 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -22,14 +24,19 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
+        private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private readonly ConfigurationReader _configurationReader;
 
-        public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper, IReleaseNoteFileReader fileReader)
+        public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper, IReleaseNoteFileReader fileReader,
+            ISamlServiceProviderRepository samlServiceProviderRepository, ConfigurationReader configurationReader)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _releaseNoteFileReader = fileReader;
+            _samlServiceProviderRepository = samlServiceProviderRepository;
+            _configurationReader = configurationReader;
         }
 
         [HttpPost]
@@ -237,6 +244,21 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
             user.Settings.SwitchIncludeMediaToPackage(GetCurrentUsername());
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/user/allowcoggno")]
+        public ActionResult AllowCoggno()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            var coggnoServiceProvider = _samlServiceProviderRepository.GetByAssertionConsumerService(_configurationReader.CoggnoConfiguration.AssertionConsumerServiceUrl);
+            if (coggnoServiceProvider == null)
+            {
+                coggnoServiceProvider = new SamlServiceProvider(_configurationReader.CoggnoConfiguration.AssertionConsumerServiceUrl, _configurationReader.CoggnoConfiguration.Issuer);
+                _samlServiceProviderRepository.Add(coggnoServiceProvider);
+            }
+            user.Allow(coggnoServiceProvider, user.Email);
             return JsonSuccess();
         }
     }

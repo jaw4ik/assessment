@@ -48,6 +48,8 @@ namespace easygenerator.Web.Components.Mappers
                 PackageUrl = course.PackageUrl,
                 PublishedPackageUrl = _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl),
                 IsDirty = _courseStateStorage.IsDirty(course),
+                IsDirtyForSale = _courseStateStorage.IsDirtyForSale(course),
+                SaleInfo = new { course.SaleInfo.DocumentId, course.SaleInfo.IsProcessing },
                 ReviewUrl = course.PublishedOn != null ? GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedSections = course.RelatedSections.Select(obj => new
                 {

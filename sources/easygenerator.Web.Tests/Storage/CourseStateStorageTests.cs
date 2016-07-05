@@ -141,7 +141,7 @@ namespace easygenerator.Web.Tests.Storage
 
             var state = CourseStateObjectMother.Create();
             _repository.GetByCourseId(course.Id).Returns(null as CourseState);
-            _entityFactory.CourseState(course, true).ReturnsForAnyArgs(state);
+            _entityFactory.CourseState(course, true, true).ReturnsForAnyArgs(state);
 
             //Act
             _infoStorage.MarkAsDirty(course);
@@ -198,7 +198,7 @@ namespace easygenerator.Web.Tests.Storage
 
             var state = CourseStateObjectMother.Create();
             _repository.GetByCourseId(course.Id).Returns(null as CourseState);
-            _entityFactory.CourseState(course, true).ReturnsForAnyArgs(state);
+            _entityFactory.CourseState(course, true, true).ReturnsForAnyArgs(state);
 
             //Act
             _infoStorage.MarkAsClean(course);

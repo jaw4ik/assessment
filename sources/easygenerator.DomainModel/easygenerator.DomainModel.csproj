@@ -48,6 +48,8 @@
     <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
+    <Compile Include="Entities\IScormPublishableEntity.cs" />
     <Compile Include="Entities\SamlServiceProvider.cs" />
     <Compile Include="Entities\SamlIdentityProvider.cs" />
     <Compile Include="Entities\ConsumerTool.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Entities\Questions\Statement.cs" />
     <Compile Include="Entities\Questions\TextMatching.cs" />
     <Compile Include="Entities\Questions\TextMatchingAnswer.cs" />
+    <Compile Include="Entities\CourseSaleInfo.cs" />
     <Compile Include="Entities\UserSettings.cs" />
     <Compile Include="EntityCloner.cs" />
     <Compile Include="Entities\AccessType.cs" />
@@ -120,6 +123,9 @@
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorAddedEvent.cs" />
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorAdminAccessGrantedEvent.cs" />
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorRemovedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseProcessedByCoggnoEvent.cs" />
+    <Compile Include="Events\CourseEvents\CoursePublishedForSaleEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseScormBuildStartedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseBuildStartedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCreatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseDeletedEvent.cs" />

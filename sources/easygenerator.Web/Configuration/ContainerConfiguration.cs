@@ -57,6 +57,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.Web.Publish.Coggno;
 using easygenerator.Web.SAML.IdentityProvider.Providers;
 using easygenerator.Web.SAML.ServiceProvider.Mappers;
 using easygenerator.Web.SAML.ServiceProvider.Providers;
@@ -192,6 +193,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<Publisher>().As<IPublisher>();
             builder.RegisterType<ExternalPublisher>().As<IExternalPublisher>();
+            builder.RegisterType<CoggnoPublisher>().As<ICoggnoPublisher>();
 
             #endregion
 

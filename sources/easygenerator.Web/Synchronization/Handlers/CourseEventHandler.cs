@@ -15,11 +15,13 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
         IDomainEventHandler<CourseSectionsReorderedEvent>,
         IDomainEventHandler<CoursePublishedEvent>,
+        IDomainEventHandler<CoursePublishedForSaleEvent>,
         IDomainEventHandler<CourseDeletedEvent>,
         IDomainEventHandler<CourseSectionRelatedEvent>,
         IDomainEventHandler<CourseSectionsUnrelatedEvent>,
         IDomainEventHandler<CourseSectionsClonedEvent>,
-        IDomainEventHandler<CourseStateChangedEvent>
+        IDomainEventHandler<CourseStateChangedEvent>,
+        IDomainEventHandler<CourseProcessedByCoggnoEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
         private readonly IEntityMapper _entityMapper;
@@ -61,6 +63,11 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster.OtherCollaborators(args.Course)
                 .coursePublished(args.Course.Id.ToNString(), args.Course.PublicationUrl);
         }
+        public void Handle(CoursePublishedForSaleEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Course)
+                .coursePublishedForSale(args.Course.Id.ToNString());
+        }
 
         public void Handle(CourseDeletedEvent args)
         {
@@ -88,7 +95,13 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseStateChangedEvent args)
         {
-            _broadcaster.AllCollaborators(args.Course).courseStateChanged(args.Course.Id.ToNString(), new { isDirty = args.IsDirty });
+            _broadcaster.AllCollaborators(args.Course).courseStateChanged(args.Course.Id.ToNString(), new { isDirty = args.IsDirty, isDirtyForSale = args.IsDirtyForSale });
+        }
+
+        public void Handle(CourseProcessedByCoggnoEvent args)
+        {
+            _broadcaster.AllCollaborators(args.Course)
+                .courseProcessedByCoggno(args.Course.Id.ToNString(), args.Course.SaleInfo.DocumentId, args.Success);
         }
     }
 }

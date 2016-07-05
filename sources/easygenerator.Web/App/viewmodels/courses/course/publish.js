@@ -1,13 +1,14 @@
 ﻿define(['repositories/courseRepository', 'routing/router', 'constants', 'userContext', 'clientContext', 'localization/localizationManager', 'eventTracker',
         'viewmodels/courses/publishingActions/build', 'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 
-        'viewmodels/courses/publishingActions/publishToCustomLms'],
+        'viewmodels/courses/publishingActions/publishToCoggno', 'viewmodels/courses/publishingActions/publishToCustomLms'],
     function (repository, router, constants, userContext, clientContext, localizationManager, eventTracker, 
-        BuildPublishingAction, ScormBuildPublishingAction, PublishPublishingAction, PublishToCustomLmsAction) {
+        BuildPublishingAction, ScormBuildPublishingAction, PublishPublishingAction, PublishToCoggnoAction, PublishToCustomLmsAction) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
             openEmbedTab: 'Open embed tab',
             openLinkTab: 'Open link tab',
+            openSellCourseTab: 'Open \'Sell course\' tab',
             openScormTab: 'Open \'download SCORM\'',
             openHtmlTab: 'Open \'downoload HTML\'',
             openCustomPublishTab: 'Open custom publish tab'
@@ -20,7 +21,7 @@
             buildAction: new BuildPublishingAction(),
             scormBuildAction: new ScormBuildPublishingAction(),
             publishAction: new PublishPublishingAction(),
-
+            publishToCoggnoAction: new PublishToCoggnoAction(),
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
@@ -29,6 +30,7 @@
             sendOpenCustomPublishTab: sendOpenCustomPublishTab,
             sendOpenLinkTab: sendOpenLinkTab,
             sendOpenEmbedTab: sendOpenEmbedTab,
+            sendOpenSellCourseTab: sendOpenSellCourseTab,
             sendOpenScormTab: sendOpenScormTab,
             sendOpenHtmlTab: sendOpenHtmlTab
         };
@@ -49,6 +51,10 @@
 
         function sendOpenEmbedTab() {
             eventTracker.publish(events.openEmbedTab);
+        }
+
+        function sendOpenSellCourseTab() {
+            eventTracker.publish(events.openSellCourseTab);
         }
 
         function sendOpenScormTab() {
@@ -86,6 +92,7 @@
             viewModel.buildAction.deactivate();
             viewModel.scormBuildAction.deactivate();
             viewModel.publishAction.deactivate();
+            viewModel.publishToCoggnoAction.deactivate();
             viewModel.publishToCustomLmsModels.forEach(function(publishToCustomLmsModel) {
                 publishToCustomLmsModel.model.deactivate();
             });

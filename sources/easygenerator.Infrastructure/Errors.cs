@@ -20,6 +20,11 @@ namespace easygenerator.Infrastructure
         public const string LearningPathNotFoundError = "Learning path is not found";
         public const string LearningPathPublishActionFailedError = "Failed. Try again.";
 
+        public const string CoggnoSamlServiceProviderNotAllowed = "Coggno is not allowed SAML Service Provider for current user yet. Allow Coggno firstly.";
+        public const string CourseCoggnoProcessingFailed = "Course processing failed in Coggno";
+        public const string CourseIdHasInvalidFormat = "Course Id has invalid format";
+        public const string CourseIsBeingProcessedAndCannotBePublished = "Course is being processed and can't be published for now";
+        public const string CourseHasNotBeenPublishedByTheOwner = "Course hasn't been published to Coggno by the owner yet";
         public const string CourseNotFoundResourceKey = "courseNotFoundError";
         public const string DocumentNotFoundResourceKey = "documentNotFoundError";
         public const string LearningPathNotFoundResourceKey = "learningPathNotFoundError";
@@ -36,6 +41,7 @@ namespace easygenerator.Infrastructure
         public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
         public const string UpgradeAccountToCreateAdvancedQuestionTypes = "upgradeAccountToCreateAdvancedQuestionTypes";
+        public const string UpgradeToPlusPlanToSellCourses = "upgradeToPlusPlanToSellCourses";
 
         public const string UpgradeToNextPlanToCreateMoreCoursesErrorMessage = "upgradeToNextPlanToCreateMoreCoursesErrorMessage";
         public const string NotEnoughPermissionsErrorMessageKey = "notEnoughPermissionsErrorMessage";

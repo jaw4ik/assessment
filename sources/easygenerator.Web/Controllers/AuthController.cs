@@ -10,6 +10,7 @@ using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Extensions;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Controllers
 {
@@ -23,10 +24,12 @@ namespace easygenerator.Web.Controllers
         private readonly IOrganizationMapper _organizationMapper;
         private readonly IOrganizationUserRepository _organizationUserRepository;
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
+        private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private readonly ConfigurationReader _configurationReader;
 
         public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IReleaseNoteFileReader releaseNoteFileReader, IEntityModelMapper<Company> companyMapper,
             IOrganizationRepository organizationRepository, IOrganizationMapper organizationMapper, IOrganizationUserRepository organizationUserRepository,
-            IOrganizationInviteMapper organizationInviteMapper)
+            IOrganizationInviteMapper organizationInviteMapper, ISamlServiceProviderRepository samlServiceProviderRepository, ConfigurationReader configurationReader)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
@@ -36,6 +39,8 @@ namespace easygenerator.Web.Controllers
             _organizationMapper = organizationMapper;
             _organizationUserRepository = organizationUserRepository;
             _organizationInviteMapper = organizationInviteMapper;
+            _samlServiceProviderRepository = samlServiceProviderRepository;
+            _configurationReader = configurationReader;
         }
 
         [HttpPost, AllowAnonymous]
@@ -90,6 +95,9 @@ namespace easygenerator.Web.Controllers
                 newEditor = user.Settings.NewEditor,
                 isCreatedThroughLti = user.Settings.IsCreatedThroughLti,
                 isCreatedThroughSamlIdP = user.Settings.IsCreatedThroughSamlIdP,
+                isCoggnoSamlServiceProviderAllowed = user.IsAllowed(
+                    _samlServiceProviderRepository.GetByAssertionConsumerService(_configurationReader.CoggnoConfiguration.AssertionConsumerServiceUrl)
+                ),
                 isNewEditorByDefault = user.Settings.IsNewEditorByDefault,
                 includeMediaToPackage = user.Settings.IncludeMediaToPackage
             });

@@ -103,6 +103,9 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Document>().Property(e => e.DocumentType).IsRequired();
             modelBuilder.Entity<Document>().HasMany(e => e.LearningPathCollection).WithMany(e => e.DocumentsCollection).Map(m => m.ToTable("LearningPathDocuments"));
 
+            modelBuilder.Entity<CourseSaleInfo>().HasKey(e => e.Course_Id);
+            modelBuilder.Entity<CourseSaleInfo>().Property(e => e.DocumentId).HasMaxLength(255);
+
             modelBuilder.Entity<Course>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Course>().HasRequired(e => e.Template).WithMany(e => e.Courses).WillCascadeOnDelete(false);
             modelBuilder.Entity<Course>().HasMany(e => e.RelatedSectionsCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseSections"));
@@ -116,6 +119,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.ScormPackageUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().Property(e => e.PublicationUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().HasMany(e => e.CourseCompanies).WithMany(e => e.CompanyCourses).Map(m => m.ToTable("CompanyCourses"));
+            modelBuilder.Entity<Course>().HasRequired(e => e.SaleInfo).WithRequiredPrincipal(e => e.Course).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.IsAdmin).IsRequired();

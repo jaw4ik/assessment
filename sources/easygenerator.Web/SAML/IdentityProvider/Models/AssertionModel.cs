@@ -15,5 +15,6 @@ namespace easygenerator.Web.SAML.IdentityProvider.Models
         public string Audience { get; set; }
         public ICollection<AttributeStatementModel> AttributeStatements { get; }
         public string InResponseTo { get; set; }
+        public string Uid { get; set; }
     }
 }

@@ -99,6 +99,12 @@ namespace easygenerator.DomainModel
                             list.Add(Expression.Assign(Expression.Property(target, member), Expression.Invoke(Expression.Field(null, DateTimeWrapper_NowPropertyInfo))));
                             continue;
                         }
+
+                        if (member.Name == "SaleInfo")
+                        {
+                            list.Add(Expression.Assign(Expression.Property(target, member), Expression.New(typeof(CourseSaleInfo))));
+                            continue;
+                        }
                     }
 
                     // cloning of cources is not needed.

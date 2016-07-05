@@ -95,6 +95,8 @@
             id: '',
             createdBy: ko.observable(),
             isDirty: ko.observable(),
+            isDirtyForSale: ko.observable(),
+            publicationExists: ko.observable(),
 
             collaborators: ko.observableArray(),
             collaborate: collaborate,
@@ -111,6 +113,7 @@
             templateUpdated: templateUpdated,
             templateUpdatedByCollaborator: templateUpdatedByCollaborator,
             stateChanged: stateChanged,
+            publishFinished: publishFinished,
             changeTemplate: changeTemplate,
             template: {
                 id: ko.observable(),
@@ -168,6 +171,8 @@
                 viewModel.titleField.title(course.title);
                 viewModel.createdBy(course.createdBy);
                 viewModel.isDirty(course.isDirty);
+                viewModel.isDirtyForSale(course.isDirtyForSale);
+                viewModel.publicationExists(!_.isNullOrUndefined(course.publish.packageUrl) && !_.isEmptyOrWhitespace(course.publish.packageUrl));
 
                 updateTemplateInfo(course.template);
 
@@ -177,6 +182,9 @@
                 viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
                 clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
                 app.on(constants.messages.course.stateChanged + courseId, viewModel.stateChanged);
+
+                app.on(constants.messages.course.publish.completed, viewModel.publishFinished);
+                app.on(constants.messages.course.publish.failed, viewModel.publishFinished);
 
                 app.on(constants.messages.course.templateUpdated + viewModel.id, viewModel.templateUpdated);
                 app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
@@ -200,6 +208,9 @@
 
             app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
             app.off(constants.messages.course.stateChanged + viewModel.id, viewModel.stateChanged);
+
+            app.off(constants.messages.course.publish.completed, viewModel.publishFinished);
+            app.off(constants.messages.course.publish.failed, viewModel.publishFinished);
 
             app.off(constants.messages.course.templateUpdated + viewModel.id, viewModel.templateUpdated);
             app.off(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
@@ -244,5 +255,13 @@
 
         function stateChanged(state) {
             viewModel.isDirty(state.isDirty);
+            viewModel.isDirtyForSale(state.isDirtyForSale);
+        }
+
+        function publishFinished(course) {
+            if (course.id !== viewModel.id) {
+                return;
+            }
+            viewModel.publicationExists(!_.isNullOrUndefined(course.publish.packageUrl) && !_.isEmptyOrWhitespace(course.publish.packageUrl));
         }
     })

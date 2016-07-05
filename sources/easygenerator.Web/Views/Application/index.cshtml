@@ -3,6 +3,7 @@
 @using System.Web.Optimization
 @using easygenerator.Infrastructure
 @using easygenerator.Web.Components
+@using easygenerator.Web.Components.Configuration
 
 @{
     Layout = null;
@@ -104,6 +105,13 @@
         {
             <text>
             window.winToWebConvertionServiceUrl = '@ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]';
+            </text>
+        }
+        @if ((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection) != null)
+        {
+            <text>
+            window.coggnoServiceUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceUrl)';
+            window.coggnoServiceProviderUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceProviderUrl)';
             </text>
         }
     </script>
