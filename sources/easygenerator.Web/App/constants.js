@@ -508,7 +508,7 @@ storage: {
     }
 },
 
-    dialogs: {
+dialogs: {
         stepSubmitted: 'dialog:step-submitted',
         dialogClosed: 'dialog:dialogClosed',
         deleteItem: {

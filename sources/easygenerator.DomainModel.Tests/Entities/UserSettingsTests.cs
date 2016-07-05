@@ -36,6 +36,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             settings.CreatedBy.Should().Be(createdBy);
             settings.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
             settings.IsCreatedThroughLti.Should().BeFalse();
+            settings.IsCreatedThroughSamlIdP.Should().BeFalse();
             settings.NewEditor.Should().BeTrue();
             settings.IsNewEditorByDefault.Should().BeTrue();
             settings.IncludeMediaToPackage.Should().BeFalse();

@@ -24,7 +24,7 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
         {
             if (assertionModel == null)
             {
-                throw new ArgumentException(nameof(assertionModel));
+                throw new ArgumentNullException(nameof(assertionModel));
             }
             var nameIdClaim = new Claim(ClaimTypes.NameIdentifier, assertionModel.NameId, ClaimValueTypes.Email);
             nameIdClaim.Properties[ClaimProperties.SamlNameIdentifierFormat] = NameIdFormat.EmailAddress.GetUri().AbsoluteUri;

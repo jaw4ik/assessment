@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -7,6 +8,28 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal SamlIdentityProvider()
         {
+            SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
+        }
+
+        public SamlIdentityProvider(string name, string entityId, string singleSignOnServiceUrl, string singleLogoutServiceUrl, short singleSignOnServiceBinding,
+            short? singleLogoutServiceBinding, bool allowUnsolicitedAuthnResponse, string metadataLocation, bool wantAuthnRequestsSigned, string signingCertificate)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(name, nameof(name));
+            ArgumentValidation.ThrowIfNullOrEmpty(entityId, nameof(entityId));
+            ArgumentValidation.ThrowIfNullOrEmpty(singleSignOnServiceUrl, nameof(singleSignOnServiceUrl));
+            ArgumentValidation.ThrowIfNullOrEmpty(signingCertificate, nameof(signingCertificate));
+
+            Name = name;
+            EntityId = entityId;
+            SingleSignOnServiceUrl = singleSignOnServiceUrl;
+            SingleLogoutServiceUrl = singleLogoutServiceUrl;
+            SingleSignOnServiceBinding = singleSignOnServiceBinding;
+            SingleLogoutServiceBinding = singleLogoutServiceBinding;
+            AllowUnsolicitedAuthnResponse = allowUnsolicitedAuthnResponse;
+            MetadataLocation = metadataLocation;
+            WantAuthnRequestsSigned = wantAuthnRequestsSigned;
+            SigningCertificate = signingCertificate;
+
             SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
         }
 

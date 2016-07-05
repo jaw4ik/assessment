@@ -7,10 +7,12 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
 {
     public class UrlResolverProvider: IUrlResolverProvider
     {
+        private readonly HttpContextBase _httpContext;
         private readonly ConfigurationReader _configurationReader;
 
-        public UrlResolverProvider(ConfigurationReader configurationReader)
+        public UrlResolverProvider(HttpContextBase httpContext, ConfigurationReader configurationReader)
         {
+            _httpContext = httpContext;
             _configurationReader = configurationReader;
         }
 
@@ -20,10 +22,10 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
         public Uri LogoutServiceUrl => string.IsNullOrEmpty(_configurationReader.SamlIdPConfiguration.LogoutServicePath) ? null :
             GetCombinedUrl(_configurationReader.SamlIdPConfiguration.LogoutServicePath);
 
-        private static Uri GetCombinedUrl(string path)
+        private Uri GetCombinedUrl(string path)
         {
-            var applicationPathSegmentsCount = new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Request.ApplicationPath ?? "").Segments.Length;
-            var namedIdpSegment = HttpContext.Current.Request.Url.Segments.Skip(applicationPathSegmentsCount).FirstOrDefault(); // find guid part if any
+            var applicationPathSegmentsCount = new Uri(_httpContext.Request.Url, _httpContext.Request.ApplicationPath ?? "").Segments.Length;
+            var namedIdpSegment = _httpContext.Request.Url.Segments.Skip(applicationPathSegmentsCount).FirstOrDefault(); // find guid part if any
             if (!string.IsNullOrEmpty(namedIdpSegment) && !namedIdpSegment.EndsWith("/"))
             {
                 namedIdpSegment = namedIdpSegment + "/";
@@ -31,9 +33,9 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
             Guid parsedGuid;
             if (!string.IsNullOrEmpty(namedIdpSegment) && Guid.TryParse(namedIdpSegment.TrimEnd('/'), out parsedGuid))
             {
-                return new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Request.ApplicationPath + namedIdpSegment + path);
+                return new Uri(_httpContext.Request.Url, _httpContext.Request.ApplicationPath + namedIdpSegment + path);
             }
-            return new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Request.ApplicationPath + path);
+            return new Uri(_httpContext.Request.Url, _httpContext.Request.ApplicationPath + path);
         }
     }
 }

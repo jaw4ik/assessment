@@ -412,6 +412,8 @@
     <Compile Include="SAML\IdentityProvider\Models\AttributeStatementModel.cs" />
     <Compile Include="SAML\IdentityProvider\Models\UserAttributesModel.cs" />
     <Compile Include="SAML\IdentityProvider\Providers\ICertificateProvider.cs" />
+    <Compile Include="SAML\IdentityProvider\Providers\IX509CertificateProvider.cs" />
+    <Compile Include="SAML\IdentityProvider\Providers\X509CertificateProvider.cs" />
     <Compile Include="SAML\IdentityProvider\Providers\MetadataProvider.cs" />
     <Compile Include="SAML\IdentityProvider\Providers\IMetadataProvider.cs" />
     <Compile Include="SAML\IdentityProvider\Providers\IUrlResolverProvider.cs" />
@@ -422,6 +424,8 @@
     <Compile Include="SAML\ServiceProvider\Mappers\IdentityProviderMapper.cs" />
     <Compile Include="SAML\ServiceProvider\Models\SPClaimTypes.cs" />
     <Compile Include="SAML\ServiceProvider\Providers\CommandProvider.cs" />
+    <Compile Include="SAML\ServiceProvider\Providers\AuthServicesOptionsProvider.cs" />
+    <Compile Include="SAML\ServiceProvider\Providers\IAuthServicesOptionsProvider.cs" />
     <Compile Include="SAML\ServiceProvider\Providers\ICommandProvider.cs" />
     <Compile Include="SAML\ServiceProvider\Providers\CommandRunner.cs" />
     <Compile Include="SAML\ServiceProvider\Providers\ICommandRunner.cs" />

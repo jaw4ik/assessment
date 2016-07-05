@@ -20,7 +20,7 @@ namespace easygenerator.DomainModel.Entities
 
         public Guid SamlIdP_Id { get; private set; }
         public Guid User_Id { get; private set; }
-        public SamlIdentityProvider SamlIdP { get; private set; }
+        public virtual SamlIdentityProvider SamlIdP { get; private set; }
         public virtual User User { get; private set; }
     }
 }

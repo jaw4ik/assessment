@@ -94,7 +94,7 @@ namespace easygenerator.Web.Controllers.SAML.ServiceProvider
             var issuer = identifierClaim?.Issuer;
             var email = identifierClaim?.Value;
 
-            ArgumentValidation.ThrowIfNullOrEmpty(email, nameof(issuer));
+            ArgumentValidation.ThrowIfNullOrEmpty(issuer, nameof(issuer));
             ArgumentValidation.ThrowIfNullOrEmpty(email, nameof(email));
 
             var samlIdP = _samlIdentityProviderRepository.GetByEntityId(issuer);
@@ -134,7 +134,7 @@ namespace easygenerator.Web.Controllers.SAML.ServiceProvider
             var userPassword = Guid.NewGuid().ToString("N");
 
             var user = _entityFactory.User(email, userPassword, firstName, lastName, samlMockData, samlMockData, samlMockData, email, AccessType.Trial,
-                _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddDays(trialPeriodDays), false, true, null);
+                _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddDays(trialPeriodDays), false, true, null, null);
 
             user.AddSamlIdPUserInfo(idP);
             _userRepository.Add(user);

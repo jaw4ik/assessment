@@ -72,6 +72,7 @@
     <Compile Include="Entities\DocumentTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
     <Compile Include="Entities\LearningPathTests.cs" />
+    <Compile Include="Entities\SamlIdPUserInfoTests.cs" />
     <Compile Include="Entities\LtiUserInfoTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
     <Compile Include="Entities\Organizations\OrganizationTests.cs" />
@@ -102,6 +103,8 @@
     <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityClonerTests.cs" />
+    <Compile Include="ObjectMothers\SamlServiceProviderObjectMother.cs" />
+    <Compile Include="ObjectMothers\SamlIdPUserInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\Organizations\OrganizationObjectMother.cs" />
     <Compile Include="ObjectMothers\Organizations\OrganizationUserObjectMother.cs" />
     <Compile Include="ObjectMothers\RankingTextAnswerObjectMother.cs" />

@@ -10,13 +10,14 @@ namespace easygenerator.Web.SAML.ServiceProvider.Providers
 {
     public class OptionsProvider : IOptionsProvider
     {
-        public OptionsProvider(ISamlIdentityProviderRepository samlIdentityProviderRepository, IIdentityProviderMapper identityProviderMapper)
+        public OptionsProvider(HttpContextBase httpContext, IAuthServicesOptionsProvider authServicesOptionsProvider, 
+            ISamlIdentityProviderRepository samlIdentityProviderRepository, IIdentityProviderMapper identityProviderMapper)
         {
-            Options = Kentor.AuthServices.Configuration.Options.FromConfiguration;
-
-            var returnUrl = HttpContext.Current.Request.Url.Host == "localhost" ?
-                HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) :
-                $"https://{HttpContext.Current.Request.Url.Host}";
+            Options = authServicesOptionsProvider.Options;
+            
+            var returnUrl = httpContext.Request.Url.Host == "localhost" ?
+                httpContext.Request.Url.GetLeftPart(UriPartial.Authority) :
+                $"https://{httpContext.Request.Url.Host}";
             var entityId = $"{returnUrl}{ Options.SPOptions.ModulePath}";
             Options.SPOptions.ReturnUrl = new Uri(returnUrl);
             Options.SPOptions.EntityId = new EntityId(entityId);

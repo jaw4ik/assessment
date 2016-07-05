@@ -42,7 +42,7 @@ namespace easygenerator.Web.SAML.IdentityProvider.Providers
                     EmailAddresses = {contact.EmailAddress}
                 }).ToList();
             var cacheDuration = new TimeSpan(_configurationSection.Metadata.CacheDays,
-                _configurationSection.Metadata.CacheHours, _configurationSection.Metadata.CacheMinutes);
+                _configurationSection.Metadata.CacheHours, _configurationSection.Metadata.CacheMinutes, 0);
 
             var metadata = new ExtendedEntityDescriptor()
             {
