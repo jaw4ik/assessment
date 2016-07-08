@@ -273,7 +273,7 @@
         box-shadow: 0px 0px 5px 0px #d8d8d8;
         border: 1px solid #d8d8d8;
         border-radius: 4px;
-        
+
         .dialog-view-container {
             height: 100%;
         }
@@ -1671,47 +1671,80 @@
 
 /*#region max-height 700 */
 @media screen and ( max-height: 700px ) {
-    .dialog-wrapper {
-        .dialog-title {
-            padding: 30px 0px;
-        }
+    .dialog-container {
+        .dialog-wrapper {
+            .dialog-view-container {
+                .dialog-generic-transformations();
+            }
 
-        .dialog-actions {
-            height: 80px;
-        }
-
-        &.audio-library {
-            .audio-library-dialog {
-                .dialog-body {
-                    height: 340px;
+            .dialog-wizard-container {
+                .dialog-wizard-step {
+                    .dialog-generic-transformations();
                 }
             }
-        }
-    }
 
-        .dialog-wrapper.editor-feedback {
-            .dialog {
-                .dialog-body {
-                    .editor-feedback-steps-list {
-                        .editor-feedback-rating-step {
-                            .rating-control {
-                                margin: 20px 0px 20px 0px;
-                            }
-                        }
+            .dialog-generic-transformations() {
+                .dialog {
+                    .dialog-title {
+                        padding: 30px 0px;
+                    }
 
-                        .editor-feedback-message-step {
-                            .title-wrapper {
-                                max-height: 20vh;
+                    .dialog-actions {
+                        height: 80px;
+                    }
+                }
+            }
+
+            &.create-course, &.change-course-template {
+                .dialog {
+                    &.create-course-template-step, &.change-course-template-dialog {
+                        .dialog-body {
+                            @content-height: 320px;
+
+                            min-height: @content-height;
+                            max-height: @content-height;
+
+                            .template-selector {
+                                height: @content-height;
                             }
                         }
                     }
                 }
+            }
 
-                .dialog-actions {
-                    height: 40px;
+            &.audio-library {
+                .audio-library-dialog {
+                    .dialog-body {
+                        height: 340px;
+                    }
+                }
+            }
+
+            &.editor-feedback {
+                .dialog {
+                    .dialog-body {
+                        .editor-feedback-steps-list {
+                            .editor-feedback-rating-step {
+                                .rating-control {
+                                    margin: 20px 0px 20px 0px;
+                                }
+                            }
+
+                            .editor-feedback-message-step {
+                                .title-wrapper {
+                                    max-height: 20vh;
+                                }
+                            }
+                        }
+                    }
+
+                    .dialog-actions {
+                        height: 40px;
+                    }
                 }
             }
         }
+    }
 }
 
 /*#endregion*/
