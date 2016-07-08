@@ -7,6 +7,6 @@ namespace easygenerator.StorageServer.Infrastructure
 {
     public static class Constants
     {
-        public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$";
+        public const string EmailValidationRegexp = @"^[^@\s]+@[^@\s]+$";
     }
 }

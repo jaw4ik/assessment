@@ -356,7 +356,7 @@ messages: {
 },
 
 patterns: {
-        email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
+        email: /^[^@\s]+@[^@\s]+$/,
         coursePage: /courses\/[\d\w]+/
     },
 
