@@ -14,9 +14,6 @@
             switchToTheOldCourseEditor: "Switch to the old course editor"
         };
 
-        var requestsCounter = ko.observable(0);
-        var isFirstVisitPage = true;
-
         var viewModel = {
             activate: activate,
             router: router,
@@ -50,38 +47,6 @@
             return '';
         });
 
-        app.on('apiHttpWrapper:post-begin').then(function () {
-            requestsCounter(requestsCounter() + 1);
-        });
-
-        app.on('authHttpWrapper:post-begin').then(function () {
-            requestsCounter(requestsCounter() + 1);
-        });
-
-        app.on('storageHttpWrapper:post-begin').then(function () {
-            requestsCounter(requestsCounter() + 1);
-        });
-
-        app.on('storageHttpWrapper:get-begin').then(function () {
-            requestsCounter(requestsCounter() + 1);
-        });
-
-        app.on('apiHttpWrapper:post-end').then(function () {
-            requestsCounter(requestsCounter() - 1);
-        });
-
-        app.on('authHttpWrapper:post-end').then(function () {
-            requestsCounter(requestsCounter() - 1);
-        });
-
-        app.on('storageHttpWrapper:post-end').then(function () {
-            requestsCounter(requestsCounter() - 1);
-        });
-
-        app.on('storageHttpWrapper:get-end').then(function () {
-            requestsCounter(requestsCounter() - 1);
-        });
-
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
         app.on(constants.messages.course.collaboration.finishedByCollaborator, viewModel.courseCollaborationFinished);
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.sectionsUnrelated);
@@ -112,33 +77,6 @@
 
             return dataContext.initialize()
                 .then(function () {
-                    router.guardRoute = function (routeInfo) {
-                        if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
-                            return 'courses';
-                        }
-
-                        if (requestsCounter() == 0) {
-                            return true;
-                        }
-
-                        var defer = Q.defer();
-                        uiLocker.lock();
-                        checkRequestCounter(defer);
-
-                        return defer.promise;
-
-                        function checkRequestCounter(defer) {
-                            if (requestsCounter() > 0) {
-                                setTimeout(function () {
-                                    checkRequestCounter(defer);
-                                }, 100);
-                            } else {
-                                defer.resolve(true);
-                                uiLocker.unlock();
-                            }
-                        }
-                    };
-
                     leftSideBarManager.initialize();
 
                     router.on('router:navigation:processing').then(function () {
@@ -173,11 +111,6 @@
 
                     clientContext.set(constants.clientContextKeys.lastVisitedSection, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-
-                    var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
-                        isFirstVisitPage = false;
-                        compositionComplete.off();
-                    });
 
                     if (_.isObject(userContext.identity)) {
                         router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));

@@ -689,6 +689,7 @@
     </Content>
     <Content Include="App\binder.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
+    <Content Include="App\bootstrapping\requestTrackingTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\commands\collaboration\finishCollaborationCommand.js" />
@@ -782,6 +783,10 @@
     <Content Include="App\design\textStyleService.js" />
     <Content Include="App\editor\questions\questionModalView.spec.js">
       <DependentUpon>questionModalView.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\httpRequestTracker.js" />
+    <Content Include="App\http\httpRequestTracker.spec.js">
+      <DependentUpon>httpRequestTracker.js</DependentUpon>
     </Content>
     <Content Include="App\mappers\commentModelMapper.js" />
     <Content Include="App\mappers\organizationInviteMapper.js" />

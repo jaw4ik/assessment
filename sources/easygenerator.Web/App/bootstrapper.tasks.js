@@ -4,6 +4,7 @@ import viewLocatorTask from 'bootstrapping/viewLocatorTask';
 import knockoutBindingsTask from 'bootstrapping/knockoutBindingsTask';
 import addWindowEventsTask from 'bootstrapping/addWindowEventsTask';
 import trackVideoUploadTask from 'bootstrapping/trackVideoUploadTask';
+import requestTrackingTask from 'bootstrapping/requestTrackingTask';
 
 function getCollection () {
     return [
@@ -12,7 +13,8 @@ function getCollection () {
         viewLocatorTask,
         knockoutBindingsTask,
         addWindowEventsTask,
-        trackVideoUploadTask
+        trackVideoUploadTask,
+        requestTrackingTask
     ];
 }
 export default { getCollection };

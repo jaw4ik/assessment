@@ -500,6 +500,7 @@
         'http/storageHttpWrapper.spec',
         'http/httpRequestSender.spec',
         'http/storageHttpRequestSender.spec',
+        'http/httpRequestTracker.spec',
         //#endregion
         './Scripts/account/signup.spec',
         './Scripts/account/signin.spec',

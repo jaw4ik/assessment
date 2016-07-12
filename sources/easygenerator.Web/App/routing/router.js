@@ -1,4 +1,6 @@
 ﻿import router from 'plugins/router';
+import uiLocker from 'uiLocker';
+import httpRequestTracker from 'http/httpRequestTracker';
 
 router.openUrl = function (url) {
     window.open(url, '_blank');
@@ -47,6 +49,25 @@ router.setLocationHash = function (hash) {
     return window.location.hash = hash;
 };
 
+router.guardRoute = function (routeInfo) {
+    if (router.isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
+        return 'courses';
+    }
+
+    if (!httpRequestTracker.isRequestPending()) {
+        return true;
+    }
+
+    var defer = Q.defer();
+    uiLocker.lock();
+    httpRequestTracker.waitForRequestFinalization.then(() => {
+        defer.resolve(true);
+        uiLocker.unlock();
+    });
+
+    return defer.promise;
+};
+
 // add routeData to routing
 var defaultRouteData = {
     courseId: null,
@@ -54,6 +75,12 @@ var defaultRouteData = {
 };
 
 router.routeData = ko.observable(defaultRouteData);
+router.isFirstVisitPage = true;
+
+var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
+    router.isFirstVisitPage = false;
+    compositionComplete.off();
+});
 
 router.activeInstruction.subscribe(function (instruction) {
     var url = instruction.fragment;
