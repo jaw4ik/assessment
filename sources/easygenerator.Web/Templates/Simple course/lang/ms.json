@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Letak di sini",
     "[statement question true text]": "BETUL",
     "[statement question false text]": "SALAH",
+    "[statement question true tooltip]": "BETUL",
+    "[statement question false tooltip]": "SALAH",
     "[drag and drop question all texts are placed]": "Semua teks telah diletakkan",
     "[drag and drop question drop here]": "Letak di sini",
     "[fill in the blank choose answer]": "Pilih jawapan…",

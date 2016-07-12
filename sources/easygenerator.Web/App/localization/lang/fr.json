@@ -321,6 +321,7 @@
     "publishedCourseIsUpToDate": "Le cours publié est à jour",
     "sharePrivateLink": "Partager un lien privé",
     "insideAWebsite": "Au sein d'un site web",
+    "sellYourCourse": "Sell your course",
     "toYourLMS": "Vers votre LMS",
     "toYourHosting": "Vers votre hébergement",
     "scormCaptionFirst": "Souhaitez-vous exécuter votre cours sur LMS ou sur votre cloud SCORM ?",
@@ -335,6 +336,8 @@
     "privateLinkCaption": "Copiez et collez l'URL de votre cours pour partager ou visualiser.",
     "updateCourseCaption": "Appliquez les dernières modifications au cours publié en cliquant sur ce bouton",
     "getCourseLink": "Obtenir le lien du cours",
+    "publishToCoggno": "Publish to Coggno",
+    "coggnoCaption": "Coggno is an online training marketplace and learning management system(LMS).",
     "change": "Effectuez vos modifications",
     "changeYourCourseTemplate": "Modifiez votre modèle de cours",
     "branding": "Marquage",
@@ -786,6 +789,7 @@
     "defaultThemes": "Thèmes publics :",
     "sharedThemes": "Thèmes partagés :",
     "contactWithCourseAuthorToChangeDesignSettings": "Contactez l'auteur du cours pour qu'il vous autorise à changer les paramètres de conception.",
+    "themesCannotBeChanged": "Themes cannot be changed in shared courses",
     "notEnoughtPermissions": "Pas assez d'autorisations",
     "unsavedTheme": "Thème non enregistré",
     "nameYourTheme": "Donnez un nom à votre thème...",
@@ -803,7 +807,7 @@
     "upgradeAccountToSaveThemes": "Pour sauvegarder des thèmes, veuillez mettre votre compte à niveau",
     "deleteTheme": "Supprimer un thème",
     "deleteThemePopupMessageTitle": "Information importante:",
-    "deleteThemePopupMessage": "Courses that are used this theme will lose theme settings",
+    "deleteThemePopupMessage": "Les cours utilisés avec ce thème perdront leurs paramètres de thème",
     "backToCourse": "Enregistrer et revenir",
     "duplicateQuestion": "Question en double",
     "duplicateContent": "Contenu en double",
@@ -929,6 +933,6 @@
     "editImage": "Modifier une image",
     "pasteOrTypeImageLink": "Collez ou tapez le lien vers l'image à cet endroit...",
     "upgradeAccountToManageOrganization": "Pour gérer l'organisation, veuillez mettre votre compte à niveau",
-    "zoom": "Zoom",
-    "anyImagesFormatsOr": "any image files formats, or"
+    "zoom": "Appliquez un effet de zoom",
+    "anyImagesFormatsOr": "aux formats de fichiers d'image voulus, ou"
 }

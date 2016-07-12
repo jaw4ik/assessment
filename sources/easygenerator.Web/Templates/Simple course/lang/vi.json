@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Thả tại đây",
     "[statement question true text]": "Đúng",
     "[statement question false text]": "Sai",
+    "[statement question true tooltip]": "Đúng",
+    "[statement question false tooltip]": "Sai",
     "[drag and drop question all texts are placed]": "Tất cả nội dung đã được đặt vào",
     "[drag and drop question drop here]": "Thả tại đây",
     "[fill in the blank choose answer]": "Chọn câu trả lời…",

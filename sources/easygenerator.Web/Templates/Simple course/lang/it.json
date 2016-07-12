@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Rilascia qui",
     "[statement question true text]": "VERO",
     "[statement question false text]": "FALSO",
+    "[statement question true tooltip]": "VERO",
+    "[statement question false tooltip]": "FALSO",
     "[drag and drop question all texts are placed]": "Tutti i testi sono settati",
     "[drag and drop question drop here]": "Rilascia qui",
     "[fill in the blank choose answer]": "Scegli una risposta",

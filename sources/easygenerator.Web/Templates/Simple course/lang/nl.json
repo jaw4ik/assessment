@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Plaats hier",
     "[statement question true text]": "Waar",
     "[statement question false text]": "Onwaar",
+    "[statement question true tooltip]": "Waar",
+    "[statement question false tooltip]": "Onwaar",
     "[drag and drop question all texts are placed]": "Alle teksten zijn geplaatst",
     "[drag and drop question drop here]": "Plaats hier",
     "[fill in the blank choose answer]": "Kies het antwoord…",

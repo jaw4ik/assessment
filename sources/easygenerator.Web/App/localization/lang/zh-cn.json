@@ -321,6 +321,7 @@
     "publishedCourseIsUpToDate": "已发布的课程是最新的",
     "sharePrivateLink": "分享私人链接",
     "insideAWebsite": "网站内部",
+    "sellYourCourse": "Sell your course",
     "toYourLMS": "至您的LMS",
     "toYourHosting": "至您的托管",
     "scormCaptionFirst": "想要在LMS或您的SCORM云上运行课程吗？",
@@ -335,6 +336,8 @@
     "privateLinkCaption": "复制并粘贴您的课程URL以分享或查看它。",
     "updateCourseCaption": "单击此按钮以将最新更改应用到已发布的课程",
     "getCourseLink": "获取课程链接",
+    "publishToCoggno": "Publish to Coggno",
+    "coggnoCaption": "Coggno is an online training marketplace and learning management system(LMS).",
     "change": "更改",
     "changeYourCourseTemplate": "更改您的课程模板",
     "branding": "品牌",
@@ -786,6 +789,7 @@
     "defaultThemes": "公共主题：",
     "sharedThemes": "共享主题：",
     "contactWithCourseAuthorToChangeDesignSettings": "联系课程作者允许您更改设计设置。",
+    "themesCannotBeChanged": "Themes cannot be changed in shared courses",
     "notEnoughtPermissions": "权限不足以",
     "unsavedTheme": "未保存的主题",
     "nameYourTheme": "为您的主题命名...",
@@ -803,7 +807,7 @@
     "upgradeAccountToSaveThemes": "如果想要保存主题，请升级您的账户",
     "deleteTheme": "删除主题",
     "deleteThemePopupMessageTitle": "重要信息：",
-    "deleteThemePopupMessage": "Courses that are used this theme will lose theme settings",
+    "deleteThemePopupMessage": "使用此主题的课程将丢失主题设置",
     "backToCourse": "保存并返回",
     "duplicateQuestion": "复制问题",
     "duplicateContent": "复制内容",
@@ -929,6 +933,6 @@
     "editImage": "编辑图像",
     "pasteOrTypeImageLink": "在此粘贴或写下图片链接...",
     "upgradeAccountToManageOrganization": "如果想要管理组织，请升级您的账户",
-    "zoom": "Zoom",
-    "anyImagesFormatsOr": "any image files formats, or"
+    "zoom": "缩放",
+    "anyImagesFormatsOr": "任何图片文件格式，或"
 }

@@ -321,6 +321,7 @@
     "publishedCourseIsUpToDate": "O curso publicado está atualizado",
     "sharePrivateLink": "Compartilhar link privado",
     "insideAWebsite": "Dentro de site privado",
+    "sellYourCourse": "Sell your course",
     "toYourLMS": "Para o seu LMS (SGA)",
     "toYourHosting": "Para sua hospedagem",
     "scormCaptionFirst": "Deseja executar o curso no seu LMS (SGA) em sua nuvem SCORM?",
@@ -335,6 +336,8 @@
     "privateLinkCaption": "Copie e cole a URL do seu curso para compartilhar ou ver.",
     "updateCourseCaption": "Aplicar as últimas alterações do curso publicado clicando este botão",
     "getCourseLink": "Obter link de curso",
+    "publishToCoggno": "Publish to Coggno",
+    "coggnoCaption": "Coggno is an online training marketplace and learning management system(LMS).",
     "change": "Altere",
     "changeYourCourseTemplate": "Altere o modelo de curso",
     "branding": "Identidade visual",
@@ -786,6 +789,7 @@
     "defaultThemes": "Temas públicos:",
     "sharedThemes": "Temas compartilhados:",
     "contactWithCourseAuthorToChangeDesignSettings": "Entre em contato com o autor do curso para obter permissão para alterar as configurações de design.",
+    "themesCannotBeChanged": "Themes cannot be changed in shared courses",
     "notEnoughtPermissions": "Sem permissões suficientes",
     "unsavedTheme": "Tema não salvo",
     "nameYourTheme": "Nomeie seu tema...",
@@ -803,7 +807,7 @@
     "upgradeAccountToSaveThemes": "Atualize sua conta se deseja salvar temas",
     "deleteTheme": "Excluir tema",
     "deleteThemePopupMessageTitle": "Informações importantes:",
-    "deleteThemePopupMessage": "Courses that are used this theme will lose theme settings",
+    "deleteThemePopupMessage": "Os cursos que utilizam este tema perderão as configurações do tema",
     "backToCourse": "Salve e volte",
     "duplicateQuestion": "Pergunta duplicada",
     "duplicateContent": "Duplicar conteúdo",
@@ -930,5 +934,5 @@
     "pasteOrTypeImageLink": "Cole ou digite o link da imagem aqui...",
     "upgradeAccountToManageOrganization": "Atualize sua conta se deseja gerenciar a organização",
     "zoom": "Zoom",
-    "anyImagesFormatsOr": "any image files formats, or"
+    "anyImagesFormatsOr": "qualquer formato de arquivo de imagem ou"
 }

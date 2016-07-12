@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Сюда",
     "[statement question true text]": "Правильно",
     "[statement question false text]": "Неправильно",
+    "[statement question true tooltip]": "Правильно",
+    "[statement question false tooltip]": "Неправильно",
     "[drag and drop question all texts are placed]": "Все тексты уже использованы",
     "[drag and drop question drop here]": "Сюда",
     "[fill in the blank choose answer]": "Выберите вариант...",
