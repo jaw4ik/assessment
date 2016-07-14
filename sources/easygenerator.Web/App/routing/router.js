@@ -60,7 +60,7 @@ router.guardRoute = function (routeInfo) {
 
     var defer = Q.defer();
     uiLocker.lock();
-    httpRequestTracker.waitForRequestFinalization.then(() => {
+    httpRequestTracker.waitForRequestFinalization().then(() => {
         defer.resolve(true);
         uiLocker.unlock();
     });
