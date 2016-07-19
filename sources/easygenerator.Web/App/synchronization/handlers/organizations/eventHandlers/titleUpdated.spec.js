@@ -2,13 +2,16 @@
 
 import app from 'durandal/app';
 import constants from 'constants';
+import userContext from 'userContext';
 
 describe('synchronization organizations [organizationTitleUpdated]', () => {
     let organizationId = 'id',
-        title = 'title';
+        title = 'title',
+        organization;
     
     beforeEach(() => {
         spyOn(app, 'trigger');
+        organization = { id: organizationId, title: '' };
     });
 
     describe('when organizationId is not string', () => {
@@ -33,9 +36,18 @@ describe('synchronization organizations [organizationTitleUpdated]', () => {
 
     });
 
+    it('should update user context organization',  () => {
+        userContext.identity = { organizations: [organization] };
+
+        handler(organizationId, title);
+                
+        expect(userContext.identity.organizations[0].title).toBe(title);
+                
+    });
+
     it('should trigger app event', () => {
         handler(organizationId, title);
 
-        expect(app.trigger).toHaveBeenCalledWith(constants.messages.organization.titleUpdated + organizationId, title);
+        expect(app.trigger).toHaveBeenCalledWith(constants.messages.organization.titleUpdated, organizationId, title);
     });
 });

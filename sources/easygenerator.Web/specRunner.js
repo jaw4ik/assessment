@@ -254,7 +254,8 @@
         'synchronization/handlers/organizations/eventHandlers/inviteAccepted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipStarted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipFinished.spec',
-
+        'synchronization/handlers/organizations/eventHandlers/userAdded.spec',
+        
         // #endregion
 
         //#region synchronization questions

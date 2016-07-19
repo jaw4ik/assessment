@@ -45,7 +45,7 @@ describe('organizations commands [updateOrganizationTitle]', () => {
 
                 await command.execute(organizationId, title);
                 
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.organization.titleUpdated, { id: organizationId, title: title });
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.organization.titleUpdated, organizationId, title);
                 
             })().then(done));
         });

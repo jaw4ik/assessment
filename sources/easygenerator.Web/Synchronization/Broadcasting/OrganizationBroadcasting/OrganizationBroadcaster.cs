@@ -19,6 +19,13 @@ namespace easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcastin
             return Users(_userProvider.GetAdmins(organization));
         }
 
+        public dynamic OrganizationAdminsExcept(Organization organization, params string[] excludeUsers)
+        {
+            ThrowIfOrganizationNotValid(organization);
+
+            return UsersExcept(_userProvider.GetAdmins(organization), excludeUsers);
+        }
+
         public dynamic InvitedUsers(Organization organization)
         {
             ThrowIfOrganizationNotValid(organization);

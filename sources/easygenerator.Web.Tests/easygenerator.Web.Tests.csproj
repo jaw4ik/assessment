@@ -221,6 +221,7 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
+    <Compile Include="DomainEvents\Handlers\OrganizationUserAutoincludeHandlerTests.cs" />
     <Compile Include="Publish\External\ExternalPublisherTests.cs" />
     <Compile Include="Publish\PublisherTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTrackerTests.cs" />

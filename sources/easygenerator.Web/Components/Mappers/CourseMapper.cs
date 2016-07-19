@@ -1,9 +1,9 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Storage;
 using System.Linq;
+using easygenerator.Web.Components.DomainOperations.CourseOperations;
 
 namespace easygenerator.Web.Components.Mappers
 {

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using easygenerator.Web.Components.Configuration;
+using System;
 using System.Web;
 using System.Web.Mvc;
-using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Components
 {
@@ -10,6 +10,7 @@ namespace easygenerator.Web.Components
         string RouteWebsiteUrl();
         string RouteImageUrl(string fileName);
         string RouteRestorePasswordUrl(string ticketId);
+        string RouteConfirmEmailUrl(string ticketId);
 
         string ToAbsoluteUrl(string relativeUrl);
 
@@ -44,6 +45,11 @@ namespace easygenerator.Web.Components
         public string RouteRestorePasswordUrl(string ticketId)
         {
             return RouteUrlWithUrlHelper("PasswordRecovery", new { ticketId });
+        }
+
+        public string RouteConfirmEmailUrl(string ticketId)
+        {
+            return RouteUrlWithUrlHelper("EmailConfirmation", new { ticketId });
         }
 
         public string ToAbsoluteUrl(string relativeUrl)

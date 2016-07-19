@@ -82,6 +82,9 @@
     <Compile Include="Entities\Questions\Statement.cs" />
     <Compile Include="Entities\Questions\TextMatching.cs" />
     <Compile Include="Entities\Questions\TextMatchingAnswer.cs" />
+    <Compile Include="Entities\Tickets\EmailConfirmationTicket.cs" />
+    <Compile Include="Entities\Tickets\PasswordRecoveryTicket.cs" />
+    <Compile Include="Entities\Tickets\Ticket.cs" />
     <Compile Include="Entities\UserSettings.cs" />
     <Compile Include="EntityCloner.cs" />
     <Compile Include="Entities\AccessType.cs" />
@@ -98,7 +101,6 @@
     <Compile Include="Entities\LearningContent.cs" />
     <Compile Include="Entities\Questions\Multipleselect.cs" />
     <Compile Include="Entities\Section.cs" />
-    <Compile Include="Entities\PasswordRecoveryTicket.cs" />
     <Compile Include="Entities\Questions\Question.cs" />
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Events\LearningContentEvents\LearningContentDeletedEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationEmailDomainUpdatedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserReinvitedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationTitleUpdatedEvent.cs" />
@@ -193,6 +196,7 @@
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerValueChangedEvent.cs" />
     <Compile Include="Events\UserEvents\CreateUserInitialDataEvent.cs" />
     <Compile Include="Events\UserEvents\NewEditorUserFeedbackEvent.cs" />
+    <Compile Include="Events\UserEvents\UserEmailConfirmedEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />

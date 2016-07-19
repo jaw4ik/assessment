@@ -70,6 +70,15 @@ namespace ViewsResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to Easygenerator.
+        /// </summary>
+        public static string BackToEasygenerator {
+            get {
+                return ResourceManager.GetString("BackToEasygenerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking....
         /// </summary>
         public static string Checking {
@@ -93,6 +102,15 @@ namespace ViewsResources {
         public static string Chrome {
             get {
                 return ResourceManager.GetString("Chrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here.
+        /// </summary>
+        public static string ClickHere {
+            get {
+                return ResourceManager.GetString("ClickHere", resourceCulture);
             }
         }
         
@@ -151,6 +169,15 @@ namespace ViewsResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Easygenerator Team.
+        /// </summary>
+        public static string EasygeneratorTeam {
+            get {
+                return ResourceManager.GetString("EasygeneratorTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to eLearning expert.
         /// </summary>
         public static string ElearningExpert {
@@ -183,6 +210,69 @@ namespace ViewsResources {
         public static string EmailCaption {
             get {
                 return ResourceManager.GetString("EmailCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email confirmation.
+        /// </summary>
+        public static string EmailConfirmation {
+            get {
+                return ResourceManager.GetString("EmailConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the link does not work, copy/paste this URL in your browser:.
+        /// </summary>
+        public static string EmailConfirmationCopyPasteLink {
+            get {
+                return ResourceManager.GetString("EmailConfirmationCopyPasteLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’ve joined Easygenerator, but our record shows that you still haven’t confirmed your email address..
+        /// </summary>
+        public static string EmailConfirmationNotConfirmed {
+            get {
+                return ResourceManager.GetString("EmailConfirmationNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To ensure the safety of our existing users, you must verify your email address to access the full range of Easygenerator&apos;s features..
+        /// </summary>
+        public static string EmailConfirmationPurpose {
+            get {
+                return ResourceManager.GetString("EmailConfirmationPurpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm your email address for Easygenerator.
+        /// </summary>
+        public static string EmailConfirmationSubject {
+            get {
+                return ResourceManager.GetString("EmailConfirmationSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully confirmed your email address..
+        /// </summary>
+        public static string EmailConfirmationSuccessMessage {
+            get {
+                return ResourceManager.GetString("EmailConfirmationSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to confirm your email address.
+        /// </summary>
+        public static string EmailConfirmationToConfirmEmailAddress {
+            get {
+                return ResourceManager.GetString("EmailConfirmationToConfirmEmailAddress", resourceCulture);
             }
         }
         
@@ -386,6 +476,15 @@ namespace ViewsResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hi.
+        /// </summary>
+        public static string Hi {
+            get {
+                return ResourceManager.GetString("Hi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide password.
         /// </summary>
         public static string HidePassword {
@@ -500,6 +599,15 @@ namespace ViewsResources {
         public static string InviteOrganizationUserSubject {
             get {
                 return ResourceManager.GetString("InviteOrganizationUserSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep learning.
+        /// </summary>
+        public static string KeepLearning {
+            get {
+                return ResourceManager.GetString("KeepLearning", resourceCulture);
             }
         }
         

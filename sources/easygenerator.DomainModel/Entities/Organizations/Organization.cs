@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace easygenerator.DomainModel.Entities.Organizations
 {
@@ -14,10 +15,15 @@ namespace easygenerator.DomainModel.Entities.Organizations
             UserCollection = new Collection<OrganizationUser>();
         }
 
-        protected internal Organization(string title, string createdBy)
+        protected internal Organization(string title, string createdBy, string emailDomains = null)
             : base(createdBy)
         {
             ThrowIfTitleIsInvalid(title);
+            if (emailDomains != null)
+            {
+                ThrowIfEmailDomainIsInvalid(emailDomains);
+                EmailDomains = emailDomains;
+            }
 
             Title = title;
             UserCollection = new Collection<OrganizationUser>();
@@ -28,6 +34,33 @@ namespace easygenerator.DomainModel.Entities.Organizations
 
         protected internal virtual ICollection<OrganizationUser> UserCollection { get; set; }
         public virtual IEnumerable<OrganizationUser> Users => UserCollection.AsEnumerable();
+
+        public string EmailDomains { get; protected internal set; }
+
+        public virtual IEnumerable<string> EmailDomainCollection
+        {
+            get
+            {
+                return string.IsNullOrEmpty(EmailDomains) ? new List<string>() : EmailDomains.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                  .Select(domain => domain.Trim()).ToList();
+            }
+        }
+
+        public virtual void UpdateEmailDomains(string emailDomains)
+        {
+            ThrowIfEmailDomainIsInvalid(emailDomains);
+
+            EmailDomains = emailDomains.Replace(" ", string.Empty);
+
+            RaiseEvent(new OrganizationEmailDomainUpdatedEvent(this));
+        }
+
+        public virtual void ClearEmailDomains()
+        {
+            EmailDomains = null;
+
+            RaiseEvent(new OrganizationEmailDomainUpdatedEvent(this));
+        }
 
         public virtual void UpdateTitle(string title, string modifiedBy)
         {
@@ -40,13 +73,13 @@ namespace easygenerator.DomainModel.Entities.Organizations
             RaiseEvent(new OrganizationTitleUpdatedEvent(this));
         }
 
-        public virtual OrganizationUser AddUser(string email, string createdBy)
+        public virtual OrganizationUser AddUser(string email, string createdBy, OrganizationUserStatus status = OrganizationUserStatus.WaitingForAcceptance)
         {
             ThrowIfUserEmailIsInvalid(email);
             if (Users.Any(e => e.Email.Equals(email, StringComparison.InvariantCultureIgnoreCase)))
                 return null;
 
-            var organizationUser = new OrganizationUser(this, email, false, OrganizationUserStatus.WaitingForAcceptance, createdBy);
+            var organizationUser = new OrganizationUser(this, email, false, status, createdBy);
             UserCollection.Add(organizationUser);
 
             MarkAsModified(createdBy);
@@ -79,9 +112,13 @@ namespace easygenerator.DomainModel.Entities.Organizations
 
         #region Guard methods
 
-        private void ThrowIfOrganizationUserIsInvalid(OrganizationUser user)
+        private void ThrowIfEmailDomainIsInvalid(string emailDomain)
         {
-            ArgumentValidation.ThrowIfNull(user, nameof(user));
+            ArgumentValidation.ThrowIfNullOrEmpty(emailDomain, nameof(emailDomain));
+            ArgumentValidation.ThrowIfLongerThan255(emailDomain, nameof(emailDomain));
+
+            if (!Regex.IsMatch(emailDomain, Constants.EmailDomainListValidationRegexp))
+                throw new ArgumentException("Invalid email domain format", nameof(emailDomain));
         }
 
         private void ThrowIfUserEmailIsInvalid(string userEmail)

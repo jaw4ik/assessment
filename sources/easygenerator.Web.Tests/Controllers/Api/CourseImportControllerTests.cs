@@ -2,7 +2,6 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Import.Presentation;
@@ -19,6 +18,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Components.DomainOperations.CourseOperations;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -36,7 +36,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IWinToWebModelMapper _winToWebModelMapper;
         private IWinToWebCourseImporter _winToWebCourseImporter;
         private IDomainEventPublisher _eventPublisher;
-        private IDomainOperationExecutor _domainOperationExecutor;
+        private ICourseDomainOperationExecutor _courseDomainOperationExecutor;
 
         [TestInitialize]
         public void InitializeContext()
@@ -51,10 +51,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _winToWebCourseImporter = Substitute.For<IWinToWebCourseImporter>();
             _winToWebModelMapper = Substitute.For<IWinToWebModelMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _domainOperationExecutor = Substitute.For<IDomainOperationExecutor>();
+            _courseDomainOperationExecutor = Substitute.For<ICourseDomainOperationExecutor>();
 
             _controller = new CourseImportController(_entityMapper, _courseRepository, _configurationReader, _presentationModelMapper,
-                _presentationCourseImporter, _winToWebModelMapper, _winToWebCourseImporter, _eventPublisher, _domainOperationExecutor);
+                _presentationCourseImporter, _winToWebModelMapper, _winToWebCourseImporter, _eventPublisher, _courseDomainOperationExecutor);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -127,7 +127,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
             //Assert
-            _domainOperationExecutor.Received().CreateCourse(course);
+            _courseDomainOperationExecutor.Received().CreateCourse(course);
         }
 
         [TestMethod]

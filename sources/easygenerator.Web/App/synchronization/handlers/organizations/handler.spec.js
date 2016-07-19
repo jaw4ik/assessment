@@ -37,4 +37,22 @@ describe('synchronization organizations [handler]', () => {
             expect(handler.titleUpdated).toBeFunction();
         });
     });
+
+    describe('membershipStarted:', () => {
+        it('should be function', () => {
+            expect(handler.membershipStarted).toBeFunction();
+        });
+    });
+
+    describe('membershipFinished:', () => {
+        it('should be function', () => {
+            expect(handler.membershipFinished).toBeFunction();
+        });
+    });
+
+    describe('userAdded:', () => {
+        it('should be function', () => {
+            expect(handler.userAdded).toBeFunction();
+        });
+    });
 });

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Web;
-
-namespace easygenerator.Infrastructure
+﻿namespace easygenerator.Infrastructure
 {
     public static class Constants
     {
         public const string EmailValidationRegexp = @"^[^@\s]+@[^@\s]+$";
+        public const string EmailDomainListValidationRegexp = @"^((\w+(-\w+)*\.?)+\w{2,})(\s*,\s*((\w+(-\w+)*\.?)+\w{2,}))*$";
         public const string DefaultCulture = "en-US";
-        public static readonly string[] SupportedCultures = {"en", "uk", "zh-cn", "pt-br", "de", "nl", "fr", "es", "it"};
-
+        public static readonly string[] SupportedCultures = { "en", "uk", "zh-cn", "pt-br", "de", "nl", "fr", "es", "it" };
 
         public class Section
         {

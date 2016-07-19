@@ -22,14 +22,17 @@ export default class Notification{
     }
 
     on() {
-        app.on(constants.messages.organization.inviteOrganizationTitleUpdated + this.organizationId, this._organizationTitleUpdatedProxy);
+        app.on(constants.messages.organization.titleUpdated, this._organizationTitleUpdatedProxy);
     }
 
     off() {
-        app.off(constants.messages.organization.inviteOrganizationTitleUpdated + this.organizationId, this._organizationTitleUpdatedProxy);
+        app.off(constants.messages.organization.titleUpdated, this._organizationTitleUpdatedProxy);
     }
 
-    organizationTitleUpdated(title) {
+    organizationTitleUpdated(organizationId, title) {
+        if (this.organizationId !== organizationId)
+            return;
+
         this.organizationTitle(title);
     }
 

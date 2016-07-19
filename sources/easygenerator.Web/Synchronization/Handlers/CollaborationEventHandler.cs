@@ -3,12 +3,12 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents.Collaboration;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
 using System.Web;
+using easygenerator.Web.Components.DomainOperations.CourseOperations;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {

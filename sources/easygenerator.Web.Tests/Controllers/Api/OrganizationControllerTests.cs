@@ -15,6 +15,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -31,6 +32,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private const string UserEmail = "useremail@easygenerator.com";
         private const string UserEmail2 = "useremail2@easygenerator.com";
         private const string Title = "title";
+        private const string EmailDomains = "easygenerator.com";
 
         private OrganizationController _controller;
 
@@ -505,6 +507,116 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
+
+        #region GetOrganizationEmailDomains
+
+        [TestMethod]
+        public void GetOrganizationEmailDomain_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.GetOrganizationEmailDomains(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+
+        [TestMethod]
+        public void GetOrganizationEmailDomain_ShouldReturnOrganizationEmailDomains()
+        {
+            //Arrgange
+            var emailDomains = "easygenerator.com";
+            var organization = OrganizationObjectMother.Create();
+            organization.UpdateEmailDomains(emailDomains);
+
+            //Act
+            var result = _controller.GetOrganizationEmailDomains(organization);
+
+            //Assert
+            result.Should().BeJsonDataResult().And.Data.Should().Be(emailDomains);
+        }
+
+        #endregion
+
+        #region ClearOrganizationEmailDomains
+
+        [TestMethod]
+        public void ClearOrganizationEmailDomain_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.GetOrganizationEmailDomains(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void ClearOrganizationEmailDomain_ShouldClearOrganizationEmailDomains()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+
+            //Act
+            _controller.ClearOrganizationEmailDomains(organization);
+
+            //Assert
+            organization.Received().ClearEmailDomains();
+        }
+
+        [TestMethod]
+        public void ClearOrganizationEmailDomain_ShouldReturnSuccessResult()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+
+            //Act
+            var result = _controller.ClearOrganizationEmailDomains(organization);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region UpdateOrganizationEmailDomains
+
+        [TestMethod]
+        public void UpdateOrganizationEmailDomains_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.UpdateOrganizationEmailDomains(null, EmailDomains);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationEmailDomains_ShouldUpdateOrganizationEmailDomains()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+
+            //Act
+            _controller.UpdateOrganizationEmailDomains(organization, EmailDomains);
+
+            //Assert
+            organization.Received().UpdateEmailDomains(EmailDomains);
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationEmailDomains_ShouldReturnSuccessResult()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+
+            //Act
+            var result = _controller.UpdateOrganizationEmailDomains(organization, EmailDomains);
+
+            //Assert
+            result.Should().BeSuccessResult();
         }
 
         #endregion

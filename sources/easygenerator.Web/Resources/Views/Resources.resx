@@ -404,4 +404,40 @@ easygenerator Team&lt;/p&gt;
   <data name="InviteOrganizationUserSubject" xml:space="preserve">
     <value>{0} invites you to {1} organization in easygenerator</value>
   </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Click here</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Easygenerator Team</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>If the link does not work, copy/paste this URL in your browser:</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>You’ve joined Easygenerator, but our record shows that you still haven’t confirmed your email address.</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>To ensure the safety of our existing users, you must verify your email address to access the full range of Easygenerator's features.</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>Confirm your email address for Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>to confirm your email address</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Hi</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>Keep learning</value>
+  </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Back to Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>Email confirmation</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>You have successfully confirmed your email address.</value>
+  </data>
 </root>

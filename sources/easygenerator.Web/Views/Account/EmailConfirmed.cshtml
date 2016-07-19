@@ -1,0 +1,16 @@
+﻿@using ViewsResources
+
+@{
+    ViewBag.Title = Resources.EmailConfirmation;
+    Layout = "~/Views/Account/_Layout.cshtml";
+}
+
+<section class="view-module email-confirmation">
+    <div class="confirm-email-success-message">
+        <span class="confirm-email-success-message-text">@Resources.EmailConfirmationSuccessMessage</span>
+    </div>
+    <div class="confirm-email-navigation">
+        @Html.RouteLink(Resources.BackToEasygenerator, "Default", null, new { @class = "navigation-link" })
+    </div>
+</section>
+

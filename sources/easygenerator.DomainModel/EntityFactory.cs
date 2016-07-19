@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Entities.Tickets;
 using System;
 using System.Collections.Generic;
 
@@ -47,7 +48,8 @@ namespace easygenerator.DomainModel
         User User(string email, string password, string firstname, string lastname, string phone, string country,
             string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, ICollection<Company> companies, bool? newEditor = true, bool isNewEditorByDefault = true);
         LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user);
-        PasswordRecoveryTicket PasswordRecoveryTicket(User user);
+        PasswordRecoveryTicket PasswordRecoveryTicket();
+        EmailConfirmationTicket EmailConfirmationTicket();
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
         OpenQuestion OpenQuestion(string title, string createdBy);
@@ -176,9 +178,14 @@ namespace easygenerator.DomainModel
             return new LtiUserInfo(ltiUserId, consumerTool, user);
         }
 
-        public PasswordRecoveryTicket PasswordRecoveryTicket(User user)
+        public PasswordRecoveryTicket PasswordRecoveryTicket()
         {
             return new PasswordRecoveryTicket();
+        }
+
+        public EmailConfirmationTicket EmailConfirmationTicket()
+        {
+            return new EmailConfirmationTicket();
         }
 
         public ImageFile ImageFile(string title, string createdBy)

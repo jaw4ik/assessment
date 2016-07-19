@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities.Organizations;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Infrastructure;
 using System;
@@ -15,7 +16,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, 
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false,
             ICollection<Company> companiesCollection = null, bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
             : base(createdBy)
         {
@@ -33,7 +34,7 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Country = country;
             Role = role;
-            PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
+            TicketCollection = new Collection<Ticket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
             Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault, includeMediaToPackage);
@@ -52,6 +53,7 @@ namespace easygenerator.DomainModel.Entities
         }
 
         public string Email { get; protected set; }
+        public bool IsEmailConfirmed { get; protected set; }
         public string PasswordHash { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -95,69 +97,7 @@ namespace easygenerator.DomainModel.Entities
 
         public string FullName => (FirstName + " " + LastName).Trim();
 
-        protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
-
-        public virtual void AddPasswordRecoveryTicket(PasswordRecoveryTicket ticket)
-        {
-            foreach (var passwordRecoveryTicket in PasswordRecoveryTicketCollection)
-            {
-                passwordRecoveryTicket.User = null;
-            }
-            PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket> { ticket };
-            ticket.User = this;
-        }
-
-        public virtual void RecoverPasswordUsingTicket(PasswordRecoveryTicket ticket, string password)
-        {
-            ArgumentValidation.ThrowIfNull(ticket, nameof(ticket));
-            ThrowIfPasswordIsNotValid(password);
-
-            var item = PasswordRecoveryTicketCollection.SingleOrDefault(t => t == ticket);
-            if (item == null)
-                throw new InvalidOperationException("Ticket does not exist");
-
-            PasswordHash = Cryptography.GetHash(password);
-            PasswordRecoveryTicketCollection.Remove(ticket);
-
-            RaiseEvent(new UserUpdateEvent(this, password));
-        }
-
-        public virtual bool IsFreeAccess()
-        {
-            return AccessType == AccessType.Free || IsAccessExpired();
-        }
-
-        public virtual bool HasStarterAccess()
-        {
-            return AccessType >= AccessType.Starter && !IsAccessExpired();
-        }
-
-        public virtual bool HasPlusAccess()
-        {
-            return AccessType >= AccessType.Plus && !IsAccessExpired();
-        }
-
-        public virtual bool HasAcademyAccess()
-        {
-            return AccessType >= AccessType.Academy && !IsAccessExpired();
-        }
-        public virtual bool HasAcademyBTAccess()
-        {
-            return AccessType >= AccessType.AcademyBT && !IsAccessExpired();
-        }
-
-        public virtual bool HasTrialAccess()
-        {
-            return AccessType == AccessType.Trial && !IsAccessExpired();
-        }
-
-        private bool IsAccessExpired()
-        {
-            if (!ExpirationDate.HasValue)
-                return true;
-
-            return ExpirationDate.Value < DateTimeWrapper.Now();
-        }
+        protected internal virtual ICollection<Ticket> TicketCollection { get; set; }
 
         public virtual void UpdatePassword(string password, string modifiedBy)
         {
@@ -213,6 +153,116 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public virtual UserSettings Settings { get; set; }
+
+        #region Email confirmation
+
+        public virtual EmailConfirmationTicket GetEmailConfirmationTicket()
+        {
+            return TicketCollection.SingleOrDefault(t => t is EmailConfirmationTicket) as EmailConfirmationTicket;
+        }
+
+        public virtual void AddEmailConfirmationTicket(EmailConfirmationTicket ticket)
+        {
+            AddUniqueTicket(ticket);
+        }
+
+        public virtual void ConfirmEmailUsingTicket(EmailConfirmationTicket ticket)
+        {
+            ArgumentValidation.ThrowIfNull(ticket, nameof(ticket));
+
+            var item = TicketCollection.SingleOrDefault(t => t == ticket);
+            if (item == null)
+            {
+                throw new InvalidOperationException("Ticket does not exist");
+            }
+
+            TicketCollection.Remove(ticket);
+            if (IsEmailConfirmed)
+                return;
+
+            IsEmailConfirmed = true;
+            RaiseEvent(new UserEmailConfirmedEvent(this));
+        }
+
+        #endregion
+
+        #region Password recovery
+
+        public virtual void AddPasswordRecoveryTicket(PasswordRecoveryTicket ticket)
+        {
+            AddUniqueTicket(ticket);
+        }
+
+        private void AddUniqueTicket<T>(T ticket) where T : Ticket
+        {
+            ArgumentValidation.ThrowIfNull(ticket, nameof(ticket));
+            var tickets = TicketCollection.Where(t => t is T).ToList();
+            foreach (var existingTicket in tickets)
+            {
+                TicketCollection.Remove(existingTicket);
+            }
+
+            ticket.User = this;
+            TicketCollection.Add(ticket);
+        }
+
+        public virtual void RecoverPasswordUsingTicket(PasswordRecoveryTicket ticket, string password)
+        {
+            ArgumentValidation.ThrowIfNull(ticket, nameof(ticket));
+            ThrowIfPasswordIsNotValid(password);
+
+            var item = TicketCollection.SingleOrDefault(t => t == ticket);
+            if (item == null)
+                throw new InvalidOperationException("Ticket does not exist");
+
+            PasswordHash = Cryptography.GetHash(password);
+            TicketCollection.Remove(ticket);
+
+            RaiseEvent(new UserUpdateEvent(this, password));
+        }
+
+        #endregion
+
+        #region User access
+
+        public virtual bool IsFreeAccess()
+        {
+            return AccessType == AccessType.Free || IsAccessExpired();
+        }
+
+        public virtual bool HasStarterAccess()
+        {
+            return AccessType >= AccessType.Starter && !IsAccessExpired();
+        }
+
+        public virtual bool HasPlusAccess()
+        {
+            return AccessType >= AccessType.Plus && !IsAccessExpired();
+        }
+
+        public virtual bool HasAcademyAccess()
+        {
+            return AccessType >= AccessType.Academy && !IsAccessExpired();
+        }
+        public virtual bool HasAcademyBTAccess()
+        {
+            return AccessType >= AccessType.AcademyBT && !IsAccessExpired();
+        }
+
+        public virtual bool HasTrialAccess()
+        {
+            return AccessType == AccessType.Trial && !IsAccessExpired();
+        }
+
+        private bool IsAccessExpired()
+        {
+            if (!ExpirationDate.HasValue)
+                return true;
+
+            return ExpirationDate.Value < DateTimeWrapper.Now();
+        }
+
         public virtual void UpgradePlanToStarter(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);
@@ -258,7 +308,9 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new UserDowngraded(this));
         }
 
-        public virtual UserSettings Settings { get; set; }
+        #endregion
+
+        #region Guard methods
 
         private void ThrowIfEmailIsNotValid(string email)
         {
@@ -283,6 +335,8 @@ namespace easygenerator.DomainModel.Entities
                 throw new ArgumentException("Expiration date is invalid", nameof(expirationDate));
             }
         }
+
+        #endregion
 
         #region LtiUserInfo
         protected internal virtual ICollection<LtiUserInfo> LtiUserInfoes { get; set; }

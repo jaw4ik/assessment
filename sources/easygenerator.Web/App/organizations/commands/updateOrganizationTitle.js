@@ -11,6 +11,6 @@ export default class {
             organization.title = title;
         }
 
-        app.trigger(constants.messages.organization.titleUpdated, { id: organizationId, title: title });
+        app.trigger(constants.messages.organization.titleUpdated, organizationId, title);
     }
 }

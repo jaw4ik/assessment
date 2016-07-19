@@ -18,14 +18,15 @@ export default class OrganizationUser {
         this.isReinviting = ko.observable(false);
 
         this.isWaitingForAcceptance = ko.computed(() => {
-            return self.status() === constants.organizationUserStatus.waitingForAcceptance;
+            return self.status() === constants.organizationUserStatus.waitingForAcceptance || self.status() === constants.organizationUserStatus.waitingForEmailConfirmation;
         });
+
         this.isDeclined = ko.computed(() => {
             return self.status() === constants.organizationUserStatus.declined;
         });
 
         this.name = ko.computed(() => {
-            return self.isRegistered() ? self.fullName() : self.email;
+            return self.fullName() && self.fullName().length > 0 ? self.fullName() : self.email;
         });
         this.avatarLetter = ko.computed(() => {
             return self.name() && self.name().length > 0 ? self.name().charAt(0) : '';

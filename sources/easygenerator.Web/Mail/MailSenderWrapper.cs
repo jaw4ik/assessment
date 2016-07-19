@@ -8,6 +8,7 @@ namespace easygenerator.Web.Mail
     public class MailSenderWrapper : IMailSenderWrapper
     {
         private const string ForgotPasswordTemplateName = "ForgotPasswordTemplate";
+        private const string UserEmailConfirmationTemplateName = "UserEmailConfirmationTemplate";
         private const string InviteCollaboratorTemplateName = "InviteCollaboratorTemplate";
         private const string InviteOrganizationUserTemplateName = "InviteOrganizationUserTemplate";
 
@@ -32,6 +33,17 @@ namespace easygenerator.Web.Mail
             var title = ViewsResources.Resources.ForgotPasswordSubject;
             var templateSettings = _senderSettings.MailTemplatesSettings[ForgotPasswordTemplateName];
             var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
+
+            _mailSender.Send(new MailMessage(templateSettings.From, email, _mailSender.NormalizeMailMessageSubject(title), body) { IsBodyHtml = true });
+        }
+
+        public void SendConfirmEmailMessage(string email, string username, string ticketId)
+        {
+            var emailConfirmationUrl = _urlHelperWrapper.RouteConfirmEmailUrl(ticketId);
+
+            var title = ViewsResources.Resources.EmailConfirmationSubject;
+            var templateSettings = _senderSettings.MailTemplatesSettings[UserEmailConfirmationTemplateName];
+            var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { Username = username, EmailConfirmationUrl = emailConfirmationUrl });
 
             _mailSender.Send(new MailMessage(templateSettings.From, email, _mailSender.NormalizeMailMessageSubject(title), body) { IsBodyHtml = true });
         }

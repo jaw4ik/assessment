@@ -12,7 +12,6 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
-using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
@@ -21,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Components.DomainOperations.CourseOperations;
 using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -44,12 +44,12 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IExternalPublisher _externalPublisher;
         private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
-        private readonly IDomainOperationExecutor _domainOperationExecutor;
+        private readonly ICourseDomainOperationExecutor _courseDomainOperationExecutor;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
             ISectionRepository sectionRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher,
             IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher,
-            IUserRepository userRepository, ICloner cloner, IDomainOperationExecutor domainOperationExecutor)
+            IUserRepository userRepository, ICloner cloner, ICourseDomainOperationExecutor courseDomainOperationExecutor)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
@@ -64,7 +64,7 @@ namespace easygenerator.Web.Controllers.Api
             _externalPublisher = externalpublisher;
             _userRepository = userRepository;
             _cloner = cloner;
-            _domainOperationExecutor = domainOperationExecutor;
+            _courseDomainOperationExecutor = courseDomainOperationExecutor;
         }
 
         [HttpPost]
@@ -78,7 +78,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
-            _domainOperationExecutor.CreateCourse(course);
+            _courseDomainOperationExecutor.CreateCourse(course);
 
             return JsonSuccess(_entityMapper.Map(course));
         }
@@ -94,7 +94,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var duplicatedCourse = GetDuplicatedCourse(course);
-            _domainOperationExecutor.CreateCourse(duplicatedCourse);
+            _courseDomainOperationExecutor.CreateCourse(duplicatedCourse);
 
             return JsonSuccess(new
             {

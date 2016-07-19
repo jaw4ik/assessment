@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.OrganizationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcasting;
@@ -24,16 +25,18 @@ namespace easygenerator.Web.Synchronization.Handlers
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
         private readonly IOrganizationUserRepository _organizationUserRepository;
         private readonly IOrganizationMapper _organizationMapper;
+        private readonly IEntityMapper _entityMapper;
 
         public OrganizationEventHandler(IOrganizationBroadcaster organizationBroadcaster, IOrganizationUserBroadcaster organizationUserBroadcaster,
             IOrganizationInviteMapper organizationInviteMapper, IOrganizationUserRepository organizationUserRepository,
-            IOrganizationMapper organizationMapper)
+            IOrganizationMapper organizationMapper, IEntityMapper entityMapper)
         {
             _organizationBroadcaster = organizationBroadcaster;
             _organizationUserBroadcaster = organizationUserBroadcaster;
             _organizationInviteMapper = organizationInviteMapper;
             _organizationUserRepository = organizationUserRepository;
             _organizationMapper = organizationMapper;
+            _entityMapper = entityMapper;
         }
 
         protected string CurrentUsername
@@ -82,6 +85,9 @@ namespace easygenerator.Web.Synchronization.Handlers
                 _organizationUserBroadcaster.User(args.User.Email)
                     .organizationInviteCreated(_organizationInviteMapper.Map(invite));
             }
+
+            _organizationBroadcaster.OrganizationAdminsExcept(args.Organization, CurrentUsername)
+                .organizationUserAdded(args.Organization.Id.ToNString(), _entityMapper.Map(args.User));
         }
 
         public void Handle(OrganizationTitleUpdatedEvent args)

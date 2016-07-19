@@ -3,7 +3,7 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 
-namespace easygenerator.Web.Components.DomainOperations
+namespace easygenerator.Web.Components.DomainOperations.CourseOperations
 {
     public class CreateCourseOperation
     {

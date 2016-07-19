@@ -5,6 +5,7 @@ namespace easygenerator.Web.Synchronization.Broadcasting.OrganizationBroadcastin
     public interface IOrganizationBroadcaster : IBroadcaster
     {
         dynamic OrganizationAdmins(Organization organization);
+        dynamic OrganizationAdminsExcept(Organization organization, params string[] excludeUsers);
         dynamic InvitedUsers(Organization organization);
         dynamic OtherMembers(Organization organization);
     }

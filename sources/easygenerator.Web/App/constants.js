@@ -15,7 +15,8 @@ appVersion: window.egVersion,
 organizationUserStatus: {
         waitingForAcceptance: 0,
         accepted: 1,
-        declined: 2
+        declined: 2,
+        waitingForEmailConfirmation: 3
 },
 
 courseOwnership: {

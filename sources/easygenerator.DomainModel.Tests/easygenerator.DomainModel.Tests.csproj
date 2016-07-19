@@ -99,6 +99,8 @@
     <Compile Include="Entities\Questions\RankingTextTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
+    <Compile Include="Entities\Tickets\EmailConfirmationTicketTests.cs" />
+    <Compile Include="Entities\Tickets\PasswordRecoveryTicketTests.cs" />
     <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityClonerTests.cs" />
@@ -130,7 +132,8 @@
     <Compile Include="ObjectMothers\StatementObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\OnboardingObjectMother.cs" />
-    <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />
+    <Compile Include="ObjectMothers\Tickets\EmailConfirmationTicketObjectMother.cs" />
+    <Compile Include="ObjectMothers\Tickets\PasswordRecoveryTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\MultipleselectObjectMother.cs" />
     <Compile Include="ObjectMothers\SingleSelectImageAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\SingleSelectImageObjectMother.cs" />
