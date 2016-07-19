@@ -142,7 +142,7 @@
     <value>Copyright © 2016 easygenerator. Todos direitos reservados.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
-    <value>Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com caso o problema persista. </value>
+    <value>Ocorreu um erro. Tente novamente. Contate support@easygenerator.com caso o problema persista.</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Inicie criando cursos agora!</value>
@@ -285,7 +285,7 @@ Time Easygenerator&lt;/p&gt;
     <value>Política de privacidade</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com caso o problema persista. </value>
+    <value>Ocorreu um erro. Tente novamente. Contate support@easygenerator.com caso o problema persista.</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>Qual sua função</value>
@@ -372,5 +372,32 @@ Time Easygenerator&lt;/p&gt;
 &lt;p&gt;Atenciosamente,&lt;br/&gt;
 Time Easygenerator&lt;/p&gt;
 &lt;/div&gt;</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Clique aqui</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Time Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>Se o link não funcionar, copie/cole o seguinte URL no seu navegador:</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>Você juntou-se ao Easygenerator. Porém, nossos registros mostram que você ainda não confirmou seu endereço de email.</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>Para garantir a segurança de nossos usuários atuais, você deve verificar seu endereço de email para acessar todos os recursos do Easygenerator.</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>Confirme seu endereço de email do Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>para confirmar seu endereço de email</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>Continue aprendendo</value>
   </data>
 </root>

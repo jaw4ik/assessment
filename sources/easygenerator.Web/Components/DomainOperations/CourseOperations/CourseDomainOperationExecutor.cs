@@ -1,17 +1,17 @@
-﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities;
 
-namespace easygenerator.Web.Components.DomainOperations
+namespace easygenerator.Web.Components.DomainOperations.CourseOperations
 {
-    public interface IDomainOperationExecutor
+    public interface ICourseDomainOperationExecutor
     {
         void CreateCourse(Course course, bool raiseEvent = true);
     }
 
-    public class DomainOperationExecutor : IDomainOperationExecutor
+    public class CourseDomainOperationExecutor : ICourseDomainOperationExecutor
     {
         private readonly CreateCourseOperation _createCourseOperation;
 
-        public DomainOperationExecutor(CreateCourseOperation createCourseOperation)
+        public CourseDomainOperationExecutor(CreateCourseOperation createCourseOperation)
         {
             _createCourseOperation = createCourseOperation;
         }

@@ -1,7 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using System.Linq;
 
-namespace easygenerator.Web.Components.DomainOperations
+namespace easygenerator.Web.Components.DomainOperations.CourseOperations
 {
     public class CourseOwnershipProvider
     {

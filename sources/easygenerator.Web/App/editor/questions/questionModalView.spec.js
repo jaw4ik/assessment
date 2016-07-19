@@ -4,6 +4,7 @@ import navigationPanel from 'editor/questions/panels/questionsNavigationView';
 import questionViewModel from 'editor/questions/question';
 import router from 'routing/router';
 import eventTracker from 'eventTracker';
+import httpRequestTracker from 'http/httpRequestTracker';
 
 let courseId = 'courseId';
 let sectionId = 'sectionId';
@@ -56,6 +57,7 @@ describe('viewmodel [questionModalView]', () => {
             spyOn(navigationPanel, 'activate');
             questionViewModelActivated = Promise.resolve();
             spyOn(questionViewModel, 'activate').and.returnValue(questionViewModelActivated);
+            spyOn(httpRequestTracker, 'waitForRequestFinalization').and.returnValue(Promise.resolve());
         });
 
         it('should be function', () => {
@@ -69,32 +71,61 @@ describe('viewmodel [questionModalView]', () => {
             });    
         });
 
-        it('should set sectionId', () => {
-            viewModel.sectionId = null;
+        it('should open modal view', () => {
             viewModel.open(sectionId, questionId);
-            expect(viewModel.sectionId).toBe(sectionId);
+            expect(modalView.open).toHaveBeenCalled();
         });
 
-        it('should set questionId', () => {
-            viewModel.questionId = null;
+        it('should set isLoading to true', () => {
+            viewModel.isLoading(false);
             viewModel.open(sectionId, questionId);
-            expect(viewModel.questionId).toBe(questionId);
+            expect(viewModel.isLoading()).toBeTruthy();
         });
 
-        it('should set question view ready to false', () => {
-            viewModel.isQuestionViewReady(null);
+        it('should wait for requests finalization', () => {
             viewModel.open(sectionId, questionId);
-            expect(viewModel.isQuestionViewReady()).toBeFalsy();
+            expect(httpRequestTracker.waitForRequestFinalization).toHaveBeenCalled();
         });
 
-        it('should activate navigation panel', () => {
-            viewModel.open(sectionId, questionId);
-            expect(viewModel.navigationPanel.activate).toHaveBeenCalledWith(sectionId, questionId);
-        });
+        describe('when requests finalized', () => {
+            it('should set sectionId', done => (async () => {
+                viewModel.sectionId = null;
+                await viewModel.open(sectionId, questionId);
+                expect(viewModel.sectionId).toBe(sectionId);
+            })().then(done));
 
-        it('should activate question view model', () => {
-            viewModel.open(sectionId, questionId);
-            expect(questionViewModel.activate).toHaveBeenCalledWith(courseId, sectionId, questionId);
+            it('should set questionId', done => (async () => {
+                viewModel.questionId = null;
+                await viewModel.open(sectionId, questionId);
+                expect(viewModel.questionId).toBe(questionId);
+            })().then(done));
+
+            it('should set question view ready to false', done => (async () => {
+                viewModel.isQuestionViewReady(null);
+                await viewModel.open(sectionId, questionId);
+                expect(viewModel.isQuestionViewReady()).toBeFalsy();
+            })().then(done));
+
+            it('should set question view ready to false', done => (async () => {
+                await viewModel.open(sectionId, questionId);
+                expect(viewModel.navigationPanel.activate).toHaveBeenCalledWith(sectionId, questionId);
+            })().then(done));
+
+            it('should activate navigation panel', done => (async () => {
+                await viewModel.open(sectionId, questionId);
+                expect(viewModel.navigationPanel.activate).toHaveBeenCalledWith(sectionId, questionId);
+            })().then(done));
+
+            it('should activate question view model', done => (async () => {
+                await viewModel.open(sectionId, questionId);
+                expect(questionViewModel.activate).toHaveBeenCalledWith(courseId, sectionId, questionId);
+            })().then(done));
+
+            it('should set isLoading to false', done => (async () => {
+                viewModel.isLoading(true);
+                await viewModel.open(sectionId, questionId);
+                expect(viewModel.isLoading()).toBeFalsy();
+            })().then(done));
         });
 
         describe('when question view model activated', () => {
@@ -104,10 +135,6 @@ describe('viewmodel [questionModalView]', () => {
                 expect(viewModel.questionViewModel()).toBe(questionViewModel);
             })().then(done));
 
-            it('should open modal view', done => (async () => {
-                await viewModel.open(sectionId, questionId);
-                expect(modalView.open).toHaveBeenCalled();
-            })().then(done));
         });
     });
 

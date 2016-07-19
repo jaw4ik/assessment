@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.DataAccess.Repositories

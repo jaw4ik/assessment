@@ -120,15 +120,16 @@
                     	commentDeleted: commentEventHandler.deleted,
                     	commentCreated: commentEventHandler.created,
 
-                    	organizationUserRegistered: organizationEventHandler.userRegistered,
-                    	organizationInviteAccepted: organizationEventHandler.inviteAccepted,
-                    	organizationInviteDeclined: organizationEventHandler.inviteDeclined,
-                    	organizationInviteCreated: organizationEventHandler.inviteCreated,
-                    	organizationInviteRemoved: organizationEventHandler.inviteRemoved,
-                    	organizationTitleUpdated: organizationEventHandler.titleUpdated,
-                    	organizationMembershipStarted: organizationEventHandler.membershipStarted,
-                    	organizationMembershipFinished: organizationEventHandler.membershipFinished
-                	};
+                    organizationUserRegistered: organizationEventHandler.userRegistered,
+                    organizationInviteAccepted: organizationEventHandler.inviteAccepted,
+                    organizationInviteDeclined: organizationEventHandler.inviteDeclined,
+                    organizationInviteCreated: organizationEventHandler.inviteCreated,
+                    organizationInviteRemoved: organizationEventHandler.inviteRemoved,
+                    organizationTitleUpdated: organizationEventHandler.titleUpdated,
+                    organizationMembershipStarted: organizationEventHandler.membershipStarted,
+                    organizationMembershipFinished: organizationEventHandler.membershipFinished,
+                    organizationUserAdded: organizationEventHandler.userAdded
+                };
 
                     $.connection.hub.disconnected(function () {
                         $.ajax({

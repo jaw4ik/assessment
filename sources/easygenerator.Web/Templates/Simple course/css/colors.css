@@ -267,34 +267,58 @@ body {
 .styled-content {
     color: @text-color;
 
-    h1 {
+    .h1-styled-text {
         font-size: @Heading1-size;
         font-weight: @Heading1-fontWeight;
-        color: @Heading1-color;
         font-family: @Heading1-fontFamily;
         font-style: @Heading1-fontStyle;
         text-decoration: @Heading1-textDecoration;
-        background-color: @Heading1-textBackgroundColor;
     }
 
-    h2 {
+    h1 {
+        .h1-styled-text;
+        color: @Heading1-color;
+        background-color: @Heading1-textBackgroundColor;
+
+        mark {
+            .h1-styled-text;
+        }
+    }
+
+    .h2-styled-text {
         font-size: @Heading2-size;
         font-weight: @Heading2-fontWeight;
-        color: @Heading2-color;
         font-family: @Heading2-fontFamily;
         font-style: @Heading2-fontStyle;
         text-decoration: @Heading2-textDecoration;
-        background-color: @Heading2-textBackgroundColor;
     }
 
-    h3 {
+    h2 {
+        .h2-styled-text;
+        color: @Heading2-color;
+        background-color: @Heading2-textBackgroundColor;
+        
+        mark {
+            .h2-styled-text;
+        }
+    }
+
+    .h3-styled-text {
         font-size: @Heading3-size;
         font-weight: @Heading3-fontWeight;
-        color: @Heading3-color;
         font-family: @Heading3-fontFamily;
         font-style: @Heading3-fontStyle;
         text-decoration: @Heading3-textDecoration;
+    }
+
+    h3 {
+        .h3-styled-text;
+        color: @Heading3-color;
         background-color: @Heading3-textBackgroundColor;
+
+        mark {
+            .h3-styled-text;
+        }
     }
 
     p {

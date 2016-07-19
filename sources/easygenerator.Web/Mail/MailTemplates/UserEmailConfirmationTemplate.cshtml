@@ -1,0 +1,30 @@
+﻿@using System.Web.Mvc.Html
+@using ViewsResources
+@using RazorEngine.Text
+@model dynamic
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>@Resources.EmailConfirmationSubject</title>
+</head>
+<body>
+    <div>
+        <p>@Resources.Hi, @Model.Username</p>
+        <p>
+            @Resources.EmailConfirmationNotConfirmed<br />
+            @Resources.EmailConfirmationPurpose
+        </p>
+        <p>
+            <a href="@Model.EmailConfirmationUrl">@Resources.ClickHere</a>&nbsp;@Resources.EmailConfirmationToConfirmEmailAddress.<br />
+            @Resources.EmailConfirmationCopyPasteLink<br />
+            <a href="@Model.EmailConfirmationUrl">@Model.EmailConfirmationUrl</a>
+        </p>
+        <p>
+            @Resources.KeepLearning,<br />
+            @Resources.EasygeneratorTeam
+        </p>
+    </div>
+</body>
+</html>

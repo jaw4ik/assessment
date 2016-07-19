@@ -85,8 +85,9 @@
                                             status.failed(lang.fileCannotBeLargerThan + maxFileSize + ' MB');
                                             return;
                                         }
-
+                                        
                                         uploader.uploadFile(file);
+                                        this.value = null;
                                     };
                                     return c;
                                 })()

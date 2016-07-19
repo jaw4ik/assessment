@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Plasser her",
     "[statement question true text]": "Sant",
     "[statement question false text]": "Usant",
+    "[statement question true tooltip]": "Sant",
+    "[statement question false tooltip]": "Usant",
     "[drag and drop question all texts are placed]": "All tekst er plassert",
     "[drag and drop question drop here]": "Plasser her",
     "[fill in the blank choose answer]": "Velg svar…",

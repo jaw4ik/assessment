@@ -27,6 +27,8 @@
     "[text matching question drop here]": "Drop here",
     "[statement question true text]": "TRUE",
     "[statement question false text]": "FALSE",
+    "[statement question true tooltip]": "TRUE",
+    "[statement question false tooltip]": "FALSE",
     "[drag and drop question all texts are placed]": "All texts have been placed",
     "[drag and drop question drop here]": "Drop here",
     "[fill in the blank choose answer]": "Choose the answer...",

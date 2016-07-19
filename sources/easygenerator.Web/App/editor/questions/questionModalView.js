@@ -7,6 +7,7 @@ import questionViewModel from './question';
 import router from 'routing/router';
 import navigationPanel from 'editor/questions/panels/questionsNavigationView';
 import eventTracker from 'eventTracker';
+import httpRequestTracker from 'http/httpRequestTracker';
 
 let _courseDeleted = new WeakMap(),
     _sectionsDisconnected = new WeakMap(),
@@ -28,6 +29,7 @@ class QuestionModalView {
         this.navigationPanel = navigationPanel;
         this.isNavigationPanelExpanded = ko.observable(true);
         this.isQuestionViewReady = ko.observable(false);
+        this.isLoading = ko.observable(false);
 
         _courseDeleted.set(this, courseId => {
             if (courseId === this.courseId) {
@@ -73,8 +75,13 @@ class QuestionModalView {
             return;
         }
 
-        await this.loadQuestion(sectionId, questionId);
         modalView.open();
+        this.isLoading(true);
+
+        await httpRequestTracker.waitForRequestFinalization();
+        await this.loadQuestion(sectionId, questionId);
+
+        this.isLoading(false);
     }
 
     async loadQuestion(sectionId, questionId){

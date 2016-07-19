@@ -25,14 +25,14 @@ describe('organization invite [notification]:', () => {
     describe('on:', () => {
         it('should subscribe on organization title updated event', () => {
             notification.on();
-            expect(app.on).toHaveBeenCalledWith(constants.messages.organization.inviteOrganizationTitleUpdated + organizationId, jasmine.any(Function));
+            expect(app.on).toHaveBeenCalledWith(constants.messages.organization.titleUpdated, jasmine.any(Function));
         });
     });
 
     describe('off:', () => {
         it('should unsubscribe from organization title updated event', () => {
             notification.off();
-            expect(app.off).toHaveBeenCalledWith(constants.messages.organization.inviteOrganizationTitleUpdated + organizationId, jasmine.any(Function));
+            expect(app.off).toHaveBeenCalledWith(constants.messages.organization.titleUpdated, jasmine.any(Function));
         });
     });
 
@@ -81,10 +81,24 @@ describe('organization invite [notification]:', () => {
             notification.organizationTitle('');
         });
 
-        it('should update organizationTitle', () => {
-            var value = 'new title';
-            notification.organizationTitle(value);
-            expect(notification.organizationTitle()).toBe(value);
+        describe('when organizationId is current organizationId', () => {
+            it('should update title', () => {
+                var value = 'new title';
+                notification.organizationTitleUpdated(organizationId, value);
+                expect(notification.organizationTitle()).toBe(value);
+            });
+        });
+
+        describe('when organizationId is not current organizationId', () => {
+            it('should not update title', () => {
+                var value = 'new title',
+                    title = 'title';
+
+                notification.organizationTitle(title);
+
+                notification.organizationTitleUpdated('someId', value);
+                expect(notification.organizationTitle()).toBe(title);
+            });
         });
     });
 

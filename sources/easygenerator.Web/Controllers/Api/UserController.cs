@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
@@ -11,7 +12,6 @@ using easygenerator.Web.ViewModels.Account;
 using System;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Controllers.Api
@@ -203,7 +203,7 @@ namespace easygenerator.Web.Controllers.Api
 
             if (user != null)
             {
-                var ticket = _entityFactory.PasswordRecoveryTicket(user);
+                var ticket = _entityFactory.PasswordRecoveryTicket();
                 user.AddPasswordRecoveryTicket(ticket);
 
                 _mailSenderWrapper.SendForgotPasswordMessage(email, ticket.Id.ToNString());

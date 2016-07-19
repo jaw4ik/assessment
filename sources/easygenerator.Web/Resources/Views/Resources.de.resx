@@ -374,4 +374,31 @@ Ihr easygenerator-Team&lt;/p&gt;
 easygenerator Team&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Hier klicken</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Easygenerator-Team</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>Wenn der Link nicht funktioniert, kopieren Sie diese URL in Ihren Web-Browser bzw. fügen Sie sie ein:</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>Sie sind Easygenerator beigetreten, aber aus Ihrem Datensatz geht hervor, dass Sie Ihre E-Mail-Adresse noch nicht bestätigt haben.</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>Um die Sicherheit unserer vorhandenen Benutzer zu garantieren, müssen Sie Ihre E-Mail-Adresse bestätigen, um vollen Zugriff auf alle Funktionen von Easygenerator zu erhalten.</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>Bestätigen Sie Ihre E-Mail-Adresse für Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>um Ihre E-Mail-Adresse zu bestätigen.</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Guten Tag</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>Weiterlernen</value>
+  </data>
 </root>

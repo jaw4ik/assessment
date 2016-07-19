@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.ACL;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.DomainModel;
@@ -211,7 +212,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
-            modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
+            modelBuilder.Entity<User>().HasMany(e => e.TicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().HasMany(e => e.CompaniesCollection).WithMany(e => e.Users).Map(m => m.ToTable("CompanyUsers"));
             modelBuilder.Entity<User>().HasMany(e => e.AllowedSamlServiceProviders).WithMany(e => e.Users).Map(m => m.ToTable("UserSamlSPs"));
             modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
@@ -226,10 +227,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<UserSettings>().Property(e => e.IncludeMediaToPackage).IsRequired();
             modelBuilder.Entity<UserSettings>().HasRequired(e => e.User).WithRequiredDependent(p => p.Settings).WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
-            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
-            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedBy);
-            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
+            modelBuilder.Entity<Ticket>().HasRequired(e => e.User);
+            modelBuilder.Entity<Ticket>().Ignore(e => e.CreatedBy);
+            modelBuilder.Entity<Ticket>().Ignore(e => e.ModifiedBy);
+            modelBuilder.Entity<Ticket>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.PreviewUrl).HasMaxLength(255);
@@ -355,6 +356,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Scenario>().Map(m => m.ToTable("ScenarioQuestions"));
 
             modelBuilder.Entity<Organization>().Property(e => e.Title).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Organization>().Property(e => e.EmailDomains).IsOptional().HasMaxLength(256);
             modelBuilder.Entity<Organization>().HasMany(e => e.UserCollection).WithRequired(e => e.Organization).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<OrganizationUser>().HasRequired(e => e.Organization);
@@ -431,7 +433,7 @@ namespace easygenerator.DataAccess
                     {
                         entry.State = EntityState.Deleted;
                     }
-                    if ((entry.Entity is PasswordRecoveryTicket) && (entry.Entity as PasswordRecoveryTicket).User == null)
+                    if ((entry.Entity is Ticket) && (entry.Entity as Ticket).User == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

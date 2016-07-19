@@ -2,6 +2,6 @@
     addFromLibrary: 'Biblioteca de imagem',
     imageLibrary: 'Biblioteca de imagem',
     noImages: 'Ainda sem imagens',
-    somethingWentWrong: 'Algo não funcionou corretamente.',
+    somethingWentWrong: 'Ocorreu um erro.',
     tryAgain: 'Tente novamente'
 });

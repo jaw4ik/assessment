@@ -19,6 +19,8 @@
     "[text matching question drop here]": "Buraya bırak",
     "[statement question true text]": "Doğru",
     "[statement question false text]": "Yanlış",
+    "[statement question true tooltip]": "Doğru",
+    "[statement question false tooltip]": "Yanlış",
     "[drag and drop question all texts are placed]": "Tüm metinler yerleştirildi",
     "[drag and drop question drop here]": "Buraya bırak",
     "[fill in the blank choose answer]": "Cevabı seç...",

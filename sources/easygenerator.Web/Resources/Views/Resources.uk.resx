@@ -379,4 +379,40 @@
   <data name="InviteOrganizationUserSubject" xml:space="preserve">
     <value>{0} запрошує Вас до організації {1} в easygenerator</value>
   </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Клікніть тут</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Команда Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>Якщо лінка не працює, скопіюйте/вставте наступну лінку в адресний рядок браузера:</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>Ви приєдналися до Easygenerator, але ще не підтвердили Вашу email адресу.</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>Для безпеки наших користувачів, Вам потрібно підтвердити Вашу email адресу для отримання доступу до більшої кількості можливостей Easygenerator.</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>Підтвердіть Вашу email адресу для Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>щоб підтвердити Вашу email адресу</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Привіт</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>Продовжуйте навчання</value>
+  </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Повернутися до Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>Підтвердження e-mail адреси</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>Ви успішно підтвердили Вашу e-mail адресу.</value>
+  </data>
 </root>

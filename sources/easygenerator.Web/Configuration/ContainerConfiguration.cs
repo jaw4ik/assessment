@@ -25,7 +25,8 @@ using easygenerator.Web.BuildDocument;
 using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.DomainOperations;
+using easygenerator.Web.Components.DomainOperations.CourseOperations;
+using easygenerator.Web.Components.DomainOperations.OrganizationOperations;
 using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
@@ -131,8 +132,11 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BranchTrackProvider>();
             builder.RegisterType<FileDownloader>();
             builder.RegisterType<CreateCourseOperation>();
-            builder.RegisterType<DomainOperationExecutor>().As<IDomainOperationExecutor>();
+            builder.RegisterType<CourseDomainOperationExecutor>().As<ICourseDomainOperationExecutor>();
             builder.RegisterType<CourseOwnershipProvider>();
+            builder.RegisterType<AutoincludeUserToOrganizationOperation>();
+            builder.RegisterType<OrganizationDomainOperationExecutor>().As<IOrganizationDomainOperationExecutor>();
+
 
             builder.RegisterModule(new DataAccessModule());
 

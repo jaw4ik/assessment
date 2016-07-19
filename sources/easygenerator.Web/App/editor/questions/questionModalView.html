@@ -46,15 +46,20 @@
         </div>
     </header>
     <main class="question-main">
-        <div class="left-panel" data-bind="css:{ expanded: isNavigationPanelExpanded() }">
-            <!-- ko compose: { model: navigationPanel, activate: false } --><!-- /ko -->
-            <span class="toggle-navigation-button" data-bind="click: toggleExpandNavigationPanel"></span>
-        </div>
-        <div class="question-view-holder-wrapper" data-bind="scrollbar: { checkDOMChanges: true }, tooltipcontainer: { }, style: { opacity: isQuestionViewReady() ? '1' : '0' }">
-                <!-- ko compose: { model: questionViewModel, activate: false, compositionComplete: onQuestionViewCompositionComplete.bind($data) } --><!-- /ko -->
-        </div>
-        <!-- ko ifnot: isQuestionViewReady() -->
+        <!-- ko if: isLoading() -->
         <div data-bind="preloader: { settings: 'align-center' }"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: isLoading() -->
+            <div class="left-panel" data-bind="css:{ expanded: isNavigationPanelExpanded() }">
+                <!-- ko compose: { model: navigationPanel, activate: false } --><!-- /ko -->
+                <span class="toggle-navigation-button" data-bind="click: toggleExpandNavigationPanel"></span>
+            </div>
+            <div class="question-view-holder-wrapper" data-bind="scrollbar: { checkDOMChanges: true }, tooltipcontainer: { }, style: { opacity: isQuestionViewReady() ? '1' : '0' }">
+                <!-- ko compose: { model: questionViewModel, activate: false, compositionComplete: onQuestionViewCompositionComplete.bind($data) } --><!-- /ko -->
+            </div>
+            <!-- ko ifnot: isQuestionViewReady() -->
+            <div data-bind="preloader: { settings: 'align-center' }"></div>
+            <!-- /ko -->
         <!-- /ko -->
     </main>
 </section>

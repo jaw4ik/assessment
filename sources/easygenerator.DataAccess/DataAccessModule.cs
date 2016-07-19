@@ -3,6 +3,7 @@ using easygenerator.DataAccess.Repositories;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
@@ -99,6 +100,9 @@ namespace easygenerator.DataAccess
             builder.RegisterType<PasswordRecoveryTicketRepository>()
                 .As<IPasswordRecoveryTicketRepository>()
                 .As<IQuerableRepository<PasswordRecoveryTicket>>();
+
+            builder.RegisterType<EmailConfirmationTicketRepository>()
+                .As<IQuerableRepository<EmailConfirmationTicket>>();
 
             builder.RegisterType<MailNotificationRepository>()
                 .As<IMailNotificationRepository>();

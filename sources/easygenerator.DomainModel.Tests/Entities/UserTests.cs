@@ -1,6 +1,8 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.ObjectMothers.Tickets;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -319,6 +320,144 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion GetFullName
 
+        #region Add email confirmation ticket
+
+        [TestMethod]
+        public void AddEmailConfirmationTicket_ShouldRemovePreviousTickets()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.TicketCollection.Add(ticket);
+
+            //Act
+            user.AddEmailConfirmationTicket(EmailConfirmationTicketObjectMother.Create());
+
+            //Assert
+            user.TicketCollection.Should().NotContain(t => t == ticket);
+        }
+
+        [TestMethod]
+        public void AddEmailConfirmationTicket_ShouldAssignUserToTicket()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+
+            //Act
+            user.AddEmailConfirmationTicket(ticket);
+
+            //Assert
+            ticket.User.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void AddEmailConfirmationTicket_ShouldAddPasswordRecoveryTicket()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+
+            //Act
+            user.AddEmailConfirmationTicket(ticket);
+
+            //Assert
+            user.TicketCollection.Should().Contain(ticket);
+        }
+
+        #endregion
+
+        #region GetEmailConfirmationTicket
+
+        [TestMethod]
+        public void GetEmailConfirmationTicket_ShouldReturnNull_WhenNoEmailConfirmationTicketFound()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            var ticket = user.GetEmailConfirmationTicket();
+
+            //Assert
+            Assert.IsNull(ticket);
+        }
+
+        [TestMethod]
+        public void GetEmailConfirmationTicket_ShouldReturnTicket()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.TicketCollection.Add(ticket);
+
+            //Act
+            var result = user.GetEmailConfirmationTicket();
+
+            //Assert
+            result.Should().Be(ticket);
+        }
+
+        #endregion
+
+        #region ConfirmEmailUsingTicket
+
+        [TestMethod]
+        public void ConfirmEmailUsingTicket_ShouldThrowArgumentNullException_WhenTicketIsNull()
+        {
+            var user = UserObjectMother.Create();
+            Action action = () => user.ConfirmEmailUsingTicket(null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ticket");
+        }
+
+        [TestMethod]
+        public void ConfirmEmailUsingTicket_ShouldThrowInvalidOperationException_WhenTicketDoesNotExist()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            Action action = () => user.ConfirmEmailUsingTicket(ticket);
+
+            action.ShouldThrow<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void ConfirmEmailUsingTicket_ShouldSetIsEmailConfirmedToTrue()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.TicketCollection.Add(ticket);
+
+            user.ConfirmEmailUsingTicket(ticket);
+
+            user.IsEmailConfirmed.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void ConfirmEmailUsingTicket_ShouldRemoveTicket()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.TicketCollection.Add(ticket);
+
+            user.ConfirmEmailUsingTicket(ticket);
+
+            user.TicketCollection.Should().NotContain(ticket);
+        }
+
+        [TestMethod]
+        public void ConfirmEmailUsingTicket_ShouldAddUserUpdateEvent()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.TicketCollection.Add(ticket);
+
+            user.ConfirmEmailUsingTicket(ticket);
+
+            user.ShouldContainSingleEvent<UserEmailConfirmedEvent>();
+        }
+
+        #endregion
+
         #region Add password recovery ticket
 
         [TestMethod]
@@ -326,11 +465,25 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var user = UserObjectMother.Create();
             var ticket = PasswordRecoveryTicketObjectMother.Create();
-            user.PasswordRecoveryTicketCollection.Add(ticket);
+            user.TicketCollection.Add(ticket);
 
             user.AddPasswordRecoveryTicket(PasswordRecoveryTicketObjectMother.Create());
 
-            user.PasswordRecoveryTicketCollection.Should().NotContain(t => t == ticket);
+            user.TicketCollection.Should().NotContain(t => t == ticket);
+        }
+
+        [TestMethod]
+        public void AddPasswordRecoveryTicket_ShouldAssignUserToTicket()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            //Act
+            user.AddPasswordRecoveryTicket(ticket);
+
+            //Assert
+            ticket.User.Should().Be(user);
         }
 
         [TestMethod]
@@ -341,31 +494,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             user.AddPasswordRecoveryTicket(ticket);
 
-            user.PasswordRecoveryTicketCollection.Should().Contain(ticket);
-        }
-
-        [TestMethod]
-        public void AddPasswordRecoveryTicket_ShouldUnsetUserFromPreviousTickets()
-        {
-            var user = UserObjectMother.Create();
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-            ticket.User = user;
-            user.PasswordRecoveryTicketCollection.Add(ticket);
-
-            user.AddPasswordRecoveryTicket(PasswordRecoveryTicketObjectMother.Create());
-
-            ticket.User.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void AddPasswordRecoveryTicket_ShouldSetUserToPasswordRecoveryTicket()
-        {
-            var user = UserObjectMother.Create();
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-
-            user.AddPasswordRecoveryTicket(ticket);
-
-            ticket.User.Should().Be(user);
+            user.TicketCollection.Should().Contain(ticket);
         }
 
         #endregion
@@ -440,7 +569,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var user = UserObjectMother.Create();
             var ticket = PasswordRecoveryTicketObjectMother.Create();
-            user.PasswordRecoveryTicketCollection.Add(ticket);
+            user.TicketCollection.Add(ticket);
             const string password = "easyGenerAtoR123!";
 
             user.RecoverPasswordUsingTicket(ticket, password);
@@ -453,12 +582,12 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var user = UserObjectMother.Create();
             var ticket = PasswordRecoveryTicketObjectMother.Create();
-            user.PasswordRecoveryTicketCollection.Add(ticket);
+            user.TicketCollection.Add(ticket);
             const string password = "easyGenerAtoR123!";
 
             user.RecoverPasswordUsingTicket(ticket, password);
 
-            user.PasswordRecoveryTicketCollection.Should().NotContain(ticket);
+            user.TicketCollection.Should().NotContain(ticket);
         }
 
         [TestMethod]
@@ -466,7 +595,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var user = UserObjectMother.Create();
             var ticket = PasswordRecoveryTicketObjectMother.Create();
-            user.PasswordRecoveryTicketCollection.Add(ticket);
+            user.TicketCollection.Add(ticket);
             const string password = "easyGenerAtoR123!";
 
             user.RecoverPasswordUsingTicket(ticket, password);
@@ -1441,7 +1570,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-        
+
         #region UpgradePlanToStarter
 
         [TestMethod]
@@ -1905,6 +2034,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
 
         #region User Companies
 

@@ -373,4 +373,31 @@
 easygenerator 团队&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>单击此处</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Easygenerator 团队</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>如果链接无法访问，请复制/黏贴该网址至浏览器：</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>您已加入 Easygenerator，但是记录显示您还未确认邮箱地址。</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>为确保现有用户的安全，您必须验证邮箱地址方可访问 Easygenerator 的全部功能。</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>请确认您的 Easygenerator 邮箱地址</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>确认邮箱地址</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Hi</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>坚持学习</value>
+  </data>
 </root>

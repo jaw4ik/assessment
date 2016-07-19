@@ -10,7 +10,6 @@ using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.DomainOperations;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Publish;
@@ -26,6 +25,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Components.DomainOperations.CourseOperations;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Publish.Coggno;
 
@@ -53,7 +53,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IExternalPublisher _externalPublisher;
         private IUserRepository _userRepository;
         private ICloner _cloner;
-        private IDomainOperationExecutor _domainOperationExecutor;
+        private ICourseDomainOperationExecutor _courseDomainOperationExecutor;
         private ISamlServiceProviderRepository _samlServiceProviderRepository;
         private ILog _logger;
         private ConfigurationReader _configurationReader;
@@ -77,7 +77,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
-            _domainOperationExecutor = Substitute.For<IDomainOperationExecutor>();
+            _courseDomainOperationExecutor = Substitute.For<ICourseDomainOperationExecutor>();
             _samlServiceProviderRepository = Substitute.For<ISamlServiceProviderRepository>();
             _logger = Substitute.For<ILog>();
             _configurationReader = Substitute.For<ConfigurationReader>();
@@ -85,7 +85,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context.User.Returns(_user);
 
             _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _sectionRepository, _entityFactory, _urlHelper, _publisher, _coggnoPublisher,
-                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _domainOperationExecutor, _samlServiceProviderRepository,
+                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _courseDomainOperationExecutor, _samlServiceProviderRepository,
                 _logger,  _configurationReader);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
@@ -121,7 +121,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Create(title, null);
 
-            _domainOperationExecutor.Received().CreateCourse(Arg.Is<Course>(exp => exp.Title == title));
+            _courseDomainOperationExecutor.Received().CreateCourse(Arg.Is<Course>(exp => exp.Title == title));
         }
 
         [TestMethod]
@@ -153,7 +153,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Create(title, null);
 
-            _domainOperationExecutor.Received().CreateCourse(course);
+            _courseDomainOperationExecutor.Received().CreateCourse(course);
         }
 
         #endregion
@@ -174,7 +174,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
 
-            _domainOperationExecutor.Received().CreateCourse(courseToDuplicate);
+            _courseDomainOperationExecutor.Received().CreateCourse(courseToDuplicate);
         }
 
         [TestMethod]

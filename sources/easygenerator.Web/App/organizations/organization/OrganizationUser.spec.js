@@ -5,20 +5,22 @@ import app from 'durandal/app';
 import constants from 'constants';
 
 describe('organization [OrganizationUser]', () => {
-    let userData = {
-        id: 'id',
-        email: 'email',
-        fullName: 'name',
-        isAdmin: false,
-        isRegistered: false,
-        createdOn: new Date(),
-        status: constants.organizationUserStatus.accepted
-    },
+    let userData,
         user;
 
     beforeEach(() => {
         spyOn(app, 'on');
         spyOn(app, 'off');
+
+        userData = {
+            id: 'id',
+            email: 'email',
+            fullName: 'name',
+            isAdmin: false,
+            isRegistered: false,
+            createdOn: new Date(),
+            status: constants.organizationUserStatus.accepted
+        };
 
         userContext.identity = { email: userData.email };
     });
@@ -103,7 +105,15 @@ describe('organization [OrganizationUser]', () => {
                 });
             });
 
-            describe('when status is NOT waiting for acceptance', () => {
+            describe('when status is waiting for email confirmation', () => {
+                it('should be true', () => {
+                    userData.status = constants.organizationUserStatus.waitingForEmailConfirmation;
+                    user = new OrganizationUser(userData);
+                    expect(user.isWaitingForAcceptance()).toBeTruthy();
+                });
+            });
+
+            describe('when status is NOT waiting for acceptance or waiting for acceptance', () => {
                 it('should be false', () => {
                     userData.status = constants.organizationUserStatus.declined;
                     user = new OrganizationUser(userData);
@@ -148,9 +158,9 @@ describe('organization [OrganizationUser]', () => {
         });
 
         describe('name:', () => {
-            describe('when user is registered', () => {
+            describe('when user has fullname', () => {
                 beforeEach(() => {
-                    userData.isRegistered = true;
+                    userData.fullName = 'James Bond';
                 });
 
                 it('should be set to user fullName', () => {
@@ -159,9 +169,9 @@ describe('organization [OrganizationUser]', () => {
                 });
             });
 
-            describe('when user is not registered', () => {
+            describe('when user doesnt have fullname', () => {
                 beforeEach(() => {
-                    userData.isRegistered = false;
+                    userData.fullName = '';
                 });
 
                 it('should be set to user email', () => {
@@ -172,9 +182,9 @@ describe('organization [OrganizationUser]', () => {
         });
 
         describe('avatarLetter:', () => {
-            describe('when user is registered', () => {
+            describe('when user ihas fullname', () => {
                 beforeEach(() => {
-                    userData.isRegistered = true;
+                    userData.fullName = 'James Bond';
                 });
 
                 it('should be set to user fullName first letter', () => {
@@ -183,9 +193,9 @@ describe('organization [OrganizationUser]', () => {
                 });
             });
 
-            describe('when user is not registered', () => {
+            describe('when user doesnt have fullname', () => {
                 beforeEach(() => {
-                    userData.isRegistered = false;
+                    userData.fullName = '';
                 });
 
                 it('should be set to user email first letter', () => {

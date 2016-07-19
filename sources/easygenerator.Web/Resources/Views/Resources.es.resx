@@ -373,4 +373,25 @@ Equipo de easygenerator&lt;/p&gt;
 El equipo de easygenerator&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Haga clic aquí</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Equipo de Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>Si el vínculo no funciona, copie y pegue esta URL en su navegador:</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>Ya se ha unido a Easygenerator, pero, según nuestros registros, todavía no ha confirmado su dirección de correo electrónico.</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>A fin de garantizar la seguridad de nuestros usuarios actuales, debe verificar su dirección de correo electrónico para acceder a toda la gama de funciones de Easygenerator.</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>para confirmar su dirección de correo electrónico</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>Siga aprendiendo</value>
+  </data>
 </root>

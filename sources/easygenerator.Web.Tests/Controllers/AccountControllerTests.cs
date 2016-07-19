@@ -1,6 +1,8 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.ObjectMothers.Tickets;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
@@ -217,6 +219,66 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsViewResult(result);
+        }
+
+        #endregion
+
+        #region EmailConfirmation
+
+        [TestMethod]
+        public void EmailConfirmation_ShouldReturnHttpNotFoundResult_WhenTicketIsNull()
+        {
+            //Act
+            var result = _controller.EmailConfirmation(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void EmailConfirmation_ShouldConfirmUserEmail()
+        {
+            //Arrange
+            var user = Substitute.For<User>();
+            var ticket = EmailConfirmationTicketObjectMother.CreateWithUser(user);
+
+            //Act
+            _controller.EmailConfirmation(ticket);
+
+            //Assert
+            user.Received().ConfirmEmailUsingTicket(ticket);
+        }
+
+        [TestMethod]
+        public void EmailConfirmation_ShouldSetNavigationLinksDisabledToTrue()
+        {
+            //Arrange
+            _controller.ViewBag.NavigationLinksAreDisabled = false;
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.AddEmailConfirmationTicket(ticket);
+
+            //Act
+            _controller.EmailConfirmation(ticket);
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.NavigationLinksAreDisabled);
+        }
+
+        [TestMethod]
+        public void EmailConfirmation_ShouldReturnEmailConfirmedView()
+        {
+            //Arrange
+            _controller.ViewBag.NavigationLinksAreDisabled = false;
+            var user = UserObjectMother.Create();
+            var ticket = EmailConfirmationTicketObjectMother.Create();
+            user.AddEmailConfirmationTicket(ticket);
+
+            //Act
+            var result = _controller.EmailConfirmation(ticket);
+
+            //Assert
+            ActionResultAssert.IsViewResult(result, "EmailConfirmed");
         }
 
         #endregion

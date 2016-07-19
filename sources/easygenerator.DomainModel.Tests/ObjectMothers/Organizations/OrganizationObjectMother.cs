@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities.Organizations;
+﻿using easygenerator.DomainModel.Entities.Organizations;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
 {
@@ -11,6 +6,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
     {
         private const string Title = "Organization title";
         private const string CreatedBy = "username@easygenerator.com";
+        private const string EmailDomains = "easygenerator.com";
 
         public static Organization CreateWithTitle(string title)
         {
@@ -22,9 +18,14 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
             return Create(createdBy: createdBy);
         }
 
-        public static Organization Create(string title = Title, string createdBy = CreatedBy)
+        public static Organization CreateWithEmailDomains(string emailDomains)
         {
-            return new Organization(title, createdBy);
+            return Create(emailDomains: emailDomains);
+        }
+
+        public static Organization Create(string title = Title, string createdBy = CreatedBy, string emailDomains = null)
+        {
+            return new Organization(title, createdBy, emailDomains);
         }
     }
 }

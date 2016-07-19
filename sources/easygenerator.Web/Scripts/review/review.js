@@ -1,7 +1,7 @@
 ﻿var app = app || {};
 
 app.reviewViewModel = function (dataStorage) {
-    var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
+    var patternEmail = /^[^@\s]+@[^@\s]+$/,
            userNameKey = 'usernameForReview',
            userMailKey = 'usermailForReview',
            storage = dataStorage || localStorage;

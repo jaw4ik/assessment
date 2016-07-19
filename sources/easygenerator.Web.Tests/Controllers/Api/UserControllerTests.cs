@@ -1,15 +1,15 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
-using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
-using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Account;
@@ -561,7 +561,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(email).Returns(user);
 
             var ticket = Substitute.For<PasswordRecoveryTicket>();
-            _entityFactory.PasswordRecoveryTicket(user).Returns(ticket);
+            _entityFactory.PasswordRecoveryTicket().Returns(ticket);
 
             //Act
             _controller.ForgotPassword(email);
@@ -579,7 +579,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(email).Returns(user);
 
             var ticket = Substitute.For<PasswordRecoveryTicket>();
-            _entityFactory.PasswordRecoveryTicket(user).Returns(ticket);
+            _entityFactory.PasswordRecoveryTicket().Returns(ticket);
 
             //Act
             _controller.ForgotPassword(email);
@@ -595,7 +595,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             result.Should().BeJsonSuccessResult();
         }
-
 
         #endregion
 
@@ -640,7 +639,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
             _releaseNoteFileReader.GetReleaseVersion().Returns("255");
 
-           _controller.UpdateLastReadReleaseNoteVersion();
+            _controller.UpdateLastReadReleaseNoteVersion();
 
             user.Settings.LastReadReleaseNote.Should().Be("255");
         }
@@ -669,7 +668,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var email = "easygenerator@easygenerator.com";
             var user = UserObjectMother.CreateWithEmail(email);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
-            
+
             _controller.SwitchEditor();
 
             user.Settings.NewEditor.Should().Be(false);
@@ -681,7 +680,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var email = "easygenerator@easygenerator.com";
             var user = UserObjectMother.CreateWithEmail(email);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
-            
+
             var result = _controller.SwitchEditor();
 
             result.Should().BeJsonSuccessResult();

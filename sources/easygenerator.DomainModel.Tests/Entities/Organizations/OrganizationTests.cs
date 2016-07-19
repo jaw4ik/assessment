@@ -30,52 +30,343 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         [TestMethod]
         public void Organization_ShouldThrowArgumentNullException_WhenTitleIsNull()
         {
+            // Act
             Action action = () => OrganizationObjectMother.CreateWithTitle(null);
 
+            // Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("title");
         }
 
         [TestMethod]
         public void Organization_ShouldThrowArgumentException_WhenTitleIsEmpty()
         {
+            // Act
             Action action = () => OrganizationObjectMother.CreateWithTitle(String.Empty);
 
+            // Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
         }
 
         [TestMethod]
         public void Organization_ShouldThrowArgumentOutOfRangeException_WhenTitleIsLongerThan255()
         {
+            // Act
             Action action = () => OrganizationObjectMother.CreateWithTitle(new string('*', 256));
 
+            // Assert
             action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("title");
         }
 
         [TestMethod]
         public void Organization_ShouldAddUserWithCreatedByEmailAndAdminAccessToCollection()
         {
+            // Arrange
             const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var course = OrganizationObjectMother.Create(title, CreatedBy);
-            course.Users.Should().NotBeEmpty().And.HaveCount(1);
-            course.Users.First().Email.Should().Be(CreatedBy);
-            course.Users.First().IsAdmin.Should().Be(true);
+            // Act
+            var organization = OrganizationObjectMother.Create(title, CreatedBy);
+
+            // Assert
+            organization.Users.Should().NotBeEmpty().And.HaveCount(1);
+            organization.Users.First().Email.Should().Be(CreatedBy);
+            organization.Users.First().IsAdmin.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void Organization_ShouldThrowArgumentException_WhenEmailDomainIsEmptyString()
+        {
+            // Act
+            Action action = () => OrganizationObjectMother.CreateWithEmailDomains(String.Empty);
+
+            // Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void Organization_ShouldThrowArgumentException_WhenEmailDomainIsLongerThan255()
+        {
+            // Act
+            Action action = () => OrganizationObjectMother.CreateWithEmailDomains(new string('*', 256));
+
+            // Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void Organization_ShouldThrowArgumentException_WhenOneEmailDomainIsInvalid()
+        {
+            // Arrange
+            const string domainEmail = "easygenerator.com,ism@ecompany";
+
+            // Act
+            Action action = () => OrganizationObjectMother.CreateWithEmailDomains(domainEmail);
+
+
+            // Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+
+        [TestMethod]
+        public void Organization_ShouldSetEmailDomains()
+        {
+            // Arrange
+            const string emailDomains = "easygenerator.com";
+
+            // Act
+            var organization = OrganizationObjectMother.CreateWithEmailDomains(emailDomains);
+
+            // Arrange
+            organization.EmailDomains.Should().Be(emailDomains);
         }
 
         [TestMethod]
         public void Organization_ShouldCreateOrganizationInstance()
         {
+            // Arrange
             const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var course = OrganizationObjectMother.Create(title, CreatedBy);
+            // Act
+            var organization = OrganizationObjectMother.Create(title, CreatedBy);
 
-            course.Id.Should().NotBeEmpty();
-            course.Title.Should().Be(title);
-            course.CreatedOn.Should().Be(DateTime.MaxValue);
-            course.ModifiedOn.Should().Be(DateTime.MaxValue);
-            course.Users.Should().NotBeEmpty();
+            // Arrange
+            organization.Id.Should().NotBeEmpty();
+            organization.Title.Should().Be(title);
+            organization.CreatedOn.Should().Be(DateTime.MaxValue);
+            organization.ModifiedOn.Should().Be(DateTime.MaxValue);
+            organization.Users.Should().NotBeEmpty();
+            organization.EmailDomains.Should().BeNull();
+            organization.EmailDomainCollection.Count().Should().Be(0);
+        }
+
+        #endregion
+
+        #region Update email domains
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentNullException_WhenEmailDomainIsNull()
+        {
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenEmailDomainIsEmpty()
+        {
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenEmailDomainIsLongerThan255()
+        {
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(new string('*', 256));
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenOneEmailDomainIsInvalid()
+        {
+            const string domainEmail = "easygenerator.com,ism-ecompanyc}om";
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(domainEmail);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenEmailDomainIsInvalid_HasOnlyOneSymbol()
+        {
+            const string domainEmail = "c";
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(domainEmail);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenEmailDomainIsInvalid_HasTwoSymbols()
+        {
+            const string domainEmail = "co";
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(domainEmail);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenEmailDomainIsInvalid_HasTwoDots()
+        {
+            const string domainEmail = "example..com";
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(domainEmail);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomains_ShouldThrowArgumentException_WhenOneEmailDomainDelimiterIsNotComma()
+        {
+            const string domainEmail = "easygenerator.com;ism-ecompany.com";
+            var organization = OrganizationObjectMother.Create();
+
+            Action action = () => organization.UpdateEmailDomains(domainEmail);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("emailDomain");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomain()
+        {
+            const string domainEmail = "easygenerator.com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(1);
+            organization.EmailDomainCollection.First().Should().Be(domainEmail);
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomain_WhenOrganizationDomainHasSlashAndUnderscore()
+        {
+            const string domainEmail = "easygenerator_live.ism-com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(1);
+            organization.EmailDomainCollection.First().Should().Be(domainEmail);
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomain_WhenOrganizationDomainHasThreeSymbols()
+        {
+            const string domainEmail = "com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(1);
+            organization.EmailDomainCollection.First().Should().Be(domainEmail);
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomain_WhenOrganizationDomainIsLong()
+        {
+            string domainEmail = new string('c', 50);
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(1);
+            organization.EmailDomainCollection.First().Should().Be(domainEmail);
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomainForTwoDomainsSeparatedWithComma()
+        {
+            const string domainEmail = "easygenerator.com,ism-ecompany.com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(2);
+            organization.EmailDomainCollection.ElementAt(0).Should().Be("easygenerator.com");
+            organization.EmailDomainCollection.ElementAt(1).Should().Be("ism-ecompany.com");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomainForMultipleDomainsSeparatedWithComma()
+        {
+            const string domainEmail = "easygenerator.com,ism-ecompany.com,customer.asd";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(3);
+            organization.EmailDomainCollection.ElementAt(0).Should().Be("easygenerator.com");
+            organization.EmailDomainCollection.ElementAt(1).Should().Be("ism-ecompany.com");
+            organization.EmailDomainCollection.ElementAt(2).Should().Be("customer.asd");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomainForTwoDomainsSeparatedWithCommaAndSpaces()
+        {
+            const string domainEmail = "easygenerator.com ,   ism-ecompany.com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(2);
+            organization.EmailDomainCollection.ElementAt(0).Should().Be("easygenerator.com");
+            organization.EmailDomainCollection.ElementAt(1).Should().Be("ism-ecompany.com");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldUpdateEmailDomainForMultipleDomainsSeparatedWithCommaAndSpaces()
+        {
+            const string domainEmail = "easygenerator.com ,ism-ecompany.com , some.com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.EmailDomainCollection.Count().Should().Be(3);
+            organization.EmailDomainCollection.ElementAt(0).Should().Be("easygenerator.com");
+            organization.EmailDomainCollection.ElementAt(1).Should().Be("ism-ecompany.com");
+            organization.EmailDomainCollection.ElementAt(2).Should().Be("some.com");
+        }
+
+        [TestMethod]
+        public void UpdateEmailDomain_ShouldAdd_OrganizationEmailDomainUpdatedEvent()
+        {
+            const string domainEmail = "domain.com";
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains(domainEmail);
+
+            organization.ShouldContainSingleEvent<OrganizationEmailDomainUpdatedEvent>();
+        }
+
+        #endregion
+
+        #region Clear email domain
+
+        [TestMethod]
+        public void ClearEmailDomains_ShouldSetEmailDomainToNull()
+        {
+            var organization = OrganizationObjectMother.Create();
+
+            organization.UpdateEmailDomains("easygenerator.com");
+
+            organization.ClearEmailDomains();
+            organization.EmailDomainCollection.Count().Should().Be(0);
+            organization.EmailDomains.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void ClearEmailDomains_ShouldAdd_OrganizationEmailDomainUpdatedEvent()
+        {
+            var organization = OrganizationObjectMother.Create();
+
+            organization.ClearEmailDomains();
+
+            organization.ShouldContainSingleEvent<OrganizationEmailDomainUpdatedEvent>();
         }
 
         #endregion
@@ -185,74 +476,129 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         [TestMethod]
         public void AddUser_ShouldThrowArgumentNullException_WhenUserEmailIsNull()
         {
+            // Arrange
             var organization = OrganizationObjectMother.Create();
 
+            // Act
             Action action = () => organization.AddUser(null, CreatedBy);
 
+            // Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("userEmail");
         }
 
         [TestMethod]
         public void AddUser_ShouldThrowArgumentNullException_WhenCreatedByIsNull()
         {
+            // Arrange
             var organization = OrganizationObjectMother.Create();
 
+            // Act
             Action action = () => organization.AddUser(UserEmail, null);
 
+            // Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("createdBy");
         }
 
         [TestMethod]
         public void AddUser_ShouldThrowArgumentNullException_WhenUserEmailIsInvalid()
         {
+            // Arrange
             var organization = OrganizationObjectMother.Create();
 
+            // Act
             Action action = () => organization.AddUser("email", CreatedBy);
 
+            // Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("userEmail");
         }
 
         [TestMethod]
         public void AddUser_ShouldAddUser()
         {
+            // Arrange
             const string owner = "owner@www.com";
             var organization = OrganizationObjectMother.Create(createdBy: owner);
             var userCount = organization.Users.Count();
+
+            // Act
             organization.AddUser(UserEmail, CreatedBy);
 
+            // Assert
             organization.UserCollection.Should().NotBeEmpty().And.HaveCount(userCount + 1);
+        }
+
+        [TestMethod]
+        public void AddUser_WhenStatusIsNotSpecified_ShouldAddUserWithWaitingForAcceptanceStatus()
+        {
+            // Arrange
+            const string owner = "owner@www.com";
+            var organization = OrganizationObjectMother.Create(createdBy: owner);
+            var userCount = organization.Users.Count();
+
+            // Act
+            var user = organization.AddUser(UserEmail, CreatedBy);
+
+            // Assert
+            organization.UserCollection.Should().NotBeEmpty().And.HaveCount(userCount + 1);
+            user.Status.Should().Be(OrganizationUserStatus.WaitingForAcceptance);
+        }
+
+        [TestMethod]
+        public void AddUser_WhenStatusSpecified_ShouldAddUserWithSpecifiedStatus()
+        {
+            // Arrange
+            const string owner = "owner@www.com";
+            var organization = OrganizationObjectMother.Create(createdBy: owner);
+            var userCount = organization.Users.Count();
+
+            // Act
+            var user = organization.AddUser(UserEmail, CreatedBy, OrganizationUserStatus.WaitingForEmailConfirmation);
+
+            // Assert
+            organization.UserCollection.Should().NotBeEmpty().And.HaveCount(userCount + 1);
+            user.Status.Should().Be(OrganizationUserStatus.WaitingForEmailConfirmation);
         }
 
         [TestMethod]
         public void AddUser_ShouldReturnOrganizationUser()
         {
+            // Arrange
             const string owner = "owner@www.com";
             var organization = OrganizationObjectMother.Create(createdBy: owner);
 
+            // Act
             var result = organization.AddUser(UserEmail, CreatedBy);
 
+            // Assert
             result.Should().BeOfType<OrganizationUser>();
         }
 
         [TestMethod]
         public void AddUser_ShouldNotAddUser_WhenUserAlreadyExistsInCollection()
         {
+            // Arrange
             const string email = "owner@www.com";
             var organization = OrganizationObjectMother.Create(createdBy: email);
             organization.AddUser(email, CreatedBy);
 
+            // Act
             organization.AddUser(email, CreatedBy);
 
+            // Assert
             organization.Users.Should().NotBeEmpty().And.HaveCount(1);
         }
 
         [TestMethod]
         public void AddUser_ShouldAddOrganizationUserAddedEvent()
         {
+            // Arrange
             const string email = "owner@www.com";
             var organization = OrganizationObjectMother.Create(createdBy: UserEmail);
+
+            // Act
             organization.AddUser(email, CreatedBy);
 
+            // Assert
             organization.ShouldContainSingleEvent<OrganizationUserAddedEvent>();
         }
 
@@ -276,10 +622,13 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         [TestMethod]
         public void RemoveUser_ShouldThrowInvalidOperationException_WhenRemoveLastAdminUser()
         {
+            // Arrange
             var organization = OrganizationObjectMother.Create();
 
+            // Act
             Action action = () => organization.RemoveUser(organization.CreatedBy, ModifiedBy);
 
+            // Assert
             action.ShouldThrow<InvalidOperationException>();
         }
 

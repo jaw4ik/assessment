@@ -254,7 +254,8 @@
         'synchronization/handlers/organizations/eventHandlers/inviteAccepted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipStarted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipFinished.spec',
-
+        'synchronization/handlers/organizations/eventHandlers/userAdded.spec',
+        
         // #endregion
 
         //#region synchronization questions
@@ -500,6 +501,7 @@
         'http/storageHttpWrapper.spec',
         'http/httpRequestSender.spec',
         'http/storageHttpRequestSender.spec',
+        'http/httpRequestTracker.spec',
         //#endregion
         './Scripts/account/signup.spec',
         './Scripts/account/signin.spec',

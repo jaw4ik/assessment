@@ -4,11 +4,13 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Mail;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -199,5 +201,50 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess();
         }
+
+        #region External api
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/emaildomains/update")]
+        public ActionResult UpdateOrganizationEmailDomains(Organization organization, string emailDomains)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.UpdateEmailDomains(emailDomains);
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/emaildomains/get")]
+        public ActionResult GetOrganizationEmailDomains(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            return JsonDataResult(organization.EmailDomains);
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/emaildomains/clear")]
+        public ActionResult ClearOrganizationEmailDomains(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.ClearEmailDomains();
+            return Success();
+        }
+
+        #endregion
     }
 }

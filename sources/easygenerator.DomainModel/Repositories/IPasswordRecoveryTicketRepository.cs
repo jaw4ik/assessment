@@ -1,4 +1,4 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities.Tickets;
 
 namespace easygenerator.DomainModel.Repositories
 {

@@ -24,8 +24,8 @@ System.config({
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
     "knockout": "core/knockout",
-    "moment": "npm:moment@2.13.0",
-    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.11",
+    "moment": "npm:moment@2.14.1",
+    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.12",
     "plugins": "core/durandal/plugins",
     "spectrum-colorpicker": "npm:spectrum-colorpicker@1.7.1",
     "text": "github:systemjs/plugin-text@0.0.3",
@@ -96,7 +96,7 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:jquery@3.0.0": {
+    "npm:jquery@3.1.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:path-browserify@0.0.0": {
@@ -118,7 +118,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:velocity-animate@1.2.3": {
-      "jquery": "npm:jquery@3.0.0",
+      "jquery": "npm:jquery@3.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:vm-browserify@0.0.4": {

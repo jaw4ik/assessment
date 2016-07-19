@@ -6,6 +6,7 @@ import inviteRemoved from './eventHandlers/inviteRemoved';
 import titleUpdated from './eventHandlers/titleUpdated';
 import membershipStarted from './eventHandlers/membershipStarted';
 import membershipFinished from './eventHandlers/membershipFinished';
+import userAdded from './eventHandlers/userAdded';
 
 export default {
     userRegistered: userRegistered,
@@ -15,5 +16,6 @@ export default {
     inviteRemoved: inviteRemoved,
     titleUpdated: titleUpdated,
     membershipStarted: membershipStarted,
-    membershipFinished: membershipFinished
+    membershipFinished: membershipFinished,
+    userAdded: userAdded
 };

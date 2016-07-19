@@ -27,6 +27,8 @@
     "[text matching question drop here]": "이곳에 배치함",
     "[statement question true text]": "참",
     "[statement question false text]": "거짓",
+    "[statement question true tooltip]": "참",
+    "[statement question false tooltip]": "거짓",
     "[drag and drop question all texts are placed]": "모든 텍스트가 배치되었음",
     "[drag and drop question drop here]": "이곳에 배치함",
     "[fill in the blank choose answer]": "정답을 고르시오",

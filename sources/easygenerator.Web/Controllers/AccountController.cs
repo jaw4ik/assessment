@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office.CustomXsn;
 using easygenerator.Auth.Attributes.Mvc;
-using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -63,6 +63,7 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
+        [NoCache]
         [HttpGet]
         public ActionResult PasswordRecovery(PasswordRecoveryTicket ticket)
         {
@@ -85,6 +86,22 @@ namespace easygenerator.Web.Controllers
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
 
             return RedirectToRoute("Default");
+        }
+
+        [NoCache]
+        [HttpGet]
+        [Route("email/confirmation/{ticketId}", Name = "EmailConfirmation")]
+        public ActionResult EmailConfirmation(EmailConfirmationTicket ticket)
+        {
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+
+            ticket.User.ConfirmEmailUsingTicket(ticket);
+
+            ViewBag.NavigationLinksAreDisabled = true;
+            return View("EmailConfirmed");
         }
 
         [NoCache]

@@ -323,8 +323,11 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
-    <Compile Include="Components\DomainOperations\CourseOwnershipProvider.cs" />
-    <Compile Include="Components\DomainOperations\DomainOperationExecutor.cs" />
+    <Compile Include="Components\DomainOperations\CourseOperations\CourseDomainOperationExecutor.cs" />
+    <Compile Include="Components\DomainOperations\CourseOperations\CourseOwnershipProvider.cs" />
+    <Compile Include="Components\DomainOperations\CourseOperations\CreateCourseOperation.cs" />
+    <Compile Include="Components\DomainOperations\OrganizationOperations\AutoincludeUserToOrganizationOperation.cs" />
+    <Compile Include="Components\DomainOperations\OrganizationOperations\OrganizationDomainOperationExecutor.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -353,7 +356,6 @@
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinder.cs" />
     <Compile Include="Components\ModelBinding\SecureModelBinder.cs" />
     <Compile Include="Components\ModelBinding\SecureModelBinderProvider.cs" />
-    <Compile Include="Components\DomainOperations\CreateCourseOperation.cs" />
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Components\UserIdentityProvider.cs" />
@@ -382,6 +384,7 @@
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
     <Compile Include="DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
+    <Compile Include="DomainEvents\Handlers\OrganizationUserAutoincludeHandler.cs" />
     <Compile Include="Controllers\SAML\IdentityProvider\IdentityProviderController.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderController.cs" />
     <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
@@ -741,6 +744,7 @@
     </Content>
     <Content Include="App\binder.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
+    <Content Include="App\bootstrapping\requestTrackingTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\commands\allowCoggnoCommand.js" />
@@ -837,6 +841,10 @@
     <Content Include="App\design\textStyleService.js" />
     <Content Include="App\editor\questions\questionModalView.spec.js">
       <DependentUpon>questionModalView.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\httpRequestTracker.js" />
+    <Content Include="App\http\httpRequestTracker.spec.js">
+      <DependentUpon>httpRequestTracker.js</DependentUpon>
     </Content>
     <Content Include="App\mappers\commentModelMapper.js" />
     <Content Include="App\mappers\organizationInviteMapper.js" />
@@ -1417,6 +1425,10 @@
       <DependentUpon>membershipStarted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\organizations\eventHandlers\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\userAdded.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\userAdded.spec.js">
+      <DependentUpon>userAdded.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\organizations\eventHandlers\userRegistered.js" />
     <Content Include="App\synchronization\handlers\organizations\eventHandlers\titleUpdated.spec.js">
       <DependentUpon>titleUpdated.js</DependentUpon>
@@ -2700,6 +2712,7 @@
     <Content Include="Content\google-fonts\sourcesanspro-300.ttf" />
     <Content Include="Content\google-fonts\sourcesanspro-400.ttf" />
     <Content Include="Content\google-fonts\sourcesanspro-700.ttf" />
+    <Content Include="Mail\MailTemplates\UserEmailConfirmationTemplate.cshtml" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.pem" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.pfx" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.private_key.pem" />
@@ -3595,6 +3608,7 @@
     <Content Include="Templates\Simple course\fonts\Custom-Icons.woff" />
     <Content Include="Templates\Simple course\lang\ms.json" />
     <Content Include="Templates\Simple course\lang\vi.json" />
+    <Content Include="Views\Account\EmailConfirmed.cshtml" />
     <Content Include="Views\CrossProtocolStorage\index.cshtml" />
     <Content Include="Views\IdentityProvider\Auth.cshtml" />
     <None Include="Web.Debug.config">
