@@ -215,7 +215,7 @@
                 app.trigger(constants.messages.course.publishToCoggno.started, that);
 
                 return publishService.publishCourseToCoggno(that.id).then(function () {
-                    that.saleInfo.IsProcessing = true;
+                    that.saleInfo.isProcessing = true;
 
                     action.setState(constants.publishingStates.succeed);
                     app.trigger(constants.messages.course.publishToCoggno.completed, that);

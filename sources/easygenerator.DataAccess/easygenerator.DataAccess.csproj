@@ -471,17 +471,9 @@
     <Compile Include="Migrations\201607050659412_OrganizationEmailDomains.Designer.cs">
       <DependentUpon>201607050659412_OrganizationEmailDomains.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606301155245_AddSamlSupport.cs" />
-    <Compile Include="Migrations\201606301155245_AddSamlSupport.Designer.cs">
-      <DependentUpon>201606301155245_AddSamlSupport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607010821411_AddAllowedSAMLServiceProviders.cs" />
-    <Compile Include="Migrations\201607010821411_AddAllowedSAMLServiceProviders.Designer.cs">
-      <DependentUpon>201607010821411_AddAllowedSAMLServiceProviders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607141015170_AddCourseSaleInfo.cs" />
-    <Compile Include="Migrations\201607141015170_AddCourseSaleInfo.Designer.cs">
-      <DependentUpon>201607141015170_AddCourseSaleInfo.cs</DependentUpon>
+    <Compile Include="Migrations\201607200631532_AddSamlSupportAndIntegrationWithCoggno.cs" />
+    <Compile Include="Migrations\201607200631532_AddSamlSupportAndIntegrationWithCoggno.Designer.cs">
+      <DependentUpon>201607200631532_AddSamlSupportAndIntegrationWithCoggno.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -833,14 +825,8 @@
     <EmbeddedResource Include="Migrations\201607050659412_OrganizationEmailDomains.resx">
       <DependentUpon>201607050659412_OrganizationEmailDomains.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606301155245_AddSamlSupport.resx">
-      <DependentUpon>201606301155245_AddSamlSupport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607010821411_AddAllowedSAMLServiceProviders.resx">
-      <DependentUpon>201607010821411_AddAllowedSAMLServiceProviders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607141015170_AddCourseSaleInfo.resx">
-      <DependentUpon>201607141015170_AddCourseSaleInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607200631532_AddSamlSupportAndIntegrationWithCoggno.resx">
+      <DependentUpon>201607200631532_AddSamlSupportAndIntegrationWithCoggno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddCourseSaleInfo : IMigrationMetadata
+    public sealed partial class AddSamlSupportAndIntegrationWithCoggno : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCourseSaleInfo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSamlSupportAndIntegrationWithCoggno));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607141015170_AddCourseSaleInfo"; }
+            get { return "201607200631532_AddSamlSupportAndIntegrationWithCoggno"; }
         }
         
         string IMigrationMetadata.Source

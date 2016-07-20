@@ -28,9 +28,10 @@
                 .attr('type', 'file')
                 .attr('name', 'file')
                 .on('change', function () {
+                    var that = this;
                     if ($(this).val().toLowerCase().match(new RegExp('\.(' + getSupportedExtensionsRegexBody(settings.supportedExtensions) + ')$'))) {
                         window.auth.getHeader('api').then(function(value) {
-                            $(this).closest('form').ajaxSubmit({
+                            $(that).closest('form').ajaxSubmit({
                                 global: false,
                                 headers: value,
                                 beforeSubmit: function () {

@@ -74,7 +74,7 @@ export default class extends PublishingToCoggnoAction {
         try {
             let course = await repository.getById(this.courseId);
             await course.publishToCoggno();
-            course.saleInfo.IsProcessing = true;
+            course.saleInfo.isProcessing = true;
             this.isProcessing(true);
         } catch (e) {
             notify.error(e);
