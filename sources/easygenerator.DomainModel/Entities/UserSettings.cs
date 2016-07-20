@@ -13,11 +13,12 @@ namespace easygenerator.DomainModel.Entities
         {
         }
 
-        public UserSettings(string createdBy, string lastReadReleaseNote, bool isCreatedThroughLti, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
+        public UserSettings(string createdBy, string lastReadReleaseNote, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
         :base(createdBy)
         {
             LastReadReleaseNote = lastReadReleaseNote;
             IsCreatedThroughLti = isCreatedThroughLti;
+            IsCreatedThroughSamlIdP = isCreatedThroughSamlIdP;
             NewEditor = newEditor;
             IsNewEditorByDefault = isNewEditorByDefault;
             IncludeMediaToPackage = includeMediaToPackage;
@@ -51,6 +52,7 @@ namespace easygenerator.DomainModel.Entities
         }
 
         public bool IsCreatedThroughLti { get; private set; }
+        public bool IsCreatedThroughSamlIdP { get; private set; }
         public bool IsNewEditorByDefault { get; private set; }
 
         public bool IncludeMediaToPackage { get; private set; }

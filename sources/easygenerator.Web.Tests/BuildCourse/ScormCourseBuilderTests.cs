@@ -15,6 +15,7 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using easygenerator.DomainModel.Events;
 using easygenerator.Web.BuildCourse.PublishSettings;
 
 namespace easygenerator.Web.Tests.BuildCourse
@@ -33,6 +34,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private PublishSettingsProvider _publishSettingsProvider;
         private Course _course;
         private CoursePackageModel _coursePackageModel;
+        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -58,7 +60,9 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
-            _builder = new ScormCourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _razorTemplateProvider, _scormPackageModulesProvider, _publishSettingsProvider, Substitute.For<ILog>());
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
+
+            _builder = new ScormCourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _razorTemplateProvider, _scormPackageModulesProvider, _publishSettingsProvider, Substitute.For<ILog>(), _eventPublisher);
         }
 
         #region Build

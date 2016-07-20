@@ -123,8 +123,9 @@
                             emptyListDialogElement.hide();
                             loadingErrorDialogElement.hide();
 
-                            $.ajax(plugin.constants.storage.host + plugin.constants.storage.mediaUrl, { headers: window.auth.getHeader('storage'), global: false, cache: false })
-                                .done(function(response) {
+                            window.auth.getHeader('storage').then(function(value) {
+                                $.ajax(plugin.constants.storage.host + plugin.constants.storage.mediaUrl, { headers: value, global: false, cache: false })
+                                .done(function (response) {
                                     if (!response || !response.Audios || response.Audios.length === 0) {
                                         emptyListDialogElement.show();
                                         loaderDialogElement.hide();
@@ -136,18 +137,18 @@
                                     var audio = response.Audios;
 
 
-                                    audio.forEach(function(item) {
+                                    audio.forEach(function (item) {
                                         item.ThumbnailUrl = plugin.path + plugin.constants.storage.audio.defaultThumbnailUrl;
 
                                         audioLibrary.addAudio(item,
-                                            function() {
+                                            function () {
                                                 var command = editor.getCommand(plugin.commands.selectAudio);
                                                 command.data = item.VimeoId;
                                                 command.exec();
 
                                                 dialog.hide();
                                             },
-                                            function() {
+                                            function () {
                                                 dialog.setValueOf(plugin.mainTabId, plugin.selectedAudioContainerId, item.VimeoId);
                                             }
                                         );
@@ -159,6 +160,7 @@
                                     loaderDialogElement.hide();
                                     loadingErrorDialogElement.show();
                                 });
+                            });
                         }
                     }));
 

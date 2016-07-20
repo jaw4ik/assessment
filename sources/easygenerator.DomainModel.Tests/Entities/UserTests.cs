@@ -222,10 +222,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
             var company = new Company();
+            var samlSP = new SamlServiceProvider();
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, new Collection<Company>() { company });
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, false, new Collection<Company>() { company }, new Collection<SamlServiceProvider>() { samlSP });
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -242,9 +243,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.AccessType.Should().Be(accessPlan);
             user.ExpirationDate.Should().Be(expirationDate);
             user.CompaniesCollection.Should().Contain(company);
+            user.AllowedSamlServiceProviders.Should().Contain(samlSP);
 
             user.Settings.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
             user.Settings.IsCreatedThroughLti.Should().Be(false);
+            user.Settings.IsCreatedThroughSamlIdP.Should().Be(false);
             user.Settings.NewEditor.Should().Be(true);
             user.Settings.IsNewEditorByDefault.Should().Be(true);
         }
@@ -1877,6 +1880,35 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region GetSamlIdPUserInfo
+
+        [TestMethod]
+        public void GetSamlIdPUserInfo_ShouldThrowArgumentNullExceptionIfSamlIdPIsNull()
+        {
+            var user = new User();
+            Action action = () => user.GetSamlIdPUserInfo(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("samlIdP");
+        }
+
+        [TestMethod]
+        public void GetSamlIdPUserInfo_ShouldReturnProperSamlIdPInfoForSpecifiedSamlIdP()
+        {
+            var user = new User();
+            user.SamlIdPUserInfoes = new List<SamlIdPUserInfo>();
+
+            var samlIdP = new SamlIdentityProvider();
+            var samlIdPUserInfo = new SamlIdPUserInfo(samlIdP, user);
+
+            user.SamlIdPUserInfoes.Add(samlIdPUserInfo);
+            user.SamlIdPUserInfoes.Add(new SamlIdPUserInfo(new SamlIdentityProvider(), user));
+
+            user.GetSamlIdPUserInfo(samlIdP).Should().Be(samlIdPUserInfo);
+            user.GetSamlIdPUserInfo(new SamlIdentityProvider()).Should().BeNull();
+        }
+
+        #endregion
+
         #region UpdateLtiUserInfo
 
         [TestMethod]
@@ -1941,6 +1973,68 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region UpdateSamlIdPUserInfo
+
+        [TestMethod]
+        public void AddSamlIdPUserInfo_ShouldAddSamlIdPUserInfo_WhenArgumentIsNotSamlIdPUserInfo()
+        {
+            var user = new User();
+            user.SamlIdPUserInfoes = new List<SamlIdPUserInfo>();
+
+            var samlIdP = new SamlIdentityProvider();
+
+            user.AddSamlIdPUserInfo(samlIdP);
+            user.SamlIdPUserInfoes.Count.Should().Be(1);
+
+            user.SamlIdPUserInfoes.ElementAt(0).SamlIdP.Should().Be(samlIdP);
+        }
+
+        [TestMethod]
+        public void AddSamlIdPUserInfo_ShouldNotAddSamlIdPUserInfoIfAlreadyExists_WhenArgumentIsNotSamlIdPUserInfo()
+        {
+            var user = new User();
+            user.SamlIdPUserInfoes = new List<SamlIdPUserInfo>();
+
+            var samlIdP = new SamlIdentityProvider();
+
+            user.AddSamlIdPUserInfo(samlIdP);
+            user.AddSamlIdPUserInfo(samlIdP);
+
+            user.SamlIdPUserInfoes.Count.Should().Be(1);
+        }
+
+        [TestMethod]
+        public void AddSamlIdPUserInfo_ShouldAddSamlIdPUserInfo_WhenArgumentIsSamlIdPUserInfo()
+        {
+            var user = new User();
+            user.SamlIdPUserInfoes = new List<SamlIdPUserInfo>();
+
+            var samlIdP = new SamlIdentityProvider();
+            var samlIdPUserInfo = new SamlIdPUserInfo(samlIdP, user);
+
+            user.AddSamlIdPUserInfo(samlIdPUserInfo);
+            user.SamlIdPUserInfoes.Count.Should().Be(1);
+
+            user.SamlIdPUserInfoes.ElementAt(0).SamlIdP.Should().Be(samlIdP);
+        }
+
+        [TestMethod]
+        public void AddSamlIdPUserInfo_ShouldNotAddSamlIdPUserInfoIfAlreadyExists_WhenArgumentIsSamlIdPUserInfo()
+        {
+            var user = new User();
+            user.SamlIdPUserInfoes = new List<SamlIdPUserInfo>();
+
+            var samlIdP = new SamlIdentityProvider();
+            var samlIdPUserInfo = new SamlIdPUserInfo(samlIdP, user);
+            user.AddSamlIdPUserInfo(samlIdPUserInfo);
+            user.AddSamlIdPUserInfo(samlIdPUserInfo);
+
+            user.SamlIdPUserInfoes.Count.Should().Be(1);
+        }
+
+        #endregion
+
 
         #region User Companies
 
@@ -2077,6 +2171,151 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.RemoveCompany(company, "user2");
 
             user.ModifiedBy.Should().Be("user2");
+        }
+
+        #endregion
+
+        #region User AllowedSamlSPs
+
+        [TestMethod]
+        public void Allow_ShouldThrowArgumentNullExceptionWhenSamlSPIsNull()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            Action action = () => user.Allow(null, "user");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("serviceProvider");
+        }
+
+        [TestMethod]
+        public void Allow_ShouldThrowArgumentExceptionWhenModifiedByIsInvalid()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            Action action = () => user.Allow(samlSP, "");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void Allow_ShouldAllowSamlSPIfDoesNotAllowedYet()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            user.Allow(samlSP, "user");
+
+            user.AllowedSamlServiceProviders.Should().Contain(samlSP);
+        }
+
+        [TestMethod]
+        public void Allow_ShouldNotAddSamlSPToListIfUserContainsThisSamlSP()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            user.Allow(samlSP, "user");
+            user.Allow(samlSP, "user");
+
+            user.AllowedSamlServiceProviders.Should().Contain(samlSP);
+            user.AllowedSamlServiceProviders.Count.Should().Be(1);
+        }
+
+        [TestMethod]
+        public void Allow_ShouldMarkUserAsModified()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            user.Allow(samlSP, "user");
+
+            user.ModifiedBy.Should().Be("user");
+        }
+
+        [TestMethod]
+        public void Deny_ShouldThrowArgumentNullExceptionWhenSamlSPIsNull()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            Action action = () => user.Deny(null, "user");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("serviceProvider");
+        }
+
+        [TestMethod]
+        public void Deny_ShouldThrowArgumentExceptionWhenModifiedByIsInvalid()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            Action action = () => user.Deny(samlSP, "");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void Deny_ShouldDenySamlSPIfAllowed()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            user.Allow(samlSP, "user");
+
+            user.Deny(samlSP, "User");
+
+            user.AllowedSamlServiceProviders.Count.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void Deny_ShouldMarkUserAsModified()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            user.Allow(samlSP, "user");
+
+            user.Deny(samlSP, "user2");
+
+            user.ModifiedBy.Should().Be("user2");
+        }
+
+        [TestMethod]
+        public void IsAllowed_ShouldReturnTrueIfSamlSPIsAllowed()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            var samlSP = SamlServiceProviderObjectMother.Create();
+
+            user.Allow(samlSP, "user");
+
+            user.IsAllowed(samlSP).Should().Be(true);
+        }
+
+        [TestMethod]
+        public void IsAllowed_ShouldReturnFalseIfSamlSPIsNotAllowed()
+        {
+            var user = new User();
+            user.AllowedSamlServiceProviders = new Collection<SamlServiceProvider>();
+
+            user.IsAllowed(new SamlServiceProvider()).Should().Be(false);
         }
 
         #endregion

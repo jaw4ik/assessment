@@ -8,6 +8,12 @@ namespace easygenerator.Web.Storage
 {
     public class CourseStateStorage : ICourseStateStorage
     {
+        private class CourseState
+        {
+            public bool? IsDirty;
+            public bool? IsDirtyForSale;
+        }
+
         private readonly ICourseInfoInMemoryStorage _inMemoryStorage;
         private readonly ICourseStateRepository _repository;
         private readonly IEntityFactory _entityFactory;
@@ -41,14 +47,49 @@ namespace easygenerator.Web.Storage
             return info.IsDirty;
         }
 
+        public bool IsDirtyForSale(Course course)
+        {
+            var info = _inMemoryStorage.GetCourseInfo(course);
+            if (info != null)
+            {
+                return info.IsDirtyForSale;
+            }
+
+            info = new CourseInfo();
+            var state = _repository.GetByCourseId(course.Id);
+            if (state != null)
+            {
+                info.IsDirtyForSale = state.IsDirtyForSale;
+            }
+
+            _inMemoryStorage.SaveCourseInfo(course, info);
+
+            return info.IsDirtyForSale;
+        }
+
         public void MarkAsDirty(Course course)
         {
-            SaveIsDirtyState(course, true);
+            SaveCourseState(course, new CourseState()
+            {
+                IsDirty = true,
+                IsDirtyForSale = true
+            });
         }
 
         public void MarkAsClean(Course course)
         {
-            SaveIsDirtyState(course, false);
+            SaveCourseState(course, new CourseState()
+            {
+                IsDirty = false
+            });
+        }
+
+        public void MarkAsCleanForSale(Course course)
+        {
+            SaveCourseState(course, new CourseState()
+            {
+                IsDirtyForSale = false
+            });
         }
 
         public void RemoveState(Course course)
@@ -56,26 +97,40 @@ namespace easygenerator.Web.Storage
             _inMemoryStorage.RemoveCourseInfo(course);
         }
 
-        private void SaveIsDirtyState(Course course, bool isDirty)
+        private void SaveCourseState(Course course, CourseState courseState)
         {
             var info = _inMemoryStorage.GetCourseInfoOrDefault(course);
-            info.IsDirty = isDirty;
+            if (courseState.IsDirty.HasValue)
+            {
+                info.IsDirty = courseState.IsDirty.Value;
+            }
+            if (courseState.IsDirtyForSale.HasValue)
+            {
+                info.IsDirtyForSale = courseState.IsDirtyForSale.Value;
+            }
             _inMemoryStorage.SaveCourseInfo(course, info);
 
             var state = _repository.GetByCourseId(course.Id);
             if (state == null)
             {
-                _repository.Add(_entityFactory.CourseState(course, isDirty));
+                _repository.Add(_entityFactory.CourseState(course, info.IsDirty, info.IsDirtyForSale));
             }
             else
             {
-                if (isDirty)
+                if (info.IsDirty || info.IsDirtyForSale)
                 {
                     state.MarkAsDirty();
                 }
                 else
                 {
-                    state.MarkAsClean();
+                    if (!info.IsDirty)
+                    {
+                        state.MarkAsClean();
+                    }
+                    if (!info.IsDirtyForSale)
+                    {
+                        state.MarkAsCleanForSale();
+                    }
                 }
             }
 

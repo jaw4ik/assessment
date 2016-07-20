@@ -6,13 +6,15 @@ using easygenerator.Web.Components;
 using System;
 using System.IO;
 using System.Web.Hosting;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.BuildCourse.PublishSettings;
-using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.BuildCourse.Scorm
 {
     public class ScormCourseBuilder : CourseBuilderBase, IScormCourseBuilder
     {
+        private readonly IDomainEventPublisher _eventPublisher;
         private readonly RazorTemplateProvider _razorTemplateProvider;
         private const string XsdSchemasPath = "~/BuildCourse/Scorm/Schemas";
         private const string ImsManifestRazorTemplatePath = "~/BuildCourse/Scorm/Templates/imsmanifest.cshtml";
@@ -25,7 +27,8 @@ namespace easygenerator.Web.BuildCourse.Scorm
             RazorTemplateProvider razorTemplateProvider, 
             ScormPackageModulesProvider scormPackageModulesProvider,
             PublishSettingsProvider publishSettingsProvider,
-            ILog logger)
+            ILog logger,
+            IDomainEventPublisher eventPublisher)
             : base(fileManager, 
                   buildPathProvider, 
                   buildPackageCreator, 
@@ -35,6 +38,13 @@ namespace easygenerator.Web.BuildCourse.Scorm
                   logger)
         {
             _razorTemplateProvider = razorTemplateProvider;
+            _eventPublisher = eventPublisher;
+        }
+
+        public override bool Build(Course course, bool includeMedia = false)
+        {
+            _eventPublisher.Publish(new CourseScormBuildStartedEvent(course));
+            return base.Build(course, includeMedia);
         }
 
         protected override void OnAfterBuildPackageCreated(Course course, string buildId)

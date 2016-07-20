@@ -16,6 +16,11 @@ class CourseModelMapper{
             }),
             publishedPackageUrl: item.PublishedPackageUrl,
             isDirty: item.IsDirty,
+            isDirtyForSale: item.IsDirtyForSale,
+            saleInfo: {
+                documentId: item.SaleInfo.DocumentId,
+                isProcessing: item.SaleInfo.IsProcessing
+            },
             builtOn: _.isNullOrUndefined(item.builtOn) ? null : new Date(item.builtOn),
             packageUrl: item.PackageUrl,
             reviewUrl: item.ReviewUrl,

@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Lti\LtiAuthProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\Models\SamlIdPUserInfoSecureTests.cs" />
     <Compile Include="Security\Models\LtiUserInfoSecureTests.cs" />
     <Compile Include="Security\Providers\SecureTokenProviderTests.cs" />
   </ItemGroup>

@@ -3,6 +3,7 @@
 app.openHomePage = function (hash) {
     var url = '/';
     if (hash) {
+        hash = hash[0] === '/' ? hash.substring(1) : hash;
         url += hash;
     }
     window.location.replace(url);

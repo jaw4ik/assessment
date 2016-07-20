@@ -54,6 +54,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(companies: new Collection<Company>() { company });
         }
 
+        public static User CreateWithAllowedSamlServiceProvider(SamlServiceProvider samlServiceProvider)
+        {
+            return Create(allowedSamlSPs: new Collection<SamlServiceProvider>() { samlServiceProvider });
+        }
+
         public static User Create(string email = Email,
             string password = Password,
             string firstname = FirstName,
@@ -66,9 +71,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             string lastReadReleaseNote = LastReadReleaseNote,
             DateTime? expirationDate = null,
             bool isCreatedThroughLti = false,
-            ICollection<Company> companies = null)
+            bool isCreatedThroughSamlIdP = false,
+            ICollection<Company> companies = null,
+            ICollection<SamlServiceProvider> allowedSamlSPs = null)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, isCreatedThroughLti, companies);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs);
         }
     }
 }

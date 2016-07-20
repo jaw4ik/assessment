@@ -27,6 +27,13 @@
                         </div>
                         <span class="publish-tab-text" data-bind="localize: { text: 'insideAWebsite' }">Inside a website</span>
                     </li>
+                    <li class="publish-tab" data-bind="click: sendOpenSellCourseTab" data-tab-link="coggno">
+                        <div class="active-indicator"></div>
+                        <div class="publish-tab-image-container new">
+                            <span class="publish-tab-image coggno"></span>
+                        </div>
+                        <span class="publish-tab-text" data-bind="localize: { text: 'sellYourCourse' }">Sell your course</span>
+                    </li>
                     <li class="publish-tab" data-bind="click: sendOpenScormTab" data-tab-link="scorm">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
@@ -50,6 +57,7 @@
                     <!-- ko if: !publishToCustomLmsModels[0] || !publishToCustomLmsModels[0].company.hideDefaultPublishOptions -->
                     <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } --><!-- /ko -->
                     <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToCoggno', model: publishToCoggnoAction, activationData: courseId } --><!-- /ko -->
                     <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } --><!-- /ko -->
                     <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } --><!-- /ko -->
                     <!-- /ko -->

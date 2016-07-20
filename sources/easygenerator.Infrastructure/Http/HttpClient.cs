@@ -50,12 +50,16 @@ namespace easygenerator.Infrastructure.Http
             return Deserialize<TResponse>(DoHttpAction(url, null, client => client.SendAsync(requestMessage).Result, userName, password));
         }
 
-        public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData, IEnumerable<KeyValuePair<string, string>> formValues = null, IEnumerable<KeyValuePair<string, string>> headerValues = null)
+        public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData, IEnumerable<KeyValuePair<string, string>> formValues = null, IEnumerable<KeyValuePair<string, string>> headerValues = null, string fileContentHeaderName = null)
         {
             using (var client = InitializeHttpClient())
             {
                 var fileContent = new ByteArrayContent(fileData);
                 fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue(DispositionTypeNames.Attachment) { FileName = fileName };
+                if (!string.IsNullOrEmpty(fileContentHeaderName))
+                {
+                    fileContent.Headers.ContentDisposition.Name = fileContentHeaderName;
+                }
 
                 using (var content = new MultipartFormDataContent())
                 {
@@ -63,7 +67,9 @@ namespace easygenerator.Infrastructure.Http
                     {
                         foreach (var formValue in formValues)
                         {
-                            content.Add(new StringContent(formValue.Value), $"\"{formValue.Key}\"");
+                            var field = new StringContent(formValue.Value);
+                            field.Headers.Remove("Content-Type"); // remove unnecessary Content-Type header created by default (fix for coggno)
+                            content.Add(field, $"\"{formValue.Key}\"");
                         }
                     }
 

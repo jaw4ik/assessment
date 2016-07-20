@@ -19,8 +19,13 @@ using easygenerator.Web.Publish.External;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using easygenerator.Web.Components.DomainOperations.CourseOperations;
+using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Publish.Coggno;
+using easygenerator.Web.ViewModels.Api;
 using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -38,6 +43,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly IPublisher _publisher;
+        private readonly ICoggnoPublisher _coggnoPublisher;
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly ITemplateRepository _templateRepository;
@@ -45,11 +51,14 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
         private readonly ICourseDomainOperationExecutor _courseDomainOperationExecutor;
+        private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private readonly ILog _logger;
+        private readonly ConfigurationReader _configurationReader;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
-            ISectionRepository sectionRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher,
-            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher,
-            IUserRepository userRepository, ICloner cloner, ICourseDomainOperationExecutor courseDomainOperationExecutor)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository, ISectionRepository sectionRepository,
+            IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher, ICoggnoPublisher coggnoPublisher, IEntityMapper entityMapper,
+            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher, IUserRepository userRepository, ICloner cloner,
+            ICourseDomainOperationExecutor courseDomainOperationExecutor, ISamlServiceProviderRepository samlServiceProviderRepository, ILog logger, ConfigurationReader configurationReader)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
@@ -58,6 +67,7 @@ namespace easygenerator.Web.Controllers.Api
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
             _publisher = publisher;
+            _coggnoPublisher = coggnoPublisher;
             _entityMapper = entityMapper;
             _eventPublisher = eventPublisher;
             _templateRepository = templateRepository;
@@ -65,6 +75,9 @@ namespace easygenerator.Web.Controllers.Api
             _userRepository = userRepository;
             _cloner = cloner;
             _courseDomainOperationExecutor = courseDomainOperationExecutor;
+            _samlServiceProviderRepository = samlServiceProviderRepository;
+            _logger = logger;
+            _configurationReader = configurationReader;
         }
 
         [HttpPost]
@@ -166,6 +179,56 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult Publish(Course course)
         {
             return Deliver(course, () => _publisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl) }));
+        }
+
+        [HttpPost, PlusAccess(ErrorMessageResourceKey = Errors.UpgradeToPlusPlanToSellCourses)]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/publishToCoggno")]
+        public ActionResult PublishToCoggno(Course course)
+        {
+            if (course.SaleInfo.IsProcessing)
+            {
+                return JsonError(Errors.CourseIsBeingProcessedAndCannotBePublished);
+            }
+            if (string.IsNullOrEmpty(course.SaleInfo.DocumentId) && course.CreatedBy != GetCurrentUsername())
+            {
+                return JsonError(Errors.CourseHasNotBeenPublishedByTheOwner);
+            }
+            var user = _userRepository.GetUserByEmail(course.CreatedBy);
+            if (user == null)
+            {
+                return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
+            }
+            var coggnoServiceProvider = _samlServiceProviderRepository.GetByAssertionConsumerService(_configurationReader.CoggnoConfiguration.AssertionConsumerServiceUrl);
+            if (coggnoServiceProvider == null || !user.IsAllowed(coggnoServiceProvider))
+            {
+                return JsonError(Errors.CoggnoSamlServiceProviderNotAllowed);
+            }
+            return Deliver(course, () => _coggnoPublisher.Publish(course, user.FirstName, user.LastName), JsonSuccess);
+        }
+        
+        [HttpPost, AllowAnonymous, CoggnoApiKeyAccess]
+        [Route("api/course/publish/coggno/completed")]
+        public ActionResult PublishToCoggnoCompleted(CoggnoPublishCompletedViewModel info)
+        {
+            Guid id;
+            if (!Guid.TryParse(info.id, out id))
+            {
+                throw new ArgumentException(Errors.CourseIdHasInvalidFormat);
+            }
+            var course = _courseRepository.Get(id);
+            if (course == null)
+                return new HttpStatusCodeResult(200);
+
+            if (!info.success)
+            {
+                course.ProcessingForSaleFailed();
+                _logger.LogException(new Exception($"{Errors.CourseCoggnoProcessingFailed}, CourseId = {id}"));
+                return new HttpStatusCodeResult(200);
+            }
+            ArgumentValidation.ThrowIfNullOrEmpty(info.documentId, nameof(info.documentId));
+            course.UpdateDocumentIdForSale(info.documentId);
+            return new HttpStatusCodeResult(200);
         }
 
         [HttpPost]

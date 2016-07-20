@@ -56,6 +56,16 @@
       <HintPath>..\..\packages\intercom-dotnet.2.0.4\lib\net45\IntercomDotNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Kentor.AuthServices, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Kentor.AuthServices.0.19.0\lib\net45\Kentor.AuthServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Kentor.AuthServices.HttpModule, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Kentor.AuthServices.HttpModule.0.19.0\lib\net45\Kentor.AuthServices.HttpModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -77,6 +87,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
@@ -185,6 +196,7 @@
     <Compile Include="Controllers\Api\RankingTextControllerTests.cs" />
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\Api\ScenarioControllerTests.cs" />
+    <Compile Include="Controllers\CrossProtocolStorageControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
@@ -222,11 +234,21 @@
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="DomainEvents\Handlers\OrganizationUserAutoincludeHandlerTests.cs" />
+    <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderControllerTests.cs" />
     <Compile Include="Publish\External\ExternalPublisherTests.cs" />
     <Compile Include="Publish\PublisherTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTrackerTests.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporterTests.cs" />
     <Compile Include="Components\IntercomClientTests.cs" />
+    <Compile Include="SAML\IdentityProvider\MetadataProviderTests.cs" />
+    <Compile Include="SAML\IdentityProvider\Saml2ResponseProviderTests.cs" />
+    <Compile Include="SAML\IdentityProvider\UrlResolverProviderTests.cs" />
+    <Compile Include="SAML\IdentityProvider\X509CertificateProviderTests.cs" />
+    <Compile Include="SAML\IdentityProvider\CertificateProviderTests.cs" />
+    <Compile Include="SAML\ServiceProvider\Mappers\IdentityProviderMapperTests.cs" />
+    <Compile Include="SAML\ServiceProvider\Providers\OptionsProviderTests.cs" />
+    <Compile Include="SAML\ServiceProvider\Providers\SignInCommandRunnerTests.cs" />
+    <Compile Include="SAML\ServiceProvider\Providers\CommandRunnerTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />
@@ -275,6 +297,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\easygenerator.Auth\easygenerator.Auth.csproj">
+      <Project>{52f561c9-e7e1-4272-ab48-6767d6c64c65}</Project>
+      <Name>easygenerator.Auth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
       <Project>{67a666ae-de1a-4744-80bc-455536db1171}</Project>
       <Name>easygenerator.DataAccess</Name>

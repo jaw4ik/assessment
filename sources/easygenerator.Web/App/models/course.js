@@ -16,11 +16,16 @@
             this.introductionContent = spec.introductionContent;
             this.collaborators = spec.collaborators;
             this.isDirty = spec.isDirty;
+            this.isDirtyForSale = spec.isDirtyForSale;
+            this.saleInfo = {
+                isProcessing: spec.saleInfo.isProcessing
+            },
             this.courseCompanies = spec.courseCompanies;
 
             this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
             this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl);
+            this.publishToCoggno = deliveringScormPackageAction.call(this, publishToCoggnoActionHandler, spec.saleInfo.documentId);
             this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl);
             this.publishToCustomLms = publishToCustomLms;
 
@@ -64,6 +69,16 @@
             }, packageUrl);
         }
 
+        function deliveringScormPackageAction(actionHandler, packageUrl) {
+            var course = this;
+
+            return buildingAction.call(course, function (action, includeMedia) {
+                return buildScormPackage.call(course, action, includeMedia).then(function (buildInfo) {
+                    return actionHandler.call(course, action, buildInfo);
+                });
+            }, packageUrl);
+        }
+
         function getState() {
             return this._lastState;
         }
@@ -88,6 +103,30 @@
                 }).fail(function (message) {
                     action.setState(constants.publishingStates.failed);
                     app.trigger(constants.messages.course.build.failed, that, message);
+
+                    throw message;
+                });
+            });
+        }
+
+        function buildScormPackage(action, includeMedia) {
+            var that = this;
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.building) {
+                    throw 'Course is already building.';
+                }
+
+                action.setState(constants.publishingStates.building);
+                app.trigger(constants.messages.course.scormBuild.started, that);
+
+                return publishService.scormBuildCourse(that.id, includeMedia).then(function (buildInfo) {
+                    action.setState(constants.publishingStates.succeed);
+                    app.trigger(constants.messages.course.scormBuild.completed, that);
+
+                    return buildInfo;
+                }).fail(function (message) {
+                    action.setState(constants.publishingStates.failed);
+                    app.trigger(constants.messages.course.scormBuild.failed, that, message);
 
                     throw message;
                 });
@@ -159,6 +198,32 @@
 
                     action.setState(constants.publishingStates.failed);
                     app.trigger(constants.messages.course.publish.failed, that, message);
+
+                    throw message;
+                });
+            });
+        }
+
+        function publishToCoggnoActionHandler(action) {
+            var that = this;
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.publishing) {
+                    throw 'Course is already publishing.';
+                }
+
+                action.setState(constants.publishingStates.publishing);
+                app.trigger(constants.messages.course.publishToCoggno.started, that);
+
+                return publishService.publishCourseToCoggno(that.id).then(function () {
+                    that.saleInfo.isProcessing = true;
+
+                    action.setState(constants.publishingStates.succeed);
+                    app.trigger(constants.messages.course.publishToCoggno.completed, that);
+
+                    return that;
+                }).fail(function (message) {
+                    action.setState(constants.publishingStates.failed);
+                    app.trigger(constants.messages.course.publishToCoggno.failed, that, message);
 
                     throw message;
                 });

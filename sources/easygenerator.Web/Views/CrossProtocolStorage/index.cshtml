@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,colo=1">
+    <meta name="viewport" content="width=640,maximum-scale=1.0">
+    <meta name="description" content="">
+    <title>easygenerator</title>
+</head>
+<body>
+    @if (HttpContext.Current.Request.Url.Host == "localhost" || HttpContext.Current.Request.Url.Scheme == "https")
+    {
+        <script type="text/javascript">
+            (function() {
+                function getHashValue(key) {
+                    var matches = location.hash.match(new RegExp(key + '=([^&]*)'));
+                    return matches ? matches[1] : null;
+                }
+
+                var protocol = getHashValue('protocol');
+                var identifier = getHashValue('identifier');
+                var data = JSON.parse(decodeURIComponent(getHashValue('data')));
+                if (!protocol || !identifier) {
+                    return;
+                }
+                var origin = protocol + '//' + window.location.host;
+                var returnValue = '#localStorage#' + decodeURIComponent(identifier);
+                if ('getItem' in data) {
+                    var gotItem = localStorage.getItem(data.getItem);
+                    returnValue += (gotItem === null ? 'null#' : '#' + gotItem);
+                } else if ('removeItem' in data) {
+                    localStorage.removeItem(decodeURIComponent(data.removeItem));
+                    returnValue += 'complete#';
+                } else if ('setItem' in data) {
+                    localStorage.setItem(data.setItem, data.value);
+                    returnValue += 'complete#';
+                }
+                window.parent.postMessage(returnValue, origin);
+            }());
+        </script>
+    }
+</body>
+</html>

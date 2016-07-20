@@ -1,0 +1,25 @@
+﻿<div class="update-publication-control-container" data-bind="css: { shown: (courseIsDirty() || isProcessing()) }">
+    <div class="update-publication-control">
+        <div class="update-publication-message">
+            <div class="update-publication-message-image"></div>
+            <div class="update-publication-message-text" data-bind="localize: { text: 'updateChangedCourseDescription' }"></div>
+        </div>
+        <div class="update-publication-button-container">
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': (isPublishing() || isProcessing()) }, disable: isCourseDelivering() || !courseIsDirty()">
+                <!-- ko if: isPublishing() -->
+                <!-- ko if: state() === states.publishing || state() === states.building  -->
+                <span class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <!-- ko if: isProcessing -->
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'processing' }">Processing...</span>
+                <!-- /ko -->
+                <!-- ko ifnot: isProcessing -->
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'reviewUpdateCourse' }"></span>
+                <!-- /ko -->
+                <!-- /ko -->
+            </button>
+        </div>
+    </div>
+</div>

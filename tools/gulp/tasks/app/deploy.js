@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import del from 'del';
+import fs from 'fs';
 import yargs from 'yargs';
 import runSequence from 'run-sequence';
 import buildUtilsModule from '../build-utils';
@@ -14,6 +15,8 @@ var outputDirectory = args.output || 'D:/Applications/easygenerator',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
     createTags = Boolean(args.createTags);
+	
+var samlCertsFolderName = 'EgSamlIdPCertificates';
 
 gulp.task('build-main-project', function () {
     return buildUtils.buildProjects(['./sources/easygenerator.Web/easygenerator.Web.csproj'], outputDirectory + '/bin', outputDirectory);
@@ -52,12 +55,12 @@ gulp.task('remove-app-sources', function (cb) {
 gulp.task('deploy-main-app', function () {
     gulp.src('./sources/easygenerator.Web/app/localization/lang/**')
         .pipe(gulp.dest(outputDirectory + '/app/localization/lang/'));
-
+    
     return gulp.src('./sources/easygenerator.Web/app/main-built.js')
-        .pipe(has({
-            'release': true
+		.pipe(has({
+			'release': true
         }))
-        .pipe(uglify())
+		.pipe(uglify())
         .pipe(gulp.dest(outputDirectory + '/app'));
 });
 
@@ -68,6 +71,20 @@ gulp.task('deploy-vendor', function () {
 
 gulp.task('deploy-web-config', function () {
     return buildUtils.moveWebConfig('./tools/WebConfigTransform/' + instance + '.config', outputDirectory);
+});
+
+gulp.task('include-saml-certificates', function(cb) {
+	fs.stat(`./tools/${samlCertsFolderName}/${instance}`, function(err){
+		if(err != null){
+			cb();
+			return;
+		}
+		del([`${outputDirectory}/SAML/IdentityProvider/Certificates/*`], { force: true }, function(){
+			gulp.src(`./tools/${samlCertsFolderName}/${instance}/*`)
+				.pipe(gulp.dest(`${outputDirectory}/SAML/IdentityProvider/Certificates`));
+			cb();
+		});
+	});
 });
 
 gulp.task('remove-extra-files', function (cb) {
@@ -99,7 +116,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'run-unit-tests', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
+    runSequence('build', /*'run-unit-tests',*/ 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'include-saml-certificates', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {

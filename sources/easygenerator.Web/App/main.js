@@ -33,10 +33,11 @@ app.configurePlugins({
 
 userContext.ltiData.companyId = window.auth.getCompanyIdFromHash();
 userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
+userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
 
 (async () => {
     if (window.auth.isAuthTokenPresentInHash()) {
-        window.auth.logout();
+        await window.auth.logout();
         try {
             await window.auth.loginByAuthToken();
             window.location.replace('/#');
@@ -54,9 +55,26 @@ userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash()
                 window.location.replace('/#');
                 return;
             }
-            window.auth.logout();
+            await window.auth.logout();
             if (reason.ltiUserInfoToken) {
                 window.location.replace(`/signin#token.user.lti=${encodeURIComponent(reason.ltiUserInfoToken)}`);
+                return;
+            }
+            window.location.replace('/#signin');
+            return;
+        }
+    }
+    else if (userContext.samlData.samlIdPUserInfoToken) {
+        try {
+            await userContext.identifySamlUser();
+        } catch(reason) {
+            if (!reason || !reason.logout) {
+                window.location.replace('/#');
+                return;
+            }
+            await window.auth.logout();
+            if (reason.samlIdPUserInfoToken) {
+                window.location.replace(`/signin#token.user.saml=${encodeURIComponent(reason.samlIdPUserInfoToken)}`);
                 return;
             }
             window.location.replace('/#signin');

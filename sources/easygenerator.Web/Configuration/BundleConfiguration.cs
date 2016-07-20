@@ -11,6 +11,7 @@ namespace easygenerator.Web.Configuration
             bundles.IgnoreList.Clear();
             bundles.IgnoreList.Ignore("*.spec.js");
             bundles.Add(new ScriptBundle("~/bundles/scripts/vendor")
+                .Include("~/scripts/localStorageProvider.js")
                 .Include("~/scripts/auth.js")
                 .Include("~/scripts/jquery-{version}.js")
                 .Include("~/scripts/jquery-ui-{version}.custom.js")
@@ -46,9 +47,11 @@ namespace easygenerator.Web.Configuration
             bundles.Add(new Bundle("~/bundles/scripts/ckeditor").Include("~/scripts/ckeditor/ckeditor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/account")
+                .Include("~/scripts/localStorageProvider.js")
                 .Include("~/scripts/auth.js")
                 .Include("~/scripts/jquery-{version}.js")
                 .Include("~/scripts/knockout-{version}.js")
+                .Include("~/scripts/q.js")
                 .IncludeDirectory("~/scripts/account", "*.js")
                 .IncludeDirectory("~/scripts/common", "*.js")
                 .Include("~/scripts/underscore.js")
@@ -122,6 +125,13 @@ namespace easygenerator.Web.Configuration
             bundles.Add(new ScriptBundle("~/bundles/scripts/dashboard")
                 .Include("~/scripts/jquery-{version}.js")
                 .Include("~/scripts/jquery.unobtrusive-ajax.js")
+            );
+
+            bundles.Add(new ScriptBundle("~/bundless/scripts/idp/auth")
+                .Include("~/scripts/localStorageProvider.js")
+                .Include("~/scripts/auth.js")
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/q.js")
             );
 
         }

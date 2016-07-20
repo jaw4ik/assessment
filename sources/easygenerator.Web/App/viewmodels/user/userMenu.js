@@ -108,8 +108,8 @@ class UserMenu {
         this.hasOrganizationInvites(userContext.identity.hasOrganizationInvites());
     }
 
-    signOut() {
-        window.auth.logout();
+    async signOut() {
+        await window.auth.logout();
         router.setLocation(constants.signinUrl);
     }
 }

@@ -30,12 +30,13 @@ namespace easygenerator.DomainModel.Tests.Entities
             var lastReadReleaseNote = "1.0.0";
 
             //Act
-            var settings = new UserSettings(createdBy, lastReadReleaseNote, false, true, true, false);
+            var settings = new UserSettings(createdBy, lastReadReleaseNote, false, false, true, true, false);
 
             //Assert
             settings.CreatedBy.Should().Be(createdBy);
             settings.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
             settings.IsCreatedThroughLti.Should().BeFalse();
+            settings.IsCreatedThroughSamlIdP.Should().BeFalse();
             settings.NewEditor.Should().BeTrue();
             settings.IsNewEditorByDefault.Should().BeTrue();
             settings.IncludeMediaToPackage.Should().BeFalse();

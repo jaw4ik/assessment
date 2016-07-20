@@ -19,12 +19,12 @@ namespace easygenerator.DataAccess.Repositories
         public User GetUserByEmail(string email)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
-            return _dataContext.GetSet<User>().Include(e => e.LtiUserInfoes).SingleOrDefault(user => user.Email == email);
+            return _dataContext.GetSet<User>().Include(e => e.LtiUserInfoes).Include(e => e.SamlIdPUserInfoes).SingleOrDefault(user => user.Email == email);
         }
 
         public ICollection<User> GetCollection(Expression<Func<User, bool>> predicate, int batchSize)
         {
-            return _dataContext.GetSet<User>().Include(e => e.LtiUserInfoes).Where(predicate).Take(batchSize).ToList();
+            return _dataContext.GetSet<User>().Include(e => e.LtiUserInfoes).Include(e => e.SamlIdPUserInfoes).Where(predicate).Take(batchSize).ToList();
         }
     }
 }

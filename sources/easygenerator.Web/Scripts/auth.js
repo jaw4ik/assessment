@@ -1,10 +1,12 @@
 ﻿(function () {
     var tokenNamespace = 'token.';
-    var cookieTokens = ['preview', 'upgradeAccount'];
-    var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount', 'settings'];
+    var cookieTokens = ['preview', 'upgradeAccount', 'saml'];
+    var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount', 'settings', 'saml'];
+
+    var localStorageProvider = window.localStorageProvider;
 
     window.auth = window.auth || {
-        isUserLoggedIn: isUserLoggedIn,
+        checkUserLogIn: checkUserLogIn,
         login: login,
         logout: logout,
         getToken: getToken,
@@ -13,29 +15,38 @@
         isAuthTokenPresentInHash: isAuthTokenPresentInHash,
         loginByAuthToken: loginByAuthToken,
         getCompanyIdFromHash: getCompanyIdFromHash,
-        getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash
+        getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash,
+        getSamlIdPUserInfoTokenFromHash: getSamlIdPUserInfoTokenFromHash
     };
 
     function isAuthTokenPresentInHash() {
         var hashParams = getHashParams(window.location.hash);
-        return hashParams && !_.isNullOrUndefined(hashParams['token.lti']);
+        return hashParams && (!_.isNullOrUndefined(hashParams['token.lti']) || !_.isNullOrUndefined(hashParams['token.samlAuth']));
     }
 
     function loginByAuthToken() {
         var hashParams = getHashParams(window.location.hash);
-        var authToken = hashParams['token.lti'];
-        
-        return $.ajax({
-            url: '/auth/tokens',
-            type: 'POST',
-            data: { endpoints: requiredEndpoints },
-            headers: {
-                'Authorization': 'Bearer ' + authToken, 'cache-control': 'no-cache'
-            }
-        }).done(function (response) {
-            if (response && response.success) {
-                setTokens(response.data);
-            }
+        var authToken = hashParams['token.lti'] || hashParams['token.samlAuth'];
+
+        return Q.promise(function(resolve, reject) {
+            $.ajax({
+                url: '/auth/tokens',
+                type: 'POST',
+                data: { endpoints: requiredEndpoints },
+                headers: {
+                    'Authorization': 'Bearer ' + authToken, 'cache-control': 'no-cache'
+                }
+            }).done(function (response) {
+                if (response && response.success) {
+                    setTokens(response.data).then(function () {
+                        resolve(true);
+                    });
+                    return;
+                }
+                resolve(false);
+            }).fail(function(reason) {
+                reject(reason);
+            });
         });
     }
 
@@ -44,49 +55,74 @@
         return hashParams && hashParams['token.user.lti'];
     }
 
+    function getSamlIdPUserInfoTokenFromHash() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && hashParams['token.user.saml'];
+    }
+
     function getCompanyIdFromHash() {
         var hashParams = getHashParams(window.location.hash);
         return hashParams && hashParams['companyId'];
     }
 
-    function isUserLoggedIn() {
-        var index;
-        // check tokens in storage
-        for (index = 0; index < requiredEndpoints.length; index++) {
-            if (token(requiredEndpoints[index]) === undefined) {
-                return false;
-            }
+    function checkUserLogIn() {
+        var getTokensPromises = [];
+        for (var i = 0; i < requiredEndpoints.length; i++) {
+            getTokensPromises.push(getToken(requiredEndpoints[i]));
         }
-        // check tokens in cookie
-        for (index = 0; index < cookieTokens.length; index++) {
-            if (getCookieToken(cookieTokens[index]) === undefined) {
-                return false;
+        return Q.all(getTokensPromises).then(function (values) {
+            var index;
+            // check tokens in storage
+            for (index = 0; index < values.length; index++) {
+                if (values[index] === null) {
+                    return false;
+                }
             }
-        }
-        return true;
+            // check tokens in cookie
+            for (index = 0; index < cookieTokens.length; index++) {
+                if (getCookieToken(cookieTokens[index]) === undefined) {
+                    return false;
+                }
+            }
+            return true;
+        }).fail(function() {
+            return false;
+        });
     }
 
     function login(tokens) {
-        if (tokens && tokens.length) {
+        var defer = Q.defer();
+        if (!tokens || !tokens.length) defer.resolve(false);
+        else {
             var tokenEndpoints = tokens.map(function (token) { return token.Endpoint; });
-            if (requiredEndpoints.every(function (endpoint) { return tokenEndpoints.indexOf(endpoint) > -1; })) {
-                setTokens(tokens);
-                return true;
+            if (!requiredEndpoints.every(function(endpoint) { return tokenEndpoints.indexOf(endpoint) > -1; })) defer.resolve(false);
+            else {
+                setTokens(tokens).then(function () {
+                    defer.resolve(true);
+                }).fail(function () {
+                    defer.resolve(false);
+                });
             }
         }
-        return false;
+        return defer.promise;
     }
 
     function logout() {
-        removeTokens();
+        return removeTokens();
     }
 
-    function getToken(endpoints) {
-        return token(endpoints);
+    function setToken(name, value) {
+        return localStorageProvider.setItem(tokenNamespace + name, value);
+    }
+
+    function getToken(name) {
+        return localStorageProvider.getItem(tokenNamespace + name);
     }
 
     function getHeader(endpoints) {
-        return { 'Authorization': 'Bearer ' + token(endpoints) };
+        return getToken(endpoints).then(function(value) {
+            return { 'Authorization': 'Bearer ' + value };
+        });
     }
 
     function getRequiredEndpoints() {
@@ -96,6 +132,7 @@
     //private
 
     function setTokens(tokens) {
+        var setTokenPromises = [];
         for (var index = 0; index < tokens.length; index++) {
             var t = tokens[index];
             if (cookieTokens.indexOf(t.Endpoint) > -1) {
@@ -104,28 +141,21 @@
                 var expires = "expires=" + d.toUTCString();
                 document.cookie = tokenNamespace + t.Endpoint + '=' + t.Token + "; " + expires;
             }
-            token(t.Endpoint, t.Token);
+            setTokenPromises.push(setToken(t.Endpoint, t.Token));
         }
+        return Q.all(setTokenPromises);
     }
 
     function removeTokens() {
         var index;
-        for (index = 0; index < requiredEndpoints.length; index++) {
-            if (token(requiredEndpoints[index]) !== undefined) {
-                localStorage.removeItem(tokenNamespace + requiredEndpoints[index]);
-            }
-        }
-
+        var removeTokenPromises = [];
         for (index = 0; index < cookieTokens.length; index++) {
             document.cookie = tokenNamespace + cookieTokens[index] + '=;expires=Wed 01 Jan 1970';
         }
-    }
-
-    function token(name, value) {
-        if (value !== undefined) {
-            localStorage.setItem(tokenNamespace + name, value);
+        for (index = 0; index < requiredEndpoints.length; index++) {
+            removeTokenPromises.push(localStorageProvider.removeItem(tokenNamespace + requiredEndpoints[index]));
         }
-        return localStorage[tokenNamespace + name];
+        return Q.all(removeTokenPromises);
     }
 
     function getCookieToken(cname) {

@@ -26,6 +26,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.Web.Components.DomainOperations.CourseOperations;
+using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Publish.Coggno;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -44,6 +46,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
         private IPublisher _publisher;
+        private ICoggnoPublisher _coggnoPublisher;
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
         private ITemplateRepository _templateRepository;
@@ -51,6 +54,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUserRepository _userRepository;
         private ICloner _cloner;
         private ICourseDomainOperationExecutor _courseDomainOperationExecutor;
+        private ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private ILog _logger;
+        private ConfigurationReader _configurationReader;
 
         [TestInitialize]
         public void InitializeContext()
@@ -61,6 +67,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _publisher = Substitute.For<IPublisher>();
+            _coggnoPublisher = Substitute.For<ICoggnoPublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
@@ -71,11 +78,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _courseDomainOperationExecutor = Substitute.For<ICourseDomainOperationExecutor>();
+            _samlServiceProviderRepository = Substitute.For<ISamlServiceProviderRepository>();
+            _logger = Substitute.For<ILog>();
+            _configurationReader = Substitute.For<ConfigurationReader>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _sectionRepository, _entityFactory, _urlHelper, _publisher,
-                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _courseDomainOperationExecutor);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _sectionRepository, _entityFactory, _urlHelper, _publisher, _coggnoPublisher,
+                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _courseDomainOperationExecutor, _samlServiceProviderRepository,
+                _logger,  _configurationReader);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 

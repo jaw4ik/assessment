@@ -56,7 +56,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
+using easygenerator.Web.Publish.Coggno;
+using easygenerator.Web.SAML.IdentityProvider.Providers;
+using easygenerator.Web.SAML.ServiceProvider.Mappers;
+using easygenerator.Web.SAML.ServiceProvider.Providers;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -75,6 +80,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterControllers(applicationAssembly);
 
             builder.RegisterFilterProvider();
+
+            builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>().InstancePerLifetimeScope();
 
             builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
@@ -190,6 +197,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<Publisher>().As<IPublisher>();
             builder.RegisterType<ExternalPublisher>().As<IExternalPublisher>();
+            builder.RegisterType<CoggnoPublisher>().As<ICoggnoPublisher>();
 
             #endregion
 
@@ -288,6 +296,23 @@ namespace easygenerator.Web.Configuration
             #region Lti
 
             builder.RegisterType<LtiAuthProvider>().SingleInstance();
+
+            #endregion
+
+            #region SAML
+
+            builder.RegisterType<X509CertificateProvider>().As<IX509CertificateProvider>();
+            builder.RegisterType<CertificateProvider>().As<ICertificateProvider>().SingleInstance();
+            builder.RegisterType<UrlResolverProvider>().As<IUrlResolverProvider>();
+            builder.RegisterType<Saml2ResponseProvider>().As<ISaml2ResponseProvider>();
+            builder.RegisterType<MetadataProvider>().As<IMetadataProvider>();
+
+            builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
+            builder.RegisterType<CommandRunner>().As<ICommandRunner>().SingleInstance();
+            builder.RegisterType<SignInCommandRunner>().As<ISignInCommandRunner>().SingleInstance();
+            builder.RegisterType<AuthServicesOptionsProvider>().As<IAuthServicesOptionsProvider>().SingleInstance();
+            builder.RegisterType<OptionsProvider>().As<IOptionsProvider>().SingleInstance();
+            builder.RegisterType<IdentityProviderMapper>().As<IIdentityProviderMapper>().SingleInstance();
 
             #endregion
 

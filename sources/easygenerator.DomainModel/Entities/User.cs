@@ -16,8 +16,8 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false,
-            ICollection<Company> companiesCollection = null, bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
+            ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null,  bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -36,8 +36,10 @@ namespace easygenerator.DomainModel.Entities
             Role = role;
             TicketCollection = new Collection<Ticket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
+            AllowedSamlServiceProviders = allowedSamlServiceProviders ?? new Collection<SamlServiceProvider>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
-            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, newEditor, isNewEditorByDefault, includeMediaToPackage);
+            SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
+            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
 
             AccessType = accessPlan;
 
@@ -361,6 +363,62 @@ namespace easygenerator.DomainModel.Entities
             {
                 LtiUserInfoes.Add(ltiUserInfo);
             }
+        }
+        #endregion
+
+        #region SamlIdPInfo
+        protected internal virtual ICollection<SamlIdPUserInfo> SamlIdPUserInfoes { get; set; }
+
+        public virtual SamlIdPUserInfo GetSamlIdPUserInfo(SamlIdentityProvider samlIdP)
+        {
+            ArgumentValidation.ThrowIfNull(samlIdP, nameof(samlIdP));
+            return SamlIdPUserInfoes.SingleOrDefault(e => e.SamlIdP == samlIdP);
+        }
+
+        public virtual void AddSamlIdPUserInfo(SamlIdentityProvider samlIdP)
+        {
+            if (GetSamlIdPUserInfo(samlIdP) == null)
+            {
+                SamlIdPUserInfoes.Add(new SamlIdPUserInfo(samlIdP, this));
+            }
+        }
+
+        public virtual void AddSamlIdPUserInfo(SamlIdPUserInfo samlIdPUserInfo)
+        {
+            if (GetSamlIdPUserInfo(samlIdPUserInfo.SamlIdP) == null)
+            {
+                SamlIdPUserInfoes.Add(samlIdPUserInfo);
+            }
+        }
+        #endregion
+
+        #region SamlSPInfo
+        protected internal virtual ICollection<SamlServiceProvider> AllowedSamlServiceProviders { get; set; }
+
+        public bool IsAllowed(SamlServiceProvider serviceProvider)
+        {
+            return AllowedSamlServiceProviders.Contains(serviceProvider);
+        }
+
+        public virtual void Allow(SamlServiceProvider serviceProvider, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(serviceProvider, nameof(serviceProvider));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            if (!AllowedSamlServiceProviders.Contains(serviceProvider))
+            {
+                AllowedSamlServiceProviders.Add(serviceProvider);
+                MarkAsModified(modifiedBy);
+            }
+        }
+        public virtual void Deny(SamlServiceProvider serviceProvider, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(serviceProvider, nameof(serviceProvider));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            AllowedSamlServiceProviders.Remove(serviceProvider);
+
+            MarkAsModified(modifiedBy);
         }
         #endregion
     }

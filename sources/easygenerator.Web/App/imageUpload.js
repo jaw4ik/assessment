@@ -50,7 +50,8 @@
             });
         },
         v2: function (file) {
-            return fileUpload.xhr2('/storage/image/upload', file, window.auth.getHeader('api'))
+            return window.auth.getHeader('api').then(function(value) {
+                return fileUpload.xhr2('/storage/image/upload', file, value)
                 .then(function (response) {
                     if (response && response.success) {
                         return response.data;
@@ -70,6 +71,7 @@
                     }
                     throw localizationManager.localize(resourceKey);
                 });
+            });
         }
     };
 })

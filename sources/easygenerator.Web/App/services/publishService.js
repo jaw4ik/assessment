@@ -19,6 +19,10 @@
             });
         };
 
+        function publishCourseToCoggno(courseId) {
+            return publishHttpWrapper.post('api/course/publishToCoggno', { courseId: courseId });
+        };
+
         function scormBuildCourse(courseId, includeMedia) {
             return publishHttpWrapper.post('api/course/scormbuild', { courseId: courseId, includeMedia: includeMedia }).then(function (data) {
                 return {
@@ -62,6 +66,7 @@
         return {
             buildCourse: buildCourse,
             publishCourse: publishCourse,
+            publishCourseToCoggno: publishCourseToCoggno,
             scormBuildCourse: scormBuildCourse,
             publishCourseToCustomLms: publishCourseToCustomLms,
             publishCourseForReview: publishCourseForReview,

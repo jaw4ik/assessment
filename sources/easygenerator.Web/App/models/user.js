@@ -15,6 +15,8 @@
         this.showReleaseNote = spec.showReleaseNote;
         this.newEditor = spec.newEditor;
         this.isCreatedThroughLti = spec.isCreatedThroughLti;
+        this.isCreatedThroughSamlIdP = spec.isCreatedThroughSamlIdP;
+        this.isCoggnoSamlServiceProviderAllowed = spec.isCoggnoSamlServiceProviderAllowed;
         this.isNewEditorByDefault = spec.isNewEditorByDefault;
         this.includeMediaToPackage = spec.includeMediaToPackage;
         this.companies = spec.companies && spec.companies.length ? spec.companies.map(companyMapper.map) : [];

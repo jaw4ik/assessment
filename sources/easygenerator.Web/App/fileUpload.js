@@ -28,29 +28,32 @@
                 .attr('type', 'file')
                 .attr('name', 'file')
                 .on('change', function () {
+                    var that = this;
                     if ($(this).val().toLowerCase().match(new RegExp('\.(' + getSupportedExtensionsRegexBody(settings.supportedExtensions) + ')$'))) {
-                        $(this).closest('form').ajaxSubmit({
-                            global: false,
-                            headers: window.auth.getHeader('api'),
-                            beforeSubmit: function () {
-                                settings.startLoading();
-                            },
-                            success: function (response) {
-                                try {
-                                    settings.success(response);
-                                } catch (e) {
-                                    settings.error();
+                        window.auth.getHeader('api').then(function(value) {
+                            $(that).closest('form').ajaxSubmit({
+                                global: false,
+                                headers: value,
+                                beforeSubmit: function () {
+                                    settings.startLoading();
+                                },
+                                success: function (response) {
+                                    try {
+                                        settings.success(response);
+                                    } catch (e) {
+                                        settings.error();
+                                    }
+
+                                    form.remove();
+                                    settings.complete();
+                                },
+                                error: function (event) {
+                                    settings.error(event);
+                                    form.remove();
+
+                                    settings.complete();
                                 }
-
-                                form.remove();
-                                settings.complete();
-                            },
-                            error: function (event) {
-                                settings.error(event);
-                                form.remove();
-
-                                settings.complete();
-                            }
+                            });
                         });
                     } else {
                         notify.error(settings.notSupportedFileMessage);

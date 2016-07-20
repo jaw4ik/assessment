@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class Course : Entity, ILearningPathEntity, IPublishableEntity
+    public class Course : Entity, ILearningPathEntity, ICoggnoPublishableEntity
     {
         protected internal Course()
         {
@@ -36,6 +36,7 @@ namespace easygenerator.DomainModel.Entities
             TemplateSettings = new Collection<CourseTemplateSettings>();
             LearningPathCollection = new Collection<LearningPath>();
             CourseCompanies = new Collection<Company>();
+            SaleInfo = new CourseSaleInfo(this);
             BuildOn = null;
             IntroductionContent = null;
             SectionsOrder = null;
@@ -354,6 +355,31 @@ namespace easygenerator.DomainModel.Entities
         {
             PublicationUrl = null;
         }
+
+        #region SaleInfo
+
+        public virtual CourseSaleInfo SaleInfo { get; protected internal set; }
+
+        public void MarkAsPublishedForSale()
+        {
+            SaleInfo.IsProcessing = true;
+            SaleInfo.PublishedOn = DateTimeWrapper.Now();
+            RaiseEvent(new CoursePublishedForSaleEvent(this));
+        }
+        public void UpdateDocumentIdForSale(string documentId)
+        {
+            SaleInfo.IsProcessing = false;
+            SaleInfo.DocumentId = documentId;
+            RaiseEvent(new CourseProcessedByCoggnoEvent(this, true));
+        }
+
+        public void ProcessingForSaleFailed()
+        {
+            SaleInfo.IsProcessing = false;
+            RaiseEvent(new CourseProcessedByCoggnoEvent(this, false));
+        }
+
+        #endregion
 
         #region Course template settings
 

@@ -1,0 +1,35 @@
+﻿<section>
+    <div class="allow-coggno-dialog-wrapper" data-bind="visible: isShown">
+        <div class="allow-coggno-dialog">
+            <div class="cancel-coggno-btn" data-bind="click: hide"></div>
+            <div class="allow-coggno-dialog-content">
+                <div class="allow-coggno-dialog-header">
+                    <div class="allow-coggno-dialog-header-main"></div>
+                    <div class="allow-coggno-dialog-header-right">
+                        <div class="allow-coggno-dialog-circle"></div>
+                    </div>
+                </div>
+                <div class="allow-coggno-dialog-info">
+                    <header class="allow-coggno-dialog-head">
+                        <h1 class="allow-coggno-dialog-title" data-bind="localize: { text: 'coggnoAsksAboutYourInfo' }">Coggno asks about your information</h1>
+                        <p class="allow-coggno-dialog-description" data-bind="localize: { text: 'allowYourInfoQuestion' }">Would you like to allow to access some of your Easygenerator info:</p>
+                    </header>
+                    <section class="allow-coggno-dialog-user-info">
+                        <ul class="user-info-list">
+                            <li class="user-info-list-item">
+                                <span class="user-info-item-name" data-bind="localize: { text: 'yourEmail' }">Your email address</span>
+                            </li>
+                            <li class="user-info-list-item">
+                                <span class="user-info-item-name" data-bind="localize: { text: 'firstAndLastName' }">First and Last name</span>
+                            </li>
+                        </ul>
+                    </section>
+                    <footer class="allow-coggno-dialog-footer">
+                        <button class="btn white grey-border cancel-coggno" data-bind="localize: { text: 'cancel' }, click: hide">Cancel</button>
+                        <button class="btn green allow-coggno" data-bind="localize: { text: 'allow' }, click: allow">Allow</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

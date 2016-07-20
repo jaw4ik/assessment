@@ -126,46 +126,48 @@
                             var loadingErrorDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.loadingErrorIndicatorId).getElement();
                             loadingErrorDialogElement.hide();
 
-                            var requestArgs = {
-                                url: plugin.getUserImagesApiUrl,
-                                type: 'POST',
-                                headers: window.auth.getHeader('api')
-                            };
+                            window.auth.getHeader('api').then(function(value) {
+                                var requestArgs = {
+                                    url: plugin.getUserImagesApiUrl,
+                                    type: 'POST',
+                                    headers: value
+                                };
 
-                            $.ajax(requestArgs)
-                                .done(function (response) {
-                                    var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
+                                $.ajax(requestArgs)
+                                    .done(function (response) {
+                                        var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
 
-                                    if (!response || !response.data || response.data.length === 0) {
-                                        emptyListDialogElement.show();
-                                        return;
-                                    }
+                                        if (!response || !response.data || response.data.length === 0) {
+                                            emptyListDialogElement.show();
+                                            return;
+                                        }
 
-                                    emptyListDialogElement.hide();
-                                    loadingErrorDialogElement.hide();
+                                        emptyListDialogElement.hide();
+                                        loadingErrorDialogElement.hide();
 
-                                    response.data.forEach(function (image) {
-                                        imageLibrary.addImage(image,
-                                            //Double click event
-                                            function () {
-                                                var command = editor.getCommand(plugin.commands.selectImage);
-                                                command.data = image.url;
-                                                command.exec();
+                                        response.data.forEach(function (image) {
+                                            imageLibrary.addImage(image,
+                                                //Double click event
+                                                function () {
+                                                    var command = editor.getCommand(plugin.commands.selectImage);
+                                                    command.data = image.url;
+                                                    command.exec();
 
-                                                dialog.hide();
-                                            },
-                                            //Click event
-                                            function () {
-                                                dialog.setValueOf(plugin.mainTabId, plugin.selectedImageContainerId, image.url);
-                                            }
-                                        );
+                                                    dialog.hide();
+                                                },
+                                                //Click event
+                                                function () {
+                                                    dialog.setValueOf(plugin.mainTabId, plugin.selectedImageContainerId, image.url);
+                                                }
+                                            );
+                                        });
+
+                                        resizeDialog(response.data.length);
+                                    })
+                                    .fail(function () {
+                                        loadingErrorDialogElement.show();
                                     });
-
-                                    resizeDialog(response.data.length);
-                                })
-                                .fail(function () {
-                                    loadingErrorDialogElement.show();
-                                });
+                            });
                         }
                     }));
 

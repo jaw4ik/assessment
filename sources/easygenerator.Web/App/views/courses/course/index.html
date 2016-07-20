@@ -33,7 +33,7 @@
                         <!-- /ko -->
                         <a href="" class="course-action action-share" data-bind="click: share">
                             <span data-bind="localize: { text: 'share' }"></span>
-                            <span class="unpublished-changes-indicator" data-bind="css: { shown: isDirty }"></span>
+                            <span class="unpublished-changes-indicator" data-bind="css: { shown: (isDirty() && publicationExists()) }"></span>
                         </a>
                     </li>
                 </ul>

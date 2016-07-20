@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.ObjectMothers.Tickets;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

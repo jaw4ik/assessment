@@ -191,10 +191,16 @@ messages: {
                 completed: 'course:publish-completed',
                 failed: 'course:publish-failed'
         },
+        publishToCoggno: {
+            started: 'course:publish-coggno-started',
+            completed: 'course:publish-coggno-completed',
+            failed: 'course:publish-coggno-failed',
+            processed: 'course:processing-coggno-completed'
+        },
         publishForReview: {
-                started: 'course:review-publish-started',
-                completed: 'course:review-publish-completed',
-                failed: 'course:review-publish-failed'
+            started: 'course:review-publish-started',
+            completed: 'course:review-publish-completed',
+            failed: 'course:review-publish-failed'
         },
         publishToCustomLms: {
                 started: 'course:publishToCustomLms-started',
@@ -622,8 +628,14 @@ dialogs: {
             eventCategory: 'Manage organization',
             subtitleKey: 'manageOrganizationUpgradeSubtitle',
             descriptionKey: 'manageOrganizationUpgradeText'
+    },
+    publishToCoggno: {
+        containerCss: 'upgrade-dialog-publish-coggno',
+        eventCategory: 'Publish to Coggno',
+        subtitleKey: 'publishToCoggnoUpgradeSubtitle',
+        descriptionKey: 'publishToCoggnoUpgradeText'
     }
-}
+    }
 }
 },
 
@@ -634,6 +646,11 @@ newCourseEditor: {
 
 winToWeb: {
         host: window.winToWebConvertionServiceUrl ? "//" + window.winToWebConvertionServiceUrl : '//localhost:444'
+},
+
+coggno: {
+    serviceUrl: window.coggnoServiceUrl,
+    serviceProviderUrl: window.coggnoServiceProviderUrl
 },
 
 comment: {
