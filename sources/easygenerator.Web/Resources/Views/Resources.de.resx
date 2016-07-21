@@ -401,4 +401,13 @@ easygenerator Team&lt;/p&gt;
   <data name="KeepLearning" xml:space="preserve">
     <value>Weiterlernen</value>
   </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Zurück zu Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>E-Mail-Bestätigung</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>Sie haben Ihre E-Mail Adresse erfolgreich bestätigt.</value>
+  </data>
 </root>

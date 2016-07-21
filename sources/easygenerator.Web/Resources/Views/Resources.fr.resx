@@ -400,4 +400,13 @@ L'équipe d'easygenerator&lt;/p&gt;
   <data name="KeepLearning" xml:space="preserve">
     <value>Poursuivre votre apprentissage</value>
   </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Retour à Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>E-mail de confirmation</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>Votre confirmation d'adresse e-mail a bien été effectuée.</value>
+  </data>
 </root>

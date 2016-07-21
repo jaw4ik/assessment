@@ -400,4 +400,13 @@ easygenerator 团队&lt;/p&gt;
   <data name="KeepLearning" xml:space="preserve">
     <value>坚持学习</value>
   </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>返回至 Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>电子邮件确认</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>您已成功确认邮箱地址。</value>
+  </data>
 </root>

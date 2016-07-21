@@ -1,7 +1,7 @@
 ﻿CKEDITOR.plugins.setLang('audiolibrary', 'pt-br', {
-    addFromLibrary: 'Add audio from library [pt-br]',
-    audioLibrary: 'Audio library [pt-br]',
-    noAudio: 'No audio yet [pt-br]',
+    addFromLibrary: 'Adicionar áudio a partir da biblioteca',
+    audioLibrary: 'Biblioteca de áudio',
+    noAudio: 'Ainda sem áudio',
     somethingWentWrong: 'Ocorreu um erro.',
     tryAgain: 'Tente novamente'
 });

@@ -400,4 +400,13 @@ Time Easygenerator&lt;/p&gt;
   <data name="KeepLearning" xml:space="preserve">
     <value>Continue aprendendo</value>
   </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Voltar para Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>Confirmação de email</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>Você confirmou seu endereço de email com êxito.</value>
+  </data>
 </root>

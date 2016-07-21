@@ -394,4 +394,13 @@ El equipo de easygenerator&lt;/p&gt;
   <data name="KeepLearning" xml:space="preserve">
     <value>Siga aprendiendo</value>
   </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Volver a Easygenerator</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>Confirmación por correo electrónico</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>Ha confirmado correctamente su dirección de correo electrónico.</value>
+  </data>
 </root>
