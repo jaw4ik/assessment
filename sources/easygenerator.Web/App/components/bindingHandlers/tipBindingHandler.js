@@ -5,12 +5,15 @@ import moment from 'moment';
 import localizationManager from 'localization/localizationManager';
 
 ko.bindingHandlers.tip = {
-    init: (element, valueAccessor) => {
+    update: (element, valueAccessor) => {
         let value = valueAccessor(),
             key = ko.unwrap(value.key),
             text = value.text,
             date = ko.unwrap(value.date),
             placement = value.placement || 'auto top',
+            isShown = ko.utils.unwrapObservable(value.isShown),
+            cssContainer = ko.unwrap(value.cssContainer),
+            container = ko.unwrap(value.container) || 'body',
             displayText = '';
 
         if(key) {
@@ -24,13 +27,23 @@ ko.bindingHandlers.tip = {
             displayText = moment(dateValue).format(dateFormat);
         }
 
-        $(element).tooltip({
+        let options = {
             title: displayText,
             trigger: 'hover',
-            container: 'body',
+            container: container,
             placement: placement
-        });
+        };
 
+        if (cssContainer) {
+            options.template = `<div class="tooltip"><div class="${cssContainer}"><span class="tooltip-inner"></span></div></div>`;
+        }
+
+        if (isShown === false) {
+            $(element).tooltip('destroy');
+        } else {
+            $(element).tooltip(options);
+        }
+        
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $(element).tooltip('destroy');
         });

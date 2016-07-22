@@ -35,26 +35,28 @@
         'design/design.spec',
         'design/commands/saveCourseTemplateSettings.spec',
         'design/commands/getCourseTemplateSettings.spec',
-        'design/tabs/PresetTab.spec',
+        'design/tabs/ThemesTab.spec',
         'design/tabs/BrandingTab.spec',
         'design/tabs/FontsTab.spec',
-        'design/tabs/sections/Logo.spec',
-        'design/tabs/sections/LogoPopover.spec',
-        'design/tabs/sections/HeaderBackground.spec',
-        'design/tabs/sections/BodyBackground.spec',
-        'design/tabs/sections/Backgrounds.spec',
-        'design/tabs/sections/Interface.spec',
-        'design/tabs/sections/BodyBackgroundPopover.spec',
-        'design/tabs/sections/HeaderBackgroundPopover.spec',
-        'design/tabs/sections/ColorpickerPopover.spec',
-        'design/tabs/fontsTabSections/contentStyles.spec',
-        'design/tabs/fontsTabSections/generalStyles.spec',
+        'design/tabs/branding/courseLogo/Logo.spec',
+        'design/tabs/branding/courseLogo/LogoPopover.spec',
+        'design/tabs/branding/backgrounds/HeaderBackground.spec',
+        'design/tabs/branding/backgrounds/BodyBackground.spec',
+        'design/tabs/branding/backgrounds/Backgrounds.spec',
+        'design/tabs/branding/backgrounds/BodyBackgroundPopover.spec',
+        'design/tabs/branding/backgrounds/HeaderBackgroundPopover.spec',
+        'design/tabs/branding/interfaceColors/Interface.spec',
+        'design/tabs/branding/interfaceColors/ColorpickerPopover.spec',
+        'design/tabs/themes/CreateThemePopup.spec',
+        'design/tabs/themes/UnsavedChangesPopover.spec',
+        'design/tabs/fonts/contentStyles.spec',
+        'design/tabs/fonts/generalStyles.spec',
         'design/bus.spec',
         'design/components/colorpicker/viewModel.spec',
         'design/templateBrief.spec',
         //#endregion
 
-        //#region review
+         //#region review
         'review/reviewPanel.spec',
         'review/publish/coursePublish.spec',
         'review/comments/courseComments.spec',
@@ -119,6 +121,7 @@
         'dialogs/document/preview/index.spec',
         'dialogs/organizations/removeUser/removeUser.spec',
         'dialogs/organizations/inviteUsers/inviteUsers.spec',
+        'dialogs/themes/delete/deleteTheme.spec',
         //#endregion dialogs
 
         //#region errorHandling
@@ -169,6 +172,7 @@
         'repositories/templateRepository.spec',
         'repositories/questionRepository.spec',
         'repositories/videoRepository.spec',
+        'repositories/themeRepository.spec',
         //#endregion 
 
         //#region onboarding
@@ -242,7 +246,7 @@
         'synchronization/handlers/comment/eventHandlers/created.spec',
         'synchronization/handlers/comment/handler.spec',
 
-            'synchronization/handlers/collaboration/eventHandlers/collaboratorAccessTypeUpdated.spec',
+        'synchronization/handlers/collaboration/eventHandlers/collaboratorAccessTypeUpdated.spec',
 
         // #region organinizations synchronization
         'synchronization/handlers/organizations/handler.spec',
@@ -255,7 +259,7 @@
         'synchronization/handlers/organizations/eventHandlers/membershipStarted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipFinished.spec',
         'synchronization/handlers/organizations/eventHandlers/userAdded.spec',
-        
+
         // #endregion
 
         //#region synchronization questions
@@ -511,9 +515,9 @@
         './Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
     ];
 
-    Promise.all(specs.map(function (spec) {
+    Promise.all(specs.map(function(spec) {
         return System.import(spec);
-    })).then(function () {
+    })).then(function() {
         env.execute();
     });
 }

@@ -1,0 +1,18 @@
+﻿<section class="branding-section-content">
+    <!-- ko compose: { model: { hasAccess: available }, view: 'design/tabs/common/unavailableSection.html'}--><!--/ko-->
+    <span class="branding-color-label" data-bind="localize: { text: 'contentStyles' }"></span>
+    <ul data-bind="foreach: elements">
+        <li class="stylable-elements-list unstyled" data-bind=" textStyle: $data, css: { active: isVisible }">
+            <div class="styleable-content-element" data-bind="click: show, style: { backgroundColor : $parent.contentBodyColor}">
+                <div class="styleable-content-element-preview" data-bind="localize : { text: key }, style: { color: color, fontSize : size() + 'px', fontFamily: fontFamily, fontWeight: fontWeight, fontStyle: fontStyle, textDecoration: textDecoration, backgroundColor  : textBackgroundColor, fontWeight : fontWeight } "></div>
+                <!-- ko if: isVisible -->
+                <div class="styleable-content-element-icon"></div>
+                <!-- /ko-->
+                <!-- ko ifnot: isVisible -->
+                <div class="styleable-content-element-icon" data-bind="tip: { key: 'editStyles' }"></div>
+                <!-- /ko-->
+            </div>
+            <button class="stylable-element-reset-button" data-bind="localize: { text: 'resetDefaults'}, click: resetDefaults, css: { visible : isVisible }"></button>
+        </li>
+    </ul>
+</section>

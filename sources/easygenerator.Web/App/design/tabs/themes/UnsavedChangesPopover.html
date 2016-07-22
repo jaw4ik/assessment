@@ -1,0 +1,25 @@
+﻿<section class="branding-background-popover theme-unsaved-changes" data-bind="if: isVisible">
+    <div class="theme-unsaved-changes-container">
+        <div class="modal-dialog-close-btn" data-bind="click: hide"></div>
+        <div class="unsaved-changes-message-wrapper">
+            <div class="info-image"></div>
+            <div class="unsaved-changes-message">
+                <div class="unsaved-changes-title" data-bind="localize: { text: 'unsavedChangesPopupTitle' }"></div>
+                <div class="unsaved-changes-hint" data-bind="localize: { text: 'unsavedChangesPopupHint' }"></div>
+            </div>
+        </div>
+        <div class="unsaved-changes-actions-wrapper">
+            <!-- ko if: isNewTheme -->
+            <button class="btn green save-new" data-bind="localize: { text: 'saveAsNew' }, click: showCreateThemePopup"></button>
+            <!-- /ko -->
+            <!-- ko ifnot: isNewTheme -->
+            <button class="btn green save" data-bind="localize: { text: 'save' }, click: save"></button>
+            <button class="btn white save-new" data-bind="localize: { text: 'saveAsNew' }, click: showCreateThemePopup"></button>
+            <!-- /ko -->
+            <a class="discard-changes" data-bind="localize: { text: 'discardChanges' }, click: discardChanges"></a>
+        </div>
+
+        <!-- ko compose: { model: createThemePopup } -->
+        <!-- /ko -->
+    </div>
+</section>

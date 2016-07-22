@@ -1,13 +1,52 @@
 ﻿<section class="design left-side-bar">
+    <!-- ko if: isThemesSupported && isOwner -->
+    <div class="save-theme-button-container" data-bind="css: { disabled: !themesTab.hasUnsavedChanges() }">
+        <!-- ko ifnot: themesTab.isCustomThemeSelected -->
+        <button class="save-theme-button" data-bind="localize: { text: 'saveAsANewTheme' }, click: canSaveTheme() ? showCreateThemePopup : showThemesUpgradeDialog"></button>
+        <!-- /ko -->
+        <!-- ko if: themesTab.isCustomThemeSelected -->
+        <!-- ko if: canSaveTheme -->
+        <div class="save-theme-dropdown" data-bind="dropDown: {}">
+            <button class="save-theme-button" data-bind="localize: { text: 'saveTheme' }"></button>
+            <ul class="dropdown-list">
+                <li class="dropdown-list-item new-theme" data-bind="click: showCreateThemePopup">
+                    <span data-bind="localize: { text: 'saveAsANewTheme' }"></span>
+                </li>
+                <li class="dropdown-list-item current-theme" data-bind="click: updateTheme">
+                    <span data-bind="localize: { text: 'saveAsCurrentTheme' }"></span>
+                </li>
+            </ul>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: canSaveTheme -->
+        <div class="save-theme-dropdown" data-bind="click: showThemesUpgradeDialog">
+            <button class="save-theme-button" data-bind="localize: { text: 'saveTheme' }"></button>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko compose: { model: createThemePopup } --><!-- /ko -->
+    </div>
+    <!-- /ko -->
     <div class="design-bar settings">
         <div class="design-bar-navigation">
             <!-- ko if: !template().isLoading() -->
             <ul class="design-bar-navigation-list">
                 <!-- ko foreach: settingsTabs -->
+                <!-- ko if: name === 'themes' -->
+                <li class="design-bar-navigation-item" data-bind="css: { selected: isSelected }, css2: name, click:$root.changeTab.bind($root),tip: { key: 'unsavedChanges', placement: 'right', cssContainer: 'themes-unsaved-changes-tip', isShown: hasUnsavedChanges, container: '.left-side-bar' }">
+                    <!-- ko if: hasUnsavedChanges -->
+                    <div class="changed-mark"></div>
+                    <!-- /ko -->
+                    <div class="navigation-item-thumbnail settings-thumbnail" data-bind="css: name"></div>
+                    <div class="navigation-item-title" data-bind="text:title"></div>
+                </li>
+                <!-- /ko -->
+                <!-- ko ifnot: name === 'themes' -->
                 <li class="design-bar-navigation-item" data-bind="css: { selected: isSelected }, css2: name, click:$root.changeTab.bind($root)">
                     <div class="navigation-item-thumbnail settings-thumbnail" data-bind="css: name"></div>
                     <div class="navigation-item-title" data-bind="text:title"></div>
                 </li>
+                <!-- /ko -->
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
@@ -29,18 +68,13 @@
         </div>
         <!-- /ko -->
         <!-- ko if: tab() && tab().type=='default' -->
-        <div class="design-bar-content" data-bind="scrollbar:{ checkDOMChanges: true }, compose: { model: tab(), activationData: [ settings, currentPreset && currentPreset.settings ] }">
+        <div class="design-bar-content" data-bind="scrollbar:{ checkDOMChanges: true }, compose: { model: tab(), activationData: [ settings, selectedTheme && selectedTheme.settings, allowEdit ] }"></div>
+        <!-- /ko -->
+        <!-- ko if: tab() && tab().type=='themes' -->
+        <div class="design-bar-content" data-bind="scrollbar:{ checkDOMChanges: true }, compose: { model: tab(), activationData: [ template() && template().id, settings, selectedTheme, isOwner ] }">
 
         </div>
         <!-- /ko -->
-        <!-- ko if: tab() && tab().type=='presets' -->
-        <div class="design-bar-content" data-bind="scrollbar:{ checkDOMChanges: true }, compose: { model: tab(), activationData: [ template() && template().id, settings  ] }">
-
-        </div>
-        <!-- /ko -->
-        <footer>
-            <button class="disabled" data-bind="localize: { text: 'saveAsANewTheme' }" disabled></button>
-        </footer>
 
     </div>
 
@@ -48,7 +82,6 @@
     <!-- ko compose: { model: instance, compositionComplete: compositionComplete.bind($data) } -->
     <!-- /ko -->
     <!-- /ko -->
-
     <!-- ko foreach: textStyleElements -->
     <!-- ko compose: { model: instance, compositionComplete: compositionComplete.bind($data) } -->
     <!-- /ko -->

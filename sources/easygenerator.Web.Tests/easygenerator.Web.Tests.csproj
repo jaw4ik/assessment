@@ -190,6 +190,7 @@
     <Compile Include="Components\ManifestFileManagerTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
+    <Compile Include="Controllers\Api\CourseTemplateSettingsControllerTests.cs" />
     <Compile Include="Controllers\Api\DocumentControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
     <Compile Include="Controllers\Api\OrganizationControllerTests.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\Api\ScenarioControllerTests.cs" />
     <Compile Include="Controllers\CrossProtocolStorageControllerTests.cs" />
+    <Compile Include="Controllers\Api\ThemeControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />

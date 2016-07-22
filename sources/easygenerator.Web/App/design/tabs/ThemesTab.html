@@ -1,0 +1,82 @@
+﻿<div class="design-bar themes">
+    <!-- ko if: sharedThemes().length -->
+    <div class="design-bar-themes-section shared">
+        <div class="design-bar-themes-title" data-bind="localize: { text: 'sharedThemes' }"></div>
+        <ul class="design-bar-themes-list" data-bind="foreach: sharedThemes">
+            <li class="design-bar-theme-wrapper">
+                <div class="design-bar-theme" data-bind="backgroundImage: backgroundTexture, style: { backgroundColor: backgroundColor, borderColor: secondaryColor }, css: { selected: $data === $parent.selectedTheme() }">
+                    <label class="design-bar-theme-title" data-bind="style: { color: textColor }">
+                        <span data-bind="localize: { text: 'theme' }"></span><br />
+                        <span>"<span data-bind="text: title"></span>"</span>
+                    </label>
+                    <div class="design-bar-theme-main-color-preview" data-bind="style: { backgroundColor: mainColor }"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- /ko -->
+    <div class="design-bar-themes-section-container">
+        <!-- ko compose: { model: { hasPermissions: isOwner, description: 'themesCannotBeChanged' }, view: 'design/tabs/common/forbiddenSection.html'}--><!--/ko-->
+        <!-- ko if: userThemes().length || showUnsavedTheme -->
+        <div class="design-bar-themes-section private">
+        <div class="design-bar-themes-title" data-bind="localize: { text: 'myThemes' }"></div>
+        <ul class="design-bar-themes-list">
+            <!-- ko if: showUnsavedTheme -->
+            <li class="design-bar-theme-wrapper" data-bind="click: showUnsavedChanges">
+                <div class="changed-mark" data-bind="popover: popover"></div>
+                <div class="design-bar-unsaved selected">
+                    <label class="design-bar-unsaved-title">
+                        <span data-bind="localize: { text: 'unsavedTheme' }"></span>
+                    </label>
+                    <div class="design-bar-theme-main-color-preview"></div>
+                </div>
+            </li>
+            <!-- /ko -->
+            <!-- ko foreach: userThemes -->
+            <li class="design-bar-theme-wrapper" data-bind="tip: { key: 'unsavedChanges', placement: 'right', cssContainer: 'theme-unsaved-changes-tip', isShown: $data === $parent.selectedTheme() && $parent.hasUnsavedChanges(), container: '.left-side-bar' }, click: $parent.showUnsavedChanges.bind($parent)">
+                <!-- ko if: $data === $parent.selectedTheme() && $parent.hasUnsavedChanges() -->
+                <div class="changed-mark" data-bind="popover: $parent.popover"></div>
+                <div class="theme-changed-mark" data-bind="backgroundImage: backgroundTexture, style: { backgroundColor: backgroundColor }"></div>
+                <!-- /ko -->
+                <div class="design-bar-theme" data-bind="click: $data === $parent.selectedTheme() ? null : $parent.selectTheme.bind($parent), backgroundImage: backgroundTexture, style: { backgroundColor: backgroundColor, borderColor: secondaryColor }, css: { selected: $data === $parent.selectedTheme() }">
+                    <label class="design-bar-theme-title" data-bind="style: { color: textColor }">
+                        <span data-bind="localize: { text: 'theme' }"></span><br/>
+                        <span>"<span data-bind="text: title"></span>"</span>
+                    </label>
+                    <div class="design-bar-theme-main-color-preview" data-bind="style: { backgroundColor: mainColor }"></div>
+                    <div class="list-item-context-actions-wrapper">
+                        <div class="list-item-context-action info-tooltip-holder delete" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.remove.bind($parent)">
+                            <div class="info-tooltip">
+                                <span data-bind="localize: { text: 'delete' }"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+    <!-- /ko -->
+        <!-- ko if: defaultThemes().length -->
+        <div class="design-bar-themes-section public">
+        <div class="design-bar-themes-title" data-bind="localize: { text: 'defaultThemes' }"></div>
+        <ul class="design-bar-themes-list" data-bind="foreach: defaultThemes">
+            <li class="design-bar-theme-wrapper">
+                    <div class="design-bar-theme" data-bind="click: $parent.selectTheme.bind($parent), backgroundImage: backgroundTexture, style: { backgroundColor: backgroundColor, borderColor: secondaryColor }, css: { selected: $data === $parent.selectedTheme() }">
+                    <label class="design-bar-theme-title" data-bind="style: { color: textColor }">
+                        <span data-bind="localize: { text: 'theme' }"></span><br/>
+                        <span>"<span data-bind="text: title"></span>"</span>
+                    </label>
+                    <div class="design-bar-theme-main-color-preview" data-bind="style: { backgroundColor: mainColor }"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- /ko -->
+        <!-- ko ifnot: defaultThemes().length -->
+    <label class="design-bar-themes-label">
+        <i data-bind="localize: { text: 'templateDoesNotHavePresets' }"></i>
+    </label>
+    <!-- /ko -->
+    </div>
+</div>

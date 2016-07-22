@@ -1,0 +1,23 @@
+﻿<section class="branding-section-content">
+    <!-- ko compose: { model: { hasAccess: available }, view: 'design/tabs/common/unavailableSection.html'}--><!--/ko-->
+    <div class="branding-logo-image-container">
+        <div class="branding-logo-image-wrapper">
+            <img class="branding-logo-image" data-bind="attr: { src: imageUrl }" />
+        </div>
+        <!-- ko if: imageUrl() && !imageUrl.isDefault() -->
+        <button class="branding-logo-image-remove-button" data-bind="click: remove, tip: { key: 'reset' }"></button>
+        <!-- /ko -->
+    </div>
+    <div class="branding-logo-upload-wrapper">
+        <button class="branding-logo-upload" data-popover-placement="bottom" data-bind="click: showPopover, localize: { text: 'changeLogo' }, popover: popover, css: { active: popover.isVisible }"></button>
+        <i class="branding-logo-upload-info-tooltip-holder info-tooltip-holder">
+            <span class="info-tooltip">
+                <span>
+                    <span data-bind="localize: { text: 'logoRecommendedSize' }"></span>
+                    <br />
+                    <span data-bind="localize: { text: 'logoAllowedFormats' }"></span>
+                </span>
+            </span>
+        </i>
+    </div>
+</section>

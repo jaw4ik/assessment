@@ -47,7 +47,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AcademyAccess]
+        [AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToManageOrganization)]
         [Route("api/organization/create")]
         public ActionResult CreateOrganization(string title)
         {
@@ -59,7 +59,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AcademyAccess]
+        [AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToManageOrganization)]
         [OrganizationAdmin]
         [Route("api/organization/users")]
         public ActionResult GetOrganizationUsers(Organization organization)
@@ -72,7 +72,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AcademyAccess]
+        [AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToManageOrganization)]
         [OrganizationAdmin]
         [Route("api/organization/title/update")]
         public ActionResult UpdateOrganizationTitle(Organization organization, string title)
@@ -85,7 +85,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AcademyAccess]
+        [AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToManageOrganization)]
         [OrganizationAdmin]
         [Route("api/organization/users/add")]
         public ActionResult AddUsers(Organization organization, List<string> emails)
@@ -117,7 +117,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AcademyAccess]
+        [AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToManageOrganization)]
         [OrganizationAdmin]
         [Route("api/organization/user/remove")]
         public ActionResult RemoveOrganizationUser(Organization organization, string userEmail)
@@ -144,7 +144,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AcademyAccess]
+        [AcademyAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToManageOrganization)]
         [OrganizationAdmin]
         [Route("api/organization/user/reinvite")]
         public ActionResult ReinviteOrganizationUser(Organization organization, OrganizationUser organizationUser)

@@ -1,8 +1,8 @@
 ﻿import BrandingTab from './BrandingTab.js';
 
-import Background from './sections/Backgrounds.js';
-import Logo from './sections/Logo.js';
-import Interface from './sections/Interface.js';
+import Background from './branding/backgrounds/Backgrounds';
+import Logo from './branding/courseLogo/Logo';
+import Interface from './branding/interfaceColors/Interface';
 
 describe('Branding tab', () => {
 
@@ -93,11 +93,12 @@ describe('Branding tab', () => {
             let tab = new BrandingTab();
             let settings = { branding: { logo: {} } };
             let defaults = { branding: { logo: {} } };
+            let allowEdit = true;
 
             spyOn(tab.logo, 'activate');
             
-            tab.activate(settings, defaults).then(() => {
-                expect(tab.logo.activate).toHaveBeenCalledWith(settings.branding.logo, defaults.branding.logo);
+            tab.activate(settings, defaults, allowEdit).then(() => {
+                expect(tab.logo.activate).toHaveBeenCalledWith(settings.branding.logo, defaults.branding.logo, allowEdit);
                 done();
             });
         });
@@ -106,11 +107,12 @@ describe('Branding tab', () => {
             let tab = new BrandingTab();
             let settings = { branding: { background: {} } };
             let defaults = { branding: { background: {} } };
+            let allowEdit = true;
 
             spyOn(tab.background, 'activate');
 
-            tab.activate(settings, defaults).then(() => {
-                expect(tab.background.activate).toHaveBeenCalledWith(settings.branding.background, defaults.branding.background);
+            tab.activate(settings, defaults, allowEdit).then(() => {
+                expect(tab.background.activate).toHaveBeenCalledWith(settings.branding.background, defaults.branding.background, allowEdit);
                 done();
             });
         });
@@ -119,11 +121,12 @@ describe('Branding tab', () => {
             let tab = new BrandingTab();
             let settings = { branding: { colors: {} } };
             let defaults = { branding: { colors: {} } };
+            let allowEdit = true;
 
             spyOn(tab.colors, 'activate');
 
-            tab.activate(settings, defaults).then(() => {
-                expect(tab.colors.activate).toHaveBeenCalledWith(settings.branding.colors, defaults.branding.colors);
+            tab.activate(settings, defaults, allowEdit).then(() => {
+                expect(tab.colors.activate).toHaveBeenCalledWith(settings.branding.colors, defaults.branding.colors, allowEdit);
                 done();
             });
         });

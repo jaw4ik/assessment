@@ -72,11 +72,13 @@ describe('Fonts tab', () => {
                 }
             };
             let defaults = {fonts: [] };
+
+            let allowEdit = true;
             
             spyOn(tab.generalStyles, 'activate');
 
-            tab.activate(settings, defaults).then(() => {
-                expect(tab.generalStyles.activate).toHaveBeenCalledWith(settings, defaults);
+            tab.activate(settings, defaults, allowEdit).then(() => {
+                expect(tab.generalStyles.activate).toHaveBeenCalledWith(settings, defaults, allowEdit);
                 done();
             });
 
@@ -94,10 +96,12 @@ describe('Fonts tab', () => {
             };
             let defaults = {fonts: [] };
             
+            let allowEdit = false;
+
             spyOn(tab.contentStyles, 'activate');
 
-            tab.activate(settings, defaults).then(() => {
-                expect(tab.contentStyles.activate).toHaveBeenCalledWith(settings, defaults);
+            tab.activate(settings, defaults, allowEdit).then(() => {
+                expect(tab.contentStyles.activate).toHaveBeenCalledWith(settings, defaults, allowEdit);
                 done();
             });
 

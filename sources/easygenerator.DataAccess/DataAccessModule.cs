@@ -150,6 +150,10 @@ namespace easygenerator.DataAccess
                 .As<IQuerableRepository<Company>>()
                 .As<ICompanyRepository>();
 
+            builder.RegisterType<ThemeRepository>()
+                .As<IQuerableRepository<Theme>>()
+                .As<IThemeRepository>();
+
             builder.RegisterType<OrganizationRepository>()
                .As<IQuerableRepository<Organization>>()
                .As<IOrganizationRepository>();

@@ -102,6 +102,7 @@
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\Tickets\EmailConfirmationTicketTests.cs" />
     <Compile Include="Entities\Tickets\PasswordRecoveryTicketTests.cs" />
+    <Compile Include="Entities\ThemeTests.cs" />
     <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityClonerTests.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="ObjectMothers\TextMatchingAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\TextMatchingObjectMother.cs" />
     <Compile Include="ObjectMothers\LtiUserInfoObjectMother.cs" />
+    <Compile Include="ObjectMothers\ThemeObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="ObjectMothers\UserSettingsObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

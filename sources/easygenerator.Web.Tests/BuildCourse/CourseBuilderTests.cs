@@ -35,6 +35,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private CoursePackageModel _coursePackageModel;
 
         private const string TemplateSettings = "template settings";
+        private const string ThemeSettings = "theme settings";
 
         [TestInitialize]
         public void InitializeContext()
@@ -118,6 +119,23 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Assert
             _buildContentProvider.Received().AddSettingsFileToPackageDirectory(Arg.Any<string>(), TemplateSettings);
+        }
+
+        [TestMethod]
+        public void Build_ShouldAddThemeSettingsToPackage()
+        {
+            //Arrange
+            var buildDirectory = "SomeBuildPath";
+            var buildPackageFileName = "SomePackageFileName";
+
+            _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
+            _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
+
+            //Act
+            _builder.Build(_course);
+
+            //Assert
+            _buildContentProvider.Received().AddThemeSettingsFileToPackageDirectory(Arg.Any<string>(), ThemeSettings);
         }
 
         [TestMethod]
@@ -290,7 +308,10 @@ namespace easygenerator.Web.Tests.BuildCourse
             course.UpdateTemplate(template, "SomeUser");
             course.SaveTemplateSettings(template, TemplateSettings, "");
             course.RelateSection(section, null, "SomeUser");
-            
+
+            var theme = ThemeObjectMother.Create(template, "My theme", ThemeSettings);
+            course.AddTemplateTheme(template, theme);
+
             return course;
         }
 

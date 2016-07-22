@@ -1,0 +1,11 @@
+﻿<section>
+    <!-- ko if: !hasPermissions -->
+    <div class="not-enough-permissions-container">
+        <div class="not-enough-permissions-img"></div>
+        <div class="not-enough-permissions-description">
+            <div class="not-enough-permissions-description-caption" data-bind="localize: { text: 'notEnoughtPermissions' }"></div>
+            <div class="not-enough-permissions-description-text" data-bind="localize: { text: description }"></div>
+        </div>
+    </div>
+    <!-- /ko-->
+</section>

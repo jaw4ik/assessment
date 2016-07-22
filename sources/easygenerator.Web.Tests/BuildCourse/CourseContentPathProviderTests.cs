@@ -156,6 +156,23 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
+        #region GetThemeSettingsFileName
+
+        [TestMethod]
+        public void GetThemeSettingsFileName_ShouldReturnThemeSettingsFile()
+        {
+            //Arrange
+            var expectedPath = "BuildDirectory\\themeSettings.js";
+
+            //Act
+            var result = _courseContentPathProvider.GetThemeSettingsFileName(BuildDirectory);
+
+            //Assert
+            result.Should().Be(expectedPath);
+        }
+
+        #endregion
+
         #region GetPublishSettingsFileName
 
         [TestMethod]

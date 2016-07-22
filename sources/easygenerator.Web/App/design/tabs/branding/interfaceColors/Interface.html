@@ -1,0 +1,16 @@
+﻿<section class="branding-section-content">
+    <!-- ko compose: { model: { hasAccess: available }, view: 'design/tabs/common/unavailableSection.html'}--><!--/ko-->
+    <ul class="branding-colors unstyled" data-bind="foreach: colors">
+        <li class="branding-color-wrapper">
+            <label class="branding-color-label">
+                <span data-bind="localize: { text: key.replace('@','').replace(/-/g, ' ').toCamelCase() }"></span>:
+            </label>
+            <div class="branding-color-input-wrapper">
+                <div class="branding-color-input" data-bind="click: togglePopover, css: { active: popover.isVisible }, popover: popover">
+                    <div class="branding-color-input-preview" data-bind="style: { backgroundColor: value }"></div>
+                    <div class="branding-color-input-value" data-bind="text: value"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>

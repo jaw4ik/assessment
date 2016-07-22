@@ -55,6 +55,11 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(buildDirectory, "settings.js");
         }
 
+        public virtual string GetThemeSettingsFileName(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "themeSettings.js");
+        }
+
         public virtual string GetPublishSettingsFileName(string buildDirectory)
         {
             return Path.Combine(buildDirectory, "publishSettings.js");

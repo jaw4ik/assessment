@@ -5,8 +5,8 @@ import fonts from 'fonts';
 import localizationManager from 'localization/localizationManager';
 import userContext from 'userContext';
 
-import ContentStyles from './fontsTabSections/contentStyles';
-import GeneralStyles from './fontsTabSections/generalStyles';
+import ContentStyles from './fonts/contentStyles';
+import GeneralStyles from './fonts/generalStyles';
 
 export default class FontsTab {
     constructor(){
@@ -30,11 +30,11 @@ export default class FontsTab {
         [ this.contentStyles, this.generalStyles ].forEach(item => item.expanded(section === item));
     }
 
-    activate(settings, defaults){
+    activate(settings, defaults, allowEdit){
         let that = this;
         return new Promise(resolve => {
-            this.generalStyles.activate(settings, defaults);
-            this.contentStyles.activate(settings, defaults);
+            this.generalStyles.activate(settings, defaults, allowEdit);
+            this.contentStyles.activate(settings, defaults, allowEdit);
             resolve();
         }).then(() => {
             let familiesToLoad = _.map(_.filter(fontFamilies, fontFamily => { return fontFamily.needToLoad }), font => {

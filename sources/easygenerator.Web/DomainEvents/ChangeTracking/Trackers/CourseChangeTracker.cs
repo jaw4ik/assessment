@@ -4,8 +4,10 @@ using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using System.Collections.Generic;
+using System.Linq;
 using easygenerator.DomainModel.Events.CommentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
+using easygenerator.DomainModel.Events.ThemeEvents;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 {
@@ -28,7 +30,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<SingleSelectImageAnswerChangedEvent>,
         IDomainEventHandler<RankingTextAnswerCreatedEvent>,
         IDomainEventHandler<RankingTextAnswerTextChangedEvent>,
-        IDomainEventHandler<CommentDeletedEvent>
+        IDomainEventHandler<CommentDeletedEvent>,
+        IDomainEventHandler<ThemeUpdatedEvent>,
+        IDomainEventHandler<ThemeDeletedEvent>
     {
         private readonly ICourseRepository _repository;
         private readonly IDomainEventPublisher _eventPublisher;
@@ -130,6 +134,17 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         public void Handle(CommentDeletedEvent args)
         {
             RaiseCourseChangedEvent(args.Course);
+        }
+        public void Handle(ThemeUpdatedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesWithTheme(args.Theme.Id));
+        }
+        public void Handle(ThemeDeletedEvent args)
+        {
+            var changedCourses = args.ChangedCourseSettings.Where(item => item.Course.Template == item.Template)
+                    .Select(item => item.Course);
+
+            RaiseCoursesChangedEvent(changedCourses);
         }
 
         private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)

@@ -341,51 +341,6 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
-        [Scope("settings", "api")]
-        [EntityCollaborator(typeof(Course))]
-        [ActionName("TemplateSettings"), HttpGet]
-        [Route("api/course/{courseId}/template/{templateId}")]
-        public ActionResult GetTemplateSettings(Course course, Template template)
-        {
-            if (course == null)
-            {
-                return HttpNotFound(Errors.CourseNotFoundError);
-            }
-
-            if (template == null)
-            {
-                return HttpNotFound(Errors.TemplateNotFoundError);
-            }
-
-            return Json(new
-            {
-                settings = course.GetTemplateSettings(template),
-                extraData = course.GetExtraDataForTemplate(template)
-            },
-                JsonRequestBehavior.AllowGet);
-        }
-
-        [Scope("settings", "api")]
-        [EntityCollaborator(typeof(Course))]
-        [ActionName("TemplateSettings"), HttpPost]
-        [Route("api/course/{courseId}/template/{templateId}")]
-        public ActionResult SaveTemplateSettings(Course course, Template template, string settings, string extraData)
-        {
-            if (course == null)
-            {
-                return HttpNotFound(Errors.CourseNotFoundError);
-            }
-
-            if (template == null)
-            {
-                return HttpNotFound(Errors.TemplateNotFoundError);
-            }
-
-            course.SaveTemplateSettings(template, settings, extraData);
-
-            return Json(true);
-        }
-
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/updateintroductioncontent")]

@@ -9,7 +9,7 @@ let template = {
     previewDemoUrl: 'url',
     shortDescription: 'description',
     order: 0,
-    presets: [{}],
+    themes: [{}],
     settingsUrls: {
         design: 'design.html'
     }

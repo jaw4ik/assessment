@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Linq;
 using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
+using easygenerator.DomainModel.Events.ThemeEvents;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -250,6 +251,40 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 
             //Assert
             _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
+        }
+
+        [TestMethod]
+        public void Handler_ThemeUpdated_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var theme = ThemeObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesWithTheme(theme.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new ThemeUpdatedEvent(theme));
+
+            //Assert
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
+        }
+
+        [TestMethod]
+        public void Handler_ThemeDeleted_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var template = TemplateObjectMother.Create();
+            var theme = ThemeObjectMother.Create();
+            var settings = new[]
+            {
+                new CourseTemplateSettings() {Course = CourseObjectMother.CreateWithTemplate(template), Template = template},
+                new CourseTemplateSettings() {Course = CourseObjectMother.CreateWithTemplate(template)},
+            };
+
+            //Act
+            _tracker.Handle(new ThemeDeletedEvent(theme, settings));
+
+            //Assert
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(1);
         }
     }
 }

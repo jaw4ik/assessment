@@ -475,6 +475,10 @@
     <Compile Include="Migrations\201607200631532_AddSamlSupportAndIntegrationWithCoggno.Designer.cs">
       <DependentUpon>201607200631532_AddSamlSupportAndIntegrationWithCoggno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607210758181_AddThemes.cs" />
+    <Compile Include="Migrations\201607210758181_AddThemes.Designer.cs">
+      <DependentUpon>201607210758181_AddThemes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
@@ -499,6 +503,7 @@
     <Compile Include="Repositories\QuerableRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\TemplateRepository.cs" />
+    <Compile Include="Repositories\ThemeRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -827,6 +832,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607200631532_AddSamlSupportAndIntegrationWithCoggno.resx">
       <DependentUpon>201607200631532_AddSamlSupportAndIntegrationWithCoggno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210758181_AddThemes.resx">
+      <DependentUpon>201607210758181_AddThemes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

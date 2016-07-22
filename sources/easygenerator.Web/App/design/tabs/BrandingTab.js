@@ -2,9 +2,9 @@
 
 import localizationManager from 'localization/localizationManager';
 
-import Backgrounds from './sections/Backgrounds';
-import Logo from './sections/Logo';
-import Interface from './sections/Interface';
+import Backgrounds from './branding/backgrounds/Backgrounds';
+import Logo from './branding/courseLogo/Logo';
+import Interface from './branding/interfaceColors/Interface';
 
 class BrandingTab{
 
@@ -24,11 +24,11 @@ class BrandingTab{
         [this.logo, this.background, this.colors].forEach(item => item.expanded(section === item));
     }
 
-    activate(settings, defaults){
+    activate(settings, defaults, allowEdit){
         return new Promise(resolve => {
-            this.logo.activate(settings && settings.branding && settings.branding.logo, defaults && defaults.branding && defaults.branding.logo);
-            this.background.activate(settings && settings.branding && settings.branding.background, defaults && defaults.branding && defaults.branding.background);
-            this.colors.activate(settings && settings.branding && settings.branding.colors, defaults && defaults.branding && defaults.branding.colors);
+            this.logo.activate(settings && settings.branding && settings.branding.logo, defaults && defaults.branding && defaults.branding.logo, allowEdit);
+            this.background.activate(settings && settings.branding && settings.branding.background, defaults && defaults.branding && defaults.branding.background, allowEdit);
+            this.colors.activate(settings && settings.branding && settings.branding.colors, defaults && defaults.branding && defaults.branding.colors, allowEdit);
             resolve();
         });
     }

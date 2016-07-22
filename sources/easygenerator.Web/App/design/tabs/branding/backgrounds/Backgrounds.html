@@ -1,0 +1,90 @@
+﻿<section class="branding-section-content">
+    <!-- ko compose: { model: { hasAccess: available }, view: 'design/tabs/common/unavailableSection.html'}--><!--/ko-->
+    <section class="branding-background-section" data-bind="with: header">
+        <h5><span data-bind="localize: { text: 'topBackground' }"></span>:</h5>
+        <div class="branding-header-background-wrapper">
+            <!-- ko if: image -->
+            <div class="branding-header-background" data-bind="backgroundImage: image">
+                <!-- ko ifnot: image.isDefault -->
+                <button class="branding-header-background-remove-button" data-bind="click: removeImage, tip: { key: 'reset' }"></button>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: image -->
+            <div class="branding-header-background" data-bind="style: { backgroundColor: color }"></div>
+            <!-- /ko -->
+            <ul class="branding-header-background-options">
+                <!-- ko if: image() && image().length -->
+                <li class="branding-header-background-option-wrapper">
+                    <button class="branding-header-background-option fullscreen" data-bind="click: switchToFullscreen, css: { selected: isFullscreen }, tip: { key: 'backgroundFullscreen' }"></button>
+                </li>
+                <li class="branding-header-background-option-wrapper">
+                    <button class="branding-header-background-option repeat" data-bind="click: switchToRepeat, css: { selected: isRepeat }, tip: { key: 'backgroundRepeat' }"></button>
+                </li>
+                <li class="branding-header-background-option-wrapper">
+                    <button class="branding-header-background-option original" data-bind="click: switchToOriginal, css: { selected: isOriginal }, tip: { key: 'backgroundOriginal' }"></button>
+                </li>
+                <!-- /ko -->
+                <!-- ko ifnot: image() && image().length -->
+                <li class="branding-header-background-option-wrapper">
+                    <button class="branding-header-background-option fullscreen disabled"></button>
+                </li>
+                <li class="branding-header-background-option-wrapper">
+                    <button class="branding-header-background-option repeat disabled"></button>
+                </li>
+                <li class="branding-header-background-option-wrapper">
+                    <button class="branding-header-background-option original disabled"></button>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+
+        <div class="branding-background-brightness-wrapper">
+            <label>
+                <span data-bind="localize: { text: 'brightness' }"></span>:
+            </label>
+            <div data-bind="brightness: { value: brightness, change: changeBrightness.bind($data) }"></div>
+        </div>
+        <div class="branding-change-background-wrapper">
+            <button class="branding-change-background-button" data-bind="click: toggleBackgroundPopover, css: { active: popover.isVisible }, popover: popover">
+                <span data-bind="localize: { text: 'changeBackground' }"></span>
+            </button>
+        </div>
+    </section>
+    <hr />
+    <section class="branding-background-section" data-bind="with: body">
+        <h5><span data-bind="localize: { text: 'secondaryBackground' }"></span>:</h5>
+        <div class="branding-background-enabled-wrapper">
+            <div class="switcher">
+                <div class="switcher-text" data-bind="localize: { text: 'enable', 'data-text': 'enable' }, css: { selected: enabled() }, click: enabled() ? function(){} : toggleEnabled"></div>
+                <div class="switch-toggle-slider small on-off" data-bind="switchToggle: { value: enabled, onClick: toggleEnabled.bind($data), speed: 100 }">
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch-toggle-off"></div>
+                        <div class="switch-toogle-blob"></div>
+                        <div class="switch-toggle-on"></div>
+                    </div>
+                </div>
+                <div class="switcher-text" data-bind="localize: { text: 'disable', 'data-text': 'disable' }, css: { selected: !enabled() }, click: enabled() ? toggleEnabled : function(){}"></div>
+            </div>
+        </div>
+        <div class="branding-background-detailed-settings" data-bind="css: { disabled: !enabled() }">
+            <div class="branding-background-brightness-wrapper">
+                <label><span data-bind="localize: { text: 'brightness' }"></span>:</label>
+                <div data-bind="brightness: { value: brightness, change: changeBrightness.bind($data) }"></div>
+            </div>
+            <div class="branding-change-background-wrapper">
+                <button class="branding-change-background-button" data-bind="click: toggleBackgroundPopover, css: { active: popover.isVisible }, popover: popover">
+                    <span>
+                        <!-- ko if: texture -->
+                        <i class="branding-background-body-preview" data-bind="backgroundImage: texture"></i>
+                        <!-- /ko -->
+                        <!-- ko ifnot: texture -->
+                        <i class="branding-background-body-preview" data-bind="style: { backgroundColor: color }"></i>
+                        <!-- /ko -->
+                        <span data-bind="localize: { text: 'changeBackground' }"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+</section>

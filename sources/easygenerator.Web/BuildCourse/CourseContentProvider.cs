@@ -62,6 +62,16 @@ namespace easygenerator.Web.BuildCourse
             _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory), settings ?? GetEmptyJsonContent());
         }
 
+        public void AddThemeSettingsFileToPackageDirectory(string buildDirectory, string settings, bool includeMedia = false)
+        {
+            if (settings != null && includeMedia)
+            {
+                settings = _packageMediaFetcher.AddMediaFromJson(buildDirectory, settings);
+            }
+
+            _fileManager.WriteToFile(_buildPathProvider.GetThemeSettingsFileName(buildDirectory), settings ?? GetEmptyJsonContent());
+        }
+
         public void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings)
         {
             _fileManager.WriteToFile(_buildPathProvider.GetPublishSettingsFileName(buildDirectory), publishSettings);

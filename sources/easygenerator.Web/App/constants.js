@@ -359,6 +359,11 @@ messages: {
     },
     includeMedia: {
             modeChanged: 'includeMedia:modeChanged'
+    },
+    themes: {
+            added: 'themes:added',
+            updated: 'themes:updated',
+            deleted: 'themes:deleted'
     }
 },
 
@@ -634,6 +639,12 @@ dialogs: {
         eventCategory: 'Publish to Coggno',
         subtitleKey: 'publishToCoggnoUpgradeSubtitle',
         descriptionKey: 'publishToCoggnoUpgradeText'
+    },
+    saveThemes: {
+            containerCss: 'upgrade-dialog-save-themes',
+            eventCategory: 'Save themes',
+            subtitleKey: 'saveThemesUpgradeSubtitle',
+            descriptionKey: 'saveThemesUpgradeText'
     }
     }
 }

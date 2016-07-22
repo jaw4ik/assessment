@@ -20,4 +20,5 @@ public class CourseTemplateSettings : Entity
     public virtual Template Template { get; set; }
     public string Settings { get; set; }
     public string ExtraData { get; set; }
+    public virtual Theme Theme { get; set; }
 }

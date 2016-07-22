@@ -91,6 +91,7 @@
     <Compile Include="Entities\Tickets\PasswordRecoveryTicket.cs" />
     <Compile Include="Entities\Tickets\Ticket.cs" />
     <Compile Include="Entities\CourseSaleInfo.cs" />
+    <Compile Include="Entities\Theme.cs" />
     <Compile Include="Entities\UserSettings.cs" />
     <Compile Include="EntityCloner.cs" />
     <Compile Include="Entities\AccessType.cs" />
@@ -203,6 +204,10 @@
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerKeyChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerValueChangedEvent.cs" />
+    <Compile Include="Events\ThemeEvents\ThemeAddedEvent.cs" />
+    <Compile Include="Events\ThemeEvents\ThemeUpdatedEvent.cs" />
+    <Compile Include="Events\ThemeEvents\ThemeDeletedEvent.cs" />
+    <Compile Include="Events\ThemeEvents\ThemeEvent.cs" />
     <Compile Include="Events\UserEvents\CreateUserInitialDataEvent.cs" />
     <Compile Include="Events\UserEvents\NewEditorUserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserEmailConfirmedEvent.cs" />
@@ -235,6 +240,7 @@
     <Compile Include="Repositories\ISectionRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITemplateRepository.cs" />
+    <Compile Include="Repositories\IThemeRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

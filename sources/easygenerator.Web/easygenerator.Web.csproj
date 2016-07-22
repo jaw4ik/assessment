@@ -350,6 +350,7 @@
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Components\Mappers\ThemeMapper.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityCollectionModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityCollectionModelBinder.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinderProvider.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Components\UserIdentityProvider.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
+    <Compile Include="Controllers\Api\CourseTemplateSettingsController.cs" />
     <Compile Include="Controllers\Api\DocumentController.cs" />
     <Compile Include="Controllers\Api\OrganizationController.cs" />
     <Compile Include="Controllers\Api\RankingTextController.cs" />
@@ -379,6 +381,7 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\CrossProtocolStorageController.cs" />
+    <Compile Include="Controllers\Api\ThemeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
@@ -766,14 +769,37 @@
     <Content Include="App\components\bindingHandlers\ifExtendedBindingHandler.js" />
     <Content Include="App\core\bootstrap\visible.js" />
     <Content Include="App\core\underscore.js" />
+    <Content Include="App\design\tabs\common\forbiddenSection.html" />
+    <Content Include="App\design\tabs\common\unavailableSection.html" />
     <Content Include="App\design\tabs\FontsTab.spec.js">
       <DependentUpon>FontsTab.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\fontsTabSections\contentStyles.spec.js">
+    <Content Include="App\design\tabs\fonts\contentStyles.spec.js">
       <DependentUpon>contentStyles.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\fontsTabSections\generalStyles.spec.js">
+    <Content Include="App\design\tabs\fonts\generalStyles.spec.js">
       <DependentUpon>generalStyles.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\themes\CreateThemePopup.html" />
+    <Content Include="App\design\tabs\themes\CreateThemePopup.js">
+      <DependentUpon>CreateThemePopup.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\themes\CreateThemePopup.spec.js">
+      <DependentUpon>CreateThemePopup.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\themes\events.js" />
+    <Content Include="App\design\tabs\themes\UnsavedChangesPopover.html" />
+    <Content Include="App\design\tabs\themes\UnsavedChangesPopover.js">
+      <DependentUpon>UnsavedChangesPopover.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\themes\UnsavedChangesPopover.spec.js">
+      <DependentUpon>UnsavedChangesPopover.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\ThemesTab.js">
+      <DependentUpon>ThemesTab.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\ThemesTab.spec.js">
+      <DependentUpon>ThemesTab.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\allowCoggno\view.html" />
     <Content Include="App\widgets\allowCoggno\viewmodel.js" />
@@ -816,6 +842,9 @@
     <Content Include="App\dialogs\organizations\removeUser\removeUser.spec.js">
       <DependentUpon>removeUser.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\themes\delete\deleteTheme.html" />
+    <Content Include="App\dialogs\themes\delete\deleteTheme.js" />
+    <Content Include="App\dialogs\themes\delete\deleteTheme.spec.js" />
     <Content Include="App\editor\course\bindingHandlers\hightlightSection.js" />
     <Content Include="App\editor\questions\commands\createNextQuestion.js" />
     <Content Include="App\editor\questions\commands\duplicateQuestion.js" />
@@ -829,15 +858,15 @@
     <Content Include="App\design\tabs\FontsTab.js">
       <DependentUpon>FontsTab.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\fontsTabSections\contentStyles.html" />
-    <Content Include="App\design\tabs\fontsTabSections\contentStyles.js">
+    <Content Include="App\design\tabs\fonts\contentStyles.html" />
+    <Content Include="App\design\tabs\fonts\contentStyles.js">
       <DependentUpon>contentStyles.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\fontsTabSections\generalStyles.html" />
-    <Content Include="App\design\tabs\fontsTabSections\generalStyles.js">
+    <Content Include="App\design\tabs\fonts\generalStyles.html" />
+    <Content Include="App\design\tabs\fonts\generalStyles.js">
       <DependentUpon>generalStyles.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\fontsTabSections\textStyle.html" />
+    <Content Include="App\design\tabs\fonts\textStyle.html" />
     <Content Include="App\design\textStyleService.js" />
     <Content Include="App\editor\questions\questionModalView.spec.js">
       <DependentUpon>questionModalView.js</DependentUpon>
@@ -917,6 +946,8 @@
     <Content Include="App\organizations\organization\OrganizationUser.spec.js">
       <DependentUpon>OrganizationUser.js</DependentUpon>
     </Content>
+    <Content Include="App\mappers\themeModelMapper.js" />
+    <Content Include="App\models\theme.js" />
     <Content Include="App\reporting\courseStatementsProvider.spec.js">
       <DependentUpon>courseStatementsProvider.js</DependentUpon>
     </Content>
@@ -955,6 +986,10 @@
     <Content Include="App\reporting\views\questionStatements\experiencedStatement.html" />
     <Content Include="App\repositories\sectionRepository.spec.js">
       <DependentUpon>sectionRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\themeRepository.js" />
+    <Content Include="App\repositories\themeRepository.spec.js">
+      <DependentUpon>themeRepository.js</DependentUpon>
     </Content>
     <Content Include="App\review\commands\deleteComment.js" />
     <Content Include="App\review\commands\deleteComment.spec.js">
@@ -1081,59 +1116,53 @@
     <Content Include="App\design\tabs\BrandingTab.spec.js">
       <DependentUpon>BrandingTab.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\PresetTab.js">
-      <DependentUpon>PresetTab.html</DependentUpon>
-    </Content>
-    <Content Include="App\design\tabs\PresetTab.spec.js">
-      <DependentUpon>PresetTab.js</DependentUpon>
-    </Content>
-    <Content Include="App\design\tabs\sections\Backgrounds.js">
+    <Content Include="App\design\tabs\branding\backgrounds\Backgrounds.js">
       <DependentUpon>Backgrounds.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\Backgrounds.spec.js">
+    <Content Include="App\design\tabs\branding\backgrounds\Backgrounds.spec.js">
       <DependentUpon>Backgrounds.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\BodyBackground.spec.js">
+    <Content Include="App\design\tabs\branding\backgrounds\BodyBackground.spec.js">
       <DependentUpon>BodyBackground.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\BodyBackgroundPopover.js">
+    <Content Include="App\design\tabs\branding\backgrounds\BodyBackgroundPopover.js">
       <DependentUpon>BodyBackgroundPopover.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\BodyBackgroundPopover.spec.js">
+    <Content Include="App\design\tabs\branding\backgrounds\BodyBackgroundPopover.spec.js">
       <DependentUpon>BodyBackgroundPopover.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\ColorpickerPopover.js">
+    <Content Include="App\design\tabs\branding\interfaceColors\ColorpickerPopover.js">
       <DependentUpon>ColorpickerPopover.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\ColorpickerPopover.spec.js">
+    <Content Include="App\design\tabs\branding\interfaceColors\ColorpickerPopover.spec.js">
       <DependentUpon>ColorpickerPopover.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\HeaderBackground.spec.js">
+    <Content Include="App\design\tabs\branding\backgrounds\HeaderBackground.spec.js">
       <DependentUpon>HeaderBackground.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\HeaderBackgroundPopover.js">
+    <Content Include="App\design\tabs\branding\backgrounds\HeaderBackgroundPopover.js">
       <DependentUpon>HeaderBackgroundPopover.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\HeaderBackgroundPopover.spec.js">
+    <Content Include="App\design\tabs\branding\backgrounds\HeaderBackgroundPopover.spec.js">
       <DependentUpon>HeaderBackgroundPopover.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\Interface.js">
+    <Content Include="App\design\tabs\branding\interfaceColors\Interface.js">
       <DependentUpon>Interface.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\Interface.spec.js">
+    <Content Include="App\design\tabs\branding\interfaceColors\Interface.spec.js">
       <DependentUpon>Interface.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\Logo.js">
+    <Content Include="App\design\tabs\branding\courseLogo\Logo.js">
       <DependentUpon>Logo.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\Logo.spec.js">
+    <Content Include="App\design\tabs\branding\courseLogo\Logo.spec.js">
       <DependentUpon>Logo.js</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\LogoPopover.html" />
-    <Content Include="App\design\tabs\sections\LogoPopover.js">
+    <Content Include="App\design\tabs\branding\courseLogo\LogoPopover.html" />
+    <Content Include="App\design\tabs\branding\courseLogo\LogoPopover.js">
       <DependentUpon>LogoPopover.html</DependentUpon>
     </Content>
-    <Content Include="App\design\tabs\sections\LogoPopover.spec.js">
+    <Content Include="App\design\tabs\branding\courseLogo\LogoPopover.spec.js">
       <DependentUpon>LogoPopover.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\audio\chooseVoiceOver.html" />
@@ -1509,24 +1538,24 @@
     <Content Include="App\design\popoverService.js" />
     <Content Include="App\design\bindingHandlers\brightnessBindingHandler.js" />
     <Content Include="App\design\bindingHandlers\popoverBindingHandler.js" />
-    <Content Include="App\design\tabs\sections\ColorpickerPopover.html" />
-    <Content Include="App\design\tabs\sections\HeaderBackgroundPopover.html" />
+    <Content Include="App\design\tabs\branding\interfaceColors\ColorpickerPopover.html" />
+    <Content Include="App\design\tabs\branding\backgrounds\HeaderBackgroundPopover.html" />
     <Content Include="App\design\bindingHandlers\spectrumBindingHandler.js" />
     <Content Include="App\design\bindingHandlers\slideToggleBindingHandler.js" />
     <Content Include="App\design\tabs\BrandingTab.html" />
-    <Content Include="App\design\tabs\PresetTab.html" />
+    <Content Include="App\design\tabs\ThemesTab.html" />
     <Content Include="App\design\commands\getCourseTemplateSettings.js" />
     <Content Include="App\design\commands\saveCourseTemplateSettings.js" />
-    <Content Include="App\design\tabs\sections\BodyBackgroundPopover.html" />
+    <Content Include="App\design\tabs\branding\backgrounds\BodyBackgroundPopover.html" />
     <Content Include="App\design\components\colorpicker\index.js" />
     <Content Include="App\design\components\colorpicker\view.html" />
     <Content Include="App\design\components\colorpicker\viewModel.spec.js" />
     <Content Include="App\design\components\colorpicker\viewModel.js" />
-    <Content Include="App\design\tabs\sections\BodyBackground.js" />
-    <Content Include="App\design\tabs\sections\HeaderBackground.js" />
-    <Content Include="App\design\tabs\sections\Interface.html" />
-    <Content Include="App\design\tabs\sections\Logo.html" />
-    <Content Include="App\design\tabs\sections\Backgrounds.html" />
+    <Content Include="App\design\tabs\branding\backgrounds\BodyBackground.js" />
+    <Content Include="App\design\tabs\branding\backgrounds\HeaderBackground.js" />
+    <Content Include="App\design\tabs\branding\interfaceColors\Interface.html" />
+    <Content Include="App\design\tabs\branding\courseLogo\Logo.html" />
+    <Content Include="App\design\tabs\branding\backgrounds\Backgrounds.html" />
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>

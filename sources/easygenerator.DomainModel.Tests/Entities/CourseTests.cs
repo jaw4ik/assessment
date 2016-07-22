@@ -1772,6 +1772,107 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region GetTemplateTheme
+
+        [TestMethod]
+        public void GetTemplateTheme_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.GetTemplateTheme(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void GetTemplateTheme_ShouldReturnNull_WhenThereAreNoThemeForCurrentTemplate()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.TemplateSettings = new List<CourseTemplateSettings>();
+
+            //Act
+            var settings = course.GetTemplateTheme(TemplateObjectMother.Create());
+
+            //Assert
+            settings.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void GetTemplateTheme_ShouldReturnTheme()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            var theme = ThemeObjectMother.Create(template);
+            course.TemplateSettings = new List<CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "", "", theme)
+            };
+
+            //Act
+            var data = course.GetTemplateTheme(template);
+
+            //Assert
+            data.Should().Be(theme);
+        }
+
+        #endregion
+
+        #region GetTemplateThemeSettings
+
+        [TestMethod]
+        public void GetTemplateThemeSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.GetTemplateThemeSettings(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void GetTemplateThemeSettings_ShouldReturnNull_WhenThereAreNoThemeForCurrentTemplate()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.TemplateSettings = new List<CourseTemplateSettings>();
+
+            //Act
+            var settings = course.GetTemplateThemeSettings(TemplateObjectMother.Create());
+
+            //Assert
+            settings.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void GetTemplateThemeSettings_ShouldReturnThemeSettings()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            var themeSettings = "Theme settings";
+            var theme = ThemeObjectMother.Create(template, "Theme name", themeSettings);
+            course.TemplateSettings = new List<CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "", "", theme)
+            };
+
+            //Act
+            var data = course.GetTemplateThemeSettings(template);
+
+            //Assert
+            data.Should().Be(themeSettings);
+        }
+
+        #endregion
+
         #region SaveTemplateSettings
 
         [TestMethod]
@@ -1862,6 +1963,111 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act
             course.SaveTemplateSettings(template, settings, extraData);
+
+            //Assert
+            course.ShouldContainSingleEventOfType<CourseTemplateSettingsUpdated>();
+        }
+
+        #endregion
+
+        #region AddTemplateTheme
+
+        [TestMethod]
+        public void AddTemplateTheme_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.AddTemplateTheme(null, null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void AddTemplateTheme_ShouldThrowArgumentNullException_WhenThemeIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+
+            //Act
+            Action action = () => course.AddTemplateTheme(template, null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("theme");
+        }
+
+        [TestMethod]
+        public void AddTemplateTheme_ShouldUpdateSettings_WhenTheyAlreadyExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            var theme = ThemeObjectMother.Create();
+            course.TemplateSettings = new Collection<CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "settings", "extra data")
+            };
+
+            //Act
+            course.AddTemplateTheme(template, theme);
+
+            //Assert
+            course.TemplateSettings.Count.Should().Be(1);
+            course.TemplateSettings.First().Theme.Should().Be(theme);
+        }
+
+        [TestMethod]
+        public void AddTemplateTheme_ShouldAddTemplateSettingsUpdatedEvent_WhenSettingsTheyAlreadyExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            var theme = ThemeObjectMother.Create();
+            course.TemplateSettings = new Collection<CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings", "previous extra data")
+            };
+
+            //Act
+            course.AddTemplateTheme(template, theme);
+
+            //Assert
+            course.ShouldContainSingleEventOfType<CourseTemplateSettingsUpdated>();
+        }
+
+        [TestMethod]
+        public void AddTemplateTheme_ShouldAddSettings_WhenTheyDoNotExistYet()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            var theme = ThemeObjectMother.Create();
+            course.TemplateSettings = new Collection<CourseTemplateSettings>();
+
+            //Act
+            course.AddTemplateTheme(template, theme);
+
+            //Assert
+            course.TemplateSettings.Count.Should().Be(1);
+            course.TemplateSettings.First().Course.Should().Be(course);
+            course.TemplateSettings.First().Template.Should().Be(template);
+            course.TemplateSettings.First().Theme.Should().Be(theme);
+        }
+
+        [TestMethod]
+        public void AddTemplateTheme_ShouldAddTemplateSettingsUpdatedEvent_WhenSettingsDoNotExistYet()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            var theme = ThemeObjectMother.Create();
+            course.TemplateSettings = new Collection<CourseTemplateSettings>();
+
+            //Act
+            course.AddTemplateTheme(template, theme);
 
             //Assert
             course.ShouldContainSingleEventOfType<CourseTemplateSettingsUpdated>();

@@ -47,7 +47,7 @@ export class Popover{
                     left: target.outerWidth() + offset.left
                 };
 
-                if (css.top + popover.outerHeight() > $(window).outerHeight()) {
+                if (css.top + popover.outerHeight()- $(window).scrollTop() > $(window).outerHeight()) {
                     if (offset.top + target.outerHeight() - popover.outerHeight() > 0) {
                         css.top = css.top - popover.outerHeight() - $('.editor-switcher').height() + 60;
                         popover.addClass('bottom');
@@ -56,8 +56,9 @@ export class Popover{
                     }
                 }
             }
+
             popover.css({
-                top: css.top + 'px',
+                top: css.top - $(window).scrollTop() + 'px',
                 left: css.left + 'px'
             });
         };

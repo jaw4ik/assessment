@@ -303,6 +303,39 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
+        #region AddThemeSettingsFileToPackageDirectory
+
+        [TestMethod]
+        public void AddThemeSettingsFileToPackageDirectory_ShouldWriteThemeSettingsToFile()
+        {
+            //Arrange		
+            string themeSettingsFileName = "themeSettingsFileName";
+            string settings = "settings";
+            _buildPathProvider.GetThemeSettingsFileName(Arg.Any<string>()).Returns(themeSettingsFileName);
+
+            //Act		
+            _buildContentProvider.AddThemeSettingsFileToPackageDirectory(Arg.Any<string>(), settings);
+
+            //Assert		
+            _fileManager.Received().WriteToFile(themeSettingsFileName, settings);
+        }
+
+        [TestMethod]
+        public void AddThemeSettingsFileToPackageDirectory_ShouldWriteEmptyThemeSettingsToFile_WhenTemplateSettingsDoNotExist()
+        {
+            //Arrange		
+            const string themeSettingsFileName = "themeSettingsFileName";
+            _buildPathProvider.GetThemeSettingsFileName(Arg.Any<string>()).Returns(themeSettingsFileName);
+
+            //Act		
+            _buildContentProvider.AddThemeSettingsFileToPackageDirectory(Arg.Any<string>(), null);
+
+            //Assert		
+            _fileManager.Received().WriteToFile(themeSettingsFileName, "{}");
+        }
+
+        #endregion
+
         #region Add course data file
 
         [TestMethod]

@@ -1,29 +1,35 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
+import app from 'durandal/app';
 
 import router from 'routing/router';
 import notify from 'notify';
 import courseRepository from 'repositories/courseRepository';
+import themeRepository from 'repositories/themeRepository';
 import localizationManager from 'localization/localizationManager';
 import waiter from 'utils/waiter';
 import TemplateBrief from './templateBrief';
 import constants from 'constants';
-import app from 'durandal/app';
+
 
 import bus from './bus.js';
+import userContext from 'userContext.js';
 
-import BrandingTab from './tabs/BrandingTab';
-import PresetTab from './tabs/PresetTab';
-import FontsTab from './tabs/FontsTab';
+import ThemesTab from './tabs/ThemesTab.js';
+import BrandingTab from './tabs/BrandingTab.js';
+import FontsTab from './tabs/FontsTab.js';
 
-import * as getCommand from './commands/getCourseTemplateSettings';
-import * as saveCommand  from './commands/saveCourseTemplateSettings';
+import * as getCommand from './commands/getCourseTemplateSettings.js';
+import * as saveCommand  from './commands/saveCourseTemplateSettings.js';
 
 import popoverService from './popoverService.js';
-
 import textStyleService from './textStyleService.js';
 
-export const EVENT_PRESET_SELECTED = 'preset:selected';
+import { CreateThemePopup } from './tabs/themes/CreateThemePopup.js';
+
+import upgradeDialog from 'widgets/upgradeDialog/viewmodel.js';
+
+import themesEvents from './tabs/themes/events.js';
 
 let
     templateMessageTypes = {
@@ -39,23 +45,30 @@ let
     delay = 100,
     limit = 100;
 
+class Theme {
+    constructor(spec) {
+        this.id = spec.id;
+        this.title = spec.title;
+        this.settings = spec.settings;
+    }
+}
+
 class Design{
     constructor() {
         this.courseId = '';
         this.previewUrl = ko.observable(null);
-
         this.template = ko.observable();
         this.loadingTemplate = ko.observable(false);
-
         this.settingsVisibility = ko.observable(false);
         this.canUnloadSettings = ko.observable(true);
         this.settingsLoadingTimeoutId = null;
         this.settingsVisibilitySubscription = null;
+
         this.settingsTabs = ko.observableArray([]);
 
         this.tab = ko.observable();
         this.settings = null;
-        this.presetTab = new PresetTab();
+        this.themesTab = new ThemesTab();
 
         this.brandingTab = new BrandingTab();
         this.fontsTab = new FontsTab();
@@ -64,7 +77,11 @@ class Design{
         this.popovers = popoverService.collection;
         this.textStyleElements = textStyleService.collection;
 
-        this.currentPreset = null;
+        this.isThemesSupported = ko.computed(() => { return this.template() && this.template().presets && this.template().presets.length; });
+        this.selectedTheme = null;
+        this.createThemePopup = new CreateThemePopup();
+        this.isOwner = true;
+        this.allowEdit = true;
     }
 
     activate(courseId) {
@@ -81,13 +98,22 @@ class Design{
             this.previewUrl('/preview/' + courseId);
 
             this.template(new TemplateBrief(course.template));
+            this.isOwner = userContext.identity.email === course.createdBy;
+
+            this.canSaveTheme = ko.computed(() => {
+                return userContext.hasAcademyAccess();
+            });
 
             this.subscriptions.push(app.on(constants.messages.course.templateUpdated + courseId).then(template => this.templateUpdated(template)));
             this.subscriptions.push(app.on(constants.messages.course.templateUpdatedByCollaborator).then(course => this.templateUpdatedByCollaborator(course)));
-            this.subscriptions.push(app.on(EVENT_PRESET_SELECTED).then(preset => this.presetSelected(preset)));
+            this.subscriptions.push(app.on(themesEvents.selected).then(theme => this.themeSelected(theme)));
             this.subscriptions.push(bus.on('all').then(() => this.settingsChanged()));
+            
             this.subscriptions.push(app.on('font:settings-changed').then(() => this.fontSettingsChanged()));
             this.subscriptions.push(app.on('text-color:changed').then(color => this.textColorChanged(color)));
+            this.subscriptions.push(app.on(themesEvents.create).then(title => this.saveAsNewTheme(title)));
+            this.subscriptions.push(app.on(themesEvents.update).then(() => this.updateTheme()));
+            this.subscriptions.push(app.on(themesEvents.discardChanges).then(() => this.discardThemeChanges()));
             
             this.updateTabCollection(course.template);
 
@@ -126,6 +152,7 @@ class Design{
         
         this.template().isLoading(true);
         this.loadingTemplate(true);
+        this.tab(null);
 
         return waiter.waitFor(this.canUnloadSettings, delay, limit)
             .catch(() => {
@@ -198,8 +225,8 @@ class Design{
             collection.unshift(this.brandingTab);
         }
 
-        if (template.presets && template.presets.length) {
-            collection.unshift(this.presetTab);
+        if (this.isThemesSupported()) {
+            collection.unshift(this.themesTab);
         }
 
         collection.forEach((tab, index) => {
@@ -234,27 +261,56 @@ class Design{
         this.settingsVisibility(false);
     }
 
-    presetSelected(preset) {
-        this.settings = _.extend({}, this.settings, preset.settings ? JSON.parse(JSON.stringify(preset.settings)) : {});
-        this.currentPreset = preset;
+    themeSelected(theme) {
+        this.settings = _.extend({}, this.settings, theme.settings ? cloneObject(theme.settings) : {});
 
+        if (theme.id) {
+            return themeRepository.addThemeToCourse(this.courseId, this.template().id, theme.id)
+                .then(() => {
+                    this.selectedTheme = new Theme(theme);
+                    return this.saveSettings();
+                });
+        }else if (this.selectedTheme && this.selectedTheme.id) {
+            return themeRepository.removeCourseTheme(this.courseId, this.template().id)
+                .then(() => {
+                    this.selectedTheme = new Theme(theme);
+                    return this.saveSettings();
+                });
+        }
+
+        this.selectedTheme = new Theme(theme);
         return this.saveSettings();
     }
-
     loadSettings() {
         return getCommand.getCourseTemplateSettings(this.courseId, this.template().id).then(response => {
+            if (response.theme) {
+                this.selectedTheme = response.theme;
+                this.settings = deepExtend(response.settings, response.theme.settings ? cloneObject(response.theme.settings) : {});
+                return;
+            }
+            
             let preset;
             if (Array.isArray(this.template().presets)) {
                 preset = _.find(this.template().presets, p => p.title && p.title === (response.extraData && response.extraData.preset));
                 preset = preset || _.first(this.template().presets);
             }
-            this.currentPreset = preset || null;
-            this.settings = response.settings || (preset && preset.settings ? JSON.parse(JSON.stringify(preset.settings)) : {});
+            this.settings = deepExtend(response.settings, preset && preset.settings ? cloneObject(preset.settings) : {});
+            this.selectedTheme = preset ? new Theme(preset) : null;
         });
     }
+    getDefaultSettings() {
+        let preset;
+        if (Array.isArray(this.template().presets)) {
+            preset = _.first(this.template().presets);
+        }
 
+        return preset && preset.settings ? cloneObject(preset.settings) : {};
+    }
     saveSettings() {
-        return saveCommand.saveCourseTemplateSettings(this.courseId, this.template().id, this.settings, { preset: this.currentPreset && this.currentPreset.title })
+        let isUserThemeSelected = this.selectedTheme && this.selectedTheme.id;
+        let courseTemplateSettings = isUserThemeSelected ? deepDiff(this.settings, this.selectedTheme.settings) : this.settings;
+        let extraData = { preset: this.selectedTheme && this.selectedTheme.title };
+        return saveCommand.saveCourseTemplateSettings(this.courseId, this.template().id, courseTemplateSettings, extraData)
             .then(() => {
                 notify.saved();
                 this.reloadPreview();
@@ -282,9 +338,7 @@ class Design{
 
         if(isChangedInFontsTab){
             _.each(colorsInFontsTab, item => {
-                var element = _.find(this.settings.branding.colors, color =>{
-                    return color.key === item.key
-                });
+                var element = _.find(this.settings.branding.colors, color => color.key === item.key);
                 element.value = item.value;
             });
         };
@@ -315,11 +369,12 @@ class Design{
             };
         };
 
+        this.themesTab.hasUnsavedChanges(true);
         return this.saveSettings();
     }
 
-    fontSettingsChanged(){
-        this.settings.fonts = _.flatten([this.fontsTab.generalStyles.mainFont, this.fontsTab.contentStyles.elements()]).map(f =>{
+    fontSettingsChanged() {
+        this.settings.fonts = _.flatten([this.fontsTab.generalStyles.mainFont, this.fontsTab.contentStyles.elements()]).map(f => {
             return {
                 key: f.key,
                 fontFamily: f.fontFamily ? f.fontFamily() : null,
@@ -330,24 +385,70 @@ class Design{
                 fontStyle: f.fontStyle ? f.fontStyle() : null,
                 textDecoration: f.textDecoration ? f.textDecoration() : null,
                 isGeneralSelected: f.isGeneralSelected ? f.isGeneralSelected() : null,
-                isGeneralColorSelected: f.isGeneralColorSelected ? f.isGeneralColorSelected() : null,
+                isGeneralColorSelected: f.isGeneralColorSelected ? f.isGeneralColorSelected() : null
             }
         });
 
+        this.themesTab.hasUnsavedChanges(true);
         return this.saveSettings();
     }
 
-    textColorChanged(color){
-        _.each(this.settings.fonts,f => {
-            if(f.isGeneralColorSelected &&f.key != 'links'){
+    textColorChanged(color) {
+        _.each(this.settings.fonts, f => {
+            if (f.isGeneralColorSelected && f.key !== 'links') {
                 f.color = color;
             }
         });
         let textColor = _.find(this.settings.branding.colors, c => {
-            return c.key === '@text-color'
+            return c.key === '@text-color';
         });
         textColor.value = color;
+
+        this.themesTab.hasUnsavedChanges(true);
         return this.saveSettings();
+    }
+    
+    showThemesUpgradeDialog() {
+        upgradeDialog.show(constants.dialogs.upgrade.settings.saveThemes);
+    }
+
+    showCreateThemePopup() {
+        this.createThemePopup.show();
+    }
+    saveAsNewTheme(title) {
+        if (!this.canSaveTheme()) {
+            return;
+        }
+
+        if (this.settings) {
+            themeRepository.add(this.template().id, title, { branding: this.settings.branding, fonts: this.settings.fonts })
+            .then((theme) => {
+                notify.saved();
+            });
+        }
+    }
+
+    updateTheme() {
+        if (!this.canSaveTheme()) {
+            return;
+        }
+
+        if (this.selectedTheme && this.selectedTheme.id) {
+            this.selectedTheme.settings = { branding: this.settings.branding, fonts: this.settings.fonts };
+            themeRepository.update(this.selectedTheme.id, this.selectedTheme.settings)
+            .then(() => {
+                this.saveSettings();
+            });
+        }
+    }
+
+    discardThemeChanges() {
+        let themeSettings = this.selectedTheme ? cloneObject(this.selectedTheme.settings) : this.getDefaultSettings();
+
+        this.settings = _.extend({}, this.settings, themeSettings ? themeSettings : {});
+        this.saveSettings().then(() => {
+            this.themesTab.discardChanges(this.settings);
+        });
     }
 }
 
@@ -361,5 +462,55 @@ function compareArrays (array1, array2){
     var res = _.intersection(arr1, arr2);
     return res.length != arr1.length;
 }
+
+function cloneObject(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+function deepDiff(obj1, obj2) {
+    let makeDiff = (obj1, obj2, result) => {
+        _.each(obj1, (value, key) => {
+            if (result.hasOwnProperty(key) || (obj2 && obj2[key] === value)) {
+                return;
+            }
+
+            if (!_.isObject(value) || !obj2) {
+                result[key] = value;
+                return;
+            }
+
+            let resultValue = deepDiff(value, obj2[key]);
+            if (!_.isEmpty(resultValue)) {
+                result[key] = resultValue;
+            }
+        });
+    };
+
+    let result = Array.isArray(obj1) ? new Array() : {};
+    makeDiff(obj1, obj2, result);
+    makeDiff(obj2, obj1, result);
+    return result;
+}
+
+function deepExtend(destination, source) {
+    if (_.isNullOrUndefined(destination)) {
+        return source;
+    }
+
+    for (var property in source) {
+        if (source[property] && source[property].constructor &&
+         (source[property].constructor === Object || source[property].constructor === Array)) {
+            if (destination[property]) {
+                deepExtend(destination[property], source[property]);
+            } else {
+                destination[property] = source[property];
+            }
+        } else {
+            destination[property] = destination[property] || source[property];
+        }
+    }
+    return destination;
+};
+
 
 export default new Design();

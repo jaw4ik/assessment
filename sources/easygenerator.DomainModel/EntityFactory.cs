@@ -60,6 +60,7 @@ namespace easygenerator.DomainModel
         LearningPath LearningPath(string title, string createdBy);
         Scenario Scenario(string title, int masteryScore, string createdBy);
         Organization Organization(string title, string createdBy);
+        Theme Theme(Template template, string name, string settings, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -300,6 +301,11 @@ namespace easygenerator.DomainModel
         public RankingTextAnswer RankingTextAnswer(string text, string createdBy, DateTime createdOn)
         {
             return new RankingTextAnswer(text, createdBy, createdOn);
+        }
+
+        public Theme Theme(Template template, string name, string settings, string createdBy)
+        {
+            return new Theme(template, name, settings, createdBy);
         }
     }
 }

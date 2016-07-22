@@ -12,7 +12,8 @@ namespace easygenerator.Infrastructure
         public const string QuestionNotFoundError = "Question is not found";
         public const string AnswerNotFoundError = "Answer is not found";
         public const string LearningContentNotFoundError = "Learning Content is not found";
-        public const string TemplateNotFoundError = "Template not found";
+        public const string TemplateNotFoundError = "Template is not found";
+        public const string ThemeNotFoundError = "Theme is not found";
         public const string SectionCannotBeDeleted = "Section can not be deleted";
         public const string CoursePublishActionFailedError = "Failed. Try again.";
         public const string LearningPathBuildActionFailedError = "Failed. Try again.";
@@ -42,6 +43,8 @@ namespace easygenerator.Infrastructure
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
         public const string UpgradeAccountToCreateAdvancedQuestionTypes = "upgradeAccountToCreateAdvancedQuestionTypes";
         public const string UpgradeToPlusPlanToSellCourses = "upgradeToPlusPlanToSellCourses";
+        public const string UpgradeAccountToSaveThemes = "upgradeAccountToSaveThemes";
+        public const string UpgradeAccountToManageOrganization = "upgradeAccountToManageOrganization";
 
         public const string UpgradeToNextPlanToCreateMoreCoursesErrorMessage = "upgradeToNextPlanToCreateMoreCoursesErrorMessage";
         public const string NotEnoughPermissionsErrorMessageKey = "notEnoughPermissionsErrorMessage";

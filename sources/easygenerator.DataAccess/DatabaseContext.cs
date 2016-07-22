@@ -140,7 +140,8 @@ namespace easygenerator.DataAccess
                     new IndexAttribute("IX_Template_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
-
+            modelBuilder.Entity<CourseTemplateSettings>().HasOptional(e => e.Theme);
+            
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();
@@ -239,6 +240,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.IsDeprecated);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
             modelBuilder.Entity<Template>().HasMany(e => e.AccessControlList).WithRequired(e => e.Template).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Theme>().Property(e => e.Name).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<Theme>().Property(e => e.Settings);
+            modelBuilder.Entity<Theme>().HasRequired(e => e.Template);
 
             modelBuilder.Entity<TemplateAccessControlListEntry>().Property(e => e.UserIdentity).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<TemplateAccessControlListEntry>().HasRequired(e => e.Template);
@@ -442,6 +447,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is Comment) && (entry.Entity as Comment).Course == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is Theme) && (entry.Entity as Theme).Template == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

@@ -11,14 +11,15 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     {
         private const string CreatedBy = "username@easygenerator.com";
 
-        internal static CourseTemplateSettings Create(Course course, Template template, string settings, string extraData)
+        internal static CourseTemplateSettings Create(Course course, Template template, string settings, string extraData, Theme theme = null)
         {
             return new CourseTemplateSettings(CreatedBy)
             {
                 Course = course,
                 Template = template,
                 Settings = settings,
-                ExtraData = extraData
+                ExtraData = extraData,
+                Theme = theme
             };
         }
     }

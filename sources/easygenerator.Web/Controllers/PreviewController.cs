@@ -51,6 +51,19 @@ namespace easygenerator.Web.Controllers
             return Content(course.GetTemplateSettings(course.Template), "application/json");
         }
 
+        [Route("preview/{courseId}/themeSettings.js")]
+        public ActionResult GetPreviewCourseThemeSettings(Course course)
+        {
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
+
+            var theme = course.GetTemplateTheme(course.Template);
+
+            return Content(theme?.Settings, "application/json");
+        }
+
         [Route("preview/{courseId}/publishSettings.js")]
         public ActionResult GetPreviewCoursePublishSettings(Course course)
         {

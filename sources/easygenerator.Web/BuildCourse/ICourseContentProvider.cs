@@ -9,6 +9,7 @@ namespace easygenerator.Web.BuildCourse
     {
         void AddBuildContentToPackageDirectory(string buildDirectory, Course course, bool includeMedia = false);
         void AddSettingsFileToPackageDirectory(string buildDirectory, string settings, bool includeMedia = false);
+        void AddThemeSettingsFileToPackageDirectory(string buildDirectory, string settings, bool includeMedia = false);
         void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string publishSettings);
         void AddModulesFilesToPackageDirectory(string buildDirectory, IEnumerable<PackageModule> modules);
     }

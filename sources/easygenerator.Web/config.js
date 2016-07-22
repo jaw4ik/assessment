@@ -17,7 +17,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
-    "core-js": "npm:core-js@1.2.6",
+    "core-js": "npm:core-js@1.2.7",
     "css": "github:systemjs/plugin-css@0.1.23",
     "dragula": "github:jaw4ik/dragula@3.5.5",
     "durandal": "core/durandal",
@@ -76,7 +76,7 @@ System.config({
       "atoa": "npm:atoa@1.0.0",
       "ticky": "npm:ticky@1.0.0"
     },
-    "npm:core-js@1.2.6": {
+    "npm:core-js@1.2.7": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",

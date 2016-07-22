@@ -1,0 +1,10 @@
+﻿<div class="design-bar-save-new-popup" data-bind="css: { shown: isVisible }">
+    <div class="design-bar-theme-edit">
+        <input type="text" data-bind="localize: { placeholder: 'nameYourTheme' }, value: name, hasFocus: isEditing" maxlength="255" />
+        <span class="design-bar-theme-edit-icon"></span>
+    </div>
+    <div class="design-bar-edit-actions">
+        <a data-bind="localize: { text: 'cancel' }, click: hide"></a>
+        <button class="btn green" data-bind="localize: { text: 'save' }, click: create"></button>
+    </div>
+</div>

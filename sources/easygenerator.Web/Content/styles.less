@@ -63,6 +63,52 @@
 
 /*#endregion */
 
+/*#region no access */
+.not-enough-permissions-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Open Sans';
+    background-color: rgba(228,234,237,.9);
+    padding: 0px 10px;
+
+    .not-enough-permissions-img {
+        width: 32px;
+        height: 36px;
+        background-image: url(../Content/images/sprites_64.png);
+        margin-bottom: 15px;
+        background-position: -222px -756px;
+        background-repeat: no-repeat;
+    }
+
+    .not-enough-permissions-description {
+        width: 100%;
+        color: #42515f;
+        text-align: center;
+
+        .not-enough-permissions-description-caption {
+            font-weight: 200;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .not-enough-permissions-description-text {
+            color: #77899b;
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+}
+
+/*#endregion */
+
 /*#region NEW LAYOUT STYLES*/
 
 .content-wrapper {
@@ -1328,14 +1374,12 @@
 /*red button*/
 .btn.red {
     .btn();
-    background: #ee6556;
-    border: 1px solid #e85e5d;
+    background: #f44336;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     color: #fff;
 
     &:hover {
-        background: #ec5444;
-        border: 1px solid #e54d4c;
+        background: #e13f33;
         box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     }
 }
@@ -1842,7 +1886,7 @@
     bottom: 100%;
     margin-top: -38px;
     margin-bottom: 7px;
-    padding: 5px 7px;
+    padding: 3px 7px;
     background-color: @info-tooltip-bkg-color;
     border-radius: 3px;
     color: white;
@@ -2278,7 +2322,7 @@
     height: 25px;
     position: absolute;
     top: 0;
-    right: 5px;
+    right: 3px;
     z-index: 1;
     overflow: hidden;
 
@@ -2311,10 +2355,11 @@
 
 .library-list-item,
 .learning-path-list-item,
-.organization-user-list-item {
+.organization-user-list-item,
+.design-bar-theme {
     &:hover {
         .list-item-context-actions-wrapper .list-item-context-action {
-            top: 4px;
+            top: 2px;
         }
     }
 
@@ -2322,11 +2367,11 @@
         height: 31px;
 
         .list-item-context-action {
-            height: 27px;
-            width: 27px;
+            height: 23px;
+            width: 23px;
             position: relative;
             top: -28px;
-            background-color: rgb(67, 81, 96, 0.9);
+            background-color: #556270;
             background-image: none;
 
             &.delete {
@@ -2343,13 +2388,13 @@
                 }
 
                 &:hover {
-                    background-color: #f44c40;
+                    background-color: #f44336;
                 }
             }
 
             .info-tooltip {
-                width: 80px;
-                margin-left: -40px;
+                width: 60px;
+                margin-left: -30px;
             }
         }
     }

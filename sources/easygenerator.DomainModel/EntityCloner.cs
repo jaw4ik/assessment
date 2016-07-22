@@ -73,6 +73,15 @@ namespace easygenerator.DomainModel
                         }
                     }
 
+                    if (type == typeof (CourseTemplateSettings))
+                    {
+                        if (member.Name == "Theme")
+                        {
+                            list.Add(Expression.Assign(Expression.Property(target, member), Expression.Property(source, member)));
+                            continue;
+                        }
+                    }
+
                     if (type == typeof(Course))
                     {
                         if (member.Name == "BuildOn" || member.Name == "PackageUrl" || member.Name == "PublishedOn" || member.Name == "ScormPackageUrl" || member.Name == "PublicationUrl"

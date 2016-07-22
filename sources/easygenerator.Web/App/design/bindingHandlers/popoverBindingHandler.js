@@ -15,6 +15,7 @@ ko.bindingHandlers.popover  = {
         if (ko.isObservable(value.isVisible)) {
             subscription = value.isVisible.subscribe(newValue => {
                 if (newValue) {
+                    scrollToElement();
                     service.attach(registration);
                 } else {
                     service.detach(registration);
@@ -28,5 +29,20 @@ ko.bindingHandlers.popover  = {
                 subscription.dispose();
             }
         });
+
+        function scrollToElement() {
+            let $element = $(element);
+            let $parent = $element.closest('.ps-container');
+                    
+            let elementTop = $element.offset().top;
+            let elementHeight = $element.outerHeight(true);
+            let parentHeight = $parent.height();
+            let parentScrollTop = $parent.scrollTop();
+            let parentTop = $parent.offset().top;
+
+            if (elementTop < 0 || elementTop + elementHeight > parentHeight) {
+                $parent.scrollTop(parentScrollTop + elementTop - parentTop - elementHeight);
+            }
+        }
     }
 }

@@ -9,11 +9,12 @@ import constants from 'constants';
 import app from 'durandal/app';
 
 import BrandingTab from './tabs/BrandingTab.js';
-import PresetTab from './tabs/PresetTab.js';
+import ThemesTab from './tabs/ThemesTab.js';
 
 import * as saveCommand from './commands/saveCourseTemplateSettings.js';
-import * as getCommand from './commands/getCourseTemplateSettings';
-import { EVENT_PRESET_SELECTED } from './design.js';
+import * as getCommand from './commands/getCourseTemplateSettings.js';
+import themesEvents from './tabs/themes/events.js';
+import userContext from 'userContext';
 
 
 describe('viewModel [design]', () => {
@@ -144,6 +145,9 @@ describe('viewModel [design]', () => {
                 getCourseTemplateSettings.reject = reject;
             }));
             spyOn(viewModel, 'loadSettings').and.returnValue(Promise.resolve());
+
+            userContext.identity = { email: 'user@easygenerator.com' };
+            spyOn(userContext, 'hasAcademyAccess').and.returnValue(true);
         });
 
         it('should set settingsVisibility to false', () => {
@@ -211,7 +215,7 @@ describe('viewModel [design]', () => {
                     { id: "2", name: "Simple", thumbnail: "path/to/image2.png", supports: ['branding'], presets: [{ title: 'default', settings: { branding: {} } }], settingsUrls: { design: null, configure: null } }
                 ],
                 template = templates[1],
-                course = { id: 'courseId', template: template };
+                course = { id: 'courseId', template: template, createdBy: 'user@easygenerator.com' };
 
             
             it('should set courseId', done => {
@@ -269,13 +273,13 @@ describe('viewModel [design]', () => {
                 });
             });
 
-            it(`should subscribe to ${EVENT_PRESET_SELECTED} event and save subscription`, done => {
+            it(`should subscribe to theme selected event and save subscription`, done => {
                 viewModel.subscriptions = [];
                 resolve(course);
                 getCourseTemplateSettings.resolve();
 
                 viewModel.activate(course.id).then(() => {
-                    expect(viewModel.subscriptions[2].events).toEqual(EVENT_PRESET_SELECTED);
+                    expect(viewModel.subscriptions[2].events).toEqual(themesEvents.selected);
                     done();
                 });
             });
@@ -320,7 +324,7 @@ describe('viewModel [design]', () => {
                 beforeEach(() => {
                     resolve({
                         id: 'courseId',
-                        template: { id: "0", name: "Simple", supports: ['branding'], presets: [], settingsUrls: { design: null, configure: null } }
+                        template: { id: "0", name: "Simple", supports: ['branding'], themes: [], settingsUrls: { design: null, configure: null } }
                     });
                     getCourseTemplateSettings.resolve();
                 });
@@ -343,7 +347,7 @@ describe('viewModel [design]', () => {
 
             });
 
-            describe('when template has presets', () => {
+            describe('when template has themes', () => {
                 
                 beforeEach(() => {
                     resolve({
@@ -353,18 +357,18 @@ describe('viewModel [design]', () => {
                     getCourseTemplateSettings.resolve();
                 });
 
-                it('should show presetss tab', done => {
+                it('should show themes tab', done => {
                     viewModel.template(null);
                     viewModel.activate(course.id).then(() => {
-                        expect(viewModel.settingsTabs()[0]).toBeInstanceOf(PresetTab),
+                        expect(viewModel.settingsTabs()[0]).toBeInstanceOf(ThemesTab),
                         done();
                     }); 
                 });
 
-                it('should select presets tab by default', done => {
+                it('should select themes tab by default', done => {
                     viewModel.tab(null);
                     viewModel.activate(course.id).then(() => {
-                        expect(viewModel.tab()).toBeInstanceOf(PresetTab),
+                        expect(viewModel.tab()).toBeInstanceOf(ThemesTab),
                         done();
                     }); 
                 });
@@ -382,7 +386,7 @@ describe('viewModel [design]', () => {
 
             it('should set other tabs as not selected', done => {
                 viewModel.brandingTab.isSelected(true);
-                viewModel.presetTab.isSelected(true);
+                viewModel.themesTab.isSelected(true);
                 resolve({ id: 'courseId', template: { id: "0", name: "Simple", supports: ['branding'], presets: [{ title: 'default', settings: { branding: {} } }], settingsUrls: { design: [{ name: 'branding', url: 'branding.html' }], configure: null } } });
                 getCourseTemplateSettings.resolve();
                 viewModel.activate(course.id).then(() => {
@@ -931,36 +935,37 @@ describe('viewModel [design]', () => {
 
     });
 
-    describe('presetSelected:', () => {
+    describe('themeSelected:', () => {
 
         beforeEach(() => {
             spyOn(viewModel, 'saveSettings').and.returnValue(Promise.resolve());
         });
 
-        it('should update current preset', () => {
-            let preset = { title: 'default', settings: { branding: { logo: { url: 'url' } } } };
-            viewModel.currentPreset = null;
+        it('should update current theme', () => {
+            let theme = { title: 'default', settings: { branding: { logo: { url: 'url' } } } };
+            viewModel.selectedTheme = null;
 
-            viewModel.presetSelected(preset);
+            viewModel.themeSelected(theme);
 
-            expect(viewModel.currentPreset).toEqual(preset);
+            expect(viewModel.selectedTheme.title).toEqual(theme.title);
+            expect(viewModel.selectedTheme.settings).toEqual(theme.settings);
         });
 
 
         it('should extend current settings', () => {
             viewModel.settings = { xApi: {}};
 
-            viewModel.presetSelected({ settings: { branding: { logo: { url: 'url' } } } });
+            viewModel.themeSelected({ settings: { branding: { logo: { url: 'url' } } } });
 
             expect(viewModel.settings).toEqual({ xApi: {}, branding: { logo: { url: 'url' } } });
         });
 
-        describe('when preset does not have settings', () => {
+        describe('when theme does not have settings', () => {
 
             it('should set an empty object to current settings', () => {
                 viewModel.settings = null;
 
-                viewModel.presetSelected({});
+                viewModel.themeSelected({});
 
                 expect(viewModel.settings).toEqual({});
             });
@@ -968,7 +973,7 @@ describe('viewModel [design]', () => {
         });
 
         it('should save settings', () => {
-            viewModel.presetSelected({});
+            viewModel.themeSelected({});
 
             expect(viewModel.saveSettings).toHaveBeenCalled();
         });
@@ -1012,20 +1017,20 @@ describe('viewModel [design]', () => {
                     }));
                 });
 
-                describe('and current course template has presets', () => {
+                describe('and current course template has preset', () => {
 
-                    it('should set currentPreset', done => {
-                        let preset = { title: 'default', settings: { branding: {}, xApi: {} } };
-                        viewModel.currentPreset = null;
-                        viewModel.template({ id: 'templateId', presets: [preset] });
+                    it('should set selectedTheme', done => {
+                        let theme = { title: 'default', settings: { branding: {}, xApi: {} } };
+                        viewModel.selectedTheme = null;
+                        viewModel.template({ id: 'templateId', presets: [theme] });
 
                         viewModel.loadSettings().then(() => {
-                            expect(viewModel.currentPreset).toEqual(preset);
+                            expect(viewModel.selectedTheme.title).toEqual(theme.title);
                             done();
                         });
                     });
 
-                    it('should set current preset copy to settings', done => {
+                    it('should set current theme copy to settings', done => {
                         let settings = { branding: {}, xApi: {} };
                         viewModel.settings = null;
                         viewModel.template({ id: 'templateId', presets: [{ title: 'default', settings }] });
@@ -1039,14 +1044,14 @@ describe('viewModel [design]', () => {
 
                 });
 
-                describe('and current course template does not have presets', () => {
+                describe('and current course template does not have themes', () => {
 
-                    it('should set currentPreset to null', done => {
-                        viewModel.currentPreset = {};
+                    it('should set selectedTheme to null', done => {
+                        viewModel.selectedTheme = {};
                         viewModel.template({ id: 'templateId' });
 
                         viewModel.loadSettings().then(() => {
-                            expect(viewModel.currentPreset).toEqual(null);
+                            expect(viewModel.selectedTheme).toEqual(null);
                             done();
                         });
                     });
@@ -1080,37 +1085,37 @@ describe('viewModel [design]', () => {
                     });
                 });
 
-                describe('and preset is specified', () => {
+                describe('and theme is specified', () => {
 
-                    let extraData = { preset: 'default' };
+                    let extraData = { theme: 'default' };
 
                     beforeEach(() => {
                         spyOn(getCommand, 'getCourseTemplateSettings').and.returnValue(Promise.resolve({ settings: {}, extraData }));
                     });
 
-                    describe('and template has this preset', () => {
+                    describe('and template has this theme', () => {
 
-                        it('should set current preset', done => {
-                            let preset = { title: 'default', settings: { branding: {}, xApi: {} } };
-                            viewModel.currentPreset = null;
-                            viewModel.template({ id: 'templateId', presets: [preset] });
+                        it('should set current theme', done => {
+                            let theme = { title: 'default', settings: { branding: {}, xApi: {} } };
+                            viewModel.selectedTheme = null;
+                            viewModel.template({ id: 'templateId', presets: [theme] });
 
                             viewModel.loadSettings().then(() => {
-                                expect(viewModel.currentPreset).toEqual(preset);
+                                expect(viewModel.selectedTheme.title).toEqual(theme.title);
                                 done();
                             });
                         });
 
                     });
 
-                    describe('and template does not have this preset', () => {
+                    describe('and template does not have this theme', () => {
                         
-                        it('should set current preset to  null', done => {
-                            viewModel.currentPreset = null;
+                        it('should set current theme to  null', done => {
+                            viewModel.selectedTheme = null;
                             viewModel.template({ id: 'templateId', presets: [] });
 
                             viewModel.loadSettings().then(() => {
-                                expect(viewModel.currentPreset).toEqual(null);
+                                expect(viewModel.selectedTheme).toEqual(null);
                                 done();
                             });
                         });
@@ -1119,7 +1124,7 @@ describe('viewModel [design]', () => {
 
                 });
 
-                describe('and preset is not specified', () => {
+                describe('and theme is not specified', () => {
 
                     let settings = {};
 
@@ -1127,29 +1132,29 @@ describe('viewModel [design]', () => {
                         spyOn(getCommand, 'getCourseTemplateSettings').and.returnValue(Promise.resolve({ settings }));
                     });
 
-                    describe('and current course template has presets', () => {
+                    describe('and current course template has themes', () => {
 
-                        it('should set a default preset to current preset', done => {
-                            let preset = { title: 'default', settings: { branding: {}, xApi: {} } };
-                            viewModel.currentPreset = {};
-                            viewModel.template({ id: 'templateId', presets: [preset] });
+                        it('should set a default theme to current theme', done => {
+                            let theme = { title: 'default', settings: { branding: {}, xApi: {} } };
+                            viewModel.selectedTheme = {};
+                            viewModel.template({ id: 'templateId', presets: [theme] });
 
                             viewModel.loadSettings().then(() => {
-                                expect(viewModel.currentPreset).toEqual(preset);
+                                expect(viewModel.selectedTheme.title).toEqual(theme.title);
                                 done();
                             });
                         });
 
                     });
 
-                    describe('and current course template does not have presets', () => {
+                    describe('and current course template does not have themes', () => {
 
-                        it('should set null to current preset', done => {
-                            viewModel.currentPreset = {};
+                        it('should set null to current theme', done => {
+                            viewModel.selectedTheme = {};
                             viewModel.template({ id: 'templateId' });
 
                             viewModel.loadSettings().then(() => {
-                                expect(viewModel.currentPreset).toEqual(null);
+                                expect(viewModel.selectedTheme).toEqual(null);
                                 done();
                             });
                         });
@@ -1172,7 +1177,7 @@ describe('viewModel [design]', () => {
             viewModel.courseId = 'courseId';
             viewModel.template({ id: 'templateId' });
             viewModel.settings = { branding: {} };
-            viewModel.currentPreset = { title: 'default', settings: {} };
+            viewModel.selectedTheme = { title: 'default', settings: {} };
 
             viewModel.saveSettings();
 

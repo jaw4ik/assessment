@@ -82,10 +82,14 @@ describe('dialog collaboration [stopCollaboration]', () => {
             expect(viewModel.isCollaborationFinishing()).toBeTruthy();
         });
 
-        it('should execute stop collaboration command', () => {
+        it('should execute stop collaboration command', done => {
             spyOn(finishCollaborationCommand, 'execute');
-            viewModel.stopCollaboration();
-            expect(finishCollaborationCommand.execute).toHaveBeenCalledWith(courseId);
+            viewModel.stopCollaboration()
+                .then(() => {
+                    expect(finishCollaborationCommand.execute).toHaveBeenCalledWith(courseId);
+                    done();
+                });
+
         });
 
         describe('when stop collaboration command executed successfully', () => {

@@ -401,6 +401,20 @@ namespace easygenerator.DomainModel.Entities
             return templateSettings?.ExtraData;
         }
 
+        public virtual string GetTemplateThemeSettings(Template template)
+        {
+            ThrowIfTemplateIsInvaid(template);
+            Theme theme = GetTemplateTheme(template);
+            return theme?.Settings;
+        }
+
+        public virtual Theme GetTemplateTheme(Template template)
+        {
+            ThrowIfTemplateIsInvaid(template);
+            var templateSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
+            return templateSettings?.Theme;
+        }
+
         public virtual void SaveTemplateSettings(Template template, string settings, string extraData)
         {
             ThrowIfTemplateIsInvaid(template);
@@ -421,6 +435,30 @@ namespace easygenerator.DomainModel.Entities
                 Template = template,
                 Settings = settings,
                 ExtraData = extraData
+            });
+
+            RaiseEvent(new CourseTemplateSettingsUpdated(this));
+        }
+
+        public virtual void AddTemplateTheme(Template template, Theme theme)
+        {
+            ThrowIfTemplateIsInvaid(template);
+            ThrowIfThemeIsInvaid(theme);
+
+            var existingSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
+            if (existingSettings != null)
+            {
+                existingSettings.Theme = theme;
+                RaiseEvent(new CourseTemplateSettingsUpdated(this));
+
+                return;
+            }
+
+            TemplateSettings.Add(new CourseTemplateSettings(CreatedBy)
+            {
+                Course = this,
+                Template = template,
+                Theme = theme
             });
 
             RaiseEvent(new CourseTemplateSettingsUpdated(this));
@@ -464,6 +502,11 @@ namespace easygenerator.DomainModel.Entities
         public void ThrowIfTemplateIsInvaid(Template template)
         {
             ArgumentValidation.ThrowIfNull(template, nameof(template));
+        }
+
+        public void ThrowIfThemeIsInvaid(Theme theme)
+        {
+            ArgumentValidation.ThrowIfNull(theme, nameof(theme));
         }
 
         public void ThrowIfTitleIsInvalid(string title)

@@ -48,6 +48,7 @@ namespace easygenerator.Web.BuildCourse
 
                 _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, includeMedia);
                 _buildContentProvider.AddSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateSettings(course.Template), includeMedia);
+                _buildContentProvider.AddThemeSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateThemeSettings(course.Template), includeMedia);
 
                 var modulesList = _packageModulesProvider.GetModulesList(course);
                 _buildContentProvider.AddPublishSettingsFileToPackageDirectory(buildDirectoryPath, _publishSettingsProvider.GetPublishSettings(modulesList));

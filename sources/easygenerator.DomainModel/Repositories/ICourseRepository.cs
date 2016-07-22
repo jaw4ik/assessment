@@ -19,5 +19,6 @@ namespace easygenerator.DomainModel.Repositories
         IEnumerable<Course> GetCoursesRelatedToTextMatchingAnswer(Guid answerId);
         IEnumerable<Course> GetCoursesRelatedToSingleSelectImageAnswer(Guid answerId);
         IEnumerable<Course> GetCoursesRelatedToRankingTextAnswer(Guid answerId);
+        IEnumerable<Course> GetCoursesWithTheme(Guid themeId);
     }
 }

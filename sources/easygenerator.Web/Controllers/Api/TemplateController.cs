@@ -1,6 +1,6 @@
-﻿using DocumentFormat.OpenXml.Office.CustomXsn;
-using easygenerator.Auth.Attributes.Mvc;
+﻿using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.Mappers;
@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Controllers.Api
 {
