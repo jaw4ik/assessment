@@ -32,6 +32,18 @@ describe('synchronization course [handler]', function () {
         });
     });
 
+    describe('publishedForSale:', function () {
+        it('should be function', function () {
+            expect(handler.publishedForSale).toBeFunction();
+        });
+    });
+
+    describe('processedByCoggno:', function () {
+        it('should be function', function () {
+            expect(handler.processedByCoggno).toBeFunction();
+        });
+    });
+
     describe('deleted:', function () {
         it('should be function', function () {
             expect(handler.deleted).toBeFunction();

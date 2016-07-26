@@ -751,6 +751,9 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\commands\allowCoggnoCommand.js" />
+    <Content Include="App\commands\allowCoggnoCommand.spec.js">
+      <DependentUpon>allowCoggnoCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\collaboration\finishCollaborationCommand.js" />
     <Content Include="App\commands\collaboration\finishCollaborationCommand.spec.js">
       <DependentUpon>finishCollaborationCommand.js</DependentUpon>
@@ -800,6 +803,18 @@
     </Content>
     <Content Include="App\design\tabs\ThemesTab.spec.js">
       <DependentUpon>ThemesTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\processedByCoggno.spec.js">
+      <DependentUpon>processedByCoggno.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\publishedForSale.spec.js">
+      <DependentUpon>publishedForSale.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\publishingToCoggnoAction.spec.js">
+      <DependentUpon>publishingToCoggnoAction.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\publishToCoggno.spec.js">
+      <DependentUpon>publishToCoggno.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\allowCoggno\view.html" />
     <Content Include="App\widgets\allowCoggno\viewmodel.js" />
@@ -1743,6 +1758,9 @@
     <Content Include="App\vimeo\queries\getVideo.js" />
     <Content Include="App\vimeo\queries\getVideo.spec.js">
       <DependentUpon>getVideo.js</DependentUpon>
+    </Content>
+    <Content Include="App\widgets\allowCoggno\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
     <Content Include="App\widgets\dialog\view.html" />

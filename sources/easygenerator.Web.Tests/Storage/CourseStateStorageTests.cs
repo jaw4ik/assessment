@@ -114,6 +114,90 @@ namespace easygenerator.Web.Tests.Storage
 
         #endregion
 
+        #region IsDirtyForSale
+
+        [TestMethod]
+        public void IsDirtyForSale_Should_ReturnInMemoryValue_WhenValueIsInMemory()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = new CourseInfo { IsDirtyForSale = true };
+            _inMemoryStorage.GetCourseInfo(course).Returns(info);
+
+            //Act
+            var result = _infoStorage.IsDirtyForSale(course);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void IsDirtyForSale_Should_ReturntValueFromRepository_WhenValueIsNotInMemory_AndValueIsInRepository()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _inMemoryStorage.GetCourseInfo(course).Returns(null as CourseInfo);
+
+            _repository.GetByCourseId(course.Id).Returns(CourseStateObjectMother.Create(course, false, true));
+
+            //Act
+            var result = _infoStorage.IsDirtyForSale(course);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void IsDirtyForSale_Should_ReturntFalse_WhenValueIsNotInMemory_AndValueIsNotInRepository()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _inMemoryStorage.GetCourseInfo(course).Returns(null as CourseInfo);
+
+            _repository.GetByCourseId(course.Id).Returns(null as CourseState);
+
+            //Act
+            var result = _infoStorage.IsDirtyForSale(course);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void IsDirtyForSale_Should_SaveRepositoryValueInMemory_WhenValueIsNotInMemory_AndValueIsInRepository()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = new CourseInfo();
+            _inMemoryStorage.GetCourseInfo(course).Returns(null as CourseInfo);
+
+            _repository.GetByCourseId(course.Id).Returns(CourseStateObjectMother.Create(course, true));
+
+            //Act
+            _infoStorage.IsDirtyForSale(course);
+
+            //Assert
+            _inMemoryStorage.ReceivedWithAnyArgs().SaveCourseInfo(course, info);
+        }
+
+        [TestMethod]
+        public void IsDirtyForSale_Should_SaveValueToMemory_WhenValueIsNotInMemory_AndValueIsNotInRepository()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = new CourseInfo();
+            _inMemoryStorage.GetCourseInfo(course).Returns(null as CourseInfo);
+            _repository.GetByCourseId(course.Id).Returns(null as CourseState);
+
+            //Act
+            _infoStorage.IsDirtyForSale(course);
+
+            //Assert
+            _inMemoryStorage.ReceivedWithAnyArgs().SaveCourseInfo(course, info);
+        }
+
+        #endregion
+
         #region MarkAsDirty
 
         [TestMethod]
@@ -220,6 +304,63 @@ namespace easygenerator.Web.Tests.Storage
 
             //Act
             _infoStorage.MarkAsClean(course);
+
+            //Assert
+            state.Received().MarkAsClean();
+            _unitOfWork.Received().Save();
+        }
+
+        #endregion
+
+        #region MarkAsCleanForSale
+
+        [TestMethod]
+        public void MarkAsCleanForSale_Should_SaveValueToMemory()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = new CourseInfo();
+            _inMemoryStorage.GetCourseInfoOrDefault(course).Returns(info);
+
+            //Act
+            _infoStorage.MarkAsCleanForSale(course);
+
+            //Assert
+            _inMemoryStorage.Received().SaveCourseInfo(course, info);
+        }
+
+        [TestMethod]
+        public void MarkAsCleanForSale_Should_AddValueToRepository_WhenValueIsNotInRepository()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = new CourseInfo();
+            _inMemoryStorage.GetCourseInfoOrDefault(course).Returns(info);
+
+            var state = CourseStateObjectMother.Create();
+            _repository.GetByCourseId(course.Id).Returns(null as CourseState);
+            _entityFactory.CourseState(course, true, true).ReturnsForAnyArgs(state);
+
+            //Act
+            _infoStorage.MarkAsCleanForSale(course);
+
+            //Assert
+            _repository.Received().Add(state);
+        }
+
+        [TestMethod]
+        public void MarkAsCleanForSale_Should_UpdateValueInRepository_WhenValueIsInRepository()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = new CourseInfo();
+            _inMemoryStorage.GetCourseInfoOrDefault(course).Returns(info);
+
+            var state = Substitute.For<CourseState>();
+            _repository.GetByCourseId(course.Id).Returns(state);
+
+            //Act
+            _infoStorage.MarkAsCleanForSale(course);
 
             //Assert
             state.Received().MarkAsClean();

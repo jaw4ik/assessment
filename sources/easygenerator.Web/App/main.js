@@ -47,40 +47,9 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
         }
     }
 
-    if (userContext.ltiData.ltiUserInfoToken) {
-        try {
-            await userContext.identifyLtiUser();
-        } catch(reason) {
-            if (!reason || !reason.logout) {
-                window.location.replace('/#');
-                return;
-            }
-            await window.auth.logout();
-            if (reason.ltiUserInfoToken) {
-                window.location.replace(`/signin#token.user.lti=${encodeURIComponent(reason.ltiUserInfoToken)}`);
-                return;
-            }
-            window.location.replace('/#signin');
-            return;
-        }
-    }
-    else if (userContext.samlData.samlIdPUserInfoToken) {
-        try {
-            await userContext.identifySamlUser();
-        } catch(reason) {
-            if (!reason || !reason.logout) {
-                window.location.replace('/#');
-                return;
-            }
-            await window.auth.logout();
-            if (reason.samlIdPUserInfoToken) {
-                window.location.replace(`/signin#token.user.saml=${encodeURIComponent(reason.samlIdPUserInfoToken)}`);
-                return;
-            }
-            window.location.replace('/#signin');
-            return;
-        }
-    }
+    await handleExternalUser('ltiUserInfoToken', 'token.user.lti', userContext.ltiData.ltiUserInfoToken, userContext.identifyLtiUser);
+    await handleExternalUser('samlIdPUserInfoToken', 'token.user.saml', userContext.samlData.samlIdPUserInfoToken, userContext.identifySamlUser);
+
     await app.start();
     await localizationManager.initialize(window.userCultures);
 
@@ -97,4 +66,25 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
     ];
 
     app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+
+    async function handleExternalUser(tokenName, tokenHashName, token, action) {
+        if (!token) {
+            return;
+        }
+        try {
+            await action();
+        } catch (reason) {
+            if (!reason || !reason.logout) {
+                window.location.replace('/#');
+                return;
+            }
+            await window.auth.logout();
+            if (reason[tokenName]) {
+                window.location.replace(`/signin#${tokenHashName}=${encodeURIComponent(reason[tokenName])}`);
+                return;
+            }
+            window.location.replace('/#signin');
+            return;
+        }
+    }
 })();

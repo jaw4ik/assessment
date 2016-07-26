@@ -14,7 +14,8 @@ describe('review [course publish]', function () {
         reviewUrl: 'url',
         publishForReview: {
             packageUrl: 'url'
-        }
+        },
+        saleInfo: { isProcessing: false }
     });
 
     beforeEach(function () {

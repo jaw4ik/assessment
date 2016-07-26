@@ -28,6 +28,7 @@ using System.Web.Routing;
 using easygenerator.Web.Components.DomainOperations.CourseOperations;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Publish.Coggno;
+using easygenerator.Web.ViewModels.Api;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -493,6 +494,266 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = "http:" + course.PublicationUrl });
+        }
+
+        #endregion
+
+        #region Publish course to Coggno
+
+        [TestMethod]
+        public void PublishToCoggno_ShouldReturnJsonErrorResult_WhenCourseIsBeingProcessed()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+
+            //Act
+            var result = _controller.PublishToCoggno(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseIsBeingProcessedAndCannotBePublished);
+        }
+
+        [TestMethod]
+        public void PublishToCoggno_ShouldReturnJsonErrorResult_WhenCourseHasNotBeenPublishedByTheOwnerYet()
+        {
+            //Arrange
+            var course = CourseObjectMother.CreateWithCreatedBy("r@p.com");
+
+            //Act
+            var result = _controller.PublishToCoggno(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseHasNotBeenPublishedByTheOwner);
+        }
+
+        [TestMethod]
+        public void PublishToCoggno_ShouldReturnJsonErrorResult_WhenUserDoesNotExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.UpdateDocumentIdForSale("12345");
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
+
+            //Act
+            var result = _controller.PublishToCoggno(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserDoesntExist);
+        }
+
+        [TestMethod]
+        public void PublishToCoggno_ShouldReturnJsonErrorResult_WhenCoggnoServiceProviderDoesNotExistOrNotAllowed()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.UpdateDocumentIdForSale("12345");
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _samlServiceProviderRepository.GetByAssertionConsumerService(Arg.Any<string>())
+                .Returns((SamlServiceProvider) null);
+            _configurationReader.CoggnoConfiguration.Returns(new CoggnoConfigurationSection());
+            //Act
+            var result = _controller.PublishToCoggno(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoggnoSamlServiceProviderNotAllowed);
+        }
+
+        [TestMethod]
+        public void PublishToCoggno_ShouldReturnJsonErrorResult_WhenPublishFails()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.UpdateDocumentIdForSale("12345");
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            var samlServiceProvider = SamlServiceProviderObjectMother.Create();
+            _samlServiceProviderRepository.GetByAssertionConsumerService(Arg.Any<string>())
+                .Returns(samlServiceProvider);
+            user.Allow(samlServiceProvider, "r@p.com");
+            _configurationReader.CoggnoConfiguration.Returns(new CoggnoConfigurationSection());
+            _coggnoPublisher.Publish(course, Arg.Any<string>(), Arg.Any<string>()).Returns(false);
+
+            //Act
+            var result = _controller.PublishToCoggno(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
+        }
+
+        [TestMethod]
+        public void PublishToCoggno_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.UpdateDocumentIdForSale("12345");
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            var samlServiceProvider = SamlServiceProviderObjectMother.Create();
+            _samlServiceProviderRepository.GetByAssertionConsumerService(Arg.Any<string>())
+                .Returns(samlServiceProvider);
+            user.Allow(samlServiceProvider, "r@p.com");
+            _configurationReader.CoggnoConfiguration.Returns(new CoggnoConfigurationSection());
+            _coggnoPublisher.Publish(course, Arg.Any<string>(), Arg.Any<string>()).Returns(true);
+
+            //Act
+            var result = _controller.PublishToCoggno(course);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
+
+        #region publish to Coggno completed
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldThrowArgumentException_WhenIdIsNotAValidGuid()
+        {
+            //Arrange
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = "id"
+            };
+            //Act
+            Action action = () => _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.Message.Should().Be(Errors.CourseIdHasInvalidFormat);
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldReturnOk_WhenCourseWasNotFound()
+        {
+            //Arrange
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString()
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns((Course)null);
+            //Act
+            var result = _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            result.Should().BeHttpStatusCodeResult().And.StatusCode.Should().Be(200);
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldMarkCourseProcessingAsFailed_WhenProcessingWasNotSuccessfull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString(),
+                success = false
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns(course);
+            //Act
+            _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            course.SaleInfo.IsProcessing.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldLogException_WhenProcessingWasNotSuccessfull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString(),
+                success = false
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns(course);
+            //Act
+            _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            _logger.Received().LogException(Arg.Any<Exception>());
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldReturnOk_WhenProcessingWasNotSuccessfull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString(),
+                success = false
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns(course);
+            //Act
+            var result = _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            result.Should().BeHttpStatusCodeResult().And.StatusCode.Should().Be(200);
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldThrowArgumentException_WhenProcessingWasSuccessfull_AndDocumentIdIsNullOrEmpty()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString(),
+                success = true,
+                documentId = null
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns(course);
+            //Act
+            Action action = () => _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be(nameof(viewModel.documentId));
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldUpdateDocumentId_WhenProcessingWasSuccessfull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString(),
+                success = true,
+                documentId = "1234567"
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns(course);
+            //Act
+            _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            course.SaleInfo.DocumentId.Should().Be(viewModel.documentId);
+        }
+
+        [TestMethod]
+        public void PublishToCoggnoCompleted_ShouldReturnOk_WhenProcessingWasSuccessfull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+            var viewModel = new CoggnoPublishCompletedViewModel()
+            {
+                id = Guid.NewGuid().ToString(),
+                success = true,
+                documentId = "1234567"
+            };
+            _courseRepository.Get(Arg.Any<Guid>()).Returns(course);
+            //Act
+            var result = _controller.PublishToCoggnoCompleted(viewModel);
+
+            //Assert
+            result.Should().BeHttpStatusCodeResult().And.StatusCode.Should().Be(200);
         }
 
         #endregion

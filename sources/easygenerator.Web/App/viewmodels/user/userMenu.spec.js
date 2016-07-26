@@ -485,9 +485,11 @@ describe('viewModel [userMenu]', () => {
             expect(window.auth.logout).toHaveBeenCalled();
         });
 
-        it('should open signup page', () => {
-            userMenu.signOut();
-            expect(router.setLocation).toHaveBeenCalledWith(constants.signinUrl);
+        it('should open signup page', done => {
+            userMenu.signOut().then(() => {
+                expect(router.setLocation).toHaveBeenCalledWith(constants.signinUrl);
+                done();
+            });
         });
 
     });

@@ -660,8 +660,8 @@ winToWeb: {
 },
 
 coggno: {
-    serviceUrl: window.coggnoServiceUrl,
-    serviceProviderUrl: window.coggnoServiceProviderUrl
+    serviceUrl: window.coggnoServiceUrl || 'https://coggno.com/',
+    serviceProviderUrl: window.coggnoServiceProviderUrl || 'https://coggno.com/easygenerator/sp/saml_login'
 },
 
 comment: {

@@ -8,7 +8,6 @@ import dataContext from 'dataContext';
 import userContext from 'userContext';
 import CourseModel from 'models/course';
 import constants from 'constants';
-import localizationManage from 'localization/localizationManager';
 import limitCoursesAmount from 'authorization/limitCoursesAmount';
 import uiLocker from 'uiLocker';
 import presentationCourseImportCommand from 'commands/presentationCourseImportCommand';
@@ -28,35 +27,40 @@ var
             title: 'Test Course 3',
             sections: [],
             template: template,
-            createdBy: userName
+            createdBy: userName,
+            saleInfo: {}
         }),
         new CourseModel({
             id: 'testId2',
             title: 'Test Course 2',
             sections: [],
             template: template,
-            createdBy: userName
+            createdBy: userName,
+            saleInfo: {}
         }),
         new CourseModel({
             id: 'testId1',
             title: 'Test Course 1',
             sections: [],
             template: template,
-            createdBy: userName
+            createdBy: userName,
+            saleInfo: {}
         }),
          new CourseModel({
              id: 'testId4',
              title: 'Test Course 4',
              sections: [],
              template: template,
-             createdBy: 'someone'
+             createdBy: 'someone',
+             saleInfo: {}
          }),
         new CourseModel({
             id: 'testId5',
             title: 'Test Course 5',
             sections: [],
             template: template,
-            createdBy: 'someone'
+            createdBy: 'someone',
+            saleInfo: {}
         })
     ];
 

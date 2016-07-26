@@ -11,9 +11,12 @@ describe('[publishHttpWrapper]', function () {
     describe('post:', function () {
 
         var post;
+        var getHeader;
 
         beforeEach(function () {
             post = Q.defer();
+            getHeader = Q.defer();
+            spyOn(window.auth, 'getHeader').and.returnValue(getHeader.promise);
             spyOn(http, 'post').and.returnValue(post.promise);
         });
 
@@ -25,58 +28,74 @@ describe('[publishHttpWrapper]', function () {
             expect(publishHttpWrapper.post()).toBePromise();
         });
 
-        it('should make a post request', function () {
-            var url = "url";
-            var data = { title: 'title' };
-
-            publishHttpWrapper.post(url, data);
-
-            expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String), 'cache-control': 'no-cache' });
+        it('should get api header', function() {
+            publishHttpWrapper.post();
+            expect(window.auth.getHeader).toHaveBeenCalledWith('api');
         });
 
-        describe('when post request succeed', function () {
+        describe('when header exists', function() {
 
-            describe('and response data is not an object', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = publishHttpWrapper.post();
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response data is not an object');
-                        done();
-                    });
-
-                    post.resolve();
-                });
-
+            beforeEach(function() {
+                getHeader.resolve({ Authorization: 'api' });
             });
 
-            describe('and response state is not success', function () {
-                var message = "test message";
+            it('should make a post request', function (done) {
+                var url = "url";
+                var data = { title: 'title' };
 
-                it('should reject promise with response message', function (done) {
-                    var promise = publishHttpWrapper.post();
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith(message);
-                        done();
-                    });
-
-                    post.resolve({ success: false, errorMessage: message });
+                publishHttpWrapper.post(url, data).fin(function() {
+                    expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String), 'cache-control': 'no-cache' });
+                    done();
                 });
 
+                post.resolve();
             });
 
-            describe('and response state is success', function () {
+            describe('when post request succeed', function () {
 
-                it('should resolve promise with response data', function (done) {
-                    var promise = publishHttpWrapper.post();
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(data);
-                        done();
+                describe('and response data is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = publishHttpWrapper.post();
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response data is not an object');
+                            done();
+                        });
+
+                        post.resolve();
                     });
 
-                    var data = { title: 'title', description: 'description' };
+                });
 
-                    post.resolve({ success: true, data: data });
+                describe('and response state is not success', function () {
+                    var message = "test message";
+
+                    it('should reject promise with response message', function (done) {
+                        var promise = publishHttpWrapper.post();
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith(message);
+                            done();
+                        });
+
+                        post.resolve({ success: false, errorMessage: message });
+                    });
+
+                });
+
+                describe('and response state is success', function () {
+
+                    it('should resolve promise with response data', function (done) {
+                        var promise = publishHttpWrapper.post();
+                        promise.fin(function () {
+                            expect(promise).toBeResolvedWith(data);
+                            done();
+                        });
+
+                        var data = { title: 'title', description: 'description' };
+
+                        post.resolve({ success: true, data: data });
+                    });
+
                 });
 
             });

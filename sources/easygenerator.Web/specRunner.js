@@ -56,7 +56,7 @@
         'design/templateBrief.spec',
         //#endregion
 
-         //#region review
+        //#region review
         'review/reviewPanel.spec',
         'review/publish/coursePublish.spec',
         'review/comments/courseComments.spec',
@@ -87,6 +87,7 @@
         'commands/duplicateCourseCommand.spec',
         'commands/presentationCourseImportCommand.spec',
         'commands/collaboration/finishCollaborationCommand.spec',
+        'commands/allowCoggnoCommand.spec',
         //#endregion commands
 
         //#region dialogs
@@ -224,6 +225,8 @@
         'synchronization/handlers/course/eventHandlers/sectionsReplaced.spec',
         'synchronization/handlers/course/eventHandlers/sectionsUnrelated.spec',
         'synchronization/handlers/course/eventHandlers/published.spec',
+        'synchronization/handlers/course/eventHandlers/publishedForSale.spec',
+        'synchronization/handlers/course/eventHandlers/processedByCoggno.spec',
         'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
         'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
         'synchronization/handlers/course/eventHandlers/stateChanged.spec',
@@ -366,6 +369,8 @@
         'viewmodels/courses/publishingActions/publish.spec',
         'viewmodels/courses/publishingActions/scormBuild.spec',
         'viewmodels/courses/publishingActions/publishToCustomLms.spec',
+        'viewmodels/courses/publishingActions/publishToCoggno.spec',
+        'viewmodels/courses/publishingActions/publishingToCoggnoAction.spec',
         'viewmodels/sections/sections.spec',
         'viewmodels/sections/section.spec',
         'viewmodels/sections/sectionBrief.spec',
@@ -489,6 +494,7 @@
         'widgets/upgradeDialog/viewmodel.spec',
         'widgets/dialog/viewmodel.spec',
         'widgets/modalView/viewmodel.spec',
+        'widgets/allowCoggno/viewmodel.spec',
         //#endregion
         'viewmodels/user/userMenu.spec',
         'viewmodels/shell.spec',

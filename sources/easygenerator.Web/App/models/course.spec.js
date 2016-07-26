@@ -1,6 +1,6 @@
 ﻿import courseModel from './course';
 
-var course = new courseModel({});
+var course = new courseModel({ saleInfo: {} });
 
 describe('model [course]', function () {
 

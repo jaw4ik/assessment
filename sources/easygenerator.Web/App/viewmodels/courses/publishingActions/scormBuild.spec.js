@@ -17,7 +17,8 @@ describe('publishing action [scormBuild]', function () {
         getByIdDefer,
         viewModel,
         course = new Course({
-            id: 'someId'
+            id: 'someId',
+            saleInfo: { isProcessing: false }
         });
 
     action.state = 'someState';

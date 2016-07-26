@@ -6,9 +6,11 @@ import localizationManager from 'localization/localizationManager';
 import User from 'models/user';
 import authHttpWrapper from 'http/authHttpWrapper';
 import storageHttpWrapper from 'http/storageHttpWrapper';
+import binder from 'binder';
 
 class UserContext {
     constructor () {
+        binder.bindClass(this);
         this.identity = null;
         this.storageIdentity = null;
         this.ltiData = {};
@@ -49,41 +51,36 @@ class UserContext {
         }
     }
 
-    async identifyLtiUser() {
-        if (!this.ltiData.ltiUserInfoToken) {
+    async identifyExternalUser(endpoint, tokenName, token, callback) {
+        if (!token) {
             return false;
         }
-        let response = await authHttpWrapper.post('auth/identifyLtiUser', { token: this.ltiData.ltiUserInfoToken });
+        var response = await authHttpWrapper.post(endpoint, { token });
         if (!response) {
             return true;
         }
         if (response.unauthorized) {
             throw {
                 logout: true,
-                ltiUserInfoToken: this.ltiData.ltiUserInfoToken
+                [tokenName]: token
             };
         }
-        if (response.companyId) {
-            this.ltiData.companyId = response.companyId;
+        if (_.isFunction(callback)) {
+            callback(response);
         }
         return true;
     }
 
-    async identifySamlUser() {
-        if (!this.samlData.samlIdPUserInfoToken) {
-            return false;
-        }
-        let response = await authHttpWrapper.post('auth/identifySamlUser', { token: this.samlData.samlIdPUserInfoToken });
-        if (!response) {
-            return true;
-        }
-        if (response.unauthorized) {
-            throw {
-                logout: true,
-                samlIdPUserInfoToken: this.samlData.samlIdPUserInfoToken
-            };
-        }
-        return true;
+    identifyLtiUser() {
+        return this.identifyExternalUser('auth/identifyLtiUser', 'ltiUserInfoToken', this.ltiData.ltiUserInfoToken, response => {
+            if (response.companyId) {
+                this.ltiData.companyId = response.companyId;
+            }
+        });
+    }
+
+    identifySamlUser() {
+        return this.identifyExternalUser('auth/identifySamlUser', 'samlIdPUserInfoToken', this.samlData.samlIdPUserInfoToken);
     }
 
     hasStarterAccess() {

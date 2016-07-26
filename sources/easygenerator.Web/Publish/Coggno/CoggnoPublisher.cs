@@ -4,7 +4,6 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Web.BuildCourse;
-using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Extensions;
 
@@ -12,16 +11,14 @@ namespace easygenerator.Web.Publish.Coggno
 {
     public class CoggnoPublisher : ICoggnoPublisher
     {
-        protected IUrlHelperWrapper UrlHelper { get; }
         protected BuildPathProvider PathProvider { get; }
         protected PhysicalFileManager FileManager { get; }
         protected ILog Logger { get; }
         protected HttpClient HttpClient { get; }
         protected ConfigurationReader ConfigurationReader { get; }
 
-        public CoggnoPublisher(IUrlHelperWrapper urlHelper, PhysicalFileManager fileManager, BuildPathProvider pathProvider, ILog logger, HttpClient httpClient, ConfigurationReader configurationReader)
+        public CoggnoPublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, ILog logger, HttpClient httpClient, ConfigurationReader configurationReader)
         {
-            UrlHelper = urlHelper;
             PathProvider = pathProvider;
             Logger = logger;
             HttpClient = httpClient;
