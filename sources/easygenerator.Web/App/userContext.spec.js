@@ -123,27 +123,23 @@ describe('[userContext]', () => {
 
     });
 
-    describe('identifyLtiUser', () => {
+    describe('identifyExternalUser', () => {
 
         it('should be function', () => {
-            expect(userContext.identifyLtiUser).toBeFunction();
+            expect(userContext.identifyExternalUser).toBeFunction();
         });
 
         it('should return promise', () => {
             spyOn(authHttpWrapper, 'post');
-            expect(userContext.identifyLtiUser()).toBePromise();
+            expect(userContext.identifyExternalUser()).toBePromise();
         });
 
-        describe('when ltiUserInfoToken exists', () => {
-
-            beforeEach(() => {
-                userContext.ltiData.ltiUserInfoToken = 'token';
-            });
-
+        describe('when token exists', () => {
+            
             it('should send post request', () => {
                 spyOn(authHttpWrapper, 'post');
-                userContext.identifyLtiUser();
-                expect(authHttpWrapper.post).toHaveBeenCalledWith('auth/identifyLtiUser', { token: 'token' });
+                userContext.identifyExternalUser('auth/identify', 'tokenName', 'token');
+                expect(authHttpWrapper.post).toHaveBeenCalledWith('auth/identify', { token: 'token' });
             });
 
 
@@ -155,31 +151,78 @@ describe('[userContext]', () => {
 
                 it('should throw error with details', done => (async () => {
                     try {
-                        await userContext.identifyLtiUser();
+                        await userContext.identifyExternalUser('auth/identify', 'tokenName', 'token');
                         throw 'promise should not be resolved';
                     } catch (e) {
                         expect(e.logout).toBeTruthy();
-                        expect(e.ltiUserInfoToken).toBe('token');
+                        expect(e.tokenName).toBe('token');
                     }
                 })().then(done));
 
             });
 
-            describe('when response contains companyId property', () => {
+            describe('when callback is function', () => {
+
+                var resp = {};
 
                 beforeEach(() => {
-                    userContext.ltiData.companyId = null;
-                    spyOn(authHttpWrapper, 'post').and.returnValue(Promise.resolve({ companyId: 'companyId' }));
+                    spyOn(authHttpWrapper, 'post').and.returnValue(Promise.resolve(resp));
                 });
 
-                it('should set companyId to ltiData', done => (async () => {
-                    await userContext.identifyLtiUser();
-                    expect(userContext.ltiData.companyId).toBe('companyId');
+                it('should call callback', done => (async () => {
+                    var obj = { callback(){} };
+                    spyOn(obj, 'callback');
+                    await userContext.identifyExternalUser('auth/identify', 'tokenName', 'token', obj.callback);
+                    expect(obj.callback).toHaveBeenCalledWith({});
                 })().then(done));
 
             });
 
         });
+
+    });
+
+    describe('identifyLtiUser', () => {
+
+        beforeEach(() => {
+            spyOn(userContext, 'identifyExternalUser').and.returnValue(Promise.resolve(true));
+            userContext.ltiData = { ltiUserInfoToken: 'token' };
+        });
+
+        it('should be function', () => {
+            expect(userContext.identifyLtiUser).toBeFunction();
+        });
+
+        it('should return promise', () => {
+            expect(userContext.identifyLtiUser()).toBePromise();
+        });
+
+        it('should call identifyExternalUser with appropriate arguments', done => (async () => {
+            await userContext.identifyLtiUser();
+            expect(userContext.identifyExternalUser).toHaveBeenCalledWith('auth/identifyLtiUser', 'ltiUserInfoToken', userContext.ltiData.ltiUserInfoToken, jasmine.any(Function));
+        })().then(done));
+
+    });
+
+    describe('identifySamlUser', () => {
+
+        beforeEach(() => {
+            spyOn(userContext, 'identifyExternalUser').and.returnValue(Promise.resolve(true));
+            userContext.samlData = { samlIdPUserInfoToken: 'token' };
+        });
+
+        it('should be function', () => {
+            expect(userContext.identifySamlUser).toBeFunction();
+        });
+
+        it('should return promise', () => {
+            expect(userContext.identifySamlUser()).toBePromise();
+        });
+
+        it('should call identifyExternalUser with appropriate arguments', done => (async () => {
+            await userContext.identifySamlUser();
+            expect(userContext.identifyExternalUser).toHaveBeenCalledWith('auth/identifySamlUser', 'samlIdPUserInfoToken', userContext.samlData.samlIdPUserInfoToken);
+        })().then(done));
 
     });
 

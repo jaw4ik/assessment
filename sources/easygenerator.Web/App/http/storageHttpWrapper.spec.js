@@ -12,9 +12,12 @@ describe('[storageHttpWrapper]', function () {
     describe('post:', function () {
 
         var post;
+        var getHeader;
 
         beforeEach(function () {
             post = Q.defer();
+            getHeader = Q.defer();
+            spyOn(window.auth, 'getHeader').and.returnValue(getHeader.promise);
             spyOn(http, 'post').and.returnValue(post.promise);
             spyOn(app, 'trigger');
         });
@@ -33,23 +36,39 @@ describe('[storageHttpWrapper]', function () {
             expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:post-begin');
         });
 
-        it('should make a post request', function () {
-            var url = "url";
-            var data = { title: 'title' };
-
-            storageHttpWrapper.post(url, data);
-
-            expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
+        it('should get api header', function() {
+            storageHttpWrapper.post();
+            expect(window.auth.getHeader).toHaveBeenCalledWith('storage');
         });
 
-        it('should trigger \'storageHttpWrapper:post-end\' event', function (done) {
-            var promise = storageHttpWrapper.post();
-            promise.fin(function () {
-                expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:post-end');
-                done();
+        describe('when header exists', function() {
+
+            beforeEach(function() {
+                getHeader.resolve({ Authorization: 'storage' });
             });
 
-            post.resolve();
+            it('should make a post request', function (done) {
+                var url = "url";
+                var data = { title: 'title' };
+
+                storageHttpWrapper.post(url, data).fin(function() {
+                    expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
+                    done();
+                });
+
+                post.resolve();
+            });
+
+            it('should trigger \'storageHttpWrapper:post-end\' event', function (done) {
+                var promise = storageHttpWrapper.post();
+                promise.fin(function () {
+                    expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:post-end');
+                    done();
+                });
+
+                post.resolve();
+            });
+
         });
 
     });
@@ -57,9 +76,12 @@ describe('[storageHttpWrapper]', function () {
     describe('get:', function () {
 
         var get;
+        var getHeader;
 
         beforeEach(function () {
             get = Q.defer();
+            getHeader = Q.defer();
+            spyOn(window.auth, 'getHeader').and.returnValue(getHeader.promise);
             spyOn(http, 'get').and.returnValue(get.promise);
             spyOn(app, 'trigger');
         });
@@ -78,23 +100,39 @@ describe('[storageHttpWrapper]', function () {
             expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:get-begin');
         });
 
-        it('should make a get request', function () {
-            var url = "url";
-            var data = { title: 'title' };
-
-            storageHttpWrapper.get(url, data);
-
-            expect(http.get).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
+        it('should get api header', function() {
+            storageHttpWrapper.get();
+            expect(window.auth.getHeader).toHaveBeenCalledWith('storage');
         });
 
-        it('should trigger \'storageHttpWrapper:get-end\' event', function (done) {
-            var promise = storageHttpWrapper.get();
-            promise.fin(function () {
-                expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:get-end');
-                done();
+        describe('when header exists', function() {
+
+            beforeEach(function() {
+                getHeader.resolve({ Authorization: 'storage' });
             });
 
-            get.resolve();
+            it('should make a get request', function (done) {
+                var url = "url";
+                var data = { title: 'title' };
+
+                storageHttpWrapper.get(url, data).fin(function() {
+                    expect(http.get).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
+                    done();
+                });
+
+                get.resolve();
+            });
+
+            it('should trigger \'storageHttpWrapper:get-end\' event', function (done) {
+                var promise = storageHttpWrapper.get();
+                promise.fin(function () {
+                    expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:get-end');
+                    done();
+                });
+
+                get.resolve();
+            });
+
         });
 
     });

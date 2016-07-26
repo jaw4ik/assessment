@@ -405,4 +405,34 @@ describe('service [publishCourse]', function () {
 
     });
 
+    describe('publishCourseToCoggno:', function () {
+        var course;
+        var post;
+
+        beforeEach(function () {
+            course = { id: 'someId' };
+
+            post = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
+
+        it('should be a function', function () {
+            expect(service.publishCourseToCoggno).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(service.publishCourseToCoggno()).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+            var promise = service.publishCourseToCoggno(course.id);
+            promise.fin(function () {
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishToCoggno', { courseId: course.id });
+                done();
+            });
+        });
+
+    });
+
 });

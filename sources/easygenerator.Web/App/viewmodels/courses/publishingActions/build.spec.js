@@ -15,7 +15,8 @@ describe('viewModel [build]', function () {
         getByIdDefer,
         action = function () { },
         course = new Course({
-            id: 'someId'
+            id: 'someId',
+            saleInfo: { isProcessing: false }
         });
 
     action.state = 'someState';

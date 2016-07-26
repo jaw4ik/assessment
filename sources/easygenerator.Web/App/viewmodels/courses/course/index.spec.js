@@ -158,6 +158,22 @@ describe('viewModel [course index]', function () {
 
     });
 
+    describe('isDirtyForSale:', function () {
+
+        it('should be observable', function () {
+            expect(viewModel.isDirtyForSale).toBeObservable();
+        });
+
+    });
+
+    describe('publicationExists:', function () {
+
+        it('should be observable', function () {
+            expect(viewModel.publicationExists).toBeObservable();
+        });
+
+    });
+
     describe('preview:', function () {
 
         beforeEach(function () {
@@ -318,7 +334,10 @@ describe('viewModel [course index]', function () {
                     name: 'template',
                     id: 'templateId',
                     thumbnail: 'template.thumbnail'
-                }
+                },
+                isDirtyForSale: false,
+                saleInfo: {},
+                publish: { packageUrl: '' }
             };
 
             var collaborators = [{ email: 'a@a.a' }, { email: 'b@b.b' }];
@@ -409,6 +428,20 @@ describe('viewModel [course index]', function () {
             it('should subscribe to templateUpdatedByCollaborator event', function (done) {
                 viewModel.activate(course.id).fin(function () {
                     expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
+                    done();
+                });
+            });
+
+            it('should subscribe to course publish completed event', function (done) {
+                viewModel.activate(course.id).fin(function () {
+                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.completed, viewModel.publishFinished);
+                    done();
+                });
+            });
+
+            it('should subscribe to course publish failed event', function (done) {
+                viewModel.activate(course.id).fin(function () {
+                    expect(app.on).toHaveBeenCalledWith(constants.messages.course.publish.failed, viewModel.publishFinished);
                     done();
                 });
             });
@@ -647,14 +680,70 @@ describe('viewModel [course index]', function () {
 
         var state;
         beforeEach(function () {
-            state = { isDirty: true };
+            state = { isDirty: true, isDirtyForSale: true };
         });
 
         it('should update isDirty', function () {
             viewModel.isDirty(false);
+            viewModel.isDirtyForSale(false);
             viewModel.stateChanged(state);
             expect(viewModel.isDirty()).toBe(state.isDirty);
+            expect(viewModel.isDirtyForSale()).toBe(state.isDirtyForSale);
         });
+    });
+
+    describe('publishFinished:', function () {
+
+        var course = {
+            id: 'id',
+            title: 'title',
+            createdBy: 'createdBy',
+            isDirty: true,
+            template: {
+                name: 'template',
+                id: 'templateId',
+                thumbnail: 'template.thumbnail'
+            },
+            saleInfo: {
+                isDirtyForSale: false
+            }
+        };
+
+        beforeEach(function () {
+            course.publish = {};
+        });
+
+        it('should be function', function () {
+            expect(viewModel.publishFinished).toBeFunction();
+        });
+
+        describe('when course id is not equal to viewModel id', function() {
+
+            it('should not change publicationExists property', function() {
+                viewModel.publicationExists(true);
+                viewModel.id = 'id1';
+                viewModel.publishFinished(course);
+                expect(viewModel.publicationExists()).toBeTruthy();
+            });
+
+        });
+
+        describe('when course id is equal to viewModel id', function() {
+
+            describe('and packageUrl is not null or empty', function() {
+
+                it('should set publicationExists to true', function() {
+                    course.publish = { packageUrl: 'url' };
+                    viewModel.publicationExists(false);
+                    viewModel.id = 'id';
+                    viewModel.publishFinished(course);
+                    expect(viewModel.publicationExists()).toBeTruthy();
+                });
+
+            });
+
+        });
+
     });
 
     describe('changeTemplate:', function () {
@@ -705,6 +794,9 @@ describe('viewModel [course index]', function () {
                 name: 'template',
                 id: 'templateId',
                 thumbnail: 'template.thumbnail'
+            },
+            saleInfo: {
+                isDirtyForSale: false
             }
         };
 

@@ -91,6 +91,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.IntroductionContent.Should().BeNull();
             course.SectionsOrder.Should().BeNull();
             course.CourseCompanies.Should().BeEmpty();
+            course.SaleInfo.Course_Id.Should().Be(course.Id);
         }
 
         #endregion
@@ -1668,6 +1669,106 @@ namespace easygenerator.DomainModel.Tests.Entities
             result[0].Should().Be(clonedSection3);
             result[1].Should().Be(clonedSection1);
             result[2].Should().Be(clonedSection2);
+        }
+
+        #endregion
+
+        #region Sale info
+
+        [TestMethod]
+        public void MarkAsPublishedForSale_ShouldSetIsProcessingToTrue()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.MarkAsPublishedForSale();
+
+            course.SaleInfo.IsProcessing.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void MarkAsPublishedForSale_ShouldSetPublishedOn()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.MarkAsPublishedForSale();
+
+            course.SaleInfo.PublishedOn.Should().Be(_currentDate);
+        }
+
+        [TestMethod]
+        public void MarkAsPublishedForSale_ShouldRaiseCoursePublishedForSaleEvent()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.MarkAsPublishedForSale();
+
+            var raisedEvent = course.GetSingleEventOfType<CoursePublishedForSaleEvent>();
+            raisedEvent.Should().NotBeNull();
+
+            raisedEvent.Course.Should().Be(course);
+        }
+
+        [TestMethod]
+        public void UpdateDocumentIdForSale_ShouldSetIsProcessingToFalse()
+        {
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+
+            course.UpdateDocumentIdForSale("12345");
+
+            course.SaleInfo.IsProcessing.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void UpdateDocumentIdForSale_ShouldUpdateDocumentId()
+        {
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+
+            course.UpdateDocumentIdForSale("12345");
+
+            course.SaleInfo.DocumentId.Should().Be("12345");
+        }
+
+        [TestMethod]
+        public void UpdateDocumentIdForSale_ShouldRaiseCourseProcessedByCoggnoEvent()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.MarkAsPublishedForSale();
+
+            course.UpdateDocumentIdForSale("12345");
+            var raisedEvent = course.GetSingleEventOfType<CourseProcessedByCoggnoEvent>();
+            raisedEvent.Should().NotBeNull();
+
+            raisedEvent.Course.Should().Be(course);
+            raisedEvent.Success.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void ProcessingForSaleFailed_ShouldSetIsProcessingToFalse()
+        {
+            var course = CourseObjectMother.Create();
+            course.MarkAsPublishedForSale();
+
+            course.ProcessingForSaleFailed();
+
+            course.SaleInfo.IsProcessing.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void ProcessingForSaleFailed_ShouldRaiseCourseProcessedByCoggnoEvent()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.MarkAsPublishedForSale();
+
+            course.ProcessingForSaleFailed();
+            var raisedEvent = course.GetSingleEventOfType<CourseProcessedByCoggnoEvent>();
+            raisedEvent.Should().NotBeNull();
+
+            raisedEvent.Course.Should().Be(course);
+            raisedEvent.Success.Should().BeFalse();
         }
 
         #endregion

@@ -520,6 +520,7 @@
                     describe('and response is successful', function () {
 
                         var trackEvent;
+                        var loginDfd;
                         var user = {
                             username: username,
                             firstname: firstname,
@@ -528,40 +529,68 @@
 
                         beforeEach(function (done) {
                             trackEvent = $.Deferred();
+                            loginDfd = $.Deferred();
                             spyOn(app, 'trackEvent').and.returnValue(trackEvent.promise());
-                            spyOn(window.auth, 'login').and.returnValue(true);
+                            spyOn(window.auth, 'login').and.returnValue(loginDfd.promise());
 
                             ajax.resolve({ success: true, data: user });
                             done();
                         });
 
-                        it('should track event \'Sign in\'', function () {
+                        it('should try to login user', function() {
                             viewModel.submit();
-                            expect(app.trackEvent).toHaveBeenCalledWith('Sign in', user);
+                            expect(window.auth.login).toHaveBeenCalledWith(user);
                         });
 
-                        describe('and event is tracked', function () {
+                        describe('when login done', function() {
 
-                            beforeEach(function (done) {
-                                trackEvent.resolve();
-                                spyOn(app, 'openHomePage');
+                            beforeEach(function(done) {
+                                loginDfd.resolve(true);
                                 done();
                             });
 
-                            it('should redirect to home page', function () {
+                            it('should track event \'Sign in\'', function () {
                                 viewModel.submit();
-                                expect(app.openHomePage).toHaveBeenCalled();
+                                expect(app.trackEvent).toHaveBeenCalledWith('Sign in', user);
                             });
 
-                            describe('and ltiUserInfoTokenIsInHash', function() {
+                            describe('and event is tracked', function () {
 
-                                beforeEach(function() {
-                                    spyOn(window.auth, 'getLtiUserInfoTokenFromHash').and.returnValue('token');
+                                beforeEach(function (done) {
+                                    trackEvent.resolve();
+                                    spyOn(app, 'openHomePage');
+                                    done();
                                 });
 
-                                it('should redirect to home page with token in hash', function() {
+                                it('should redirect to home page', function () {
                                     viewModel.submit();
-                                    expect(app.openHomePage).toHaveBeenCalledWith('#token.user.lti=token');
+                                    expect(app.openHomePage).toHaveBeenCalled();
+                                });
+
+                                describe('and ltiUserInfoToken is in hash', function () {
+
+                                    beforeEach(function () {
+                                        spyOn(window.auth, 'getLtiUserInfoTokenFromHash').and.returnValue('token');
+                                    });
+
+                                    it('should redirect to home page with token in hash', function () {
+                                        viewModel.submit();
+                                        expect(app.openHomePage).toHaveBeenCalledWith('#token.user.lti=token');
+                                    });
+
+                                });
+
+                                describe('and samlIdPUserInfoToken is in hash', function () {
+
+                                    beforeEach(function () {
+                                        spyOn(window.auth, 'getSamlIdPUserInfoTokenFromHash').and.returnValue('token');
+                                    });
+
+                                    it('should redirect to home page with token in hash', function () {
+                                        viewModel.submit();
+                                        expect(app.openHomePage).toHaveBeenCalledWith('#token.user.saml=token');
+                                    });
+
                                 });
 
                             });

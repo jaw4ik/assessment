@@ -715,5 +715,65 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region allow Coggno
+
+        [TestMethod]
+        public void AllowCoggno_ShouldCreateAndAddCoggnoServiceProviderIfNotExistsYet()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            var coggnoConf = new CoggnoConfigurationSection();
+            coggnoConf.AssertionConsumerServiceUrl = "http://coggno.com";
+            coggnoConf.Issuer = "http://coggno.com/issuer";
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _configurationReader.CoggnoConfiguration.Returns(coggnoConf);
+            _samlServiceProviderRepository.GetByAssertionConsumerService(coggnoConf.AssertionConsumerServiceUrl)
+                .Returns((SamlServiceProvider) null);
+
+            _controller.AllowCoggno();
+            
+            _samlServiceProviderRepository.Received().Add(Arg.Is<SamlServiceProvider>(arg => arg.Issuer == coggnoConf.Issuer && arg.AssertionConsumerServiceUrl == coggnoConf.AssertionConsumerServiceUrl));
+        }
+
+        [TestMethod]
+        public void AllowCoggno_ShouldAllowCoggnoServiceProvider()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            var coggnoServiceProvider = SamlServiceProviderObjectMother.Create();
+            var coggnoConf = new CoggnoConfigurationSection();
+            coggnoConf.AssertionConsumerServiceUrl = "http://coggno.com";
+            coggnoConf.Issuer = "http://coggno.com/issuer";
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _configurationReader.CoggnoConfiguration.Returns(coggnoConf);
+            _samlServiceProviderRepository.GetByAssertionConsumerService(coggnoConf.AssertionConsumerServiceUrl)
+                .Returns(coggnoServiceProvider);
+
+            _controller.AllowCoggno();
+
+            user.IsAllowed(coggnoServiceProvider).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void AllowCoggno_ShouldReturnJsonSuccess()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            var coggnoServiceProvider = SamlServiceProviderObjectMother.Create();
+            var coggnoConf = new CoggnoConfigurationSection();
+            coggnoConf.AssertionConsumerServiceUrl = "http://coggno.com";
+            coggnoConf.Issuer = "http://coggno.com/issuer";
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _configurationReader.CoggnoConfiguration.Returns(coggnoConf);
+            _samlServiceProviderRepository.GetByAssertionConsumerService(coggnoConf.AssertionConsumerServiceUrl)
+                .Returns(coggnoServiceProvider);
+
+            var res = _controller.AllowCoggno();
+
+            res.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
     }
 }

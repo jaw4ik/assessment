@@ -16,7 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.BuildCourse.PublishSettings;
+using easygenerator.Web.Tests.Utils;
 
 namespace easygenerator.Web.Tests.BuildCourse
 {
@@ -66,6 +68,16 @@ namespace easygenerator.Web.Tests.BuildCourse
         }
 
         #region Build
+
+        [TestMethod]
+        public void Build_ShouldPublishCourseScormBuildStartedEvent()
+        {
+            //Act
+            _builder.Build(_course);
+
+            //Assert
+            _eventPublisher.ShouldPublishEvent<CourseScormBuildStartedEvent>();
+        }
 
         [TestMethod]
         public void Build_ShouldCreateBuildDirectory()

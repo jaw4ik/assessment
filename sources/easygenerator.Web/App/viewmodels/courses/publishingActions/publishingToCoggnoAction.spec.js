@@ -1,9 +1,9 @@
-﻿import PublishingAction from './publishingAction';
+﻿import PublishingAction from './publishingToCoggnoAction';
 
 import constants from 'constants';
 import app from 'durandal/app';
 
-describe('[publishingAction]', function () {
+describe('[publishToCoggnoAction]', function () {
     var
         viewModel,
         course = { id: 'id', isDelivering: true, saleInfo: { isProcessing: false} },
@@ -204,7 +204,7 @@ describe('[publishingAction]', function () {
 
         it('should fill subscriptions', function () {
             viewModel.activate(course, action);
-            expect(viewModel.subscriptions.length).toBe(3);
+            expect(viewModel.subscriptions.length).toBe(2);
         });
     });
 

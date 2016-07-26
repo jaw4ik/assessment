@@ -7,7 +7,7 @@ import constants from 'constants';
 describe('synchronization course [stateChanged]', function () {
 
     var course = { Id: 'courseId' },
-        state = { isDirty: false },
+        state = { isDirty: false, isDirtyForSale: false },
         mappedCourse = { id: course.Id, collaborators: [] };
 
     beforeEach(function () {
@@ -48,6 +48,16 @@ describe('synchronization course [stateChanged]', function () {
         });
     });
 
+    describe('when state isDirtyForSale is not a boolean', function () {
+        it('should throw an exception', function () {
+            var f = function () {
+                handler(mappedCourse.id, { isDirty: true });
+            };
+
+            expect(f).toThrow('State isDirtyForSale is not a boolean');
+        });
+    });
+
     describe('when course is not found in data context', function () {
         it('should throw an exception', function () {
             dataContext.courses = [];
@@ -60,10 +70,12 @@ describe('synchronization course [stateChanged]', function () {
         });
     });
 
-    describe('when course isDirty has not changed', function () {
+    describe('when course isDirty and isDirtyForSale has not changed', function () {
         beforeEach(function () {
             mappedCourse.isDirty = false;
+            mappedCourse.isDirtyForSale = false;
             state.isDirty = false;
+            state.isDirtyForSale = false;
             dataContext.courses = [mappedCourse];
         });
 
@@ -71,6 +83,12 @@ describe('synchronization course [stateChanged]', function () {
             handler(mappedCourse.id, state);
 
             expect(dataContext.courses[0].isDirty).toBeFalsy();
+        });
+
+        it('should not update isDirtyForSale', function () {
+            handler(mappedCourse.id, state);
+
+            expect(dataContext.courses[0].isDirtyForSale).toBeFalsy();
         });
 
         it('should not trigger app event', function () {
@@ -96,5 +114,26 @@ describe('synchronization course [stateChanged]', function () {
             handler(mappedCourse.id, state);
             expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.stateChanged + mappedCourse.id, state);
         });
+
     });
+
+    describe('when course isDirtyForSale has changed', function () {
+        beforeEach(function () {
+            mappedCourse.isDirtyForSale = false;
+            state.isDirtyForSale = true;
+            dataContext.courses = [mappedCourse];
+        });
+
+        it('should set isDirtyForSale to true', function () {
+            handler(mappedCourse.id, state);
+
+            expect(dataContext.courses[0].isDirtyForSale).toBeTruthy();
+        });
+
+        it('should trigger app event', function () {
+            handler(mappedCourse.id, state);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.stateChanged + mappedCourse.id, state);
+        });
+    });
+
 });

@@ -51,6 +51,8 @@ describe('model [user]', function () {
             phone: '0123',
             newEditor: null,
             isCreatedThroughLti: false,
+            isCreatedThroughSamlIdP: false,
+            isCoggnoSamlServiceProviderAllowed: true,
             isNewEditorByDefault: true,
             companies: [{}],
             subscription: {
@@ -68,6 +70,8 @@ describe('model [user]', function () {
         expect(user.phone).toEqual(spec.phone);
         expect(user.newEditor).toEqual(spec.newEditor);
         expect(user.isCreatedThroughLti).toEqual(spec.isCreatedThroughLti);
+        expect(user.isCreatedThroughSamlIdP).toEqual(spec.isCreatedThroughSamlIdP);
+        expect(user.isCoggnoSamlServiceProviderAllowed).toEqual(spec.isCoggnoSamlServiceProviderAllowed);
         expect(user.isNewEditorByDefault).toEqual(spec.isNewEditorByDefault);
         expect(user.companies.length).toBe(1);
 

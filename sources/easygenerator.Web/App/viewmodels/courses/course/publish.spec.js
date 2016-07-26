@@ -11,7 +11,10 @@ import Course from 'models/course';
 describe('viewModel [publish]', function () {
     var course = new Course({
         id: 'testCourseId',
-        title: 'title'
+        title: 'title',
+        saleInfo: {
+            isProcessing: false
+        }
     });
 
     beforeEach(function () {
@@ -48,6 +51,12 @@ describe('viewModel [publish]', function () {
     describe('scormBuildAction:', function () {
         it('should be defined', function () {
             expect(viewModel.scormBuildAction).toBeDefined();
+        });
+    });
+
+    describe('publishToCoggnoAction:', function () {
+        it('should be defined', function () {
+            expect(viewModel.publishToCoggnoAction).toBeDefined();
         });
     });
 

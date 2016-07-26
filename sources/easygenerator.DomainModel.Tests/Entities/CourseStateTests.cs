@@ -22,11 +22,12 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void CourseState_CreateCourseState()
         {
             var course = CourseObjectMother.Create();
-            var courseState = CourseStateObjectMother.Create(course, true);
+            var courseState = CourseStateObjectMother.Create(course, true, true);
 
             courseState.Id.Should().NotBeEmpty();
             courseState.Course.Should().Be(course);
             courseState.IsDirty.Should().BeTrue();
+            courseState.IsDirtyForSale.Should().BeTrue();
         }
 
         #endregion
@@ -42,6 +43,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             courseState.MarkAsDirty();
 
             courseState.IsDirty.Should().BeTrue();
+            courseState.IsDirtyForSale.Should().BeTrue();
         }
 
         #endregion
@@ -57,6 +59,21 @@ namespace easygenerator.DomainModel.Tests.Entities
             courseState.MarkAsClean();
 
             courseState.IsDirty.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region MarkAsCleanForSale
+
+        [TestMethod]
+        public void MarkAsCleanForSale_Should_SetIsDirtyForSale_ToFalse()
+        {
+            var course = CourseObjectMother.Create();
+            var courseState = CourseStateObjectMother.Create(course, false, true);
+
+            courseState.MarkAsCleanForSale();
+
+            courseState.IsDirtyForSale.Should().BeFalse();
         }
 
         #endregion
