@@ -1,4 +1,5 @@
 ﻿import _ from 'underscore';
+import app from 'durandal/app';
 import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import localizationManager from 'localization/localizationManager';
@@ -11,6 +12,7 @@ export default class {
         let createdSection = await sectionRepository.addSection({ title: title });
         if (_.isString(courseId)) {
             await courseRepository.relateSection(courseId, createdSection.id);
+            app.trigger(constants.messages.section.createdInCourse);
         }
         return createdSection;
     }
