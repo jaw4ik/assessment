@@ -56,7 +56,7 @@ namespace easygenerator.Web.Import.Presentation.Mappers
 
         private TextParagraphElement MapTextElement(Run run)
         {
-            var properties = run.RunProperties;
+            var properties = run.RunProperties ?? new RunProperties();
             var style = new TextStyle()
             {
                 Bold = properties.Bold != null && properties.Bold != "0",
@@ -74,7 +74,7 @@ namespace easygenerator.Web.Import.Presentation.Mappers
 
         private string GetRunHyperlinkId(Run element)
         {
-            var property = element.RunProperties.Elements<HyperlinkOnClick>().FirstOrDefault();
+            var property = element.RunProperties?.Elements<HyperlinkOnClick>().FirstOrDefault();
             if (property == null || String.IsNullOrWhiteSpace(property.Id))
                 return null;
 
