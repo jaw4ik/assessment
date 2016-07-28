@@ -37,8 +37,9 @@ namespace easygenerator.Web.BuildLearningPath
 
             CreatePackageDirectory(courseDirectoryPath);
 
-            _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course, false);
+            _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course);
             _buildContentProvider.AddSettingsFileToPackageDirectory(courseDirectoryPath, getLearningPathCourseSettings(course, learningPath));
+            _buildContentProvider.AddThemeSettingsFileToPackageDirectory(courseDirectoryPath, course.GetTemplateThemeSettings(course.Template));
         }
 
         private string getLearningPathCourseSettings(Course course, LearningPath learningPath)
