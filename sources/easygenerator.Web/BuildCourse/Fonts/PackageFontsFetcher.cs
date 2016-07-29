@@ -53,13 +53,8 @@ namespace easygenerator.Web.BuildCourse.Fonts
             var supportFeatures = manifest["supports"];
             if (supportFeatures != null && supportFeatures.ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
             {
-                var courseSettings = course.GetTemplateSettings(course.Template);
-                if (courseSettings != null)
-                {
-                    var settings = JObject.Parse(courseSettings);
-                    var fonts = settings["fonts"].ToArray();
-                    designTabFonts.AddRange(fonts.Select(font => new Font(font["fontFamily"].Value<string>())));
-                }
+                designTabFonts.AddRange(GetFontsFromSettings(course.GetTemplateSettings(course.Template)));
+                designTabFonts.AddRange(GetFontsFromSettings(course.GetTemplateTheme(course.Template)?.Settings));
 
                 // as default we have to load Roboto Slab
                 if (designTabFonts.Count == 0)
@@ -68,6 +63,26 @@ namespace easygenerator.Web.BuildCourse.Fonts
                 }
             }
             return designTabFonts;
+        }
+
+        private IEnumerable<Font> GetFontsFromSettings(string settingsString)
+        {
+            if (string.IsNullOrEmpty(settingsString))
+            {
+                return new List<Font>();
+            }
+
+            var settings = JObject.Parse(settingsString);
+            var fonts = settings["fonts"]?.ToArray();
+
+            if (fonts == null)
+            {
+                return new List<Font>();
+            }
+
+            return fonts.Where(font => font != null && font.HasValues && font["fontFamily"] != null)
+                    .Select(font => new Font(font["fontFamily"].Value<string>()));
+            
         }
 
         private List<Font> GetTemplateFonts(JObject manifest)
