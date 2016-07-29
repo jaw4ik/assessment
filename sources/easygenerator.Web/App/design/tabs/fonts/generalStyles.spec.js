@@ -7,7 +7,6 @@ import { Font, ContentElement} from './generalStyles';
 import userContext from 'userContext';
 
 import { fontFamilies } from './../FontsTab';
-import bus from 'design/bus';
 import eventTracker from 'eventTracker';
 
 
@@ -20,7 +19,6 @@ let spyOn = window.spyOn;
 describe('Font element', () => {
 
     beforeEach(() => {
-        spyOn(bus, 'trigger');
         spyOn(app, 'trigger');
         spyOn(eventTracker, 'publish');
     });
