@@ -57,6 +57,6 @@ export default class {
         guard.throwIfNotString(courseId, 'Course id is not a string');
         guard.throwIfNotString(templateId, 'Template id is not a string');
 
-        return apiHttpWrapper.post(`api/course/${courseId}/template/${templateId}/removetheme`);
+        return apiHttpWrapper.post(`api/course/${courseId}/template/${templateId}/removetheme`, null);
     }
 };
