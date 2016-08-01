@@ -6,7 +6,7 @@
 
     function upload() {
         var url = location.protocol + '//' + location.host + '/storage/image/upload';
-        var headers = { 'Authorization': 'Bearer ' + (getURLParameter('token') || localStorage['token.settings']) };
+        var headers = { 'Authorization': '' };
 
         var somethingWentWrongMessage = {
             title: 'Something went wrong',
@@ -49,28 +49,29 @@
 
                     var formData = new FormData();
                     formData.append('file', file);
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        headers: headers,
-                        data: formData,
-                        contentType: false,
-                        processData: false
-                    }).done(function (response) {
-                        try {
-                            var obj = JSON.parse(response);
-                            if (obj && obj.success && obj.data && obj.data.url) {
-                                deffered.resolve(obj.data.url);
-                            } else {
+                    setSettingsToken().then(function(){
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            headers: headers,
+                            data: formData,
+                            contentType: false,
+                            processData: false
+                        }).done(function (response) {
+                            try {
+                                var obj = JSON.parse(response);
+                                if (obj && obj.success && obj.data && obj.data.url) {
+                                    deffered.resolve(obj.data.url);
+                                } else {
+                                    deffered.reject(somethingWentWrongMessage);
+                                }
+                            } catch (e) {
                                 deffered.reject(somethingWentWrongMessage);
                             }
-                        } catch (e) {
+                        }).fail(function () {
                             deffered.reject(somethingWentWrongMessage);
-                        }
-                    }).fail(function () {
-                        deffered.reject(somethingWentWrongMessage);
+                        });
                     });
-
                 })
                 .appendTo(form);
 
@@ -97,6 +98,33 @@
                 return true;
             }
         };
+
+        function getSettingsToken() {
+            var tokenDefer = $.Deferred();
+            var localStorageProvider = window.parent.localStorageProvider;
+            if (!localStorageProvider) {
+                tokenDefer.resolve(localStorage['token.settings']);
+            }
+            localStorageProvider.getItem('token.settings').then(function(value) {
+                tokenDefer.resolve(value);
+            }).fail(function() {
+                tokenDefer.resolve('');
+            });
+            return tokenDefer.promise();
+        }
+
+        function setSettingsToken(){
+            var dfd = $.Deferred();
+            if(headers.Authorization){
+                dfd.resolve();
+            } else {
+                getSettingsToken().then(function(token){
+                    headers.Authorization += 'Bearer ' + (getURLParameter('token') || token);
+                    dfd.resolve();
+                });
+            }
+            return dfd.promise();
+        }
     }
 
     function getURLParameter(name) {
