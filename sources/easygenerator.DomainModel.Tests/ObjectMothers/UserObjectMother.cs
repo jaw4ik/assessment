@@ -1,8 +1,7 @@
-﻿using System;
+﻿using easygenerator.DomainModel.Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -73,9 +72,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             bool isCreatedThroughLti = false,
             bool isCreatedThroughSamlIdP = false,
             ICollection<Company> companies = null,
-            ICollection<SamlServiceProvider> allowedSamlSPs = null)
+            ICollection<SamlServiceProvider> allowedSamlSPs = null,
+            bool isEmailConfirmed = false)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate,
+                isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, isEmailConfirmed);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Tickets;
 using easygenerator.DomainModel.Events.UserEvents;
+using easygenerator.DomainModel.Events.UserEvents.SubscriptionEvents;
 using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
             AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
-            ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null,  bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
+            ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null, bool isEmailConfirmed = false,
+            bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -34,6 +36,7 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Country = country;
             Role = role;
+            IsEmailConfirmed = isEmailConfirmed;
             TicketCollection = new Collection<Ticket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
             AllowedSamlServiceProviders = allowedSamlServiceProviders ?? new Collection<SamlServiceProvider>();
@@ -63,8 +66,8 @@ namespace easygenerator.DomainModel.Entities
         public string Organization { get; private set; }
         public string Role { get; private set; }
         public string Country { get; private set; }
-        public AccessType AccessType { get; protected internal set; }
-        public DateTime? ExpirationDate { get; protected internal set; }
+        public virtual AccessType AccessType { get; protected internal set; }
+        public virtual DateTime? ExpirationDate { get; protected internal set; }
         protected internal virtual ICollection<Company> CompaniesCollection { get; set; }
         public virtual IEnumerable<Company> Companies => CompaniesCollection.OrderByDescending(e => e.Priority).ThenBy(e => e.CreatedOn).AsEnumerable();
         protected internal virtual ICollection<Organization> OrganizationsCollection { get; set; }
@@ -272,34 +275,43 @@ namespace easygenerator.DomainModel.Entities
             AccessType = AccessType.Starter;
             ExpirationDate = expirationDate;
 
-            RaiseEvent(new UserUpgradedToStarter(this));
+            RaiseEvent(new UserUpgradedToStarterEvent(this));
         }
 
-        public void UpgradePlanToPlus(DateTime expirationDate)
+        public virtual void UpgradePlanToPlus(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);
 
             AccessType = AccessType.Plus;
             ExpirationDate = expirationDate;
-            RaiseEvent(new UserUpgradedToPlus(this));
+            RaiseEvent(new UserUpgradedToPlusEvent(this));
         }
 
-        public void UpgradePlanToAcademy(DateTime expirationDate)
+        public virtual void UpgradePlanToTrial(DateTime expirationDate)
+        {
+            ThrowIfExpirationDateIsInvalid(expirationDate);
+
+            AccessType = AccessType.Trial;
+            ExpirationDate = expirationDate;
+            RaiseEvent(new UserUpgradedToTrialEvent(this));
+        }
+
+        public virtual void UpgradePlanToAcademy(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);
 
             AccessType = AccessType.Academy;
             ExpirationDate = expirationDate;
-            RaiseEvent(new UserUpgradedToAcademy(this));
+            RaiseEvent(new UserUpgradedToAcademyEvent(this));
         }
 
-        public void UpgradePlanToAcademyBT(DateTime expirationDate)
+        public virtual void UpgradePlanToAcademyBT(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);
 
             AccessType = AccessType.AcademyBT;
             ExpirationDate = expirationDate;
-            RaiseEvent(new UserUpgradedToAcademyBT(this));
+            RaiseEvent(new UserUpgradedToAcademyBTEvent(this));
         }
 
         public virtual void DowngradePlanToFree()
@@ -307,7 +319,7 @@ namespace easygenerator.DomainModel.Entities
             AccessType = AccessType.Free;
             ExpirationDate = null;
 
-            RaiseEvent(new UserDowngraded(this));
+            RaiseEvent(new UserDowngradedEvent(this));
         }
 
         #endregion

@@ -141,7 +141,7 @@ namespace easygenerator.DataAccess
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
             modelBuilder.Entity<CourseTemplateSettings>().HasOptional(e => e.Theme);
-            
+
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();
@@ -226,6 +226,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<UserSettings>().Property(e => e.NewEditor).IsOptional();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsNewEditorByDefault).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.IncludeMediaToPackage).IsRequired();
+            modelBuilder.Entity<UserSettings>().Property(e => e.PersonalAccessType).IsOptional();
+            modelBuilder.Entity<UserSettings>().Property(e => e.PersonalExpirationDate).IsOptional();
             modelBuilder.Entity<UserSettings>().HasRequired(e => e.User).WithRequiredDependent(p => p.Settings).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Ticket>().HasRequired(e => e.User);
@@ -364,6 +366,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Organization>().Property(e => e.EmailDomains).IsOptional().HasMaxLength(256);
             modelBuilder.Entity<Organization>().HasMany(e => e.UserCollection).WithRequired(e => e.Organization).WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<OrganizationSettings>().HasRequired(e => e.Organization).WithOptional(c => c.Settings).WillCascadeOnDelete(true);
+            modelBuilder.Entity<OrganizationSettings>().Property(e => e.AccessType).IsOptional();
+            modelBuilder.Entity<OrganizationSettings>().Property(e => e.ExpirationDate).IsOptional();
+
             modelBuilder.Entity<OrganizationUser>().HasRequired(e => e.Organization);
             modelBuilder.Entity<OrganizationUser>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<OrganizationUser>().Property(e => e.IsAdmin).IsRequired();
@@ -376,10 +382,9 @@ namespace easygenerator.DataAccess
         {
             SaveChanges();
 
-            foreach (DbEntityEntry entry in ChangeTracker.Entries<Entity>())
+            foreach (DbEntityEntry entry in ChangeTracker.Entries<EventRaiseable>())
             {
-                var entity = entry.Entity as Entity;
-
+                var entity = entry.Entity as EventRaiseable;
                 if (entity == null)
                 {
                     continue;

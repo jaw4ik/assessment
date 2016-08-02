@@ -323,11 +323,10 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
-    <Compile Include="Components\DomainOperations\CourseOperations\CourseDomainOperationExecutor.cs" />
-    <Compile Include="Components\DomainOperations\CourseOperations\CourseOwnershipProvider.cs" />
-    <Compile Include="Components\DomainOperations\CourseOperations\CreateCourseOperation.cs" />
-    <Compile Include="Components\DomainOperations\OrganizationOperations\AutoincludeUserToOrganizationOperation.cs" />
-    <Compile Include="Components\DomainOperations\OrganizationOperations\OrganizationDomainOperationExecutor.cs" />
+    <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
+    <Compile Include="Domain\DomainOperations\CourseOwnershipProvider.cs" />
+    <Compile Include="Domain\DomainOperations\OrganizationOperations.cs" />
+    <Compile Include="Domain\DomainOperations\UserOperations.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -385,21 +384,22 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\OrganizationUserAutoincludeHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\OrganizationSettingsApplicationHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\OrganizationUserAutoincludeHandler.cs" />
     <Compile Include="Controllers\SAML\IdentityProvider\IdentityProviderController.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderController.cs" />
-    <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\PublicationServerUserHandler.cs" />
     <Compile Include="Publish\Coggno\CoggnoPublisher.cs" />
     <Compile Include="Publish\Coggno\ICoggnoPublisher.cs" />
     <Compile Include="Publish\External\ExternalPublisher.cs" />
     <Compile Include="Publish\External\IExternalPublisher.cs" />
     <Compile Include="Publish\IPublisher.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
-    <Compile Include="DomainEvents\Handlers\Intercom\UserEventsHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Intercom\UserEventsHandler.cs" />
     <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
     <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
     <Compile Include="Import\WinToWeb\Model\WinCourse.cs" />
@@ -409,7 +409,7 @@
     <Compile Include="Import\WinToWeb\Model\WinQuestion.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporter.cs" />
     <Compile Include="Components\IntercomClient.cs" />
-    <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Publish\Publisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -445,28 +445,28 @@
     <Compile Include="SAML\ServiceProvider\Providers\IOptionsProvider.cs" />
     <Compile Include="Security\PermissionsCheckers\RankingTextAnswerPermissionsChecker.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
     <Compile Include="Storage\ICourseStateStorage.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
-    <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfo.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfoInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\ICourseInfoInMemoryStorage.cs" />
@@ -588,9 +588,9 @@
     <Compile Include="Controllers\PreviewController.cs" />
     <Compile Include="Controllers\RedirectToNewStorageController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="DomainEvents\Handlers\WooCommerceUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
-    <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\WooCommerceUserHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -815,6 +815,10 @@
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\publishToCoggno.spec.js">
       <DependentUpon>publishToCoggno.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToTrial.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToTrial.spec.js">
+      <DependentUpon>upgradedToTrial.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\allowCoggno\view.html" />
     <Content Include="App\widgets\allowCoggno\viewmodel.js" />
@@ -2253,24 +2257,6 @@
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
     <Content Include="googlea3ba679b82d103a3.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\a870685028fd423da95fe913080d2696\be6dce0d945944daa8dc468b52408913.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\content.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\ec9e0ec3cd334e02b765a8511ad1a898.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\e67e2b52153b4f609100456bbac68278\fbd4f4b9d75045c19a4cbe820dc8a828.html" />
-    <Content Include="Sample Course\content\17dee0e236c24ffebb16b91f42c6f46c\435ed07d804a48419bd21d52ba911bc1\855b1427a7d5409b850a0496e8fd9645.html" />
-    <Content Include="Sample Course\content\17dee0e236c24ffebb16b91f42c6f46c\9d9bee0514274c75a1dadcc2ceba26b4\881cd254eba14acaaa3edcad917da1ac.html" />
-    <Content Include="Sample Course\content\17dee0e236c24ffebb16b91f42c6f46c\f4e8324cd6b349658da9d1f944d38f4b\6ce1541384a445ef95cc626414ba3649.html" />
-    <Content Include="Sample Course\content\32fa52cf544a46bb98303b098e80552f\4618f642dee84430ac605e63a4421dab\65ba70283f9d4fb390fd6a34356523ca.html" />
-    <Content Include="Sample Course\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\89e72a71bf1841959334e4cacde0967b.html" />
-    <Content Include="Sample Course\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\content.html" />
-    <Content Include="Sample Course\content\34642713e62b4d129e1818aa383c66bc\6dcbd7a5188e4714a0461c3c4cd5ee49\fa4817cf08564888bd2b69c48a345dd4.html" />
-    <Content Include="Sample Course\content\34642713e62b4d129e1818aa383c66bc\a2051745fdc64d41bce3e2886763a438\6e1007c0b4ae414f88c036ca1f448d11.html" />
-    <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
-    <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
-    <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Scripts\auth.js" />
     <Content Include="Scripts\Blob.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -3259,8 +3245,6 @@
     </Content>
     <Content Include="Content\learningPaths.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
-    <Content Include="Sample Course\content\content.html" />
-    <Content Include="Sample Course\content\data.js" />
     <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />

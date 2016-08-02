@@ -3,7 +3,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Storage;
 using System.Linq;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
+using easygenerator.Web.Domain.DomainOperations;
 
 namespace easygenerator.Web.Components.Mappers
 {

@@ -2,10 +2,10 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.Components.Mappers;
-using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
+using easygenerator.Web.Domain.DomainEvents.ChangeTracking.Events;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {

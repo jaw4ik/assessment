@@ -14,6 +14,12 @@ describe('synchronization user [handler]', function () {
         });
     });
 
+    describe('upgradedToTrial:', function () {
+        it('should be function', function () {
+            expect(handler.upgradedToTrial).toBeFunction();
+        });
+    });
+
     describe('downgraded:', function () {
         it('should be function', function () {
             expect(handler.downgraded).toBeFunction();

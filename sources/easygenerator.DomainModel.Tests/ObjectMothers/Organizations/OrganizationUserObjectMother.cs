@@ -7,7 +7,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
         private const string CreatedBy = "easygenerator@easygenerator.com";
         private const string UserEmail = "user@easygenerator.com";
 
-        public static OrganizationUser Create(Organization organization, string userEmail = UserEmail, bool isAdmin = false, 
+        public static OrganizationUser Create(Organization organization, string userEmail = UserEmail, bool isAdmin = false,
             OrganizationUserStatus status = OrganizationUserStatus.WaitingForAcceptance, string createdBy = CreatedBy)
         {
             return new OrganizationUser(organization, userEmail, isAdmin, status, createdBy);
@@ -26,6 +26,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
         public static OrganizationUser CreateWithStatus(OrganizationUserStatus status)
         {
             return Create(organization: OrganizationObjectMother.Create(), status: status);
+        }
+
+        public static OrganizationUser CreateAdmin()
+        {
+            return Create(organization: OrganizationObjectMother.Create(), isAdmin: true, status: OrganizationUserStatus.Accepted);
         }
 
         public static OrganizationUser CreateWithCreatedBy(string createdBy)

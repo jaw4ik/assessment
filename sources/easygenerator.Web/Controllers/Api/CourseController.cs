@@ -1,5 +1,4 @@
-﻿using easygenerator.Auth.Attributes.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
@@ -12,20 +11,18 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Mappers;
+using easygenerator.Web.Domain.DomainOperations;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.Coggno;
 using easygenerator.Web.Publish.External;
+using easygenerator.Web.ViewModels.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http.Results;
 using System.Web.Mvc;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
-using easygenerator.Web.Components.ActionResults;
-using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Publish.Coggno;
-using easygenerator.Web.ViewModels.Api;
 using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -50,7 +47,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IExternalPublisher _externalPublisher;
         private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
-        private readonly ICourseDomainOperationExecutor _courseDomainOperationExecutor;
+        private readonly ICourseOperations _courseOperations;
         private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
         private readonly ILog _logger;
         private readonly ConfigurationReader _configurationReader;
@@ -58,7 +55,7 @@ namespace easygenerator.Web.Controllers.Api
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository, ISectionRepository sectionRepository,
             IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher, ICoggnoPublisher coggnoPublisher, IEntityMapper entityMapper,
             IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher, IUserRepository userRepository, ICloner cloner,
-            ICourseDomainOperationExecutor courseDomainOperationExecutor, ISamlServiceProviderRepository samlServiceProviderRepository, ILog logger, ConfigurationReader configurationReader)
+            ICourseOperations courseOperations, ISamlServiceProviderRepository samlServiceProviderRepository, ILog logger, ConfigurationReader configurationReader)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
@@ -74,7 +71,7 @@ namespace easygenerator.Web.Controllers.Api
             _externalPublisher = externalpublisher;
             _userRepository = userRepository;
             _cloner = cloner;
-            _courseDomainOperationExecutor = courseDomainOperationExecutor;
+            _courseOperations = courseOperations;
             _samlServiceProviderRepository = samlServiceProviderRepository;
             _logger = logger;
             _configurationReader = configurationReader;
@@ -91,7 +88,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
-            _courseDomainOperationExecutor.CreateCourse(course);
+            _courseOperations.CreateCourse(course);
 
             return JsonSuccess(_entityMapper.Map(course));
         }
@@ -107,7 +104,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var duplicatedCourse = GetDuplicatedCourse(course);
-            _courseDomainOperationExecutor.CreateCourse(duplicatedCourse);
+            _courseOperations.CreateCourse(duplicatedCourse);
 
             return JsonSuccess(new
             {
@@ -206,7 +203,7 @@ namespace easygenerator.Web.Controllers.Api
             }
             return Deliver(course, () => _coggnoPublisher.Publish(course, user.FirstName, user.LastName), JsonSuccess);
         }
-        
+
         [HttpPost, AllowAnonymous, CoggnoApiKeyAccess]
         [Route("api/course/publish/coggno/completed")]
         public ActionResult PublishToCoggnoCompleted(CoggnoPublishCompletedViewModel info)

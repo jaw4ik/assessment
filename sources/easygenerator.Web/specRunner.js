@@ -244,6 +244,7 @@
         'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
         'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
         'synchronization/handlers/user/eventHandlers/upgradedToAcademy.spec',
+        'synchronization/handlers/user/eventHandlers/upgradedToTrial.spec',
         'synchronization/handlers/user/eventHandlers/downgraded.spec',
         'synchronization/handlers/comment/eventHandlers/deleted.spec',
         'synchronization/handlers/comment/eventHandlers/created.spec',

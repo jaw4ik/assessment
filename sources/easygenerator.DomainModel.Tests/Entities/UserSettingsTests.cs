@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -21,7 +16,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #region Constructor
-        
+
         [TestMethod]
         public void UserSettings_ShouldCreateSettings()
         {
@@ -271,6 +266,126 @@ namespace easygenerator.DomainModel.Tests.Entities
             settings.SwitchIncludeMediaToPackage(modifiedBy);
 
             settings.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region GetPersonalSubscription
+
+        [TestMethod]
+        public void GetPersonalSubscription_ShouldReturnUserSubscription_WhenPersonalAccessTypeAndExpirationDateAreSet()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var accessType = AccessType.Trial;
+            var expirationDate = DateTimeWrapper.Now();
+            settings.UpdatePersonalSubscription(accessType, expirationDate);
+
+            //Act
+            var subscription = settings.GetPersonalSubscription();
+
+            //Assert
+            Assert.IsNotNull(subscription);
+            subscription.AccessType.ShouldBeEquivalentTo(accessType);
+            subscription.ExpirationDate.ShouldBeEquivalentTo(expirationDate);
+        }
+
+        [TestMethod]
+        public void GetPersonalSubscription_ShouldReturnNull_WhenPersonalAccessTypeAndExpirationDateAreNot()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+
+            //Act
+            var subscription = settings.GetPersonalSubscription();
+
+            //Assert
+            Assert.IsNull(subscription);
+        }
+
+        #endregion
+
+        #region UpdatePersonalSubscription
+
+        [TestMethod]
+        public void UpdatePersonalSubscription_ShouldThrowArgumentException_WhenExpirationDateIsLessThatSqlMinDate()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var accessType = AccessType.Trial;
+            var expirationDate = DateTime.MinValue;
+
+            //Act
+            Action action = () => settings.UpdatePersonalSubscription(accessType, expirationDate);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpdatePersonalSubscription_ShouldSetPersonalAccessType()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var accessType = AccessType.Trial;
+            var expirationDate = DateTimeWrapper.Now();
+
+            //Act
+            settings.UpdatePersonalSubscription(accessType, expirationDate);
+
+            //Assert
+            settings.PersonalAccessType.Should().Be(accessType);
+        }
+
+        [TestMethod]
+        public void UpdatePersonalSubscription_ShouldSetPersonalExpirationDate()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var accessType = AccessType.Trial;
+            var expirationDate = DateTimeWrapper.Now();
+
+            //Act
+            settings.UpdatePersonalSubscription(accessType, expirationDate);
+
+            //Assert
+            settings.PersonalExpirationDate.Should().Be(expirationDate);
+        }
+
+        #endregion
+
+        #region ResetPersonalSubscription
+
+        [TestMethod]
+        public void ResetPersonalSubscription_ShouldSetPersonalAccessTypeToNull()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var accessType = AccessType.Trial;
+            var expirationDate = DateTimeWrapper.Now();
+            settings.UpdatePersonalSubscription(accessType, expirationDate);
+
+            //Act
+            settings.ResetPersonalSubscription();
+
+            //Assert
+            settings.PersonalAccessType.HasValue.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void ResetPersonalSubscription_ShouldSetPersonalExpirationDateToNull()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+            var accessType = AccessType.Trial;
+            var expirationDate = DateTimeWrapper.Now();
+            settings.UpdatePersonalSubscription(accessType, expirationDate);
+
+            //Act
+            settings.ResetPersonalSubscription();
+
+            //Assert
+            settings.PersonalExpirationDate.HasValue.Should().BeFalse();
         }
 
         #endregion

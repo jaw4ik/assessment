@@ -8,13 +8,13 @@ namespace easygenerator.DomainModel.Entities
     internal static class OrderingUtils
     {
         public static string GetOrder<T>(ICollection<T> collection)
-            where T : IIdentifieble
+            where T : IIdentifiable
         {
             return collection.Count == 0 ? null : String.Join(",", collection.Select(i => i.Id).ToArray());
         }
 
         public static IList<T> OrderCollection<T>(IEnumerable<T> collection, string order)
-            where T : IIdentifieble
+            where T : IIdentifiable
         {
             if (order == null)
             {
@@ -26,7 +26,7 @@ namespace easygenerator.DomainModel.Entities
         }
 
         private static int GetIndex<T>(IList<string> orderedIds, T entity)
-            where T : IIdentifieble
+            where T : IIdentifiable
         {
             var index = orderedIds.IndexOf(entity.Id.ToString());
             return index > -1 ? index : orderedIds.Count;

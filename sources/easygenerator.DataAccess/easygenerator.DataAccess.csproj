@@ -479,6 +479,10 @@
     <Compile Include="Migrations\201607210758181_AddThemes.Designer.cs">
       <DependentUpon>201607210758181_AddThemes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607271120360_AddOrganizationSettings.cs" />
+    <Compile Include="Migrations\201607271120360_AddOrganizationSettings.Designer.cs">
+      <DependentUpon>201607271120360_AddOrganizationSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
@@ -835,6 +839,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607210758181_AddThemes.resx">
       <DependentUpon>201607210758181_AddThemes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607271120360_AddOrganizationSettings.resx">
+      <DependentUpon>201607271120360_AddOrganizationSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

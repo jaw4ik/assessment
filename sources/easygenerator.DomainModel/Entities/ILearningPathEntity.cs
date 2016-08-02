@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace easygenerator.DomainModel.Entities
+﻿namespace easygenerator.DomainModel.Entities
 {
-    public interface ILearningPathEntity : IIdentifieble
+    public interface ILearningPathEntity : IIdentifiable
     {
     }
 }

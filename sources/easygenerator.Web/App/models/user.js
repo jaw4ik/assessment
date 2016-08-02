@@ -103,6 +103,14 @@
         };
     };
 
+    User.prototype.upgradeToTrial = function (expirationDate) {
+        guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
+        this.subscription = {
+            accessType: constants.accessType.trial,
+            expirationDate: new Date(expirationDate)
+        };
+    };
+
     User.prototype.isOrganizationAdmin = function () {
         return _.some(this.organizations, function (organization) {
             return organization.grantsAdminAccess;

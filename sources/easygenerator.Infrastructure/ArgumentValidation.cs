@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace easygenerator.Infrastructure
 {
@@ -105,6 +105,14 @@ namespace easygenerator.Infrastructure
                 throw new ArgumentException("Invalid email format", argumentName);
         }
 
+        public static void ThrowIfDateIsInvalid(DateTime date, string argumentName)
+        {
+            if (date < DateTimeWrapper.MinValue())
+            {
+                throw new ArgumentException("Expiration date is invalid", argumentName);
+            }
+        }
+
         /// <summary>
         /// Throws an <see cref="ArgumentNullException"/> if the object to validate is <c>null</c>.
         /// Throws <see cref="ArgumentException"/> if it is an empty or whitespace string or it is not valid JSON format.
@@ -121,7 +129,7 @@ namespace easygenerator.Infrastructure
             }
             catch
             {
-                Type argType = typeof (T);
+                Type argType = typeof(T);
                 string typeName = String.Format("{0}{1}", argType.Name, argType.IsGenericType ? "<" + String.Concat(argType.GenericTypeArguments.Select(t => t.Name)) + ">" : "");
                 throw new ArgumentException(String.Format("The value of {0} need to be of {1} type.", argumentName, typeName), argumentName);
             }

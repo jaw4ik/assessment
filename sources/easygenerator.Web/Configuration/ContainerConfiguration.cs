@@ -25,8 +25,6 @@ using easygenerator.Web.BuildDocument;
 using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
-using easygenerator.Web.Components.DomainOperations.OrganizationOperations;
 using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
@@ -44,7 +42,11 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.Coggno;
 using easygenerator.Web.Publish.External;
+using easygenerator.Web.SAML.IdentityProvider.Providers;
+using easygenerator.Web.SAML.ServiceProvider.Mappers;
+using easygenerator.Web.SAML.ServiceProvider.Providers;
 using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
@@ -58,10 +60,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using easygenerator.Web.Publish.Coggno;
-using easygenerator.Web.SAML.IdentityProvider.Providers;
-using easygenerator.Web.SAML.ServiceProvider.Mappers;
-using easygenerator.Web.SAML.ServiceProvider.Providers;
+using easygenerator.Web.Domain.DomainOperations;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -131,11 +130,15 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PublishSettingsProvider>();
             builder.RegisterType<BranchTrackProvider>();
             builder.RegisterType<FileDownloader>();
-            builder.RegisterType<CreateCourseOperation>();
-            builder.RegisterType<CourseDomainOperationExecutor>().As<ICourseDomainOperationExecutor>();
+
+            #region Domain operations
+
+            builder.RegisterType<CourseOperations>().As<ICourseOperations>();
             builder.RegisterType<CourseOwnershipProvider>();
-            builder.RegisterType<AutoincludeUserToOrganizationOperation>();
-            builder.RegisterType<OrganizationDomainOperationExecutor>().As<IOrganizationDomainOperationExecutor>();
+            builder.RegisterType<OrganizationOperations>().As<IOrganizationOperations>();
+            builder.RegisterType<UserOperations>().As<IUserOperations>();
+
+            #endregion
 
 
             builder.RegisterModule(new DataAccessModule());

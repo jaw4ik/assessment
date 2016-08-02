@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -208,6 +209,30 @@ namespace easygenerator.Web.Controllers.Api
         [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/info")]
+        public ActionResult GetOrganizationInfo(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            return JsonDataResult(new
+            {
+                Title = organization.Title,
+                EmailDomains = organization.EmailDomains,
+                Settings = new
+                {
+                    AccessType = organization.Settings?.AccessType == null ?
+                    null :
+                    $"{organization.Settings.AccessType.Value} ({(int)organization.Settings.AccessType.Value})",
+                    ExpirationDate = organization.Settings?.ExpirationDate
+                }
+            });
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
         [Route("api/organization/emaildomains/update")]
         public ActionResult UpdateOrganizationEmailDomains(Organization organization, string emailDomains)
         {
@@ -222,19 +247,6 @@ namespace easygenerator.Web.Controllers.Api
         [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("easygenerator")]
-        [Route("api/organization/emaildomains/get")]
-        public ActionResult GetOrganizationEmailDomains(Organization organization)
-        {
-            if (organization == null)
-                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
-
-            return JsonDataResult(organization.EmailDomains);
-        }
-
-        [HttpPost]
-        [CustomRequireHttps]
-        [AllowAnonymous]
-        [ExternalApiAuthorize("easygenerator")]
         [Route("api/organization/emaildomains/clear")]
         public ActionResult ClearOrganizationEmailDomains(Organization organization)
         {
@@ -242,6 +254,42 @@ namespace easygenerator.Web.Controllers.Api
                 throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
 
             organization.ClearEmailDomains();
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/subscription/update")]
+        public ActionResult UpdateOrganizationSettingsSubscription(Organization organization, AccessType? accessType, DateTime? expirationDate)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            if (!accessType.HasValue)
+                throw new ArgumentException("Access type is not specified or specified in wrong format", nameof(accessType));
+
+            if (!expirationDate.HasValue)
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
+
+            organization.GetOrCreateSettings().UpdateSubscription(accessType.Value, expirationDate.Value);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/reset")]
+        public ActionResult ResetOrganizationSettings(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.ResetSettings();
+
             return Success();
         }
 

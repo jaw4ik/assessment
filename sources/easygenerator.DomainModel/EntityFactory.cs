@@ -46,7 +46,8 @@ namespace easygenerator.DomainModel
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs,  bool? newEditor = true, bool isNewEditorByDefault = true);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP,
+            ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor = true, bool isNewEditorByDefault = true);
         LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user);
         PasswordRecoveryTicket PasswordRecoveryTicket();
         EmailConfirmationTicket EmailConfirmationTicket();
@@ -172,7 +173,7 @@ namespace easygenerator.DomainModel
 
         public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor, bool isNewEditorByDefault = true)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, newEditor);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, false, newEditor);
         }
 
         public LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user)
@@ -190,7 +191,7 @@ namespace easygenerator.DomainModel
             return new EmailConfirmationTicket();
         }
 
-		public SamlIdPUserInfo SamlIdPUserInfo(SamlIdentityProvider samlIdP, User user)
+        public SamlIdPUserInfo SamlIdPUserInfo(SamlIdentityProvider samlIdP, User user)
         {
             return new SamlIdPUserInfo(samlIdP, user);
         }

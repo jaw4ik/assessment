@@ -12,9 +12,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return new CourseCollaborator(CourseObjectMother.Create(), UserEmail, false, CreatedBy);
         }
 
-        public static CourseCollaborator Create(Course course, string userEmail, string createdBy = CreatedBy)
+        public static CourseCollaborator Create(Course course, string userEmail, bool isAdmin = false, string createdBy = CreatedBy)
         {
-            return new CourseCollaborator(course, userEmail, false, createdBy);
+            return new CourseCollaborator(course, userEmail, isAdmin, createdBy);
         }
 
         public static CourseCollaborator CreateWithCourse(Course course)
