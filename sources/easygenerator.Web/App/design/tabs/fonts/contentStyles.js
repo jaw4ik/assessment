@@ -24,29 +24,29 @@ export default class ContentStyles {
         let elements = Array.isArray(settings.fonts) ? settings.fonts : Array.isArray(defaults.fonts) ? defaults.fonts : [];
 
         let supportedElements = _.filter(elements, element => {
-            return element.key != "main-font";
+            return element.key !== 'main-font';
         });
 
-        let mainFontSettings =  _.find(elements, element =>{
-            return element.key == "main-font"
+        let mainFontSettings =  _.find(elements, element => {
+            return element.key === 'main-font';
         });
 
-        let mainFontFamily = mainFontSettings ? mainFontSettings.fontFamily : null ;
+        let mainFontFamily = mainFontSettings ? mainFontSettings.fontFamily : null;
 
         let generalFontSettings = _.find(settings.branding.colors, e => {
-            return e.key === "@text-color"
+            return e.key === '@text-color';
         });
 
         let generalFontColor = generalFontSettings ? generalFontSettings.value : null;
 
         let secondaryFontSettings = _.find(settings.branding.colors, e => {
-            return e.key === "@secondary-color"
+            return e.key === '@secondary-color';
         });
 
         let secondaryFontColor = secondaryFontSettings ? secondaryFontSettings.value : null;
 
-        let contentBodySettings = _.find(settings.branding.colors, e =>{
-            return e.key === "@content-body-color"
+        let contentBodySettings = _.find(settings.branding.colors, e => {
+            return e.key === '@content-body-color';
         });
 
         this.contentBodyColor = contentBodySettings ? contentBodySettings.value : null;

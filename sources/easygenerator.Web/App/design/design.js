@@ -107,10 +107,11 @@ class Design{
             this.subscriptions.push(app.on(constants.messages.course.templateUpdated + courseId).then(template => this.templateUpdated(template)));
             this.subscriptions.push(app.on(constants.messages.course.templateUpdatedByCollaborator).then(course => this.templateUpdatedByCollaborator(course)));
             this.subscriptions.push(app.on(themesEvents.selected).then(theme => this.themeSelected(theme)));
-            this.subscriptions.push(bus.on('all').then(() => this.settingsChanged()));
+            this.subscriptions.push(bus.on('all').then(() => this.brandingSettingsChanged()));
             
             this.subscriptions.push(app.on('font:settings-changed').then(() => this.fontSettingsChanged()));
             this.subscriptions.push(app.on('text-color:changed').then(color => this.textColorChanged(color)));
+            this.subscriptions.push(app.on('button-text-color:changed').then(color => this.buttonTextColorChanged(color)));
             this.subscriptions.push(app.on(themesEvents.create).then(title => this.saveAsNewTheme(title)));
             this.subscriptions.push(app.on(themesEvents.update).then(() => this.updateTheme()));
             this.subscriptions.push(app.on(themesEvents.discardChanges).then(() => this.discardThemeChanges()));
@@ -318,7 +319,7 @@ class Design{
             .catch(() => notify.error());
     }
 
-    settingsChanged() {
+    brandingSettingsChanged() {
 
         this.settings = this.settings || {};
         this.settings.branding = this.settings.branding || {};
@@ -327,23 +328,7 @@ class Design{
             url: this.brandingTab.logo.imageUrl()
         };
 
-        let colorsInFontsTab = _.map(this.fontsTab.generalStyles.colors(), item => { 
-            return {
-                key: item.key, 
-                value: item.value()
-            }
-        });
-
-        let isChangedInFontsTab = compareArrays(colorsInFontsTab, this.settings.branding.colors);
-
-        if(isChangedInFontsTab){
-            _.each(colorsInFontsTab, item => {
-                var element = _.find(this.settings.branding.colors, color => color.key === item.key);
-                element.value = item.value;
-            });
-        };
-
-        if(!isChangedInFontsTab && this.brandingTab.colors.colors().length){
+        if(this.brandingTab.colors.colors().length){
             this.settings.branding.colors = this.brandingTab.colors.colors().map(c => {
                 return {
                     key: c.key,
@@ -407,7 +392,22 @@ class Design{
         this.themesTab.hasUnsavedChanges(true);
         return this.saveSettings();
     }
-    
+
+    buttonTextColorChanged(color) {
+        _.each(this.settings.fonts, f => {
+            if (f.isGeneralColorSelected && f.key !== 'links') {
+                f.color = color;
+            }
+        });
+        let textColor = _.find(this.settings.branding.colors, c => {
+            return c.key === '@button-text-color';
+        });
+        textColor.value = color;
+
+        this.themesTab.hasUnsavedChanges(true);
+        return this.saveSettings();
+    }    
+
     showThemesUpgradeDialog() {
         upgradeDialog.show(constants.dialogs.upgrade.settings.saveThemes);
     }
@@ -498,15 +498,19 @@ function deepExtend(destination, source) {
     }
 
     for (var property in source) {
+        if (!source.hasOwnProperty(property)) {
+            continue;
+        }
+
         if (source[property] && source[property].constructor &&
          (source[property].constructor === Object || source[property].constructor === Array)) {
-            if (destination[property]) {
+            if (destination.hasOwnProperty(property)) {
                 deepExtend(destination[property], source[property]);
             } else {
                 destination[property] = source[property];
             }
         } else {
-            destination[property] = destination[property] || source[property];
+            destination[property] = destination.hasOwnProperty(property) ? destination[property] : source[property];
         }
     }
     return destination;

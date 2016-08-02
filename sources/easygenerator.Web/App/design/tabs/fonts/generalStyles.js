@@ -36,13 +36,13 @@ export default class GeneralStyles {
         let fonts = Array.isArray(settings.fonts) ? settings.fonts : Array.isArray(defaults.fonts) ? defaults.fonts : [];
 
         let supportedColors = _.filter(colors, color =>{
-            return color.key ==="@text-color" || color.key === "@button-text-color";
+            return color.key ==='@text-color' || color.key === '@button-text-color';
         });
 
         this.colors(_.map(supportedColors, c => new Color(c)));
 
-        let mainFont = _.find(fonts, f =>{
-            return f.key ==="main-font"
+        let mainFont = _.find(fonts, f => {
+            return f.key === 'main-font';
         })
 
         this.mainFont = mainFont ? new Font(mainFont) : null;
@@ -70,7 +70,7 @@ export class Font{
         this.save();
     }
     save(){
-        eventTracker.publish("Change general font styles");
+        eventTracker.publish('Change general font styles');
         app.trigger('font:settings-changed');
     }
 }
@@ -106,34 +106,34 @@ export class ContentElement extends Font{
         this.fontWeight = ko.observable(spec.fontWeight || null);
 
         this.isBold = ko.computed(() => {
-            return this.fontWeight() == 700;
-        })
+            return this.fontWeight() === '700';
+        });
 
         this.fontStyle = ko.observable(spec.fontStyle || null);
         this.isItalic = ko.computed(() => {
-            return this.fontStyle() == 'italic';
-        })
+            return this.fontStyle() === 'italic';
+        });
 
         this.textDecoration = ko.observable(spec.textDecoration || null);
         this.isUnderlined = ko.computed(() => {
-            return this.textDecoration() == 'underline';
-        })
+            return this.textDecoration() === 'underline';
+        });
         app.on('main-font:changed').then(font => {
             this.generalFontChanged(font);
         });
-        app.on('text-color:changed').then(color =>{
-            if(this.key ==='links'){
-                return
+        app.on('text-color:changed').then(color => {
+            if (this.key === 'links') {
+                return;
             }
             this.fontColorChanged(color);
-        })
+        });
     }
 
     show() {
-        if(this.isVisible()){
-            return
+        if(this.isVisible()) {
+            return;
         }
-        this.isVisible(!this.isVisible())
+        this.isVisible(!this.isVisible());
     }
 
     useGeneral(){
@@ -238,8 +238,8 @@ export class ContentElement extends Font{
             this.originalSize = this.size();
             this.save();
         }
-        else{
-            this.size(this.originalSize)
+        else {
+            this.size(this.originalSize);
         }
     }
 
