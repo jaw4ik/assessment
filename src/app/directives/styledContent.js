@@ -18,7 +18,11 @@
                     $('img', $element).each(function (index, image) {
                         var $image = $(image),
                             $wrapper = $(imageWrapper).css('float', $image.css('float'));
-                        
+
+                        if ($image.closest('.cropped-image').length > 0) {
+                            return;
+                        }
+
                         $image.height('auto');
                         $image.css('float', 'none');
                         $image.wrap($wrapper);

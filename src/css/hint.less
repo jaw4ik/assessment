@@ -90,17 +90,26 @@
             position: relative;
 
             .hint-content-container {
-                padding: 100px;
+                padding: 100px 50px;
 
                 &.loaded {
-                    padding: 50px;
+                    padding-top: 20px;
+                    padding-bottom: 20px;
                 }
-            }
 
-            .hint-content {
-                position: relative;
-                word-wrap: break-word;
-                opacity: 0;
+                .hint-content {
+                    position: relative;
+                    word-wrap: break-word;
+                    opacity: 0;
+
+                    &:first-child{
+                        margin-top: 30px;
+                    }
+
+                    &:not(:last-child){
+                        margin-bottom: 50px;
+                    }
+                }
             }
 
             .hotspot-on-image-container{
@@ -109,10 +118,6 @@
 				& > span {
 					line-height: 0;
 				}
-            }
-
-            .hint-content + .hint-content {
-                padding-top: 60px;
             }
 
             .hint-footer {

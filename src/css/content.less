@@ -6,7 +6,7 @@
 @thead-background: #a8c4da;
 @tbody-background: #f3f3f3;
 @bold-font: 'RobotoSlabBold';
-@wrapper-border-radius: 10px;
+@wrapper-border-radius: 3px;
 @main-color: #43aaa3;
 @mark-font-color: #fff;
 
@@ -78,7 +78,7 @@
     }
 
     p {
-        .basic;
+        .line-height;
         .margin-bottom;
     }
 
@@ -190,9 +190,9 @@
     }
 
     .image-wrapper {
-        max-width: 100%;
         .wrapper;
-        margin: 30px 0;
+        max-width: 100%;
+        margin: 20px 0;
         max-width: 100%;
         clear: both;
 
@@ -220,6 +220,11 @@
 
     .image-wrapper ~ .image-wrapper {
         clear: none;
+    }
+
+    .cropped-image {
+        border-radius: @wrapper-border-radius;
+        z-index: 1;
     }
 
     iframe {
