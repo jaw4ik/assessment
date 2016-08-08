@@ -80,7 +80,7 @@ body {
         border-color: shade(@main-color,10%);
         background-color: @main-color;
 
-        &:not(.disabled):hover {
+        &:not(.disabled):hover, &:not(.disabled):focus {
             background-color: shade(@main-color,10%);
         }
     }
@@ -89,7 +89,7 @@ body {
         border-color: @main-color;
         color: @main-color;
 
-        &:not(.disabled):hover {
+        &:not(.disabled):hover, &:not(.disabled):focus {
             color: @button-text-color;
             background-color: @main-color;
         }
@@ -98,43 +98,44 @@ body {
     &.link {
         color: fade(@text-color, 60%);
 
-        &:not(.disabled):hover {
+        &:not(.disabled):hover, &:not(.disabled):focus {
             color: fade(@text-color, 90%);
             border-bottom-color: @text-color;
         }
     }
-    
-    &.check{
+
+    &.check {
         border-color: fade(@main-color, 10%);
         color: fade(@text-color, 70%);
-        
-        &:hover{
+
+        &:hover, &:focus {
             border-color: fade(@main-color, 20%);
             color: fade(@text-color, 80%);
-            &:before{
-                border-color: @main-color; 
+
+            &:before {
+                border-color: @main-color;
             }
         }
-        
-        &:before{
+
+        &:before {
             border-color: fade(@text-color, 20%);
         }
-        
-        &.active{
-            
-            &:before{
-                border-color: @main-color; 
-                background-color: @main-color; 
+
+        &.active {
+
+            &:before {
+                border-color: @main-color;
+                background-color: @main-color;
             }
         }
     }
-    
-    &.transparent{
+
+    &.transparent {
         background-color: transparent;
         border-color: fade(@main-color, 30%);
         color: @main-color;
-        
-        &:hover{
+
+        &:hover, &:focus {
             border-color: @main-color;
         }
     }
@@ -144,30 +145,30 @@ body {
     h2 {
         color: @text-color;
     }
-    
-    h3{
+
+    h3 {
         color: @text-color;
     }
-    
-    h4{
+
+    h4 {
         color: fade(@text-color, 70%);
     }
 
     footer {
         color: fade(@text-color,50%);
     }
-    
-    .icon-container{
+
+    .icon-container {
         color: @main-color;
         background: fade(@main-color, 20%);
     }
 
     form {
         .form-row {
-            h4{
+            h4 {
                 color: fade(@text-color, 70%);
             }
-            
+
             input {
                 color: @text-color;
 
@@ -175,40 +176,41 @@ body {
                     color: fade(@text-color,50%);
                 }
             }
-            
-            .link{
-                a{
+
+            .link {
+                a {
                     color: fade(@main-color, 70%);
-                    
-                    &:hover{
+
+                    &:hover, &:focus {
                         color: @main-color;
                         text-decoration: underline;
                     }
                 }
             }
-            
-            .checkbox-container{
+
+            .checkbox-container {
                 color: fade(@text-color, 50%);
-                
-                &:hover{
+
+                &:hover, &:focus {
                     color: fade(@text-color, 70%);
                 }
-                
-                &.active{
-                    
-                    .checkbox-box{
+
+                &.active {
+
+                    .checkbox-box {
                         background-color: @main-color;
                         border-color: @main-color;
                     }
                 }
             }
-            
-            .secret-link-confirm-container{
+
+            .secret-link-confirm-container {
                 color: fade(@text-color, 70%);
-                
-                .secret-link-confirm-wrapper{
+
+                .secret-link-confirm-wrapper {
                     background-color: fade(@main-color, 10%);
-                    .icon-envelope{
+
+                    .icon-envelope {
                         color: fade(@main-color, 70%);
                     }
                 }
@@ -221,14 +223,18 @@ body {
     background-color: tint(@main-color,20%);
     color: @button-text-color;
 
-    &:not(.disabled):hover {
+    &:not(.disabled):hover, &:not(.disabled):focus {
         background-color: @main-color;
+    }
+
+    &:not(.disabled):focus {
+        box-shadow: 0 0 0 2px shade(@main-color,10%);
     }
 }
 
 .question-navigation-bar {
     a {
-        &:not(.disabled):hover {
+        &:not(.disabled):hover, &:not(.disabled):focus {
             &:before, &:after {
                 border-color: @main-color;
             }
@@ -297,7 +303,7 @@ body {
         .h2-styled-text;
         color: @Heading2-color;
         background-color: @Heading2-textBackgroundColor;
-        
+
         mark {
             .h2-styled-text;
         }
@@ -447,8 +453,14 @@ body {
     background-color: fade(@main-color,10%);
     color: @text-color;
 
-    &:hover {
-        background: fade(@main-color,20%);
+    &.enabled {
+        &:hover, &:focus {
+            background: fade(@main-color,20%);
+
+            .radio-icon {
+                box-shadow: 0 0 0 2px @main-color inset;
+            }
+        }
     }
 
     &.checked {
@@ -474,7 +486,7 @@ body {
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         background-color: fade(@main-color,20%);
     }
 }
@@ -483,8 +495,14 @@ body {
     background-color: fade(@main-color,10%);
     color: @text-color;
 
-    &:hover {
-        background: fade(@main-color,20%);
+    &.enabled {
+        &:hover, &:focus {
+            background: fade(@main-color,20%);
+
+            .checkbox-icon {
+                box-shadow: 0 0 0 2px @main-color inset;
+            }
+        }
     }
 
     &.checked {
@@ -516,7 +534,7 @@ body {
                 }
             }
 
-            &:hover {
+            &:hover, &:focus {
                 background-color: shade(@main-color,10%);
 
                 &:first-child {
@@ -533,24 +551,32 @@ body {
     .select-image {
 
         .select-image-wrapper {
-            border: 3px solid tint(@main-color,20%);
-
-            &:hover {
-                border: 3px solid @main-color;
-                box-shadow: 0 0 10px 2px fade(@main-color, 75%);
+            .preview-thumbnail {
+                border: 3px solid tint(@main-color,20%);
             }
+        }
 
-            button {
-                &:hover {
-                    background-color: @main-color;
-                    border-color: @main-color;
-                    color: @button-text-color;
+        &.enabled {
+            .select-image-wrapper {
+                .preview-thumbnail {
+                    &:hover, &:focus {
+                        border: 3px solid @main-color;
+                        box-shadow: 0 0 10px 2px fade(@main-color, 75%);
+                    }
+                }
+
+                button {
+                    &:hover, &:focus {
+                        background-color: @main-color;
+                        border-color: @main-color;
+                        color: @button-text-color;
+                    }
                 }
             }
         }
 
         &.checked {
-            .select-image-wrapper {
+            .preview-thumbnail {
                 border: 3px solid @main-color;
             }
         }
@@ -569,7 +595,7 @@ body {
             background-color: fade(@main-color, 10%);
         }
 
-        &:hover {
+        &:hover, &:focus {
             .statement-label, .statement-option, .statement-option-separator-wrapper {
                 background-color: fade(@main-color, 20%);
             }
@@ -579,7 +605,7 @@ body {
             .statement-label, .statement-option, .statement-option-separator-wrapper {
                 background-color: fade(@main-color, 30%);
 
-                &:hover {
+                &:hover, &:focus {
                     background-color: fade(@main-color, 30%);
                 }
             }
@@ -588,7 +614,7 @@ body {
 
     .radio-icon-wrapper {
         .radio-icon {
-            &:hover {
+            &:hover, &:focus {
                 box-shadow: 0 0 0 2px @main-color inset;
             }
 
@@ -613,7 +639,7 @@ body {
 .drag-and-drop-text-draggable {
     background-color: @main-color;
 
-    &.ui-draggable-dragging, &:hover {
+    &.ui-draggable-dragging, &:hover, &:focus {
         background-color: shade(@main-color,10%);
     }
 }
@@ -713,7 +739,7 @@ body {
     background-color: @main-color;
     font-family: @main-font-fontFamily;
 
-    &:not(.disabled):hover {
+    &:not(.disabled):hover, &:not(.disabled):focus {
         background-color: shade(@main-color, 10%);
     }
 }
@@ -722,31 +748,34 @@ body {
     background-color: fade(@content-body-color,90%);
 
     .popup {
-        
+
         article {
             background-color: @content-body-color;
-            
-            .icon-container{
-                
-                .icon-wrapper{
+
+            .icon-container {
+
+                .icon-wrapper {
                     color: @main-color;
                     background-color: fade(@main-color, 10%);
                 }
             }
-            
-            header{
-                p{
+
+            header {
+                p {
                     color: fade(@text-color, 50%);
                 }
-                .icon-container{
+
+                .icon-container {
                     color: @main-color;
                     background: fade(@main-color, 20%);
                 }
             }
-            aside{
+
+            aside {
                 background-color: fade(@main-color, 20%);
                 color: @text-color;
-                .icon-envelope{
+
+                .icon-envelope {
                     color: @main-color;
                 }
             }
@@ -754,47 +783,49 @@ body {
 
         footer {
             background-color: fade(@main-color, 10%);
-            
-            &.background-transparent{
+
+            &.background-transparent {
                 background-color: transparent;
             }
         }
-        .popup-switch-options{
+
+        .popup-switch-options {
             color: fade(@text-color, 50%);
         }
-        .popup-table{
-            .popup-cell{
-                p{
+
+        .popup-table {
+            .popup-cell {
+                p {
                     color: fade(@text-color, 70%);
                 }
-                
-                &.seperator{
+
+                &.seperator {
                     color: fade(@text-color, 50%);
                 }
-                
-                .icon-container{
+
+                .icon-container {
                     color: @main-color;
                     background: fade(@main-color, 10%);
                 }
-                
-                .input-wrapper{
-                    [class^="icon-"], [class*=" icon-"]{
+
+                .input-wrapper {
+                    [class^="icon-"], [class*=" icon-"] {
                         color: fade(@text-color, 50%);
                     }
                 }
-                
-                input{
+
+                input {
                     color: fade(@text-color, 90%);
                     background-color: fade(@main-color, 10%);
 
-                    &::selection{
+                    &::selection {
                         background-color: @main-color;
-                        color:@button-text-color;
+                        color: @button-text-color;
                     }
-                    
-                    &::-moz-selection{
+
+                    &::-moz-selection {
                         background-color: @main-color;
-                        color:@button-text-color;
+                        color: @button-text-color;
                     }
                 }
             }
@@ -811,7 +842,7 @@ body {
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         .expand-button {
             background-color: @main-color;
 
@@ -838,7 +869,7 @@ body {
 
 .sections-list-item {
 
-    &:not(.disabled):hover {
+    &:not(.disabled):hover, &:not(.disabled):focus {
         border-color: @main-color;
     }
 
@@ -848,7 +879,7 @@ body {
 
     &.List {
 
-        &:not(.disabled):hover {
+        &:not(.disabled):hover, &:not(.disabled):focus {
             box-shadow: 0 0px 0px 2px @main-color;
         }
 
@@ -870,7 +901,7 @@ body {
     }
 
     &.Tiles {
-        &:hover {
+        &:hover, &:focus {
             box-shadow: 0px 0px 0px 3px @main-color;
         }
     }
@@ -881,7 +912,7 @@ body {
         .exit-course-link {
             color: fade(@text-color, 80%);
 
-            &:hover {
+            &:hover, &:focus {
                 border-color: fade(@text-color, 80%);
             }
         }
@@ -890,14 +921,22 @@ body {
 
 .tree-of-content-panel {
     .tree-of-content-panel-tail {
-        background-color: @main-color;
+        background-color: tint(@main-color,20%);
 
-        &:hover {
-            background-color: shade(@main-color,10%);
+        &:hover, &:focus {
+            background-color: @main-color;
         }
 
         .tree-of-content-panel-tail-icon {
             color: @content-body-color;
+        }
+    }
+
+    &:not(.expanded) {
+        .tree-of-content-panel-tail {
+            &:focus {
+                box-shadow: 0 0 0 2px shade(@main-color,10%), 3px 4px 1px 0 rgba(0,0,0,.2);
+            }
         }
     }
 
@@ -909,8 +948,23 @@ body {
                 color: fade(@text-color,80%);
             }
 
-            &:hover {
+            &:hover, &:focus {
                 background-color: shade(@content-body-color,15%);
+            }
+        }
+    }
+
+    &.keyboard-navigation {
+        .tree-of-content-container {
+            .tree-of-content {
+                .tree-of-content-section-item {
+                    .tree-of-content-section-title-wrapper, .tree-of-content-question-title-wrapper {
+                        &:last-child:focus,
+                        &:focus {
+                            box-shadow: inset 0 0 0 2px @main-color;
+                        }
+                    }
+                }
             }
         }
     }
@@ -946,7 +1000,8 @@ body {
                         color: fade(@text-color, 80%);
                     }
 
-                    &:last-child:hover, &:hover {
+                    &:last-child:hover,
+                    &:hover {
                         border-color: @main-color;
                         color: @text-color;
 
@@ -982,7 +1037,8 @@ body {
                         }
 
                         &:last-child {
-                            .tree-of-content-question-title-wrapper:hover {
+                            .tree-of-content-question-title-wrapper:hover,
+                            .tree-of-content-question-title-wrapper:focus {
                                 border-color: @main-color;
                             }
                         }
@@ -1005,7 +1061,7 @@ body {
                             color: fade(@text-color,70%);
                         }
 
-                        &:hover {
+                        &:hover, &:focus {
                             .tree-of-content-header-btn-icon {
                                 color: @text-color;
                             }
@@ -1040,20 +1096,20 @@ body {
     }
 }
 
-.social-networks-btn{
+.social-networks-btn {
     color: fade(@main-color, 70%);
-    
-    &:hover{
+
+    &:hover, &:focus {
         color: @main-color;
     }
 }
 
-.helper-tooltip-container{
-    
-    .material-icons{
+.helper-tooltip-container {
+
+    .material-icons {
         color: fade(@text-color, 50%);
-        
-        &:hover{
+
+        &:hover, &:focus {
             color: @main-color;
         }
     }
@@ -1065,9 +1121,9 @@ body {
     }
 }
 
-.blockout{
+.blockout {
 
-    .blockout-text{
+    .blockout-text {
         background-color: fade(@main-color, 20%);
         color: fade(@text-color, 80%);
     }
