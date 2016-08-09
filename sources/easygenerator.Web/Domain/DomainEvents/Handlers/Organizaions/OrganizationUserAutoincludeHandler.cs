@@ -1,15 +1,15 @@
-﻿using easygenerator.DomainModel.Entities.Organizations;
+﻿using System.Linq;
+using System.Net.Mail;
+using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.OrganizationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Domain.DomainOperations;
-using System.Linq;
-using System.Net.Mail;
 using WebGrease.Css.Extensions;
 
-namespace easygenerator.Web.Domain.DomainEvents.Handlers
+namespace easygenerator.Web.Domain.DomainEvents.Handlers.Organizaions
 {
     public class OrganizationUserAutoincludeHandler :
         IDomainEventHandler<UserSignedUpEvent>,

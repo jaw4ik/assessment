@@ -386,8 +386,8 @@
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Domain\DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
     <Compile Include="Domain\DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
-    <Compile Include="Domain\DomainEvents\Handlers\OrganizationSettingsApplicationHandler.cs" />
-    <Compile Include="Domain\DomainEvents\Handlers\OrganizationUserAutoincludeHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Organizaions\OrganizationSettingsApplicationHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Organizaions\OrganizationUserAutoincludeHandler.cs" />
     <Compile Include="Controllers\SAML\IdentityProvider\IdentityProviderController.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderController.cs" />
     <Compile Include="Domain\DomainEvents\Handlers\PublicationServerUserHandler.cs" />

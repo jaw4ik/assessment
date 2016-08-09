@@ -1,5 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Domain.DomainOperations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,144 +18,119 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             _userOperations = new UserOperations();
         }
 
-        #region ApplyOrganizationSettings
+        #region ApplyOrganizationSettingsSubscription
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldNotUpdateUserSubscription_WhenOrganizationSettingsSubscriptionIsNotDefined()
+        public void ApplyOrganizationSettingsSubscription_ShouldNotUpdateUserSubscription_WhenUserSubscriptionIsActual()
         {
             //Arrange
             var user = Substitute.For<User>();
-            var settings = Substitute.For<OrganizationSettings>();
-            settings.GetSubscription().Returns(null as UserSubscription);
-
-            //Act
-            _userOperations.ApplyOrganizationSettings(user, settings);
-
-            //Assert
-            AssertUserSubscriptionWasNotUpdated(user);
-        }
-
-        [TestMethod]
-        public void ApplyOrganizationSettings_ShouldNotUpdateUserSubscription_WhenUserSubscriptionIsActual()
-        {
-            //Arrange
-            var user = Substitute.For<User>();
-            var settings = Substitute.For<OrganizationSettings>();
             var accessType = AccessType.Trial;
             var expirationDate = DateTime.MinValue;
-            settings.GetSubscription().Returns(new UserSubscription(accessType, expirationDate));
+            var subscription = new UserSubscription(accessType, expirationDate);
             user.AccessType.Returns(accessType);
             user.ExpirationDate.Returns(expirationDate);
 
             //Act
-            _userOperations.ApplyOrganizationSettings(user, settings);
+            _userOperations.ApplyOrganizationSettingsSubscription(user, subscription);
 
             //Assert
             AssertUserSubscriptionWasNotUpdated(user);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsFree()
+        public void ApplyOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsFree()
         {
-            AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType.Free);
+            AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType.Free);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsTrial()
+        public void ApplyOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsTrial()
         {
-            AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType.Trial);
+            AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType.Trial);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsAcademy()
+        public void ApplyOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsAcademy()
         {
-            AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType.Academy);
+            AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType.Academy);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsAcademyBT()
+        public void ApplyOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsAcademyBT()
         {
-            AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType.AcademyBT);
+            AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType.AcademyBT);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsPlus()
+        public void ApplyOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsPlus()
         {
-            AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType.Plus);
+            AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType.Plus);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsStarter()
+        public void ApplyOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenOrganizationSettingsAccessTypeIsStarter()
         {
-            AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType.Starter);
+            AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType.Starter);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldSetUserPersonalSubscription_WhenUserPersonalSubscriptionIsNotDefined()
+        public void ApplyOrganizationSettingsSubscription_ShouldSetUserPersonalSubscription_WhenUserPersonalSubscriptionIsNotDefined()
         {
             //Arrange
             var user = Substitute.For<User>();
             var userSettings = Substitute.For<UserSettings>();
             user.Settings.Returns(userSettings);
-            var settings = Substitute.For<OrganizationSettings>();
             var accessType = AccessType.Starter;
             var expirationDate = DateTime.MinValue;
             user.AccessType.Returns(accessType);
             user.ExpirationDate.Returns(expirationDate);
 
-            settings.GetSubscription().Returns(new UserSubscription(AccessType.Academy, DateTime.MaxValue));
-
             userSettings.GetPersonalSubscription().Returns(null as UserSubscription);
 
             //Act
-            _userOperations.ApplyOrganizationSettings(user, settings);
+            _userOperations.ApplyOrganizationSettingsSubscription(user, new UserSubscription(AccessType.Academy, DateTime.MaxValue));
 
             //Assert
             userSettings.Received().UpdatePersonalSubscription(accessType, expirationDate);
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldSetUserPersonalSubscription_WithMinExpirationDate_WhenUserPersonalSubscriptionIsNotDefined_AndUserExpirationDateIsNull()
+        public void ApplyOrganizationSettingsSubscription_ShouldSetUserPersonalSubscription_WithMinExpirationDate_WhenUserPersonalSubscriptionIsNotDefined_AndUserExpirationDateIsNull()
         {
             //Arrange
             var user = Substitute.For<User>();
             var userSettings = Substitute.For<UserSettings>();
             user.Settings.Returns(userSettings);
-            var settings = Substitute.For<OrganizationSettings>();
             var accessType = AccessType.Starter;
             user.AccessType.Returns(accessType);
             user.ExpirationDate.Returns(null as DateTime?);
 
-            settings.GetSubscription().Returns(new UserSubscription(AccessType.Academy, DateTime.MaxValue));
-
             userSettings.GetPersonalSubscription().Returns(null as UserSubscription);
 
             //Act
-            _userOperations.ApplyOrganizationSettings(user, settings);
+            _userOperations.ApplyOrganizationSettingsSubscription(user, new UserSubscription(AccessType.Academy, DateTime.MaxValue));
 
             //Assert
             userSettings.Received().UpdatePersonalSubscription(accessType, DateTimeWrapper.MinValue());
         }
 
         [TestMethod]
-        public void ApplyOrganizationSettings_ShouldNotUpdatetUserPersonalSubscription_WhenUserPersonalSubscriptionIsDefinedAlready()
+        public void ApplyOrganizationSettingsSubscription_ShouldNotUpdatetUserPersonalSubscription_WhenUserPersonalSubscriptionIsDefinedAlready()
         {
             //Arrange
             var user = Substitute.For<User>();
             var userSettings = Substitute.For<UserSettings>();
             user.Settings.Returns(userSettings);
-            var settings = Substitute.For<OrganizationSettings>();
             var accessType = AccessType.Starter;
             var expirationDate = DateTime.MinValue;
             user.AccessType.Returns(accessType);
             user.ExpirationDate.Returns(expirationDate);
 
-            settings.GetSubscription().Returns(new UserSubscription(AccessType.Academy, DateTime.MaxValue));
-
             userSettings.GetPersonalSubscription().Returns(new UserSubscription(AccessType.AcademyBT, DateTime.MaxValue));
 
             //Act
-            _userOperations.ApplyOrganizationSettings(user, settings);
+            _userOperations.ApplyOrganizationSettingsSubscription(user, new UserSubscription(AccessType.Academy, DateTime.MaxValue));
 
             //Assert
             userSettings.DidNotReceive().UpdatePersonalSubscription(Arg.Any<AccessType>(), Arg.Any<DateTime>());
@@ -164,10 +138,10 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
 
         #endregion
 
-        #region DiscardOrganizationSettings
+        #region DiscardOrganizationSettingsSubscription
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldNotUpdateUserSubscriotion_WhenUserSettingsPersonalSubscriptionIsNotDefined()
+        public void DiscardOrganizationSettingsSubscription_ShouldNotUpdateUserSubscriotion_WhenUserSettingsPersonalSubscriptionIsNotDefined()
         {
             //Arrange
             var user = Substitute.For<User>();
@@ -176,14 +150,14 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             settings.GetPersonalSubscription().Returns(null as UserSubscription);
 
             //Act
-            _userOperations.DiscardOrganizationSettings(user);
+            _userOperations.DiscardOrganizationSettingsSubscription(user);
 
             //Assert
             AssertUserSubscriptionWasNotUpdated(user);
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldNotResetUserSettingsPersonalSubscription_WhenUserSettingsPersonalSubscriptionIsNotDefined()
+        public void DiscardOrganizationSettingsSubscription_ShouldNotResetUserSettingsPersonalSubscription_WhenUserSettingsPersonalSubscriptionIsNotDefined()
         {
             //Arrange
             var user = Substitute.For<User>();
@@ -192,51 +166,51 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             settings.GetPersonalSubscription().Returns(null as UserSubscription);
 
             //Act
-            _userOperations.DiscardOrganizationSettings(user);
+            _userOperations.DiscardOrganizationSettingsSubscription(user);
 
             //Assert
             settings.DidNotReceive().ResetPersonalSubscription();
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsFree()
+        public void DiscardOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsFree()
         {
-            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType.Free);
+            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType.Free);
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsTrial()
+        public void DiscardOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsTrial()
         {
-            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType.Trial);
+            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType.Trial);
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsAcademy()
+        public void DiscardOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsAcademy()
         {
-            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType.Academy);
+            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType.Academy);
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsAcademyBT()
+        public void DiscardOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsAcademyBT()
         {
-            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType.AcademyBT);
+            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType.AcademyBT);
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsPlus()
+        public void DiscardOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsPlus()
         {
-            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType.Plus);
+            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType.Plus);
         }
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsStarter()
+        public void DiscardOrganizationSettingsSubscription_ShouldUpdateUserSubscription_WhenUserSettingsPersonalAccessTypeIsStarter()
         {
-            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType.Starter);
+            AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType.Starter);
         }
 
 
         [TestMethod]
-        public void DiscardOrganizationSettings_ShouldResetUserSettingsPersonalSubscription()
+        public void DiscardOrganizationSettingsSubscription_ShouldResetUserSettingsPersonalSubscription()
         {
             //Arrange
             var user = Substitute.For<User>();
@@ -245,7 +219,7 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             settings.GetPersonalSubscription().Returns(new UserSubscription(AccessType.Free, DateTime.MinValue));
 
             //Act
-            _userOperations.DiscardOrganizationSettings(user);
+            _userOperations.DiscardOrganizationSettingsSubscription(user);
 
             //Assert
             settings.Received().ResetPersonalSubscription();
@@ -255,23 +229,21 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
 
         #region Helper methods
 
-        private void AssertUserSubscriptionUpdatedOnApplyOrganizationSettings(AccessType accessType)
+        private void AssertUserSubscriptionUpdatedOnApplyOrganizationSettingsSubscription(AccessType accessType)
         {
             //Arrange
             var user = Substitute.For<User>();
             user.Settings.Returns(Substitute.For<UserSettings>());
-            var settings = Substitute.For<OrganizationSettings>();
             var expirationDate = DateTime.MinValue;
-            settings.GetSubscription().Returns(new UserSubscription(accessType, expirationDate));
 
             //Act
-            _userOperations.ApplyOrganizationSettings(user, settings);
+            _userOperations.ApplyOrganizationSettingsSubscription(user, new UserSubscription(accessType, expirationDate));
 
             //Assert
             AssertUserSubscriptionUpdated(user, accessType, expirationDate);
         }
 
-        private void AssertUserSubscriptionUpdatedOnDiscardOrganizationSettings(AccessType accessType)
+        private void AssertUserSubscriptionUpdatedOnDiscardOrganizationSettingsSubscription(AccessType accessType)
         {
             //Arrange
             var user = Substitute.For<User>();
@@ -281,7 +253,7 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             settings.GetPersonalSubscription().Returns(new UserSubscription(accessType, expirationDate));
 
             //Act
-            _userOperations.DiscardOrganizationSettings(user);
+            _userOperations.DiscardOrganizationSettingsSubscription(user);
 
             //Assert
             AssertUserSubscriptionUpdated(user, accessType, expirationDate);

@@ -8,7 +8,7 @@ namespace easygenerator.DataAccess.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.OrganizationSettings",
+                "dbo.OrganizationSettingsCollection",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
@@ -25,11 +25,11 @@ namespace easygenerator.DataAccess.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.OrganizationSettings", "Id", "dbo.Organizations");
-            DropIndex("dbo.OrganizationSettings", new[] { "Id" });
+            DropForeignKey("dbo.OrganizationSettingsCollection", "Id", "dbo.Organizations");
+            DropIndex("dbo.OrganizationSettingsCollection", new[] { "Id" });
             DropColumn("dbo.UserSettings", "PersonalExpirationDate");
             DropColumn("dbo.UserSettings", "PersonalAccessType");
-            DropTable("dbo.OrganizationSettings");
+            DropTable("dbo.OrganizationSettingsCollection");
         }
     }
 }

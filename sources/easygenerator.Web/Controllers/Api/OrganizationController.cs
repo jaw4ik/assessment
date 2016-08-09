@@ -10,6 +10,7 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using System;
 using System.Collections.Generic;
@@ -219,12 +220,18 @@ namespace easygenerator.Web.Controllers.Api
             {
                 Title = organization.Title,
                 EmailDomains = organization.EmailDomains,
-                Settings = new
+                Settings = organization.Settings == null ? null : new
                 {
                     AccessType = organization.Settings?.AccessType == null ?
                     null :
                     $"{organization.Settings.AccessType.Value} ({(int)organization.Settings.AccessType.Value})",
-                    ExpirationDate = organization.Settings?.ExpirationDate
+                    ExpirationDate = organization.Settings?.ExpirationDate,
+                    Templates = organization.Settings?.Templates.Select(template =>
+                        new
+                        {
+                            Name = template.Name,
+                            Id = template.Id.ToNString()
+                        })
                 }
             });
         }
@@ -274,6 +281,72 @@ namespace easygenerator.Web.Controllers.Api
                 throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
 
             organization.GetOrCreateSettings().UpdateSubscription(accessType.Value, expirationDate.Value);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/subscription/reset")]
+        public ActionResult ResetOrganizationSettingsSubscription(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.Settings?.ResetSubscription();
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/template/add")]
+        public ActionResult AddOrganizationSettingsTemplate(Organization organization, Template template)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            if (template == null)
+                throw new ArgumentException("Template with specified id does not exist", nameof(template));
+
+            organization.GetOrCreateSettings().AddTemplate(template);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/template/remove")]
+        public ActionResult RemoveOrganizationSettingsTemplate(Organization organization, Template template)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            if (template == null)
+                throw new ArgumentException("Template with specified id does not exist", nameof(template));
+
+            organization.Settings?.RemoveTemplate(template);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/templates/clear")]
+        public ActionResult ClearOrganizationSettingsTemplates(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.Settings?.ClearTemplates();
 
             return Success();
         }

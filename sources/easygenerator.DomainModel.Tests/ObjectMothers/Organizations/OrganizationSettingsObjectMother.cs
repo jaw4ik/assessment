@@ -26,6 +26,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
             return Create(OrganizationObjectMother.Create(), accessType: AccessType.Academy, expirationDate: expirationDate);
         }
 
+        public static OrganizationSettings CreateWithSubscription(AccessType accessType, DateTime expirationDate)
+        {
+            return Create(OrganizationObjectMother.Create(), accessType, expirationDate);
+        }
+
         public static OrganizationSettings Create(Organization organization, AccessType? accessType = null, DateTime? expirationDate = null)
         {
             return new OrganizationSettings(organization, accessType, expirationDate);

@@ -157,7 +157,9 @@
     <Compile Include="Events\OrganizationEvents\OrganizationEmailDomainUpdatedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationSettingsResetEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationSettingsSubscriptionResetEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationSettingsSubscriptionUpdatedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationSettingsTemplateAddedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserReinvitedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationTitleUpdatedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserRemovedEvent.cs" />

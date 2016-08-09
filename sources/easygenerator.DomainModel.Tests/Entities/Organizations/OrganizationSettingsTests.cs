@@ -1,11 +1,13 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events.OrganizationEvents;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.DomainModel.Tests.ObjectMothers.Organizations;
 using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities.Organizations
 {
@@ -32,6 +34,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
             settings.AccessType.Value.Should().Be(accessType);
             settings.ExpirationDate.HasValue.Should().BeTrue();
             settings.ExpirationDate.Value.Should().Be(expirationDate);
+            settings.Templates.Should().HaveCount(0);
         }
 
         [TestMethod]
@@ -137,7 +140,6 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
 
         #endregion
 
-
         #region GetSubscription
 
         [TestMethod]
@@ -169,5 +171,147 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         }
 
         #endregion
+
+        #region ResetSubscription
+
+        [TestMethod]
+        public void ResetSubscription_ShouldNotRaiseEvent_WhenSubscriptionIsNotDefined()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+
+            //Act
+            settings.ResetSubscription();
+
+            //Assert
+            settings.ShouldNotContainSingleEvent<OrganizationSettingsSubscriptionResetEvent>();
+        }
+
+        [TestMethod]
+        public void ResetSubscription_ShouldResetSubscription()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create(OrganizationObjectMother.Create(), AccessType.Academy, DateTimeWrapper.MinValue());
+
+            //Act
+            settings.ResetSubscription();
+
+            //Assert
+            settings.AccessType.HasValue.Should().BeFalse();
+            settings.ExpirationDate.HasValue.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void ResetSubscription_ShouldRaiseEvent()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create(OrganizationObjectMother.Create(), AccessType.Academy, DateTimeWrapper.MinValue());
+
+            //Act
+            settings.ResetSubscription();
+
+            //Assert
+            settings.ShouldContainSingleEvent<OrganizationSettingsSubscriptionResetEvent>();
+        }
+
+        #endregion
+
+        #region AddTemplate
+
+        [TestMethod]
+        public void AddTemplate_ShouldThrowException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+
+            //Act
+            Action action = () => settings.AddTemplate(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void AddTemplate_ShouldAddTemplate()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+
+            //Act
+            settings.AddTemplate(template);
+
+            //Assert
+            settings.Templates.Count().Should().Be(1);
+            settings.Templates.First().Should().Be(template);
+        }
+
+        [TestMethod]
+        public void AddTemplate_ShouldTriggerEvent()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+
+            //Act
+            settings.AddTemplate(template);
+
+            //Assert
+            settings.ShouldContainSingleEventOfType<OrganizationSettingsTemplateAddedEvent>();
+        }
+
+        #endregion
+
+        #region RemoveTemplate
+
+        [TestMethod]
+        public void RemoveTemplate_ShouldThrowException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+
+            //Act
+            Action action = () => settings.RemoveTemplate(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void RemoveTemplate_ShouldRemoveTemplate()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            settings.AddTemplate(template);
+
+            //Act
+            settings.RemoveTemplate(template);
+
+            //Assert
+            settings.Templates.Count().Should().Be(0);
+        }
+
+        #endregion
+
+        #region ClearTemplates
+
+        [TestMethod]
+        public void ClearTemplates_ShouldClearTemplates()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+            settings.AddTemplate(TemplateObjectMother.Create());
+            settings.AddTemplate(TemplateObjectMother.Create());
+
+            //Act
+            settings.ClearTemplates();
+
+            //Assert
+            settings.Templates.Count().Should().Be(0);
+        }
+
+        #endregion
+
     }
 }

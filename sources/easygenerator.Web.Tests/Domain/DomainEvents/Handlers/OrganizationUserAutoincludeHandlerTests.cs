@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq.Expressions;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Events.OrganizationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
@@ -9,10 +6,13 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.DomainModel.Tests.ObjectMothers.Organizations;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Domain.DomainEvents.Handlers;
+using easygenerator.Web.Domain.DomainEvents.Handlers.Organizaions;
 using easygenerator.Web.Domain.DomainOperations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 
 namespace easygenerator.Web.Tests.Domain.DomainEvents.Handlers
 {

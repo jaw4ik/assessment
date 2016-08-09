@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
+using Microsoft.Ajax.Utilities;
 using System.Linq;
 
 namespace easygenerator.Web.Domain.DomainOperations
@@ -11,8 +12,11 @@ namespace easygenerator.Web.Domain.DomainOperations
     public interface IOrganizationOperations
     {
         void AutoincludeUser(User user, Organization organization);
-        void ApplySettings(Organization organization, OrganizationUser user);
-        void DiscardSettings(Organization organization, OrganizationUser user);
+        void ApplySettings(OrganizationUser user, OrganizationSettings settings);
+        void DiscardSettings(OrganizationUser user);
+        void DiscardSubscriptionSettings(OrganizationUser user);
+        void ApplySubscriptionSettings(OrganizationUser user, OrganizationSettings settings);
+        void GrantTemplateAccess(OrganizationUser user, Template template);
     }
 
     public class OrganizationOperations : IOrganizationOperations
@@ -21,15 +25,13 @@ namespace easygenerator.Web.Domain.DomainOperations
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IUserOperations _userOperations;
         private readonly IUserRepository _userRepository;
-        private readonly IOrganizationUserRepository _organizationUserRepository;
 
-        public OrganizationOperations(IEntityFactory entityFactory, IMailSenderWrapper mailSenderWrapper, IUserOperations userOperations, IUserRepository userRepository, IOrganizationUserRepository organizationUserRepository)
+        public OrganizationOperations(IEntityFactory entityFactory, IMailSenderWrapper mailSenderWrapper, IUserOperations userOperations, IUserRepository userRepository)
         {
             _entityFactory = entityFactory;
             _mailSenderWrapper = mailSenderWrapper;
             _userOperations = userOperations;
             _userRepository = userRepository;
-            _organizationUserRepository = organizationUserRepository;
         }
 
         public void AutoincludeUser(User user, Organization organization)
@@ -53,38 +55,37 @@ namespace easygenerator.Web.Domain.DomainOperations
                    : OrganizationUserStatus.WaitingForEmailConfirmation);
         }
 
-        public void ApplySettings(Organization organization, OrganizationUser user)
+        public void ApplySettings(OrganizationUser user, OrganizationSettings settings)
         {
-            if (user.IsAdmin || user.Status != OrganizationUserStatus.Accepted || organization.Settings == null)
-                return;
-
-            var mainOrganization = GetMainOrganization(user.Email);
-            if (mainOrganization == null || mainOrganization.Id != organization.Id)
-                return;
-
-            _userOperations.ApplyOrganizationSettings(_userRepository.GetUserByEmail(user.Email), organization.Settings);
+            ApplySubscriptionSettings(user, settings);
+            settings.Templates.ForEach(template => GrantTemplateAccess(user, template));
         }
 
-        public void DiscardSettings(Organization organization, OrganizationUser user)
+        public void DiscardSettings(OrganizationUser user)
         {
-            if (user.IsAdmin || user.Status != OrganizationUserStatus.Accepted)
-                return;
+            DiscardSubscriptionSettings(user);
+        }
 
-            var mainOrganization = GetMainOrganization(user.Email);
-            if (mainOrganization != null && mainOrganization.Id != organization.Id && mainOrganization.Settings != null)
+        public void ApplySubscriptionSettings(OrganizationUser user, OrganizationSettings settings)
+        {
+            var subscription = settings.GetSubscription();
+            if (subscription != null && !user.IsAdmin)
             {
-                _userOperations.ApplyOrganizationSettings(_userRepository.GetUserByEmail(user.Email), mainOrganization.Settings);
-            }
-            else
-            {
-                _userOperations.DiscardOrganizationSettings(_userRepository.GetUserByEmail(user.Email));
+                _userOperations.ApplyOrganizationSettingsSubscription(_userRepository.GetUserByEmail(user.Email), subscription);
             }
         }
 
-        private Organization GetMainOrganization(string email)
+        public void GrantTemplateAccess(OrganizationUser user, Template template)
         {
-            var user = _organizationUserRepository.GetCollection(u => u.Email == email).OrderBy(u => u.CreatedOn).FirstOrDefault();
-            return user?.Organization;
+            template.GrantAccessTo(user.Email);
+        }
+
+        public void DiscardSubscriptionSettings(OrganizationUser user)
+        {
+            if (!user.IsAdmin)
+            {
+                _userOperations.DiscardOrganizationSettingsSubscription(_userRepository.GetUserByEmail(user.Email));
+            }
         }
     }
 }

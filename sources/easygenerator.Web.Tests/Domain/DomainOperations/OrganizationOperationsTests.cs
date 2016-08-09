@@ -13,8 +13,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq.Expressions;
 
 namespace easygenerator.Web.Tests.Domain.DomainOperations
 {
@@ -27,7 +25,6 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
         private IMailSenderWrapper _mailSenderWrapper;
         private IUserOperations _userOperations;
         private IUserRepository _userRepository;
-        private IOrganizationUserRepository _organizationUserRepository;
 
         [TestInitialize]
         public void Initialize()
@@ -36,214 +33,9 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _userOperations = Substitute.For<IUserOperations>();
             _userRepository = Substitute.For<IUserRepository>();
-            _organizationUserRepository = Substitute.For<IOrganizationUserRepository>();
 
-            _organizationOperations = new OrganizationOperations(_entityFactory, _mailSenderWrapper, _userOperations, _userRepository, _organizationUserRepository);
+            _organizationOperations = new OrganizationOperations(_entityFactory, _mailSenderWrapper, _userOperations, _userRepository);
         }
-
-        #region ApplySettings
-
-        [TestMethod]
-        public void ApplySettings_ShouldNotApplySettings_WhenUserIsAdmin()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.Create();
-            var user = OrganizationUserObjectMother.CreateAdmin();
-
-            //Act
-            _organizationOperations.ApplySettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettings(Arg.Any<User>(), Arg.Any<OrganizationSettings>());
-        }
-
-        [TestMethod]
-        public void ApplySettings_ShouldNotApplySettings_WhenUserIsNotAccepted()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.Create();
-            var user = OrganizationUserObjectMother.CreateWithStatus(OrganizationUserStatus.Declined);
-
-            //Act
-            _organizationOperations.ApplySettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettings(Arg.Any<User>(), Arg.Any<OrganizationSettings>());
-        }
-
-        [TestMethod]
-        public void ApplySettings_ShouldNotApplySettings_WhenOrganizationSettinsAreNull()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.Create();
-            var user = OrganizationUserObjectMother.CreateWithStatus(OrganizationUserStatus.Accepted);
-
-            //Act
-            _organizationOperations.ApplySettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettings(Arg.Any<User>(), Arg.Any<OrganizationSettings>());
-        }
-
-        [TestMethod]
-        public void ApplySettings_ShouldNotApplySettings_WhenUserMainOrganizationIsNull()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var user = OrganizationUserObjectMother.CreateWithStatus(OrganizationUserStatus.Accepted);
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>());
-
-            //Act
-            _organizationOperations.ApplySettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettings(Arg.Any<User>(), Arg.Any<OrganizationSettings>());
-        }
-
-        [TestMethod]
-        public void ApplySettings_ShouldNotApplySettings_WhenOrganizationIsNotUserMainOrganization()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var user = OrganizationUserObjectMother.CreateWithStatus(OrganizationUserStatus.Accepted);
-
-            var mainOrganization = OrganizationObjectMother.Create();
-            var organizationUser = OrganizationUserObjectMother.CreateWithOrganization(mainOrganization);
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>() { organizationUser });
-
-            //Act
-            _organizationOperations.ApplySettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettings(Arg.Any<User>(), Arg.Any<OrganizationSettings>());
-        }
-
-        [TestMethod]
-        public void ApplySettings_ShouldApplySettings()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var organizationUser = OrganizationUserObjectMother.Create(organization, status: OrganizationUserStatus.Accepted);
-            var user = UserObjectMother.Create();
-
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>() { organizationUser });
-            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
-
-            //Act
-            _organizationOperations.ApplySettings(organization, organizationUser);
-
-            //Assert
-            _userOperations.Received().ApplyOrganizationSettings(user, organization.Settings);
-        }
-
-        #endregion
-
-        #region DiscardSettings
-
-        [TestMethod]
-        public void DiscardSettings_ShouldNotDiscardSettings_WhenUserIsAdmin()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var user = OrganizationUserObjectMother.CreateAdmin();
-
-            //Act
-            _organizationOperations.DiscardSettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceive().DiscardOrganizationSettings(Arg.Any<User>());
-        }
-
-        [TestMethod]
-        public void DiscardSettings_ShouldNotDiscardSettings_WhenUserIsNotAccepted()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var user = OrganizationUserObjectMother.CreateWithStatus(OrganizationUserStatus.Declined);
-
-            //Act
-            _organizationOperations.DiscardSettings(organization, user);
-
-            //Assert
-            _userOperations.DidNotReceive().DiscardOrganizationSettings(Arg.Any<User>());
-        }
-
-        [TestMethod]
-        public void DiscardSettings_ShouldDiscardSettings_WhenUserMainOrganizationIsNull()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var organizationUser = OrganizationUserObjectMother.Create(organization, status: OrganizationUserStatus.Accepted);
-            var user = UserObjectMother.CreateWithEmail(organizationUser.Email);
-
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>());
-            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
-
-            //Act
-            _organizationOperations.DiscardSettings(organization, organizationUser);
-
-            //Assert
-            _userOperations.Received().DiscardOrganizationSettings(user);
-        }
-
-        [TestMethod]
-        public void DiscardSettings_ShouldDiscardSettings_WhenCurrentUserOrganizationIsMainOrganization()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.CreateWithSettings(OrganizationSettingsObjectMother.Create());
-            var organizationUser = OrganizationUserObjectMother.Create(organization, status: OrganizationUserStatus.Accepted);
-            var user = UserObjectMother.CreateWithEmail(organizationUser.Email);
-
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>() { organizationUser });
-            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
-
-            //Act
-            _organizationOperations.DiscardSettings(organization, organizationUser);
-
-            //Assert
-            _userOperations.Received().DiscardOrganizationSettings(user);
-        }
-
-        [TestMethod]
-        public void DiscardSettings_ShouldDiscardSettings_WhenUserMainOrganizationSettingsAreNull()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.Create();
-            var organizationUser = OrganizationUserObjectMother.Create(organization, status: OrganizationUserStatus.Accepted);
-            var user = UserObjectMother.CreateWithEmail(organizationUser.Email);
-
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>() { organizationUser });
-            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
-
-            //Act
-            _organizationOperations.DiscardSettings(organization, organizationUser);
-
-            //Assert
-            _userOperations.Received().DiscardOrganizationSettings(user);
-        }
-
-        [TestMethod]
-        public void DiscardSettings_ShouldApplySettings_WhenUserMainOrganizationIsNotCurrentOrganization()
-        {
-            //Arrange
-            var organization = OrganizationObjectMother.Create();
-            var organizationUser = OrganizationUserObjectMother.Create(organization, status: OrganizationUserStatus.Accepted);
-            var user = UserObjectMother.CreateWithEmail(organizationUser.Email);
-
-            var mainOrganizationSettings = OrganizationSettingsObjectMother.Create();
-            var mainOrganization = OrganizationObjectMother.CreateWithSettings(mainOrganizationSettings);
-
-            SetOrganizationRepositoryGetCollectionResult(new List<OrganizationUser>() { OrganizationUserObjectMother.CreateWithOrganization(mainOrganization) });
-            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
-
-            //Act
-            _organizationOperations.DiscardSettings(organization, organizationUser);
-
-            //Assert
-            _userOperations.Received().ApplyOrganizationSettings(user, mainOrganizationSettings);
-        }
-
-        #endregion
 
         #region AutoincludeUser
 
@@ -370,12 +162,219 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
 
         #endregion
 
-        #region Helper methods
+        #region GrantTemplateAccess
 
-        private void SetOrganizationRepositoryGetCollectionResult(IList<OrganizationUser> list)
+        [TestMethod]
+        public void GrantTemplateAccess_ShouldGrantAccessToUser()
         {
-            _organizationUserRepository.GetCollection(Arg.Any<Expression<Func<OrganizationUser, bool>>>())
-              .Returns(new Collection<OrganizationUser>(list));
+            //Arrange
+            var template = Substitute.For<Template>();
+            var user = OrganizationUserObjectMother.Create();
+
+            //Act
+            _organizationOperations.GrantTemplateAccess(user, template);
+
+            //Assert
+            template.Received().GrantAccessTo(user.Email);
+        }
+
+        #endregion
+
+        #region DiscardSubscriptionSettings
+
+        [TestMethod]
+        public void DiscardSubscriptionSettings_ShouldDiscardOrganizationSubscriptionSettingsForUser()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+
+            //Act
+            _organizationOperations.DiscardSubscriptionSettings(organizationUser);
+
+            //Assert
+            _userOperations.Received().DiscardOrganizationSettingsSubscription(user);
+        }
+
+        [TestMethod]
+        public void DiscardSubscriptionSettings_ShouldNotDiscardOrganizationSubscriptionSettingsForUser_WhenUserIsAdmin()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.CreateAdmin();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+
+            //Act
+            _organizationOperations.DiscardSubscriptionSettings(organizationUser);
+
+            //Assert
+            _userOperations.DidNotReceive().DiscardOrganizationSettingsSubscription(user);
+        }
+
+        #endregion
+
+        #region ApplySubscriptionSetings
+
+        [TestMethod]
+        public void ApplySubscriptionSetings_ShouldNotApplySubscriptionSettingsToUser_WhenSubscriptionIsNull()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+            var settings = Substitute.For<OrganizationSettings>();
+
+            //Act
+            _organizationOperations.ApplySubscriptionSettings(organizationUser, settings);
+
+            //Assert
+            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettingsSubscription(user, Arg.Any<UserSubscription>());
+        }
+
+
+        [TestMethod]
+        public void ApplySubscriptionSetings_ShouldNotApplySubscriptionSettingsToUser_WhenUserIsAdmin()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.CreateAdmin();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+            var settings = Substitute.For<OrganizationSettings>();
+            var subscription = new UserSubscription(AccessType.Academy, DateTime.MaxValue);
+            settings.GetSubscription().Returns(subscription);
+
+            //Act
+            _organizationOperations.ApplySubscriptionSettings(organizationUser, settings);
+
+            //Assert
+            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettingsSubscription(user, Arg.Any<UserSubscription>());
+        }
+
+        [TestMethod]
+        public void ApplySubscriptionSetings_ShouldApplySubscriptionSettingsToUser()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+            var settings = Substitute.For<OrganizationSettings>();
+            var subscription = new UserSubscription(AccessType.Academy, DateTime.MaxValue);
+            settings.GetSubscription().Returns(subscription);
+
+            //Act
+            _organizationOperations.ApplySubscriptionSettings(organizationUser, settings);
+
+            //Assert
+            _userOperations.Received().ApplyOrganizationSettingsSubscription(user, subscription);
+        }
+
+        #endregion
+
+        #region DiscardSettings
+
+        [TestMethod]
+        public void DiscardSettings_ShouldDiscardOrganizationSubscriptionSettingsForUser()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+
+            //Act
+            _organizationOperations.DiscardSettings(organizationUser);
+
+            //Assert
+            _userOperations.Received().DiscardOrganizationSettingsSubscription(user);
+        }
+
+        [TestMethod]
+        public void DiscardSettings_ShouldNotDiscardOrganizationSubscriptionSettingsForUser_WhenUserIsAdmin()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.CreateAdmin();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+
+            //Act
+            _organizationOperations.DiscardSettings(organizationUser);
+
+            //Assert
+            _userOperations.DidNotReceive().DiscardOrganizationSettingsSubscription(user);
+        }
+
+        #endregion
+
+        #region ApplySettings
+
+        [TestMethod]
+        public void ApplySetings_ShouldNotApplySubscriptionSettingsToUser_WhenSubscriptionIsNull()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+            var settings = Substitute.For<OrganizationSettings>();
+
+            //Act
+            _organizationOperations.ApplySettings(organizationUser, settings);
+
+            //Assert
+            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettingsSubscription(user, Arg.Any<UserSubscription>());
+        }
+
+
+        [TestMethod]
+        public void ApplySetings_ShouldNotApplySubscriptionSettingsToUser_WhenUserIsAdmin()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.CreateAdmin();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+            var settings = Substitute.For<OrganizationSettings>();
+            settings.GetSubscription().Returns(new UserSubscription(AccessType.Academy, DateTime.MaxValue));
+
+            //Act
+            _organizationOperations.ApplySettings(organizationUser, settings);
+
+            //Assert
+            _userOperations.DidNotReceiveWithAnyArgs().ApplyOrganizationSettingsSubscription(user, Arg.Any<UserSubscription>());
+        }
+
+        [TestMethod]
+        public void ApplySetings_ShouldApplySubscriptionSettingsToUser()
+        {
+            //Arrange
+            var organizationUser = OrganizationUserObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(organizationUser.Email).Returns(user);
+            var settings = Substitute.For<OrganizationSettings>();
+            var subscription = new UserSubscription(AccessType.Academy, DateTime.MaxValue);
+            settings.GetSubscription().Returns(subscription);
+
+            //Act
+            _organizationOperations.ApplySettings(organizationUser, settings);
+
+            //Assert
+            _userOperations.Received().ApplyOrganizationSettingsSubscription(user, subscription);
+        }
+
+        [TestMethod]
+        public void ApplySettings_ShouldGrantAccessToUser_ForEachOrganizationSettingsTemplate()
+        {
+            //Arrange
+            var template1 = Substitute.For<Template>();
+            var template2 = Substitute.For<Template>();
+            var user = OrganizationUserObjectMother.Create();
+            var settings = Substitute.For<OrganizationSettings>();
+            settings.Templates.Returns(new List<Template>() { template1, template2 });
+
+            //Act
+            _organizationOperations.ApplySettings(user, settings);
+
+            //Assert
+            template1.Received().GrantAccessTo(user.Email);
+            template2.Received().GrantAccessTo(user.Email);
         }
 
         #endregion

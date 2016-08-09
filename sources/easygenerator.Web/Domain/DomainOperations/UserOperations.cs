@@ -1,5 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.Infrastructure;
 using System;
 
@@ -7,21 +6,16 @@ namespace easygenerator.Web.Domain.DomainOperations
 {
     public interface IUserOperations
     {
-        void ApplyOrganizationSettings(User user, OrganizationSettings settings);
-        void DiscardOrganizationSettings(User user);
+        void ApplyOrganizationSettingsSubscription(User user, UserSubscription subscription);
+        void DiscardOrganizationSettingsSubscription(User user);
     }
 
     public class UserOperations : IUserOperations
     {
-        public void ApplyOrganizationSettings(User user, OrganizationSettings settings)
+        public void ApplyOrganizationSettingsSubscription(User user, UserSubscription subscription)
         {
-            var subscription = settings.GetSubscription();
-            if (subscription == null)
-                return;
-
             if (IsUserSubscriptionActual(user, subscription))
                 return;
-
 
             if (user.Settings.GetPersonalSubscription() == null)
             {
@@ -32,7 +26,7 @@ namespace easygenerator.Web.Domain.DomainOperations
             UpdateSubscription(user, subscription.AccessType, subscription.ExpirationDate);
         }
 
-        public void DiscardOrganizationSettings(User user)
+        public void DiscardOrganizationSettingsSubscription(User user)
         {
             var subscription = user.Settings.GetPersonalSubscription();
             if (subscription == null)

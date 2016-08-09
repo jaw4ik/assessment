@@ -12,5 +12,6 @@ namespace easygenerator.DomainModel.Repositories
         IEnumerable<string> GetUserOrganizationAdminEmails(string organizationUserEmail);
         IEnumerable<User> GetUserOrganizationAdminUsers(string organizationUserEmail);
         bool HasMultipleOrganizationAdminRelations(string userEmail, string adminEmail);
+        Organization GetUserMainOrganization(string email);
     }
 }

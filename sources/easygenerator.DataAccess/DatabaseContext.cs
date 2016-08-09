@@ -369,6 +369,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<OrganizationSettings>().HasRequired(e => e.Organization).WithOptional(c => c.Settings).WillCascadeOnDelete(true);
             modelBuilder.Entity<OrganizationSettings>().Property(e => e.AccessType).IsOptional();
             modelBuilder.Entity<OrganizationSettings>().Property(e => e.ExpirationDate).IsOptional();
+            modelBuilder.Entity<OrganizationSettings>().HasMany(e => e.TemplateCollection).WithMany(e => e.OrganizationSettingsCollection).Map(m => m.ToTable("OrganizationSettingsTemplates"));
 
             modelBuilder.Entity<OrganizationUser>().HasRequired(e => e.Organization);
             modelBuilder.Entity<OrganizationUser>().Property(e => e.Email).IsRequired().HasMaxLength(254);

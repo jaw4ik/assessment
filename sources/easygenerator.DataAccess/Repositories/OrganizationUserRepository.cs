@@ -20,6 +20,12 @@ namespace easygenerator.DataAccess.Repositories
         {
         }
 
+        public Organization GetUserMainOrganization(string email)
+        {
+            var user = GetCollection(u => u.Email == email).OrderBy(u => u.CreatedOn).FirstOrDefault();
+            return user?.Organization;
+        }
+
         public OrganizationInvite GetOrganizationInvite(OrganizationUser user)
         {
             var query = @"
