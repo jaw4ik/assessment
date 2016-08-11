@@ -1,4 +1,4 @@
-﻿/*import thumbnailsHandler from './thumbnails';
+﻿import thumbnailsHandler from './thumbnails';
 
 import vimeoCommands from './../commands/vimeo';
 
@@ -38,4 +38,4 @@ describe('[thumbnailsHandler]', function () {
 
     });
 
-});*/
+});

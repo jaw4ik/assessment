@@ -477,6 +477,8 @@ storage: {
         userUrl: '/user',
         changesInQuota: 'storage:changesInQuota',
         video: {
+        vimeoUrl: 'https://vimeo.com',
+        vimeoOembedUrl: '/api/oembed.json',
         vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
         vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
         ticketUrl: '/api/media/video/upload',
