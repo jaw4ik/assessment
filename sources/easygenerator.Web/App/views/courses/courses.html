@@ -2,10 +2,7 @@
 
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
-            </div>
-            <div class="view-list-actions-holder">
+            <div class="view-list-actions-holder">  
                 <div class="list-item-action informer">
                     <!-- ko ifnot: isCreateCourseAvailable -->
                     <div class="limit-courses-informer-wrapper">
@@ -25,47 +22,54 @@
                     </div>
                     <!-- /ko -->
                 </div>
-                <div class="list-item-action create">
-                    <!-- ko if: isCreateCourseAvailable -->
-                    <div class="action-item-btn-wrapper">
-                        <button class="action-item-btn create-item btn dropdown green" data-bind="click: showNewCoursePopover, outsideClick: { action: hideNewCoursePopover }, css: { expanded: newCoursePopoverVisible() }">
-                            <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                        </button>
-                        <div class="new-course-action-wrapper" data-bind="css: { visible: newCoursePopoverVisible() }">
-                            <ul class="new-course-action-items">
-                                <li class="new-course-action-item" data-bind="click: importCourseFromPresentation">
-                                    <span class="new-course-action-import-pptx-icon"></span>
-                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'powerPointImport' }">Power Point import</span>
-                                </li>
-                                <li class="new-course-actions-separator"></li>
-                                <li class="new-course-action-item" data-bind="click: createNewCourse">
-                                    <span class="new-course-action-create-course-icon"></span>
-                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'createCourse' }">Create course</span>
-                                </li>
-                            </ul>
+                <div class="view-list-action panel">
+                    <div class="view-list-actions-holder-left-side">
+                        <div class="page-view-caption clearfix">
+                            <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
                         </div>
+                        <div class="view-list-action filter" data-bind="searchInput: { value: coursesTitleFilter, placeholderKey: 'searchCourses', callback: coursesFilterChanged, enabled: courses().length !== 0 }"></div>
                     </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: isCreateCourseAvailable -->
-                    <button class="action-item-btn create-item btn green disabled" disabled="disabled">
-                        <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                    </button>
-                    <!-- /ko -->
-                    <!-- ko if: courses().length === 0 && sharedCourses().length === 0 -->
-                    <div class="tip-arrow-holder right">
-                        <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
-                    </div>
-                    <!-- /ko -->
-                </div>
+
+                    <div class="view-list-actions-holder-right-side">
+                        <div class="view-list-action select-order" data-bind="selectPopover: { options: sortingOptions, value: coursesSortOrder, callback: coursesSortOrderChanged, enabled: courses().length !== 0 }"></div>
+                        <div class="view-list-action select-template"  data-bind="selectPopover: { options: availableTemplates(), value: coursesTemplateFilter, enabled: courses().length !== 0, localize: false, enableCounter: true, callback: coursesFilterChanged }"></div>
+                        <div class="list-item-action create">
+                            <!-- ko if: isCreateCourseAvailable -->
+                            <div class="action-item-btn-wrapper">
+                                <button class="action-item-btn create-item btn dropdown green" data-bind="click: showNewCoursePopover, outsideClick: { action: hideNewCoursePopover }, css: { expanded: newCoursePopoverVisible() }">
+                                    <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                                </button>
+                                <div class="new-course-action-wrapper" data-bind="css: { visible: newCoursePopoverVisible() }">
+                                    <ul class="new-course-action-items">
+                                        <li class="new-course-action-item" data-bind="click: importCourseFromPresentation">
+                                            <span class="new-course-action-import-pptx-icon"></span>
+                                            <span class="new-course-action-item-title" data-bind="localize: { text: 'powerPointImport' }">Power Point import</span>
+                                        </li>
+                                        <li class="new-course-actions-separator"></li>
+                                        <li class="new-course-action-item" data-bind="click: createNewCourse">
+                                            <span class="new-course-action-create-course-icon"></span>
+                                            <span class="new-course-action-item-title" data-bind="localize: { text: 'createCourse' }">Create course</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: isCreateCourseAvailable -->
+                            <button class="action-item-btn create-item btn green disabled" disabled="disabled">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                            </button>
+                            <!-- /ko -->
+                            <!-- ko if: courses().length === 0 -->
+                            <div class="tip-arrow-holder right">
+                                <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>                    
+                </div>                
             </div>
-            <ul class="unstyled main-content-list">
-                <!-- ko if: ownedCourses().length === 0 -->
-                <li class="empty-list-wrapper courses-empty-list">
-                    <span class="empty-list" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
-                </li>
-                <!-- /ko -->
-                <!-- ko foreach: ownedCourses -->
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed }">
+            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: ownedCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4 }">
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed}">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
                             <div class="info-holder-table">
@@ -113,16 +117,13 @@
                         </div>
                     </div>
                     <!-- /ko -->
-                </li>
-                <!-- /ko -->
+                </li>                     
             </ul>
 
-            <!-- ko if: sharedCourses().length > 0 -->
-            <div class="main-content-list-title-wrapper">
+            <div class="main-content-list-title-wrapper" data-bind="css: {visible: sharedCourses().length > 0}">
                 <span class="main-content-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
             </div>
-            <ul class="unstyled main-content-list">
-                <!-- ko foreach: sharedCourses -->
+            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: sharedCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4 }" >
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
@@ -158,15 +159,11 @@
                         </div>
                     </div>
                 </li>
-                <!-- /ko -->
             </ul>
-            <!-- /ko -->
-            <!-- ko if: organizationCourses().length > 0 -->
-            <div class="main-content-list-title-wrapper">
+            <div class="main-content-list-title-wrapper" data-bind="css: {visible: organizationCourses().length > 0}">
                 <span class="main-content-list-title" data-bind="localize: { text: 'myOrganization' }"></span>
             </div>
-            <ul class="unstyled main-content-list">
-                <!-- ko foreach: organizationCourses -->
+            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: organizationCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4 }">
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
@@ -200,11 +197,18 @@
                             </div>
                         </div>
                     </div>
-                </li>
-
-                <!-- /ko -->
+                </li>             
             </ul>
-            <!-- /ko -->
+            <ul class="unstyled main-content-list">
+                <li class="empty-list-wrapper courses-empty-list" data-bind="css: {visible: isCoursesListEmpty()}">
+                    <!-- ko if: courses().length === 0 -->
+                    <span class="empty-list title" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
+                    <!-- /ko -->
+                    <!-- ko if: courses().length !== 0 && isCoursesListEmpty() -->
+                    <span class="empty-list title" data-bind="localize: { text: 'noResultsTitle'}">No result found!</span>
+                    <!-- /ko -->
+                </li>
+            </ul>
         </div>
     </div>
 </section>

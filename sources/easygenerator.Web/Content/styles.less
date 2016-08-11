@@ -2640,6 +2640,10 @@ ol.circles-list {
             color: @search-input-active-text-color;
             font: @search-input-regular-font;
             .placeholder-color(@search-input-regular-color);
+            
+            &::-ms-clear {
+                display: none;
+            }
         }
 
         .clear-btn {
@@ -2648,7 +2652,8 @@ ol.circles-list {
             visibility: hidden;
             width: 10px;
             height: 10px;
-            margin-bottom: 8px;
+            margin-left: 5px;
+            margin-bottom: 9px;
             padding: 0px;
             background: url(images/sprites_16.png) -129px -45px no-repeat;
             cursor: pointer;
@@ -2670,7 +2675,9 @@ ol.circles-list {
 /*#region select popover */
 
 @select-popover-default-color: #77899b;
+@select-popover-disabled-color: #bdbdc5;
 @select-popover-active-color: #469dd5;
+@select-popover-count-color: #91a1b0;
 
 .select-popover {
     position: relative;
@@ -2680,13 +2687,13 @@ ol.circles-list {
         display: inline-block;
         padding-right: 15px;
         font: 13px 'Open Sans';
-        color: @select-popover-default-color;
-        cursor: pointer;
+        color: @select-popover-disabled-color;
+        cursor: default;
 
         &:after {
             content: '';
             position: absolute;
-            top: 50%;
+            top: calc(~'50% + 1.5px');
             right: 0;
             margin-top: -1.5px;
             border-width: 3px;
@@ -2694,20 +2701,30 @@ ol.circles-list {
             border-color: @select-popover-default-color transparent transparent transparent;
         }
 
-        &:hover {
-            color: @select-popover-active-color;
+        &.enabled {
+            color: @select-popover-default-color;
+            cursor: pointer;
 
             &:after {
-                border-color: @select-popover-active-color transparent transparent transparent;
+                border-color: @select-popover-disabled-color transparent transparent transparent;
             }
-        }
 
-        &.expanded {
-            color: @select-popover-active-color;
 
-            &:after {
-                margin-top: -4.5px;
-                border-color: transparent transparent @select-popover-active-color transparent;
+            &:hover {
+                color: @select-popover-active-color;
+
+                &:after {
+                    border-color: @select-popover-active-color transparent transparent transparent;
+                }
+            }
+
+            &.expanded {
+                color: @select-popover-active-color;
+
+                &:after {
+                    margin-top: -4.5px;
+                    border-color: transparent transparent @select-popover-active-color transparent;
+                }
             }
         }
     }
@@ -2731,7 +2748,7 @@ ol.circles-list {
         transform-origin: top right;
         .transition('width, height');
 
-        &.expanded {
+        &.visible.expanded {
             transform: scale(1,1);
         }
 
@@ -2771,6 +2788,10 @@ ol.circles-list {
                     border-radius: 50%;
                     background-color: #4caf50;
                 }
+            }
+
+            .option-count {
+                color: @select-popover-count-color;
             }
         }
     }

@@ -3,6 +3,7 @@
     createValueAccessor: function (valueAccessor) {
         var data = valueAccessor().data,
             speed = valueAccessor().speed ? valueAccessor().speed * 1000 : 200,
+            hideSpeed = valueAccessor().hideSpeed ? valueAccessor().hideSpeed * 1000 : 200,
             animateOnAdd = _.isUndefined(valueAccessor().animateOnAdd) ? true : valueAccessor().animateOnAdd,
             removeDelay = valueAccessor().removeDelay ? valueAccessor().removeDelay * 1000 : 0;
 
@@ -28,7 +29,7 @@
 
                 var $element = $(element);
                 $element.children().fadeTo(removeDelay, 0.3, 'easeInQuint', function () {
-                    $element.slideUp(speed, function () {
+                    $element.slideUp(hideSpeed, function () {
                         $element.remove();
                     });
                 });

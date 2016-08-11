@@ -5,8 +5,7 @@
         uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog, stopCollaborationDialog) {
         "use strict";
 
-        var
-            events = {
+        var events = {
                 navigateToObjectives: 'Navigate to objectives',
                 courseSelected: 'Course selected',
                 courseUnselected: 'Course unselected',
@@ -17,9 +16,16 @@
                 coursePublishFailed: 'Course publish is failed',
                 publishCourse: 'Publish course',
                 deleteCourse: 'Delete course',
-                createNewCourse: 'Open \'Create course\' dialog'
-            };
+                createNewCourse: 'Open \'Create course\' dialog',
+                sortedByCreatedDate: 'Sort the list courses by a "created" date',
+                sortedByModifiedDate: 'Sort the list courses by a "modified" date',
+                sortedByAlphanumeric: 'Sort the list courses A-Z',
+                courseListFiltered: 'Filter the list of courses',
+        };
 
+        var localStorageKey = 'coursesSortOrder';
+
+        var localizedSelectAll = localizationManager.localize('all');
 
         var viewModel = {
             courses: ko.observableArray([]),
@@ -51,19 +57,22 @@
             openUpgradePlanUrl: openUpgradePlanUrl,
             newCourseCreated: newCourseCreated,
 
-            activate: activate
-        };
+            coursesTitleFilter: ko.observable(''),
 
-        function getCoursesSubCollection(ownership) {
-            return _.chain(viewModel.courses())
-               .filter(function (item) {
-                   return item.ownership() === ownership;
-               })
-               .sortBy(function (item) {
-                   return -item.createdOn;
-               })
-               .value();
-        }
+            coursesSortOrder: ko.observable(''),
+            coursesSortOrderChanged: coursesSortOrderChanged,
+            sortingOptions: {
+                recentlyModified: 'recentlyModified',
+                recentlyCreated: 'recentlyCreated',
+                alphanumeric: 'alphanumeric'
+            },
+
+            availableTemplates: ko.observableArray([]),
+            coursesTemplateFilter: ko.observable(''),
+            coursesFilterChanged: coursesFilterChanged,
+
+            activate: activate
+        };       
 
         viewModel.ownedCourses = ko.computed(function () {
             return getCoursesSubCollection(constants.courseOwnership.owned);
@@ -73,6 +82,14 @@
         });
         viewModel.organizationCourses = ko.computed(function () {
             return getCoursesSubCollection(constants.courseOwnership.organization);
+        });
+
+        viewModel.isCoursesListEmpty = ko.computed(function () {
+            var lengthOfVisibleCourses = (viewModel.ownedCourses().length
+                                        + viewModel.sharedCourses().length
+                                        + viewModel.organizationCourses().length);
+
+            return lengthOfVisibleCourses === 0;
         });
 
         app.on(constants.messages.course.collaboration.started, viewModel.courseAdded);
@@ -93,6 +110,59 @@
 
         return viewModel;
 
+        function activate() {
+            viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
+            viewModel.availableTemplates([]);
+            clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+
+            return userContext.identify().then(function () {
+                viewModel.courses(_.map(dataContext.courses, mapCourse));
+
+                viewModel.availableTemplates(_.map(dataContext.templates, mapTemplate));
+                viewModel.availableTemplates(_.sortBy(viewModel.availableTemplates(), function (template) {
+                    return template.name;
+                }));
+
+                var coursesLength = ko.computed(function () {
+                    return viewModel.courses().length;
+                });
+                viewModel.availableTemplates.unshift({ name: localizedSelectAll, count: coursesLength });
+
+                viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
+
+                viewModel.coursesTitleFilter('');
+                viewModel.coursesTemplateFilter(localizedSelectAll);
+
+                viewModel.coursesSortOrder(localStorage.getItem(localStorageKey) || viewModel.sortingOptions.recentlyModified);
+            });
+        }
+
+        function getCoursesSubCollection(ownership) {
+            return _.chain(viewModel.courses())
+                .filter(function (item) {
+                    var title = item.title().trim().toLowerCase();
+                    var coursesTemplateFilter = viewModel.coursesTitleFilter().trim().toLowerCase();
+
+                    var isVisibleByTemplate = (viewModel.coursesTemplateFilter() === localizedSelectAll)
+                                             || (item.template === viewModel.coursesTemplateFilter());
+
+                    return item.ownership() === ownership
+                            && ~title.indexOf(coursesTemplateFilter)
+                            && isVisibleByTemplate;
+                })
+                .sortBy(function (course) {
+                    switch (viewModel.coursesSortOrder()) {
+                        case viewModel.sortingOptions.recentlyModified:
+                            return -Date.parse(course.modifiedOn());
+                        case viewModel.sortingOptions.recentlyCreated:
+                            return -Date.parse(course.createdOn);
+                        case viewModel.sortingOptions.alphanumeric:
+                            return course.title();
+                    }
+                })
+                .value();
+        }
+
         function showNewCoursePopover() {
             viewModel.newCoursePopoverVisible(!viewModel.newCoursePopoverVisible());
         }
@@ -108,7 +178,7 @@
 
         function stopCollaboration(course) {
             stopCollaborationDialog.show(course.id, course.title());
-        }
+        }                     
 
         function duplicateCourse(course) {
             return Q.fcall(function () {
@@ -144,25 +214,7 @@
         function deleteCourse(course) {
             eventTracker.publish(events.deleteCourse);
             deleteCourseDialog.show(course.id, course.title());
-        }
-
-        function activate() {
-            viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
-            clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-
-            return userContext.identify().then(function () {
-                viewModel.courses(_.chain(dataContext.courses)
-                             .map(function (item) {
-                                 return mapCourse(item);
-                             })
-                             .value());
-
-                viewModel.ownedCourses.subscribe(function () {
-                    viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
-                });
-                viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
-            });
-        }
+        }       
 
         function mapCourse(item) {
             var course = {};
@@ -177,19 +229,29 @@
             course.isSelected = ko.observable(false);
             course.sections = item.sections;
             course.isProcessed = true;
+            course.template = item.template.name;
 
             course.ownership = ko.observable(item.ownership);
 
             return course;
         }
 
+        function mapTemplate(template) {
+            return {
+                name: template.name,
+                count: ko.computed(function () {
+                    return (_.filter(viewModel.courses(), function (course) { return course.template === template.name })).length;
+                })
+            };
+        }
+
         function createFakeCourse(course) {
             return {
                 id: new Date(),
-                title: course.title(),
+                title: ko.observable(course.title()),
                 thumbnail: course.thumbnail,
                 createdOn: new Date(),
-                modifiedOn: new Date(),
+                modifiedOn: ko.observable(new Date()),
                 createdBy: '',
                 createdByName: '',
                 isSelected: ko.observable(false),
@@ -197,6 +259,7 @@
                 isProcessed: false,
                 isDuplicatingFinished: ko.observable(false),
                 finishDuplicating: false,
+                template: course.template,
 
                 ownership: ko.observable(constants.courseOwnership.owned)
             };
@@ -237,6 +300,26 @@
             });
         }
 
+        function coursesFilterChanged() {
+            eventTracker.publish(events.courseListFiltered);
+        }
+
+        function coursesSortOrderChanged() {
+            switch (viewModel.coursesSortOrder()) {
+                case viewModel.sortingOptions.recentlyModified:
+                    eventTracker.publish(events.sortedByModifiedDate);
+                    break;
+                case viewModel.sortingOptions.recentlyCreated:
+                    eventTracker.publish(events.sortedByCreatedDate);
+                    break;
+                case viewModel.sortingOptions.alphanumeric:
+                    eventTracker.publish(events.sortedByAlphanumeric);
+                    break;
+            }
+
+            localStorage.setItem(localStorageKey, viewModel.coursesSortOrder());
+        }
+
         // #region event handlers
 
         function getCourseById(courseId) {
@@ -253,9 +336,13 @@
         }
 
         function courseDeleted(courseId) {
-            viewModel.courses(_.reject(viewModel.courses(), function (item) {
+            var course = _.find(viewModel.courses(), function (item) {
                 return item.id === courseId;
-            }));
+            });
+
+            if (course !== null) {
+                viewModel.courses.remove(course);
+            }
         }
 
         function courseAdded(course) {

@@ -17,52 +17,70 @@ import waiter from 'utils/waiter';
 import createCourseDialog from 'dialogs/course/createCourse/createCourse';
 import deleteCourseDialog from 'dialogs/course/delete/deleteCourse';
 import stopCollaborationDialog from 'dialogs/course/stopCollaboration/stopCollaboration';
+import localizationManager from 'localization/localizationManager';
 
-var
-    userName = 'user@user.com',
-    template = { id: '0', name: 'name', thumbnail: 'img' },
-    courses = [
+var userName = 'user@user.com';
+var templates = [
+        { id: '0', name: 'First template', thumbnail: 'img' },
+        { id: '1', name: 'Second template', thumbnail: 'img' },
+];
+var courses = [
         new CourseModel({
             id: 'testId3',
             title: 'Test Course 3',
             sections: [],
-            template: template,
+            template: templates[0],
             createdBy: userName,
-            saleInfo: {}
+            saleInfo: {},
+            ownership: 0,
+            modifiedOn: new Date(2000),
+            createdOn: new Date(4000)
         }),
         new CourseModel({
             id: 'testId2',
             title: 'Test Course 2',
             sections: [],
-            template: template,
+            template: templates[1],
             createdBy: userName,
-            saleInfo: {}
+            saleInfo: {},
+            ownership: 1,
+            modifiedOn: new Date(1000),
+            createdOn: new Date(1000)
         }),
         new CourseModel({
             id: 'testId1',
             title: 'Test Course 1',
             sections: [],
-            template: template,
+            template: templates[0],
             createdBy: userName,
-            saleInfo: {}
+            saleInfo: {},
+            ownership: 0,
+            modifiedOn: new Date(3000),
+            createdOn: new Date(5000)
         }),
          new CourseModel({
              id: 'testId4',
              title: 'Test Course 4',
              sections: [],
-             template: template,
+             template: templates[1],
              createdBy: 'someone',
-             saleInfo: {}
+             saleInfo: {},
+             ownership: 2,
+             modifiedOn: new Date(0),
+             createdOn: new Date(3000)
          }),
         new CourseModel({
             id: 'testId5',
             title: 'Test Course 5',
             sections: [],
-            template: template,
+            template: templates[1],
             createdBy: 'someone',
-            saleInfo: {}
+            saleInfo: {},
+            ownership: 2,
+            modifiedOn: new Date(5000),
+            createdOn: new Date(4000)
         })
-    ];
+];
 
 describe('viewModel [courses]', function () {
 
@@ -117,6 +135,7 @@ describe('viewModel [courses]', function () {
         beforeEach(function () {
 
             dataContext.courses = courses;
+            dataContext.templates = templates;
 
             identifyUserDeferred = Q.defer();
 
@@ -130,6 +149,16 @@ describe('viewModel [courses]', function () {
 
         it('should be a function', function () {
             expect(viewModel.activate).toBeFunction();
+        });
+
+        it('should create available sort list array', function(done){
+
+            identifyUserDeferred.resolve();
+
+            viewModel.activate().fin(function(){
+                expect(viewModel.sortingOptions.recentlyModified).toBe('recentlyModified');
+                done();
+            });
         });
 
         it('should identify user', function (done) {
@@ -149,24 +178,25 @@ describe('viewModel [courses]', function () {
             });
 
             it('should set courses data from dataContext', function (done) {
+
                 identifyUserDeferred.resolve();
+
                 viewModel.activate().fin(function () {
                     expect(viewModel.courses().length).toEqual(5);
                     done();
                 });
             });
 
-            it('should subscribe on owned courses array change', function (done) {
+            it('should set templates data from dataContext', function (done) {
+
                 identifyUserDeferred.resolve();
-                spyOn(viewModel.ownedCourses, 'subscribe');
 
                 viewModel.activate().fin(function () {
-                    expect(viewModel.ownedCourses.subscribe).toHaveBeenCalled();
+                    expect(viewModel.availableTemplates().length).toEqual(3);
                     done();
                 });
-
-            });
-
+            });            
+            
             it('should set isCreateCourseAvailable', function (done) {
                 identifyUserDeferred.resolve();
                 spyOn(limitCoursesAmount, 'checkAccess').and.returnValue(false);
@@ -177,8 +207,173 @@ describe('viewModel [courses]', function () {
                 });
             });
 
+            it('should set availableTemplates first item', function(done) {
+                identifyUserDeferred.resolve();
+                                
+                viewModel.activate().fin(function () {
+                    expect(viewModel.availableTemplates()[0]).toBeObject();
+                    expect(viewModel.availableTemplates()[0].name).toBe(localizationManager.localize('all'));                    
+                    expect(viewModel.availableTemplates()[0].count).toBeObservable();
+                    expect(viewModel.availableTemplates()[0].count()).toBe(5);
+                    done();
+                });
+            });            
+
+            it('should set default coursesSortOrder value', function(done) {
+                identifyUserDeferred.resolve();
+                localStorage.removeItem('coursesSortOrder');
+                                
+                viewModel.activate().fin(function () {
+                    expect(viewModel.coursesSortOrder()).toBe('recentlyModified');
+                    done();
+                });
+            });
+
+            it('should set coursesSortOrder value from localStorage', function(done) {
+                identifyUserDeferred.resolve();                                
+                localStorage.setItem('coursesSortOrder', 'alphanumeric');
+
+                viewModel.activate().fin(function () {
+                    expect(viewModel.coursesSortOrder()).toBe('alphanumeric');
+                    done();
+                });
+            });
+
+            describe('coursesTemplateFilter ', function() {
+                                
+                it('should be observable ', function(done) {
+                    identifyUserDeferred.resolve();
+                                
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.coursesTemplateFilter).toBeObservable();
+                        done(); 
+                    });
+                });
+
+                
+                it('should call getCoursesSubCollection after changes', function(done) {
+                    identifyUserDeferred.resolve();                                
+                
+                    viewModel.activate().fin(function () {
+                        viewModel.coursesTemplateFilter(templates[0].name);
+
+                        expect(viewModel.ownedCourses().length).toBe(2);
+                        done(); 
+                    });
+                }); 
+            });
+
+            describe('coursesTitleFilter ', function() {
+                
+                it('should be observable ', function(done) {
+                    identifyUserDeferred.resolve();
+                                
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.coursesTitleFilter).toBeObservable();
+                        done(); 
+                    });
+                });
+
+                
+                it('should call getCoursesSubCollection after changes', function(done) {
+                    identifyUserDeferred.resolve();
+
+                    viewModel.activate().fin(function () {
+                        viewModel.coursesTitleFilter('Test Course 4');
+
+                        expect(viewModel.organizationCourses().length).toBe(1);
+                        done(); 
+                    });
+                });       
+            });
+        });
+    });
+
+    describe('courses length visible: ', function() {
+        var identifyUserDeferred;
+
+        beforeEach(function () {
+            dataContext.courses = courses;
+            dataContext.templates = templates;
+
+            identifyUserDeferred = Q.defer();
+
+            spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
         });
 
+        it('should courses length visible be observable', function(done) {
+            identifyUserDeferred.resolve();
+
+            viewModel.activate().fin(function(){
+                expect(viewModel.isCoursesListEmpty).toBeObservable();
+                expect(viewModel.isCoursesListEmpty).toBeFalsy;
+                done();
+            });
+        });        
+    });
+
+    describe('getCoursesSubCollection:', function() {
+
+        var identifyUserDeferred;
+
+        beforeEach(function () {
+            dataContext.courses = courses;
+            dataContext.templates = templates;
+
+            identifyUserDeferred = Q.defer();
+
+            spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
+        });
+
+        it('should set invisible to courses with another template', function(done) {
+            identifyUserDeferred.resolve();
+
+            viewModel.activate().fin(function(){
+                viewModel.coursesTemplateFilter(templates[1].name);
+
+                expect(viewModel.ownedCourses().length).toBe(0);
+                done();
+            });
+        });
+
+        describe('recently modified ', function(){
+            it('should sort course list', function(done) {
+                identifyUserDeferred.resolve();
+
+                viewModel.activate().fin(function() {
+                    viewModel.coursesSortOrder('recentlyModified');
+
+                    expect(viewModel.ownedCourses()[0].title()).toBe(courses[2].title);
+                    done();
+                });
+            });
+        });
+
+        describe('recently created ', function(){
+            it('should sort course list', function(done) {
+                identifyUserDeferred.resolve();
+
+                viewModel.activate().fin(function() {
+                    viewModel.coursesSortOrder('recentlyCreated');      
+
+                    expect(viewModel.organizationCourses()[0].title()).toBe(courses[4].title);
+                    done();
+                });
+            });
+        });
+
+        describe('alphanumeric ', function(){
+            it('should sort course list', function(done) {
+                identifyUserDeferred.resolve();
+
+                viewModel.activate().fin(function() {
+                    viewModel.coursesSortOrder('alphanumeric');
+
+                    expect(viewModel.organizationCourses()[0].title()).toBe(courses[3].title);
+                    done();
+                });
+            });
+        });
     });
 
     describe('createCourseCallback', function () {
@@ -368,6 +563,7 @@ describe('viewModel [courses]', function () {
                 createdOn: new Date(),
                 modifiedOn: new Date(),
                 isSelected: ko.observable(false),
+                template: 'Simple Course',
                 sections: [],
                 isProcessed: true
             };
@@ -381,7 +577,7 @@ describe('viewModel [courses]', function () {
                 var promise = viewModel.duplicateCourse(course);
 
                 promise.fin(function () {
-                    expect(viewModel.courses()[0].title).toBe(course.title());
+                    expect(viewModel.courses()[0].title()).toBe(course.title());
                     expect(viewModel.courses()[0].thumbnail).toBe(course.thumbnail);
                     expect(viewModel.courses()[0].isSelected()).toBe(course.isSelected());
                     expect(viewModel.courses()[0].sections).toBe(course.sections);
@@ -399,16 +595,14 @@ describe('viewModel [courses]', function () {
                 var resolvedCourse = {
                     id: 'new',
                     title: '',
-                    template: { thumbnail: '' },
+                    template: { thumbnail: '', name: 'Simple Course' },
                     modifiedOn: new Date(),
                     createdOn: new Date(),
                     sections: []
                 }
-
                 var promise = viewModel.duplicateCourse(course);
 
                 promise.fin(function () {
-
                     expect(viewModel.courses()[0].isDuplicatingFinished()).toBeTruthy();
 
                     viewModel.courses()[0].finishDuplicating();
@@ -471,7 +665,7 @@ describe('viewModel [courses]', function () {
         var course = {
             id: '0',
             title: ko.observable('title'),
-            ownership: ko.observable(constants.courseOwnership.owned)
+            ownership: ko.observable(constants.courseOwnership.owned),
         };
 
         beforeEach(function () {
@@ -490,7 +684,7 @@ describe('viewModel [courses]', function () {
             id: courseId,
             title: ko.observable(""),
             modifiedOn: ko.observable(""),
-            ownership: ko.observable()
+            ownership: ko.observable(),
         };
         var course = {
             id: courseId,
@@ -522,8 +716,9 @@ describe('viewModel [courses]', function () {
         var courseId = "courseId";
         var vmCourse = {
             id: courseId,
+            title: ko.observable('abs'),
             modifiedOn: ko.observable(""),
-            ownership: ko.observable()
+            ownership: ko.observable(),
         };
         var course = {
             id: courseId,
@@ -544,7 +739,8 @@ describe('viewModel [courses]', function () {
         var vmCourse = {
             id: courseId,
             modifiedOn: ko.observable(""),
-            ownership: ko.observable(constants.courseOwnership.owned)
+            ownership: ko.observable(constants.courseOwnership.owned),
+            title: ko.observable('')
         };
 
         it('should update course ownership', function () {
@@ -593,7 +789,6 @@ describe('viewModel [courses]', function () {
                 expect(course.isDuplicate).not.toBeDefined();
                 expect(_.find(viewModel.courses(), function(item) { return item.id === course.id })).not.toBeDefined();
             });
-
         });
 
         describe('when course is not duplicate', function() {
@@ -604,7 +799,6 @@ describe('viewModel [courses]', function () {
                 expect(viewModel.courses()[0].id).toBe(course.id);
                 expect(viewModel.courses()[0].title()).toBe(course.title);
             });
-
         });
 
     });
