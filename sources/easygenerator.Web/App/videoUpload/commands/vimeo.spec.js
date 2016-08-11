@@ -136,8 +136,7 @@ describe('[vimeoCommands]', function () {
             vimeoCommands.getThumbnailUrl(videoId);
 
             expect($.ajax).toHaveBeenCalledWith({
-                url: constants.storage.video.vimeoApiVideosUrl + videoId + '/pictures',
-                headers: { Authorization: constants.storage.video.vimeoToken },
+                url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + videoId) + '&width=200&height=150',
                 method: 'GET',
                 global: false
             });
@@ -183,27 +182,14 @@ describe('[vimeoCommands]', function () {
 
                 var videoId = 0;
                 var resolved = {
-                    data: [{
-                        sizes: [
-                           {
-                               width: 350,
-                               height: 150,
-                               link: 'false'
-                           },
-                           {
-                               width: 200,
-                               height: 150,
-                               link: 'thumbnail'
-                           }
-                        ]
-                    }]
+                    thumbnail_url: 'thumbnail_url'
                 };
 
                 defer.resolve(resolved);
 
                 var promise = vimeoCommands.getThumbnailUrl(videoId);
                 promise.fin(function () {
-                    expect(promise).toBeResolvedWith(resolved.data[0].sizes[1].link);
+                    expect(promise).toBeResolvedWith(resolved.thumbnail_url);
                     done();
                 });
 
