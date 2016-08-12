@@ -39,6 +39,7 @@
     <Compile Include="public\js\providers\cssInjector.js" />
     <Compile Include="public\js\providers\localStorage.js" />
     <Compile Include="public\js\viewmodels\player.js" />
+    <Compile Include="routes\sources.js" />
     <Compile Include="www.js" />
     <Compile Include="routes\index.js" />
     <Content Include=".bowerrc" />
