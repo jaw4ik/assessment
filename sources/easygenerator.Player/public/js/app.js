@@ -2,17 +2,15 @@
     var playerViewModel = app.playerViewModel,
         statuses = playerViewModel.statuses,
         video = app.video,
-        qualities = app.vimeoFileQualities,
         interval = app.playerUpdateInterval,
         volumeKey = app.volumeKey,
         storageProvider = app.storageProvider,
         cssInjector = app.cssInjector,
         getSources = function () {
-            return $.ajax({ url: app.sourcesUrl + app.mediaId, cache: false }).done(onSuccess).fail(onFail);
+            return $.get('/sources?mediaId=' + app.mediaId).done(onSuccess).fail(onFail);
         },
 
         playerId = 'easy-player',
-        videoAvailableStatus = 'available',
         videoClass = 'vjs-tech',
         playingClass = 'playing',
         notSupportedDeviceClass = 'vjs-using-native-controls';
@@ -71,15 +69,14 @@
             }
             video.pause();
             $player.removeClass(playingClass);
-
         });
     }
 
-    function onSuccess(result) {
+    function onSuccess(sources) {
         playerViewModel.status(statuses.processing);
         
-        if (result && result.status === videoAvailableStatus && result.files && result.files.length) {
-            processFiles(result.files);
+        if (sources && sources.length) {
+            processSources(sources);
             return;
         }
 
@@ -87,7 +84,7 @@
     }
 
     function onFail(error) {
-        if (error.status === 404) {
+        if (error.status === 404 || error.status === 400) {
             playerViewModel.status(statuses.notFound);
             return;
         }
@@ -96,24 +93,15 @@
         setTimeout(getSources, interval);
     }
 
-    function processFiles(files) {
-        var fileLinks = {};
-        files.forEach(function (file) {
-            if (file && file.link_secure && file.quality) {
-                fileLinks[file.quality] = file.link_secure;
-            }
-        });
-        playerViewModel.sources([]);
-        qualities.forEach(function (quality) {
-            if (fileLinks[quality]) {
-                playerViewModel.sources.push({ quality: quality, link: fileLinks[quality] });
-            }
-        });
+    function processSources(sources) {
+        playerViewModel.sources(sources.sort(function (a, b) {
+            return a.quality < b.quality ? 1 : -1;
+        }));
         var source = playerViewModel.sources()[0];
-        if (!source || !source.link) {
-            return onFail();
+        if (!source || !source.url) {
+            return onFail({ status: 500 });
         }
-        playerViewModel.currentSource(source.link);
+        playerViewModel.currentSource(source.url);
         playerViewModel.currentQuality(source.quality);
         playerViewModel.status(statuses.available);
 

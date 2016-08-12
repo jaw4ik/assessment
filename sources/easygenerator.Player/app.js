@@ -2,6 +2,7 @@
 var path = require('path');
 var favicon = require('serve-favicon');
 var index = require('./routes/index');
+var sources = require('./routes/sources');
 var cors = require('cors');
 var app = express();
 
@@ -19,6 +20,7 @@ if (app.get('env') === 'development') {
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/sources', sources);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
