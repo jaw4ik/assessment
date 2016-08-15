@@ -31,7 +31,6 @@ namespace easygenerator.StorageServer.Configuration
             builder.RegisterType<VimeoDelete>().As<IVimeoDelete>().SingleInstance();
             builder.RegisterType<VimeoPutUpload>().As<IVimeoPutUpload>().SingleInstance();
             builder.RegisterType<VimeoPullUpload>().As<IVimeoPullUpload>().SingleInstance();
-            builder.RegisterType<VimeoGetSources>().As<IVimeoGetSources>().SingleInstance();
             builder.RegisterType<VimeoUploadDispatcher>().As<IVimeoUploadDispatcher>().SingleInstance();
             builder.RegisterType<PermissionsDispatcher>().As<IPermissionsDispatcher>().SingleInstance();
            
