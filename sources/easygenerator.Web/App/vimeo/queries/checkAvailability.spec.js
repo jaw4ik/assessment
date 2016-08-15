@@ -1,6 +1,6 @@
 ﻿import task from './checkAvailability';
 
-import getVideo from './getVideo';
+import getVideoSources from './getVideoSources';
 
 describe('[check video availability]', function() {
 
@@ -14,7 +14,7 @@ describe('[check video availability]', function() {
 
         beforeEach(function() {
             dfd = Q.defer();
-            spyOn(getVideo, 'execute').and.returnValue(dfd.promise);
+            spyOn(getVideoSources, 'execute').and.returnValue(dfd.promise);
         });
 
         it('should be function', function() {
@@ -27,7 +27,7 @@ describe('[check video availability]', function() {
 
         it('should send request to get video metadata', function() {
             task.execute({});
-            expect(getVideo.execute).toHaveBeenCalled();
+            expect(getVideoSources.execute).toHaveBeenCalled();
         });
 
 
@@ -35,9 +35,7 @@ describe('[check video availability]', function() {
 
             describe('and video is available', function() {
                 beforeEach(function() {
-                    dfd.resolve({
-                        status: 'available'
-                    });
+                    dfd.resolve([{}]);
                 });
 
                 it('should resolve promise with true', function(done) {
@@ -50,14 +48,12 @@ describe('[check video availability]', function() {
 
             describe('and video is not available', function() {
                 beforeEach(function() {
-                    dfd.resolve({
-                        status: 'available'
-                    });
+                    dfd.resolve([]);
                 });
 
                 it('should resolve promise with false', function(done) {
                     task.execute({}).then(function(result) {
-                        expect(result).toBeTruthy();
+                        expect(result).toBeFalsy();
                         done();
                     }).done();
                 });

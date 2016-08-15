@@ -820,6 +820,9 @@
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToTrial.spec.js">
       <DependentUpon>upgradedToTrial.js</DependentUpon>
     </Content>
+    <Content Include="App\vimeo\queries\getVideoSources.spec.js">
+      <DependentUpon>getVideoSources.js</DependentUpon>
+    </Content>
     <Content Include="App\widgets\allowCoggno\view.html" />
     <Content Include="App\widgets\allowCoggno\viewmodel.js" />
     <Content Include="App\dialogs\collaboration\addCollaborator.js">
@@ -1539,10 +1542,6 @@
     <Content Include="App\treeOfContent\RelatedSectionTreeNode.spec.js">
       <DependentUpon>RelatedSectionTreeNode.js</DependentUpon>
     </Content>
-    <Content Include="App\videoUpload\handlers\durations.js" />
-    <Content Include="App\videoUpload\handlers\durations.spec.js">
-      <DependentUpon>durations.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\audios\audios.js" />
     <Content Include="App\viewmodels\audios\audios.spec.js">
       <DependentUpon>audios.js</DependentUpon>
@@ -1759,10 +1758,7 @@
       <DependentUpon>checkAvailability.js</DependentUpon>
     </Content>
     <Content Include="App\vimeo\queries\checkAvailability.js" />
-    <Content Include="App\vimeo\queries\getVideo.js" />
-    <Content Include="App\vimeo\queries\getVideo.spec.js">
-      <DependentUpon>getVideo.js</DependentUpon>
-    </Content>
+    <Content Include="App\vimeo\queries\getVideoSources.js" />
     <Content Include="App\widgets\allowCoggno\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>

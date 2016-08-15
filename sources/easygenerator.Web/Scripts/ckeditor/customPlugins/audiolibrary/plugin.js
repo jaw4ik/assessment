@@ -19,8 +19,8 @@
                 host: "//" + window.storageServiceUrl,
                 mediaUrl: '/media',
                 audio: {
-                    vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
-                    vimeoApiAudioUrl: 'https://api.vimeo.com/videos/',
+                    vimeoUrl: 'https://vimeo.com',
+                    vimeoOembedUrl: '/api/oembed.json',
                     defaultThumbnailUrl: 'icons/audio-thumbnail.jpg',
                     iframeWidth: 300,
                     iframeHeight: 46

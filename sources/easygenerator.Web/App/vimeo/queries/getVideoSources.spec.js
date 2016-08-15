@@ -1,6 +1,6 @@
-﻿import task from './getVideo';
+﻿import task from './getVideoSources';
 
-import http from 'plugins/http';
+import $ from 'jquery';
 
 describe('[check video availability task]', function () {
 
@@ -14,7 +14,7 @@ describe('[check video availability task]', function () {
 
         beforeEach(function () {
             dfd = $.Deferred();
-            spyOn(http, 'get').and.returnValue(dfd.promise());
+            spyOn($, 'ajax').and.returnValue(dfd.promise());
         });
 
         it('should be function', function () {
@@ -27,7 +27,7 @@ describe('[check video availability task]', function () {
 
         it('should send request to get video metadata', function () {
             task.execute();
-            expect(http.get).toHaveBeenCalled();
+            expect($.ajax).toHaveBeenCalled();
         });
 
 
@@ -54,9 +54,9 @@ describe('[check video availability task]', function () {
                 dfd.reject();
             });
 
-            it('should reject promise', function(done) {
-                task.execute('id').catch(function(reason) {
-                    expect(reason).toBeUndefined();
+            it('should resolve promise', function(done) {
+                task.execute('id').then(function(result) {
+                    expect(result).toEqual([]);
                     done();
                 }).done();
             });

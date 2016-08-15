@@ -451,7 +451,6 @@
         'videoUpload/commands/vimeo.spec',
         'videoUpload/handlers/progress.spec',
         'videoUpload/handlers/thumbnails.spec',
-        'videoUpload/handlers/durations.spec',
         'videoUpload/uploadDataContext.spec',
         'videoUpload/uploadTracking.spec',
         'videoUpload/upload.spec',
@@ -475,7 +474,7 @@
         'audio/UploadAudioModel.spec',
         'audio/audioUploadDispatcher.spec',
         'vimeo/queries/checkAvailability.spec',
-        'vimeo/queries/getVideo.spec',
+        'vimeo/queries/getVideoSources.spec',
         //#endregion
 
         //#region images

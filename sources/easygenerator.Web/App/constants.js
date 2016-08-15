@@ -468,7 +468,8 @@ results: {
 },
 
 player: {
-        host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
+    host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555',
+    sourcesPath: '/sources'
 },
 
 storage: {
@@ -479,7 +480,6 @@ storage: {
         video: {
         vimeoUrl: 'https://vimeo.com',
         vimeoOembedUrl: '/api/oembed.json',
-        vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
         vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
         ticketUrl: '/api/media/video/upload',
         finishUrl: '/api/media/video/upload/finish',
