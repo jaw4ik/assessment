@@ -197,7 +197,6 @@
     <Compile Include="Components\Dispatchers\VimeoUploadDispatcher.cs" />
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Vimeo\VimeoDelete.cs" />
-    <Compile Include="Components\Vimeo\VimeoGetSources.cs" />
     <Compile Include="Components\UrlResolver.cs" />
     <Compile Include="Components\Vimeo\VimeoPullUpload.cs" />
     <Compile Include="Configuration\WebApiConfiguration.cs" />
