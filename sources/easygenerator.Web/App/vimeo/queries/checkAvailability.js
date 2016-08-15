@@ -1,9 +1,9 @@
 ﻿import Query from 'Query';
-import getVideo from './getVideo';
+import getVideoSources from './getVideoSources';
 
 export default new Query(function(obj) {
-    return getVideo.execute(obj.vimeoId).then(function(video) {
-        return video.status === 'available';
+    return getVideoSources.execute(obj.vimeoId).then(function(sources) {
+        return sources && sources.length > 0;
     });
 });
 

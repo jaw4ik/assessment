@@ -3,8 +3,7 @@
     return {
         putFile: putFile,
         verifyUpload: verifyUpload,
-        getThumbnailUrl: getThumbnailUrl,
-        getVideoDuration: getVideoDuration
+        getThumbnailUrl: getThumbnailUrl
     }
 
     function putFile(uploadUrl, file) {
@@ -52,23 +51,6 @@
             deferred.resolve(constants.storage.video.defaultThumbnailUrl);
         }).fail(function () {
             deferred.resolve(constants.storage.video.defaultThumbnailUrl);
-        });
-
-        return deferred.promise;
-    }
-
-    function getVideoDuration(id) {
-        var deferred = Q.defer();
-
-        $.ajax({
-            url: constants.storage.video.vimeoApiVideosUrl + id,
-            headers: { Authorization: constants.storage.video.vimeoToken },
-            method: 'GET',
-            global: false
-        }).then(function (response) {
-            deferred.resolve(response.duration || 0);
-        }).fail(function () {
-            deferred.resolve(0);
         });
 
         return deferred.promise;
