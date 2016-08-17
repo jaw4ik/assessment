@@ -90,9 +90,9 @@ describe('subscription expiration [notificationController]', function () {
             });
         });
 
-        describe('when user access is starter', function () {
+        describe('when user access is trial', function () {
             beforeEach(function () {
-                userContext.identity.subscription.accessType = constants.accessType.starter;
+                userContext.identity.subscription.accessType = constants.accessType.trial;
                 userContext.identity.firstname = firstname;
             });
 
