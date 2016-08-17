@@ -2852,7 +2852,13 @@
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\quicktable\.gitignore" />
+    <Content Include="Scripts\ckeditor\plugins\quicktable\.jshintrc" />
+    <Content Include="Scripts\ckeditor\plugins\quicktable\.travis.yml" />
+    <Content Include="Scripts\ckeditor\plugins\quicktable\CHANGELOG.md" />
     <Content Include="Scripts\ckeditor\plugins\quicktable\Gruntfile.js" />
+    <Content Include="Scripts\ckeditor\plugins\quicktable\package.json" />
+    <Content Include="Scripts\ckeditor\plugins\quicktable\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\quicktable\template.jst" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
@@ -3028,12 +3034,6 @@
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.pfx" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.private_key.pem" />
     <Content Include="Content\allowCoggnoPopup.less" />
-    <Content Include="Scripts\ckeditor\plugins\quicktable\.jshintrc" />
-    <Content Include="Scripts\ckeditor\plugins\quicktable\.travis.yml" />
-    <Content Include="Scripts\ckeditor\plugins\quicktable\CHANGELOG.md" />
-    <Content Include="Scripts\ckeditor\plugins\quicktable\package.json" />
-    <Content Include="Scripts\ckeditor\plugins\quicktable\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\quicktable\template.jst" />
     <Content Include="Content\examples.less" />
     <Content Include="Content\importFromPresentation.less" />
     <Content Include="Content\controls.less" />
