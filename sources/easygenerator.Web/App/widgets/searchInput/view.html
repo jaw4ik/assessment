@@ -1,6 +1,6 @@
-﻿<section class="search-input" data-bind="css: { active: isEditing }">
+﻿<section class="search-input" data-bind="css: { active: isEditing, clear: value().trim().length === 0, enabled: enabled }">
     <div class="wrapper">
-        <input data-bind="value: value, valueUpdate: 'afterkeydown', hasFocus: isEditing, attr: { placeholder: placeholder }" ondrop="return false;" />
+        <input data-bind="value: value, valueUpdate: 'afterkeydown', hasFocus: isEditing, attr: { placeholder: placeholder }, visible: enabled" ondrop="return false;" />
         <button class="clear-btn" data-bind="css: { shown: hasValue }, click: clear"></button>
     </div>
 </section>
