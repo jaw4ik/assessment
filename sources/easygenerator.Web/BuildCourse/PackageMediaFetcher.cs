@@ -11,6 +11,8 @@ namespace easygenerator.Web.BuildCourse
 {
     public class PackageMediaFetcher
     {
+        private readonly string[] MediaExtensions = {".BMP", ".GIF", ".JPE", ".JPEG", ".JPG", ".MAC", ".PNG", ".TGA", ".TIFF"};
+
         private readonly CourseContentPathProvider _buildPathProvider;
         private readonly PhysicalFileManager _fileManager;
         private readonly ILog _logger;
@@ -38,12 +40,24 @@ namespace easygenerator.Web.BuildCourse
         public string AddMediaFromJson(string buildDirectory, string jsonContent) {
             var folderForMedia = GetFolderForMedia(buildDirectory);
 
-            var matches = Regex.Matches(jsonContent, @"((http|ftp|https)*:*\/\/[\w\-_]+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
+            var mediaLinks = Regex.Matches(jsonContent, @"((http|ftp|https)*:*\/\/[\w\-_]+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase | RegexOptions.Compiled)
                                .Cast<Match>()
                                .Select(match => match.Value)
-                               .Distinct();
+                               .Distinct()
+                               .Where(IsMediaLink);
 
-            return matches.Aggregate(jsonContent, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
+            return mediaLinks.Aggregate(jsonContent, (current, match) => current.Replace(match, DownloadImage(match, folderForMedia)));
+        }
+
+        private bool IsMediaLink(string link)
+        {
+            if (string.IsNullOrEmpty(link))
+            {
+                return false;
+            }
+
+            var linkParts = link.Split('?');
+            return MediaExtensions.Any(extension => linkParts[0].ToUpperInvariant().EndsWith(extension));
         }
 
         private void IncludeCourseContentMediaToPackage(CoursePackageModel course, string folderForMedia)
