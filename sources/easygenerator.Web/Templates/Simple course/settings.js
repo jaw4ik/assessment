@@ -25,6 +25,5 @@
     "treeOfContent":{
         "enabled": true
     },
-    "showConfirmationPopup":true,
-    "allowCrossDeviceSaving": false
+    "showConfirmationPopup":true
 }
