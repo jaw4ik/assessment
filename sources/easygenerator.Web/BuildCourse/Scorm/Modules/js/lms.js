@@ -7,15 +7,17 @@
 }(this, function () {
     var self = {
         initialized: false,
-        apiWrapper: getApiWrapper()
+        apiWrapper: getApiWrapper(),
+        startTime: null
     }
 
     var lmsReporting = {
         initialize: function () {
-            self.initialized = self.apiWrapper.doLMSInitialize() == "true";
+            self.initialized = self.apiWrapper.doLMSInitialize() == 'true';
             if (self.initialized) {
+                self.startTime = new Date();
                 if (window.addEventListener) {
-                    window.addEventListener('unload', self.apiWrapper.doLMSFinish);
+                    window.addEventListener('unload', endSession);
                 }
             }
         },
@@ -31,10 +33,23 @@
 
     return lmsReporting;
 
+    function endSession() {
+        var endTime = new Date();
+        var duration = endTime.getTime() - self.startTime.getTime();
+        self.apiWrapper.doLMSSetValue('cmi.core.session_time', convertTimeSpanToLmsTimeString(duration));
+        self.apiWrapper.doLMSCommit();
+
+        self.apiWrapper.doLMSFinish();
+    }
+
+    function convertTimeSpanToLmsTimeString(milliseconds) {
+        return new Date(null, null, null, null, null, null, milliseconds).toString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
+    }
+
     function getProgress() {
         var progress = {};
         try {
-            progress = JSON.parse(self.apiWrapper.doLMSGetValue("cmi.suspend_data"));
+            progress = JSON.parse(self.apiWrapper.doLMSGetValue('cmi.suspend_data'));
         } catch (e) {
             console.log('Unable to restore progress');
         }
@@ -42,25 +57,25 @@
     }
 
     function saveProgress(progress) {
-        var progressResult = self.apiWrapper.doLMSSetValue("cmi.suspend_data", JSON.stringify(progress)) == "true";
-        var statusResult = self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", "incomplete") == "true";
+        var progressResult = self.apiWrapper.doLMSSetValue('cmi.suspend_data', JSON.stringify(progress)) == 'true';
+        var statusResult = self.apiWrapper.doLMSSetValue('cmi.core.lesson_status', 'incomplete') == 'true';
         var result = progressResult && statusResult;
         if (result) {
             //console.log('Progress was saved');
             //console.dir(progress);
 
-            self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
+            self.apiWrapper.doLMSSetValue('cmi.core.exit', 'suspend');
             self.apiWrapper.doLMSCommit();
         }
         return result;
     }
 
     function removeProgress() {
-        var result = self.apiWrapper.doLMSSetValue("cmi.suspend_data", "") == "true";
+        var result = self.apiWrapper.doLMSSetValue('cmi.suspend_data', '') == 'true';
         if (result) {
             console.log('Progress was removed');
 
-            self.apiWrapper.doLMSSetValue("cmi.core.exit", "");
+            self.apiWrapper.doLMSSetValue('cmi.core.exit', '');
             self.apiWrapper.doLMSCommit();
         }
 
@@ -72,17 +87,16 @@
     }
 
     function sendCourseFinished(course) {
-        self.apiWrapper.doLMSSetValue("cmi.core.score.min", "0");
-        self.apiWrapper.doLMSSetValue("cmi.core.score.max", "100");
-        self.apiWrapper.doLMSSetValue("cmi.core.score.raw", getValue(course.result) * 100);
-        self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", getValue(course.isCompleted) ? "passed" : "failed");
-
+        self.apiWrapper.doLMSSetValue('cmi.core.score.min', '0');
+        self.apiWrapper.doLMSSetValue('cmi.core.score.max', '100');
+        self.apiWrapper.doLMSSetValue('cmi.core.score.raw', getValue(course.result) * 100);
+        self.apiWrapper.doLMSSetValue('cmi.core.lesson_status', getValue(course.isCompleted) ? 'passed' : 'failed');
         self.apiWrapper.doLMSCommit();
 
-        self.apiWrapper.doLMSFinish();
+        endSession();
 
         if (window.removeEventListener) {
-            window.removeEventListener('unload', self.apiWrapper.doLMSFinish);
+            window.removeEventListener('unload', endSession);
         }
     }
 
@@ -93,8 +107,8 @@
         // such as: var output = { log: function(str){alert(str);} };
 
         // Define exception/error codes
-        var _NoError = { "code": "0", "string": "No Error", "diagnostic": "No Error" };
-        var _GeneralException = { "code": "101", "string": "General Exception", "diagnostic": "General Exception" };
+        var _NoError = { "code": '0', "string": 'No Error', "diagnostic": 'No Error' };
+        var _GeneralException = { "code": '101', "string": 'General Exception', "diagnostic": 'General Exception' };
 
         var initialized = false;
 
@@ -122,18 +136,18 @@
         **
         *******************************************************************************/
         function doLMSInitialize() {
-            if (initialized) return "true";
+            if (initialized) return 'true';
 
             var api = getAPIHandle();
             if (api == null) {
-                message("Unable to locate the LMS's API Implementation.\nLMSInitialize was not successful.");
-                return "false";
+                message('Unable to locate the LMS\'s API Implementation.\nLMSInitialize was not successful.');
+                return 'false';
             }
 
-            var result = api.LMSInitialize("");
-            if (result.toString() != "true") {
+            var result = api.LMSInitialize('');
+            if (result.toString() != 'true') {
                 var err = ErrorHandler();
-                message("LMSInitialize failed with error code: " + err.code);
+                message('LMSInitialize failed with error code: ' + err.code);
             }
             else {
                 initialized = true;
@@ -155,19 +169,19 @@
         **
         *******************************************************************************/
         function doLMSFinish() {
-            if (!initialized) return "true";
+            if (!initialized) return 'true';
 
             var api = getAPIHandle();
             if (api == null) {
-                message("Unable to locate the LMS's API Implementation.\nLMSFinish was not successful.");
-                return "false";
+                message('Unable to locate the LMS\'s API Implementation.\nLMSFinish was not successful.');
+                return 'false';
             }
             else {
                 // call the LMSFinish function that should be implemented by the API
-                var result = api.LMSFinish("");
-                if (result.toString() != "true") {
+                var result = api.LMSFinish('');
+                if (result.toString() != 'true') {
                     var err = ErrorHandler();
-                    message("LMSFinish failed with error code: " + err.code);
+                    message('LMSFinish failed with error code: ' + err.code);
                 }
             }
 
@@ -191,13 +205,13 @@
         *******************************************************************************/
         function doLMSGetValue(name) {
             var api = getAPIHandle();
-            var result = "";
+            var result = '';
             if (api == null) {
-                message("Unable to locate the LMS's API Implementation.\nLMSGetValue was not successful.");
+                message('Unable to locate the LMS\'s API Implementation.\nLMSGetValue was not successful.');
             }
             else if (!initialized && !doLMSInitialize()) {
                 var err = ErrorHandler(); // get why doLMSInitialize() returned false
-                message("LMSGetValue failed - Could not initialize communication with the LMS - error code: " + err.code);
+                message('LMSGetValue failed - Could not initialize communication with the LMS - error code: ' + err.code);
             }
             else {
                 result = api.LMSGetValue(name);
@@ -205,8 +219,8 @@
                 var error = ErrorHandler();
                 if (error.code != _NoError.code) {
                     // an error was encountered so display the error description
-                    message("LMSGetValue(" + name + ") failed. \n" + error.code + ": " + error.string);
-                    result = "";
+                    message('LMSGetValue(' + name + ') failed. \n' + error.code + ': ' + error.string);
+                    result = '';
                 }
             }
             return result.toString();
@@ -226,19 +240,19 @@
         *******************************************************************************/
         function doLMSSetValue(name, value) {
             var api = getAPIHandle();
-            var result = "false";
+            var result = 'false';
             if (api == null) {
-                message("Unable to locate the LMS's API Implementation.\nLMSSetValue was not successful.");
+                message('Unable to locate the LMS\'s API Implementation.\nLMSSetValue was not successful.');
             }
             else if (!initialized && !doLMSInitialize()) {
                 var err = ErrorHandler(); // get why doLMSInitialize() returned false
-                message("LMSSetValue failed - Could not initialize communication with the LMS - error code: " + err.code);
+                message('LMSSetValue failed - Could not initialize communication with the LMS - error code: ' + err.code);
             }
             else {
                 result = api.LMSSetValue(name, value);
-                if (result.toString() != "true") {
+                if (result.toString() != 'true') {
                     var err = ErrorHandler();
-                    message("LMSSetValue(" + name + ", " + value + ") failed. \n" + err.code + ": " + err.string);
+                    message('LMSSetValue(' + name + ', ' + value + ') failed. \n' + err.code + ': ' + err.string);
                 }
             }
 
@@ -258,19 +272,19 @@
         *******************************************************************************/
         function doLMSCommit() {
             var api = getAPIHandle();
-            var result = "false";
+            var result = 'false';
             if (api == null) {
-                message("Unable to locate the LMS's API Implementation.\nLMSCommit was not successful.");
+                message('Unable to locate the LMS\'s API Implementation.\nLMSCommit was not successful.');
             }
             else if (!initialized && !doLMSInitialize()) {
                 var err = ErrorHandler(); // get why doLMSInitialize() returned false
-                message("LMSCommit failed - Could not initialize communication with the LMS - error code: " + err.code);
+                message('LMSCommit failed - Could not initialize communication with the LMS - error code: ' + err.code);
             }
             else {
-                result = api.LMSCommit("");
-                if (result != "true") {
+                result = api.LMSCommit('');
+                if (result != 'true') {
                     var err = ErrorHandler();
-                    message("LMSCommit failed - error code: " + err.code);
+                    message('LMSCommit failed - error code: ' + err.code);
                 }
             }
 
@@ -301,10 +315,10 @@
             var error = { "code": _NoError.code, "string": _NoError.string, "diagnostic": _NoError.diagnostic };
             var api = getAPIHandle();
             if (api == null) {
-                message("Unable to locate the LMS's API Implementation.\nCannot determine LMS error code.");
+                message('Unable to locate the LMS\'s API Implementation.\nCannot determine LMS error code.');
                 error.code = _GeneralException.code;
                 error.string = _GeneralException.string;
-                error.diagnostic = "Unable to locate the LMS's API Implementation. Cannot determine LMS error code.";
+                error.diagnostic = 'Unable to locate the LMS\'s API Implementation. Cannot determine LMS error code.';
                 return error;
             }
 
@@ -313,7 +327,7 @@
             if (error.code != _NoError.code) {
                 // an error was encountered so display the error description
                 error.string = api.LMSGetErrorString(error.code);
-                error.diagnostic = api.LMSGetDiagnostic("");
+                error.diagnostic = api.LMSGetDiagnostic('');
             }
 
             return error;
@@ -355,7 +369,7 @@
                 findAPITries++;
                 // Note: 7 is an arbitrary number, but should be more than sufficient
                 if (findAPITries > 7) {
-                    message("Error finding API -- too deeply nested.");
+                    message('Error finding API -- too deeply nested.');
                     return null;
                 }
 
@@ -378,11 +392,11 @@
         *******************************************************************************/
         function getAPI() {
             var theAPI = findAPI(window);
-            if ((theAPI == null) && (window.opener != null) && (typeof (window.opener) != "undefined")) {
+            if ((theAPI == null) && (window.opener != null) && (typeof (window.opener) != 'undefined')) {
                 theAPI = findAPI(window.opener);
             }
             if (theAPI == null) {
-                message("Unable to find an API adapter");
+                message('Unable to find an API adapter');
             }
             return theAPI;
         }
