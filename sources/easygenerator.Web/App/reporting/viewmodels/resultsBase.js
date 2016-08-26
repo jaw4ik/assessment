@@ -21,6 +21,7 @@
             that.cachedResultsForDownload = null;
             that.isLoading = ko.observable(true);
             that.noResultsViewLocation = noResultsViewLocation;
+            that.isPreparing = ko.observable(false);
 
             that.deactivate = function () {
                 that.results([]);
@@ -57,6 +58,8 @@
             };
 
             that.downloadResults = function downloadResults() {
+                that.isPreparing(true);
+
                 eventTracker.publish(events.downloadResults);
                 return Q.fcall(function () {
                     if (!userContext.hasStarterAccess()) {
@@ -69,8 +72,11 @@
                     var generateCsvTablePromise = generateDetailedResults ? generateDetailedCsv() : generateCsv();
                     return generateCsvTablePromise.then(function (csvTable) {
                         that.cachedResultsForDownload = csvTable;
-                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvTable), getResultsFileName());
+                        
+                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvTable), getResultsFileName())                            
                     });
+                }).fin(function () {
+                    that.isPreparing(false);
                 });
             };
 
