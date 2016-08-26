@@ -51,7 +51,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void AddDemoCourse_Should_AddDemoCourseToRepository()
+        public void AddDemoCourse_ShouldAddDemoCourseToRepository()
         {
             Course courseToAdd = CourseObjectMother.Create();
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(courseToAdd);
@@ -61,7 +61,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void AddDemoCourse_Should_AddDemoCourseSuffixToCourseTitle()
+        public void AddDemoCourse_ShouldAddDemoCourseSuffixToCourseTitle()
         {
             Course courseToAdd = CourseObjectMother.Create();
             var courseTitle = courseToAdd.Title;
@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void AddDemoCourse_Should_NotAddDemoCourseSuffixIfCourseTitleIsTooLong()
+        public void AddDemoCourse_ShouldNotAddDemoCourseSuffixIfCourseTitleIsTooLong()
         {
             Course courseToAdd = CourseObjectMother.Create();
             courseToAdd.UpdateTitle("New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!New course!Ne", "modifier");
@@ -86,7 +86,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void AddDemoCourse_Should_AddDemoCourseInfoToRepository()
+        public void AddDemoCourse_ShouldAddDemoCourseInfoToRepository()
         {
             Course courseToAdd = CourseObjectMother.Create();
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(courseToAdd);
@@ -99,7 +99,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void AddDemoCourse_Should_AddDemoCourseInfoToMemoryStorage()
+        public void AddDemoCourse_ShouldAddDemoCourseInfoToMemoryStorage()
         {
             Course courseToAdd = CourseObjectMother.Create();
             _cloner.Clone<Course>(Arg.Any<Course>(), Arg.Any<string>()).Returns(courseToAdd);
@@ -112,7 +112,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void AddDemoCourse_Should_AddErrorMessageToTempDataIfCourseIsNull()
+        public void AddDemoCourse_ShouldAddErrorMessageToTempDataIfCourseIsNull()
         {
             _demoCourseController.AddDemoCourse(null);
             _demoCourseController.TempData["ErrorMessage"].Should()
@@ -121,7 +121,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void RemoveDemoCourse_Should_AddErrorMessageToTempDataIfCourseIsNull()
+        public void RemoveDemoCourse_ShouldAddErrorMessageToTempDataIfCourseIsNull()
         {
             _demoCourseController.RemoveDemoCourse(null);
             _demoCourseController.TempData["ErrorMessage"].Should()
@@ -129,7 +129,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void RemoveDemoCourse_Should_RemoveDemoCourseWithSectionsFromRepository()
+        public void RemoveDemoCourse_ShouldRemoveDemoCourseWithSectionsFromRepository()
         {
             var course = CourseObjectMother.Create();
             var section1 = SectionObjectMother.Create();
@@ -146,7 +146,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void RemoveDemoCourse_Should_RemoveDemoCourseFromMemoryStorage()
+        public void RemoveDemoCourse_ShouldRemoveDemoCourseFromMemoryStorage()
         {
             var demoCourseInfo = DemoCourseInfoObjectMother.Create();
             _demoCourseController.RemoveDemoCourse(demoCourseInfo);
@@ -155,7 +155,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_AddErrorMessageToTempDataIfCourseInfoIsNull()
+        public void UpdateDemoCourse_ShouldAddErrorMessageToTempDataIfCourseInfoIsNull()
         {
             _demoCourseController.UpdateDemoCourse(null);
             _demoCourseController.TempData["ErrorMessage"].Should()
@@ -163,7 +163,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_AddErrorMessageToTempDataIfSourseCourseIsNull()
+        public void UpdateDemoCourse_ShouldAddErrorMessageToTempDataIfSourseCourseIsNull()
         {
             var demoCourseInfo = DemoCourseInfoObjectMother.CreateWithEmptySourceCourse();
             _demoCourseController.UpdateDemoCourse(demoCourseInfo);
@@ -172,7 +172,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_AddNewCourseToRepository()
+        public void UpdateDemoCourse_ShouldAddNewCourseToRepository()
         {
             var course = CourseObjectMother.Create();
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(course);
@@ -183,7 +183,7 @@ namespace easygenerator.Web.Tests.Controllers
 
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_UpdateDemoCourseInfoWithNewCourse()
+        public void UpdateDemoCourse_ShouldUpdateDemoCourseInfoWithNewCourse()
         {
             var course = CourseObjectMother.Create();
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(course);
@@ -193,7 +193,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_RemoveOldDemoCourseWithSections()
+        public void UpdateDemoCourse_ShouldRemoveOldDemoCourseWithSections()
         {
             var course = CourseObjectMother.Create();
             var section1 = SectionObjectMother.Create();
@@ -211,7 +211,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateDemoCourse_Should_UpdateDemoCourseInfoInMemoryStorage()
+        public void UpdateDemoCourse_ShouldUpdateDemoCourseInfoInMemoryStorage()
         {
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(CourseObjectMother.Create());
             var demoCourseInfo = DemoCourseInfoObjectMother.Create();
@@ -220,7 +220,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void Index_Should_FillModelWithCorrectCourses()
+        public void Index_ShouldFillModelWithCorrectCourses()
         {
             DateTimeWrapper.Now = () => DateTime.Now;
             var course1 = CourseObjectMother.Create();

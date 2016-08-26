@@ -777,26 +777,7 @@ describe('repository [courseRepository]', function () {
                     post.resolve('He`s dead Jim');
                 });
 
-            });
-
-            describe('and response has no ModifiedOn date', function () {
-
-                it('should reject promise', function (done) {
-                    var
-                        courseId = 'adsasdasd',
-                        sectionId = 'obj1';
-
-                    var promise = repository.relateSection(courseId, sectionId);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
+            });            
 
             describe('and course not found in dataContext', function () {
 
@@ -814,7 +795,7 @@ describe('repository [courseRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: 'asdadas' });
+                    post.resolve({});
                 });
 
             });
@@ -835,7 +816,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: new Date().toISOString() });
+                post.resolve({});
             });
 
             it('should trigger course:sectionRelated event', function (done) {
@@ -857,27 +838,8 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: new Date().toISOString() });
-            });
-
-            it('should resolve promise with received data', function (done) {
-                var
-                    courseId = 'adsasdasd',
-                    sectionId = 'obj1',
-                    modifiedOnDate = new Date();
-
-                dataContext.courses = [{ id: courseId, sections: [] }];
-                dataContext.sections = [{ id: sectionId }];
-
-                var promise = repository.relateSection(courseId, sectionId);
-
-                promise.fin(function () {
-                    expect(promise.inspect().value.modifiedOn).toEqual(modifiedOnDate);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
-            });
+                post.resolve({});
+            });           
 
         });
 
@@ -1006,26 +968,7 @@ describe('repository [courseRepository]', function () {
                     post.resolve('He`s dead Jim');
                 });
 
-            });
-
-            describe('and response has no ModifiedOn date', function () {
-
-                it('should reject promise', function (done) {
-                    var
-                        courseId = 'adsasdasd',
-                        sections = [{ id: 'obj1' }, { id: 'obj2' }];
-
-                    var promise = repository.unrelateSections(courseId, sections);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
+            });            
 
             describe('and course not found in dataContext', function () {
 
@@ -1043,7 +986,7 @@ describe('repository [courseRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: 'asdadas' });
+                    post.resolve({});
                 });
 
             });
@@ -1063,7 +1006,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: new Date().toISOString() });
+                post.resolve({});
             });
 
             it('should trigger course:sectionsUnrelated event', function (done) {
@@ -1084,27 +1027,8 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: new Date().toISOString() });
+                post.resolve({});
             });
-
-            it('should resolve promise with received data', function (done) {
-                var
-                    courseId = 'adsasdasd',
-                    sections = [{ id: 'obj1' }, { id: 'obj2' }],
-                    modifiedOnDate = new Date();
-
-                dataContext.courses = [{ id: courseId, sections: sections }];
-
-                var promise = repository.unrelateSections(courseId, [sections[0]]);
-
-                promise.fin(function () {
-                    expect(promise.inspect().value).toEqual(modifiedOnDate);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
-            });
-
         });
 
     });
@@ -1231,26 +1155,7 @@ describe('repository [courseRepository]', function () {
                     post.resolve('He`s dead Jim');
                 });
 
-            });
-
-            describe('and response has no ModifiedOn date', function () {
-
-                it('should reject promise', function (done) {
-                    var
-                        courseId = 'qweqeqweqw',
-                        courseTitle = 'dfgjghjdghj';
-
-                    var promise = repository.updateCourseTitle(courseId, courseTitle);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
+            });           
 
             describe('and course not found in dataContext', function () {
 
@@ -1268,7 +1173,7 @@ describe('repository [courseRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: 'asdadas' });
+                    post.resolve({});
                 });
 
             });
@@ -1279,17 +1184,16 @@ describe('repository [courseRepository]', function () {
                     courseTitle = 'dfgjghjdghj',
                     modifiedDate = new Date();
 
-                dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
+                dataContext.courses = [{ id: courseId, title: ''}];
 
                 var promise = repository.updateCourseTitle(courseId, courseTitle);
 
                 promise.fin(function () {
                     expect(dataContext.courses[0].title).toEqual(courseTitle);
-                    expect(dataContext.courses[0].modifiedOn).toEqual(modifiedDate);
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedDate.toISOString() });
+                post.resolve({});
             });
 
             it('should trigger course:titleUpdated event', function (done) {
@@ -1298,7 +1202,7 @@ describe('repository [courseRepository]', function () {
                     courseTitle = 'dfgjghjdghj',
                     modifiedDate = new Date();
 
-                dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
+                dataContext.courses = [{ id: courseId, title: '', modifiedOn: modifiedDate }];
 
                 var promise = repository.updateCourseTitle(courseId, courseTitle);
 
@@ -1311,26 +1215,8 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedDate.toISOString() });
-            });
-
-            it('should resolve promise with received modification date', function (done) {
-                var
-                    courseId = 'qweqeqweqw',
-                    courseTitle = 'dfgjghjdghj',
-                    modifiedDate = new Date();
-
-                dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
-
-                var promise = repository.updateCourseTitle(courseId, courseTitle);
-
-                promise.fin(function () {
-                    expect(promise.inspect().value).toEqual(modifiedDate);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedDate.toISOString() });
-            });
+                post.resolve({});
+            });          
 
         });
 
@@ -1458,26 +1344,7 @@ describe('repository [courseRepository]', function () {
                     post.resolve('He`s dead Jim');
                 });
 
-            });
-
-            describe('and response has no ModifiedOn date', function () {
-
-                it('should reject promise', function (done) {
-                    var
-                        courseId = 'qweqeqweqw',
-                        templateId = 'dfgjghjdghj';
-
-                    var promise = repository.updateCourseTemplate(courseId, templateId);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
+            });            
 
             describe('and course not found in dataContext', function () {
 
@@ -1495,7 +1362,7 @@ describe('repository [courseRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: 'asdadas' });
+                    post.resolve({});
                 });
 
             });
@@ -1503,21 +1370,19 @@ describe('repository [courseRepository]', function () {
             it('should update course in dataContext', function (done) {
                 var
                     courseId = 'qweqeqweqw',
-                    templateId = 'dfgjghjdghj',
-                    modifiedDate = new Date();
+                    templateId = 'dfgjghjdghj';
 
-                dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
+                dataContext.courses = [{ id: courseId, title: '' }];
                 dataContext.templates = [{ id: templateId, name: 'template.name', thumbnail: 'template.image' }];
 
                 var promise = repository.updateCourseTemplate(courseId, templateId);
 
                 promise.fin(function () {
                     expect(dataContext.courses[0].template).toEqual(dataContext.templates[0]);
-                    expect(dataContext.courses[0].modifiedOn).toEqual(modifiedDate);
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedDate.toISOString() });
+                post.resolve({});
             });
 
             it('should resolve promise with course template', function (done) {
@@ -1537,7 +1402,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedDate.toISOString() });
+                post.resolve({});
             });
 
         });
@@ -1629,25 +1494,6 @@ describe('repository [courseRepository]', function () {
 
             });
 
-            describe('and response has no ModifiedOn date', function () {
-
-                it('should reject promise', function (done) {
-                    var
-                        courseId = 'qweqeqweqw',
-                        introductionContent = 'dfgjghjdghj';
-
-                    var promise = repository.updateIntroductionContent(courseId, introductionContent);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
-
             describe('and course not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
@@ -1672,8 +1518,7 @@ describe('repository [courseRepository]', function () {
             it('should update course in dataContext', function (done) {
                 var
                     courseId = 'qweqeqweqw',
-                    introductionContent = 'dfgjghjdghj',
-                    modifiedOnDate = new Date();
+                    introductionContent = 'dfgjghjdghj';
 
                 dataContext.courses = [{ id: courseId, introductionContent: '' }];
 
@@ -1681,29 +1526,10 @@ describe('repository [courseRepository]', function () {
 
                 promise.fin(function () {
                     expect(dataContext.courses[0].introductionContent).toEqual(introductionContent);
-                    expect(dataContext.courses[0].modifiedOn).toEqual(modifiedOnDate);
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
-            });
-
-            it('should resolve promise with modification date', function (done) {
-                var
-                    courseId = 'qweqeqweqw',
-                    introductionContent = 'dfgjghjdghj',
-                    modifiedOnDate = new Date();
-
-                dataContext.courses = [{ id: courseId, introductionContent: '' }];
-
-                var promise = repository.updateIntroductionContent(courseId, introductionContent);
-
-                promise.fin(function () {
-                    expect(promise.inspect().value).toEqual(modifiedOnDate);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
+                post.resolve({});
             });
 
         });
@@ -1836,26 +1662,6 @@ describe('repository [courseRepository]', function () {
 
             });
 
-            describe('and response has no ModifiedOn date', function () {
-
-                it('should reject promise', function (done) {
-                    var
-                        courseId = 'qweqeqweqw',
-                        sections = [{ id: 'obj1' }, { id: 'obj2' }],
-                        mappedSections = ['obj1', 'obj2'];
-
-                    var promise = repository.updateSectionOrder(courseId, sections);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
-
             describe('and course not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
@@ -1873,7 +1679,7 @@ describe('repository [courseRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: 'asdadas' });
+                    post.resolve({});
                 });
 
             });
@@ -1885,7 +1691,7 @@ describe('repository [courseRepository]', function () {
                     mappedSections = ['obj1', 'obj2'],
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]] }];
+                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]], modifiedOn: modifiedOnDate }];
 
                 var promise = repository.updateSectionOrder(courseId, sections);
 
@@ -1896,7 +1702,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
+                post.resolve({});
             });
 
             it('should trigger course:sectionsReordered event', function (done) {
@@ -1906,7 +1712,7 @@ describe('repository [courseRepository]', function () {
                     mappedSections = ['obj1', 'obj2'],
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]] }];
+                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]], modifiedOn: modifiedOnDate  }];
 
                 var promise = repository.updateSectionOrder(courseId, sections);
 
@@ -1920,26 +1726,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
-            });
-
-            it('should resolve promise with modification date', function (done) {
-                var
-                    courseId = 'qweqeqweqw',
-                    sections = [{ id: 'obj1' }, { id: 'obj2' }],
-                    mappedSections = ['obj1', 'obj2'],
-                    modifiedOnDate = new Date();
-
-                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]] }];
-
-                var promise = repository.updateSectionOrder(courseId, sections);
-
-                promise.fin(function () {
-                    expect(promise.inspect().value).toEqual(modifiedOnDate);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
+                post.resolve({});
             });
 
         });

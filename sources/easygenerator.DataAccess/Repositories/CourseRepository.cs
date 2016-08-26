@@ -48,56 +48,7 @@ namespace easygenerator.DataAccess.Repositories
 
             return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
                 new SqlParameter("@sectionId", sectionId)).ToList();
-        }
-
-        public ICollection<Course> GetCoursesRelatedToQuestion(Guid questionId)
-        {
-            const string query = @"
-                SELECT course.* FROM Courses course INNER JOIN (
-                    SELECT section.Course_Id FROM CourseSections section INNER JOIN (
-                        SELECT question.Section_Id FROM Questions question WHERE question.Id = @questionId
-                    ) quest ON section.Section_Id = quest.Section_Id
-                ) obj ON course.Id = obj.Course_Id
-            ";
-
-            return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
-                new SqlParameter("@questionId", questionId)).ToList();
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToLearningContent(Guid contentId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(contentId, "LearningContents");
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToAnswer(Guid answerId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(answerId, "Answers");
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToDropspot(Guid dropspotId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(dropspotId, "Dropspots");
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToHotSpotPolygon(Guid hotspotPolygonId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(hotspotPolygonId, "HotSpotPolygons");
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToTextMatchingAnswer(Guid answerId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(answerId, "TextMatchingAnswers");
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToSingleSelectImageAnswer(Guid answerId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(answerId, "SingleSelectImageAnswers");
-        }
-
-        public IEnumerable<Course> GetCoursesRelatedToRankingTextAnswer(Guid answerId)
-        {
-            return GetCoursesRelatedToQuestionBasedEntity(answerId, "RankingTextAnswers");
-        }
+        }        
 
         public IEnumerable<Course> GetCoursesWithTheme(Guid themeId)
         {
@@ -107,21 +58,6 @@ namespace easygenerator.DataAccess.Repositories
 
             return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
                 new SqlParameter("@themeId", themeId)).ToList();
-        }
-
-        private IEnumerable<Course> GetCoursesRelatedToQuestionBasedEntity(Guid entityId, string entityTableName)
-        {
-            var query = String.Format(@"
-                SELECT course.* FROM Courses course inner join(
-                    SELECT section.Course_Id FROM CourseSections section inner join(
-                        SELECT question.Section_Id FROM Questions question inner join {0} entity ON entity.Question_Id = question.Id
-                        WHERE entity.Id = @entityId
-                    ) quest ON section.Section_Id = quest.Section_Id
-                ) obj ON course.Id = obj.Course_Id
-            ", entityTableName);
-
-            return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
-                new SqlParameter("@entityId", entityId)).ToList();
         }
     }
 }

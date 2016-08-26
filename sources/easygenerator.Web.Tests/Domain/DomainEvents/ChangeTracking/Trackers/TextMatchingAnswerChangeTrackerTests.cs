@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_TextMatchingAnswerValueChanged_Should_Publish_AnswerChangedEvent()
+        public void Handle_TextMatchingAnswerValueChanged_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new TextMatchingAnswerValueChangedEvent(TextMatchingAnswerObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_TextMatchingAnswerKeyChangedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_TextMatchingAnswerKeyChangedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new TextMatchingAnswerKeyChangedEvent(TextMatchingAnswerObjectMother.Create()));
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_TextMatchingAnswerCreatedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_TextMatchingAnswerCreatedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new TextMatchingAnswerCreatedEvent(TextMatchingAnswerObjectMother.Create()));

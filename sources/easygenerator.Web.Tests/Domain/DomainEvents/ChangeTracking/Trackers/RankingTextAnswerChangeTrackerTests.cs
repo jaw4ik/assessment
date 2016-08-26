@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_RankingTextAnswerTextChangedEvent_Should_Publish_RankingTextAnswerChangedEvent()
+        public void Handle_RankingTextAnswerTextChangedEvent_ShouldPublishRankingTextAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new RankingTextAnswerTextChangedEvent(RankingTextAnswerObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
        [TestMethod]
-        public void Handler_RankingTextAnswerCreatedEvent_Should_Publish_RankingTextAnswerChangedEvent()
+        public void Handle_RankingTextAnswerCreatedEvent_ShouldPublishRankingTextAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new RankingTextAnswerCreatedEvent(RankingTextAnswerObjectMother.Create()));

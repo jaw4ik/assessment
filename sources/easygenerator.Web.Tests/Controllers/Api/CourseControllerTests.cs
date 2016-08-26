@@ -934,7 +934,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateTitle(course, String.Empty);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
 
@@ -984,7 +984,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateTemplate(course, template);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion
@@ -1154,7 +1154,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateIntroductionContent(course, "some content");
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion UpdateContent
@@ -1197,7 +1197,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateSectionsOrderedList(course, new List<Section>());
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion UpdateSectionsOrder

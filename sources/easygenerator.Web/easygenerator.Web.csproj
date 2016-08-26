@@ -462,7 +462,7 @@
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
-    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\SectionChangeTracker.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
@@ -804,11 +804,19 @@
     <Content Include="App\design\tabs\ThemesTab.spec.js">
       <DependentUpon>ThemesTab.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\modified.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\modified.spec.js">
+      <DependentUpon>modified.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\processedByCoggno.spec.js">
       <DependentUpon>processedByCoggno.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\publishedForSale.spec.js">
       <DependentUpon>publishedForSale.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\section\eventHandlers\modified.js" />
+    <Content Include="App\synchronization\handlers\section\eventHandlers\modified.spec.js">
+      <DependentUpon>modified.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\publishingToCoggnoAction.spec.js">
       <DependentUpon>publishingToCoggnoAction.js</DependentUpon>
@@ -3250,6 +3258,7 @@
     <Content Include="Scripts\knockoutBindings\foreachAnimatedBinding.js" />
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
+    <Content Include="Scripts\knockoutBindings\textWithMarkedMatchesBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderControlBinding.js" />

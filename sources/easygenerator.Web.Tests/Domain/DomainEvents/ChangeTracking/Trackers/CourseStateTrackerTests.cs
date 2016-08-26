@@ -39,7 +39,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CourseChangedEvent
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should__Not_UpdateChangedOnInInfoStorage_WhenCourseHasNotBeenPublished()
+        public void Handle_CourseChangedEvent_Should_Not_UpdateChangedOnInInfoStorage_WhenCourseHasNotBeenPublished()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_Not_RaiseCourseStateUpdatedEvent_WhenCourseHasNotBeenPublished()
+        public void Handle_CourseChangedEvent_ShouldNot_RaiseCourseStateUpdatedEvent_WhenCourseHasNotBeenPublished()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_Not_SaveState_WhenCourseHasNotBeenPublished()
+        public void Handle_CourseChangedEvent_ShouldNot_SaveState_WhenCourseHasNotBeenPublished()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -88,7 +88,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_UpdateChangedOnInInfoStorage()
+        public void Handle_CourseChangedEvent_ShouldUpdateChangedOnInInfoStorage()
         {
             //Arrange
             var course = CreatePublishedCourse();
@@ -103,7 +103,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_RaiseCourseStateUpdatedEvent_WhenCourseIsClean()
+        public void Handle_CourseChangedEvent_ShouldRaiseCourseStateUpdatedEvent_WhenCourseIsClean()
         {
             //Arrange
             var course = CreatePublishedCourse();
@@ -119,7 +119,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_Not_RaiseCourseStateUpdatedEvent_WhenCourseIsDirty()
+        public void Handle_CourseChangedEvent_ShouldNot_RaiseCourseStateUpdatedEvent_WhenCourseIsDirty()
         {
             //Arrange
             var course = CreatePublishedCourse();
@@ -136,7 +136,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_SaveState_WhenCourseIsClean()
+        public void Handle_CourseChangedEvent_ShouldSaveState_WhenCourseIsClean()
         {
             //Arrange
             var course = CreatePublishedCourse();
@@ -152,7 +152,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_Not_SaveState_WhenCourseIsDirty()
+        public void Handle_CourseChangedEvent_ShouldNot_SaveState_WhenCourseIsDirty()
         {
             //Arrange
             var course = CreatePublishedCourse();
@@ -180,7 +180,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CourseBuildStartedEvent
 
         [TestMethod]
-        public void Handle_CourseBuildStartedEvent_Should_UpdateBuildStartedOnInInfoStorage()
+        public void Handle_CourseBuildStartedEvent_ShouldUpdateBuildStartedOnInInfoStorage()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -199,7 +199,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CourseScormBuildStartedEvent
 
         [TestMethod]
-        public void Handle_CourseScormBuildStartedEvent_Should_UpdateBuildForSaleStartedOnInInfoStorage()
+        public void Handle_CourseScormBuildStartedEvent_ShouldUpdateBuildForSaleStartedOnInInfoStorage()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -218,7 +218,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CoursePublishedEvent
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseIsClean()
+        public void Handle_CoursePublishedEvent_ShouldNot_PublishCourseStateChangedEvent_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -232,7 +232,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_SaveState_WhenCourseIsClean()
+        public void Handle_CoursePublishedEvent_ShouldNot_SaveState_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -246,7 +246,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_PublishCourseStateChangedEvent_WhenPublishIsNotSuccessful()
+        public void Handle_CoursePublishedEvent_ShouldPublishCourseStateChangedEvent_WhenPublishIsNotSuccessful()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -262,7 +262,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_SaveState_WhenCourse_WhenPublishIsNotSuccessful()
+        public void Handle_CoursePublishedEvent_ShouldSaveState_WhenCourse_WhenPublishIsNotSuccessful()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -278,7 +278,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseChangedAfterBuildWasStarted()
+        public void Handle_CoursePublishedEvent_ShouldNot_PublishCourseStateChangedEvent_WhenCourseChangedAfterBuildWasStarted()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -294,7 +294,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_SaveState_WhenCourseChangedAfterBuildWasStarted()
+        public void Handle_CoursePublishedEvent_ShouldNot_SaveState_WhenCourseChangedAfterBuildWasStarted()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -310,7 +310,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_PublishCourseStateChangedEvent()
+        public void Handle_CoursePublishedEvent_ShouldPublishCourseStateChangedEvent()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -326,7 +326,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_SaveState()
+        public void Handle_CoursePublishedEvent_ShouldSaveState()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -346,7 +346,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CoursePublishedForSaleEvent
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseIsClean()
+        public void Handle_CoursePublishedForSaleEvent_ShouldNot_PublishCourseStateChangedEvent_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -360,7 +360,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_Not_SaveState_WhenCourseIsClean()
+        public void Handle_CoursePublishedForSaleEvent_ShouldNot_SaveState_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -374,7 +374,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_PublishCourseStateChangedEvent_WhenPublishIsNotSuccessful()
+        public void Handle_CoursePublishedForSaleEvent_ShouldPublishCourseStateChangedEvent_WhenPublishIsNotSuccessful()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -389,7 +389,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_SaveState_WhenCourse_WhenPublishIsNotSuccessful()
+        public void Handle_CoursePublishedForSaleEvent_ShouldSaveState_WhenCourse_WhenPublishIsNotSuccessful()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -404,7 +404,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseChangedAfterBuildWasStarted()
+        public void Handle_CoursePublishedForSaleEvent_ShouldNot_PublishCourseStateChangedEvent_WhenCourseChangedAfterBuildWasStarted()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -420,7 +420,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_Not_SaveState_WhenCourseChangedAfterBuildWasStarted()
+        public void Handle_CoursePublishedForSaleEvent_ShouldNot_SaveState_WhenCourseChangedAfterBuildWasStarted()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -436,7 +436,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_PublishCourseStateChangedEvent()
+        public void Handle_CoursePublishedForSaleEvent_ShouldPublishCourseStateChangedEvent()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -452,7 +452,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedForSaleEvent_Should_SaveState()
+        public void Handle_CoursePublishedForSaleEvent_ShouldSaveState()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -472,7 +472,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CourseDeletedEvent
 
         [TestMethod]
-        public void Handle_CourseDeletedEvent_Should_DeleteStateFromStorage()
+        public void Handle_CourseDeletedEvent_ShouldDeleteStateFromStorage()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -485,7 +485,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseDeletedEvent_Should_DeleteInfoFromStorage()
+        public void Handle_CourseDeletedEvent_ShouldDeleteInfoFromStorage()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -502,7 +502,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handle CourseProgressedByCoggnoEvent
 
         [TestMethod]
-        public void Handle_CourseProgressedByCoggnoEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseIsSuccessfullyProcessed()
+        public void Handle_CourseProgressedByCoggnoEvent_ShouldNot_PublishCourseStateChangedEvent_WhenCourseIsSuccessfullyProcessed()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -515,7 +515,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseProgressedByCoggnoEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseIsDirtyForSale()
+        public void Handle_CourseProgressedByCoggnoEvent_ShouldNot_PublishCourseStateChangedEvent_WhenCourseIsDirtyForSale()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -528,7 +528,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_CourseProgressedByCoggnoEvent_Should_PublishCourseStateChangedEvent_WhenCourseIsNotDirtyForSale()
+        public void Handle_CourseProgressedByCoggnoEvent_ShouldPublishCourseStateChangedEvent_WhenCourseIsNotDirtyForSale()
         {
             //Arrange
             var course = CourseObjectMother.Create();

@@ -175,6 +175,7 @@ messages: {
             templateUpdated: 'course:templateUpdated',
             stateChanged: 'course:stateChanged',
             ownershipUpdated: 'course:ownershipUpdated',
+            modified: 'course:modified',
 
             build: {
             started: 'course:build-started',
@@ -260,7 +261,8 @@ messages: {
             imageUrlUpdatedByCollaborator: 'section:imageUrlUpdatedByCollaborator',
             questionsReordered: 'section:questionsReordered',
             questionsReorderedByCollaborator: 'section:questionsReorderedByCollaborator',
-            navigated: 'section:navigatedTo'
+            navigated: 'section:navigatedTo',
+            modified: 'section:modified'
     },
     question: {
             created: 'question:created',

@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_AnswerCorrectnessUpdated_Should_Publish_AnswerChangedEvent()
+        public void Handle_AnswerCorrectnessUpdated_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new AnswerCorrectnessUpdatedEvent(AnswerObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_AnswerCreated_Should_Publish_AnswerChangedEvent()
+        public void Handle_AnswerCreated_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new AnswerCreatedEvent(AnswerObjectMother.Create()));
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_AnswerTextUpdated_Should_Publish_AnswerChangedEvent()
+        public void Handle_AnswerTextUpdated_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new AnswerTextUpdatedEvent(AnswerObjectMother.Create()));

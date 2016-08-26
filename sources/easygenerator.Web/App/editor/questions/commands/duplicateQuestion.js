@@ -33,9 +33,7 @@ let copyQuestion = async (questionId, sectionId) => {
     let reorderResponse = await apiHttpWrapper.post('api/section/updatequestionsorder', { sectionId: section.id, questions: _.map(section.questions, item => item.id) });
 
     guard.throwIfNotAnObject(reorderResponse, 'Response is not an object');
-    guard.throwIfNotString(reorderResponse.ModifiedOn, 'Response does not have modification date');
-    
-    section.modifiedOn = new Date(reorderResponse.ModifiedOn);
+
     app.trigger(constants.messages.question.created, sectionId, copiedQuestion, index);
 
     return copiedQuestion;

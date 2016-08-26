@@ -235,6 +235,7 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\SectionChangedTrackerTest.cs" />
     <Compile Include="Domain\DomainEvents\Handlers\OrganizationSettingsApplicationHandlerTests.cs" />
     <Compile Include="Domain\DomainEvents\Handlers\OrganizationUserAutoincludeHandlerTests.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderControllerTests.cs" />
@@ -266,7 +267,6 @@
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\AnswerChangeTrackerTests.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\LearningContentChangeTrackerTests.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\QuestionChangeTrackerTests.cs" />
-    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTrackerTests.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\CourseChangeTrackerTests.cs" />
     <Compile Include="Domain\DomainEvents\Events\UserSignedUpEventTest.cs" />
     <Compile Include="Import\Presentation\PresentationCourseImporterTests.cs" />

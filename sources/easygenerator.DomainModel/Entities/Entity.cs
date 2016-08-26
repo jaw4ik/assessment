@@ -51,6 +51,15 @@ namespace easygenerator.DomainModel.Entities
             ModifiedOn = DateTimeWrapper.Now();
         }
 
+        public virtual void MarkAsModified(string modifiedBy, DateTime modifiedOn)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+            ThrowIfModifiedOnIsInvalid(modifiedOn);
+
+            ModifiedBy = modifiedBy;
+            ModifiedOn = modifiedOn;
+        }
+
         protected void ThrowIfModifiedByIsInvalid(string modifiedBy)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
@@ -59,6 +68,11 @@ namespace easygenerator.DomainModel.Entities
         protected void ThrowIfCreatedByIsInvalid(string createdBy)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(createdBy, "createdBy");
+        }
+
+        protected void ThrowIfModifiedOnIsInvalid(DateTime modifiedOn)
+        {
+            ArgumentValidation.ThrowIfDateIsInvalid(modifiedOn, "createdOn");
         }
     }
 }

@@ -50,13 +50,14 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Template = template;
-            MarkAsModified(modifiedBy);
 
             template.GrantAccessTo(Collaborators.Select(_ => _.Email).Concat(new[] { CreatedBy }).ToArray());
 
+            MarkAsModified(modifiedBy);
+
             RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }
-
+        
         protected internal virtual ICollection<LearningPath> LearningPathCollection { get; set; }
 
         public virtual IEnumerable<LearningPath> LearningPaths => LearningPathCollection.AsEnumerable();

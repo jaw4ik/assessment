@@ -64,10 +64,12 @@
                         courseSectionsUnrelated: courseEventHandler.sectionsUnrelated,
                         courseSectionsReplaced: courseEventHandler.sectionsReplaced,
                         courseOwnershipUpdated: courseEventHandler.ownershipUpdated,
+                        courseModified: courseEventHandler.modified,
 
                         sectionTitleUpdated: sectionEventHandler.titleUpdated,
                         sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,
                         sectionQuestionsReordered: sectionEventHandler.questionsReordered,
+                        sectionModified: sectionEventHandler.modified,
 
                         questionCreated: questionEventHandler.question.created,
                         questionsDeleted: questionEventHandler.question.deleted,

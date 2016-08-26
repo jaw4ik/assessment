@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_DropspotCreatedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_DropspotCreatedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new DropspotCreatedEvent(DropspotObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_DropspotPositionChangedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_DropspotPositionChangedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new DropspotPositionChangedEvent(DropspotObjectMother.Create()));
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_DropspotTextChangedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_DropspotTextChangedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new DropspotTextChangedEvent(DropspotObjectMother.Create()));

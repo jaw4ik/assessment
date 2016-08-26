@@ -139,7 +139,6 @@
 
                 return apiHttpWrapper.post('api/course/relateSection', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var course = _.find(dataContext.courses, function (exp) {
                         return exp.id == courseId;
@@ -151,8 +150,6 @@
                     });
                     guard.throwIfNotAnObject(section, "Section doesn`t exist");
 
-                    course.modifiedOn = new Date(response.ModifiedOn);
-
                     if (!_.isNullOrUndefined(targetIndex)) {
                         course.sections.splice(targetIndex, 0, section);
                     } else {
@@ -160,10 +157,6 @@
                     }
 
                     app.trigger(constants.messages.course.sectionRelated, requestArgs.courseId, section, targetIndex);
-
-                    return {
-                        modifiedOn: course.modifiedOn
-                    };
                 });
             });
         }
@@ -182,7 +175,6 @@
 
                 return apiHttpWrapper.post('api/course/unrelateSections', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var course = _.find(dataContext.courses, function (exp) {
                         return exp.id == courseId;
@@ -195,11 +187,7 @@
                         });
                     });
 
-                    course.modifiedOn = new Date(response.ModifiedOn);
-
                     app.trigger(constants.messages.course.sectionsUnrelated, requestArgs.courseId, requestArgs.sections);
-
-                    return course.modifiedOn;
                 });
             });
         }
@@ -216,7 +204,6 @@
 
                 return apiHttpWrapper.post('api/course/updateTitle', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var course = _.find(dataContext.courses, function (item) {
                         return item.id === courseId;
@@ -225,11 +212,8 @@
                     guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
 
                     course.title = courseTitle;
-                    course.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger(constants.messages.course.titleUpdated, course);
-
-                    return course.modifiedOn;
                 });
 
             });
@@ -247,7 +231,6 @@
 
                 return apiHttpWrapper.post('api/course/updateTemplate', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var course = _.find(dataContext.courses, function (item) {
                         return item.id === courseId;
@@ -262,7 +245,6 @@
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
                     course.template = template;
-                    course.modifiedOn = new Date(response.ModifiedOn);
 
                     return course.template;
                 });
@@ -276,7 +258,6 @@
 
                 return apiHttpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var course = _.find(dataContext.courses, function (item) {
                         return item.id === courseId;
@@ -284,12 +265,7 @@
 
                     guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
 
-                    var modifiedOn = new Date(response.ModifiedOn);
-
                     course.introductionContent = introductionContent;
-                    course.modifiedOn = modifiedOn;
-
-                    return modifiedOn;
                 });
             });
         }
@@ -308,7 +284,6 @@
 
                 return apiHttpWrapper.post('api/course/updatesectionsorder', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response does not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var course = _.find(dataContext.courses, function (course) {
                         return course.id == courseId;
@@ -321,11 +296,7 @@
                         });
                     });
 
-                    course.modifiedOn = new Date(response.ModifiedOn);
-
                     app.trigger(constants.messages.course.sectionsReordered, course);
-
-                    return course.modifiedOn;
                 });
             });
         }

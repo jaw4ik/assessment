@@ -95,11 +95,7 @@
         app.on(constants.messages.course.collaboration.started, viewModel.courseAdded);
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
-        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.sectionsReorderedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.sectionRelatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.modified, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.courseDeleted);
         app.on(constants.messages.course.collaboration.finishedByCollaborator, viewModel.courseDeleted);
         app.on(constants.messages.course.ownershipUpdated, viewModel.courseOwnershipUpdated);
@@ -112,7 +108,6 @@
 
         function activate() {
             viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
-            viewModel.availableTemplates([]);
             clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
             return userContext.identify().then(function () {
@@ -141,13 +136,24 @@
             return _.chain(viewModel.courses())
                 .filter(function (item) {
                     var title = item.title().trim().toLowerCase();
+                    var authorName = item.createdByName.trim().toLowerCase();
+                    var authorEmail = item.createdBy.trim().toLowerCase();
                     var coursesTemplateFilter = viewModel.coursesTitleFilter().trim().toLowerCase();
 
                     var isVisibleByTemplate = (viewModel.coursesTemplateFilter() === localizedSelectAll)
                                              || (item.template === viewModel.coursesTemplateFilter());
 
                     return item.ownership() === ownership
-                            && ~title.indexOf(coursesTemplateFilter)
+                            && (
+                                ~title.indexOf(coursesTemplateFilter)
+                                ||  (
+                                    ownership !== constants.courseOwnership.owned
+                                    && (
+                                        ~authorName.indexOf(coursesTemplateFilter)
+                                        || ~authorEmail.indexOf(coursesTemplateFilter)
+                                       )
+                                    )
+                               )
                             && isVisibleByTemplate;
                 })
                 .sortBy(function (course) {
@@ -225,7 +231,7 @@
             course.modifiedOn = ko.observable(item.modifiedOn);
             course.createdOn = item.createdOn;
             course.createdBy = item.createdBy;
-            course.createdByName = item.createdByName;
+            course.createdByName = item.createdByName || item.createdBy;
             course.isSelected = ko.observable(false);
             course.sections = item.sections;
             course.isProcessed = true;
@@ -340,7 +346,7 @@
                 return item.id === courseId;
             });
 
-            if (course !== null) {
+            if (!_.isUndefined(course)) {
                 viewModel.courses.remove(course);
             }
         }

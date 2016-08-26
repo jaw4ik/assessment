@@ -4,9 +4,9 @@
 'synchronization/handlers/course/eventHandlers/publishedForSale', 'synchronization/handlers/course/eventHandlers/processedByCoggno',
 'synchronization/handlers/course/eventHandlers/templateUpdated', 'synchronization/handlers/course/eventHandlers/titleUpdated',
 'synchronization/handlers/course/eventHandlers/sectionsReplaced', 'synchronization/handlers/course/eventHandlers/stateChanged',
-'synchronization/handlers/course/eventHandlers/ownershipUpdated'],
+'synchronization/handlers/course/eventHandlers/ownershipUpdated', 'synchronization/handlers/course/eventHandlers/modified'],
     function (deleted, introductionContentUpdated, sectionRelated, sectionsReordered, sectionsUnrelated, published, publishedForSale, processedByCoggno, templateUpdated, titleUpdated, sectionsReplaced,
-        stateChanged, ownershipUpdated) {
+        stateChanged, ownershipUpdated, modified) {
         "use strict";
 
         return {
@@ -22,7 +22,8 @@
             sectionsUnrelated: sectionsUnrelated,
             sectionsReplaced: sectionsReplaced,
             stateChanged: stateChanged,
-            ownershipUpdated: ownershipUpdated
+            ownershipUpdated: ownershipUpdated,
+            modified: modified
         };
 
     });

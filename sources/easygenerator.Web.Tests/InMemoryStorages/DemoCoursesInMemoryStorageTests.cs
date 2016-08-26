@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void InitializeShould_FillDemoCoursesInfoCollection()
+        public void InitializeShouldFillDemoCoursesInfoCollection()
         {
             DateTimeWrapper.Now = () => DateTime.Now.AddMonths(1);
             var demoCourseInfo1 = DemoCourseInfoObjectMother.Create();
@@ -42,7 +42,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void AddDemoCourseInfo_Should_AddDemoCourseInfo()
+        public void AddDemoCourseInfo_ShouldAddDemoCourseInfo()
         {
             _demoCourseInfoRepository.GetCollection().Returns(new DemoCourseInfo[] { });
             demoCourseStorage.Initialize();
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void RemoveDemoCourseInfo_Should_RemoveDemoCourseInfo()
+        public void RemoveDemoCourseInfo_ShouldRemoveDemoCourseInfo()
         {
             var demoCourseInfo = DemoCourseInfoObjectMother.Create();
             var demoCourseInfo1 = DemoCourseInfoObjectMother.Create();
@@ -68,7 +68,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void UpdateDemoCourseInfo_Should_UpdateDemoCourseInfo()
+        public void UpdateDemoCourseInfo_ShouldUpdateDemoCourseInfo()
         {
             var demoCourseInfo = DemoCourseInfoObjectMother.Create();
             var demoCourse = CourseObjectMother.Create();
@@ -84,7 +84,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void DemoCoursesInfo_Should_ReturnOrderedDemoCourseInfos()
+        public void DemoCoursesInfo_ShouldReturnOrderedDemoCourseInfos()
         {
             DateTimeWrapper.Now = () => DateTime.Now.AddMonths(2);
             var demoCourseInfo1 = DemoCourseInfoObjectMother.Create();
@@ -107,7 +107,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void DemoCourses_Should_ReturnOrderedDemoCourses()
+        public void DemoCourses_ShouldReturnOrderedDemoCourses()
         {
             DateTimeWrapper.Now = () => DateTime.Now.AddMonths(2);
             var demoCourseInfo1 = DemoCourseInfoObjectMother.Create();

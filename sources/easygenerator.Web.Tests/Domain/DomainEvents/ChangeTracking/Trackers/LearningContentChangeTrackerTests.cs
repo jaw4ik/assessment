@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_LearningContentCreated_Should_Publish_LearningContentChangedEvent()
+        public void Handle_LearningContentCreated_ShouldPublishLearningContentChangedEvent()
         {
             //Act
             _tracker.Handle(new LearningContentCreatedEvent(LearningContentObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_LearningContentUpdated_Should_Publish_LearningContentChangedEvent()
+        public void Handle_LearningContentUpdated_ShouldPublishLearningContentChangedEvent()
         {
             //Act
             _tracker.Handle(new LearningContentUpdatedEvent(LearningContentObjectMother.Create()));

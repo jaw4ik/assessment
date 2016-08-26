@@ -21,7 +21,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseSectionsUnrelatedEvent>,
         IDomainEventHandler<CourseSectionsClonedEvent>,
         IDomainEventHandler<CourseStateChangedEvent>,
-        IDomainEventHandler<CourseProcessedByCoggnoEvent>
+        IDomainEventHandler<CourseProcessedByCoggnoEvent>,
+        IDomainEventHandler<CourseChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
         private readonly IEntityMapper _entityMapper;
@@ -102,6 +103,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.AllCollaborators(args.Course)
                 .courseProcessedByCoggno(args.Course.Id.ToNString(), args.Course.SaleInfo.DocumentId, args.Success);
+        }
+
+        public void Handle(CourseChangedEvent args)
+        {
+            _broadcaster.AllCollaborators(args.Course)
+                .courseModified(args.Course.Id.ToNString(), args.Course.ModifiedOn);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_HotSpotPolygonUpdatedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_HotSpotPolygonUpdatedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new HotSpotPolygonUpdatedEvent(HotSpotPolygonObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_HotSpotPolygonCreatedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_HotSpotPolygonCreatedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new HotSpotPolygonCreatedEvent(HotSpotPolygonObjectMother.Create()));

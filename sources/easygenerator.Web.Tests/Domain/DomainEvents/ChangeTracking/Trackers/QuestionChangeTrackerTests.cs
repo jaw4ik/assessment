@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Question event handlers
 
         [TestMethod]
-        public void Handler_FillInTheBlankUpdated_Should_Publish_QuestionChangedEvent()
+        public void Handle_FillInTheBlankUpdated_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new FillInTheBlankUpdatedEvent(FillInTheBlanksObjectMother.Create(), new Collection<BlankAnswer>()));
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_LearningContentsReordered_Should_Publish_QuestionChangedEvent()
+        public void Handle_LearningContentsReordered_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new LearningContentsReorderedEvent(FillInTheBlanksObjectMother.Create()));
@@ -55,7 +55,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionContentUpdated_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionContentUpdated_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionContentUpdatedEvent(FillInTheBlanksObjectMother.Create()));
@@ -65,7 +65,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionBackgroundChanged_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionBackgroundChanged_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionBackgroundChangedEvent(DragAndDropTextObjectMother.Create(), "bg.com"));
@@ -75,7 +75,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionIncorrectFeedbackUpdated_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionIncorrectFeedbackUpdated_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionIncorrectFeedbackUpdatedEvent(DragAndDropTextObjectMother.Create()));
@@ -85,7 +85,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionCorrectFeedbackUpdated_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionCorrectFeedbackUpdated_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionCorrectFeedbackUpdatedEvent(DragAndDropTextObjectMother.Create()));
@@ -95,7 +95,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionCreated_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionCreated_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionCreatedEvent(DragAndDropTextObjectMother.Create()));
@@ -105,7 +105,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionTitleUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionTitleUpdatedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionTitleUpdatedEvent(DragAndDropTextObjectMother.Create()));
@@ -115,7 +115,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_QuestionVoiceOverUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_QuestionVoiceOverUpdatedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new QuestionVoiceOverUpdatedEvent(DragAndDropTextObjectMother.Create()));
@@ -125,7 +125,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_AnswerDeletedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_AnswerDeletedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new AnswerDeletedEvent(SingleSelectTextObjectMother.Create(), AnswerObjectMother.Create()));
@@ -135,7 +135,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_LearningContentDeletedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_LearningContentDeletedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new LearningContentDeletedEvent(SingleSelectTextObjectMother.Create(), LearningContentObjectMother.Create()));
@@ -145,7 +145,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_HotSpotPolygonDeletedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_HotSpotPolygonDeletedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new HotSpotPolygonDeletedEvent(SingleSelectTextObjectMother.Create(), HotSpotPolygonObjectMother.Create()));
@@ -155,7 +155,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_DropspotPolygonDeletedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_DropspotPolygonDeletedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new DropspotDeletedEvent(SingleSelectTextObjectMother.Create(), DropspotObjectMother.Create()));
@@ -165,7 +165,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_HotSpotIsMultipleChanged_Should_Publish_QuestionChangedEvent()
+        public void Handle_HotSpotIsMultipleChanged_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new HotSpotIsMultipleChangedEvent(SingleSelectTextObjectMother.Create(), false));
@@ -175,7 +175,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_TextMatchingAnswerDeleted_Should_Publish_QuestionChangedEvent()
+        public void Handle_TextMatchingAnswerDeleted_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new TextMatchingAnswerDeletedEvent(TextMatchingObjectMother.Create(), TextMatchingAnswerObjectMother.Create()));
@@ -185,7 +185,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_SingleSelectImageAnswerDeleted_Should_Publish_QuestionChangedEvent()
+        public void Handle_SingleSelectImageAnswerDeleted_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new SingleSelectImageAnswerDeletedEvent(SingleSelectImageAnswerObjectMother.Create(), SingleSelectImageObjectMother.Create()));
@@ -195,7 +195,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_ScenarioDataUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_ScenarioDataUpdatedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new ScenarioDataUpdatedEvent(ScenarioObjectMother.Create(), null, null, null, null));
@@ -205,7 +205,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_ScenarioMasteryScoreUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_ScenarioMasteryScoreUpdatedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new ScenarioMasteryScoreUpdatedEvent(ScenarioObjectMother.Create(), 100));
@@ -215,7 +215,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_RankingTextAnswerDeletedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_RankingTextAnswerDeletedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new RankingTextAnswerDeletedEvent(RankingTextObjectMother.Create(), RankingTextAnswerObjectMother.Create()));
@@ -225,7 +225,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_RankingTextAnswersReorderedEvent_Should_Publish_QuestionChangedEvent()
+        public void Handle_RankingTextAnswersReorderedEvent_ShouldPublishQuestionChangedEvent()
         {
             //Act
             _tracker.Handle(new RankingTextAnswersReorderedEvent(RankingTextObjectMother.Create(), new Collection<RankingTextAnswer>()));

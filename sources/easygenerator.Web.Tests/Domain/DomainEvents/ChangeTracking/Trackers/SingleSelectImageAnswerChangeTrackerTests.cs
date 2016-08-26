@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         [TestMethod]
-        public void Handler_SingleSelectImageCorrectAnswerChangedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_SingleSelectImageCorrectAnswerChangedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new SingleSelectImageCorrectAnswerChangedEvent(SingleSelectImageAnswerObjectMother.Create()));
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_SingleSelectImageAnswerImageUpdatedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_SingleSelectImageAnswerImageUpdatedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new SingleSelectImageAnswerImageUpdatedEvent(SingleSelectImageAnswerObjectMother.Create()));
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handler_SingleSelectImageAnswerCreatedEvent_Should_Publish_AnswerChangedEvent()
+        public void Handle_SingleSelectImageAnswerCreatedEvent_ShouldPublishAnswerChangedEvent()
         {
             //Act
             _tracker.Handle(new SingleSelectImageAnswerCreatedEvent(SingleSelectImageAnswerObjectMother.Create()));

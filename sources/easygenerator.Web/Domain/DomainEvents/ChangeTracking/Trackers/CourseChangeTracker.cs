@@ -8,6 +8,8 @@ using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Events.ThemeEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Domain.DomainEvents.ChangeTracking.Events;
+using easygenerator.Infrastructure;
+using System;
 
 namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
 {
@@ -21,26 +23,18 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<CourseTemplateSettingsUpdated>,
 
         IDomainEventHandler<SectionChangedEvent>,
-        IDomainEventHandler<QuestionChangedEvent>,
-        IDomainEventHandler<LearningContentChangedEvent>,
-        IDomainEventHandler<AnswerChangedEvent>,
-        IDomainEventHandler<DropspotChangedEvent>,
-        IDomainEventHandler<HotSpotPolygonChangedEvent>,
-        IDomainEventHandler<TextMatchingAnswerChangedEvent>,
-        IDomainEventHandler<SingleSelectImageAnswerChangedEvent>,
-        IDomainEventHandler<RankingTextAnswerCreatedEvent>,
-        IDomainEventHandler<RankingTextAnswerTextChangedEvent>,
-        IDomainEventHandler<CommentDeletedEvent>,
         IDomainEventHandler<ThemeUpdatedEvent>,
         IDomainEventHandler<ThemeDeletedEvent>
     {
         private readonly ICourseRepository _repository;
         private readonly IDomainEventPublisher _eventPublisher;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CourseChangeTracker(IDomainEventPublisher eventPublisher, ICourseRepository repository)
+        public CourseChangeTracker(IDomainEventPublisher eventPublisher, ICourseRepository repository, IUnitOfWork unitOfWork)
         {
             _eventPublisher = eventPublisher;
             _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         #region Course event handlers
@@ -84,75 +78,32 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(SectionChangedEvent args)
         {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToSection(args.Section.Id));
+            OnCoursesChanged(_repository.GetCoursesRelatedToSection(args.Section.Id), args.Section);
         }
 
-        public void Handle(QuestionChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToQuestion(args.Question.Id));
-        }
-
-        public void Handle(LearningContentChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToLearningContent(args.LearningContent.Id));
-        }
-
-        public void Handle(AnswerChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToAnswer(args.Answer.Id));
-        }
-
-        public void Handle(DropspotChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToDropspot(args.Dropspot.Id));
-        }
-
-        public void Handle(HotSpotPolygonChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToHotSpotPolygon(args.HotSpotPolygon.Id));
-        }
-
-        public void Handle(TextMatchingAnswerChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToTextMatchingAnswer(args.Answer.Id));
-        }
-
-        public void Handle(SingleSelectImageAnswerChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToSingleSelectImageAnswer(args.Answer.Id));
-        }
-
-        public void Handle(RankingTextAnswerCreatedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToRankingTextAnswer(args.Answer.Id));
-        }
-
-        public void Handle(RankingTextAnswerTextChangedEvent args)
-        {
-            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToRankingTextAnswer(args.Answer.Id));
-        }
-        public void Handle(CommentDeletedEvent args)
-        {
-            RaiseCourseChangedEvent(args.Course);
-        }
         public void Handle(ThemeUpdatedEvent args)
         {
-            RaiseCoursesChangedEvent(_repository.GetCoursesWithTheme(args.Theme.Id));
+            OnCoursesChanged(_repository.GetCoursesWithTheme(args.Theme.Id), args.Theme);
         }
+
         public void Handle(ThemeDeletedEvent args)
         {
             var changedCourses = args.ChangedCourseSettings.Where(item => item.Course.Template == item.Template)
                     .Select(item => item.Course);
 
-            RaiseCoursesChangedEvent(changedCourses);
+            OnCoursesChanged(changedCourses, args.Theme);
         }
 
-        private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)
+        private void OnCoursesChanged(IEnumerable<Course> courses, Entity entity)
         {
             foreach (var course in courses)
             {
+                course.MarkAsModified(entity.ModifiedBy, entity.ModifiedOn);
+
                 RaiseCourseChangedEvent(course);
             }
+
+            _unitOfWork.Save();
         }
 
         private void RaiseCourseChangedEvent(Course course)

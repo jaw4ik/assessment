@@ -31,6 +31,7 @@
 
             sectionTitleUpdated: sectionTitleUpdated,
             sectionImageUpdated: sectionImageUpdated,
+            sectionUpdated: sectionUpdated,
 
             activate: activate
         };
@@ -41,6 +42,7 @@
 
         app.on(constants.messages.section.titleUpdatedByCollaborator, viewModel.sectionTitleUpdated);
         app.on(constants.messages.section.imageUrlUpdatedByCollaborator, viewModel.sectionImageUpdated);
+        app.on(constants.messages.section.modified, viewModel.sectionUpdated);
 
         return viewModel;
 
@@ -67,7 +69,6 @@
                 success: function (url) {
                     sectionRepository.updateImage(section.id, url).then(function (result) {
                         section.imageUrl(result.imageUrl);
-                        section.modifiedOn(result.modifiedOn);
                         section.isImageLoading(false);
                         eventTracker.publish(events.changeSectionImage);
                         notify.saved();
@@ -124,6 +125,14 @@
                 }));
                 notify.saved();
             });
+        }
+
+        function sectionUpdated(section) {
+            var vmSection = getSectionViewModel(section.id);
+
+            if (_.isObject(vmSection)) {
+                vmSection.modifiedOn(section.modifiedOn);
+            }
         }
 
         function sectionTitleUpdated(section) {

@@ -271,7 +271,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateTitle(courseTitle, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -286,7 +286,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateTemplate(template, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -306,10 +306,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.RelateSection(section, index, GetCurrentUsername());
 
-            return JsonSuccess(new
-            {
-                course.ModifiedOn
-            });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -332,10 +329,7 @@ namespace easygenerator.Web.Controllers.Api
                 course.UnrelateSection(section, GetCurrentUsername());
             }
 
-            return JsonSuccess(new
-            {
-                course.ModifiedOn
-            });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -350,7 +344,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -365,7 +359,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateSectionsOrder(sections, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         private string GetCourseReviewUrl(string courseId)

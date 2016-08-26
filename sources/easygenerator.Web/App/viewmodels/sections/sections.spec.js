@@ -107,17 +107,7 @@ describe('viewModel [sections]', function () {
                         done();
                     });
                 });
-
-                it('should update modifiedOn date', function (done) {
-                    section.modifiedOn(0);
-                    viewModel.updateSectionImage(section);
-
-                    updateImageDefer.promise.fin(function () {
-                        expect(section.modifiedOn()).toBe(lastModifiedDate);
-                        done();
-                    });
-                });
-
+                                               
                 it('should set isImageLoading to false', function (done) {
                     section.isImageLoading(true);
                     viewModel.updateSectionImage(section);

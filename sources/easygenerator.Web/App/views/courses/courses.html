@@ -27,16 +27,12 @@
                         <div class="page-view-caption clearfix">
                             <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
                         </div>
-                        <!-- ko if: false -->
                         <div class="view-list-action filter" data-bind="searchInput: { value: coursesTitleFilter, placeholderKey: 'searchCourses', callback: coursesFilterChanged, enabled: courses().length !== 0 }"></div>
-                        <!-- /ko -->
                     </div>
 
                     <div class="view-list-actions-holder-right-side">                        
-                        <!-- ko if: false -->
                         <div class="view-list-action select-order" data-bind="selectPopover: { options: sortingOptions, value: coursesSortOrder, callback: coursesSortOrderChanged, enabled: courses().length !== 0 }"></div>
                         <div class="view-list-action select-template"  data-bind="selectPopover: { options: availableTemplates(), value: coursesTemplateFilter, enabled: courses().length !== 0, localize: false, enableCounter: true, callback: coursesFilterChanged }"></div>
-                        <!-- /ko -->
                         <div class="list-item-action create">
                             <!-- ko if: isCreateCourseAvailable -->
                             <div class="action-item-btn-wrapper">
@@ -84,7 +80,7 @@
                                 </div>
                                 <div class="list-item-info">
                                     <div class="list-item-title">
-                                        <span class="selectable" data-bind="text: title"></span>
+                                        <span class="selectable" data-bind="textWithMarkedMatches: { valueForCompare: $parent.coursesTitleFilter, text: title}"></span>
                                     </div>
                                     <div class="list-item-details">
                                         <div class="list-item-details-saved">
@@ -139,11 +135,11 @@
                                 </div>
                                 <div class="list-item-info">
                                     <div class="list-item-title">
-                                        <span class="selectable" data-bind="text: title"></span>
+                                        <span class="selectable" data-bind="text: title, textWithMarkedMatches: { valueForCompare: $parent.coursesTitleFilter, text: title}"></span>
                                     </div>
                                     <div class="list-item-details">
                                         <div class="list-item-details-author">
-                                            <span data-bind="localize: { text: 'authorLabel' }"></span> <span data-bind="text: createdByName"></span>
+                                            <span data-bind="localize: { text: 'authorLabel' }"></span> <span data-bind="textWithMarkedMatches: { valueForCompare: $parent.coursesTitleFilter, text: createdByName}"></span>
                                         </div>
                                         <div class="list-item-details-saved">
                                             <span data-bind="localize: { text: 'lastEdited' }"></span> <span data-bind="date: { value: modifiedOn, formatString: 'L' }"></span>
@@ -179,11 +175,11 @@
                                 </div>
                                 <div class="list-item-info">
                                     <div class="list-item-title">
-                                        <span class="selectable" data-bind="text: title"></span>
+                                        <span class="selectable" data-bind="textWithMarkedMatches: { valueForCompare: $parent.coursesTitleFilter, text: title}"></span>
                                     </div>
                                     <div class="list-item-details">
                                         <div class="list-item-details-author">
-                                            <span data-bind="localize: { text: 'authorLabel' }"></span> <span data-bind="text: createdByName"></span>
+                                            <span data-bind="localize: { text: 'authorLabel' }"></span> <span data-bind="textWithMarkedMatches: { valueForCompare: $parent.coursesTitleFilter, text: createdByName}"></span>
                                         </div>
                                         <div class="list-item-details-saved">
                                             <span data-bind="localize: { text: 'lastEdited' }"></span> <span data-bind="date: { value: modifiedOn, formatString: 'L' }"></span>
