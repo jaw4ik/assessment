@@ -3645,6 +3645,8 @@
     <Content Include="Views\Account\EmailConfirmed.cshtml" />
     <Content Include="Views\CrossProtocolStorage\index.cshtml" />
     <Content Include="Views\IdentityProvider\Auth.cshtml" />
+    <Content Include="Templates\Assessment\lang\nb-no.json" />
+    <Content Include="Templates\Assessment\lang\nn-no.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
