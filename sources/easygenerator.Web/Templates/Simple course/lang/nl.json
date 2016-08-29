@@ -75,6 +75,7 @@
     "[download as pdf error]": "Er is iets misgegaan",
     "[Save, I will continue later]": "Bewaar en ga later verder",
     "[OK, submit results]": "Ik ben klaar rapporteer mijn resultaat",
+    "[OK, submit results and log out]": "ok, verstuur de resultaten en log uit",
     "[Overall progress]": "Algemene voortgang",
     "[OK, close course]": "Ok, Sluit cursus",
     "[take a brake]": "Neem een pauze",
@@ -95,7 +96,13 @@
     "[continue with the password]": "Ga verder met het wachtwoord",
     "[request secret link]": "of vraag om een geheime link in uw email om de cursus weer te starten",
     "[continue anytime in browser]": "U kunt verder gaan wanneer u wilt",
+    "[using]": "gebruikmakend van",
     "[note about continue course]": "Let op: U kunt alleen verder gaan in uw huidige browser",
     "[show]": "Toon",
-    "[hide]": "Verberg"
+    "[hide]": "Verberg",
+    "[remember me on this device]": "herinner mij op dit apparaat",
+    "[show other options]": "laat me de informatie nu zien",
+    "[message about mailbox]": "de informatie die we naar je mailbox hebben gestuurd",
+    "[keep me logged-in for the next courses]": "Ingelogd blijven voor de volgende cursus",
+    "[please close the browser tab now]": "Sluit het venster"
 }
