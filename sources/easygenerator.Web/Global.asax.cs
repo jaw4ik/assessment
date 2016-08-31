@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using easygenerator.Infrastructure;
+using System.Collections.Generic;
 using easygenerator.Web.Configuration;
 using System;
 using System.Globalization;
@@ -43,6 +44,21 @@ namespace easygenerator.Web
 
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
+        }
+
+        protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
+        {
+            var fontTypes = Constants.fontTypes;
+
+            if(fontTypes.Contains(Response.ContentType))
+            {
+                var headers = new Dictionary<string, object>();
+                Response.Headers.CopyTo(headers);
+
+                Response.ClearHeaders();
+
+                headers.ToList().ForEach(header => Response.AddHeader(header.Key, (string)header.Value));
+            }
         }
     }
 }

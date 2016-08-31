@@ -6,6 +6,7 @@
         public const string EmailDomainListValidationRegexp = @"^((\w+(-\w+)*\.?)+\w{2,})(\s*,\s*((\w+(-\w+)*\.?)+\w{2,}))*$";
         public const string DefaultCulture = "en-US";
         public static readonly string[] SupportedCultures = { "en", "uk", "zh-cn", "pt-br", "de", "nl", "fr", "es", "it" };
+        public static readonly string[] fontTypes = { "application/font-eot", "application/font-svg", "application/font-ttf", "application/font-woff", "application/font-woff2" };
 
         public class Section
         {
