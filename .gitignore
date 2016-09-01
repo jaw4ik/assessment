@@ -162,7 +162,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 bower_components/
-tools/easyresources/_output/
+tools/easyresources/_templates/
 typings/
 
 # RIA/Silverlight projects
