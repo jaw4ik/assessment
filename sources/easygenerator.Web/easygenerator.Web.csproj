@@ -2133,6 +2133,7 @@
     <Content Include="App\wintoweb\index.html" />
     <Content Include="App\wintoweb\index.js" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Compile Include="Components\Configuration\WinToWebConfigurationSection.cs" />
     <Content Include="BuildLearningPath\Template\app\main.js" />
     <Content Include="BuildLearningPath\Template\app\main.js.map" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.svg" />
@@ -2161,7 +2162,6 @@
     <Content Include="BuildLearningPath\Template\js\components.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="BuildLearningPath\Template\readme.txt" />
-    <Compile Include="Components\Configuration\WinToWebConfigurationSection.cs" />
     <Content Include="config.js" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
