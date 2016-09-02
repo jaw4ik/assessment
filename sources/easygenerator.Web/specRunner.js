@@ -14,7 +14,7 @@
         'organizations/organization/OrganizationUser.spec',
         'organizations/organization/organization.spec',
         //#endregion
-
+        
         //#region drag and drop editor
         'editor/course/viewmodels/CreateBarViewModel.spec',
         'editor/course/viewmodels/QuestionViewModel.spec',
