@@ -1,9 +1,10 @@
 ﻿var request = require('request-promise');
 var express = require('express');
 var config = require('../config');
+var nocache = require('../middlewares/nocache');
 var router = express.Router();
 
-router.get('/', function (req, res) {
+router.get('/', nocache, function (req, res) {
     var mediaId = req.query && req.query.mediaId;
     if (!mediaId) {
         res.status(400).send('mediaId is required');

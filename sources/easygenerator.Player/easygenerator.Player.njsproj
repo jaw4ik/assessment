@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="config.js" />
+    <Compile Include="middlewares\nocache.js" />
     <Compile Include="models\player.js" />
     <Compile Include="public\js\app.js" />
     <Compile Include="public\js\knockoutBindings\fadeOutBinding.js" />
@@ -61,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
+    <Folder Include="middlewares\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\js\" />
