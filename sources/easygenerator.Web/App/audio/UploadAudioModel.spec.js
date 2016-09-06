@@ -176,7 +176,7 @@ describe('[UploadAudioModel]', function () {
                     convertDfd.resolve({});
                     pullDfd.resolve({});
                     model.upload().then(function () {
-                        expect(app.trigger.calls.mostRecent().args).toEqual([constants.storage.audio.statuses.loaded, jasmine.any(Object)]);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.storage.audio.statuses.loaded, model);
                         done();
                     }).done();
                 });
@@ -207,7 +207,7 @@ describe('[UploadAudioModel]', function () {
                     convertDfd.resolve({});
                     pullDfd.reject({});
                     model.upload().catch(function () {
-                        expect(app.trigger.calls.mostRecent().args).toEqual([constants.storage.audio.statuses.failed, jasmine.any(Object)]);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.storage.audio.statuses.failed, model);
                         done();
                     }).done();
                 });

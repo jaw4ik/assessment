@@ -19,27 +19,21 @@ describe('[audioUploadDispatcher]', () => {
         it('should be array', () => {
             expect(dispatcher.uploads).toBeArray();
         });
+    });
 
-        describe('and when uploading failed', () => {
-            it('should remove upload from uploads list', () => {
-                dispatcher.uploads = [];
-                dispatcher.startUploading(file);
-                app.trigger(constants.storage.audio.statuses.failed, model);
-                expect(dispatcher.uploads.length).toBe(0);
-            });
+    describe('removeUpload:', () => {
+
+        it('should remove upload from uploads list', () => {
+            var upload = {};
+            dispatcher.uploads = [upload];
+            dispatcher.removeUpload(upload);
+            expect(dispatcher.uploads.length).toBe(0);
         });
 
-        describe('and when uploading finished', () => {
-            it('should remove upload from uploads list', () => {
-                dispatcher.uploads = [];
-                dispatcher.startUploading(file);
-                app.trigger(constants.storage.audio.statuses.loaded, model);
-                expect(dispatcher.uploads.length).toBe(0);
-            });
-        });
     });
 
     describe('startUploading:', () => {
+
         it('should add upload to the uploads list', () => {
             dispatcher.uploads = [];
             dispatcher.startUploading(file);
@@ -55,5 +49,6 @@ describe('[audioUploadDispatcher]', () => {
             let result = dispatcher.startUploading(file);
             expect(result).toBe(model);
         });
+
     });
 });
