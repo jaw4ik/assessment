@@ -1,25 +1,24 @@
-﻿import factory from 'audio/factory';
+﻿import app from 'durandal/app';
+import factory from 'audio/factory';
 import constants from 'constants';
 import _ from 'underscore';
 
 class Dispatcher{
     constructor() {
         this.uploads = [];
+
+        app.on(constants.storage.audio.statuses.failed).then(entity => {
+            this.uploads = _.without(this.uploads, entity);
+        });
+
+        app.on(constants.storage.audio.statuses.loaded).then(entity => {
+            this.uploads = _.without(this.uploads, entity);
+        });
     }
 
     startUploading(file) {
         let model = factory.create(file);
         this.uploads.unshift(model);
-        let that = this;
-
-        model.on(constants.storage.audio.statuses.failed).then(() => {
-            that.uploads = _.without(that.uploads, model);
-        });
-
-        model.on(constants.storage.audio.statuses.loaded).then(() => {
-            that.uploads = _.without(that.uploads, model);
-        });
-
         model.upload();
         return model;
     }
