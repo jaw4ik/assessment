@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Domain.DomainOperations;
 using easygenerator.Web.InMemoryStorages;
@@ -10,6 +11,7 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers
 {
     public class CreateUserInitialDataHandler : IDomainEventHandler<CreateUserInitialDataEvent>
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _courseRepository;
         private readonly IOnboardingRepository _onboardingRepository;
@@ -18,9 +20,10 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers
         private readonly ICloner _cloner;
         private readonly ICourseOperations _courseOpeartions;
 
-        public CreateUserInitialDataHandler(IEntityFactory entityFactory, ICourseRepository courseRepository, IOnboardingRepository onboardingRepository,
+        public CreateUserInitialDataHandler(IUnitOfWork unitOfWork, IEntityFactory entityFactory, ICourseRepository courseRepository, IOnboardingRepository onboardingRepository,
             ITemplateRepository templateRepository, IDemoCoursesStorage demoCoursesInMemoryStorage, ICloner cloner, ICourseOperations courseOperations)
         {
+            _unitOfWork = unitOfWork;
             _entityFactory = entityFactory;
             _courseRepository = courseRepository;
             _onboardingRepository = onboardingRepository;
@@ -44,6 +47,8 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers
                 clonedCourse.UpdateTemplate(defaultTemplate, clonedCourse.CreatedBy);
                 _courseOpeartions.CreateCourse(clonedCourse, false);
             }
+
+            _unitOfWork.Save();
         }
     }
 }

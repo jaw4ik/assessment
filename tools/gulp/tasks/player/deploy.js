@@ -53,7 +53,7 @@ gulp.task('styles-player', function () {
             strictUnits: true
         }))
         .pipe($.autoprefixer({
-            browsers: config.less.browsers,
+            browsers: config.less.playerBrowsers,
             cascade: false
         }))
         .pipe(gulp.dest(config.less.destPlayer));
@@ -67,6 +67,7 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
         './sources/easygenerator.Player/www.js',
         './sources/easygenerator.Player/app.js',
 		'./sources/easygenerator.Player/config.js',
+		'./sources/easygenerator.Player/middlewares/*.*',
         './sources/easygenerator.Player/routes/*.*',
         './sources/easygenerator.Player/models/*.*',
         './sources/easygenerator.Player/public/images/*.*',

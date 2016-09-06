@@ -163,7 +163,6 @@ ClientBin/
 node_modules/
 bower_components/
 tools/easyresources/_templates/
-tools/easyresources/_app/
 typings/
 
 # RIA/Silverlight projects

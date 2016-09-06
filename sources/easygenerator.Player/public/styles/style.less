@@ -8,13 +8,6 @@
     }
 }
 
-@-webkit-keyframes fadeIn {
-    to {
-        margin-top: 0;
-        opacity: 1;
-    }
-}
-
 html, body, .video-js {
     &.easy-player-dimensions {
         width: 100%;
@@ -33,17 +26,14 @@ html, body, .video-js {
 .media-processing,
 .media-not-found {
     opacity: 0;
-    -webkit-animation: fadeIn @animation-time forwards;
     animation: fadeIn @animation-time forwards;
 }
 
 .video-js {
     opacity: 0;
-    -webkit-animation: fadeIn 0.8s forwards;
     animation: fadeIn 0.8s forwards;
 
     video {
-        -webkit-transform: scale(1.00746);
         transform: scale(1.00746);
     }
 
