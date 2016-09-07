@@ -1,5 +1,6 @@
 ﻿import Model from './UploadAudioModel';
 
+import app from 'durandal/app';
 import constants from 'constants';
 import dataContext from 'dataContext';
 import convert from 'audio/convertion/commands/convert';
@@ -72,6 +73,8 @@ describe('[UploadAudioModel]', function () {
                 name: 'sample.mp3'
             });
             spyOn(model, 'trigger');
+
+            spyOn(app, 'trigger');
 
             convertDfd = Q.defer();
             spyOn(convert, 'execute').and.returnValue(convertDfd.promise);
@@ -169,6 +172,15 @@ describe('[UploadAudioModel]', function () {
                     }).done();
                 });
 
+                it('should trigger loaded event globally', function (done) {
+                    convertDfd.resolve({});
+                    pullDfd.resolve({});
+                    model.upload().then(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.storage.audio.statuses.loaded, model);
+                        done();
+                    }).done();
+                });
+
             });
 
             describe('when vimeo could not pull video', function () {
@@ -187,6 +199,15 @@ describe('[UploadAudioModel]', function () {
                     pullDfd.reject({});
                     model.upload().catch(function () {
                         expect(model.trigger.calls.mostRecent().args).toEqual([constants.storage.audio.statuses.failed, jasmine.any(Object)]);
+                        done();
+                    }).done();
+                });
+
+                it('should trigger error event globally', function (done) {
+                    convertDfd.resolve({});
+                    pullDfd.reject({});
+                    model.upload().catch(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.storage.audio.statuses.failed, model);
                         done();
                     }).done();
                 });

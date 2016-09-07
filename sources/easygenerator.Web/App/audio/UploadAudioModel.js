@@ -1,7 +1,7 @@
-﻿define(['durandal/events', 'constants', 'models/audio', 'audio/convertion/commands/convert', 'audio/vimeo/commands/pull', 'dataContext'], function(Events, constants, Audio, convert, pull, dataContext) {
+﻿define(['durandal/app', 'durandal/events', 'constants', 'models/audio', 'audio/convertion/commands/convert', 'audio/vimeo/commands/pull', 'dataContext'], function (app, Events, constants, Audio, convert, pull, dataContext) {
     'use strict';
 
-    return function(file) {
+    return function (file) {
         var that = this;
 
         Events.includeIn(that);
@@ -18,13 +18,17 @@
             that.trigger(title, data);
         }
 
-        that.upload = function() {
+        function sendUploadStatus(title) {
+            app.trigger(title, that);
+        }
+
+        that.upload = function () {
             setStatus(constants.storage.audio.statuses.inProgress);
 
             return convert.execute(file)
-                .then(function(result) {
+                .then(function (result) {
                     return pull.execute({ title: that.title, size: that.size, duration: result.duration, url: result.url })
-                        .then(function(entity) {
+                        .then(function (entity) {
                             var audio = new Audio({
                                 id: entity.Id,
                                 createdOn: entity.CreatedOn,
@@ -38,12 +42,14 @@
                             dataContext.audios.push(audio);
                             return audio;
                         });
-                }).then(function(data) {
+                }).then(function (data) {
                     setStatus(constants.storage.audio.statuses.loaded, data);
-                }, function(reason) {
+                    sendUploadStatus(constants.storage.audio.statuses.loaded);
+                }, function (reason) {
                     setStatus(constants.storage.audio.statuses.failed, reason);
+                    sendUploadStatus(constants.storage.audio.statuses.failed);
                     throw reason;
-                }, function(progress) {
+                }, function (progress) {
                     that.progress = progress;
                     that.trigger(constants.storage.audio.statuses.inProgress, progress);
                 });
