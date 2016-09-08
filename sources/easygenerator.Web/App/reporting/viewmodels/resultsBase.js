@@ -186,7 +186,7 @@
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
                         var resultCsv = generateCsvRow([
-                            result.learnerDisplayName,
+                            result.learnerDisplayName + (result.learnerAccountHomePage ? ' from ' + result.learnerAccountHomePage : ''),
                             result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
                             result.hasScore ? result.lrsStatement.score : noScore,
                             result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
@@ -263,7 +263,7 @@
                 return loadAllDetailedStatements(that.entityId).then(function (statements) {
                     _.each(statements, function (result) {
                         var courseResultCsv = generateCsvRow([
-                            result.learnerDisplayName,
+                            result.learnerDisplayName + (result.learnerAccountHomePage ? ' from ' + result.learnerAccountHomePage : ''),
                             result instanceof StartedStatement ? inProgress : result.isFinished ? result.passed ? passed : failed : inProgress,
                             result.hasScore ? result.lrsStatement.score : noScore,
                             result instanceof StartedStatement ? moment(result.lrsStatement.date).format('YYYY-MM-D') : result.startedLrsStatement ? moment(result.startedLrsStatement.date).format('YYYY-MM-D') : noScore,
@@ -271,7 +271,6 @@
                             result instanceof StartedStatement ? notFinished : result.isFinished ? moment(result.lrsStatement.date).format('YYYY-MM-D') : notFinished,
                             result instanceof StartedStatement ? notFinished : result.isFinished ? moment(result.lrsStatement.date).format('h:mm:ss a') : notFinished
                         ].concat(courseResultRightPart));
-
                         csvList.push(courseResultCsv);
 
                         pushEmbededResults(result, csvList, courseCsvHeader.length, sectionCsvHeader.length, questionCsvHeader.length, contentCsvHeaders.length, emptyCellSymbol, noScore);

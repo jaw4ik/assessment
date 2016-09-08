@@ -1,6 +1,12 @@
 ﻿<li class="r-data" data-bind="css: { expanded: isExpanded, expandable: isExpandable }">
     <div class="r-table" data-bind="click: isExpandable ? (isExpanded() ? collapse : expand ) : null">
-        <div class=" r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
+        <div class="r-name">
+            <span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span>
+            <!-- ko if: learnerAccountHomePage -->
+            <br/>
+            <span class="selectable account-home-page" data-bind="text: 'from &quot' + learnerAccountHomePage + '&quot', attr: { title: learnerAccountHomePage }"></span>
+            <!-- /ko -->
+        </div>
         <div class="r-result">
             <!-- ko if: isProgressed -->
             <!-- ko if: isFinished -->

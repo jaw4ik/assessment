@@ -950,6 +950,7 @@ td.r-name {
 
     > div {
         display: table-cell;
+        vertical-align: middle;
         padding: 13px 4px;
     }
 }
@@ -982,6 +983,12 @@ td.r-name {
         position: relative;
         color: @reporting-statement-title-color-gray;
         font-family: 'OpenSans-Semibold';
+
+        .account-home-page {
+            color: @reporting-statement-title-color-gray;
+            font: 12px 'OpenSans';
+            opacity: 0.9;
+        }
     }
 
     &.expandable {
