@@ -15,10 +15,10 @@
             off: off
         };
 
-        function init(id, title, absUrl, email, username) {
+        function init(id, title, absUrl, email, username, account) {
             xApiSettings.init();
             xApi = new TinCan();
-            xApi.actor = createActor(username, email);
+            xApi.actor = createActor(username, email, account);
             try {
                 xApi.addRecordStore(createLRS());
             } catch (e) {
@@ -48,12 +48,19 @@
             });
         }
 
-        function createActor(username, email) {
+        function createActor(username, email, account) {
             try {
-                actor = new TinCan.Agent({
-                    name: username,
-                    mbox: 'mailto:' + email
-                });
+                if(account) {
+                    actor = new TinCan.Agent({
+                        name: username,
+                        account: account
+                    });
+                } else {
+                    actor = new TinCan.Agent({
+                        name: username,
+                        mbox: 'mailto:' + email
+                    });
+                }
             } catch (e) {
                 errorsHandler.handleError();
             }

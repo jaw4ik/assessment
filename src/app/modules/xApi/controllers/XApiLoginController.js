@@ -20,6 +20,7 @@
         that.questionsLength = assessment.questions.length;
         that.username = user ? user.username : '';
         that.email = user ? user.email : '';
+        that.account = user ? user.account : null;
 
         that.emailModified = false,
         that.usernameModified = false;
@@ -31,7 +32,7 @@
         };
 
         that.emailIsValid = function () {
-            return !!that.email && constants.email.test(that.email.trim());
+            return !!that.email && (constants.email.test(that.email.trim()) || that.account);
         };
 
         that.markUsernameAsModified = function () {
@@ -44,7 +45,7 @@
 
         that.submit = function () {
             if (that.usernameIsValid() && that.emailIsValid()) {
-                xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), that.email.trim(), that.username.trim(), settings.xApi);
+                xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), that.email.trim(), that.username.trim(), that.account, settings.xApi);
                 startCourse();
             } else {
                 that.markUsernameAsModified();
@@ -61,7 +62,7 @@
             startCourse();
         };
 
-        if (that.username || that.email) {
+        if (that.username || that.email || that.account) {
             that.submit();
         }
 

@@ -3,24 +3,15 @@
     angular.module('assessment.publishSettings')
            .service('publishModulesInitializer', PublishModulesInitializer);
 
-    PublishModulesInitializer.$inject = ['$rootScope', '$q', 'publishModuleLoader'];
+    PublishModulesInitializer.$inject = ['$rootScope'];
 
-    function PublishModulesInitializer($rootScope, $q, publishModuleLoader) {
+    function PublishModulesInitializer($rootScope) {
         var that = this;
 
         that.init = function(modules) {
-            var promises = {};
             _.each(modules, function(module) {
-                promises[module.name] = publishModuleLoader.load(module.name).then(
-                    function(moduleInstance) {
-                        initModule(moduleInstance);
-                    },
-                    function() {
-                        throw 'Cannot load publish module "' + module.name + '".';
-                    });
+                initModule(module);
             });
-
-            return $q.all(promises);
         };
 
         function initModule(module) {
