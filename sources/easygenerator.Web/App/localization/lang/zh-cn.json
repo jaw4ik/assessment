@@ -364,6 +364,12 @@
     "recentlyCreated": "最近创建优先",
     "alphanumeric": "字母数字",
     "all": "所有",
+    "popularCourseExampleCategory": "常见例子",
+    "trainingCourseExampleCategory": "培训辅导",
+    "corporateCourseExampleCategory": "企业学习",
+    "educationCourseExampleCategory": "教育",
+    "addPeople": "Add people",
+    "addPeopleButtonText": "+ Add people",
     "createNewObjective": "加入新的课程目标",
     "objectiveDefaultTitle": "未命名的目标",
     "sectionDefaultTitle": "无标题章节",
@@ -958,5 +964,7 @@
     "pasteOrTypeImageLink": "在此粘贴或写下图片链接...",
     "upgradeAccountToManageOrganization": "如果想要管理组织，请升级您的账户",
     "zoom": "缩放",
-    "anyImagesFormatsOr": "任何图片文件格式，或"
+    "anyImagesFormatsOr": "任何图片文件格式，或",
+    "surveyMode": "Survey mode",
+    "responseForLearnerAnswer": "Create response for learner answer"
 }
