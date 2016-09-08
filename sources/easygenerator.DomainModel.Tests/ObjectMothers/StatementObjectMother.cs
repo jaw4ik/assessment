@@ -18,9 +18,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(createdBy: createdBy);
         }
 
-        public static Statement Create(string title = Title, string defaultStatementText = DefaultStatementText, string createdBy = CreatedBy)
+        public static Statement Create(string title = Title, string defaultStatementText = DefaultStatementText, bool isSurvey = false, string createdBy = CreatedBy)
         {
-            return new Statement(title, defaultStatementText, createdBy);
+            return new Statement(title, defaultStatementText, isSurvey, createdBy);
         }
     }
 }

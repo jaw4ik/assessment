@@ -37,14 +37,21 @@ describe('model [Statement]', function () {
                     }
                 },
                 object: {
-                    id: "object1id",
+                    id: 'object1id',
                     definition: {
                         name: {
                             "en-US": "title"
                         }
                     }
+                },
+                context: {
+                    extensions: {
+                        'http://easygenerator/expapi/question/survey': false,
+                        'http://easygenerator/expapi/question/type': constants.questionType.statement.type
+                    }
                 }
-            },
+            };
+
             failedSpec = {
                 timestamp: "2013-12-27T07:58:07.617000+00:00",
                 actor: {
@@ -120,6 +127,45 @@ describe('model [Statement]', function () {
         it('should not set parentId field if spec.context.contextActivities.parent.id does not exist', function () {
             var statement = new Statement(passedSpec);
             expect(statement.parentId).toBeUndefined();
+        });
+
+        describe('when statement has object property', () => {
+
+            describe('and when object property has definition property', () => {
+
+                it('should set deinition field', () => {
+                    var statement = new Statement(passedSpec);
+                    expect(statement.definition).toBeDefined();
+                });
+
+            });
+
+        });
+
+        describe('when statement has context property', () => {
+
+            describe('and when context has extensions property', () => {
+
+                describe('and when extensions has survey mode prop', () => {
+
+                    it('should set isSurvey', () => {
+                        var statement = new Statement(passedSpec);
+                        expect(statement.isSurvey).toBeDefined();
+                    });
+
+                });
+
+                describe('and when extensions has question type', () => {
+
+                    it('should set questionType', () => {
+                        var statement = new Statement(passedSpec);
+                        expect(statement.questionType).toBeDefined();
+                    });
+
+                });
+
+            });
+
         });
     });
 });

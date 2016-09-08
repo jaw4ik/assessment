@@ -1,0 +1,14 @@
+﻿<div class="r-answer-container">
+    <div class="r-answer">
+        <div class="r-answer-title" data-bind="localize: { text: 'reportingLearnersAnswer' }"></div>
+        <div class="r-answer-true-false-caption">
+            <span data-bind="localize: { text: 'statementTrue'}"></span><span data-bind="localize: { text: 'statementFalse'}"></span>
+        </div>
+        <!-- ko foreach: answers -->
+        <div class="r-answer-text-container statement">
+            <div class="r-answer-choice" data-bind="css: { answered: isAnswered, 'is-true': isTrue }"></div>
+            <div class="r-answer-text selectable" data-bind="text: title"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

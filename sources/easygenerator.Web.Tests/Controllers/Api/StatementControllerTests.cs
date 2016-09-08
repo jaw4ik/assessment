@@ -62,10 +62,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = StatementObjectMother.Create(title, CreatedBy);
 
-            _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
+            _entityFactory.StatementQuestion(title, defaultStatementText, false, CreatedBy).Returns(question);
 
             _controller.Create(section, title);
-            _entityFactory.Received().StatementQuestion(title, defaultStatementText, CreatedBy);
+            _entityFactory.Received().StatementQuestion(title, defaultStatementText, false, CreatedBy);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = StatementObjectMother.Create(title, CreatedBy);
 
-            _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
+            _entityFactory.StatementQuestion(title, defaultStatementText, false, CreatedBy).Returns(question);
 
             _controller.Create(section, title);
 
@@ -91,7 +91,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var question = StatementObjectMother.Create(title, CreatedBy);
 
-            _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
+            _entityFactory.StatementQuestion(title, defaultStatementText, false, CreatedBy).Returns(question);
 
             var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 

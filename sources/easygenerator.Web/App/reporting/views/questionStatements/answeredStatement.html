@@ -4,12 +4,12 @@
         <div class="r-question-text selectable">
             <p>
                 "<span data-bind="text: lrsStatement.name"></span>"
-                <!-- ko if: !hasScore && hasAnswer -->
+                <!-- ko if: !hasScore && (hasAnswer || !!isSurvey) -->
                 <!-- ko ifnot: answerShown -->
-                <span class="r-show-details" data-bind="localize: { text: 'reportingShowDetails' }, click: showAnswer">Show details >></span>
+                <span class="r-show-details" data-bind="localize: { text: 'reportingShowDetails' }, click: showAnswer"></span>
                 <!-- /ko --> 
                 <!-- ko if: answerShown -->
-                <span class="r-show-details" data-bind="localize: { text: 'reportingHideDetails' },click: hideAnswer">Hide details >></span>
+                <span class="r-show-details" data-bind="localize: { text: 'reportingHideDetails' },click: hideAnswer"></span>
                 <!-- /ko --> 
                 <!-- /ko --> 
             </p>
@@ -25,12 +25,20 @@
             </p>
         </div>
     </div>
-    <!-- ko if: !hasScore && hasAnswer -->
-    <div class="r-answer-container" data-bind="visible: answerShown">
+    <!-- ko if: !hasScore && (hasAnswer || !!isSurvey) && answerShown -->
+
+    <!-- ko ifnot: !!isSurvey -->
+    <div class="r-answer-container">
         <div class="r-answer">
-            <div class="r-answer-title" data-bind="localize: { text: 'reportingLearnersAnswer' }">Learners answer</div>
+            <div class="r-answer-title" data-bind="localize: { text: 'reportingLearnersAnswer' }"></div>
             <div class="r-answer-text selectable" data-bind="text: lrsStatement.response"></div>
         </div>
     </div>
+    <!-- /ko -->
+
+    <!-- ko if: !!isSurvey -->
+    <!-- ko compose: { view: 'reporting/views/questionStatements/surveyModeViews/'+ questionType +'.html', model: $data }--><!-- /ko -->
+    <!-- /ko -->
+
     <!-- /ko -->
 </li>

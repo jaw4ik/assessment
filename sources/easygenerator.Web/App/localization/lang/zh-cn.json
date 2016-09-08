@@ -368,8 +368,17 @@
     "trainingCourseExampleCategory": "培训辅导",
     "corporateCourseExampleCategory": "企业学习",
     "educationCourseExampleCategory": "教育",
+    "whiteListSwitcherDescription": "Enable access only for specific people",
+    "whiteListSwitcherTooltip": "Only people with emails in list below will have access to the course",
     "addPeople": "Add people",
     "addPeopleButtonText": "+ Add people",
+    "addMorePeopleButtonText": "+ Add more people",
+    "alreadyInvited": "Already invited",
+    "notInvited": "Not invited",
+    "sendingInvitation": "Sending invitation...",
+    "sendInvitation": "Send invitation",
+    "sendInvitationAgain": "Send invitation again",
+    "sendCourseInvitationsToPeople": "Send course invitations to people",
     "createNewObjective": "加入新的课程目标",
     "objectiveDefaultTitle": "未命名的目标",
     "sectionDefaultTitle": "无标题章节",
@@ -966,5 +975,6 @@
     "zoom": "缩放",
     "anyImagesFormatsOr": "任何图片文件格式，或",
     "surveyMode": "Survey mode",
-    "responseForLearnerAnswer": "Create response for learner answer"
+    "responseForLearnerAnswer": "Create response for learner answer",
+    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer."
 }

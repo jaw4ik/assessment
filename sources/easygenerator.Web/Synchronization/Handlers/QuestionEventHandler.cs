@@ -11,6 +11,7 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class QuestionEventHandler :
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
+        IDomainEventHandler<QuestionIsSurveyUpdatedEvent>,
         IDomainEventHandler<QuestionBackgroundChangedEvent>,
         IDomainEventHandler<QuestionContentUpdatedEvent>,
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
@@ -44,6 +45,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .questionTitleUpdated(args.Question.Id.ToNString(), args.Question.Title, args.Question.ModifiedOn);
+        }
+
+        public void Handle(QuestionIsSurveyUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionIsSurveyUpdated(args.Question.Id.ToNString(), args.IsSurvey, args.Question.ModifiedOn);
         }
 
         public void Handle(QuestionBackgroundChangedEvent args)

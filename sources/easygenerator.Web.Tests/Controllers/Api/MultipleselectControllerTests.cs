@@ -74,10 +74,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.Answer(defaultAnswerText, true, user, Arg.Any<DateTime>()).Returns(correctAnswer);
             _entityFactory.Answer(defaultAnswerText, false, user, Arg.Any<DateTime>()).Returns(incorrectAnswer);
 
-            _entityFactory.MultipleselectQuestion(title, user, correctAnswer, incorrectAnswer).Returns(question);
+            _entityFactory.MultipleselectQuestion(title, user, false, correctAnswer, incorrectAnswer).Returns(question);
 
             _controller.Create(section, title);
-            _entityFactory.Received().MultipleselectQuestion(title, user, correctAnswer, incorrectAnswer);
+            _entityFactory.Received().MultipleselectQuestion(title, user, false, correctAnswer, incorrectAnswer);
         }
 
         [TestMethod]
@@ -90,7 +90,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
 
-            _entityFactory.MultipleselectQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
+            _entityFactory.MultipleselectQuestion(title, user, false, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
             _controller.Create(section, title);
 
@@ -106,7 +106,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
 
-            _entityFactory.MultipleselectQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
+            _entityFactory.MultipleselectQuestion(title, user, false, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
             var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 

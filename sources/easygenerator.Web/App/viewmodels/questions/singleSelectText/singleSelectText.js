@@ -6,6 +6,7 @@
             initialize: initialize,
             sectionId: '',
             questionId: '',
+            surveyModeEnabled: ko.observable(false),
 
             localizationManager: localizationManager,
             eventTracker: eventTracker,
@@ -15,11 +16,19 @@
             toggleExpand: toggleExpand
         };
 
+        app.on(constants.messages.question.isSurveyUpdated, function (question) {
+            if (question.id !== viewModel.questionId) {
+                return;
+            }
+            viewModel.surveyModeEnabled(question.isSurvey);
+        });
+
         return viewModel;
 
         function initialize(sectionId, question) {
             viewModel.sectionId = sectionId;
             viewModel.questionId = question.id;
+            viewModel.surveyModeEnabled(question.isSurvey);
 
             return answerRepository.getCollection(question.id).then(function (answerOptions) {
                 var sortedAnswers = _.sortBy(answerOptions, function (item) {

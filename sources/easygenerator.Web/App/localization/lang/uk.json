@@ -368,8 +368,17 @@
     "trainingCourseExampleCategory": "Тренування та коучінг",
     "corporateCourseExampleCategory": "Корпоративне навчання",
     "educationCourseExampleCategory": "Освіта",
+    "whiteListSwitcherDescription": "Дозволити доступ лише для конкретних людей",
+    "whiteListSwitcherTooltip": "Тільки люди з електронною поштою зі списку нижче матимуть доступ до курсу",
     "addPeople": "Додати людей",
     "addPeopleButtonText": "+ Додати людей",
+    "addMorePeopleButtonText": "+ Додати більше людей",
+    "alreadyInvited": "Вже запрошений",
+    "notInvited": "Не запрошений",
+    "sendingInvitation": "Відправка запрошення...",
+    "sendInvitation": "Надіслати запрошення",
+    "sendInvitationAgain": "Надіслати запрошення знову",
+    "sendCourseInvitationsToPeople": "Надіслати запрошення на курс",
     "createNewObjective": "Додати новий розділ / ціль",
     "objectiveDefaultTitle": "Розділ / ціль без назви",
     "sectionDefaultTitle": "Секція без назви",
@@ -966,5 +975,6 @@
     "zoom": "Збільшити",
     "anyImagesFormatsOr": "будь-які формати картинок, або",
     "surveyMode": "Анкетування",
-    "responseForLearnerAnswer": "Відгук викладача"
+    "responseForLearnerAnswer": "Відгук викладача",
+    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer."
 }

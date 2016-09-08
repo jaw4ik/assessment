@@ -269,6 +269,7 @@ messages: {
             createdByCollaborator: 'question:createdByCollaborator',
             deleted: 'questions:deleted',
             titleUpdated: 'question:titleUpdated',
+            isSurveyUpdated: 'question:isSurveyUpdated',
             voiceOverUpdatedByCollaborator: 'question:voiceOverUpdatedByCollaborator',
             titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
             contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
