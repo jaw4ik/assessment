@@ -28,6 +28,18 @@
             removeProgress: removeProgress
         },
 
+        userInfoProvider: {
+            getUsername: function() {
+                return self.apiWrapper.doLMSGetValue('cmi.core.student_name');
+            },
+            getAccountId: function() {
+                return self.apiWrapper.doLMSGetValue('cmi.core.student_id');
+            },
+            getAccountHomePage: function () {
+                return window.location.origin;
+            }
+        },
+
         courseFinished: sendCourseFinished
     }
 
