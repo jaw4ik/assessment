@@ -364,6 +364,12 @@
     "recentlyCreated": "Нещодавно створені попереду",
     "alphanumeric": "За алфавітом",
     "all": "Всі",
+    "popularCourseExampleCategory": "Популярні приклади",
+    "trainingCourseExampleCategory": "Тренування та коучінг",
+    "corporateCourseExampleCategory": "Корпоративне навчання",
+    "educationCourseExampleCategory": "Освіта",
+    "addPeople": "Додати людей",
+    "addPeopleButtonText": "+ Додати людей",
     "createNewObjective": "Додати новий розділ / ціль",
     "objectiveDefaultTitle": "Розділ / ціль без назви",
     "sectionDefaultTitle": "Секція без назви",
@@ -958,5 +964,7 @@
     "pasteOrTypeImageLink": "Вставте або введіть посилання на картинку тут...",
     "upgradeAccountToManageOrganization": "Будь ласка, оновіть свій тарифний план, щоб створювати власну організацію",
     "zoom": "Збільшити",
-    "anyImagesFormatsOr": "будь-які формати картинок, або"
+    "anyImagesFormatsOr": "будь-які формати картинок, або",
+    "surveyMode": "Анкетування",
+    "responseForLearnerAnswer": "Відгук викладача"
 }

@@ -364,6 +364,12 @@
     "recentlyCreated": "Récemment créé en premier",
     "alphanumeric": "Alphanumérique",
     "all": "Tout",
+    "popularCourseExampleCategory": "Exemples populaires",
+    "trainingCourseExampleCategory": "Formation et tutorat",
+    "corporateCourseExampleCategory": "Apprentissage en entreprise",
+    "educationCourseExampleCategory": "Enseignement",
+    "addPeople": "Add people",
+    "addPeopleButtonText": "+ Add people",
     "createNewObjective": "Ajouter un nouvel objectif au cours",
     "objectiveDefaultTitle": "Objectif sans titre",
     "sectionDefaultTitle": "Section sans titre",
@@ -958,5 +964,7 @@
     "pasteOrTypeImageLink": "Collez ou tapez le lien vers l'image à cet endroit...",
     "upgradeAccountToManageOrganization": "Pour gérer l'organisation, veuillez mettre votre compte à niveau",
     "zoom": "Appliquez un effet de zoom",
-    "anyImagesFormatsOr": "aux formats de fichiers d'image voulus, ou"
+    "anyImagesFormatsOr": "aux formats de fichiers d'image voulus, ou",
+    "surveyMode": "Survey mode",
+    "responseForLearnerAnswer": "Create response for learner answer"
 }
