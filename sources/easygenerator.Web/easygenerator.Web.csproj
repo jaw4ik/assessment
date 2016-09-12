@@ -86,14 +86,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Kentor.AuthServices, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kentor.AuthServices, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Kentor.AuthServices.0.18.1\lib\net45\Kentor.AuthServices.dll</HintPath>
+      <HintPath>..\..\packages\Kentor.AuthServices.0.19.0\lib\net45\Kentor.AuthServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Kentor.AuthServices.HttpModule, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kentor.AuthServices.HttpModule, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Kentor.AuthServices.HttpModule.0.18.1\lib\net45\Kentor.AuthServices.HttpModule.dll</HintPath>
+      <HintPath>..\..\packages\Kentor.AuthServices.HttpModule.0.19.0\lib\net45\Kentor.AuthServices.HttpModule.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LtiLibrary.Owin.Security.Lti, Version=1.0.5669.24699, Culture=neutral, processorArchitecture=MSIL">
