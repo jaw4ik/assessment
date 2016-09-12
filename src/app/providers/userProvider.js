@@ -14,6 +14,25 @@
 
                 user = value;
             },
+            use: function (userInfoProvider) {
+                if(!userInfoProvider) {
+                    return;
+                }
+                var accountId = userInfoProvider.getAccountId(),
+                    accountHomePage = userInfoProvider.getAccountHomePage(),
+                    username = userInfoProvider.getUsername();
+                if(!accountId || !accountHomePage || !username) {
+                    return;
+                }
+                user = {
+                    email: accountId,
+                    username: username,
+                    account: {
+                        homePage: accountHomePage,
+                        name: accountId
+                    }
+                };
+            },
             $get: function () {
                 return user;
             }
