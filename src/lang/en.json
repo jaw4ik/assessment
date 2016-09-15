@@ -40,5 +40,7 @@
     "[type your answer here]": "Type your answer here...",
     "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
     "[attempts note limit acceeded]": "You have exceeded the number of allowed attempts",
-    "[attempts remaining]": "Remaining attempts:"
+    "[attempts remaining]": "Remaining attempts:",
+    "[the owner of the course has limited the access]": "The owner of the course has limited the acces",
+    "[back to sign in]": "Back to sign in"
 }

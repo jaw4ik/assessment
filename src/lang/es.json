@@ -40,5 +40,7 @@
     "[type your answer here]": "Escriba su respuesta aquí...",
     "[tracking and tracing error hint without continue]": "Reinicie el curso. Comuníquese con su proveedor del curso si el problema persiste.",
     "[attempts note limit acceeded]": "Ha superado el número de intentos permitidos",
-    "[attempts remaining]": "Intentos restantes:"
+    "[attempts remaining]": "Intentos restantes:",
+    "[the owner of the course has limited the access]": "El propietario del curso ha limitado el acceso",
+    "[back to sign in]": "Volver a registrarse"
 }
