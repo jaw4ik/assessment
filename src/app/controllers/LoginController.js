@@ -6,13 +6,14 @@
     };
 
     angular
-        .module('assessment.xApi')
-        .controller('XApiLoginController', LoginController);
+        .module('assessment')
+        .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'assessment', 'user'];
+    LoginController.$inject = ['$rootScope', '$location', '$injector', 'settings', 'assessment', 'user', 'accessLimiter', 'userContext'];
 
-    function LoginController($rootScope, $location, xAPIManager, settings, assessment, user) {
-        var that = this;
+    function LoginController($rootScope, $location, $injector, settings, assessment, user, accessLimiter, userContext) {
+        var that = this,
+            xAPIManager = $injector.has('xAPIManager') ? $injector.get('xAPIManager') : null;
 
         $rootScope.title = assessment.title;
 
@@ -21,11 +22,12 @@
         that.username = user ? user.username : '';
         that.email = user ? user.email : '';
         that.account = user ? user.account : null;
+        that.xAPIEnabled = settings.xApi.enabled;
 
         that.emailModified = false,
         that.usernameModified = false;
 
-        that.allowToSkip = !settings.xApi.required;
+        that.allowToSkip = that.xAPIEnabled ? !settings.xApi.required : true;
 
         that.usernameIsValid = function () {
             return !!that.username && !!that.username.trim();
@@ -45,8 +47,13 @@
 
         that.submit = function () {
             if (that.usernameIsValid() && that.emailIsValid()) {
-                xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), that.email.trim(), that.username.trim(), that.account, settings.xApi);
-                startCourse();
+                    userContext.set(that.email.trim() , that.username.trim());
+
+                    if (that.xAPIEnabled && accessLimiter.userHasAccess()) {
+                        xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), that.email.trim(), that.username.trim(), that.account, settings.xApi);
+                    }
+
+                    startCourse();
             } else {
                 that.markUsernameAsModified();
                 that.markEmailAsModified();
@@ -58,7 +65,12 @@
                 return;
             }
 
-            xAPIManager.off();
+            if (that.xAPIEnabled) {
+                xAPIManager.off();
+            }
+
+            $rootScope.skipLoginGuard = true;
+
             startCourse();
         };
 
@@ -67,7 +79,10 @@
         }
 
         function startCourse() {
-            $rootScope.isXApiInitialized = true;
+            if (that.xAPIEnabled && accessLimiter.userHasAccess()) {
+                $rootScope.isXApiInitialized = true;
+            }
+
             $location.path('/').replace();
         }
     }
