@@ -9,6 +9,7 @@ import onboarding from 'onboarding/initialization';
 import audio from 'audio/index';
 import localizationManager from 'localization/localizationManager';
 import fonts from './fonts';
+import errorTracker from 'errorTracking/errorTracker';
 
 // hook for system.js support
 viewEngine.convertViewIdToRequirePath = function (viewId) {
@@ -64,6 +65,8 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
         onboarding.initialize(),
         audio.initialize()
     ];
+    
+    errorTracker.initUserContext();
 
     app.setRoot('viewmodels/shell', null, document.getElementById('app'));
 

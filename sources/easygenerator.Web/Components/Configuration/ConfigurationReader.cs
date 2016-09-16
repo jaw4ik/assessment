@@ -158,5 +158,9 @@ namespace easygenerator.Web.Components.Configuration
                 return ConfigurationManager.GetSection("googleFontsApi") as GoogleFontsApiConfigurationSection;
             }
         }
+
+        public virtual SentryConfigurationSection SentriConfiguration {
+            get { return ConfigurationManager.GetSection("sentry") as SentryConfigurationSection; }
+        }
     }
 }

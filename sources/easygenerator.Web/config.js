@@ -18,13 +18,13 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
-    "css": "github:systemjs/plugin-css@0.1.26",
+    "css": "github:systemjs/plugin-css@0.1.27",
     "dragula": "github:jaw4ik/dragula@3.5.5",
     "durandal": "core/durandal",
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
     "knockout": "core/knockout",
-    "moment": "npm:moment@2.14.1",
+    "moment": "npm:moment@2.15.0",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.12",
     "plugins": "core/durandal/plugins",
     "spectrum-colorpicker": "npm:spectrum-colorpicker@1.7.1",
@@ -47,7 +47,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.8"
+      "process": "npm:process@0.11.9"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
@@ -102,7 +102,7 @@ System.config({
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.8": {
+    "npm:process@0.11.9": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"

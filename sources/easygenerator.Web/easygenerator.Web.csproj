@@ -320,9 +320,11 @@
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\GoogleFontsApiConfigurationSection.cs" />
     <Compile Include="Components\Configuration\IntercomConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\SentryConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\SentriClient.cs" />
     <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
     <Compile Include="Domain\DomainOperations\CourseOwnershipProvider.cs" />
     <Compile Include="Domain\DomainOperations\OrganizationOperations.cs" />
@@ -804,6 +806,8 @@
     <Content Include="App\design\tabs\ThemesTab.spec.js">
       <DependentUpon>ThemesTab.js</DependentUpon>
     </Content>
+    <Content Include="App\errorTracking\errorTracker.js" />
+    <Content Include="App\errorTracking\ravenWrapper.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.spec.js">
       <DependentUpon>modified.js</DependentUpon>
@@ -3647,6 +3651,7 @@
     <Content Include="Views\IdentityProvider\Auth.cshtml" />
     <Content Include="Templates\Assessment\lang\nb-no.json" />
     <Content Include="Templates\Assessment\lang\nn-no.json" />
+    <Content Include="Views\Shared\_sentryTracking.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

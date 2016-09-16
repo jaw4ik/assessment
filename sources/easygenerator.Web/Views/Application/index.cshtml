@@ -22,6 +22,7 @@
     @Html.Partial("_mixpanelAnalytics")
     @Html.Partial("_nudgespotAnalytics")
     @Html.Partial("_intercomAnalytics")
+    @Html.Partial("_sentryTracking")
 </head>
 <body>
     @if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
