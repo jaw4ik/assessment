@@ -42,5 +42,7 @@
     "[attempts note limit acceeded]": "您已超过允许的答题次数",
     "[attempts remaining]": "剩余答题次数：",
     "[the owner of the course has limited the access]": "课程拥有人限制了访问",
-    "[back to sign in]": "返回登录"
+    "[back to sign in]": "返回登录",
+    "[confirn your name and email]": "好，姓名和电子邮件正确无误",
+    "[login explanation]": "*通过用以上任一选项进行确认，表明您同意您的成绩和分数将被存储。只有课程的组织者（作者）才可看到这些成绩。"
 }

@@ -24,20 +24,28 @@
                 user = data.authenticationTask,
                 preloadHtmls = data.preloadHtmlTask;
 
-            angular.module('assessment').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', 'userProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, userProvider, $translateProvider) {
-                settingsProvider.setSettings(settings);
-                userProvider.set(user);
-                if(publishModules && publishModules.length > 0) {
-                    _.each(publishModules, function(module) {
-                        if (_.isObject(module.userInfoProvider)) {
-                            userProvider.use(module.userInfoProvider);
-                        }
-                    });
-                }
-                htmlTemplatesCacheProvider.set(preloadHtmls);
+            var hasLms = false;
+            if (publishSettings && publishSettings.modules) {
+                hasLms = _.some(publishSettings.modules, function (module) {
+                    return module.name === 'lms';
+                });
+            }
 
-                configureTranslateProvider($translateProvider, settings);
-            }]);
+            angular.module('assessment').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', 'userProvider', '$translateProvider',
+                function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, userProvider, $translateProvider) {
+                    settingsProvider.setSettings(settings);
+                    userProvider.set(user);
+                    if (publishModules && publishModules.length > 0) {
+                        _.each(publishModules, function (module) {
+                            if (_.isObject(module.userInfoProvider)) {
+                                userProvider.use(module.userInfoProvider);
+                            }
+                        });
+                    }
+                    htmlTemplatesCacheProvider.set(preloadHtmls);
+
+                    configureTranslateProvider($translateProvider, settings);
+                }]);
 
             if (!settings || _.isEmpty(settings) || (settings.xApi && settings.xApi.enabled)) {
                 bootstrapModules.push('assessment.xApi');
@@ -52,15 +60,7 @@
                 bootstrapModules.push('assessment.publishSettings');
             }
 
-            if (publishSettings && publishSettings.modules) {
-                var hasLms = _.some(publishSettings.modules, function (module) {
-                    return module.name === 'lms';
-                });
-
-                if (!hasLms) {
-                    bootstrapModules.push('assessment.progressStorer');
-                }
-            } else {
+            if (!hasLms) {
                 bootstrapModules.push('assessment.progressStorer');
             }
 

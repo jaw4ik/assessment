@@ -16,7 +16,7 @@
                 <div class="login-form-container">
                     <div class="login-tooltip-container">
                         <div class="text">{{ '[tracking and tracing hint]' | translate }}</div>
-                        <div class="text small">{{ '[tracking and tracing subhint]' | translate }}</div>
+                        <div ng-if ="login.xAPIEnabled" class="text small">{{ '[tracking and tracing subhint]' | translate }}</div>
                     </div>
                     <div class="login-input-container name">
                         <input type="text" ng-model="login.username" ng-class="{ 'error': !login.usernameIsValid() && login.usernameModified }" ng-blur="login.markUsernameAsModified()" placeholder="{{ '[tracking and tracing name field]' | translate }}" class="login-input" />
@@ -29,14 +29,12 @@
                     <div class="login-form-submit-container">
                         <button class="button large emphasize primary" login-leave="submit">
                             <span class="wrapper">
-                                <span class="text">{{ '[tracking and tracing start]' | translate }}</span>
+                                <span class="text">{{ '[confirn your name and email]' | translate }}</span>
                                 <span>*</span>
                             </span>
                         </button>
                         <div ng-if ="login.allowToSkip" class="login-skip-link" login-leave="skip">{{ '[tracking and tracing do not report]' | translate }}</div>
-                        <span class="login-description">
-                            * By clicking the button &quot;{{ '[tracking and tracing start]' | translate }}&quot; you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.
-                        </span>
+                        <span class="login-description">{{ '[login explanation]' | translate }}</span>
                     </div>
                 </div>
             </div>
