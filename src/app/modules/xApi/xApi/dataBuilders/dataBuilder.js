@@ -108,9 +108,8 @@
         }
 
         function addExtensionsToContext(context) {
-            context.extensions = {
-                'http://easygenerator/expapi/course/id': courseId
-            };
+            context.extensions = context.extensions || {};
+            context.extensions['http://easygenerator/expapi/course/id'] = courseId;
             context.registration = sessionId;
             return context;
         }

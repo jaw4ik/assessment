@@ -12,12 +12,14 @@
         $rootScope.title = 'Summary | ' + assessment.title;
         that.title = assessment.title;
         that.logoUrl = settings.logo.url;
-        that.questions = assessment.questions.map(function (question) {
+        that.questions = _.chain(assessment.questions).filter(function(question){
+            return question.affectProgress;
+        }).map(function(question){
             return {
                 title: question.title,
                 isCorrect: question.score === 100
             };
-        });
+        }).value();
 
         that.progress = assessment.getResult();
         that.masteryScore = settings.masteryScore.score;

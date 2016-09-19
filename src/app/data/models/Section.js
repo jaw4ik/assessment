@@ -14,11 +14,21 @@
             that.questions = questions || [];
 
             that.getResult = function () {
+                var questionsThatAffectTheProgress = 0;
                 var result = _.reduce(that.questions, function (memo, question) {
-                    return memo + question.score;
+                    if(!question.affectProgress){
+                        return memo;
+                    }
+                    questionsThatAffectTheProgress++;
+                    if (question.score == 100) {
+                        return memo + question.score;
+                    }
+                    return memo;
                 }, 0);
-                var questionsLength = that.questions.length;
-                return questionsLength === 0 ? 0 : Math.floor(result / questionsLength);
+                if(questionsThatAffectTheProgress === 0){
+                    return 100;
+                }
+                return questionsThatAffectTheProgress === 0 ? 0 : Math.floor(result / questionsThatAffectTheProgress);
             };
         };
     }

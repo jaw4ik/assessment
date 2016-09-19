@@ -18,6 +18,7 @@
 
             that.statements = question.options.map(function (option) {
                 return {
+                    id: option.id,
                     text: option.text,
                     state: undefined
                 };
@@ -34,6 +35,7 @@
             that.submitAnswer = function () {
                 question.answer(that.statements.map(function (statement) {
                     return {
+                        id: statement.id,
                         text: statement.text,
                         state: statement.state
                     };

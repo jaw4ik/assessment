@@ -19,6 +19,7 @@
 
             that.answers = question.options.map(function (option) {
                 return {
+                    id: option.id,
                     text: option.text,
                     checked: false
                 };
@@ -35,7 +36,7 @@
                 var item = _.find(that.answers, function (answer) {
                     return answer.checked;
                 });
-                question.answer(item ? item.text : null);
+                question.answer(item ? item.id : null);
             };
         };
     }

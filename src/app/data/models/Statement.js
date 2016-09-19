@@ -8,13 +8,13 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function Statement(sectionId, id, title, hasContent, learningContents, type, options) {
+        return function Statement(sectionId, id, title, hasContent, learningContents, type, options, isSurvey) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, sectionId, id, title, hasContent, learningContents, type, _protected);
+            Question.call(that, sectionId, id, title, hasContent, learningContents, type, _protected, isSurvey);
 
             that.options = options;
 
@@ -23,7 +23,7 @@
 
                 statements.forEach(function (statement) {
                     if (_.find(that.options, function (option) {
-                        return option.text === statement.text && option.isCorrect === statement.state;
+                        return option.text === statement.id && option.isCorrect === statement.state;
                     })) {
                         correct++;
                     }

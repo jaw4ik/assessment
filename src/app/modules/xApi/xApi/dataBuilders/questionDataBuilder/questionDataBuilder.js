@@ -65,13 +65,13 @@
                     break;
             }
             
-            data.context = defaultContext(parentUrl, section.title);
+            data.context = defaultContext(question, parentUrl, section.title);
             data.verb = verbs.answered;
 
             return data;
         }
 
-        function defaultContext(parentUrl, sectionTitle) {
+        function defaultContext(question, parentUrl, sectionTitle) {
             var parentActivity = new TinCan.Activity({
                 id: parentUrl,
                 definition: new TinCan.ActivityDefinition({
@@ -83,7 +83,11 @@
             var context = new TinCan.Context({
                 contextActivities: new TinCan.ContextActivities({
                     parent: [parentActivity]
-                })
+                }),
+                extensions: {
+                    'http://easygenerator/expapi/question/survey': question.hasOwnProperty('isSurvey') && question.isSurvey,
+                    'http://easygenerator/expapi/question/type': question.type
+                }
             });
             return context;
         }
