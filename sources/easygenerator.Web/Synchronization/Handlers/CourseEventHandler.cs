@@ -6,6 +6,8 @@ using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
 using easygenerator.Web.Domain.DomainEvents.ChangeTracking.Events;
+using System;
+using easygenerator.Web.Mail;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
@@ -22,15 +24,20 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseSectionsClonedEvent>,
         IDomainEventHandler<CourseStateChangedEvent>,
         IDomainEventHandler<CourseProcessedByCoggnoEvent>,
+        IDomainEventHandler<CourseAccessGrantedEvent>,
+        IDomainEventHandler<CourseAccessRemovedEvent>,
+        IDomainEventHandler<CourseInvitationSendedEvent>,
         IDomainEventHandler<CourseChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
         private readonly IEntityMapper _entityMapper;
+        private readonly IMailSenderWrapper _mailSenderWrapper;
 
-        public CourseEventHandler(ICollaborationBroadcaster<Course> broadcaster, IEntityMapper entityMapper)
+        public CourseEventHandler(ICollaborationBroadcaster<Course> broadcaster, IEntityMapper entityMapper, IMailSenderWrapper mailSenderWrapper)
         {
             _broadcaster = broadcaster;
             _entityMapper = entityMapper;
+            _mailSenderWrapper = mailSenderWrapper;
         }
 
         public void Handle(CourseTitleUpdatedEvent args)
@@ -64,6 +71,7 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster.OtherCollaborators(args.Course)
                 .coursePublished(args.Course.Id.ToNString(), args.Course.PublicationUrl);
         }
+
         public void Handle(CoursePublishedForSaleEvent args)
         {
             _broadcaster.OtherCollaborators(args.Course)
@@ -103,6 +111,26 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.AllCollaborators(args.Course)
                 .courseProcessedByCoggno(args.Course.Id.ToNString(), args.Course.SaleInfo.DocumentId, args.Success);
+        }
+
+        public void Handle(CourseAccessGrantedEvent args)
+        {
+            _broadcaster.AllCollaborators(args.Course)
+                .courseAccessGranted(args.Course.Id.ToNString(), args.UserIdentities, args.WithInvitation);
+        }
+
+        public void Handle(CourseAccessRemovedEvent args)
+        {
+            _broadcaster.AllCollaborators(args.Course)
+                .courseAccessRemoved(args.Course.Id.ToNString(), args.UserIdentity);
+        }
+
+        public void Handle(CourseInvitationSendedEvent args)
+        {
+            _mailSenderWrapper.SendInviteUserToTheCourseMessage(args.UserIdentity, args.InvitedBy.FullName, args.Course.Title, args.Course.PublicationUrl);
+
+            _broadcaster.AllCollaborators(args.Course)
+                .courseInvitationSended(args.Course.Id.ToNString(), args.UserIdentity);
         }
 
         public void Handle(CourseChangedEvent args)

@@ -487,9 +487,13 @@
     <Compile Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.Designer.cs">
       <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609091317105_AddIsSurveyPropertyToTheQuestion.cs" />
-    <Compile Include="Migrations\201609091317105_AddIsSurveyPropertyToTheQuestion.Designer.cs">
-      <DependentUpon>201609091317105_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
+    <Compile Include="Migrations\201609090948261_AddAccessControlListToCourse.cs" />
+    <Compile Include="Migrations\201609090948261_AddAccessControlListToCourse.Designer.cs">
+      <DependentUpon>201609090948261_AddAccessControlListToCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.cs" />
+    <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.Designer.cs">
+      <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -854,8 +858,11 @@
     <EmbeddedResource Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.resx">
       <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609091317105_AddIsSurveyPropertyToTheQuestion.resx">
-      <DependentUpon>201609091317105_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609090948261_AddAccessControlListToCourse.resx">
+      <DependentUpon>201609090948261_AddAccessControlListToCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.resx">
+      <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

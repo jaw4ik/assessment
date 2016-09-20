@@ -167,7 +167,7 @@ describe('review [course publish]', function () {
             it('should start publish for review of current course', function (done) {
                 getByIdDefer.resolve(course);
                 publishForReviewDefer.resolve();
-                viewModel.updateCourseForReview().fin(function () {
+                viewModel.updateCourseForReview().then(function () {
                     expect(course.publishForReview).toHaveBeenCalled();
                     done();
                 });
@@ -180,7 +180,7 @@ describe('review [course publish]', function () {
                 });
 
                 it('should set isActive() to false', function (done) {
-                    viewModel.updateCourseForReview().fin(function () {
+                    viewModel.updateCourseForReview().then(function () {
                         expect(viewModel.isActive()).toBeFalsy();
                         done();
                     });
@@ -197,14 +197,14 @@ describe('review [course publish]', function () {
 
                 it('should show error notification', function (done) {
                     spyOn(notify, 'error');
-                    viewModel.updateCourseForReview().fin(function () {
+                    viewModel.updateCourseForReview().then(function () {
                         expect(notify.error).toHaveBeenCalledWith(message);
                         done();
                     });
                 });
 
                 it('should set isActive() to false', function (done) {
-                    viewModel.updateCourseForReview().fin(function () {
+                    viewModel.updateCourseForReview().then(function () {
                         expect(viewModel.isActive()).toBeFalsy();
                         done();
                     });

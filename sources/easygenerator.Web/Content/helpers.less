@@ -109,7 +109,7 @@
 /*#region Transitions */
 
 .transition(@transition-property, @transition-duration: @animation-duration-default-value, @transition-function: linear) {
-    transition-property: @transition-property;
+    transition-property: ~"@{transition-property}";
     transition-timing-function: @transition-function;
     transition-duration: @transition-duration;
 }

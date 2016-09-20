@@ -108,7 +108,7 @@ class QuestionViewModel{
         this.questionType = question.type;
         this.isContent = this.questionType === constants.questionType.informationContent.type;
         this.surveyModeAvailable = question.hasOwnProperty('isSurvey');
-        this.isSurvey(question.isSurvey);
+        this.isSurvey(!!question.isSurvey);
         this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
         let viewModelData = await this.activeQuestionViewModel.initialize(this.sectionId, question);

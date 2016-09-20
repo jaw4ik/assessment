@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'routing/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
 'editor/dialogs/editorFeedback/editorFeedback'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, editorFeedbackDialog) {
+        constants, leftSideBarManager, widget, releaseNotesDialog, httpWrapper, editorFeedbackDialog) {
 
         "use strict";
 
@@ -33,8 +33,7 @@
             questionsDeleted: questionsDeleted,
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            leftSideBarManager: leftSideBarManager,
-            createCourseCallback: createCourseCallback
+            leftSideBarManager: leftSideBarManager
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -45,6 +44,15 @@
                 return moduleId;
             }
             return '';
+        });
+
+        viewModel.isCourseExamplesView = ko.computed(function() {
+            var instruction = router.activeInstruction();
+            if (_.isObject(instruction)) {
+                var fragment = instruction.fragment;
+                return fragment === 'start/examples';
+            }
+            return false;
         });
 
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
@@ -66,10 +74,6 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.header);
             router.openUrl(constants.upgradeUrl);
-        }
-
-        function createCourseCallback(course) {
-            router.navigate('courses/' + course.id);
         }
 
         function activate() {
@@ -96,28 +100,15 @@
                         viewModel.switchEditorMessageVisible(!userContext.identity.isNewEditorByDefault && !clientContext.get(editorStateKey) && constants.patterns.coursePage.test(instruction.fragment));
                     });
 
-                    router.on('router:navigation:composition-complete').then(function () {
-                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
-                    });
-                    router.on('router:navigation:processing').then(function () {
-                        _.each(CKEDITOR.instances, function (instance) {
-                            instance.destroy(true);
-                        });
-                    });
-
-                    router.on('router:navigation:composition-complete').then(function () {
-                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
-                    });
-
                     clientContext.set(constants.clientContextKeys.lastVisitedSection, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
                     if (_.isObject(userContext.identity)) {
-                        router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
+                        var isShowStartView = !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCourseView));
+
+                        router.setDefaultLocationHash(isShowStartView ? { hash: 'start' } : clientContext.get(hex_md5(userContext.identity.email)));
                         viewModel.newEditor(userContext.identity.newEditor);
                     }
-
-                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
 
                     router.map([
                         {
@@ -165,9 +156,19 @@
                             title: localizationManager.localize('organization')
                         },
                         {
+                            route: 'start*details',
+                            moduleId: 'examples/index',
+                            title: localizationManager.localize('createYourFirstCourse')
+                        },
+                        {
                             route: 'wintoweb',
                             moduleId: 'wintoweb/index',
                             title: 'Coverter from windows edition to web'
+                        },
+                        {
+                            route: 'importfrompresentation',
+                            moduleId: 'importfrompresentation/index',
+                            title: 'Import from PowerPoint'
                         },
                         {
                             route: '404',
@@ -181,18 +182,10 @@
                     viewModel.router.isViewReady.subscribe(function (value) {
                         if (value) {
                             if (userContext.identity.showReleaseNote) {
-                                releaseNotesDialog.show(showCreateCoursePopup);
-                            } else {
-                                showCreateCoursePopup();
-                            }
+                                releaseNotesDialog.show();
+                            } 
                         }
                     });
-
-                    function showCreateCoursePopup() {
-                        if (!_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                            createCourseDialog.show(viewModel.createCourseCallback);
-                        }
-                    }
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

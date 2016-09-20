@@ -24,7 +24,7 @@
 
             this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
-            this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl);
+            this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl, true);
             this.publishToCoggno = deliveringScormPackageAction.call(this, publishToCoggnoActionHandler, spec.saleInfo.documentId);
             this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl);
             this.publishToCustomLms = publishToCustomLms;
@@ -33,6 +33,7 @@
             this.isDelivering = false;
 
             this.ownership = spec.ownership;
+            this.publicationAccessControlList = spec.publicationAccessControlList;
         }
 
         return Course;
@@ -59,11 +60,11 @@
             return self;
         }
 
-        function deliveringAction(actionHandler, packageUrl) {
+        function deliveringAction(actionHandler, packageUrl, enableAccessLimitation) {
             var course = this;
 
             return buildingAction.call(course, function (action, includeMedia) {
-                return buildPackage.call(course, action, includeMedia).then(function (buildInfo) {
+                return buildPackage.call(course, action, includeMedia, enableAccessLimitation).then(function (buildInfo) {
                     return actionHandler.call(course, action, buildInfo);
                 });
             }, packageUrl);
@@ -83,7 +84,7 @@
             return this._lastState;
         }
 
-        function buildPackage(action, includeMedia) {
+        function buildPackage(action, includeMedia, enableAccessLimitation) {
             var that = this;
             return Q.fcall(function () {
                 if (action.state === constants.publishingStates.building) {
@@ -93,7 +94,7 @@
                 action.setState(constants.publishingStates.building);
                 app.trigger(constants.messages.course.build.started, that);
 
-                return publishService.buildCourse(that.id, includeMedia).then(function (buildInfo) {
+                return publishService.buildCourse(that.id, includeMedia, enableAccessLimitation).then(function (buildInfo) {
                     that.builtOn = buildInfo.builtOn;
 
                     action.setState(constants.publishingStates.succeed);

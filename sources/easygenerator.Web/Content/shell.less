@@ -163,6 +163,35 @@
 
         .header-navigation {
             float: left;
+
+            .back-container {
+                display: flex;
+                height: 50px;
+                align-items: center;
+                justify-content: center;
+
+                .back-icon {
+                    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAKCAYAAACE2W/HAAAAjUlEQVQokZXRMQ4BARCF4beyCUfQaBWi0CldwEFcwxFUGifgDq6AQq1RiiiUkk9hC8VivWSaefnzZzJBaqaD0YcuSN2yix1uKJuCfZxwxaSpcYwLzhh+g97BKe44ovcLQgoMkhySlPkjBTpJNkmmSfZJlo3ISl1i5ZUFWk1vDArMK3iN9r9/nOGB7TfzEztIZ1P4QqCIAAAAAElFTkSuQmCC') no-repeat center;
+                    width: 30px;
+                    height: 30px;
+                    background-color: #344a5c;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    opacity: .5;
+                }
+
+                .back-text {
+                    font: 13px 'OpenSans';
+                    color: #909a9e;
+                    opacity: .8;
+                }
+
+                &:hover {
+                    .back-icon, .back-text {
+                        opacity: 1;
+                    }
+                }
+            }
         }
 
 

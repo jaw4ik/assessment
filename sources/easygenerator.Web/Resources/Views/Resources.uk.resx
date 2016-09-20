@@ -415,4 +415,13 @@
   <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
     <value>Ви успішно підтвердили Вашу e-mail адресу.</value>
   </data>
+  <data name="InviteUserToTheCourseBody" xml:space="preserve">
+    <value>Вітаємо, &lt;br&gt;&lt;br&gt; Вас запросили пройти курс &lt;strong&gt;"{1}"&lt;/strong&gt;. &lt;br&gt;&lt;br&gt; Будь ласка натисніть наступне посилання для початку: &lt;br&gt; &lt;a href="{2}" target="_blank"&gt;{2}&lt;/a&gt; &lt;br&gt;&lt;br&gt; З повагою, &lt;br&gt; {0}</value>
+  </data>
+  <data name="InviteUserToTheCourseFromDisplayName" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="InviteUserToTheCourseSubject" xml:space="preserve">
+    <value>{0} запрошує Вас пройти курс "{1}" у Easygenerator</value>
+  </data>
 </root>

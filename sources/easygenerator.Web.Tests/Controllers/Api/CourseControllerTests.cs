@@ -189,6 +189,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Duplicate_WhenHasSameNameIsTrue_ShouldNotAddDuplicatedCourseSuffixToCourseTitle()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            var courseTitle = courseToDuplicate.Title;
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate, true);
+            courseToDuplicate.Title.Should().Be(courseTitle);
+        }
+
+        [TestMethod]
         public void Duplicate_WhenCourseTitleIsLarge_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedCourseSuffix()
         {
             Course courseToDuplicate = CourseObjectMother.Create();
@@ -211,6 +221,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
             sectionToDuplicate.Title.Should().Be(sectionTitle + " (copy)");
+        }
+
+        [TestMethod]
+        public void Duplicate_WhenHasSameNameIsTrue_ShouldNotAddDuplicatedSectionSuffixToSectionsTitles()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            Section sectionToDuplicate = SectionObjectMother.Create();
+            courseToDuplicate.RelateSection(sectionToDuplicate, 0, "some@user.com");
+            var sectionTitle = sectionToDuplicate.Title;
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate, true);
+            sectionToDuplicate.Title.Should().Be(sectionTitle);
         }
 
         [TestMethod]

@@ -2,11 +2,17 @@
     function (system) {
         return function() {
             var
-                trackEvent = function (eventName, eventCategory) {
+                trackEvent = function (eventName, eventCategory, properties) {
                     if (!window.console) {
                         return;
                     }
-                    system.log('Tracking event: [' + eventCategory + '].[' + eventName + ']');
+
+                    var statement = 'Tracking event: [' + eventCategory + '].[' + eventName + ']';
+                    if (properties) {
+                        statement += '.[' + JSON.stringify(properties) + ']';
+                    }
+
+                    system.log(statement);
                 };
 
             return {

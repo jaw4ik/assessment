@@ -603,6 +603,43 @@ namespace ViewsResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hello,
+        ///&lt;br&gt;&lt;br&gt;
+        ///You have been enrolled in the online course &lt;strong&gt;&quot;{1}&quot;&lt;/strong&gt;.
+        ///&lt;br&gt;&lt;br&gt;
+        ///Please click on the link below to begin:
+        ///&lt;br&gt;
+        ///&lt;a href=&quot;{2}&quot; target=&quot;_blank&quot;&gt;{2}&lt;/a&gt;
+        ///&lt;br&gt;&lt;br&gt;
+        ///Thanks,
+        ///&lt;br&gt;
+        ///{0}.
+        /// </summary>
+        public static string InviteUserToTheCourseBody {
+            get {
+                return ResourceManager.GetString("InviteUserToTheCourseBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.
+        /// </summary>
+        public static string InviteUserToTheCourseFromDisplayName {
+            get {
+                return ResourceManager.GetString("InviteUserToTheCourseFromDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} invites you to &quot;{1}&quot; on Easygenerator.
+        /// </summary>
+        public static string InviteUserToTheCourseSubject {
+            get {
+                return ResourceManager.GetString("InviteUserToTheCourseSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep learning.
         /// </summary>
         public static string KeepLearning {

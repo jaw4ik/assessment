@@ -28,7 +28,7 @@
         function initialize(sectionId, question) {
             viewModel.sectionId = sectionId;
             viewModel.questionId = question.id;
-            viewModel.surveyModeEnabled(question.isSurvey);
+            viewModel.surveyModeEnabled(!!question.isSurvey);
 
             return answerRepository.getCollection(question.id).then(function (answerOptions) {
                 var sortedAnswers = _.sortBy(answerOptions, function (item) {

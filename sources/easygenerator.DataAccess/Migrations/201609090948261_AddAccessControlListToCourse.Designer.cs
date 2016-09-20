@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddIsSurveyPropertyToTheQuestion : IMigrationMetadata
+    public sealed partial class AddAccessControlListToCourse : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIsSurveyPropertyToTheQuestion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAccessControlListToCourse));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609091317105_AddIsSurveyPropertyToTheQuestion"; }
+            get { return "201609090948261_AddAccessControlListToCourse"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,6 +1,6 @@
-﻿define(['repositories/courseRepository', 'localization/localizationManager', 'eventTracker', 'fileUpload', 'notify', 'dataContext', 'mappers/courseModelMapper',
+﻿define(['localization/localizationManager', 'eventTracker', 'fileUpload', 'notify', 'dataContext', 'mappers/courseModelMapper',
     'mappers/sectionModelMapper', 'durandal/app', 'constants'],
-    function (repository, localizationManager, eventTracker, fileUpload, notify, dataContext, courseModelMapper, sectionModelMapper, app, constants) {
+    function (localizationManager, eventTracker, fileUpload, notify, dataContext, courseModelMapper, sectionModelMapper, app, constants) {
 
         return {
             execute: function (options) {

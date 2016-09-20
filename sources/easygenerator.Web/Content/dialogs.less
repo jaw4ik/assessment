@@ -192,39 +192,18 @@
     &.boundless {
         opacity: 1;
     }
+
+    &.dark {
+        background-color: #44505b;
+        opacity: .5;
+    }
 }
 
 .modal-dialog-footer {
-    display: flex;
-    position: relative;
     min-height: 52px;
-    padding: 15px 20px 15px 55px;
-    color: #63798e;
-    font: 12px 'OpenSans';
     background-color: #f3f7f9;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-
-    &:before {
-        content: '';
-        display: block;
-        height: 24px;
-        width: 24px;
-        position: absolute;
-        left: 18px;
-        top: 50%;
-        margin-top: -12px;
-        background: url(images/sprites_24.png) 0 0;
-    }
-
-    .mail-link {
-        color: #469dd5;
-        text-decoration: underline;
-
-        &:hover {
-            color: #1b8bd3;
-        }
-    }
 }
 
 /*#endregion*/
@@ -681,7 +660,10 @@
     }
 }
 
-.collaboration:after, .remove-collaborator:after, .invite-organization-users:after {
+.collaboration:after,
+.remove-collaborator:after,
+.invite-organization-users:after,
+.add-people-to-course:after {
     content: '';
     position: absolute;
     display: block;
@@ -1589,20 +1571,76 @@
 
 /*#endregion */
 
-/*#region Invite organization users */
+/*#region Watch tutorials */
+.dialog-wrapper.watch-tutorial {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    width: auto;
 
+    .dialog-close-btn {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAvElEQVQokX3SPU7DQBAF4M+mBC3chHCbQBMhi0tBlwY4AOIWOKegTixRPwo2YmMsRppm3s/sW02X5AwbXOIRX07rAg/YYyvJkOSz9luSkkTtkuS9we97lMbtBs91VvCK6wa/6pIUvGDVACP6GXnEbZdEdZuLzMmY+jqYsMbuP7K6tq1uQXAyOwqWAh5rVZ9b4Bh6Tv6oZm2mHdY9hgXy3UKmFYYehwXy5Pcjxgbfd81pFDz5exrnfk7jgO03GlNbWhjy1rMAAAAASUVORK5CYII=') no-repeat center;
+        background-color: #c5cace;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        top: -40px;
+        right: -50px;
+        opacity: 1;
+        transition: all 0.3s;
 
-.modal-dialog-wrapper.invite-organization-users {
-    left: -445px;
-    top: 0px;
+        &:hover {
+            background-color: #929ca5;
+        }
+    }
+
+    .dialog {
+        box-shadow: none;
+    }
+
+    .dialog-btn-wrapper {
+        text-align: center;
+        padding-top: 20px;
+    }
+}
+/*#endregion*/
+
+/*#region add course by examples */
+.dialog-wrapper.add-course-by-examples {
+    background-color: #f3f7f9;
+    width: 836px;
+    height: 460px;
+
+    .dialog {
+        box-shadow: none;
+        min-width: 836px;
+
+        .close-btn {
+            display: none;
+        }
+
+        .course-example {
+            margin-left: 20px;
+            margin-bottom: 20px;
+
+            &:nth-child(3n+1) {
+                margin-left: 0;
+            }
+        }
+    }
+}
+/*#endregion*/
+
+/*#region Invite users dialogs */
+
+.modal-dialog-wrapper.invite-organization-users,
+.modal-dialog-wrapper.add-people-to-course {
     width: 435px;
     background-color: #fff;
 
     &:after {
         height: 10px;
         width: 10px;
-        right: -6px;
-        top: 15px;
     }
 
     .modal-dialog-close-btn {
@@ -1625,45 +1663,109 @@
         background-color: #fff;
         padding-top: 0px;
 
-        .invite-organization-users-form {
-            .modal-dialog-form-row {
-                .tags-widget {
-                    max-height: 195px;
-                }
+        .modal-dialog-form-row {
+            .tags-widget {
+                max-height: 195px;
+            }
 
-                .modal-dialog-dorm-input-description {
-                    margin-top: 4px;
-                    font: 12px 'OpenSansItalic';
-                    color: #63798e;
+            .users-list-input-description {
+                margin-top: 4px;
+                font: 12px 'OpenSansItalic';
+                color: #63798e;
+            }
+        }
+    }
+
+    .action-item-btn-wrapper {
+        text-align: center;
+
+        .button {
+            min-width: 175px;
+            max-width: 300px;
+
+            &.progress {
+                .text-wrapper {
+                    background-image: url(data:image/gif;base64,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);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    color: transparent;
                 }
             }
         }
+    }
+}
 
-        .action-item-btn-wrapper {
-            padding: 20px 0px;
-            text-align: center;
+.modal-dialog-wrapper.invite-organization-users {
+    left: -445px;
+    top: 0px;
 
-            .action-item-btn {
-                min-width: 160px;
-                max-width: 300px;
+    &:after {
+        right: -6px;
+        top: 15px;
+    }
 
-                .btn-caption {
-                    display: inline-block;
-                    max-width: 100%;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
+    .action-item-btn-wrapper {
+        padding: 20px 0px;
+    }
 
-                &.progress {
-                    .btn-caption {
-                        background-image: url(data:image/gif;base64,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);
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        color: transparent;
-                    }
-                }
+    .modal-dialog-footer {
+        display: flex;
+        position: relative;
+        padding: 15px 20px 15px 55px;
+        color: #63798e;
+        font: 12px 'OpenSans';
+
+        &:before {
+            content: '';
+            display: block;
+            height: 24px;
+            width: 24px;
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            margin-top: -12px;
+            background: url(images/sprites_24.png) 0 0;
+        }
+
+        .mail-link {
+            color: #469dd5;
+            text-decoration: underline;
+
+            &:hover {
+                color: #1b8bd3;
             }
         }
+    }
+}
+.modal-dialog-wrapper.add-people-to-course {
+    left: 100%;
+    top: -244px;
+    margin-left: 10px;
+
+    &:after {
+        left: -6px;
+        top: 253px;
+        background-color: #f3f7f9;
+        transform: rotate(225deg);
+        z-index: -1;
+    }
+
+    .modal-dialog-header {
+        height: 50px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .modal-dialog-content {
+        padding-bottom: 12px;
+
+        .checkbox-field {
+            margin-top: 38px;
+        }
+    }
+
+    .action-item-btn-wrapper {
+        padding: 15px 0px;
     }
 }
 
@@ -1763,5 +1865,4 @@
         white-space: nowrap;
     }
 }
-
 /*#endregion*/

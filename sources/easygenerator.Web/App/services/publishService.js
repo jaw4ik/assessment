@@ -2,8 +2,8 @@
     function (publishHttpWrapper) {
         "use strict";
 
-        function buildCourse(courseId, includeMedia) {
-            return publishHttpWrapper.post('api/course/build', { courseId: courseId, includeMedia: includeMedia }).then(function (data) {
+        function buildCourse(courseId, includeMedia, enableAccessLimitation) {
+            return publishHttpWrapper.post('api/course/build', { courseId: courseId, includeMedia: includeMedia, enableAccessLimitation: enableAccessLimitation }).then(function (data) {
                 return {
                     packageUrl: data.PackageUrl,
                     builtOn: new Date(data.BuildOn)

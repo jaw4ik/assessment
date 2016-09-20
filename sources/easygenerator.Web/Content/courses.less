@@ -168,22 +168,23 @@
             text-align: center;
             cursor: pointer;
 
-            .new-course-action-import-pptx-icon, .new-course-action-create-course-icon {
+            .new-course-action-from-examples-icon, .new-course-action-create-course-icon {
                 display: inline-block;
                 width: 64px;
                 height: 64px;
-                transform: scale(0.9, 0.9);
-                background-image: url('images/sprites_64.png');
+                background-position: center;
                 background-repeat: no-repeat;
                 transition: transform 0.3s;
+                transform: scale(.9, .9);
             }
 
-            .new-course-action-import-pptx-icon {
-                background-position: 0 -404px;
+            .new-course-action-from-examples-icon {
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAArCAYAAADhXXHAAAAC/ElEQVRYhe3ZQWhcRRzH8c/utpvEpNlWqgmRxlxsqzl4LTXRkiAothZDESmKWPHgoaDixZt48KgXoXhIk4OgYBWk5iSItRFCr1pNUhDpiloqpps2Nt2QjYe3mybZ3ZdNu283K/nCsDPzZt783n/nP/Of92KGp5ThaYzi/nINqsB1fIY38O96jbeFXHtPtEJhB17DIl5fr3E85Fpv/vc4YhGl4/kxXqrkyWIh02BpuU20VDxOmGU3HXGcwIzgCVemTUcc72JnnXVURBxd+fxaR9p0xJHI5z+tp5BKaDgHaxjCdrBSVGuVuCOf+F9btq6rRENZtqHEbjlYVGw5WFQ0lNgtB4uKLQeLinqKHcDHK8q3cClfN1iqQ8zwVLmjcFRH8f04hUPrtPtO8OJjslCx0Tl7tzyBs9ixuznhrd5dDne32tueBNOzWV9fnvPBxRl/zy8ewgUcwTlqa9n9mEBqqKfN6b5OqWTpWZjJ5rw6/pcvfrsBGRzAZK3mbAwjSD33YJszA11lhUIqGff5QJehnjZI5fvGaiV2EAd2NyeMPt5Z9Ff1j6X1j6VX1cUw0t/pvuYEgWUHayX2eTj5yE7t24uHHL9y0/iVm0X17dvj3uzdtXyPSsS+cBciCwzA0e62DXc83N26fI8wB5vDPXeqrhTzLz+kKREM0z+WLmlN6Otocf6ZPSCbW9I0egmyYZY9pYK30VGwMlrKLt4uha2zb+dTNZjEvslM1qP3NsGy5SB2ejoQeWJvUcdfry8Usr/XysEuwFeXb2y441h6rpD9IY5/8oVqOFI5foKPfr5mdiFXdLGvo8VjHS1F9bMLOR9enCkUP4kZnnof70QodBVDPcGmsN62uIRj3/7hy2AXm8DBhKMnv0cSD6uy969hHou/XMtu+3HmlqceaNWcKC05k8158dyfBaEZPIurYR9AoqAokDnS3WpfKmkJ05mss7cDGYLvZKsCmVqKJQhoRgRbaBgTeEUdQ0T5wQ/iSRwTxA17kEUa53EG31hzQP0P3XXGSdMciX4AAAAASUVORK5CYII=');
+                
             }
 
             .new-course-action-create-course-icon {
-                background-position: -70px -404px;
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEIklEQVRYhcXZXahVRRQH8N853rpYCvkRJuqNuFAW6otGCJFkRSQiVhr51TdhpQ++VVBUD9GbD1pdKOzLMlIyJAoyEiWU0F5USotLdNX0kmmgFVZ6e5jZ3Tm7fc7ZR+34f5q9Ztb6/5k5M7NmncrsjXOdBaqYhpmYiqsxHpfG/t9wEN9jF7ZgJ860StTR4vhxeByL0dVgXCdGYgrujrY+rMUrOFSWsFpy3GisQi+ebiKuHrqib2+MNbqMU5kZnIcejCro68dW7MYPOBntw3CVMIMzMCbx6cQyLMBSbDhbgUOwEstz9lPCUq3BDgw0IkAF0/GQ8NPojPZRWI/VWIG/i5zrLfFQfJgTN4C30Y1HsL2EuMxve/Tpxls5v2XYiEvKChyC9zEnsR3B7bhfCz/wAhzCAzHWkcQ+G+sid1OBK3Pi9gpHyuZzEJbH5hhzb2KbE7kbCpyvdln34CblZ+0aTCw59lCMvSexLY8aCgWOwsvJdz9m4XhJwgX4Ft9gYUmf45GjP7H14PIigc8nHQO4T7gNymKWsGMruKMFv4NYYnDjjMQLeYFdeDRxegeftUCSxsq3y2Bz5MzwcNT0b6CluCi2/8BTLRKcDzwZuUUtSwkCq8IBmuFd/NRWaQGHI3eGxahmWcmEpOONdqrKIeWegGlVIWXK0C9cXxcKO9Tu6JlVIZ/LsFW56+v/wkDUkGFqVe3Buru9egqRHtwTOzA2MfTVcZqHubi4QeAbkvaN+KDB2D/xkeJU68ekPbYDwxPDrwUOEyNZpQFhHl2aJ7ULcR325eyphuGtHqhtRwdOGMyWLysYsw/3KLfE2az14asGY7Mlzs9eXsOJDuGAzATWW5YNmqTmwiGbJQlfYlGT8fVwZdI+XMX+xDDlLIOeT0xO2vur+DoxzNDaZjjfqEQNGXZV8UViGCM8cC4Upqt9AW6pCi/+A4nxwbZKqkXKfQA7q0I5Ym3SsUjt4d0ujFW7sdbiTHYO9uCv2B6Kl9ooLMOLkVvU0sNgwtqH15LBS3BbiwRn6rTL4FbhSZthTdRUk5o/i59juyKk4ONbIPlEyEYG8GkLfuOF5cxOj2N4JutMBf6CJ5LvMZF0REmidbhWuF/fK+kzInKkO/cxgxP1n8fNeqHylGEytglltzLYr/j6KsK4GDs9mFfJZUFFycIKbEq+JwlFyFtKEpfBzBhzUmLbFLlrUCTwNO5VK/IK4Wn4pvKzWYRxwrvj8xgzw8fCw/90GYGE599dape7Iuy0XmHHt3LjTI8+vULxKL1OV+NO/F7kWClRo56PV5UrYJ6I9uHqFzAzHBPevusbkZcRSCjXPifU+DobD22KU3g9xjvabHDZjPqoUGjsFm6Zem+XRjgQfbtjrKbiKD+DeVRxPW4WHv7Z3xDDYv9JoSj0nXP8G+IfUgXY5U761xgAAAAASUVORK5CYII=');
             }
 
             .new-course-action-item-title {
@@ -195,7 +196,7 @@
             }
 
             &:hover {
-                .new-course-action-import-pptx-icon, .new-course-action-create-course-icon {
+                .new-course-action-create-course-icon, .new-course-action-from-examples-icon {
                     transform: scale(1, 1);
                 }
 

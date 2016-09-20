@@ -2,16 +2,16 @@
     <div class="publish-tab-content-wrapper">
         <!-- ko if: packageExists() -->
         <div class="publish-tab-default-container">
-            <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
+            <!-- ko compose: { view: 'views/courses/publishingActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
             <div class="publish-tab-link-container">
                 <h2 class="publish-tab-header" data-bind="localize: { text: 'courseUrl' }"></h2>
                 <div class="publish-tab-action-content" data-bind="localize: { text: 'privateLinkCaption' }"></div>
                 <div class="copy-control">
                     <div class="copy-text-container">
-                        <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
+                        <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed"/>
                     </div>
                     <div class="copy-btn-wrapper">
-                        <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty(), 'green-white': courseIsDirty(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                        <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty() && !usersAccessControlListViewModel.active(), 'green-white': courseIsDirty() || usersAccessControlListViewModel.active(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
                             <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>
                         </button>
                     </div>
@@ -20,6 +20,12 @@
                     <a class="private-link" data-bind="localize: { text: 'openInNewWindow' }, click: openPublishedCourse, attr: { href: packageUrl() }"></a>
                 </div>
                 <div class="publish-tab-overlay" data-bind="visible: isCourseDelivering()"></div>
+            </div>
+            <div class="publish-settings" data-bind="css: { disabled: isPublishing }">
+                <div class="header" data-bind="localize: { text: 'settings' }"></div>
+                <div class="body">
+                    <!-- ko compose: { model: usersAccessControlListViewModel, view: 'views/courses/publishingActions/components/usersAccessControlList.html', activationData: courseId } --><!-- /ko -->
+                </div>
             </div>
         </div>
         <!-- /ko -->

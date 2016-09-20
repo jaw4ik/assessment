@@ -17,16 +17,18 @@
             <div class="publish-settings" data-bind="css: { disabled: isPublishing }">
                 <div class="header" data-bind="localize: { text: 'settings' }"></div>
                 <div class="body">
-                    <div class="switch-toggle-slider small" data-bind="switchToggle: { value: includeMedia, onValueChanged: includeMediaModeChanged }">
-                        <div class="switch-toggle-wrapper">
-                            <div class="switch-toggle-on"></div>
-                            <div class="switch-toogle-blob"></div>
-                            <div class="switch-toggle-off"></div>
+                    <div class="switcher-wrapper">
+                        <div class="switch-toggle-slider small" data-bind="switchToggle: { value: includeMedia, onValueChanged: includeMediaModeChanged }">
+                            <div class="switch-toggle-wrapper">
+                                <div class="switch-toggle-on"></div>
+                                <div class="switch-toogle-blob"></div>
+                                <div class="switch-toggle-off"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="description" data-bind="css: { enabled: includeMedia }">
-                        <div class="title" data-bind="localize: { text: 'includeMediaTitle' }"></div>
-                        <div class="subtitle" data-bind="localize: { text: 'includeMediaSubtitle' }"></div>
+                        <div class="switch-description" data-bind="css: { enabled: includeMedia }">
+                            <div class="title" data-bind="localize: { text: 'includeMediaTitle' }"></div>
+                            <div class="subtitle" data-bind="localize: { text: 'includeMediaSubtitle' }"></div>
+                        </div>
                     </div>
                 </div>
             </div>
