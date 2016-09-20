@@ -416,7 +416,7 @@ clientContextKeys: {
         lastCreatedSectionId: 'lastCreatedSectionId',
         lastVistedCourse: 'lastVistedCourse',
         lastVisitedSection: 'lastVisitedSection',
-        showCreateCoursePopup: 'showCreateCoursePopup',
+        showCreateCourseView: 'showCreateCourseView',
         highlightedSectionId: 'highlightedSectionId',
         questionDataToNavigate: 'questionDataToNavigate'
 },
@@ -576,6 +576,16 @@ dialogs: {
             settings: {
                 containerCss: 'editor-feedback',
                 boundless: true
+            }
+    },
+    watchTutorial: {
+            settings: {
+                containerCss: 'watch-tutorial'
+            }
+    },
+    addCourseByExamples: {
+            settings: {
+                containerCss: 'add-course-by-examples'
             }
     },
     upgrade: {

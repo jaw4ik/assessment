@@ -96,14 +96,15 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [LimitCoursesAmount]
         [Route("api/course/duplicate")]
-        public ActionResult Duplicate(Course course)
+        public ActionResult Duplicate(Course course, bool hasSameName = false)
         {
             if (course == null)
-            {
                 return BadRequest();
-            }
 
-            var duplicatedCourse = GetDuplicatedCourse(course);
+            var duplicatedCourse = hasSameName
+                ? _cloner.Clone(course, GetCurrentUsername(), true)
+                : GetDuplicatedCourse(course);
+
             _courseOperations.CreateCourse(duplicatedCourse);
 
             return JsonSuccess(new

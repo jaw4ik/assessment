@@ -11,6 +11,7 @@
             updateCourseTemplate: updateCourseTemplate,
             removeCourse: removeCourse,
             duplicateCourse: duplicateCourse,
+            updateCourseInDataContext: updateCourseInDataContext,
 
             relateSection: relateSection,
             unrelateSections: unrelateSections,
@@ -103,28 +104,31 @@
                 guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
                 return apiHttpWrapper.post('api/course/duplicate', { courseId: courseId }).then(function (response) {
-                    guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotAnObject(response.course, 'Course is not an object');
-
-                    var sectionsData = response.sections;
-                    if (sectionsData && _.isArray(sectionsData)) {
-                        _.each(sectionsData, function (sectionData) {
-                            var section = sectionModelMapper.map(sectionData);
-                            dataContext.sections.push(section);
-                        });
-                    }
-
-                    var duplicatedCourse = courseModelMapper.map(response.course, dataContext.sections, dataContext.templates);
-                    duplicatedCourse.isDuplicate = true;
-                    dataContext.courses.push(duplicatedCourse);
-
-                    app.trigger(constants.messages.course.created, duplicatedCourse);
-
-                    return duplicatedCourse;
+                    return updateCourseInDataContext(response);
                 });
             });
         }
+        
+        function updateCourseInDataContext(data) {
+            guard.throwIfNotAnObject(data, 'Response is not an object');
+            guard.throwIfNotAnObject(data.course, 'Course is not an object');
 
+            var sectionsData = data.sections;
+            if (sectionsData && _.isArray(sectionsData)) {
+                _.each(sectionsData, function (sectionData) {
+                    var section = sectionModelMapper.map(sectionData);
+                    dataContext.sections.push(section);
+                });
+            }
+
+            var duplicatedCourse = courseModelMapper.map(data.course, dataContext.sections, dataContext.templates);
+            duplicatedCourse.isDuplicate = true;
+            dataContext.courses.push(duplicatedCourse);
+
+            app.trigger(constants.messages.course.created, duplicatedCourse);
+
+            return duplicatedCourse;
+        }
 
         function relateSection(courseId, sectionId, targetIndex) {
             return Q.fcall(function () {

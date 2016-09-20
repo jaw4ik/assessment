@@ -11,6 +11,7 @@
             speed = 200,
             isShown = valueAccessor().isShown,
             isBoundless = valueAccessor().isBoundless,
+            overlayCss = valueAccessor().overlayCss,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,
             onHide = valueAccessor().onHide,
             scrollLocker = createScrollLocker();
@@ -30,6 +31,7 @@
             if (isBoundless) {
                 $blockout.addClass('boundless');
             }
+            $blockout.addClass(overlayCss);
 
             $.when($blockout).done(function () {
                 $blockout.fadeIn(speed);

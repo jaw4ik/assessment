@@ -18,9 +18,9 @@
         providers.push(new IntercomProvider());
         providers.identify();
 
-        function publish(eventName, category) {
+        function publish(eventName, category, properties) {
             _.each(providers, function (provider) {
-                provider.trackEvent(eventName, category);
+                provider.trackEvent(eventName, category, properties);
             });
         }
 

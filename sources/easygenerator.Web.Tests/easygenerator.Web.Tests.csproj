@@ -197,6 +197,7 @@
     <Compile Include="Controllers\Api\RankingTextControllerTests.cs" />
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\Api\ScenarioControllerTests.cs" />
+    <Compile Include="Controllers\CourseExamplesControllerTests.cs" />
     <Compile Include="Controllers\CrossProtocolStorageControllerTests.cs" />
     <Compile Include="Controllers\Api\ThemeControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />

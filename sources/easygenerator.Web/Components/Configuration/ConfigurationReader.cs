@@ -2,6 +2,7 @@
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using System.Configuration;
+using easygenerator.Web.Components.Configuration.CourseExamples;
 using easygenerator.Web.Components.Configuration.SAML;
 
 namespace easygenerator.Web.Components.Configuration
@@ -115,6 +116,8 @@ namespace easygenerator.Web.Components.Configuration
         public virtual CoggnoConfigurationSection CoggnoConfiguration => ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection;
 
         public virtual SamlIdPConfigurationSection SamlIdPConfiguration => ConfigurationManager.GetSection("samlIdP") as SamlIdPConfigurationSection;
+
+        public virtual CourseExamplesConfigurationSection CourseExamplesConfiguration => ConfigurationManager.GetSection("courseExamples") as CourseExamplesConfigurationSection;
 
         public virtual string ConnectionString
         {

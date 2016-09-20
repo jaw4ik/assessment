@@ -192,6 +192,11 @@
     &.boundless {
         opacity: 1;
     }
+
+    &.dark {
+        background-color: #44505b;
+        opacity: .5;
+    }
 }
 
 .modal-dialog-footer {
@@ -1589,9 +1594,66 @@
 
 /*#endregion */
 
+/*#region Watch tutorials */
+.dialog-wrapper.watch-tutorial {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    width: auto;
+
+    .dialog-close-btn {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAvElEQVQokX3SPU7DQBAF4M+mBC3chHCbQBMhi0tBlwY4AOIWOKegTixRPwo2YmMsRppm3s/sW02X5AwbXOIRX07rAg/YYyvJkOSz9luSkkTtkuS9we97lMbtBs91VvCK6wa/6pIUvGDVACP6GXnEbZdEdZuLzMmY+jqYsMbuP7K6tq1uQXAyOwqWAh5rVZ9b4Bh6Tv6oZm2mHdY9hgXy3UKmFYYehwXy5Pcjxgbfd81pFDz5exrnfk7jgO03GlNbWhjy1rMAAAAASUVORK5CYII=') no-repeat center;
+        background-color: #c5cace;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        top: -40px;
+        right: -50px;
+        opacity: 1;
+        transition: all 0.3s;
+
+        &:hover {
+            background-color: #929ca5;
+        }
+    }
+
+    .dialog {
+        box-shadow: none;
+    }
+
+    .dialog-btn-wrapper {
+        text-align: center;
+        padding-top: 20px;
+    }
+}
+/*#endregion*/
+
+/*#region add course by examples */
+.dialog-wrapper.add-course-by-examples {
+    background-color: #f3f7f9;
+    width: 836px;
+    height: 460px;
+
+    .dialog {
+        box-shadow: none;
+        min-width: 836px;
+
+        .close-btn {
+            display: none;
+        }
+
+        .course-example {
+            margin-left: 20px;
+            margin-bottom: 20px;
+
+            &:nth-child(3n+1) {
+                margin-left: 0;
+            }
+        }
+    }
+}
+/*#endregion*/
 /*#region Invite organization users */
-
-
 .modal-dialog-wrapper.invite-organization-users {
     left: -445px;
     top: 0px;
@@ -1666,9 +1728,7 @@
         }
     }
 }
-
 /*#endregion */
-
 /*#region max-height 700 */
 @media screen and ( max-height: 700px ) {
     .dialog-container {
@@ -1763,5 +1823,4 @@
         white-space: nowrap;
     }
 }
-
 /*#endregion*/

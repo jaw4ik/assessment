@@ -1,7 +1,7 @@
 ﻿define([
     'constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialog/viewmodel',
-    'commands/createCourseCommand', 'eventTracker', 'clientContext', 'localization/localizationManager'],
-    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, eventTracker, clientContext, localizationManager) {
+    'commands/createCourseCommand', 'eventTracker', 'localization/localizationManager'],
+    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, eventTracker, localizationManager) {
         "use strict";
 
         var events = {
@@ -22,14 +22,9 @@
 
         function show(callback) {
             viewModel.callback = callback;
-            if (_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                courseTitleStep.caption(localizationManager.localize('createYourCourse'));
-                viewModel.eventCategory = undefined;
-            } else {
-                courseTitleStep.caption(localizationManager.localize('createYourFirstCourse'));
-                viewModel.eventCategory = 'Splash pop-up after signup';
-                clientContext.remove(constants.clientContextKeys.showCreateCoursePopup);
-            }
+
+            courseTitleStep.caption(localizationManager.localize('createYourCourse'));
+            viewModel.eventCategory = undefined;
 
             dialog.show([courseTemplateStep, courseTitleStep], constants.dialogs.createCourse.settings);
 
