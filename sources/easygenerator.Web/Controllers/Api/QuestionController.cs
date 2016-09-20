@@ -16,8 +16,8 @@ namespace easygenerator.Web.Controllers.Api
     [NoCache]
     public class QuestionController : DefaultApiController
     {
-        private ICloner _cloner;
-        private IEntityModelMapper<Question> _entityModelMapper;
+        private readonly ICloner _cloner;
+        private readonly IEntityModelMapper<Question> _entityModelMapper;
 
         public QuestionController(ICloner cloner, IEntityModelMapper<Question> entityModelMapper)
         {

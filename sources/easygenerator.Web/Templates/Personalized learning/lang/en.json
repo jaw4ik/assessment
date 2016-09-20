@@ -64,5 +64,6 @@
     "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.",
     "[login skip]": "Skip step, start anonymously",
     "[confirn your name and email]": "OK, name and email are correct",
-    "[login header]": "Introduce yourself"
+    "[login header]": "Introduce yourself",
+    "[survey mode caption]": "Answer will not impact on your progress"
 }

@@ -162,6 +162,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Question>().Property(e => e.LearningContentsOrder).IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.VoiceOver).IsOptional();
 
+            modelBuilder.Entity<SurveyQuestion>().Property(e => e.IsSurvey).IsOptional();
+
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
             modelBuilder.Entity<QuestionWithBackground>().Property(e => e.Background).IsOptional();

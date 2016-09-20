@@ -169,6 +169,7 @@ namespace easygenerator.Web.BuildCourse
             return MapQuestion<StatementPackageModel>(question, (model) =>
             {
                 model.Answers = question.Answers.Select(MapAnswer).ToList();
+                if (question.IsSurvey != null) model.IsSurvey = question.IsSurvey.Value;
             });
         }
 
@@ -177,6 +178,7 @@ namespace easygenerator.Web.BuildCourse
             return MapQuestion<MultipleselectPackageModel>(question, (model) =>
             {
                 model.Answers = question.Answers.Select(MapAnswer).ToList();
+                if (question.IsSurvey != null) model.IsSurvey = question.IsSurvey.Value;
             });
         }
 
@@ -185,6 +187,7 @@ namespace easygenerator.Web.BuildCourse
             return MapQuestion<SingleSelectTextPackageModel>(question, (model) =>
             {
                 model.Answers = (question.Answers ?? new Collection<Answer>()).Select(MapAnswer).ToList();
+                if (question.IsSurvey != null) model.IsSurvey = question.IsSurvey.Value;
             });
         }
 

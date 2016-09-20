@@ -249,6 +249,7 @@
     <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ScenarioQuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\SurveyQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Controllers\Api\SurveyQuestionController.cs" />
     <Compile Include="Components\SentriClient.cs" />
     <Compile Include="Controllers\CourseExamplesController.cs" />
     <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
@@ -864,6 +866,14 @@
     </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\invitationSended.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\accessRemoved.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\extender.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\extender.spec.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\supportedTypes\multipleSelect.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\supportedTypes\singleSelectText.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\supportedTypes\statement.js" />
+    <Content Include="App\reporting\views\questionStatements\surveyModeViews\multipleSelect.html" />
+    <Content Include="App\reporting\views\questionStatements\surveyModeViews\singleSelectText.html" />
+    <Content Include="App\reporting\views\questionStatements\surveyModeViews\statement.html" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.spec.js">
       <DependentUpon>modified.js</DependentUpon>
@@ -3370,8 +3380,10 @@
     <Content Include="Templates\Assessment\app\views\fillInTheBlanks.html" />
     <Content Include="Templates\Assessment\app\views\hint.html" />
     <Content Include="Templates\Assessment\app\views\hotspot.html" />
+    <Content Include="Templates\Assessment\app\views\login.html" />
     <Content Include="Templates\Assessment\app\views\main.html" />
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
+    <Content Include="Templates\Assessment\app\views\noaccess.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
     <Content Include="Templates\Assessment\app\views\rankingText.html" />
@@ -3731,6 +3743,8 @@
     <Content Include="Templates\Assessment\lang\nb-no.json" />
     <Content Include="Templates\Assessment\lang\nn-no.json" />
     <Content Include="Views\Shared\_sentryTracking.cshtml" />
+    <Content Include="Templates\Assessment\lang\zh-cn.json" />
+    <Content Include="Templates\Assessment\css\font\Custom-Icons.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

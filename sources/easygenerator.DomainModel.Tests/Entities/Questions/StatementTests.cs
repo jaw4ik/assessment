@@ -59,7 +59,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         {
             const string title = "title";
 
-            var question = StatementObjectMother.Create(title, "text", CreatedBy);
+            var question = StatementObjectMother.Create(title, "text", false, CreatedBy);
 
             question.Id.Should().NotBeEmpty();
             question.Title.Should().Be(title);
@@ -68,6 +68,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.ModifiedOn.Should().Be(DateTime.MinValue);
             question.CreatedBy.Should().Be(CreatedBy);
             question.ModifiedBy.Should().Be(CreatedBy);
+            question.IsSurvey.Should().BeFalse();
         }
 
         [TestMethod]
@@ -76,7 +77,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             const string title = "title";
             const string defaultStatementText = "statement";
 
-            var question = new Statement(title, defaultStatementText, CreatedBy);
+            var question = new Statement(title, defaultStatementText, false, CreatedBy);
             question.Answers.Should().NotBeNull().And.HaveCount(2);
         }
 

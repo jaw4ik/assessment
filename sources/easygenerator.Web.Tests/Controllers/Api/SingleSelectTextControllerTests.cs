@@ -65,12 +65,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var correctAnswer = Substitute.For<Answer>(defaultAnswerText, true, user, DateTimeWrapper.Now());
             var incorrectAnswer = Substitute.For<Answer>(defaultAnswerText, false, user, DateTimeWrapper.Now().AddSeconds(1));
 
-            _entityFactory.SingleSelectTextQuestion(title, user, correctAnswer, incorrectAnswer).Returns(question);
+            _entityFactory.SingleSelectTextQuestion(title, user, false, correctAnswer, incorrectAnswer).Returns(question);
             _entityFactory.Answer(defaultAnswerText, true, user, Arg.Any<DateTime>()).Returns(correctAnswer);
             _entityFactory.Answer(defaultAnswerText, false, user, Arg.Any<DateTime>()).Returns(incorrectAnswer);
 
             _controller.Create(section, title);
-            _entityFactory.Received().SingleSelectTextQuestion(title, user, correctAnswer, incorrectAnswer);
+            _entityFactory.Received().SingleSelectTextQuestion(title, user, false, correctAnswer, incorrectAnswer);
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
 
-            _entityFactory.SingleSelectTextQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
+            _entityFactory.SingleSelectTextQuestion(title, user, false, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
             _controller.Create(section, title);
 
@@ -99,7 +99,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
 
-            _entityFactory.SingleSelectTextQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
+            _entityFactory.SingleSelectTextQuestion(title, user, false, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
             var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 

@@ -12,8 +12,8 @@ namespace easygenerator.DomainModel.Entities.Questions
         {
         }
 
-        public SingleSelectText(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
-            : base(title, createdBy, correctAnswer, incorrectAnswer)
+        public SingleSelectText(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer)
+            : base(title, createdBy, isSurvey, correctAnswer, incorrectAnswer)
         {
         }
 

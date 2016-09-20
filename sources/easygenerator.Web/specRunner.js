@@ -193,6 +193,7 @@
         'reporting/viewmodels/questionStatements/experiencedStatement.spec',
         'reporting/viewmodels/questionStatements/answeredStatement.spec',
         'reporting/viewmodels/questionStatements/questionStatementFactory.spec',
+        'reporting/viewmodels/questionStatements/surveyModeExtender/extender.spec',
         'reporting/viewmodels/sectionStatement.spec',
         'reporting/viewmodels/startedStatement.spec',
         'reporting/viewmodels/progressedStatement.spec',

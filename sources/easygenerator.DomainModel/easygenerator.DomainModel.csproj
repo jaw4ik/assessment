@@ -52,6 +52,7 @@
     <Compile Include="Entities\EventRaiseable.cs" />
     <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
     <Compile Include="Entities\IScormPublishableEntity.cs" />
+    <Compile Include="Entities\Questions\SurveyQuestion.cs" />
     <Compile Include="Entities\UserSubscription.cs" />
     <Compile Include="Entities\Organizations\OrganizationSettings.cs" />
     <Compile Include="Entities\SamlServiceProvider.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Events\OrganizationEvents\OrganizationInviteAcceptedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationInviteDeclinedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionIsSurveyUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionImageUrlUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionLearningObjectiveUpdatedEvent.cs" />
