@@ -3,7 +3,6 @@
 import repository from 'repositories/courseRepository';
 import collaboratorRepository from 'repositories/collaboratorRepository';
 import app from 'durandal/app';
-import userContext from 'userContext';
 import clientContext from 'clientContext';
 import constants from 'constants';
 import eventTracker from 'eventTracker';

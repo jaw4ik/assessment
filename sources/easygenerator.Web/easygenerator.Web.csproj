@@ -857,6 +857,13 @@
     <Content Include="App\importfrompresentation\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\course\addPeople\addPeople.html" />
+    <Content Include="App\dialogs\course\addPeople\addPeople.js" />
+    <Content Include="App\dialogs\course\addPeople\addPeople.spec.js">
+      <DependentUpon>addPeople.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\invitationSended.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\accessRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.spec.js">
       <DependentUpon>modified.js</DependentUpon>
@@ -864,6 +871,7 @@
     <Content Include="App\examples\start.js">
       <DependentUpon>start.html</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\accessGranted.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\processedByCoggno.spec.js">
       <DependentUpon>processedByCoggno.js</DependentUpon>
     </Content>
@@ -874,6 +882,7 @@
     <Content Include="App\synchronization\handlers\section\eventHandlers\modified.spec.js">
       <DependentUpon>modified.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\components\usersAccessControlList.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publishingToCoggnoAction.spec.js">
       <DependentUpon>publishingToCoggnoAction.js</DependentUpon>
     </Content>
@@ -884,6 +893,7 @@
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToTrial.spec.js">
       <DependentUpon>upgradedToTrial.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\publishingActions\components\usersAccessControlList.html" />
     <Content Include="App\vimeo\queries\getVideoSources.spec.js">
       <DependentUpon>getVideoSources.js</DependentUpon>
     </Content>
@@ -1800,10 +1810,10 @@
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\results.js" />
     <Content Include="App\views\courses\course\results\noResults.html" />
-    <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
+    <Content Include="App\views\courses\publishingActions\publishToCustomLms.html" />
     <Content Include="App\images\index.html" />
-    <Content Include="App\views\courses\publishActions\publishToCoggno.html" />
-    <Content Include="App\views\courses\publishActions\updatePublishedToCoggnoCourse.html" />
+    <Content Include="App\views\courses\publishingActions\publishToCoggno.html" />
+    <Content Include="App\views\courses\publishingActions\updatePublishedToCoggnoCourse.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\configure\index.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
@@ -1826,6 +1836,8 @@
     <Content Include="App\widgets\allowCoggno\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\checkbox\view.html" />
+    <Content Include="App\widgets\checkbox\viewmodel.js" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
     <Content Include="App\widgets\dialog\view.html" />
     <Content Include="App\widgets\dialog\viewmodel.js" />
@@ -2154,11 +2166,11 @@
     <Content Include="App\views\courses\course\index.html" />
     <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
-    <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
-    <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
-    <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\courses\publishingActions\publishToPublicationServerEmbed.html" />
+    <Content Include="App\views\courses\publishingActions\publishToPublicationServerLink.html" />
+    <Content Include="App\views\courses\publishingActions\publishAsHtml.html" />
+    <Content Include="App\views\courses\publishingActions\publishAsScorm.html" />
+    <Content Include="App\views\courses\publishingActions\updatePublishedCourse.html" />
     <Content Include="App\views\learningContents\learningContents.html" />
     <Content Include="App\views\learningContents\types\hotspot.html" />
     <Content Include="App\views\learningContents\types\content.html" />
@@ -2260,6 +2272,7 @@
     <Content Include="Content\images\imagePreview.png" />
     <Content Include="Content\images\image-not-found.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
+    <Content Include="Content\images\loader_16x16.gif" />
     <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\oragnizationUserBg.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
@@ -2822,6 +2835,8 @@
     <Content Include="Content\allowCoggnoPopup.less" />
     <Content Include="Content\examples.less" />
     <Content Include="Content\importFromPresentation.less" />
+    <Content Include="Content\controls.less" />
+    <Content Include="Mail\MailTemplates\InviteUserToTheCourseTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

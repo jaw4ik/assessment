@@ -121,6 +121,13 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.PublicationUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().HasMany(e => e.CourseCompanies).WithMany(e => e.CompanyCourses).Map(m => m.ToTable("CompanyCourses"));
             modelBuilder.Entity<Course>().HasRequired(e => e.SaleInfo).WithRequiredPrincipal(e => e.Course).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Course>().HasMany(e => e.PublicationAccessControlListCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<CourseAccessControlListEntry>().Property(e => e.UserIdentity).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<CourseAccessControlListEntry>().Property(e => e.UserInvited);
+            modelBuilder.Entity<CourseAccessControlListEntry>().HasRequired(e => e.Course);
+            modelBuilder.Entity<CourseAccessControlListEntry>().Ignore(e => e.ModifiedBy);
+            modelBuilder.Entity<CourseAccessControlListEntry>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.IsAdmin).IsRequired();
@@ -249,6 +256,10 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<TemplateAccessControlListEntry>().Property(e => e.UserIdentity).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<TemplateAccessControlListEntry>().HasRequired(e => e.Template);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.CreatedBy);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.CreatedOn);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.ModifiedBy);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();
             modelBuilder.Entity<MailNotification>().Property(e => e.Subject).HasMaxLength(254).IsRequired();
@@ -461,6 +472,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is OrganizationUser) && (entry.Entity as OrganizationUser).Organization == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is CourseAccessControlListEntry) && (entry.Entity as CourseAccessControlListEntry).Course == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

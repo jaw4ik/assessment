@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.BuildCourse.PublishSettings.Models
 {
@@ -11,14 +12,24 @@ namespace easygenerator.Web.BuildCourse.PublishSettings.Models
 
         public List<Module> Modules { get; set; }
 
-        public class Module
-        {
-            public Module(string name)
-            {
-                Name = name;
-            }
+        public AccessLimitation AccessLimitation { get; set; }
+    }
 
-            public string Name { get; set; }
+
+    public class Module
+    {
+        public Module(string name)
+        {
+            Name = name;
         }
+
+        public string Name { get; set; }
+    }
+
+    public class AccessLimitation
+    {
+        public bool Enabled { get; set; }
+
+        public IEnumerable<Object> AllowedUsers { get; set; }
     }
 }

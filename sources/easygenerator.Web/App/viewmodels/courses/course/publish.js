@@ -81,7 +81,7 @@
 
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
-                }).fail(function (reason) {
+                }).catch(function (reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };
                     throw reason;
                 });

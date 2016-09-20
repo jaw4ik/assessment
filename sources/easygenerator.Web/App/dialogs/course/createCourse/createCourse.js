@@ -54,7 +54,8 @@
                     viewModel.callback(course);
                 }
                 
-            }).fin(function () {
+                courseTitleStep.isProcessing(false);
+            }).catch(function () {
                 courseTitleStep.isProcessing(false);
             });
         }

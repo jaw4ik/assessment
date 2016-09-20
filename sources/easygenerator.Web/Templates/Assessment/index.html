@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ng="http://angularjs.org">
-
 <head>
     <title ng-bind="$root.title"></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta name="viewport" content="width=800,maximum-scale=1.0">
-
-    <link rel="stylesheet" href="css/vendor.css?v=1473765323164">
-
-    <link href="css/styles.css?v=1473765323164" rel="stylesheet" />
+    <link rel="stylesheet" href="css/vendor.css?v=1474293505825">
+    <link href="css/styles.css?v=1474293505825" rel="stylesheet" />
 </head>
-
 <body>
     <div id="main-app">
         <div class="container" ng-view autoscroll="true"></div>
@@ -20,9 +16,7 @@
             <div class="color-ball blue">&nbsp;</div>
             <div class="color-ball yellow">&nbsp;</div>
         </div>
-
         <div ng-controller="ImagePreviewController as preview">
-
             <div class="overlay-container" ng-style="{'display' : preview.visible? 'block': 'none'}">
                 <div class="overlay" ng-click="preview.hide()">
                 </div>
@@ -42,18 +36,15 @@
                 </div>
             </div>
         </div>
-
         <footer></footer>
     </div>
-
-    <script src="app/vendor.js?v=1473765323164"></script>
-
+    <script src="app/vendor.js?v=1474293505825"></script>
     <script type="text/javascript">
         supportedBrowser.configure({
             browsers: {
                 win: {
                     chrome: {},
-                    firefox: {},    
+                    firefox: {},
                     msie: {},
                     edge: {}
                 },
@@ -65,7 +56,7 @@
                 android: {
                     native: {
                         title: 'Android Browser',
-                        image: 'css/img/browsers/android.png?v=1473765323164'
+                        image: 'css/img/browsers/android.png?v=1474293505825'
                     },
                     chrome: {
                         version: 39
@@ -81,36 +72,34 @@
                 chrome: {
                     title: 'Google Chrome',
                     link: 'http://www.google.com/chrome',
-                    image: 'css/img/browsers/chrome.png?v=1473765323164',
+                    image: 'css/img/browsers/chrome.png?v=1474293505825',
                     version: 43
                 },
                 firefox: {
                     title: 'Mozilla Firefox',
                     link: 'http://www.mozilla.com/firefox',
-                    image: 'css/img/browsers/firefox.png?v=1473765323164',
+                    image: 'css/img/browsers/firefox.png?v=1474293505825',
                     version: 33
                 },
                 msie: {
                     title: 'Internet Explorer',
                     link: 'http://windows.microsoft.com/en-US/internet-explorer/download-ie',
-                    image: 'css/img/browsers/ie.png?v=1473765323164',
+                    image: 'css/img/browsers/ie.png?v=1474293505825',
                     version: 11
                 },
                 edge: {
                     title: 'Microsoft Edge',
                     link: 'https://www.microsoft.com/en-us/windows/microsoft-edge',
-                    image: 'css/img/browsers/edge.png?v=1473765323164'
+                    image: 'css/img/browsers/edge.png?v=1474293505825'
                 },
                 safari: {
                     title: 'Apple Safari',
                     link: 'http://www.apple.com/safari',
-                    image: 'css/img/browsers/safari.png?v=1473765323164'
+                    image: 'css/img/browsers/safari.png?v=1474293505825'
                 }
             }
         }).init();
     </script>
-
-    <script src="app/app.js?v=1473765323164"></script>
+    <script src="app/app.js?v=1474293505825"></script>
 </body>
-
 </html>

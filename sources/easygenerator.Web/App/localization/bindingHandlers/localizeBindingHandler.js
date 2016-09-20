@@ -30,6 +30,10 @@
         if (_.isDefined(value['data-text'])) {
             $(element).attr('data-text', getLocalizedText(value['data-text']));
         }
+        if (_.isDefined(value['wrap'])) {
+            $('.text-wrapper', element).remove();
+            $(element).append($('<span>').addClass('text-wrapper').text(getLocalizedText(value['wrap'])));
+        }
     }
 
     function getLocalizedText(value) {

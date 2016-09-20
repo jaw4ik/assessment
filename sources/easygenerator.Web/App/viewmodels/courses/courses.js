@@ -1,13 +1,13 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'routing/router',
-    'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 
+    'notify', 'localization/localizationManager', 'clientContext', 
     'fileHelper', 'authorization/limitCoursesAmount', 'commands/duplicateCourseCommand','widgets/upgradeDialog/viewmodel', 'utils/waiter', 
     'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse', 
     'dialogs/course/stopCollaboration/stopCollaboration', 'dialogs/course/addByExample/index'],
-    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, 
+    function (app, dataContext, userContext, constants, eventTracker, router, notify, localizationManager, 
         clientContext, fileHelper, limitCoursesAmount, duplicateCourseCommand, 
         upgradeDialog, waiter, createCourseDialog, deleteCourseDialog, stopCollaborationDialog, addByExampleDialog) {
         "use strict";
-        
+
         var events = {
                 navigateToObjectives: 'Navigate to objectives',
                 courseSelected: 'Course selected',
@@ -172,7 +172,7 @@
         function showNewCourseDialog() {
             addByExampleDialog.show();
         }
-        
+
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);
             router.openUrl(constants.upgradeUrl);
@@ -283,7 +283,7 @@
             eventTracker.publish(events.createNewCourse);
             createCourseDialog.show(viewModel.createCourseCallback);
         }
-        
+
         function coursesFilterChanged() {
             eventTracker.publish(events.courseListFiltered);
         }

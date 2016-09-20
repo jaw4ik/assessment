@@ -919,6 +919,16 @@ body {
     }
 }
 
+.noaccess {
+    .noaccess-icon .icon-attention {
+        color: @main-color;
+
+        &:after {
+            background-color: fade(@main-color,10%);
+        }
+    }
+}
+
 .tree-of-content-panel {
     .tree-of-content-panel-tail {
         background-color: tint(@main-color,20%);

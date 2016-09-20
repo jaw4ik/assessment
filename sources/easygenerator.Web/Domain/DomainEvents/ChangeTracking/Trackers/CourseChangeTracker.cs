@@ -21,6 +21,8 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<CourseSectionRelatedEvent>,
         IDomainEventHandler<CourseSectionsUnrelatedEvent>,
         IDomainEventHandler<CourseTemplateSettingsUpdated>,
+        IDomainEventHandler<CourseAccessGrantedEvent>,
+        IDomainEventHandler<CourseAccessRemovedEvent>,
 
         IDomainEventHandler<SectionChangedEvent>,
         IDomainEventHandler<ThemeUpdatedEvent>,
@@ -70,6 +72,16 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(CourseTemplateSettingsUpdated args)
+        {
+            RaiseCourseChangedEvent(args.Course);
+        }
+
+        public void Handle(CourseAccessGrantedEvent args)
+        {
+            RaiseCourseChangedEvent(args.Course);
+        }
+
+        public void Handle(CourseAccessRemovedEvent args)
         {
             RaiseCourseChangedEvent(args.Course);
         }

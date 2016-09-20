@@ -1,7 +1,7 @@
 ﻿
 /* ========================================================================
  * Bootstrap: tooltip.js v3.3.6
- * http://getbootstrap.com/javascript/#tooltip
+ * http://getbootstrap.com/javascript/#tooltips
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
  * Copyright 2011-2016 Twitter, Inc.

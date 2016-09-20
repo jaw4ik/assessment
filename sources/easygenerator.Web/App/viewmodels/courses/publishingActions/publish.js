@@ -1,5 +1,4 @@
 ﻿import constants from 'constants';
-import app from 'durandal/app';
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import router from 'routing/router';
@@ -8,6 +7,7 @@ import repository from 'repositories/courseRepository';
 import _ from 'underscore';
 import ko from 'knockout';
 import PublishingAction from './publishingAction';
+import UsersAccessControlListViewModel from './components/usersAccessControlList';
 
 const events = {
     publishCourse: 'Publish course',
@@ -37,6 +37,7 @@ export default class extends PublishingAction {
             },
             write: () => {}
         }, this);
+        this.usersAccessControlListViewModel = new UsersAccessControlListViewModel();
     }
 
     async activate(courseId) {

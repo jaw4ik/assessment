@@ -46,8 +46,6 @@
             courseRepository.removeCourse(viewModel.courseId)
                 .then(function () {
                     dialog.close();
-                })
-                .then(function () {
                     viewModel.isDeleting(false);
                 });
         }

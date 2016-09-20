@@ -1,0 +1,608 @@
+﻿@using ViewsResources
+@using RazorEngine.Text
+@model dynamic
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Easygenerator </title>
+    <style type="text/css">
+        html {
+            width: 100%;
+        }
+
+        ::-moz-selection {
+            background: #f67f2b;
+            color: #fff;
+        }
+
+        ::selection {
+            background: #f67f2b;
+            color: #fff;
+        }
+
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ReadMsgBody {
+            width: 100%;
+            background-color: #000000;
+        }
+
+        .ExternalClass {
+            width: 100%;
+            background-color: #000000;
+        }
+
+        a {
+            color: #f67f2b;
+            text-decoration: none;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        a:hover {
+            color: #d15028;
+            text-decoration: none;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        p,
+        div {
+            margin: 0!important;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        @@media only screen and (max-width:640px) {
+            body {
+                width: auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            table table {
+                width: 100%!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            td[class=full_width] {
+                width: 100%!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            td[class=spacer] {
+                width: 30px!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            td[class=spacer_spec] {
+                display: none!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            div[class=div_scale] {
+                width: 440px!important;
+                margin: 0 auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            table[class=table_scale] {
+                width: 440px!important;
+                margin: 0 auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            td[class=td_scale] {
+                width: 440px!important;
+                margin: 0 auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            img[class=img_scale] {
+                width: 100%!important;
+                height: auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            img[class=divider] {
+                width: 100%!important;
+                height: 1px!important;
+            }
+        }
+
+        @@media only screen and (max-width:640px) {
+            img[class=one_fourth_img] {
+                width: 100%!important;
+                height: auto!important;
+                text-align: center!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            body {
+                width: auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            table table {
+                width: 100%!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=full_width] {
+                width: 100%!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            div[class=div_scale] {
+                width: 280px!important;
+                margin: 0 auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            table[class=table_scale] {
+                width: 280px!important;
+                margin: 0 auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=td_scale] {
+                width: 280px!important;
+                margin: 0 auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            img[class=img_scale] {
+                width: 100%!important;
+                height: auto!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            img[class=divider] {
+                width: 280px!important;
+                height: 1px!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=spacer] {
+                display: none!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=center] {
+                text-align: center!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=logo] {
+                float: left;
+                width: 280px;
+                display: block!important;
+                text-align: center!important;
+                padding: 0!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=social] {
+                float: left;
+                width: 280px;
+                display: block!important;
+                text-align: center!important;
+                padding-top: 0!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_one] {
+                width: 280px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_half] {
+                clear: both;
+                width: 280px!important;
+                padding-bottom: 0!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_half_last] {
+                width: 280px!important;
+                margin-top: 40px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+                padding-top: 0!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_third_fed] {
+                width: 280px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_third] {
+                width: 280px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=two_third_last] {
+                width: 280px!important;
+                margin-top: 40px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=two_third] {
+                width: 280px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_third_last] {
+                width: 280px!important;
+                margin-top: 40px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_fourth] {
+                width: 130px!important;
+                display: block!important;
+                float: left;
+                margin-right: 20px!important;
+                margin-bottom: 20px!important;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=one_fourth_last] {
+                width: 130px!important;
+                display: block!important;
+                float: left;
+                text-align: inherit!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            img[class=one_fourth_img] {
+                width: 130px!important;
+                height: auto!important;
+                text-align: center!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=pricing] {
+                float: left;
+                width: 280px!important;
+                display: block!important;
+                padding-top: 0!important;
+                padding-bottom: 0!important;
+                text-align: center!important;
+                border: 0!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=pricing_last] {
+                float: left;
+                width: 280px!important;
+                display: block!important;
+                padding-top: 40px!important;
+                text-align: center!important;
+                border: 0!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            td[class=pricing_item] {
+                float: left;
+                width: 280px!important;
+                display: block!important;
+                text-align: center!important;
+                border: 0!important;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            .smart_links {
+                text-align: center!important;
+                border: 0!important;
+                padding-bottom: 20px;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            .smallest {
+                padding: 10px;
+            }
+        }
+
+        @@media only screen and (max-width:479px) {
+            .spacer_icon_smallest {
+                width: 30px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="padding: 0;margin: 0; background-color:#ffffff;">
+        <!-- Oranje Streepje -->
+        <tr>
+            <td class="full_width" align="center" width="100%" style="background-color:#f67f2b; height:10px;"></td>
+        </tr>
+        <tr></tr>
+        <!-- Inlog Balk Wit
+        <tr>
+            <td mc:edit="sidecolumn" class="full_width smart_links" align="right" width="100%" style="background:#ffffff; padding-top:20px; padding-right:20px; padding-left:20px; font-family:Arial, sans-serif;font-style: normal;color:#f67f2b;font-size:13px;line-height:18px;">
+                <table>
+                <tr>
+                    <td style="font-family:Arial, sans-serif;font-style: normal;color:#f67f2b;font-size:13px;">
+                        <a href="http://help.easygenerator.com/" style="color:#f67f2b;text-decoration: none;font-style: normal; font-weight:bold;" target="_blank">Resources</a>
+                    </td>
+
+                    <td style="background:#f67f2b; color:#fff;text-decoration: none;font-style: normal; font-weight:bold; padding:5px 14px 3px 14px; text-align: center !important; font-family:Arial, sans-serif;font-style: normal;color:#f67f2b;font-size:13px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                        <a href="http://live.easygenerator.com/" style="background:#f67f2b; color:#fff;text-decoration: none;font-style: normal; font-weight:bold;" target="_blank">login</a>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        Inlog balk uit-->
+        <!-- Logo -->
+        <td class="full_width" align="center" width="100%" style="background-color:#ffffff; padding-bottom:40px; padding-top:40px;">
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="20"></td>
+                    <td>
+                        <span style="width:100%; display:block;"></span>
+                    </td>
+
+                    <td width="300" style="text-align:center;">
+                        <a href="#" style="font-style: normal;">
+                            <img src="http://gallery.mailchimp.com/896cd739c3dd0a8c9a65ee3fa/images/logo.gif" width="280" height="52"
+                                 alt="logo" border="0" style="display: inline;">
+                        </a>
+                    </td>
+                    <td>
+                        <span style="width:100%; display:block;"></span>
+                    </td>
+                    <td width="20"></td>
+                </tr>
+            </table>
+        </td>
+
+        <!-- Content -->
+        <tr>
+            <td class="full_width" align="center" width="100%" style="">
+                <div class="div_scale" style="width:600px;">
+                    <table class="table_scale" width="600" border="0" align="center" cellpadding="0" cellspacing="0" style="padding: 0;margin: 0;font-size:18px ;color:#ffffff;font-family: Helvetica, Arial, sans-serif;line-height: 28px;">
+                        <tr>
+                            <td class="one_half" valign="top" width="285" style="padding-top: 10px;padding-bottom: 0px !Important;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding: 0;margin: 0;">
+                                    <tr>
+                                        <td align="center" valign="top" style="padding: 0px;font-size:26px; color:#534f45;font-family: Arial, sans-serif;line-height: 30px; font-weight:bold; display:block; margin:0 20px 20px 20px;"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td height="10" style="padding:0;line-height: 0;"> </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td mc:edit="main" align="left" valign="top" style="padding: 0px;font-size:14px ;color:#534f45;font-family: Arial, sans-serif;line-height: 24px; display:block; margin: 0 20px 20px 20px;">
+                                            <p style="color:black; text-align: left;">
+                                                @(new RawString(String.Format(Resources.InviteUserToTheCourseBody, Model.UserName, Model.CourseTitle, Model.CourseUrl)))
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <!-- Uit (spacer) -->
+                                    <tr>
+                                        <td height="10" style="padding:0;line-height: 0;"> </td>
+                                    </tr>
+                                    <!-- Aan (spacer) -->
+                                    <tr>
+                                        <td height="20" style="padding:0;line-height: 0;"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spacer" height="8" style="padding:0;line-height: 0;"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="full_width" align="center" width="100%" style="">
+                <!-- spacer uit
+
+                <div class="div_scale" style="width:600px;display: block;">
+                <table class="table_scale" width="600" border="0" align="center" cellpadding="0" cellspacing="0" style="padding:0;margin: 0;">
+                    <tr>
+                    <td class="td_scale" height="40" align="center" valign="middle" style="height: 40px;padding: 0px;font-size:0 ;color:#686868;font-family: Arial,sans-serif;line-height: 0;">
+                     </td>
+                    </tr>
+                </table>
+                </div>
+
+                spacer aan -->
+            </td>
+        </tr>
+        <tr>
+            <td class="full_width" align="center" width="100%" style="">
+                <div mc:repeatable="" mc:variant="content with left image" class="div_scale" style="width:558px;">
+                    <table class="table_scale" width="" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="padding:15px 0;margin: 0;">
+                        <tr>
+                            <td class="one_half" align="left" valign="top" width="320" bgcolor="#ffffff" style="">
+                                <table width="100%">
+                                    <tr></tr>
+                                    <tr>
+                                        <td height="10" bgcolor="#ffffff" style="padding:0;line-height: 0;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="" valign="middle" style="padding: 0px;font-size:14px; color:#000000; font-family:Arial,sans-serif;line-height: 24px;">
+                                            <table border="0" align="left" cellpadding="0" cellspacing="0" style="margin: 0;">
+                                                <tr></tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="div_scale" style="width:600px;display: block;">
+                        <table class="table_scale" width="600" border="0" align="center" cellpadding="0" cellspacing="0" style="padding:0;margin: 0;">
+                            <tr>
+                                <td class="td_scale" height="40" align="center" valign="middle" style="height: 40px;padding: 0px;font-size:0 ;color:#686868;font-family: Arial,sans-serif;line-height: 0;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <!-- Call To Action Area -->
+        <!-- Knop
+
+        <tr>
+
+        <td class="full_width" align="center" width="100%">
+            <div class="div_scale" style="width:600px;">
+            <table class="table_scale" width="" border="0" align="center" cellpadding="0" cellspacing="0" style="padding:0;margin: 0;">
+                <tr>
+                <td class="one_one" align="center" valign="top" width="600" style="padding-top: 20px;padding-bottom:50px;">
+                    <table>
+
+
+                    <tr>
+                        <td mc:edit="cta_link" align="center" valign="top" style="background:#f67f2b; padding:18px 18px 18px 18px; font-style: italic; font-size:22px; color:#444444;font-family: Arial,sans-serif;line-height: 23px; display:block !important; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                            <a href="https://www.easygenerator.com/my-account/?utm_source=fmailchimp&utm_medium=email&utm_term=indepthresultsmailing&utm_campaign=indepthresultsmailing" style="background:#f67f2b; color:#fff;text-decoration: none;font-style: normal; font-weight:bold; " target="_self">Upgrade to Easygenerator Academy now!</a>
+
+
+                        </td>
+                    </tr>
+                    </table>
+                </td>
+                </tr>
+
+            </table>
+            </div>
+        </td>
+        </tr>
+
+        -->
+        <!-- Streepje 4 kleuren -->
+
+        <tr>
+            <td class="full_width" align="center" width="100%" bgcolor="#3a3633" style="background-color: #3a3633;">
+                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="padding: 0;margin: 0;">
+                    <tr>
+                        <td style="height:4px; width:25%; background:#f69a59;"></td>
+                        <td style="height:4px; width:25%; background:#bdd743;"></td>
+                        <td style="height:4px; width:25%; background:#eb565c;"></td>
+                        <td style="height:4px; width:25%; background:#ef85aa;"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td class="full_width" align="center" width="100%" bgcolor="#3a3633" style="background-color: #3a3633;">
+                <div class="div_scale" style="width:600px;">
+                    <table class="table_scale" bgcolor="#424344" border="0" align="center" cellpadding="0" cellspacing="0" style="padding:0;margin: 0;">
+                        <tr>
+                            <td class="one_one" bgcolor="#3a3633" align="center" valign="top" width="600" style="padding-top: 40px;padding-bottom:40px;">
+                                <table width="100%">
+                                    <tr>
+                                        <td align="center" valign="top" style="padding: 0px;font-size:13px ;color:#aaaaaa;font-family: Arial,sans-serif;line-height: 23px;">
+                                            <span><a href="https://twitter.com/easygenerator" style="font-style: normal;"><img src="http://gallery.mailchimp.com/896cd739c3dd0a8c9a65ee3fa/images/footer_icon_twitter.gif" width="32" height="32" alt="twitter" border="0" style="display: inline;"></a>  <a href="https://www.linkedin.com/company/easygenerator" style="font-style: normal;"><img src="http://gallery.mailchimp.com/896cd739c3dd0a8c9a65ee3fa/images/footer_icon_linkedin.gif" width="32" height="32" alt="Linkedin" border="0" style="display: inline;"></a>  <a href="https://www.facebook.com/easygenerator" style="font-style: normal;"><img src="http://gallery.mailchimp.com/896cd739c3dd0a8c9a65ee3fa/images/footer_icon_facebook.gif" width="32" height="32" alt="facebook" border="0" style="display: inline;"></a></span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td height="10" bgcolor="#3a3633" style="padding:0;line-height: 0;"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="center" valign="top" style="padding: 0px; font-size:13px ;color:#aaaaaa;font-family: Arial,sans-serif;line-height: 23px;">
+                                            <span style="color:#fff;">
+                                                Made by Easygenerator • Van Nelleweg 1 • 3044 BC • Rotterdam, The Netherlands
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" valign="top" style="padding: 0px; font-size:13px ;color:#aaaaaa;font-family: Arial,sans-serif;line-height: 23px;">
+                                            <span style="color:#fff;">
+                                                <a href="http://www.easygenerator.com/general-terms-conditions/" style="color:#f67f2b;text-decoration: none;font-style: normal;">terms of use</a>  |
+                                                <a href="http://www.easygenerator.com/privacy-policy/" style="color:#f67f2b;text-decoration: none;font-style: normal;">privacy policy</a>  |
+                                                <a href="http://live.easygenerator.com" style="color:#f67f2b;text-decoration: none;font-style: normal;">log in to Easygenerator</a>  |
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

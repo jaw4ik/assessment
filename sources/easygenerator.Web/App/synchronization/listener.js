@@ -65,6 +65,9 @@
                         courseSectionsReplaced: courseEventHandler.sectionsReplaced,
                         courseOwnershipUpdated: courseEventHandler.ownershipUpdated,
                         courseModified: courseEventHandler.modified,
+                        courseAccessGranted: courseEventHandler.accessGranted,
+                        courseAccessRemoved: courseEventHandler.accessRemoved,
+                        courseInvitationSended: courseEventHandler.invitationSended,
 
                         sectionTitleUpdated: sectionEventHandler.titleUpdated,
                         sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,

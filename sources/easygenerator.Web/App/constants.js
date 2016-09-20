@@ -176,6 +176,10 @@ messages: {
             stateChanged: 'course:stateChanged',
             ownershipUpdated: 'course:ownershipUpdated',
             modified: 'course:modified',
+            peopleAdded: 'course:peopleAdded',
+            accessGranted: 'course:accessGranted',
+            accessRemoved: 'course:accessRemoved',
+            invitationSended: 'course:invitationSended',
 
             build: {
             started: 'course:build-started',
