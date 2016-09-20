@@ -26,11 +26,24 @@
                     return 0;
                 }
 
+                var questionsThatAffectTheProgress = 0;
+                _.each(that.questions, function(question){
+                    if(question.affectProgress){
+                        questionsThatAffectTheProgress++;
+                    }
+                });
+
+                if(questionsThatAffectTheProgress === 0){
+                    return 0;
+                }
+
                 var correct = 0;
                 that.questions.forEach(function (question) {
-                    correct += question.score;
+                    if(question.affectProgress){
+                        correct += question.score;
+                    }
                 });
-                return Math.floor(correct / that.questions.length);
+                return Math.floor(correct / questionsThatAffectTheProgress);
             };
 
             that.start = function () {

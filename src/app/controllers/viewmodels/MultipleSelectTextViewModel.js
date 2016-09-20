@@ -19,6 +19,7 @@
 
             that.answers = question.options.map(function (option) {
                 return {
+                    id: option.id,
                     text: option.text,
                     checked: false
                 };
@@ -34,7 +35,7 @@
                         return answer.checked;
                     })
                     .map(function (answer) {
-                        return answer.text;
+                        return answer.id;
                     }).value());
             };
         };

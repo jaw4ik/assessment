@@ -8,15 +8,15 @@
     function factory(interactionTypes) {
         return function (question, answers, questionUrl) {
             var correctAnswersIds = _.map(question.options, function (item) {
-                return item.text + '[.]' + item.isCorrect;
+                return item.id + '[.]' + item.isCorrect;
             }).join('[,]');
 
             var selectedAnswersIds = _.chain(answers)
                 .filter(function (statement) {
                     return !_.isNull(statement.state) && !_.isUndefined(statement.state);
                 }).map(function (statement) {
-                    return statement.text + '[.]' + statement.state;
-                }).value().toString();
+                    return statement.id + '[.]' + statement.state;
+                }).value().join('[,]');
 
             var result = new TinCan.Result({
                 score: new TinCan.Score({
@@ -33,7 +33,7 @@
                     },
                     type: 'http://adlnet.gov/expapi/activities/cmi.interaction',
                     interactionType: interactionTypes.choice,
-                    correctResponsesPattern: [correctAnswersIds],
+                    correctResponsesPattern: !!question.isSurvey ? [] : [correctAnswersIds],
                     choices: _.map(question.options, function (option) {
                         return {
                             id: option.id,
