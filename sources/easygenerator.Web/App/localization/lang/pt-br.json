@@ -987,5 +987,5 @@
     "anyImagesFormatsOr": "qualquer formato de arquivo de imagem ou",
     "surveyMode": "Modo de pesquisa",
     "responseForLearnerAnswer": "Respond to your learners question",
-    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer."
+    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer. In addition to that, the question will be excluded from scoring."
 }
