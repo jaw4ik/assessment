@@ -113,7 +113,7 @@
             return Q.fcall(function () {
                 viewModel.isExpanded(true);
                 viewModel.questionId = activationData.questionId;
-                viewModel.surveyModeEnabled(false);
+                viewModel.surveyModeEnabled(activationData.isSurvey);
                 var defaultCaptions = {
                     correctFeedback: {
                         hint: localizationManager.localize('correctFeedback'),

@@ -121,7 +121,7 @@ class QuestionViewModel{
         this.feedbackCaptions = viewModelData.feedbackCaptions;
 
         await this.learningContentsViewModel.initialize(question);
-        await this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions });
+        await this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions, isSurvey: !!question.isSurvey });
     }
     async toggleIsSurvey() {
         if (this.surveyModeIsChanging()) {

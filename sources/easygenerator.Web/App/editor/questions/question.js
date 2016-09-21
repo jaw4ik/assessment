@@ -159,7 +159,7 @@ class QuestionViewModel  {
 
                 var promises = [];
                 promises.push(this.learningContentsViewModel.initialize(question));
-                promises.push(this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions }));
+                promises.push(this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions, isSurvey: !!question.isSurvey }));
 
                 return Promise.all(promises);
             });
