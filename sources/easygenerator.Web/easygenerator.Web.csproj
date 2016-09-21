@@ -3373,7 +3373,6 @@
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="specRunner.js" />
     <Content Include="Templates\Assessment\app\app.js" />
-    <Content Include="Templates\Assessment\app\modules\xApi\views\login.html" />
     <Content Include="Templates\Assessment\app\modules\xApi\views\xApiError.html" />
     <Content Include="Templates\Assessment\app\vendor.js" />
     <Content Include="Templates\Assessment\app\views\dragAndDropText.html" />
