@@ -3744,6 +3744,7 @@
     <Content Include="Views\Shared\_sentryTracking.cshtml" />
     <Content Include="Templates\Assessment\lang\zh-cn.json" />
     <Content Include="Templates\Assessment\css\font\Custom-Icons.woff" />
+    <Content Include="Views\Shared\_googleTagManager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
