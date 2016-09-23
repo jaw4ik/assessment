@@ -8,9 +8,11 @@
 
     function xAPIManager(errorsHandler, xApiDataBuilder, xApiEventsHandler, xApiSettings, xApiRequestManager) {
         var xApi = null,
-            actor = null;
+            actor = null,
+            isInitialized = false;
 
         return {
+            isInitialized: isInitialized,
             init: init,
             off: off
         };
@@ -26,10 +28,13 @@
             }
             xApiRequestManager.init(xApi);
             xApiDataBuilder.init(id, title, absUrl, xApi.actor);
+            isInitialized = true;
+
         }
 
         function off() {
             xApiEventsHandler.off();
+            isInitialized = false;
         }
 
         function createLRS() {

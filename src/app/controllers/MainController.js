@@ -4,13 +4,19 @@
     angular.module('assessment')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$scope', '$rootScope', '$location', 'assessment', 'settings', 'timer', 'viewmodelsFactory'];
+    MainController.$inject = ['$scope', '$rootScope', '$location', '$injector', 'assessment', 'settings', 'timer', 'viewmodelsFactory', 'userContext'];
 
     var cachedQuestions = [];
 
-    function MainController($scope, $rootScope, $location, assessment, settings, timer, viewmodelsFactory) {
+    function MainController($scope, $rootScope, $location, $injector, assessment, settings, timer, viewmodelsFactory, userContext) {
         var submitted = false;
         var that = this;
+        var xAPIManager = $injector.has('xAPIManager') ? $injector.get('xAPIManager') : null;
+        var user = userContext.getCurrentUser();
+        
+        if(settings.xApi.enabled && !xAPIManager.isInitialized && user){
+            xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), user.email.trim(), user.username.trim(), user.account || null, settings.xApi);
+        }
 
         that.title = $rootScope.title = assessment.title;
         that.hasIntroductionContent = assessment.hasIntroductionContent;
