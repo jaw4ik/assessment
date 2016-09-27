@@ -40,5 +40,9 @@
     "[type your answer here]": "Saisissez votre réponse ici...",
     "[tracking and tracing error hint without continue]": "Redémarrez le cours. Contactez votre prestataire de cours si le problème persiste.",
     "[attempts note limit acceeded]": "Vous avez dépassé le nombre de tentatives autorisé",
-    "[attempts remaining]": "Tentatives restantes :"
+    "[attempts remaining]": "Tentatives restantes :",
+    "[the owner of the course has limited the access]": "Le propriétaire du cours a limité l'accès",
+    "[back to sign in]": "Retour à la connexion",
+    "[confirn your name and email]": "Ok, le nom est l'e-mail sont correct",
+    "[login explanation]": "En donnant votre autorisation au moyen de l'une des options ci-dessus, vous acceptez que vos résultats et scores soient enregistrés. Ces résultats ne sont visibles que par l'organisateur (auteur) de cette formation."
 }

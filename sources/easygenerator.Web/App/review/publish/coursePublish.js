@@ -40,7 +40,7 @@ class CoursePublish{
         }
     }
 
-    updateCourseForReview() {
+    async updateCourseForReview() {
         if (this.isActive())
             return undefined;
 
@@ -48,13 +48,13 @@ class CoursePublish{
 
         eventTracker.publish(events.updateCourseForReview);
 
-        return repository.getById(this.courseId).then(course => {
-            return course.publishForReview().fail(message => {
-                notify.error(message);
-            }).fin(() => {
-                this.isActive(false);
-            });
-        });
+        try {
+            let course = await repository.getById(this.courseId);
+            await course.publishForReview();
+        } catch (e) {
+            notify.error(e);
+        }
+        this.isActive(false);
     }
 
     initialize(courseId) {

@@ -36,10 +36,10 @@ describe('service [publishCourse]', function () {
             it('should send request with includeMedia false', function (done) {
                 post.resolve({});
 
-                var promise = service.buildCourse(course.id, includeMediaToPackage);
+                var promise = service.buildCourse(course.id, includeMediaToPackage, false);
                 promise.fin(done);
 
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage });
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage, enableAccessLimitation: false });
             });
         
         });
@@ -53,9 +53,9 @@ describe('service [publishCourse]', function () {
             it('should send request with includeMedia true', function (done) {
                 post.resolve({});
 
-                var promise = service.buildCourse(course.id, includeMediaToPackage);
+                var promise = service.buildCourse(course.id, includeMediaToPackage, false);
                 promise.then(function() {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage });
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id, includeMedia: includeMediaToPackage, enableAccessLimitation: false });
                     done();
                 });
             });

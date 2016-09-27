@@ -288,7 +288,7 @@
             });
 
             afterEach(function () {
-                localStorage.removeItem('showCreateCoursePopup');
+                localStorage.removeItem('showCreateCourseView');
             });
 
             describe('when country is invalid', function () {

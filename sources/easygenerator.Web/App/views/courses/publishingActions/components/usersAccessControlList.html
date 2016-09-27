@@ -1,0 +1,39 @@
+﻿<section>
+    <div class="switcher-wrapper">
+        <div class="switch-toggle-slider small" data-bind="switchToggle: { value: enabled, onValueChanged: enabledModeChanged }">
+            <div class="switch-toggle-wrapper">
+                <div class="switch-toggle-on"></div>
+                <div class="switch-toogle-blob"></div>
+                <div class="switch-toggle-off"></div>
+            </div>
+        </div>
+        <div class="switch-description" data-bind="css: { enabled: enabled }">
+            <span class="title" data-bind="localize: { text: 'whiteListSwitcherDescription' }"></span>
+            <span class="help-tooltip" data-bind="tip: { key: 'whiteListSwitcherTooltip', maxWidth: 220 }"></span>
+        </div>
+    </div>
+    <div class="white-list-wrapper" data-bind="ifExtended: { value: showUserAccessControlList, delayOnFalse: 200 }, css: { disabled: !enabled() }">
+        <div class="header-wrapper">
+            <div class="button-wrapper">
+                <button class="button small" data-bind="click: addPeople, css: { main: usersListEmpty, ghost: !usersListEmpty(), pushed: dialogShown }, localize: { wrap: usersListEmpty() ? 'addPeopleButtonText' : 'addMorePeopleButtonText' }"></button>
+                <!-- ko compose: 'dialogs/course/addPeople/addPeople' --><!-- /ko -->
+            </div>
+        </div>
+        <ul class="users-list" data-bind="foreachAnimated: { data: usersList, speed: 0.3 }">
+            <li class="users-list-item" data-bind="css: { 'remove-state': removeConfirmationVisible, 'sending-invitation-state': invitationSending }">
+                <div class="user-email" data-bind="text: userIdentity"></div>
+                <div class="invitation-indicator">
+                    <span class="icon" data-bind="css: { invited: userInvited, progress: invitationSending }, tip: { key: invitationSending() ? 'sendingInvitation' : userInvited() ? 'alreadyInvited' : 'notInvited' }"></span>
+                </div>
+                <div class="send-invitation-button-wrapper">
+                    <span class="send-invitation-button" data-bind="click: sendInvitation, localize: { text: userInvited() ? 'sendInvitationAgain' : 'sendInvitation' }"></span>
+                </div>
+                <div class="remove-user" data-bind="click: showRemoveConfirmation, tip: { key: 'removeUser' }"></div>
+                <div class="remove-confirmation" data-bind="css: { visible: removeConfirmationVisible }">
+                    <button class="button small delete" data-bind="click: remove, localize: { wrap: 'remove' }"></button>
+                    <button class="button small cancel" data-bind="click: cancelRemove, localize: { wrap: 'cancel' }"></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

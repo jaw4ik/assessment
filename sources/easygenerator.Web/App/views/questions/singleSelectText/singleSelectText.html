@@ -22,6 +22,7 @@
                         <!-- ko foreach: answers -->
                         <li class="answer-option-item" data-bind="containerHasFocus: { hasFocus: hasFocus, update: function(){ $parent.updateText($data); } }">
                             <div class="answer-options-list-item">
+                                <!-- ko ifnot: $root.surveyModeEnabled -->
                                 <div class="question-answer-value-wrapper">
                                     <div class="question-answer-radio question-answer-value info-tooltip-holder" tabindex="-1" data-bind="click: $parent.toggleCorrectness, css: { 'correct' : isCorrect }">
                                         <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
@@ -39,6 +40,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /ko -->
                                 <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus()}">
                                     <div class="question-answer-text">
                                         <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', autosize: { text: text }, event: { focus: $parent.beginEditText, blur: $parent.endEditText }, selectTextInAnswer: {}, hasFocus: text.isEditing"></textarea>

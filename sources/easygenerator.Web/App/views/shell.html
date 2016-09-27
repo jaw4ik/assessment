@@ -17,6 +17,10 @@
                 <div class="content-section-wrapper">
                     <div class="content-section clearfix">
                         <nav class="header-navigation">
+                            <!-- ko if: isCourseExamplesView -->
+                            <a class="back-container" href="#start"><span class="back-icon"></span><span class="back-text"  data-bind="localize: { text: 'backToStart' }"></span></a>
+                            <!-- /ko -->
+                            <!-- ko ifnot: isCourseExamplesView -->
                             <ul class="header-navigation-list clearfix">
                                 <!-- ko foreach: router.navigationModel -->
                                 <li class="header-navigation-item">
@@ -36,6 +40,7 @@
                                 </li>
                                 <!-- /ko -->
                             </ul>
+                            <!-- /ko -->
                         </nav>
                         <ul class="header-menu-list clearfix">
                             <!-- ko if: showUpgradeNowLink -->

@@ -22,94 +22,96 @@
     @Html.Partial("_mixpanelAnalytics")
     @Html.Partial("_nudgespotAnalytics")
     @Html.Partial("_intercomAnalytics")
+    @Html.Partial("_sentryTracking")
 </head>
 <body>
-    @if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
+@Html.Partial("_googleTagManager")
+@if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
+{
+    if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) || BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
     {
-        if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) || BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
-        {
-            <div id="app" class="application">
-                <div class="pulsar-loader align-center">
-                    <div class="pulsar-loader-item"></div>
-                    <div class="pulsar-loader-item"></div>
-                    <div class="pulsar-loader-item"></div>
-                </div>
+        <div id="app" class="application">
+            <div class="pulsar-loader align-center">
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
             </div>
-        }
-
-        if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
-        {
-            @Html.Partial("notSupportedPage")
-        }
+        </div>
     }
-    else
+
+    if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
     {
-        @Html.Partial("notSupportedDevicePage")
+        @Html.Partial("notSupportedPage")
     }
+}
+else
+{
+    @Html.Partial("notSupportedDevicePage")
+}
 
-    <div id="crossProtocolStorageFrames"></div>
+<div id="crossProtocolStorageFrames"></div>
 
-    @Scripts.Render("~/bundles/scripts/vendor")
-    <script src="signalr/hubs"></script>
+@Scripts.Render("~/bundles/scripts/vendor")
+<script src="signalr/hubs"></script>
 
+<script type="text/javascript">
+    var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
+</script>
+@Scripts.Render("~/bundles/scripts/ckeditor")
+<script type="text/javascript">
+    CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
+</script>
+
+@if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
+{
+    var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
     <script type="text/javascript">
-        var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
-    </script>
-    @Scripts.Render("~/bundles/scripts/ckeditor")
-    <script type="text/javascript">
-        CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
-    </script>
 
-    @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
-    {
-        var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
-        <script type="text/javascript">
+        window.userCultures = [];
+        window.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
+        window.BOMSymbol = '\ufeff';
 
-            window.userCultures = [];
-            window.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
-            window.BOMSymbol = '\ufeff';
-
-            @for (var i = 0; i < userCultures.Count(); i++)
-            {
-                <text>window.userCultures.push('@userCultures[i]');</text>;
-            }
-        </script>
-    }
-    
-    <script type="text/javascript">
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
+        @for (var i = 0; i < userCultures.Count(); i++)
         {
-            <text>
+            <text>window.userCultures.push('@userCultures[i]');</text>;
+        }
+    </script>
+}
+
+<script type="text/javascript">
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
+    {
+        <text>
             window.egVersion = '@ConfigurationManager.AppSettings["version"]';
             </text>
-        }
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
-        {
-            <text>
+    }
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
+    {
+        <text>
             window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
             </text>
-        }
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
-        {
-            <text>
+    }
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
+    {
+        <text>
             window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
             </text>
-        }
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
-        {
-            <text>
+    }
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
+    {
+        <text>
             window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
             </text>
-        }
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]))
-        {
-            <text>
+    }
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]))
+    {
+        <text>
             window.winToWebConvertionServiceUrl = '@ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]';
             </text>
-        }
-        @if ((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection) != null)
-        {
-            <text>
+    }
+    @if ((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection) != null)
+    {
+        <text>
             window.coggnoServiceUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceUrl)';
             window.coggnoServiceProviderUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceProviderUrl)';
             </text>
@@ -123,23 +125,23 @@
         }
     </script>
 
-    @Scripts.Render("~/bundles/scripts/system")
-    @Scripts.Render("~/bundles/scripts/system-configuration")
+@Scripts.Render("~/bundles/scripts/system")
+@Scripts.Render("~/bundles/scripts/system-configuration")
 
-    <script type="text/javascript">
-        //bootstraper
-        (function() {
-            window.auth.checkUserLogIn().then(function(isLoggedIn) {
-                if (isLoggedIn || window.auth.isAuthTokenPresentInHash()) {
-                    @if (HttpContext.Current.IsDebuggingEnabled)
-                    {
-                        <text>
+<script type="text/javascript">
+    //bootstraper
+    (function() {
+        window.auth.checkUserLogIn().then(function(isLoggedIn) {
+            if (isLoggedIn || window.auth.isAuthTokenPresentInHash()) {
+                @if (HttpContext.Current.IsDebuggingEnabled)
+                {
+                    <text>
                         System.cacheBust = '?v=' + Date.now();
                         </text>
-                    }
-                    else
-                    {
-                        <text>
+                }
+                else
+                {
+                    <text>
                         System.config({
                             bundles: {
                                 'main-built.js': ['main.js']
@@ -147,26 +149,25 @@
                             cacheBust: '?v=' + @DateTimeWrapper.InstanceStartTime.Ticks
                         });
                         </text>
-                    }
+                }
 
-                    System.import('main.js');
-                }
-                else {
-                    var redirectUrl = '/signin';
-                    var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
-                    if (ltiUserInfoToken) {
-                        redirectUrl += '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
-                    } else {
-                        var samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
-                        if (samlIdPUserInfoToken) {
-                            redirectUrl += '#token.user.saml=' + encodeURIComponent(samlIdPUserInfoToken);
-                        }
+                System.import('main.js');
+            } else {
+                var redirectUrl = '/signin';
+                var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
+                if (ltiUserInfoToken) {
+                    redirectUrl += '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
+                } else {
+                    var samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
+                    if (samlIdPUserInfoToken) {
+                        redirectUrl += '#token.user.saml=' + encodeURIComponent(samlIdPUserInfoToken);
                     }
-                    window.location.replace(redirectUrl);
                 }
-            });
-        }());
-    </script>
+                window.location.replace(redirectUrl);
+            }
+        });
+    }());
+</script>
 
 </body>
 

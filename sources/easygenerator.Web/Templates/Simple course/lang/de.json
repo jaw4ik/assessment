@@ -122,5 +122,7 @@
     "[keep me logged-in for the next courses]": "Für die nächsten Kurse angemeldet bleiben",
     "[please close the browser tab now]": "Bitte schließen Sie jetzt die Browser-Registerkarte",
     "[finish course when tracking disabled]": "Kurs beenden",
-    "[ok finish course]": "OK, Kurs beenden"
+    "[ok finish course]": "OK, Kurs beenden",
+    "[the owner of the course has limited the access]": "Der Besitzer des Kurses hat den Zugriff beschränkt",
+    "[back to sign in]": "Zurück zur Anmeldung"
 }

@@ -68,6 +68,11 @@
       "code": "nn-no",
       "name": "Norwegian (Nynorsk)",
       "url": "lang/nn-no.json"
+    },
+    {
+      "code": "zh-cn",
+      "name": "Chinese",
+      "url": "lang/zh-cn.json"
     }
   ]
 }

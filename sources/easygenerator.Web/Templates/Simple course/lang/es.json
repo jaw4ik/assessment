@@ -122,5 +122,7 @@
     "[keep me logged-in for the next courses]": "Mantenerme conectado para los siguientes cursos",
     "[please close the browser tab now]": "Cierre la pestaña del navegador ahora",
     "[finish course when tracking disabled]": "Finalizar curso",
-    "[ok finish course]": "Aceptar y finalizar curso"
+    "[ok finish course]": "Aceptar y finalizar curso",
+    "[the owner of the course has limited the access]": "El propietario del curso ha limitado el acceso",
+    "[back to sign in]": "Volver a registrarse"
 }

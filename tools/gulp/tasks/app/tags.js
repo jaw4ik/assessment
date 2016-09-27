@@ -9,7 +9,7 @@ var version = typeof args.version === 'string' && args.version !== '' ? args.ver
 
 gulp.task('create-tags', function () {
     // token for easygenerator-ci (replace with one if you want to crete realeses from your name)
-    var authToken = '4a6abc571a3ebeac204f1980e81b1474a0aa1d5f',
+    var authToken = '0793ae79adc6097598e87a90e96130c0bc757e9a',
         reposOwner = 'easygenerator',
         reposList = [
             'easygenerator',

@@ -1,154 +1,179 @@
-﻿ko.bindingHandlers.dialog = {
-    init: function () {
-    },
-    update: function (element, valueAccessor) {
-        var $element = $(element),
-            $parent = $element.parent(),
-            $html = $('html'),
-            $container = $('body'),
-            scrollableClassName = '.scrollable',
-            $scrollable = $(scrollableClassName, $element),
-            speed = 200,
-            isShown = valueAccessor().isShown,
-            isBoundless = valueAccessor().isBoundless,
-            autoclose = ko.unwrap(valueAccessor().autoclose) || false,
-            onHide = valueAccessor().onHide,
-            scrollLocker = createScrollLocker();
+﻿(function() {
 
-        if (isShown()) {
-            show();
-        } else {
-            hide();
-        }
+    var dialogsShownCount = 0;
 
-        function show() {
-            if ($element.data('isShown'))
-                return;
+    ko.bindingHandlers.dialog = {
+        update: function (element, valueAccessor) {
+            var $element = $(element),
+                $parent = $element.parent(),
+                $html = $('html'),
+                $container = $('body'),
+                scrollableClassName = '.scrollable',
+                $scrollable = $(scrollableClassName, $element),
+                speed = 200,
+                isShown = valueAccessor().isShown,
+                isBoundless = valueAccessor().isBoundless,
+                overlayCss = valueAccessor().overlayCss,
+                autoclose = ko.unwrap(valueAccessor().autoclose) || false,
+                onHide = valueAccessor().onHide,
+                scrollLocker = createScrollLocker();
 
-            $element.data('isShown', true);
-            var $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
-            if (isBoundless) {
-                $blockout.addClass('boundless');
-            }
-
-            $.when($blockout).done(function () {
-                $blockout.fadeIn(speed);
-                $element.fadeIn(speed, function () {
-                    $element.find('.autofocus').focus();
-                    //bug fix when blocked out page is scrolled together with dialog scrolling
-                    scrollLocker.lockScroll();
-                });
-            });
-
-            if (autoclose) {
-                $blockout.click(hide);
-                if ($parent.hasClass('dialog-container')) {
-                    $parent.on('click', blockoutClickHandler);
-                }
-            }
-
-            $html.on('keyup', closeOnEscape);
-        }
-
-        function hide() {
-            if (!$element.data('isShown'))
-                return;
-
-            isShown(false);
-            $element.data('isShown', false);
-            $('.modal-dialog-blockout').fadeOut(speed, function () {
-                $(this).remove();
-            });
-
-            $element.fadeOut(speed, function () {
-                scrollLocker.releaseScroll();
-                $html.off('keyup', closeOnEscape);
-
-                if (_.isFunction(onHide)) {
-                    onHide();
-                }
-            });
-            $parent.off('click', blockoutClickHandler);
-        }
-
-        function closeOnEscape(evt) {
-            if (evt.keyCode === 27) {
+            if (isShown()) {
+                show();
+            } else {
                 hide();
             }
-        }
 
-        function createScrollLocker() {
-            var eventNames = 'DOMMouseScroll mousewheel';
+            function show() {
+                if ($element.data('isShown'))
+                    return;
 
-            return {
-                lockScroll: lockScroll,
-                releaseScroll: releaseScroll
-            };
-
-            function lockScroll() {
-                $scrollable.on(eventNames, trapScroll);
-                $element.on(eventNames, preventOuterScroll);
-            }
-
-            function releaseScroll() {
-                $scrollable.off(eventNames, trapScroll);
-                $element.off(eventNames, preventOuterScroll);
-            }
-
-            function trapScroll(ev) {
-                var $this = $(this),
-                    scrollTop = this.scrollTop,
-                    scrollHeight = this.scrollHeight,
-                    height = $this.height(),
-                    delta = (ev.type == 'DOMMouseScroll' ? ev.originalEvent.detail * -40 : ev.originalEvent.wheelDelta),
-                    up = delta > 0;
-
-                if (scrollHeight === 0 || height === 0) {
-                    return 0;
+                dialogsShownCount++;
+                $element.data('isShown', true);
+                var $blockout = createBlockout();
+                if (isBoundless) {
+                    $blockout.addClass('boundless');
                 }
 
-                var scrollCount = Math.ceil(scrollHeight / 120) - 1;
-                if (scrollCount <= 0)
-                    return preventScroll(ev);
+                $blockout.addClass(overlayCss);
 
-                var scrollDist = Math.ceil(scrollHeight / scrollCount),
-                scrollDelta = up ? scrollDist * -1 : scrollDist;
+                $.when($blockout).done(function () {
+                    $blockout.fadeIn(speed);
+                    $element.fadeIn(speed, function () {
+                        $element.find('.autofocus').focus();
+                        //bug fix when blocked out page is scrolled together with dialog scrolling
+                        scrollLocker.lockScroll();
+                    });
+                });
 
-                ev.data = { isProcessed: true };
-                $this.scrollTop(scrollTop + scrollDelta);
-                return preventScroll(ev);
-            }
-
-            function preventOuterScroll(ev) {
-                if (ev.target && !(ev.data && ev.data.isProcessed)) {
-                    var $target = $(ev.target),
-                        $scrollableParent = $target.parents(scrollableClassName);
-                    if ($scrollableParent.length > 0) {
-                        trapScroll.call($scrollableParent[0], ev);
+                if (autoclose) {
+                    $blockout.click(hide);
+                    if ($parent.hasClass('dialog-container')) {
+                        $parent.on('click', blockoutClickHandler);
                     }
                 }
 
-                return preventScroll(ev);
+                $html.on('keyup', closeOnEscape);
             }
 
-            function preventScroll(ev) {
-                ev.data = { isProcessed: false };
-                ev.stopPropagation();
-                ev.preventDefault();
-                ev.returnValue = false;
-                return false;
-            }
-        };
+            function hide() {
+                if (!$element.data('isShown'))
+                    return;
 
-        function blockoutClickHandler(evt) {
-            if ($(evt.target).closest($element).length === 0) {
+                dialogsShownCount--;
+                isShown(false);
+                $element.data('isShown', false);
+                hideBlockout();
+
+                $element.fadeOut(speed, function () {
+                    scrollLocker.releaseScroll();
+                    $html.off('keyup', closeOnEscape);
+
+                    if (_.isFunction(onHide)) {
+                        onHide();
+                    }
+                });
+                $parent.off('click', blockoutClickHandler);
+            }
+
+            function createBlockout() {
+                var $blockout = $('.modal-dialog-blockout', $container);
+                if ($blockout.length === 0) {
+                    $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
+                }
+                return $blockout;
+            }
+
+            function hideBlockout() {
+                if (dialogsShownCount > 0) {
+                    return;
+                }
+
+                $('.modal-dialog-blockout', $container).fadeOut(speed, function () {
+                    $(this).remove();
+                });
+            }
+
+            function closeOnEscape(evt) {
+                if (evt.keyCode === 27) {
+                    hide();
+                }
+            }
+
+            function createScrollLocker() {
+                var eventNames = 'DOMMouseScroll mousewheel';
+
+                return {
+                    lockScroll: lockScroll,
+                    releaseScroll: releaseScroll
+                };
+
+                function lockScroll() {
+                    $scrollable.on(eventNames, trapScroll);
+                    $element.on(eventNames, preventOuterScroll);
+                }
+
+                function releaseScroll() {
+                    $scrollable.off(eventNames, trapScroll);
+                    $element.off(eventNames, preventOuterScroll);
+                }
+
+                function trapScroll(ev) {
+                    var $this = $(this),
+                        scrollTop = this.scrollTop,
+                        scrollHeight = this.scrollHeight,
+                        height = $this.height(),
+                        delta = (ev.type == 'DOMMouseScroll' ? ev.originalEvent.detail * -40 : ev.originalEvent.wheelDelta),
+                        up = delta > 0;
+
+                    if (scrollHeight === 0 || height === 0) {
+                        return 0;
+                    }
+
+                    var scrollCount = Math.ceil(scrollHeight / 120) - 1;
+                    if (scrollCount <= 0)
+                        return preventScroll(ev);
+
+                    var scrollDist = Math.ceil(scrollHeight / scrollCount),
+                    scrollDelta = up ? scrollDist * -1 : scrollDist;
+
+                    ev.data = { isProcessed: true };
+                    $this.scrollTop(scrollTop + scrollDelta);
+                    return preventScroll(ev);
+                }
+
+                function preventOuterScroll(ev) {
+                    if (ev.target && !(ev.data && ev.data.isProcessed)) {
+                        var $target = $(ev.target),
+                            $scrollableParent = $target.parents(scrollableClassName);
+                        if ($scrollableParent.length > 0) {
+                            trapScroll.call($scrollableParent[0], ev);
+                        }
+                    }
+
+                    return preventScroll(ev);
+                }
+
+                function preventScroll(ev) {
+                    ev.data = { isProcessed: false };
+                    ev.stopPropagation();
+                    ev.preventDefault();
+                    ev.returnValue = false;
+                    return false;
+                }
+            };
+
+            function blockoutClickHandler(evt) {
+                if ($(evt.target).closest($element).length === 0) {
+                    hide();
+                }
+            }
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 hide();
-            }
+                isShown(false);
+            });
         }
+    };
 
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            hide();
-            isShown(false);
-        });
-    }
-};
+})();

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
-    public class Multipleselect : Question
+    public class Multipleselect : SurveyQuestion
     {
         public Multipleselect() { }
 
@@ -16,8 +16,14 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection = new Collection<Answer>();
         }
 
-        public Multipleselect(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
-            : this(title, createdBy)
+        public Multipleselect(string title, string createdBy, bool isSurvey)
+            : base(title, createdBy, isSurvey)
+        {
+            AnswersCollection = new Collection<Answer>();
+        }
+
+        public Multipleselect(string title, string createdBy, bool isSurvay, Answer correctAnswer, Answer incorrectAnswer)
+            : this(title, createdBy, isSurvay)
         {
             ThrowIfAnswerIsInvalid(correctAnswer);
             ThrowIfAnswerIsInvalid(incorrectAnswer);

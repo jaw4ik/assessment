@@ -5,7 +5,7 @@
             publish: publish
         };
 
-        function publish(eventName, eventCategory) {
+        function publish(eventName, eventCategory, properties) {
             var activeInstruction = getActiveInstruction();
 
             var category = '';
@@ -16,7 +16,7 @@
                 category = _.isObject(activeInstruction) ? activeInstruction.config.title : 'Default category';
             }
 
-            analyticsProviders.publish(eventName, category);
+            analyticsProviders.publish(eventName, category, properties);
         }
 
         function getActiveInstruction() {

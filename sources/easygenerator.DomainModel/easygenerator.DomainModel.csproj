@@ -46,11 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
+    <Compile Include="Entities\ACL\CourseAccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\EventRaiseable.cs" />
     <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
     <Compile Include="Entities\IScormPublishableEntity.cs" />
+    <Compile Include="Entities\Questions\SurveyQuestion.cs" />
     <Compile Include="Entities\UserSubscription.cs" />
     <Compile Include="Entities\Organizations\OrganizationSettings.cs" />
     <Compile Include="Entities\SamlServiceProvider.cs" />
@@ -129,6 +131,8 @@
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorAddedEvent.cs" />
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorAdminAccessGrantedEvent.cs" />
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorRemovedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseInvitationSendedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseAccessRemovedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseProcessedByCoggnoEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedForSaleEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseScormBuildStartedEvent.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateSettingsUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateUpdatedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseAccessGrantedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />
     <Compile Include="Events\DomainEventHandlersProvider.cs" />
     <Compile Include="Events\DomainEventPublisher.cs" />
@@ -167,6 +172,7 @@
     <Compile Include="Events\OrganizationEvents\OrganizationInviteAcceptedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationInviteDeclinedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionIsSurveyUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionImageUrlUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionLearningObjectiveUpdatedEvent.cs" />

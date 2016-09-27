@@ -1,4 +1,5 @@
-﻿import app from 'durandal/app';
+﻿import ko from 'knockout';
+import app from 'durandal/app';
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import questionRepository from 'repositories/questionRepository';
@@ -13,10 +14,12 @@ import feedbackViewModel from 'viewmodels/questions/feedback';
 import localizationManager from 'localization/localizationManager';
 import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
 import VoiceOver from 'viewmodels/questions/voiceOver';
+import notify from 'notify';
 
 var events = {
     navigateToSection: 'Navigate to objective details',
-    duplicateItem: 'Duplicate item'
+    duplicateItem: 'Duplicate item',
+    switchToSurveyMode: 'Switch to the survey mode'
 };
 
 var eventsForQuestionContent = {
@@ -37,6 +40,9 @@ class QuestionViewModel{
         this.questionTitle = null;
         this.voiceOver = null;
         this.questionContent = null;
+        this.surveyModeAvailable = false;
+        this.isSurvey = ko.observable(false);
+        this.surveyModeIsChanging = ko.observable(false);
 
         this.activeQuestionViewModel = null;
         this.learningContentsViewModel = learningContentsViewModel;
@@ -101,6 +107,8 @@ class QuestionViewModel{
         this.activeQuestionViewModel = this.setActiveViewModel(question);
         this.questionType = question.type;
         this.isContent = this.questionType === constants.questionType.informationContent.type;
+        this.surveyModeAvailable = question.hasOwnProperty('isSurvey');
+        this.isSurvey(!!question.isSurvey);
         this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
         let viewModelData = await this.activeQuestionViewModel.initialize(this.sectionId, question);
@@ -113,7 +121,28 @@ class QuestionViewModel{
         this.feedbackCaptions = viewModelData.feedbackCaptions;
 
         await this.learningContentsViewModel.initialize(question);
-        await this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions });
+        await this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions, isSurvey: !!question.isSurvey });
+    }
+    async toggleIsSurvey() {
+        if (this.surveyModeIsChanging()) {
+            return;
+        }
+        
+        this.isSurvey(!this.isSurvey());
+
+        this.isSurvey() && this.eventTracker.publish(`${events.switchToSurveyMode} (${this.questionType})`);
+
+        this.surveyModeIsChanging(true);
+        try {
+            await questionRepository.updateIsSurvey(this.questionId, this.isSurvey());
+            _.delay(() => {
+                this.surveyModeIsChanging(false);
+                notify.saved();
+            }, 1000);
+        } catch (e) {
+            this.surveyModeIsChanging(false);
+        }
+        
     }
 
     updateQuestionContent(content) {

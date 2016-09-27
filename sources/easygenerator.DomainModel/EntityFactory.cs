@@ -13,14 +13,14 @@ namespace easygenerator.DomainModel
         Document Document(string title, string embedCode, DocumentType documentType, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
-        SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
+        SingleSelectText SingleSelectTextQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer);
         SingleSelectImage SingleSelectImageQuestion(string title, string createdBy);
         SingleSelectImage SingleSelectImageQuestion(string title, string createdBy, SingleSelectImageAnswer correctAnswer, SingleSelectImageAnswer incorrectAnswer);
         Multipleselect MultipleselectQuestion(string title, string createdBy);
-        Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
+        Multipleselect MultipleselectQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer);
 
         Statement StatementQuestion(string title, string createdBy);
-        Statement StatementQuestion(string title, string defaultStatementText, string createdBy);
+        Statement StatementQuestion(string title, string defaultStatementText, bool isSurvey, string createdBy);
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy);
@@ -87,9 +87,9 @@ namespace easygenerator.DomainModel
             return new SingleSelectText(title, createdBy);
         }
 
-        public SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+        public SingleSelectText SingleSelectTextQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer)
         {
-            return new SingleSelectText(title, createdBy, correctAnswer, incorrectAnswer);
+            return new SingleSelectText(title, createdBy, isSurvey, correctAnswer, incorrectAnswer);
         }
 
         public SingleSelectImage SingleSelectImageQuestion(string title, string createdBy)
@@ -107,9 +107,9 @@ namespace easygenerator.DomainModel
             return new Multipleselect(title, createdBy);
         }
 
-        public Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+        public Multipleselect MultipleselectQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer)
         {
-            return new Multipleselect(title, createdBy, correctAnswer, incorrectAnswer);
+            return new Multipleselect(title, createdBy, isSurvey, correctAnswer, incorrectAnswer);
         }
 
         public Statement StatementQuestion(string title, string createdBy)
@@ -117,9 +117,9 @@ namespace easygenerator.DomainModel
             return new Statement(title, createdBy);
         }
 
-        public Statement StatementQuestion(string title, string defaultStatementText, string createdBy)
+        public Statement StatementQuestion(string title, string defaultStatementText, bool isSurvey, string createdBy)
         {
-            return new Statement(title, defaultStatementText, createdBy);
+            return new Statement(title, defaultStatementText, isSurvey, createdBy);
         }
 
         public FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy)

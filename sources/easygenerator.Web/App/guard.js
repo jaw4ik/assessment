@@ -2,6 +2,12 @@
 import ko from 'knockout';
 
 export default class {
+    static throwIfNotDefined(prop, message) {
+        if (_.isUndefined(prop)) {
+            throw message;
+        }
+    }
+
     static throwIfNotAnObject(obj, message) {
         if (!_.isObject(obj)) {
             throw message;

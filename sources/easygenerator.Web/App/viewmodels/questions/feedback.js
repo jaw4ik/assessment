@@ -9,6 +9,7 @@
 
         var viewModel = {
             questionId: null,
+            surveyModeEnabled: ko.observable(false),
 
             autosaveInterval: constants.autosaveTimersInterval.feedbackText,
             isExpanded: ko.observable(true),
@@ -29,6 +30,13 @@
         viewModel.items = [viewModel.correctFeedback, viewModel.incorrectFeedback],
         app.on(constants.messages.question.correctFeedbackUpdatedByCollaborator, correctFeedbackUpdatedByCollaborator);
         app.on(constants.messages.question.incorrectFeedbackUpdatedByCollaborator, incorrectFeedbackUpdatedByCollaborator);
+
+        app.on(constants.messages.question.isSurveyUpdated, function (question) {
+            if (question.id !== viewModel.questionId) {
+                return;
+            }
+            viewModel.surveyModeEnabled(question.isSurvey);
+        });
 
         return viewModel;
 
@@ -105,10 +113,12 @@
             return Q.fcall(function () {
                 viewModel.isExpanded(true);
                 viewModel.questionId = activationData.questionId;
+                viewModel.surveyModeEnabled(activationData.isSurvey);
                 var defaultCaptions = {
                     correctFeedback: {
                         hint: localizationManager.localize('correctFeedback'),
-                        instruction: localizationManager.localize('putYourPositiveFeedback')
+                        instruction: localizationManager.localize('putYourPositiveFeedback'),
+                        surveyInstruction: localizationManager.localize('responseForLearnerAnswer')
                     },
                     incorrectFeedback: {
                         hint: localizationManager.localize('incorrectFeedback'),

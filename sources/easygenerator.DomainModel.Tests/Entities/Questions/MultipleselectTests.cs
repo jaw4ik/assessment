@@ -72,7 +72,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             var answer = new Answer("text", true, CreatedBy, DateTimeWrapper.Now());
 
-            Action action = () => new Multipleselect(title, CreatedBy, null, answer);
+            Action action = () => new Multipleselect(title, CreatedBy, false, null, answer);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
         }
@@ -85,7 +85,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             var answer = new Answer("text", true, CreatedBy, DateTimeWrapper.Now());
 
-            Action action = () => new Multipleselect(title, CreatedBy, answer, null);
+            Action action = () => new Multipleselect(title, CreatedBy, false, answer, null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
         }
@@ -99,7 +99,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             var answer1 = new Answer("text", true, CreatedBy, DateTimeWrapper.Now());
             var answer2 = new Answer("text", false, CreatedBy, DateTimeWrapper.Now());
 
-            var question = new Multipleselect(title, CreatedBy, answer1, answer2);
+            var question = new Multipleselect(title, CreatedBy, false, answer1, answer2);
             question.Answers.Count().Should().Be(2);
             question.Answers.ElementAt(0).Should().Be(answer1);
             question.Answers.ElementAt(1).Should().Be(answer2);

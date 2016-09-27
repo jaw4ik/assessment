@@ -6,7 +6,6 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 using System.Web.Mvc;
-using easygenerator.Web.Resources.Controllers;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -31,7 +30,7 @@ namespace easygenerator.Web.Controllers.Api
                     return JsonLocalizableError(Errors.SectionNotFoundError, Errors.SectionNotFoundResourceKey);
                 }
 
-                var question = _entityFactory.StatementQuestion(title, Resources.Controllers.Resources.DefaultStatementText, GetCurrentUsername());
+                var question = _entityFactory.StatementQuestion(title, Resources.Controllers.Resources.DefaultStatementText, false, GetCurrentUsername());
 
                 section.AddQuestion(question, GetCurrentUsername());
 

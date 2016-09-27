@@ -16,50 +16,51 @@
     @Styles.Render("~/Content/reviewcss")
 </head>
 <body>
-    <div class="course-review">
-        <div class="review-content">
-            <iframe src="@ViewBag.PublishedCourseUrl" frameborder="0" width="100%" height="100%"></iframe>
-        </div>
-        <!-- ko if: isReviewPanelVisible -->
-        <div class="review-comments" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-269px', side: 'bottom', onCollapsed: onCollapsed }">
-            <div class="comments-header" data-bind="click: toggleVisiblity">
-                <div class="comment-header-text">@Resources.LeaveYourComment</div>
-                <div class="comments-expander" data-bind="css: { 'collapsed': !isExpanded(), 'expanded': isExpanded() }"></div>
-            </div>
-            <form class="add-comment-form">
-                <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: showTextValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
-                <div class="identify-user-form" data-bind="css: { shown: showIdentifyUserForm()}">
-                    <div class="identify-user-title">@Resources.IdentifyMessage</div>
-                    <div class="identify-user-row">
-                        <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown', css: {empty: !name().length}"/>
-                        <label>@Resources.Name</label>
-                        <span class="error-message" data-bind="visible: !name.isValid() && name.isModified()">@Resources.EnterYourNameError</span>
-                    </div>
-                    <div class="identify-user-row">
-                        <input type="email" data-bind="value: email, valueUpdate: 'afterkeydown',css:{empty: !email().length}"/>
-                        <label>@Resources.Email</label>
-                        <span class="error-message" data-bind="visible: !email.isValid() && email.isModified()">@Resources.EnterValidEmailError</span>
-                    </div>
-                </div>
-                <div class="comment-action-wrapper">
-                    <div class="comment-status-message success" data-bind="visible: isSaved" title="@Resources.CommentWasSent">
-                        @Resources.CommentWasSent
-                    </div>
-                    <div class="comment-status-message fail" title="@Resources.CommentWasNotSent" data-bind="visible: isFailed">
-                        @Resources.CommentWasNotSent
-                        <br/>
-                        @Resources.TryAgain
-                    </div>
-                    <button title="@Resources.Send" class="btn comment-btn blue round pull-right" data-bind="click: addComment.bind($data, '@ViewBag.CourseId')">
-                        <span class="btn-title">@Resources.Send</span>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <!-- /ko -->
+@Html.Partial("_googleTagManager")
+<div class="course-review">
+    <div class="review-content">
+        <iframe src="@ViewBag.PublishedCourseUrl" frameborder="0" width="100%" height="100%"></iframe>
     </div>
+    <!-- ko if: isReviewPanelVisible -->
+    <div class="review-comments" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-269px', side: 'bottom', onCollapsed: onCollapsed }">
+        <div class="comments-header" data-bind="click: toggleVisiblity">
+            <div class="comment-header-text">@Resources.LeaveYourComment</div>
+            <div class="comments-expander" data-bind="css: { 'collapsed': !isExpanded(), 'expanded': isExpanded() }"></div>
+        </div>
+        <form class="add-comment-form">
+            <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: showTextValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
+            <div class="identify-user-form" data-bind="css: { shown: showIdentifyUserForm()}">
+                <div class="identify-user-title">@Resources.IdentifyMessage</div>
+                <div class="identify-user-row">
+                    <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown', css: {empty: !name().length}"/>
+                    <label>@Resources.Name</label>
+                    <span class="error-message" data-bind="visible: !name.isValid() && name.isModified()">@Resources.EnterYourNameError</span>
+                </div>
+                <div class="identify-user-row">
+                    <input type="email" data-bind="value: email, valueUpdate: 'afterkeydown',css:{empty: !email().length}"/>
+                    <label>@Resources.Email</label>
+                    <span class="error-message" data-bind="visible: !email.isValid() && email.isModified()">@Resources.EnterValidEmailError</span>
+                </div>
+            </div>
+            <div class="comment-action-wrapper">
+                <div class="comment-status-message success" data-bind="visible: isSaved" title="@Resources.CommentWasSent">
+                    @Resources.CommentWasSent
+                </div>
+                <div class="comment-status-message fail" title="@Resources.CommentWasNotSent" data-bind="visible: isFailed">
+                    @Resources.CommentWasNotSent
+                    <br/>
+                    @Resources.TryAgain
+                </div>
+                <button title="@Resources.Send" class="btn comment-btn blue round pull-right" data-bind="click: addComment.bind($data, '@ViewBag.CourseId')">
+                    <span class="btn-title">@Resources.Send</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- /ko -->
+</div>
 
-    @Scripts.Render("~/bundles/scripts/review")
+@Scripts.Render("~/bundles/scripts/review")
 
 </body>
 </html>

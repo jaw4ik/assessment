@@ -287,8 +287,8 @@
 
                 var correct = localizationManager.localize('correctAnswer'),
                     incorrect = localizationManager.localize('incorrectAnswer'),
-                    statementTrue = localizationManager.localize('statementTrue'),
-                    statementFalse = localizationManager.localize('statementFalse');
+                    statementTrue = localizationManager.localize('statementTrue').toUpperCase(),
+                    statementFalse = localizationManager.localize('statementFalse').toUpperCase();
 
                 var sectionResultLeftPart = [],
                     sectionResultRightPart = [],

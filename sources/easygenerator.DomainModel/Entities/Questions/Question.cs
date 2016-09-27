@@ -55,10 +55,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         protected internal virtual ICollection<LearningContent> LearningContentsCollection { get; set; }
 
-        public IEnumerable<LearningContent> LearningContents
-        {
-            get { return GetOrderedLearningContents().AsEnumerable(); }
-        }
+        public IEnumerable<LearningContent> LearningContents => GetOrderedLearningContents().AsEnumerable();
 
         protected internal string LearningContentsOrder { get; set; }
 

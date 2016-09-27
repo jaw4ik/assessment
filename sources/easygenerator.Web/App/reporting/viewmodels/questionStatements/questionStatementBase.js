@@ -8,5 +8,13 @@ export default class extends ExpandableStatement {
         this.children = null;
         this.correct = this.lrsStatement.score === 100;
         this.hasScore = this.lrsStatement.score != null;
+
+        if (statement.hasOwnProperty('questionType')) {
+            this.questionType = statement.questionType;
+        } 
+        
+        if (statement.hasOwnProperty('isSurvey')) {
+            this.isSurvey = statement.isSurvey;
+        }
     }
 }

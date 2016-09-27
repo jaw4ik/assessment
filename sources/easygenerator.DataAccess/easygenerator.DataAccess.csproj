@@ -487,6 +487,14 @@
     <Compile Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.Designer.cs">
       <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609090948261_AddAccessControlListToCourse.cs" />
+    <Compile Include="Migrations\201609090948261_AddAccessControlListToCourse.Designer.cs">
+      <DependentUpon>201609090948261_AddAccessControlListToCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.cs" />
+    <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.Designer.cs">
+      <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs" />
     <Compile Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.Designer.cs">
       <DependentUpon>201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
@@ -853,6 +861,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.resx">
       <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609090948261_AddAccessControlListToCourse.resx">
+      <DependentUpon>201609090948261_AddAccessControlListToCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.resx">
+      <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.resx">
       <DependentUpon>201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>

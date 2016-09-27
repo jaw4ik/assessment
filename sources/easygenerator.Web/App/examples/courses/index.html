@@ -1,0 +1,29 @@
+﻿<section class="course-examples content-section-wrapper">
+    <a href="#start" class="close-btn"></a>
+    <div class="course-examples-container content-section">
+        <ul class="categories" data-bind="foreach: categories">
+            <li data-bind="css: { selected: $data === $parent.selected() }, click: $parent.selected">
+                <div class="category">
+                    <span class="category-text" data-bind="text: value"></span>
+                    <span class="category-text-selected" data-bind="text: value"></span>
+                </div>
+            </li>
+        </ul>
+        <ul class="examples-list">
+            <li class="course-from-scratch" data-bind="click: addFromScratch">
+                <span class="course-example-title add-new" data-bind="localize: { text: 'startFromScratch' }"></span>
+            </li>
+            <!-- ko foreach: examples -->
+            <li class="course-example" data-bind="click: $parent.createByExample">
+                <img data-bind="attr: { src: imageUrl }"/>
+                <div class="course-example-overlay">
+                    <span class="course-example-title" data-bind="text: title"></span>
+                </div>
+                <div class="choose-example">
+                    <button data-bind="localize: { text: 'useCourseAsExample' }"></button>
+                </div>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+</section>

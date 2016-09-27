@@ -103,7 +103,7 @@ app.signUpSecondStepModel = function () {
                 app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
             ).done(function () {
                 app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
-                localStorage.setItem('showCreateCoursePopup', true);
+                localStorage.setItem('showCreateCourseView', true);
                 app.openHomePage();
             });
         }).fail(function () {

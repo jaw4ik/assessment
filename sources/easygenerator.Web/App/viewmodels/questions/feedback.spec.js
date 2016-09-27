@@ -545,7 +545,8 @@ describe('viewModel [feedback]', function () {
                 var captions = {
                     correctFeedback: {
                         hint: 'correct hint',
-                        instruction: 'correct instruction'
+                        instruction: 'correct instruction',
+                        surveyInstruction: 'responseForLearnerAnswer'
                     },
                     incorrectFeedback: {
                         hint: 'incorrect hint',
@@ -583,7 +584,8 @@ describe('viewModel [feedback]', function () {
                     viewModel.initialize(activationData).fin(function () {
                         expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', {
                             hint: 'correctFeedback',
-                            instruction: 'putYourPositiveFeedback'
+                            instruction: 'putYourPositiveFeedback',
+                            surveyInstruction: 'responseForLearnerAnswer'
                         });
                         done();
                     });
@@ -605,7 +607,8 @@ describe('viewModel [feedback]', function () {
                 var captions = {
                     correctFeedback: {
                         hint: 'correct hint',
-                        instruction: 'correct instruction'
+                        instruction: 'correct instruction',
+                        surveyInstruction: 'responseForLearnerAnswer'
                     }
                 };
 

@@ -103,6 +103,7 @@
         'dialogs/learningPath/customPublish.spec',
         'dialogs/learningPath/defaultPublish.spec',
         'dialogs/learningPath/shareLearningPath.spec',
+        'dialogs/course/addByExample/index.spec',
         'dialogs/course/common/templateSelector/templateBrief.spec',
         'dialogs/course/common/templateSelector/templateSelector.spec',
         'dialogs/course/changeTemplate/changeTemplate.spec',
@@ -194,6 +195,7 @@
         'reporting/viewmodels/questionStatements/experiencedStatement.spec',
         'reporting/viewmodels/questionStatements/answeredStatement.spec',
         'reporting/viewmodels/questionStatements/questionStatementFactory.spec',
+        'reporting/viewmodels/questionStatements/surveyModeExtender/extender.spec',
         'reporting/viewmodels/sectionStatement.spec',
         'reporting/viewmodels/startedStatement.spec',
         'reporting/viewmodels/progressedStatement.spec',
@@ -485,6 +487,18 @@
         'images/preview/index.spec',
         'images/image.spec',
         'images/index.spec',
+        //#endregion
+
+        //#region course examples
+        'examples/courses/commands/getCourseExamples.spec',
+        'examples/courses/commands/createCourseByExample.spec',
+        'examples/courses/index.spec',
+        'examples/dialogs/watchTutorial.spec',
+        'examples/start.spec',
+        //#endregion
+
+        //#region import from presentation
+        'importfrompresentation/index.spec',
         //#endregion
 
         //#region widgets

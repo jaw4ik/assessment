@@ -81,6 +81,9 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<Scenario>>()
                 .As<IQuerableRepository<Scenario>>();
 
+            builder.RegisterType<QuerableRepository<SurveyQuestion>>()
+                .As<IQuerableRepository<SurveyQuestion>>();
+
             builder.RegisterType<QuerableRepository<TextMatchingAnswer>>()
                .As<IQuerableRepository<TextMatchingAnswer>>();
 

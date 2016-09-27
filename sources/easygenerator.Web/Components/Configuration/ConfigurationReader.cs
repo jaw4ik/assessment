@@ -2,6 +2,7 @@
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using System.Configuration;
+using easygenerator.Web.Components.Configuration.CourseExamples;
 using easygenerator.Web.Components.Configuration.SAML;
 
 namespace easygenerator.Web.Components.Configuration
@@ -116,6 +117,8 @@ namespace easygenerator.Web.Components.Configuration
 
         public virtual SamlIdPConfigurationSection SamlIdPConfiguration => ConfigurationManager.GetSection("samlIdP") as SamlIdPConfigurationSection;
 
+        public virtual CourseExamplesConfigurationSection CourseExamplesConfiguration => ConfigurationManager.GetSection("courseExamples") as CourseExamplesConfigurationSection;
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
@@ -162,6 +165,10 @@ namespace easygenerator.Web.Components.Configuration
             {
                 return ConfigurationManager.GetSection("googleFontsApi") as GoogleFontsApiConfigurationSection;
             }
+        }
+
+        public virtual SentryConfigurationSection SentriConfiguration {
+            get { return ConfigurationManager.GetSection("sentry") as SentryConfigurationSection; }
         }
     }
 }

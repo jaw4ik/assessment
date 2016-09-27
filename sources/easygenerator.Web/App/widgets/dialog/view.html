@@ -1,5 +1,5 @@
 ﻿<section class="dialog-container" data-bind="css: { shown: isShown, boundless: settings().boundless }">
-    <div class="dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed, isBoundless: settings().boundless }, css:settings().containerCss">
+    <div class="dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed, isBoundless: settings().boundless, overlayCss: settings().overlayCss }, css:settings().containerCss">
         <button class="dialog-close-btn" data-bind="click: close"></button>
         <!-- ko if: steps().length === 1 -->
         <div class="dialog-view-container" data-bind="ifExtended: { value: isShown, delayOnFalse: 300 }">

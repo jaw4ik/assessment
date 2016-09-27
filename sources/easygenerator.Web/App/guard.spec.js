@@ -2,6 +2,35 @@
 
 describe('[guard]', function () {
 
+    describe('throwIfNotDefined:', function () {
+
+        describe('when argument is not defined', function () {
+
+            it('should throw exception with message', function () {
+                var message = 'message';
+                var f = function () {
+                    guard.throwIfNotDefined(undefined, message);
+                };
+
+                expect(f).toThrow(message);
+            });
+
+        });
+
+        describe('when argument is defined', function () {
+
+            it('should not throw exception with message', function () {
+                var f = function () {
+                    guard.throwIfNotDefined('property', '');
+                };
+
+                expect(f).not.toThrow();
+            });
+
+        });
+
+    });
+
     describe('throwIfNotAnObject:', function () {
 
         describe('when argument is not an object', function () {

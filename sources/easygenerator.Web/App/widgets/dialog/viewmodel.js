@@ -5,7 +5,8 @@
         var defaultSettings = {
             boundless: false,
             autoclose: false,
-            containerCss: ''
+            containerCss: '',
+            overlayCss: ''
         };
 
         var viewModel = {

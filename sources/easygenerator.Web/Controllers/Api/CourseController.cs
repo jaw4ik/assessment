@@ -96,14 +96,15 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [LimitCoursesAmount]
         [Route("api/course/duplicate")]
-        public ActionResult Duplicate(Course course)
+        public ActionResult Duplicate(Course course, bool hasSameName = false)
         {
             if (course == null)
-            {
                 return BadRequest();
-            }
 
-            var duplicatedCourse = GetDuplicatedCourse(course);
+            var duplicatedCourse = hasSameName
+                ? _cloner.Clone(course, GetCurrentUsername(), true)
+                : GetDuplicatedCourse(course);
+
             _courseOperations.CreateCourse(duplicatedCourse);
 
             return JsonSuccess(new
@@ -157,9 +158,9 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/build")]
-        public ActionResult Build(Course course, bool includeMedia = false)
+        public ActionResult Build(Course course, bool includeMedia = false, bool enableAccessLimitation = false)
         {
-            return Deliver(course, () => _builder.Build(course, includeMedia), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course, includeMedia, enableAccessLimitation), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
         }
 
         [EntityCollaborator(typeof(Course))]
@@ -358,6 +359,42 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateSectionsOrder(sections, GetCurrentUsername());
+
+            return JsonSuccess(new { });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/grantaccess")]
+        public ActionResult GrantAccess(Course course, ICollection<String> users, bool sendInvite = false)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            var user = _userRepository.GetUserByEmail(GetCurrentUsername());
+            if (user == null)
+            {
+                return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
+            }
+
+            course.GrantAccessTo(sendInvite, user, users.ToArray());
+
+            return JsonSuccess(new { });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/removeaccess")]
+        public ActionResult GrantAccess(Course course, string userIdentity)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            course.RemoveAccess(userIdentity);
 
             return JsonSuccess(new { });
         }

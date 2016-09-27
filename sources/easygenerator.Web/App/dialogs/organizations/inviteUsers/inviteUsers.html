@@ -7,12 +7,10 @@
         <form class="invite-organization-users-form" data-bind="submit: submit">
             <div class="modal-dialog-form-row">
                 <div data-bind="tags: { collection: emails, autofocus: true, disabled: isProcessing, valid: isValid, placeholderKey: 'inviteByEmailAddress', validationPattern: emailValidationPattern }"></div>
-                <div class="modal-dialog-dorm-input-description" data-bind="localize: { text: 'useSpaceCommaOrSemocolonBtwEmails'}"></div>
+                <div class="users-list-input-description" data-bind="localize: { text: 'useSpaceCommaOrSemocolonBtwEmails'}"></div>
             </div>
             <div class="action-item-btn-wrapper">
-                <button class="action-item-btn btn green" data-bind="click: submit, disable: isProcessing, css: { progress: isProcessing }">
-                    <span class="btn-caption" data-bind="localize: { text: 'sendInvites' }"></span>
-                </button>
+                <button class="button large main" data-bind="click: submit, disable: isProcessing, css: { progress: isProcessing }, localize: { wrap: 'sendInvites' }"></button>
             </div>
         </form>
     </div>

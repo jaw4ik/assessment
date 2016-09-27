@@ -3,7 +3,7 @@
 
         return function () {
             var
-                trackEvent = function (eventName, eventCategory) {
+                trackEvent = function (eventName, eventCategory, properties) {
                     var mixpanel = window.mixpanel;
                     if (!mixpanel) {
                         return;
@@ -30,6 +30,14 @@
                         mixpanel.people.set({
                             "Role": role
                         });
+                    }
+
+                    if (properties) {
+                        for (var property in properties) {
+                            if (properties.hasOwnProperty(property)) {
+                                eventProperties[property] = properties[property];
+                            }
+                        }
                     }
 
                     mixpanel.people.set({

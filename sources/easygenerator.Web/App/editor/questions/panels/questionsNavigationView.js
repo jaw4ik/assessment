@@ -3,7 +3,6 @@ import _ from 'underscore';
 import app from 'durandal/app';
 import constants from 'constants';
 import courseRepository from 'repositories/courseRepository';
-import router from 'routing/router';
 import eventTracker from 'eventTracker';
 
 let _sectionTitleUpdated = new WeakMap();

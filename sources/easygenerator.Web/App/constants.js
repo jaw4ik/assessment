@@ -176,6 +176,10 @@ messages: {
             stateChanged: 'course:stateChanged',
             ownershipUpdated: 'course:ownershipUpdated',
             modified: 'course:modified',
+            peopleAdded: 'course:peopleAdded',
+            accessGranted: 'course:accessGranted',
+            accessRemoved: 'course:accessRemoved',
+            invitationSended: 'course:invitationSended',
 
             build: {
             started: 'course:build-started',
@@ -269,6 +273,7 @@ messages: {
             createdByCollaborator: 'question:createdByCollaborator',
             deleted: 'questions:deleted',
             titleUpdated: 'question:titleUpdated',
+            isSurveyUpdated: 'question:isSurveyUpdated',
             voiceOverUpdatedByCollaborator: 'question:voiceOverUpdatedByCollaborator',
             titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
             contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
@@ -416,7 +421,7 @@ clientContextKeys: {
         lastCreatedSectionId: 'lastCreatedSectionId',
         lastVistedCourse: 'lastVistedCourse',
         lastVisitedSection: 'lastVisitedSection',
-        showCreateCoursePopup: 'showCreateCoursePopup',
+        showCreateCourseView: 'showCreateCourseView',
         highlightedSectionId: 'highlightedSectionId',
         questionDataToNavigate: 'questionDataToNavigate'
 },
@@ -581,6 +586,16 @@ dialogs: {
             settings: {
                 containerCss: 'editor-feedback',
                 boundless: true
+            }
+    },
+    watchTutorial: {
+            settings: {
+                containerCss: 'watch-tutorial'
+            }
+    },
+    addCourseByExamples: {
+            settings: {
+                containerCss: 'add-course-by-examples'
             }
     },
     upgrade: {

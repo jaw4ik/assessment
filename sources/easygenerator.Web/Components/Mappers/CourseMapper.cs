@@ -59,7 +59,12 @@ namespace easygenerator.Web.Components.Mappers
                 {
                     Id = obj.Id.ToNString()
                 }),
-                Ownership = _courseOwnershipProvider.GetCourseOwnership(course, username)
+                Ownership = _courseOwnershipProvider.GetCourseOwnership(course, username),
+                PublicationAccessControlList = course.PublicationAccessControlList.OrderByDescending(obj => obj.CreatedOn).Select(obj => new
+                {
+                    UserIdentity = obj.UserIdentity,
+                    UserInvited = obj.UserInvited
+                })
             };
         }
 

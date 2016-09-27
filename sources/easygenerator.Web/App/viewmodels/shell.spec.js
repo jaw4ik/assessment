@@ -103,19 +103,6 @@ describe('viewModel [shell]', function () {
 
     });
 
-    describe('createCourseCallBack', function () {
-
-        it('should be function', function () {
-            expect(viewModel.createCourseCallback).toBeFunction();
-        });
-
-        it('should navigate to course page', function () {
-            viewModel.createCourseCallback({ id: 'id' });
-            expect(router.navigate).toHaveBeenCalledWith('courses/id');
-        });
-
-    });
-
     describe('courseDeleted:', function () {
 
         var courseId = 'courseId',

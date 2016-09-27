@@ -34,7 +34,7 @@ namespace easygenerator.Web.BuildCourse
             _logger = logger;
         }
 
-        public virtual bool Build(Course course, bool includeMedia = false)
+        public virtual bool Build(Course course, bool includeMedia = false, bool enableAccessLimitation = false)
         {
             var courseId = course.Id.ToNString();
             var buildId = GenerateBuildId(courseId);
@@ -51,7 +51,7 @@ namespace easygenerator.Web.BuildCourse
                 _buildContentProvider.AddThemeSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateThemeSettings(course.Template), includeMedia);
 
                 var modulesList = _packageModulesProvider.GetModulesList(course);
-                _buildContentProvider.AddPublishSettingsFileToPackageDirectory(buildDirectoryPath, _publishSettingsProvider.GetPublishSettings(modulesList));
+                _buildContentProvider.AddPublishSettingsFileToPackageDirectory(buildDirectoryPath, _publishSettingsProvider.GetPublishSettings(modulesList, enableAccessLimitation ? course.PublicationAccessControlList : null));
                 _buildContentProvider.AddModulesFilesToPackageDirectory(buildDirectoryPath, modulesList);
 
                 OnAfterBuildContentAdded(course, buildId);

@@ -1,8 +1,11 @@
-﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'routing/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
-    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse', 'dialogs/course/stopCollaboration/stopCollaboration'],
-    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog, stopCollaborationDialog) {
+﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'routing/router',
+    'notify', 'localization/localizationManager', 'clientContext', 
+    'fileHelper', 'authorization/limitCoursesAmount', 'commands/duplicateCourseCommand','widgets/upgradeDialog/viewmodel', 'utils/waiter', 
+    'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse', 
+    'dialogs/course/stopCollaboration/stopCollaboration', 'dialogs/course/addByExample/index'],
+    function (app, dataContext, userContext, constants, eventTracker, router, notify, localizationManager, 
+        clientContext, fileHelper, limitCoursesAmount, duplicateCourseCommand, 
+        upgradeDialog, waiter, createCourseDialog, deleteCourseDialog, stopCollaborationDialog, addByExampleDialog) {
         "use strict";
 
         var events = {
@@ -38,15 +41,12 @@
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
 
-            newCoursePopoverVisible: ko.observable(false),
-            showNewCoursePopover: showNewCoursePopover,
-            hideNewCoursePopover: hideNewCoursePopover,
+            showNewCourseDialog: showNewCourseDialog,
 
             deleteCourse: deleteCourse,
             courseDeleted: courseDeleted,
             createNewCourse: createNewCourse,
             createCourseCallback: createCourseCallback,
-            importCourseFromPresentation: importCourseFromPresentation,
             stopCollaboration: stopCollaboration,
 
             courseAdded: courseAdded,
@@ -169,12 +169,8 @@
                 .value();
         }
 
-        function showNewCoursePopover() {
-            viewModel.newCoursePopoverVisible(!viewModel.newCoursePopoverVisible());
-        }
-
-        function hideNewCoursePopover() {
-            viewModel.newCoursePopoverVisible(false);
+        function showNewCourseDialog() {
+            addByExampleDialog.show();
         }
 
         function openUpgradePlanUrl() {
@@ -286,24 +282,6 @@
         function createNewCourse() {
             eventTracker.publish(events.createNewCourse);
             createCourseDialog.show(viewModel.createCourseCallback);
-        }
-
-        function importCourseFromPresentation() {
-            return presentationCourseImportCommand.execute({
-                startLoading: function () {
-                    uiLocker.lock();
-                },
-                success: function (course) {
-                    if (course.sections.length) {
-                        router.navigate('courses/' + course.id + '/sections/' + course.sections[0].id);
-                    } else {
-                        router.navigate('courses/' + course.id);
-                    }
-                },
-                complete: function () {
-                    uiLocker.unlock();
-                }
-            });
         }
 
         function coursesFilterChanged() {

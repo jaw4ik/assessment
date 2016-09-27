@@ -11,7 +11,7 @@
             <div class="modal-dialog-tabs-content" data-bind="with: publishAction">
                 <!-- ko if: packageExists() -->
                 <div class="modal-dialog-tab-item-container update">
-                    <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
                     <div class="modal-dialog-tab-item">
                         <div class="modal-dialog-tab-item-overlay" data-bind="visible: isCourseDelivering()"></div>
                         <!-- ko if: $parent.linkTabOpened -->

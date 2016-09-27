@@ -2,7 +2,7 @@
     <div class="publish-tab-content-wrapper">
         <!-- ko if: packageExists() -->
         <div class="publish-tab-default-container">
-            <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
+            <!-- ko compose: { view: 'views/courses/publishingActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
             <div class="publish-tab-link-container">
                 <h2 class="publish-tab-header" data-bind="localize: { text: 'embedAsAWidget' }"></h2>
                 <div class="publish-tab-action-content" data-bind="localize: { text: 'embedCaption' }"></div>
@@ -11,7 +11,7 @@
                         <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: state() === states.succeed"></textarea>
                     </div>
                     <div class="copy-btn-wrapper">
-                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty(), 'green-white': courseIsDirty(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty() && !usersAccessControlListViewModel.active(), 'green-white': courseIsDirty() || usersAccessControlListViewModel.active(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
                             <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
                         </button>
                     </div>
@@ -31,6 +31,12 @@
                     </div>
                 </div>
                 <div class="publish-tab-overlay" data-bind="visible: isCourseDelivering()"></div>
+            </div>
+            <div class="publish-settings" data-bind="css: { disabled: isPublishing }">
+                <div class="header" data-bind="localize: { text: 'settings' }"></div>
+                <div class="body">
+                    <!-- ko compose: { model: usersAccessControlListViewModel, view: 'views/courses/publishingActions/components/usersAccessControlList.html', activationData: courseId } --><!-- /ko -->
+                </div>
             </div>
         </div>
         <!-- /ko -->
