@@ -864,6 +864,19 @@
     <Content Include="App\dialogs\course\addPeople\addPeople.spec.js">
       <DependentUpon>addPeople.js</DependentUpon>
     </Content>
+    <Content Include="App\notifications\organizationInviteConfirmation\commands\getInvites.js" />
+    <Content Include="App\notifications\organizationInviteConfirmation\commands\getInvites.spec.js">
+      <DependentUpon>getInvites.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInviteConfirmation\notification.html" />
+    <Content Include="App\notifications\organizationInviteConfirmation\notification.js" />
+    <Content Include="App\notifications\organizationInviteConfirmation\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInviteConfirmation\notificationController.js" />
+    <Content Include="App\notifications\organizationInviteConfirmation\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\invitationSended.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\accessRemoved.js" />
     <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\extender.js" />

@@ -7,7 +7,8 @@ map: (invite) => {
         organizationId: invite.OrganizationId,
         organizationAdminFirstName: invite.OrganizationAdminFirstName,
         organizationAdminLastName: invite.OrganizationAdminLastName,
-        organizationTitle: invite.OrganizationTitle
+        organizationTitle: invite.OrganizationTitle,
+        status: invite.Status
     });
 }
 }

@@ -1,27 +1,33 @@
 ﻿import app from 'durandal/app';
+import constants from 'constants';
 import subscriptionExpirationNotificationController from './subscriptionExpiration/notificationController';
 import collaborationInviteNotificationController from './collaborationInvite/notificationController';
 import organizationInviteNotificationController from './organizationInvite/notificationController';
-import constants from 'constants';
+import organizationInviteConfirmationNotificationController from './organizationInviteConfirmation/notificationController';
 
-
-var viewModel = {
-    collection: ko.observableArray([]),
-    activate: activate,
-    collapse: collapse,
-    toggleIsExpanded: toggleIsExpanded,
-    isExpanded: ko.observable(false),
-    pushNotification: pushNotification,
-    removeNotification: removeNotification,
-    activeNotification: ko.observable(),
-    moveDirection: null,
-    next: next,
-    prev: prev
-},
-    controllers = [subscriptionExpirationNotificationController, collaborationInviteNotificationController, organizationInviteNotificationController];
+let 
+    viewModel = {
+        collection: ko.observableArray([]),
+        activate: activate,
+        collapse: collapse,
+        toggleIsExpanded: toggleIsExpanded,
+        isExpanded: ko.observable(false),
+        pushNotification: pushNotification,
+        removeNotification: removeNotification,
+        activeNotification: ko.observable(),
+        moveDirection: null,
+        next: next,
+        prev: prev
+    },
+    controllers = [
+        subscriptionExpirationNotificationController, 
+        collaborationInviteNotificationController, 
+        organizationInviteNotificationController,
+        organizationInviteConfirmationNotificationController
+    ];
 
 viewModel.isVisible = ko.computed(function() {
-    return viewModel.collection().length != 0;
+    return viewModel.collection().length !== 0;
 });
 
 viewModel.index = ko.computed(function() {
@@ -109,7 +115,7 @@ function removeNotification(notificationKey) {
     viewModel.collection.remove(notification);
     turnNotificationOff(notification);
 
-    if (viewModel.collection().length == 0) {
+    if (viewModel.collection().length === 0) {
         viewModel.activeNotification(null);
         viewModel.isExpanded(false);
         viewModel.moveDirection = null;
@@ -132,10 +138,8 @@ function activate() {
     app.on(constants.notification.messages.remove, removeNotification);
     app.on(constants.notification.messages.push, pushNotification);
 
-    return Q.all(_.map(controllers, function(controller) {
-        return controller.execute();
-    }))
-        .then(function() {
+    return Promise.all(_.map(controllers, controller => controller.execute()))
+        .then(() => {
             if (viewModel.collection().length > 0) {
                 viewModel.activeNotification(viewModel.collection()[0]);
             }

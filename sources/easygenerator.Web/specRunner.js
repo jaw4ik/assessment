@@ -150,6 +150,9 @@
         'notifications/organizationInvite/commands/acceptInvite.spec',
         'notifications/organizationInvite/commands/declineInvite.spec',
         'notifications/organizationInvite/notificationController.spec',
+        'notifications/organizationInviteConfirmation/notification.spec',
+        'notifications/organizationInviteConfirmation/commands/getInvites.spec',
+        'notifications/organizationInviteConfirmation/notificationController.spec',
 
         //#endregion 
         'localization/localizationManager.spec',
