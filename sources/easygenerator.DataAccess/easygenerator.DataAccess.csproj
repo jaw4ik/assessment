@@ -495,9 +495,9 @@
     <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.Designer.cs">
       <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs" />
-    <Compile Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.Designer.cs">
-      <DependentUpon>201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
+    <Compile Include="Migrations\201609271156142_AddLastPassedSurveyPopupForSurveyPopup.cs" />
+    <Compile Include="Migrations\201609271156142_AddLastPassedSurveyPopupForSurveyPopup.Designer.cs">
+      <DependentUpon>201609271156142_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -868,8 +868,8 @@
     <EmbeddedResource Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.resx">
       <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.resx">
-      <DependentUpon>201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609271156142_AddLastPassedSurveyPopupForSurveyPopup.resx">
+      <DependentUpon>201609271156142_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

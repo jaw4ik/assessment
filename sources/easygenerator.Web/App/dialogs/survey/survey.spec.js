@@ -33,9 +33,7 @@ describe('dialog [survey]', () => {
         });
 
         it('should create page url', () => {
-            
             survey.show();
-            debugger;
             expect(survey.pageUrl).toEqual(constants.surveyPopup.pageUrl + "?email=" + userContext.identity.email + "&name=" + userContext.identity.fullname);
         });
 

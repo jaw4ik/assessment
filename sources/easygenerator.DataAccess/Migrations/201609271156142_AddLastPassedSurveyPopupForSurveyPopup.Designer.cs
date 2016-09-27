@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201609221407122_AddLastPassedSurveyPopupForSurveyPopup"; }
+            get { return "201609271156142_AddLastPassedSurveyPopupForSurveyPopup"; }
         }
         
         string IMigrationMetadata.Source

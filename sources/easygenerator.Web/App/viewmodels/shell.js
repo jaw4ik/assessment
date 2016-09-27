@@ -183,7 +183,8 @@
                         if (value) {
                             if (userContext.identity.showReleaseNote) {
                                 releaseNotesDialog.show();
-                            } 
+                            }
+                            showSurveyPopup();
                         }
                     });
 

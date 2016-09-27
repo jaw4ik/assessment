@@ -13,7 +13,6 @@ class SurveyPopup {
         binder.bindClass(this);
         this.pageUrl = null
     }
-
     show() {
         this.pageUrl = `${constants.surveyPopup.pageUrl}?email=${userContext.identity.email}&name=${userContext.identity.fullname}`;
         dialog.show(this, constants.dialogs.survey.settings);
@@ -21,7 +20,6 @@ class SurveyPopup {
         
         dialog.on(constants.dialogs.dialogClosed, this.closed);
     }
-
     async submit(response) {
         if (response.origin !== constants.surveyPopup.originUrl) {
             return;
@@ -31,7 +29,6 @@ class SurveyPopup {
         window.removeEventListener('message', this.submit);
         dialog.close();
     }
-
     closed() {
         dialog.off(constants.dialogs.dialogClosed, this.closed);
     }

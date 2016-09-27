@@ -96,7 +96,7 @@ namespace easygenerator.Web.Controllers
                     expirationDate = user.ExpirationDate
                 },
                 showReleaseNote = releaseVersion != user.Settings.LastReadReleaseNote,
-                showSurveyPopup = user.Settings.LastPassedSurveyPopup != syrveyPopupVersion,
+                showSurveyPopup = user.Settings.LastPassedSurveyPopup != syrveyPopupVersion && user.CreatedOn.AddDays(1) <= DateTimeWrapper.Now(),
                 newEditor = user.Settings.NewEditor,
                 isCreatedThroughLti = user.Settings.IsCreatedThroughLti,
                 isCreatedThroughSamlIdP = user.Settings.IsCreatedThroughSamlIdP,

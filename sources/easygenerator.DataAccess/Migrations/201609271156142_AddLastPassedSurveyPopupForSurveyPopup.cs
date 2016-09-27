@@ -7,7 +7,7 @@ namespace easygenerator.DataAccess.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.UserSettings", "LastPassedSurveyPopup", c => c.String(nullable: false, maxLength: 10));
+            AddColumn("dbo.UserSettings", "LastPassedSurveyPopup", c => c.String(nullable: false, maxLength: 8));
         }
         
         public override void Down()
