@@ -46,6 +46,7 @@ namespace easygenerator.Web.Tests.Controllers.SAML.ServiceProvider
         private ITokenProvider _tokenProvider;
         private IDomainEventPublisher _domainEventPublisher;
         private IReleaseNoteFileReader _releaseNoteFileReader;
+        private ISurveyPopupVersionReader _surveyPopupVersionReader;
         private ISecureTokenProvider<ISecure<SamlIdPUserInfo>> _secureTokenProvider;
         private ServiceProviderController _controller;
 
@@ -71,9 +72,10 @@ namespace easygenerator.Web.Tests.Controllers.SAML.ServiceProvider
             _tokenProvider = Substitute.For<ITokenProvider>();
             _domainEventPublisher = Substitute.For<IDomainEventPublisher>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
+            _surveyPopupVersionReader = Substitute.For<ISurveyPopupVersionReader>();
             _secureTokenProvider = Substitute.For<ISecureTokenProvider<ISecure<SamlIdPUserInfo>>>();
             _controller = new ServiceProviderController(_commandProvider, _commandRunner, _signInCommandRunner, _optionsProvider, _userRepository,
-                _samlIdentityProviderRepository, _entityFactory, _tokenProvider, _domainEventPublisher, _releaseNoteFileReader, _secureTokenProvider);
+                _samlIdentityProviderRepository, _entityFactory, _tokenProvider, _domainEventPublisher, _releaseNoteFileReader, _secureTokenProvider, _surveyPopupVersionReader);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
 
             _options = Substitute.For<IOptions>();
@@ -341,7 +343,7 @@ namespace easygenerator.Web.Tests.Controllers.SAML.ServiceProvider
 
             _entityFactory.User("r@p.com", Arg.Any<string>(), "Roman", "Petriv", SamlMockData, SamlMockData,
                 SamlMockData,
-                "r@p.com", AccessType.Trial, Arg.Any<string>(), Arg.Any<DateTime>(), false, true, null, null)
+                "r@p.com", AccessType.Trial, Arg.Any<string>(), Arg.Any<string>(), Arg.Any<DateTime>(), false, true, null, null)
                 .Returns(user);
 
             var res = _controller.Acs();

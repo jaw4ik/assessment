@@ -13,6 +13,7 @@
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
         this.showReleaseNote = spec.showReleaseNote;
+        this.showSurveyPopup = spec.showSurveyPopup;
         this.newEditor = spec.newEditor;
         this.isCreatedThroughLti = spec.isCreatedThroughLti;
         this.isCreatedThroughSamlIdP = spec.isCreatedThroughSamlIdP;

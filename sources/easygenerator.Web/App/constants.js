@@ -572,6 +572,11 @@ dialogs: {
                 containerCss: 'branchtrack-dialog'
             }
     },
+    survey: {
+            settings: {
+                containerCss: 'survey'
+            }
+    },
     editorFeedback: {
             settings: {
                 containerCss: 'editor-feedback',
@@ -666,6 +671,11 @@ winToWeb: {
 coggno: {
     serviceUrl: window.coggnoServiceUrl || 'https://coggno.com/',
     serviceProviderUrl: window.coggnoServiceProviderUrl || 'https://coggno.com/easygenerator/sp/saml_login'
+},
+
+surveyPopup: {
+    originUrl: window.surveyPopupOriginUrl,
+    pageUrl: window.surveyPopupPageUrl
 },
 
 comment: {

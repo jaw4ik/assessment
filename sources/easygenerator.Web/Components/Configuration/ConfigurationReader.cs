@@ -146,6 +146,11 @@ namespace easygenerator.Web.Components.Configuration
             get { return ConfigurationManager.AppSettings["version"]; }
         }
 
+        public string GetSurveyPopupVersion
+        {
+            get { return (ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection).Version; }
+        }
+
         public bool ImageLibraryOnlyHttps
         {
             get { return Convert.ToBoolean(ConfigurationManager.AppSettings["ImageLibraryOnlyHttps"]); }

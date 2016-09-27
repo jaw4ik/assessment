@@ -34,6 +34,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
         private IReleaseNoteFileReader _releaseNoteFileReader;
+        private ISurveyPopupVersionReader _surveyPopupVersionReader;
         private ICourseRepository _courseRepository;
         private IOnboardingRepository _onboardingRepository;
         private IDemoCoursesStorage _demoCoursesInMemoryStorage;
@@ -58,6 +59,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _templateRepository = Substitute.For<ITemplateRepository>();
             _cloner = Substitute.For<ICloner>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
+            _surveyPopupVersionReader = Substitute.For<ISurveyPopupVersionReader>();
             _samlServiceProviderRepository = Substitute.For<ISamlServiceProviderRepository>();
             _configurationReader = Substitute.For<ConfigurationReader>();
 
@@ -67,6 +69,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 _mailSenderWrapper,
                 _releaseNoteFileReader,
                 _samlServiceProviderRepository,
+                _surveyPopupVersionReader,
                 _configurationReader
                 );
 
@@ -475,9 +478,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var lastReadReleaseNote = "";
+            var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
 
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -492,8 +496,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var lastReadReleaseNote = "";
+            var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -508,8 +513,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var lastReadReleaseNote = "";
+            var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -524,8 +530,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var lastReadReleaseNote = "";
+            var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);

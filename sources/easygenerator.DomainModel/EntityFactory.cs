@@ -44,10 +44,11 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
-        User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
+        User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote, 
+            string lastPassedSurveyPopup);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP,
-            ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor = true, bool isNewEditorByDefault = true);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, string lastPassedSurveyPopup, DateTime expirationDate, bool isCreatedThroughLti,
+            bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor = true, bool isNewEditorByDefault = true);
         LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user);
         PasswordRecoveryTicket PasswordRecoveryTicket();
         EmailConfirmationTicket EmailConfirmationTicket();
@@ -166,14 +167,14 @@ namespace easygenerator.DomainModel
             return new LearningContent(text, createdBy);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote, lastPassedSurveyPopup);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor, bool isNewEditorByDefault = true)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, string lastPassedSurveyPopup, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor, bool isNewEditorByDefault = true)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, false, newEditor);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, lastPassedSurveyPopup, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, false, newEditor);
         }
 
         public LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user)

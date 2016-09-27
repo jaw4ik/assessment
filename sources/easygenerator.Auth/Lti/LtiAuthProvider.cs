@@ -27,9 +27,11 @@ namespace easygenerator.Auth.Lti
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISecureTokenProvider<ISecure<LtiUserInfo>> _secureTokenProvider;
+        private readonly ISurveyPopupVersionReader _surveyPopupVersionReader;
 
         public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, IUserRepository userRepository,
-            IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork, ISecureTokenProvider<ISecure<LtiUserInfo>> secureTokenProvider)
+            IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork, 
+            ISecureTokenProvider<ISecure<LtiUserInfo>> secureTokenProvider, ISurveyPopupVersionReader surveyPopupVersionReader)
         {
             _consumerToolRepository = consumerToolRepository;
             _userRepository = userRepository;
@@ -39,6 +41,7 @@ namespace easygenerator.Auth.Lti
             _releaseNoteFileReader = releaseNoteFileReader;
             _unitOfWork = unitOfWork;
             _secureTokenProvider = secureTokenProvider;
+            _surveyPopupVersionReader = surveyPopupVersionReader;
 
             OnAuthenticate = context =>
             {
@@ -141,7 +144,7 @@ namespace easygenerator.Auth.Lti
             }
 
             var userPassword = Guid.NewGuid().ToString("N");
-            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, true, false, company != null ? new Collection<Company>() { company } : null, null);
+            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), _surveyPopupVersionReader.SurveyPopupVersion, expirationDate, true, false, company != null ? new Collection<Company>() { company } : null, null);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 

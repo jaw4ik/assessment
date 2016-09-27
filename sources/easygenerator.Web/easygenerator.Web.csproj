@@ -320,9 +320,11 @@
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\GoogleFontsApiConfigurationSection.cs" />
     <Compile Include="Components\Configuration\IntercomConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\SurveyPopupConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\SurveyPopupVersionReader.cs" />
     <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
     <Compile Include="Domain\DomainOperations\CourseOwnershipProvider.cs" />
     <Compile Include="Domain\DomainOperations\OrganizationOperations.cs" />
@@ -803,6 +805,15 @@
     </Content>
     <Content Include="App\design\tabs\ThemesTab.spec.js">
       <DependentUpon>ThemesTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\survey\commands\updateVersionCommand.js" />
+    <Content Include="App\dialogs\survey\commands\updateVersionCommand.spec.js">
+      <DependentUpon>updateVersionCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\survey\survey.html" />
+    <Content Include="App\dialogs\survey\survey.js" />
+    <Content Include="App\dialogs\survey\survey.spec.js">
+      <DependentUpon>survey.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\modified.spec.js">

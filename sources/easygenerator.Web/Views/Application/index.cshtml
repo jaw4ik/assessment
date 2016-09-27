@@ -114,6 +114,13 @@
             window.coggnoServiceProviderUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceProviderUrl)';
             </text>
         }
+        @if ((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection) != null)
+        {
+            <text>
+            window.surveyPopupOriginUrl = '@((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection).OriginUrl)';
+            window.surveyPopupPageUrl = '@((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection).PageUrl)';
+            </text>
+        }
     </script>
 
     @Scripts.Render("~/bundles/scripts/system")

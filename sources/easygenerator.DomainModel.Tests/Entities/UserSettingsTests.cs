@@ -23,13 +23,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var createdBy = "user";
             var lastReadReleaseNote = "1.0.0";
+            var lastPassedSurveyPopup = "1";
 
             //Act
-            var settings = new UserSettings(createdBy, lastReadReleaseNote, false, false, true, true, false);
+            var settings = new UserSettings(createdBy, lastReadReleaseNote, lastPassedSurveyPopup, false, false, true, true, false);
 
             //Assert
             settings.CreatedBy.Should().Be(createdBy);
             settings.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
+            settings.LastPassedSurveyPopup.Should().Be(lastPassedSurveyPopup);
             settings.IsCreatedThroughLti.Should().BeFalse();
             settings.IsCreatedThroughSamlIdP.Should().BeFalse();
             settings.NewEditor.Should().BeTrue();
@@ -116,6 +118,89 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => dateTime;
 
             settings.UpdateLastReadReleaseNote("aaa", modifiedBy);
+
+            settings.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region UpdateSurveyPopupVersion
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.UpdateSurveyPopupVersion("0", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.UpdateSurveyPopupVersion("0", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldThrowArgumentNullException_WhenSurveyPopupVersionIsNull()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.UpdateSurveyPopupVersion(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("surveyPopupVersion");
+        }
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldThrowArgumentException_WhenSurveyPopupVersionIsEmpty()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.UpdateSurveyPopupVersion(string.Empty, "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("surveyPopupVersion");
+        }
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldSetLastPassedSurveyPopup()
+        {
+            //Arrange
+            var settings = UserSettingsObjectMother.Create();
+
+            //Act
+            settings.UpdateSurveyPopupVersion("125", "someUser");
+
+            //Assert
+            settings.LastPassedSurveyPopup.Should().Be("125");
+            settings.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var settings = UserSettingsObjectMother.Create();
+            settings.UpdateSurveyPopupVersion("aaa", modifiedBy);
+
+            settings.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateSurveyPopupVersion_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var settings = UserSettingsObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            settings.UpdateSurveyPopupVersion("aaa", modifiedBy);
 
             settings.ModifiedOn.Should().Be(dateTime);
         }

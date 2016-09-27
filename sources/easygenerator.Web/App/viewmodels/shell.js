@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'routing/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
     'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
-'editor/dialogs/editorFeedback/editorFeedback'],
+'editor/dialogs/editorFeedback/editorFeedback', 'dialogs/survey/survey'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, editorFeedbackDialog) {
+        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, editorFeedbackDialog, survey) {
 
         "use strict";
 
@@ -191,6 +191,14 @@
                     function showCreateCoursePopup() {
                         if (!_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
                             createCourseDialog.show(viewModel.createCourseCallback);
+                        } else {
+                            showSurveyPopup();
+                        }
+                    }
+
+                    function showSurveyPopup() {
+                        if (userContext.identity.showSurveyPopup) {
+                            survey.show();                            
                         }
                     }
 

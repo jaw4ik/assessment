@@ -49,15 +49,20 @@ describe('model [user]', function () {
             email: 'a.drebot@gmail.com',
             role: 'Teacher',
             phone: '0123',
+            showReleaseNote: false,
+            showSurveyPopup: false,
             newEditor: null,
             isCreatedThroughLti: false,
             isCreatedThroughSamlIdP: false,
             isCoggnoSamlServiceProviderAllowed: true,
             isNewEditorByDefault: true,
+            includeMediaToPackage: false,
             companies: [{}],
             subscription: {
                 accessType: constants.accessType.starter
-            }
+            },
+            organizations: [{}],
+            organizationInvites: [{}]
         };
 
         var user = new User(spec);
@@ -65,6 +70,8 @@ describe('model [user]', function () {
         expect(user.firstname).toEqual(spec.firstname);
         expect(user.lastname).toEqual(spec.lastname);
         expect(user.fullname).toEqual(spec.firstname + ' ' + spec.lastname);
+        expect(user.showReleaseNote).toEqual(spec.showReleaseNote);
+        expect(user.showSurveyPopup).toEqual(spec.showSurveyPopup);
         expect(user.email).toEqual(spec.email);
         expect(user.role).toEqual(spec.role);
         expect(user.phone).toEqual(spec.phone);
@@ -73,7 +80,11 @@ describe('model [user]', function () {
         expect(user.isCreatedThroughSamlIdP).toEqual(spec.isCreatedThroughSamlIdP);
         expect(user.isCoggnoSamlServiceProviderAllowed).toEqual(spec.isCoggnoSamlServiceProviderAllowed);
         expect(user.isNewEditorByDefault).toEqual(spec.isNewEditorByDefault);
+        expect(user.includeMediaToPackage).toEqual(spec.includeMediaToPackage);
         expect(user.companies.length).toBe(1);
+        expect(user.subscription.accessType).toBe(constants.accessType.starter);
+        expect(user.organizations.length).toBe(1);
+        expect(user.organizationInvites.length).toBe(1);
 
     });
 

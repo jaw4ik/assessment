@@ -221,6 +221,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
 
             modelBuilder.Entity<UserSettings>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
+            modelBuilder.Entity<UserSettings>().Property(e => e.LastPassedSurveyPopup).IsRequired().HasMaxLength(10);
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughLti).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughSamlIdP).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.NewEditor).IsOptional();

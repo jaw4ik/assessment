@@ -25,11 +25,13 @@ namespace easygenerator.Web.Controllers
         private readonly IOrganizationUserRepository _organizationUserRepository;
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
         private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private readonly ISurveyPopupVersionReader _surveyPopupVersionReader;
         private readonly ConfigurationReader _configurationReader;
 
         public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IReleaseNoteFileReader releaseNoteFileReader, IEntityModelMapper<Company> companyMapper,
             IOrganizationRepository organizationRepository, IOrganizationMapper organizationMapper, IOrganizationUserRepository organizationUserRepository,
-            IOrganizationInviteMapper organizationInviteMapper, ISamlServiceProviderRepository samlServiceProviderRepository, ConfigurationReader configurationReader)
+            IOrganizationInviteMapper organizationInviteMapper, ISamlServiceProviderRepository samlServiceProviderRepository, ISurveyPopupVersionReader surveyPopupVersionReader,
+            ConfigurationReader configurationReader)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
@@ -40,6 +42,7 @@ namespace easygenerator.Web.Controllers
             _organizationUserRepository = organizationUserRepository;
             _organizationInviteMapper = organizationInviteMapper;
             _samlServiceProviderRepository = samlServiceProviderRepository;
+            _surveyPopupVersionReader = surveyPopupVersionReader;
             _configurationReader = configurationReader;
         }
 
@@ -70,6 +73,7 @@ namespace easygenerator.Web.Controllers
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
             var releaseVersion = _releaseNoteFileReader.GetReleaseVersion();
+            var syrveyPopupVersion = _surveyPopupVersionReader.SurveyPopupVersion;
 
             if (user == null)
             {
@@ -92,6 +96,7 @@ namespace easygenerator.Web.Controllers
                     expirationDate = user.ExpirationDate
                 },
                 showReleaseNote = releaseVersion != user.Settings.LastReadReleaseNote,
+                showSurveyPopup = user.Settings.LastPassedSurveyPopup != syrveyPopupVersion,
                 newEditor = user.Settings.NewEditor,
                 isCreatedThroughLti = user.Settings.IsCreatedThroughLti,
                 isCreatedThroughSamlIdP = user.Settings.IsCreatedThroughSamlIdP,

@@ -20,7 +20,7 @@ describe('command [updateLastReadReleaseNote]', function () {
             expect(command.execute()).toBePromise();
         });
 
-        it('should send request to the server to create dropspot', function (done) {
+        it('should send request to the server to update last read release version', function (done) {
             dfd.resolve();
 
             command.execute().then(function () {

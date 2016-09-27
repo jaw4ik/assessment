@@ -487,6 +487,10 @@
     <Compile Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.Designer.cs">
       <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs" />
+    <Compile Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.Designer.cs">
+      <DependentUpon>201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
@@ -849,6 +853,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.resx">
       <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609221407122_AddLastPassedSurveyPopupForSurveyPopup.resx">
+      <DependentUpon>201609221407122_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
