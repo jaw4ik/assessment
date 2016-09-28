@@ -332,7 +332,7 @@
     <Compile Include="Controllers\Api\SurveyQuestionController.cs" />
     <Compile Include="Components\SentriClient.cs" />
     <Compile Include="Controllers\CourseExamplesController.cs" />
-    <Compile Include="Components\SurveyPopupVersionReader.cs" />
+    <Compile Include="Components\SurveyPopupSettingsProvider.cs" />
     <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
     <Compile Include="Domain\DomainOperations\CourseOwnershipProvider.cs" />
     <Compile Include="Domain\DomainOperations\OrganizationOperations.cs" />
@@ -780,6 +780,7 @@
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
     <Content Include="App\components\bindingHandlers\ifExtendedBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\windowMessageListenerBindingHandler.js" />
     <Content Include="App\core\bootstrap\visible.js" />
     <Content Include="App\core\durandal\transitions\entrance.js" />
     <Content Include="App\core\underscore.js" />
@@ -2072,7 +2073,6 @@
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\tabsBinding.js" />
-    <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
     <Content Include="App\viewmodels\courses\course\configure.js" />
     <Content Include="App\viewmodels\courses\course\configure.spec.js">
       <DependentUpon>configure.js</DependentUpon>

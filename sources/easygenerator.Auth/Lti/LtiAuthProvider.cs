@@ -27,11 +27,11 @@ namespace easygenerator.Auth.Lti
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISecureTokenProvider<ISecure<LtiUserInfo>> _secureTokenProvider;
-        private readonly ISurveyPopupVersionReader _surveyPopupVersionReader;
+        private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
 
         public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, IUserRepository userRepository,
             IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork, 
-            ISecureTokenProvider<ISecure<LtiUserInfo>> secureTokenProvider, ISurveyPopupVersionReader surveyPopupVersionReader)
+            ISecureTokenProvider<ISecure<LtiUserInfo>> secureTokenProvider, ISurveyPopupSettingsProvider surveyPopupVersionReader)
         {
             _consumerToolRepository = consumerToolRepository;
             _userRepository = userRepository;

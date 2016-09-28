@@ -43,5 +43,18 @@ namespace easygenerator.Web.Components.Configuration
                 this["version"] = value;
             }
         }
+
+        [ConfigurationProperty("numberOfDaysUntilShowUp", IsRequired = true)]
+        public string NumberOfDaysUntilShowUp
+        {
+            get
+            {
+                return (string)this["numberOfDaysUntilShowUp"];
+            }
+            set
+            {
+                this["numberOfDaysUntilShowUp"] = value;
+            }
+        }
     }
 }

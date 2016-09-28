@@ -34,7 +34,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
         private IReleaseNoteFileReader _releaseNoteFileReader;
-        private ISurveyPopupVersionReader _surveyPopupVersionReader;
+        private ISurveyPopupSettingsProvider _surveyPopupVersionReader;
         private ICourseRepository _courseRepository;
         private IOnboardingRepository _onboardingRepository;
         private IDemoCoursesStorage _demoCoursesInMemoryStorage;
@@ -59,7 +59,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _templateRepository = Substitute.For<ITemplateRepository>();
             _cloner = Substitute.For<ICloner>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
-            _surveyPopupVersionReader = Substitute.For<ISurveyPopupVersionReader>();
+            _surveyPopupVersionReader = Substitute.For<ISurveyPopupSettingsProvider>();
             _samlServiceProviderRepository = Substitute.For<ISamlServiceProviderRepository>();
             _configurationReader = Substitute.For<ConfigurationReader>();
 

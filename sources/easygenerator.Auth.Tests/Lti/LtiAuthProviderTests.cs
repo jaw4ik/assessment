@@ -37,7 +37,7 @@ namespace easygenerator.Auth.Tests.Lti
         private IDomainEventPublisher _eventPublisher;
         private IUnitOfWork _unitOfWork;
         private IReleaseNoteFileReader _releaseNoteFileReader;
-        private ISurveyPopupVersionReader _surveyPopupVersionReader;
+        private ISurveyPopupSettingsProvider _surveyPopupVersionReader;
         private ISecureTokenProvider<ISecure<LtiUserInfo>> _secureTokenProvider;
 
         private LtiAuthenticatedContext _ltiAuthenticatedContext;
@@ -68,7 +68,7 @@ namespace easygenerator.Auth.Tests.Lti
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _unitOfWork = Substitute.For<IUnitOfWork>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
-            _surveyPopupVersionReader = Substitute.For<ISurveyPopupVersionReader>();
+            _surveyPopupVersionReader = Substitute.For<ISurveyPopupSettingsProvider>();
             _secureTokenProvider = Substitute.For<ISecureTokenProvider<ISecure<LtiUserInfo>>>();
 
             _ltiRequest = Substitute.For<ILtiRequest>();

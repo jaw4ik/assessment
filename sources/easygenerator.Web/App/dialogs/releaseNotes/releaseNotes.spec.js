@@ -6,154 +6,138 @@ import getReleaseNoteCommand from 'dialogs/releaseNotes/commands/getReleaseNote'
 import updateLastReadReleaseNote from 'dialogs/releaseNotes/commands/updateLastReadReleaseNote';
 import userContext from 'userContext';
 
-describe('dialog [releaseNotes]', function () {
-    var dfd;
+describe('dialog [releaseNotes]', () => {
 
-    beforeEach(function () {
-        dfd = Q.defer();
+    beforeEach(() => {
         spyOn(dialogWidget, 'close');
     });
 
-    describe('show:', function () {
+    describe('show:', () => {
+        let getReleaseNotePromise;
 
-        beforeEach(function () {
-            spyOn(getReleaseNoteCommand, 'execute').and.returnValue(dfd.promise);
-        });
-
-        it('should be function', function () {
+        it('should be function', () => {
             expect(dialog.show).toBeFunction();
         });
 
-        it('should get releasse notes', function () {
+        it('should get releasse notes', () => {
+            spyOn(getReleaseNoteCommand, 'execute');
             dialog.show();
             expect(getReleaseNoteCommand.execute).toHaveBeenCalled();
         });
 
-        describe('when response is not defined', function () {
+        describe('when response is not defined', () => {
 
-            it('should close dialog', function (done) {
-                dialog.show();
-                dfd.resolve();
-                dfd.promise.fin(function () {
-                    expect(dialogWidget.close).toHaveBeenCalled();
-                    done();
-                });
+            beforeEach(() => {
+                getReleaseNotePromise = Promise.resolve();
+                spyOn(getReleaseNoteCommand, 'execute').and.returnValue(getReleaseNotePromise);
             });
+
+            it('should close dialog', done => (async () => {
+                await dialog.show();
+                expect(dialogWidget.close).toHaveBeenCalled();
+            })().then(done));
 
         });
 
-        describe('when release notes defined', function () {
+        describe('when release notes defined', () => {
             var releaseNotes = "foobar";
 
-            beforeEach(function() {
+            beforeEach(() => {
+                getReleaseNotePromise = Promise.resolve(releaseNotes);
+                spyOn(getReleaseNoteCommand, 'execute').and.returnValue(getReleaseNotePromise);
                 spyOn(dialogWidget, 'on');
                 spyOn(dialogWidget, 'show');
             });
 
-            it('should set release notes', function (done) {
-                dfd.resolve(releaseNotes);
-                dialog.show();
-                dfd.promise.fin(function () {
-                    expect(dialog.releaseNotes).toBe(releaseNotes);
-                    done();
-                });
-            });
+            it('should show dialog', done => (async () => {
+                await dialog.show();
+                expect(dialogWidget.show).toHaveBeenCalledWith(dialog, constants.dialogs.releaseNote.settings);
+            })().then(done));
 
-            it('should show dialog', function (done) {
-                dfd.resolve(releaseNotes);
-                dialog.show();
-                dfd.promise.fin(function () {
-                    expect(dialogWidget.show).toHaveBeenCalledWith(dialog, constants.dialogs.releaseNote.settings);
-                    done();
-                });
-            });
+            it('should set release notes', done => (async () => {
+                await dialog.show();
+                expect(dialog.releaseNotes).toBe(releaseNotes);
+            })().then(done));
 
-            it('should subscribe on dialog close event', function (done) {
-                dfd.resolve(releaseNotes);
-                dialog.show();
-                dfd.promise.fin(function () {
-                    expect(dialogWidget.on).toHaveBeenCalledWith(constants.dialogs.dialogClosed, dialog.closed);
-                    done();
-                });
-            });
+            it('should subscribe on dialog close event', done => (async () => {
+                await dialog.show();
+                expect(dialogWidget.on).toHaveBeenCalledWith(constants.dialogs.dialogClosed, dialog.closed);
+            })().then(done));
 
         });
 
     });
 
-    describe('submit:', function () {
+    describe('submit:', () => {
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(dialog.submit).toBeFunction();
         });
 
-        it('should close dialogWidget', function () {
+        it('should close dialogWidget', () => {
             dialog.submit();
             expect(dialogWidget.close).toHaveBeenCalled();
         });
 
     });
 
-    describe('closed:', function () {
-
-        beforeEach(function () {
-            spyOn(updateLastReadReleaseNote, 'execute').and.returnValue(dfd.promise);
+    describe('closed:', () => {
+        let lastReadReleaseNotePromise;
+        
+        beforeEach(() => {
+            lastReadReleaseNotePromise = Promise.resolve();
+            spyOn(updateLastReadReleaseNote, 'execute').and.returnValue(lastReadReleaseNotePromise);
             spyOn(dialogWidget, 'off');
         });
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(dialog.closed).toBeFunction();
         });
 
-        describe('when callbackAfterClose is function', function () {
+        describe('when callbackAfterClose is function', () => {
 
-            beforeEach(function () {
-                dialog.callbackAfterClose = function() {};
+            beforeEach(() => {
+                dialog.callbackAfterClose = () => {};
                 spyOn(dialog, 'callbackAfterClose');
             });
 
-            it('should call callback', function () {
+            it('should call callback', () => {
                 dialog.closed();
                 expect(dialog.callbackAfterClose).toHaveBeenCalled();
             });
 
         });
 
-        it('should update last read release note for user', function () {
+        it('should update last read release note for user', () => {
             dialog.closed();
             expect(updateLastReadReleaseNote.execute).toHaveBeenCalled();
         });
 
-        it('should update showReleaseNote', function (done) {
-            userContext.identity.showReleaseNote = true;
-            dialog.closed();
-            dfd.resolve();
-            dfd.promise.fin(function () {
-                expect(userContext.identity.showReleaseNote).toBe(false);
-                done();
-            });
-                
-        });
+        it('should update showReleaseNote', done => (async () => {
+            userContext.identity = { showReleaseNote: true };
+            await dialog.closed();
+            expect(userContext.identity.showReleaseNote).toBe(false);    
+        })().then(done));
 
 
-        it('should unsubscribe event dialog close', function () {
-            dialog.closed();
+        it('should unsubscribe event dialog close', done => (async () => {
+            await dialog.closed();
             expect(dialogWidget.off).toHaveBeenCalledWith(constants.dialogs.dialogClosed, dialog.closed);
-        });
+        })().then(done));
 
     });
 
-    describe('callbackAfterClose:', function () {
+    describe('callbackAfterClose:', () => {
 
-        it('should be defined', function () {
+        it('should be defined', () => {
             expect(dialog.callbackAfterClose).toBeDefined();
         });
 
     });
 
-    describe('releaseNotes', function () {
+    describe('releaseNotes', () => {
 
-        it('should be defined', function () {
+        it('should be defined', () => {
             expect(dialog.releaseNotes).toBeDefined();
         });
 

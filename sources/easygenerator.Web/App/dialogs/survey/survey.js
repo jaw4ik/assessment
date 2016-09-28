@@ -11,22 +11,17 @@ class SurveyPopup {
 
     constructor() {
         binder.bindClass(this);
-        this.pageUrl = null
+        this.originUrl = constants.surveyPopup.originUrl;
+        this.pageUrl = null;
     }
     show() {
         this.pageUrl = `${constants.surveyPopup.pageUrl}?email=${userContext.identity.email}&name=${userContext.identity.fullname}`;
-        dialog.show(this, constants.dialogs.survey.settings);
-        window.addEventListener('message', this.submit);
-        
+        dialog.show(this, constants.dialogs.survey.settings);        
         dialog.on(constants.dialogs.dialogClosed, this.closed);
     }
-    async submit(response) {
-        if (response.origin !== constants.surveyPopup.originUrl) {
-            return;
-        }
+    async submit() {
         await updateVersionCommand.execute();
         userContext.identity.showSurveyPopup = false;
-        window.removeEventListener('message', this.submit);
         dialog.close();
     }
     closed() {

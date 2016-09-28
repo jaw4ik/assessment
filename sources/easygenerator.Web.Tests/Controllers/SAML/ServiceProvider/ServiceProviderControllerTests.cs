@@ -46,7 +46,7 @@ namespace easygenerator.Web.Tests.Controllers.SAML.ServiceProvider
         private ITokenProvider _tokenProvider;
         private IDomainEventPublisher _domainEventPublisher;
         private IReleaseNoteFileReader _releaseNoteFileReader;
-        private ISurveyPopupVersionReader _surveyPopupVersionReader;
+        private ISurveyPopupSettingsProvider _surveyPopupVersionReader;
         private ISecureTokenProvider<ISecure<SamlIdPUserInfo>> _secureTokenProvider;
         private ServiceProviderController _controller;
 
@@ -72,7 +72,7 @@ namespace easygenerator.Web.Tests.Controllers.SAML.ServiceProvider
             _tokenProvider = Substitute.For<ITokenProvider>();
             _domainEventPublisher = Substitute.For<IDomainEventPublisher>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
-            _surveyPopupVersionReader = Substitute.For<ISurveyPopupVersionReader>();
+            _surveyPopupVersionReader = Substitute.For<ISurveyPopupSettingsProvider>();
             _secureTokenProvider = Substitute.For<ISecureTokenProvider<ISecure<SamlIdPUserInfo>>>();
             _controller = new ServiceProviderController(_commandProvider, _commandRunner, _signInCommandRunner, _optionsProvider, _userRepository,
                 _samlIdentityProviderRepository, _entityFactory, _tokenProvider, _domainEventPublisher, _releaseNoteFileReader, _secureTokenProvider, _surveyPopupVersionReader);

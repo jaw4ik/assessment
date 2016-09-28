@@ -23,7 +23,7 @@ describe('command [updateVersionCommand]', () => {
 
         it('should send request to the server to update last passed survey version', () => {
             command.execute();
-            expect(apiHttpWrapper.post).toHaveBeenCalled();
+            expect(apiHttpWrapper.post).toHaveBeenCalledWith('/api/user/updatesurveyversion');
         });
 
     });

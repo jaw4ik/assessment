@@ -92,7 +92,7 @@
     <Compile Include="ImageProcessors\MagickImageResizerConfigurator.cs" />
     <Compile Include="IReleaseNoteFileReader.cs" />
     <Compile Include="IScheduler.cs" />
-    <Compile Include="ISurveyPopupVersionReader.cs" />
+    <Compile Include="ISurveyPopupSettingsProvider.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />
     <Compile Include="ITypeMethodInvoker.cs" />

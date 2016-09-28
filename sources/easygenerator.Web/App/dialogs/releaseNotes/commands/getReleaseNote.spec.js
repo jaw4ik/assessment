@@ -2,32 +2,29 @@
 
 import apiHttpWrapper from 'http/apiHttpWrapper';
 
-describe('command [addDropspot]', function () {
+describe('command [addDropspot]', () => {
 
-    describe('execute:', function () {
+    describe('execute:', () => {
 
-        var dfd = Q.defer();
+        let addDropspotPromise;
 
-        beforeEach(function () {
-            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
+        beforeEach(() => {
+            addDropspotPromise = Promise.resolve();
+            spyOn(apiHttpWrapper, 'post').and.returnValue(addDropspotPromise);
         });
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(command.execute).toBeFunction();
         });
 
-        it('should return promise', function () {
+        it('should return promise', () => {
             expect(command.execute()).toBePromise();
         });
 
-        it('should send request to the server to create dropspot', function (done) {
-            dfd.resolve();
-
-            command.execute().then(function () {
-                expect(apiHttpWrapper.post).toHaveBeenCalled();
-                done();
-            });
-        });
+        it('should send request to the server to create dropspot', done => (async () => {
+            await command.execute()
+            expect(apiHttpWrapper.post).toHaveBeenCalled();
+        })().then(done));
 
     });
 });

@@ -35,11 +35,11 @@ namespace easygenerator.Web.Controllers.SAML.ServiceProvider
         private readonly IDomainEventPublisher _domainEventPublisher;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly ISecureTokenProvider<ISecure<SamlIdPUserInfo>> _secureTokenProvider;
-        private readonly ISurveyPopupVersionReader _surveyPopupVersionReader;
+        private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
 
         public ServiceProviderController(ICommandProvider commandProvider, ICommandRunner commandRunner, ISignInCommandRunner signInCommandRunner, IOptionsProvider optionsProvider,
             IUserRepository userRepository, ISamlIdentityProviderRepository samlIdentityProviderRepository, IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher domainEventPublisher,
-            IReleaseNoteFileReader releaseNoteFileReader, ISecureTokenProvider<ISecure<SamlIdPUserInfo>> secureTokenProvider, ISurveyPopupVersionReader surveyPopupVersionReader)
+            IReleaseNoteFileReader releaseNoteFileReader, ISecureTokenProvider<ISecure<SamlIdPUserInfo>> secureTokenProvider, ISurveyPopupSettingsProvider surveyPopupVersionReader)
         {
             _commandProvider = commandProvider;
             _commandRunner = commandRunner;

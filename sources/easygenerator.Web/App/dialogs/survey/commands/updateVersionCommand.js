@@ -2,12 +2,8 @@
 
 'use strict';
 
-class UpdateSurveyVersionCommand {
-    constructor(){ }
-    
-    execute() {
-        return apiHttpWrapper.post('/api/user/updstesurveyversion');
+export default {    
+    execute () {
+        return apiHttpWrapper.post('/api/user/updatesurveyversion');
     }
 }
-
-export default new UpdateSurveyVersionCommand();

@@ -42,11 +42,6 @@ describe('dialog [survey]', () => {
             expect(dialogWidget.show).toHaveBeenCalledWith(survey, constants.dialogs.survey.settings);
         });
 
-        it('should subscribe on postMessage event', () => {
-            survey.show();  
-            expect(window.addEventListener).toHaveBeenCalledWith('message', survey.submit);
-        });
-
         it('should subscribe on dialog close event', () => {
             survey.show();
             expect(dialogWidget.on).toHaveBeenCalledWith(constants.dialogs.dialogClosed, survey.closed);
@@ -71,16 +66,6 @@ describe('dialog [survey]', () => {
             expect(survey.submit).toBeFunction();
         });
 
-        describe('when response origin url did not support', () => {
-            
-            it('should does not update lastPassedSurveyPopupVersion', () => {
-                response.origin = 'fictive url';
-                survey.submit(response);
-                expect(updateVersionCommand.execute).not.toHaveBeenCalled();
-            });
-
-        });
-
         describe('when response origin url supported', () => {
 
             it('should update last passed survey version for user', () => {
@@ -92,11 +77,6 @@ describe('dialog [survey]', () => {
                 userContext.identity.showSurveyPopup = true;
                 await survey.submit(response);
                 expect(userContext.identity.showSurveyPopup).toBeFalsy();
-            })().then(done));
-
-            it('should unsubscribe from postMessage event', done => (async () => {
-                await survey.submit(response);
-                expect(window.removeEventListener).toHaveBeenCalledWith('message', survey.submit);
             })().then(done));
 
             it('should close dialogWidget', done => (async () => {

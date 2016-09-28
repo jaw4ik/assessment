@@ -182,9 +182,10 @@
                     viewModel.router.isViewReady.subscribe(function (value) {
                         if (value) {
                             if (userContext.identity.showReleaseNote) {
-                                releaseNotesDialog.show();
+                                releaseNotesDialog.show(showSurveyPopup);
+                            } else {
+                                showSurveyPopup();
                             }
-                            showSurveyPopup();
                         }
                     });
 

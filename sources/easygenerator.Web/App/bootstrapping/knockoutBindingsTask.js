@@ -9,6 +9,7 @@
     require('components/bindingHandlers/expandableBlockBindingHandler');
     require('components/bindingHandlers/ifExtendedBindingHandler');
     require('components/bindingHandlers/customScrollbarBindingHandler');
+    require('components/bindingHandlers/windowMessageListenerBindingHandler');
     require('components/bindingHandlers/tipBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();
@@ -17,7 +18,6 @@
     require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');
     require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
-    require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
     require('viewmodels/courses/bindingHandlers/tabsBinding');
     require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');

@@ -25,11 +25,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
-        private readonly ISurveyPopupVersionReader _surveyPopupVersionReader;
+        private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
         private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper, IReleaseNoteFileReader fileReader,
-            ISamlServiceProviderRepository samlServiceProviderRepository, ISurveyPopupVersionReader surveyPopupVersionReader, ConfigurationReader configurationReader)
+            ISamlServiceProviderRepository samlServiceProviderRepository, ISurveyPopupSettingsProvider surveyPopupVersionReader, ConfigurationReader configurationReader)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -265,8 +265,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [Route("api/user/updstesurveyversion")]
-        public ActionResult UpdateVersionCommand()
+        [Route("api/user/updatesurveyversion")]
+        public ActionResult UpdateSurveyPopupVersion()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
             user.Settings.UpdateSurveyPopupVersion(_surveyPopupVersionReader.SurveyPopupVersion, GetCurrentUsername());

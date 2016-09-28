@@ -119,6 +119,8 @@ namespace easygenerator.Web.Components.Configuration
 
         public virtual CourseExamplesConfigurationSection CourseExamplesConfiguration => ConfigurationManager.GetSection("courseExamples") as CourseExamplesConfigurationSection;
 
+        public virtual SurveyPopupConfigurationSection SurveyPopup => ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection;
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
@@ -147,11 +149,6 @@ namespace easygenerator.Web.Components.Configuration
         public string ReleaseVersion
         {
             get { return ConfigurationManager.AppSettings["version"]; }
-        }
-
-        public string GetSurveyPopupVersion
-        {
-            get { return (ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection).Version; }
         }
 
         public bool ImageLibraryOnlyHttps

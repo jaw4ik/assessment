@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace easygenerator.Infrastructure
 {
-    public interface ISurveyPopupVersionReader
+    public interface ISurveyPopupSettingsProvider
     {
         string SurveyPopupVersion { get; }
+        string SurveyPopupPageUrl { get; }
+        string SurveyPopupOriginUrl { get; }
+        int SurveyPopupNumberOfDaysUntilShowUp { get; }
     }
 }
