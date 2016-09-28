@@ -105,19 +105,34 @@ describe('organization [OrganizationUser]', () => {
                 });
             });
 
-            describe('when status is waiting for email confirmation', () => {
-                it('should be true', () => {
-                    userData.status = constants.organizationUserStatus.waitingForEmailConfirmation;
-                    user = new OrganizationUser(userData);
-                    expect(user.isWaitingForAcceptance()).toBeTruthy();
-                });
-            });
-
-            describe('when status is NOT waiting for acceptance or waiting for acceptance', () => {
+            describe('when status is NOT waiting for acceptance', () => {
                 it('should be false', () => {
                     userData.status = constants.organizationUserStatus.declined;
                     user = new OrganizationUser(userData);
                     expect(user.isWaitingForAcceptance()).toBeFalsy();
+                });
+            });
+        });
+
+        describe('isWaitingForAccountVerification:', () => {
+            it('should be computed', () => {
+                user = new OrganizationUser(userData);
+                expect(user.isWaitingForAccountVerification).toBeComputed();
+            });
+
+            describe('when status is waiting for email confirmation', () => {
+                it('should be true', () => {
+                    userData.status = constants.organizationUserStatus.waitingForEmailConfirmation;
+                    user = new OrganizationUser(userData);
+                    expect(user.isWaitingForAccountVerification()).toBeTruthy();
+                });
+            });
+
+            describe('when status is NOT waiting for acceptance', () => {
+                it('should be false', () => {
+                    userData.status = constants.organizationUserStatus.declined;
+                    user = new OrganizationUser(userData);
+                    expect(user.isWaitingForAccountVerification()).toBeFalsy();
                 });
             });
         });

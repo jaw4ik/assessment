@@ -89,11 +89,15 @@
 
                         .organization-user-description {
                             font-size: 13px;
+                            line-height: 22px;
                             font-weight: 600;
                             font-style: italic;
                             color: #546677;
                             padding: 0px 10px;
-                            .limited-length-line();
+                            overflow: hidden;
+                            max-width: 100%;
+                            text-overflow: ellipsis;
+                            text-align: center;
 
                             &.emphasized {
                                 color: #42515f;

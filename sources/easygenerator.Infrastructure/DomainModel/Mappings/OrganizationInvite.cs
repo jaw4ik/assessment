@@ -9,5 +9,6 @@ namespace easygenerator.Infrastructure.DomainModel.Mappings
         public string OrganizationTitle { get; set; }
         public string OrganizationAdminFirstName { get; set; }
         public string OrganizationAdminLastName { get; set; }
+        public int Status { get; set; }
     }
 }

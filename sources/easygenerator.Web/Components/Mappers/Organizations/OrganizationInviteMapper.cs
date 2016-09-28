@@ -13,7 +13,8 @@ namespace easygenerator.Web.Components.Mappers.Organizations
                 OrganizationId = invite.OrganizationId.ToNString(),
                 OrganizationAdminFirstName = invite.OrganizationAdminFirstName,
                 OrganizationAdminLastName = invite.OrganizationAdminLastName,
-                OrganizationTitle = invite.OrganizationTitle
+                OrganizationTitle = invite.OrganizationTitle,
+                Status = invite.Status
             };
         }
     }

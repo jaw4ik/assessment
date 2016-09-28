@@ -18,7 +18,11 @@ export default class OrganizationUser {
         this.isReinviting = ko.observable(false);
 
         this.isWaitingForAcceptance = ko.computed(() => {
-            return self.status() === constants.organizationUserStatus.waitingForAcceptance || self.status() === constants.organizationUserStatus.waitingForEmailConfirmation;
+            return self.status() === constants.organizationUserStatus.waitingForAcceptance;
+        });
+
+        this.isWaitingForAccountVerification = ko.computed(() => {
+            return self.status() === constants.organizationUserStatus.waitingForEmailConfirmation;
         });
 
         this.isDeclined = ko.computed(() => {

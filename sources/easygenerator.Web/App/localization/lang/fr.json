@@ -962,6 +962,7 @@
     "confirmMembershipFrom": "De",
     "manageOrganizationUpgradeSubtitle": "pour créer votre propre organisation",
     "manageOrganizationUpgradeText": "<ul><li>Afficher les cours des utilisateurs de votre organisation</li><li>Fournir automatiquement les paramètres par défaut</li><li>Inclure automatiquement les utilisateurs par domaine de messagerie</li></ul>",
+    "notificationAboutEmailVerification": "<div>We have send a verification link to the email address you used to create the account. Verifying your email address ensures strengthened security and allows Easygenerator staff to better assist you if you forget your password. If you don't verify your address, you also may not be able to access certain Easygenerator features.</div><br/>\n\n<div>To verify your account, just check your inbox and click on the link in the Easygenerator verification email.</div><br/>\n\n<div>Kind regards,</div>\n<div>Easygenerator Team</div>",
     "declinedByUser": "Refusé par l'utilisateur",
     "resendInvite": "Renvoyer l'invitation",
     "invitesHaveBeenSucessfullySent": "Les invitations ont été envoyées",

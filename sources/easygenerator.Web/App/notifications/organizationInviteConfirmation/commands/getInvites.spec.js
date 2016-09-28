@@ -2,7 +2,7 @@
 import userContext from 'userContext';
 import constants from 'constants';
 
-describe('notifications organization invite commands [getInvites]', () => {
+describe('notifications organization invite confirmation commands [getInvites]', () => {
 
     beforeEach(() => {
         userContext.identity = {
@@ -11,7 +11,7 @@ describe('notifications organization invite commands [getInvites]', () => {
     });
 
     describe('execute:', () => {
-        var invites = [{ status: constants.organizationUserStatus.waitingForAcceptance }, { status: constants.organizationUserStatus.accepted }];
+        var invites = [{ status: constants.organizationUserStatus.waitingForEmailConfirmation }, { status: constants.organizationUserStatus.accepted }];
 
         it('should return invites', done => (async () => {
             userContext.identity.organizationInvites = invites;

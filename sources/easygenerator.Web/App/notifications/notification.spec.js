@@ -1,21 +1,26 @@
 ﻿import viewModel from './notification';
 
-import subscriptionExpirationController from './subscriptionExpiration/notificationController';
-import collaborationInviteController from './collaborationInvite/notificationController';
+import subscriptionExpirationNotificationController from './subscriptionExpiration/notificationController';
+import collaborationInviteNotificationController from './collaborationInvite/notificationController';
+import organizationInviteNotificationController from './organizationInvite/notificationController';
+import organizationInviteConfirmationNotificationController from './organizationInviteConfirmation/notificationController';
 import app from 'durandal/app';
 import constants from 'constants';
+import _ from 'underscore';
+
+let controllers = [
+    subscriptionExpirationNotificationController,
+    collaborationInviteNotificationController,
+    organizationInviteNotificationController,
+    organizationInviteConfirmationNotificationController
+];
 
 describe('[notifications]', function () {
-    var subscriptionExpirationDefer,
-        collaborationInviteDefer,
-        key = 'key',
+    var key = 'key',
         notification = { id: 'id', key: key };
+
     beforeEach(function () {
         spyOn(app, 'on');
-        subscriptionExpirationDefer = Q.defer();
-        collaborationInviteDefer = Q.defer();
-        spyOn(subscriptionExpirationController, 'execute').and.returnValue(subscriptionExpirationDefer.promise);
-        spyOn(collaborationInviteController, 'execute').and.returnValue(collaborationInviteDefer.promise);
     });
 
     it('should be defined', function () {
@@ -201,34 +206,16 @@ describe('[notifications]', function () {
             expect(app.on).toHaveBeenCalledWith(constants.notification.messages.push, viewModel.pushNotification);
         });
 
+        beforeEach(() => {
+            _.each(controllers, controller => spyOn(controller, 'execute').and.returnValue(Promise.resolve()));
+        });
+
         it('should call controller execute method', function () {
             viewModel.activate();
-            expect(subscriptionExpirationController.execute).toHaveBeenCalled();
-        });
-
-        it('should call subscriptionExpiration controller execute method', function (done) {
-            subscriptionExpirationDefer.resolve();
-            collaborationInviteDefer.resolve();
-            viewModel.activate().fin(function () {
-                expect(subscriptionExpirationController.execute).toHaveBeenCalled();
-                done();
-            });
-        });
-
-        it('should call collaborationInvite controller execute method', function (done) {
-            subscriptionExpirationDefer.resolve();
-            collaborationInviteDefer.resolve();
-            viewModel.activate().fin(function () {
-                expect(collaborationInviteController.execute).toHaveBeenCalled();
-                done();
-            });
+            _.each(controllers, controller => expect(controller.execute).toHaveBeenCalled());
         });
 
         describe('when all controllers are executed', function () {
-            beforeEach(function () {
-                subscriptionExpirationDefer.resolve();
-                collaborationInviteDefer.resolve();
-            });
 
             describe('when collection contains at least one notification', function () {
                 beforeEach(function () {
@@ -237,7 +224,7 @@ describe('[notifications]', function () {
 
                 it('should set active notification to first element in collection', function (done) {
                     viewModel.activeNotification(null);
-                    viewModel.activate().fin(function () {
+                    viewModel.activate().then(function () {
                         expect(viewModel.activeNotification()).toBe(notification);
                         done();
                     });
@@ -251,7 +238,7 @@ describe('[notifications]', function () {
 
                 it('should not set active notification', function (done) {
                     viewModel.activeNotification(null);
-                    viewModel.activate().fin(function () {
+                    viewModel.activate().then(function () {
                         expect(viewModel.activeNotification()).toBeNull();
                         done();
                     });

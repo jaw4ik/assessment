@@ -5,7 +5,7 @@ import userContext from 'userContext';
 import constants from 'constants';
 import app from 'durandal/app';
 
-describe('organization invite [notificationController]', () => {
+describe('organization invite confirmation [notificationController]', () => {
     var firstname = 'user';
 
     beforeEach(() => {
@@ -65,10 +65,10 @@ describe('organization invite [notificationController]', () => {
             organizationTitle: 'titile'
         };
 
-        describe('when invite with status ' + constants.organizationUserStatus.waitingForAcceptance, () => {
+        describe('when invite with status ' + constants.organizationUserStatus.waitingForEmailConfirmation, () => {
 
             beforeEach(() => {
-                invite.status = constants.organizationUserStatus.waitingForAcceptance;
+                invite.status = constants.organizationUserStatus.waitingForEmailConfirmation;
             });
 
             it('should push notification', () => {
@@ -76,7 +76,7 @@ describe('organization invite [notificationController]', () => {
 
                 expect(app.trigger).toHaveBeenCalled();
                 expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.push);
-                expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.organizationInvite + invite.id);
+                expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.organizationInviteConfirmation + invite.id);
                 expect(app.trigger.calls.mostRecent().args[1].userFirstname).toBe(firstname);
                 expect(app.trigger.calls.mostRecent().args[1].organizationAdminFirstname).toBe(invite.organizationAdminFirstName);
                 expect(app.trigger.calls.mostRecent().args[1].organizationAdminLastname).toBe(invite.organizationAdminLastName);
@@ -109,7 +109,7 @@ describe('organization invite [notificationController]', () => {
 
             expect(app.trigger).toHaveBeenCalled();
             expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.remove);
-            expect(app.trigger.calls.mostRecent().args[1]).toBe(constants.notification.keys.organizationInvite + id);
+            expect(app.trigger.calls.mostRecent().args[1]).toBe(constants.notification.keys.organizationInviteConfirmation + id);
         });
     });
 });

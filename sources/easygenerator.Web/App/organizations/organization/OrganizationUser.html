@@ -16,6 +16,9 @@
                 <!-- ko if: isWaitingForAcceptance -->
                 <div class="organization-user-description" data-bind="localize: { text: 'waitingForAcceptance'}"></div>
                 <!-- /ko -->
+                <!-- ko if: isWaitingForAccountVerification -->
+                <div class="organization-user-description" data-bind="localize: { text: 'waitingForAccountVerification'}"></div>
+                <!-- /ko -->
                 <!-- ko if: isDeclined -->
                 <div class="organization-user-description emphasized" data-bind="localize: { text: 'declinedByUser'}"></div>
                 <div class="organization-user-resend-invite-wrapper">
