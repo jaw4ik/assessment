@@ -23,7 +23,7 @@
 
                 statements.forEach(function (statement) {
                     if (_.find(that.options, function (option) {
-                        return option.text === statement.id && option.isCorrect === statement.state;
+                        return option.text === statement.text && option.isCorrect === statement.state;
                     })) {
                         correct++;
                     }
