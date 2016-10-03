@@ -1,9 +1,21 @@
-﻿<div class="tags-widget" data-bind="setFocusByClick: { selector: '.main-input' }, event: { click: unselectAllTags }, css: { active: mainInputFocus, disabled: disabled, invalid: !valid() }, scrollbar:{ checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
-    <!-- ko foreach: collection -->
-    <span class="tag" data-bind="css: { invalid: !isValid(), selected: isSelected }">
-        <input class="tag-input" data-bind="textInput: text, title: text, disable: $parent.disabled, event: { keypress: validateText, keyup: textUpdated }, dynamicWidthInput: { additionalWidth: 5 }"/>
-        <span class="delete-btn" data-bind="click: remove"></span>
-    </span>
-    <!-- /ko -->
-    <input class="main-input" autofocus data-bind="textInput: mainInputValue, disable: disabled, css: { hidden: !mainInputVisibility(), autofocus: autofocus }, attr: { autofocus: autofocus, placeholder: placeholderVisibility() ? placeholder : '' }, hasFocus: mainInputFocus, style: { 'min-width': placeholderVisibility() ? '100%' : 'auto' }, event: { keypress: inputChanged, keydown: backspaceHandler, paste: valuePasted }, dynamicWidthInput: { additionalWidth: 20 }"/>
+﻿<div class="tags-widget-container">
+    <div class="tags-header-container">
+        <span class="tags-header" data-bind="text: header"></span>
+        <!-- ko if: isFileLoading -->
+        <span data-bind="localize: { text: 'uploading' }"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: isFileLoading -->
+        <span data-bind="localize: { text: 'or' }"></span>
+        <a href="#" class="import-tags-btn" data-bind="localize: { text: 'importFromCSV' }, browse: { callback: importTags.bind($data), accept: '.csv'}"></a>    
+        <!-- /ko -->
+    </div>
+    <div class="tags-widget" data-bind="setFocusByClick: { selector: '.main-input' }, event: { click: unselectAllTags }, css: { active: mainInputFocus, disabled: disabled, invalid: !valid() }, scrollbar:{ checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
+        <!-- ko foreach: collection -->
+        <span class="tag" data-bind="css: { invalid: !isValid(), selected: isSelected }">
+            <input class="tag-input" data-bind="textInput: text, title: text, disable: $parent.disabled, event: { keypress: validateText, keyup: textUpdated }, dynamicWidthInput: { additionalWidth: 5 }" />
+            <span class="delete-btn" data-bind="click: remove"></span>
+        </span>
+        <!-- /ko -->
+        <input class="main-input" autofocus data-bind="textInput: mainInputValue, disable: disabled, css: { hidden: !mainInputVisibility(), autofocus: autofocus }, attr: { autofocus: autofocus, placeholder: placeholderVisibility() ? placeholder : '' }, hasFocus: mainInputFocus, style: { 'min-width': placeholderVisibility() ? '100%' : 'auto' }, event: { keypress: inputChanged, keydown: backspaceHandler, paste: valuePasted }, dynamicWidthInput: { additionalWidth: 20 }"/>
+    </div>
 </div>

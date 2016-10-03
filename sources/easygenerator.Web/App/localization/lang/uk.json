@@ -136,6 +136,7 @@
     "imageDeleteConfirmation": "Видалити це зображення?",
     "imageDeleteWarning": "зображення більше не буде доступним в курсах",
     "anyImageFormats": "будь-які формати зображень",
+    "backToImageLibrary": "Повернутися до бібліотеки зображень",
     "learningObjectives": "Розділи / Цілі",
     "learningObjective": "Розділ / Ціль",
     "learningObjectiveWithColon": "Розділ / Ціль:",
@@ -638,6 +639,10 @@
     "enterEmailOfExistingUser": "Введіть електронну адресу існуючого користувача easygenerator",
     "addPerson": "Додати співавтора",
     "inviteByEmailAddress": "Email співавтора",
+    "importFromCSV": "загрузити з CSV",
+    "fileUploadError": "Помилка при завантаженні файла.",
+    "fileFormatNotSupportedUseCsv": "Формат файла не підтримується. Будь ласка, використовуйте CSV.",
+    "noValidEmailsError": "Відсутні коректні електронні адреси",
     "addPeopleForCollaboration": "Додати співавтора",
     "addCollaborator": "Додати співавтора",
     "notEnoughPermissionsErrorMessage": "Недостатньо прав для завершення операції",
@@ -815,7 +820,7 @@
     "buttonTextColor": "Колір тексту кнопок",
     "contentBodyColor": "Колір блоків матеріалу",
     "correctColor": "Колір правильної відповіді",
-    "incorrectColor": "Колір не правильної відповіді",
+    "incorrectColor": "Колір неправильної відповіді",
     "theme": "Тема",
     "upgradeAccountHintBackgroundSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний фон",
     "upgradeAccountHintLogoSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний логотип",
@@ -988,5 +993,5 @@
     "anyImagesFormatsOr": "будь-які формати картинок, або",
     "surveyMode": "Анкетування",
     "responseForLearnerAnswer": "Відгук викладача",
-    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer. In addition to that, the question will be excluded from scoring."
+    "surveyModeCaption": "Ви можете використовувати це, тоді, коли Ви хочете запитити в учня (наприклад, якими навичками він володіє). Тут немає правильно чи не правильної відповіді та це питання буде виключено з підрахунку прогресу"
 }
