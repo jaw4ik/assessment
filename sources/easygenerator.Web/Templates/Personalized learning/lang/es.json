@@ -64,5 +64,6 @@
     "[login explanation]": "* Al aceptar cualquiera de las opciones anteriores, está de acuerdo en que se almacenen sus resultados y puntuaciones. Estos resultados sólo serán visibles para el organizador (autor) del curso.",
     "[login skip]": "Omitir el paso, iniciar de forma anónima",
     "[confirn your name and email]": "De acuerdo, el nombre y la dirección de correo electrónico son correctos",
-    "[login header]": "Preséntese"
+    "[login header]": "Preséntese",
+    "[survey mode caption]": "La respuesta no afectará a su progreso"
 }
