@@ -2,6 +2,7 @@
 import _ from 'underscore';
 import localizationManager from 'localization/localizationManager';
 import guard from 'guard';
+import notify from 'notify';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -57,6 +58,11 @@ export default class {
         this.disabled = activationData.disabled;
         this.validationPattern = activationData.validationPattern || DEFAULT_PATTERN;
         this.valid = ko.isObservable(activationData.valid) ? activationData.valid : ko.observable(true);
+        this.isFileLoading = ko.observable(false);
+
+        if (!_.isNullOrUndefined(activationData.headerKey)) {
+            this.header = localizationManager.localize(activationData.headerKey);
+        }
 
         if (!_.isNullOrUndefined(activationData.placeholderKey)) {
             this.placeholder = localizationManager.localize(activationData.placeholderKey);
@@ -64,7 +70,7 @@ export default class {
 
         this.collection(_.map(this.inputCollection(), text => this.createTag(text)));
     }
-
+    
     mainInputUpdated(newValue) {
         if (this.validationPattern.test(newValue)) {
             if (this.temporaryTagIncluded) {
@@ -103,6 +109,24 @@ export default class {
         _.each(this.collection(), item => item.isSelected(false));
     }
 
+    parseDataToCollection(data) {
+        let prevCollectionLength = this.collection().length,
+            tags = data.replace(/(?:\r\n|\r|\n)/g, ' ').split(/,|;| /);
+
+        _.chain(tags)
+            .filter(tagText => !_.isEmpty(tagText))
+            .each(tagText => {
+                let tag = this.createTag(tagText);
+                if (tag.isValid()) {
+                    this.collection.push(tag);
+                }
+            });
+
+        if (this.collection().length === prevCollectionLength) {
+            notify.error(localizationManager.localize('noValidEmailsError'));
+        }
+    }
+
     valuePasted(data, event) {
         let clipboard = (event.originalEvent || event).clipboardData;
         if (_.isNullOrUndefined(clipboard)) {
@@ -113,13 +137,34 @@ export default class {
         if (_.isEmpty(pastedData)) {
             return true;
         }
-
-        let tags = pastedData.split(/,|;| /);
-        _.chain(tags)
-            .filter(tagText => !_.isEmpty(tagText))
-            .each(tagText => this.collection.push(this.createTag(tagText)));
-
+        this.parseDataToCollection(pastedData);
         return false;
+    }
+    
+    importTags(file) {
+        try {
+            if (!file.name.toLowerCase().match(/\.csv$/)) {
+                notify.error(localizationManager.localize('fileFormatNotSupportedUseCsv'));
+                return;
+            }
+
+            let reader = new FileReader();
+            let viewModel = this;
+
+            reader.onload = () => {
+                viewModel.parseDataToCollection(reader.result);
+                viewModel.isFileLoading(false);
+            }
+            reader.onerror = () => {
+                notify.error(localizationManager.localize('fileUploadError'));
+                viewModel.isFileLoading(false);
+            }
+
+            this.isFileLoading(true);
+            reader.readAsText(file);
+        } catch (e) {
+            notify.error(localizationManager.localize('fileUploadError') + ' ' + e);
+        }
     }
 
     inputChanged(data, event) {

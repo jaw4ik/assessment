@@ -2472,110 +2472,144 @@ ol.circles-list {
 /*#region tags widget */
 
 @default-border-color: #c6d1d8;
-@active-border-color: #469cd5;
+@active-border-color: #469dd5;
 @error-border-color: #953b39;
+@import-btn-hover-color: #1b8bd3;
+@header-color: #464d5d;
 
-.tags-widget {
-    position: relative;
-    padding: 6px;
-    border-radius: 3px;
-    border: 1px solid @default-border-color;
+.tags-widget-container {
 
-    &:hover {
-        box-shadow: 0 0 2px @default-border-color;
+    .tags-header-container {
+        font: 12px 'OpenSans';
+        margin-top: 20px;
+        padding: 15px 0;
+
+        span {
+            text-transform: lowercase;
+            color: @main-color;
+
+            &.tags-header {
+                color: @header-color;
+                font-family: 'OpenSans-Semibold', sans-serif;
+                font-size: 20px;
+                text-transform: none;
+            }
+        }
+
+        .import-tags-btn {
+            color: @active-border-color;
+            text-decoration: underline;
+
+            &:hover {
+                color: @import-btn-hover-color;
+            }
+        }
     }
 
-    &.active {
-        border-color: @active-border-color;
-        box-shadow: 0 0 2px @active-border-color;
-    }
 
-    &.invalid {
-        border-color: @error-border-color;
-        box-shadow: 0 0 2px @error-border-color;
-    }
 
-    &.disabled {
-        opacity: 0.6;
-        pointer-events: none;
-    }
-
-    .tag {
+    .tags-widget {
         position: relative;
-        display: inline-block;
-        max-width: 300px;
-        height: 20px;
-        margin: 3px 2px 3px 0;
-        padding: 0 20px 0 3px;
-        border: 1px solid #a5d7a7;
+        padding: 6px;
         border-radius: 3px;
-        background-color: #edf7ed;
-        vertical-align: middle;
+        border: 1px solid @default-border-color;
 
-        &.selected {
-            background-color: #a5d7a7;
+        &:hover {
+            box-shadow: 0 0 2px @default-border-color;
+        }
+
+        &.active {
+            border-color: @active-border-color;
+            box-shadow: 0 0 2px @active-border-color;
         }
 
         &.invalid {
-            border-color: #fbbdb8;
-            background-color: #fde2e0;
+            border-color: @error-border-color;
+            box-shadow: 0 0 2px @error-border-color;
+        }
+
+        &.disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .tag {
+            position: relative;
+            display: inline-block;
+            max-width: 300px;
+            height: 20px;
+            margin: 3px 2px 3px 0;
+            padding: 0 20px 0 3px;
+            border: 1px solid #a5d7a7;
+            border-radius: 3px;
+            background-color: #edf7ed;
+            vertical-align: middle;
 
             &.selected {
-                background-color: #fbbdb8;
+                background-color: #a5d7a7;
+            }
+
+            &.invalid {
+                border-color: #fbbdb8;
+                background-color: #fde2e0;
+
+                &.selected {
+                    background-color: #fbbdb8;
+                }
+            }
+
+            .tag-input {
+                display: block;
+                max-width: 100%;
+                padding: 0;
+                border: none;
+                border-radius: 3px;
+                background-color: transparent;
+                font: 13px 'Open Sans';
+                color: #42515f;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                outline: none;
+            }
+
+            .delete-btn {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: inline-block;
+                width: 20px;
+                height: 100%;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQxMUVDRTZGMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQxMUVDRTcwMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RDExRUNFNkQyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RDExRUNFNkUyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz49abu9AAAADFBMVEX///9CUV9CUV9CUV+7Hmj8AAAABHRSTlMAWVqzwsIkTQAAACBJREFUCB1jCGBl2CLHoFvBwP2Agf0Cg9wWhgpdhgVcAEEWBbAo6rjWAAAAAElFTkSuQmCC") 6px 5px no-repeat;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.1);
+                }
             }
         }
 
-        .tag-input {
-            display: block;
-            max-width: 100%;
-            padding: 0;
+        .main-input {
+            min-width: 20px;
+            max-width: 90%;
+            margin: 5px 0;
             border: none;
-            border-radius: 3px;
-            background-color: transparent;
-            font: 13px 'Open Sans';
-            color: #42515f;
-            overflow: hidden;
-            text-overflow: ellipsis;
             outline: none;
-        }
+            vertical-align: middle;
+            .placeholder-color(#9ba8b4);
 
-        .delete-btn {
-            position: absolute;
-            right: 0;
-            top: 0;
-            display: inline-block;
-            width: 20px;
-            height: 100%;
-            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQxMUVDRTZGMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQxMUVDRTcwMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RDExRUNFNkQyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RDExRUNFNkUyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz49abu9AAAADFBMVEX///9CUV9CUV9CUV+7Hmj8AAAABHRSTlMAWVqzwsIkTQAAACBJREFUCB1jCGBl2CLHoFvBwP2Agf0Cg9wWhgpdhgVcAEEWBbAo6rjWAAAAAElFTkSuQmCC") 6px 5px no-repeat;
-            cursor: pointer;
+            &.hidden {
+                opacity: 0;
+            }
 
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.1);
+            &[disabled] {
+                background-color: transparent;
             }
         }
-    }
 
-    .main-input {
-        min-width: 20px;
-        max-width: 90%;
-        margin: 5px 0;
-        border: none;
-        outline: none;
-        vertical-align: middle;
-        .placeholder-color(#9ba8b4);
-
-        &.hidden {
-            opacity: 0;
+        .ps-scrollbar-y-rail {
+            margin-top: 9px;
+            margin-bottom: 9px;
         }
-
-        &[disabled] {
-            background-color: transparent;
-        }
-    }
-
-    .ps-scrollbar-y-rail {
-        margin-top: 9px;
-        margin-bottom: 9px;
     }
 }
 

@@ -25,6 +25,7 @@ class AddPeople {
         this.isValid(true);
         this.courseId = courseId;
         this.isShown(true);
+        this.emails([]);
     }
 
     hide() {

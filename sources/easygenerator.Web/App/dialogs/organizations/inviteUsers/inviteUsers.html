@@ -1,12 +1,9 @@
 ﻿<div class="modal-dialog-wrapper invite-organization-users" data-bind="ifExtended: { value: isShown, delayOnFalse: 300 }, dialog: { autoclose: true, isShown: isShown, onHide: hide.bind($data) }, css: { visible: isShown}, lockScroll: { lock: isShown }">
     <div class="modal-dialog-close-btn" data-bind="click: hide.bind($data)"></div>
-    <header class="modal-dialog-header">
-        <div class="modal-dialog-header-text" data-bind="localize: { text: 'inviteUsers' }"></div>
-    </header>
     <div class="modal-dialog-content">
         <form class="invite-organization-users-form" data-bind="submit: submit">
             <div class="modal-dialog-form-row">
-                <div data-bind="tags: { collection: emails, autofocus: true, disabled: isProcessing, valid: isValid, placeholderKey: 'inviteByEmailAddress', validationPattern: emailValidationPattern }"></div>
+                <div data-bind="tags: { collection: emails, autofocus: true, disabled: isProcessing, valid: isValid, headerKey: 'inviteUsers', placeholderKey: 'inviteByEmailAddress', validationPattern: emailValidationPattern }"></div>
                 <div class="users-list-input-description" data-bind="localize: { text: 'useSpaceCommaOrSemocolonBtwEmails'}"></div>
             </div>
             <div class="action-item-btn-wrapper">

@@ -547,3 +547,82 @@ img:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.switcher-wrapper {
+    display: flex;
+
+    .switch-toggle-slider {
+        flex: 0 0 auto;
+        margin-right: 10px;
+
+        &.on {
+            box-shadow: 0 0 0 1px #61b472;
+        }
+
+        .switch-toggle-on {
+            background-color: #65bd77;
+        }
+
+        &.off {
+            box-shadow: 0 0 0 1px #8fa2ae;
+        }
+
+        .switch-toggle-off {
+            background-color: #9db2c0;
+        }
+    }
+
+    .switch-description {
+        flex: 1 1 auto;
+        font-family: 'OpenSans';
+        color: #63798e;
+
+        .title {
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+        }
+
+        .help-tooltip {
+            position: relative;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-left: 5px;
+            vertical-align: middle;
+            background: url('images/sprites_16.png') -126px -189px no-repeat;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                background: url('images/sprites_16.png') -147px -189px no-repeat;
+                opacity: 0;
+                transition: opacity .2s linear;
+            }
+
+            &:hover {
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.enabled {
+            .title {
+                color: #42515f;
+            }
+
+            .subtitle {
+                color: #546677;
+            }
+        }
+    }
+}

@@ -9,6 +9,19 @@
         height: 100%;
         overflow: hidden;
     }
+
+    .switcher-wrapper{
+        margin-bottom: 13px;
+
+        .switch-description{
+            .title{
+                cursor: pointer;
+                &:hover{
+                    color: #42515f;
+                }
+            }
+        }
+    }
 }
 
 .question {
@@ -2198,72 +2211,3 @@
 }
 
 /*#endregion*/
-
-/*#region survey mode*/
-
-.survey-swither-container {
-    
-    .switcher {
-        display: inline-block;
-        margin-bottom: 13px;
-
-        &.reverse{
-            .switch-toggle-slider{
-                transform: rotate(180deg);
-            }
-        }
-
-        .switch-toggle-slider {
-            margin: 0 4px;
-            border-width: 1px;
-            border-style: solid;
-            transition: border-color 0.1s linear;
-
-            &.off {
-                border-color: #8fa2ae;
-
-                .switch-toogle-blob {
-                    border-color: #8fa2ae;
-                }
-            }
-
-            &.on {
-                border-color: #61b472;
-
-                 .switch-toogle-blob {
-                    border-color: #61b472;
-                }
-            }
-
-            .switch-toggle-wrapper {
-                .switch-toogle-blob {
-                    width: 18px;
-                    height: 100%;
-                    border-width: 1px;
-                    border-style: solid;
-                    transition: border-color 0.1s linear;
-                }
-
-                .switch-toggle-off {
-                    background-color: #9db2c0;
-                }
-            }
-        }
-
-        .switch-toggle-on {
-            margin-left: -15px;
-            background-color: #65bd77;
-        }
-
-        .switcher-text {
-            font-size: 13px;
-            color: #63798e;
-
-            &.selected {
-                color: #42515f;
-            }
-        }
-    }
-}
-
-/*#endregion survey mode*/

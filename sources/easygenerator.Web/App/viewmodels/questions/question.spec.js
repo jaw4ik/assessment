@@ -11,6 +11,7 @@ import multipleSelect from 'viewmodels/questions/multipleSelect/multipleSelect';
 import learningContents from 'viewmodels/learningContents/learningContents';
 import feedback from 'viewmodels/questions/feedback';
 import moveCopyDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
+import notify from 'notify';
 
 let question = {
     id: 'questionId',
@@ -334,6 +335,103 @@ describe('viewModel [question]', () => {
 
         });
 
+    });
+
+    describe('_changeIsSurvey:', () => {
+
+        let promise;
+        beforeEach(() => {
+            promise = Promise.resolve({});
+            spyOn(questionRepository, 'updateIsSurvey').and.returnValue(promise);
+            viewModel.surveyModeIsChanging(false);
+            spyOn(notify, 'saved');
+        });
+
+        describe('when survey mode enabled', () => {
+                
+            it('should disable survey mode', done => (async () => {
+                viewModel.isSurvey(true);
+                await viewModel.toggleIsSurvey();
+                expect(viewModel.isSurvey()).toBeFalsy();
+            })().then(done));
+
+        });
+
+        describe('and when survey mode disabled', () => {
+                
+            it('should disable survey mode', done => (async () => {
+                viewModel.isSurvey(false);
+                await viewModel.toggleIsSurvey();
+                expect(viewModel.isSurvey()).toBeTruthy();
+            })().then(done));
+
+            it('should send event "Switch to the survey mode {QUESTION_TYPE}"', done => (async () => {
+                viewModel.isSurvey(false);
+                await viewModel.toggleIsSurvey();
+                expect(eventTracker.publish)
+                    .toHaveBeenCalledWith(`Switch to the survey mode (${viewModel.questionType})`);
+            })().then(done));
+
+        });
+
+        it('should start changing survey mode', done => (async () => {
+            await viewModel.toggleIsSurvey();
+            expect(viewModel.surveyModeIsChanging()).toBeTruthy();
+        })().then(done));
+
+        it('should change survey mode on the server', done => (async () => {
+            await viewModel.toggleIsSurvey();
+            expect(questionRepository.updateIsSurvey).toHaveBeenCalledWith(viewModel.questionId, viewModel.isSurvey());
+        })().then(done));
+
+        it('should stop changing after one second', done => (async () => {
+            await viewModel.toggleIsSurvey();
+            _.delay(() => {
+                expect(viewModel.surveyModeIsChanging()).toBeFalsy();
+            }, 1000);
+        })().then(done));
+
+        it('should show notify saved after one second', done => (async () => {
+            await viewModel.toggleIsSurvey();
+            _.delay(() => {
+                expect(notify.saved()).toHaveBeenCalled();
+            }, 1000);
+        })().then(done));
+
+    });
+
+    describe('toggleIsSurvey:', () => {
+        let promise;
+        beforeEach(() => {
+            promise = Promise.resolve({});
+            spyOn(viewModel, '_changeIsSurvey').and.returnValue(promise);
+        });
+
+        describe('when mode changing in process', () => {
+
+            beforeEach(() => {
+                viewModel.surveyModeIsChanging(true);
+            });
+
+            it('should do nothing', done => (async () => {
+                await viewModel.toggleIsSurvey();
+                expect(viewModel._changeIsSurvey).not.toHaveBeenCalled();
+            })().then(done));
+
+        });
+
+        describe('when mode changing not in process', () => {
+
+            beforeEach(() => {
+                viewModel.surveyModeIsChanging(false);
+            });
+
+            it('should change survey mode', done => (async () => {
+                await viewModel.toggleIsSurvey();
+                expect(viewModel._changeIsSurvey).toHaveBeenCalled();
+            })().then(done));
+
+        });
     });
 
     describe('back:', () => {
