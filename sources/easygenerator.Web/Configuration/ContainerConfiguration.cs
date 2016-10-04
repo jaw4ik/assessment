@@ -320,6 +320,7 @@ namespace easygenerator.Web.Configuration
             #endregion
 
             builder.RegisterType<ReleaseNoteFileReader>().As<IReleaseNoteFileReader>().SingleInstance();
+            builder.RegisterType<SurveyPopupSettingsProvider>().As<ISurveyPopupSettingsProvider>().SingleInstance();
 
             var container = builder.Build();
 

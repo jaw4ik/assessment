@@ -17,6 +17,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         private const string Role = "Teacher";
         private const string Organization = "Easygenerator";
         private const string LastReadReleaseNote = "";
+        private const string SurveyPopupVersion = "";
 
         public static User CreateWithPassword(string password)
         {
@@ -68,6 +69,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             string createdBy = CreatedBy,
             AccessType accessType = AccessType.Trial,
             string lastReadReleaseNote = LastReadReleaseNote,
+            string surveyPopupVersion = SurveyPopupVersion,
             DateTime? expirationDate = null,
             bool isCreatedThroughLti = false,
             bool isCreatedThroughSamlIdP = false,
@@ -75,7 +77,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             ICollection<SamlServiceProvider> allowedSamlSPs = null,
             bool isEmailConfirmed = false)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate,
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, surveyPopupVersion, expirationDate,
                 isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, isEmailConfirmed);
         }
     }

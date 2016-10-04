@@ -119,6 +119,8 @@ namespace easygenerator.Web.Components.Configuration
 
         public virtual CourseExamplesConfigurationSection CourseExamplesConfiguration => ConfigurationManager.GetSection("courseExamples") as CourseExamplesConfigurationSection;
 
+        public virtual SurveyPopupConfigurationSection SurveyPopup => ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection;
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }

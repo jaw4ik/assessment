@@ -9,10 +9,11 @@ namespace easygenerator.DomainModel.Entities
         {
         }
 
-        public UserSettings(string createdBy, string lastReadReleaseNote, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
+        public UserSettings(string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
         : base(createdBy)
         {
             LastReadReleaseNote = lastReadReleaseNote;
+            LastPassedSurveyPopup = lastPassedSurveyPopup;
             IsCreatedThroughLti = isCreatedThroughLti;
             IsCreatedThroughSamlIdP = isCreatedThroughSamlIdP;
             NewEditor = newEditor;
@@ -29,6 +30,16 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             LastReadReleaseNote = lastReadReleaseNote;
+            MarkAsModified(modifiedBy);
+        }
+
+        public string LastPassedSurveyPopup { get; private set; }
+        public void UpdateSurveyPopupVersion(string surveyPopupVersion, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(surveyPopupVersion, nameof(surveyPopupVersion));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            LastPassedSurveyPopup = surveyPopupVersion;
             MarkAsModified(modifiedBy);
         }
 

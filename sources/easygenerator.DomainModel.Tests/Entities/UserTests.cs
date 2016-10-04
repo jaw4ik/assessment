@@ -203,8 +203,9 @@ namespace easygenerator.DomainModel.Tests.Entities
             var role = "Teacher";
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
+            var lastPassedSurveyPopup = "1";
 
-            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, new DateTime(1999, 12, 30));
+            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, lastPassedSurveyPopup, new DateTime(1999, 12, 30));
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
         }
 
@@ -222,12 +223,13 @@ namespace easygenerator.DomainModel.Tests.Entities
             var creationDate = CurrentDate;
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
+            var lastPassedSurveyPopup = "1";
             var company = new Company();
             var samlSP = new SamlServiceProvider();
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, false, new Collection<Company>() { company }, new Collection<SamlServiceProvider>() { samlSP }, false);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, lastPassedSurveyPopup, expirationDate, false, false, new Collection<Company>() { company }, new Collection<SamlServiceProvider>() { samlSP }, false);
 
             //Assert
             user.Id.Should().NotBeEmpty();

@@ -2,8 +2,8 @@
 
 'use strict';
 
-export default {
+export default {    
     execute () {
-        return apiHttpWrapper.post('/api/releasenote/get');
+        return apiHttpWrapper.post('/api/user/updatesurveyversion');
     }
 }

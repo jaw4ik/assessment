@@ -25,10 +25,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
+        private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
         private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper, IReleaseNoteFileReader fileReader,
-            ISamlServiceProviderRepository samlServiceProviderRepository, ConfigurationReader configurationReader)
+            ISamlServiceProviderRepository samlServiceProviderRepository, ISurveyPopupSettingsProvider surveyPopupVersionReader, ConfigurationReader configurationReader)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -36,6 +37,7 @@ namespace easygenerator.Web.Controllers.Api
             _mailSenderWrapper = mailSenderWrapper;
             _releaseNoteFileReader = fileReader;
             _samlServiceProviderRepository = samlServiceProviderRepository;
+            _surveyPopupVersionReader = surveyPopupVersionReader;
             _configurationReader = configurationReader;
         }
 
@@ -185,7 +187,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Country, profile.UserRole, profile.Email, _releaseNoteFileReader.GetReleaseVersion());
+                profile.Country, profile.UserRole, profile.Email, _releaseNoteFileReader.GetReleaseVersion(), "");
 
             _repository.Add(user);
 
@@ -259,6 +261,16 @@ namespace easygenerator.Web.Controllers.Api
                 _samlServiceProviderRepository.Add(coggnoServiceProvider);
             }
             user.Allow(coggnoServiceProvider, user.Email);
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/user/updatesurveyversion")]
+        public ActionResult UpdateSurveyPopupVersion()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            user.Settings.UpdateSurveyPopupVersion(_surveyPopupVersionReader.SurveyPopupVersion, GetCurrentUsername());
+
             return JsonSuccess();
         }
     }
