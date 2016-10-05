@@ -14,6 +14,10 @@ var buildUtils = buildUtilsModule();
 var outputDirectory = args.output || 'D:/Applications/easygenerator',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
+    originUrl = typeof args.originUrl === 'string' && args.originUrl !== '' ? args.originUrl : '',
+    pageUrl = typeof args.pageUrl === 'string' && args.pageUrl !== '' ? args.pageUrl : '',
+    surveyVersion = typeof args.surveyVersion === 'string' && args.surveyVersion !== '' ? args.surveyVersion : '1',
+    numberOfDaysUntilShowUp = typeof args.numberOfDaysUntilShowUp === 'string' && args.numberOfDaysUntilShowUp !== '' ? args.numberOfDaysUntilShowUp : '1',
     createTags = Boolean(args.createTags);
 	
 var samlCertsFolderName = 'EgSamlIdPCertificates';
@@ -111,12 +115,20 @@ gulp.task('add-version', function (cb) {
     cb();
 });
 
+gulp.task('add-popup-data', function (cb) {
+    xmlpoke(outputDirectory + '/Web.config', function (webConfig) {
+        webConfig.withBasePath('configuration')
+            .setOrAdd("surveyPopup[@originUrl='originUrl' and @pageUrl='pageUrl' and @version='surveyVersion' and @numberOfDaysUntilShowUp='numberOfDaysUntilShowUp']", originUrl, pageUrl, surveyVersion, numberOfDaysUntilShowUp);
+    });
+    cb();
+});
+
 gulp.task('clean', function (callback) {
     del([outputDirectory], { force: true }, callback);
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'run-unit-tests', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'include-saml-certificates', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
+    runSequence('build', 'run-unit-tests', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'include-saml-certificates', 'deploy-web-config', 'remove-extra-files', 'add-version', 'add-popup-data', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {
