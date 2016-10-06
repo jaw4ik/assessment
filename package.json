@@ -56,7 +56,7 @@
     "q": "^1.4.1",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.2",
-    "xmlpoke": "^0.1.9",
+    "xmlpoke": "^0.1.12",
     "yargs": "^3.19.0"
   },
   "jspm": {
