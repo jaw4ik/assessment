@@ -73,12 +73,6 @@ describe('dialog [survey]', () => {
                 expect(updateVersionCommand.execute).toHaveBeenCalled();
             });
 
-            it('should update lastPassedSurveyPopup', done => (async () => {
-                userContext.identity.showSurveyPopup = true;
-                await survey.submit(response);
-                expect(userContext.identity.showSurveyPopup).toBeFalsy();
-            })().then(done));
-
             it('should close dialogWidget', done => (async () => {
                 await survey.submit(response);
                 expect(dialogWidget.close).toHaveBeenCalled();
@@ -95,6 +89,12 @@ describe('dialog [survey]', () => {
 
         it('should be function', () => {
             expect(survey.closed).toBeFunction();
+        });
+
+        it('should update showSurveyPopup', () => {
+            userContext.identity.showSurveyPopup = true;
+            survey.closed();
+            expect(userContext.identity.showSurveyPopup).toBeFalsy();
         });
 
         it('should unsubscribe event dialog close', () => {

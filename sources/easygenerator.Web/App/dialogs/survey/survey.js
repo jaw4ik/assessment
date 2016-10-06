@@ -21,10 +21,10 @@ class SurveyPopup {
     }
     async submit() {
         await updateVersionCommand.execute();
-        userContext.identity.showSurveyPopup = false;
         dialog.close();
     }
     closed() {
+        userContext.identity.showSurveyPopup = false;
         dialog.off(constants.dialogs.dialogClosed, this.closed);
     }
 }
