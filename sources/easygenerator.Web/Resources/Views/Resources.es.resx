@@ -403,4 +403,17 @@ El equipo de easygenerator&lt;/p&gt;
   <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
     <value>Ha confirmado correctamente su dirección de correo electrónico.</value>
   </data>
+  <data name="InviteUserToTheCourseBody" xml:space="preserve">
+    <value>Hola,
+&lt;br&gt;&lt;br&gt;
+Se le ha registrado en el curso en línea &lt;strong&gt;"{1}"&lt;/strong&gt;.
+&lt;br&gt;&lt;br&gt;
+Haga clic en el vínculo siguiente para empezar:
+&lt;br&gt;
+&lt;a href="{2}" target="_blank"&gt;{2}&lt;/a&gt;
+&lt;br&gt;&lt;br&gt;
+Gracias,
+&lt;br&gt;
+{0}</value>
+  </data>
 </root>

@@ -409,4 +409,17 @@ easygenerator 团队&lt;/p&gt;
   <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
     <value>您已成功确认邮箱地址。</value>
   </data>
+  <data name="InviteUserToTheCourseBody" xml:space="preserve">
+    <value>您好，
+&lt;br&gt;&lt;br&gt;
+您已报名参加了在线课程 &lt;strong&gt;“{1}”&lt;/strong&gt;.
+&lt;br&gt;&lt;br&gt;
+请单击以下链接开始：
+&lt;br&gt;
+&lt;a href="{2}" target="_blank"&gt;{2}&lt;/a&gt;
+&lt;br&gt;&lt;br&gt;
+谢谢，
+&lt;br&gt;
+{0}</value>
+  </data>
 </root>
