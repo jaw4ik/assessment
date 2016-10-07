@@ -1,9 +1,9 @@
 ﻿using System;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using System.Configuration;
 using easygenerator.Web.Components.Configuration.CourseExamples;
 using easygenerator.Web.Components.Configuration.SAML;
+using easygenerator.Web.Components.Configuration.DataDog;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -48,6 +48,8 @@ namespace easygenerator.Web.Components.Configuration
                 return ConfigurationManager.GetSection("mailChimp") as MailChimpConfigurationSection;
             }
         }
+
+        public virtual DataDogStatsDClientConfigurationSection DataDogStatsDClientConfiguration => ConfigurationManager.GetSection("dataDogStatsDClient") as DataDogStatsDClientConfigurationSection;
 
         public virtual ExternalApiSection ExternalApi
         {

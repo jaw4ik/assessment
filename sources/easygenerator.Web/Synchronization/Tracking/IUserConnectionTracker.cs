@@ -10,6 +10,8 @@ namespace easygenerator.Web.Synchronization.Tracking
 
         int GetConnectionsCount();
 
+        int GetOnlineUsersCount();
+
         IEnumerable<string> GetOnlineUsersCollection();
     }
 }

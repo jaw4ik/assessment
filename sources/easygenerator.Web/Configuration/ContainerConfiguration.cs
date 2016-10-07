@@ -41,6 +41,7 @@ using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
+using easygenerator.Web.DataDog;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.Coggno;
 using easygenerator.Web.Publish.External;
@@ -225,9 +226,16 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region DataDog
+
+            builder.RegisterType<DataDogStatsDClient>().As<IDataDogStatsDClient>().SingleInstance();
+
+            #endregion
+
             #region Scheduler
 
             builder.RegisterType<Scheduler>().SingleInstance();
+            builder.RegisterType<DataDogReporterTask>().SingleInstance();
             builder.RegisterType<CacheExpirationTaskInvoker>().As<ITaskInvoker>().SingleInstance();
 
             builder.RegisterType<PasswordRecoveryTicketExpirationTask>().InstancePerLifetimeScope();
