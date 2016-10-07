@@ -110,7 +110,7 @@
             viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
             clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
-            return userContext.identify().then(function () {
+            return Q.fcall(function () {
                 viewModel.courses(_.map(dataContext.courses, mapCourse));
 
                 viewModel.availableTemplates(_.map(dataContext.templates, mapTemplate));

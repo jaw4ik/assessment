@@ -69,11 +69,12 @@ describe('viewModel [learningPath publish]', function () {
     });
 
     describe('activate:', function () {
-        var identifyDefer;
+        var company = { name: 'Company' };
 
         beforeEach(function () {
-            identifyDefer = Q.defer();
-            spyOn(userContext, 'identify').and.returnValue(identifyDefer.promise);
+            userContext.identity = {
+                companies: [{ id: 'companyId', priority: 0, name: 'companyName' }]
+            };
         });
 
         it('should be function', function () {
@@ -83,44 +84,28 @@ describe('viewModel [learningPath publish]', function () {
         it('should return promise', function () {
             var result = viewModel.activate('learningPathId');
             expect(result).toBePromise();
+        });           
+
+        it('should set publishToCustomLmsModels', function (done) {
+            viewModel.publishToCustomLmsModels = [];
+
+            viewModel.activate().fin(function () {
+                expect(viewModel.publishToCustomLmsModels.length).toBe(1);
+                expect(viewModel.publishToCustomLmsModels[0].company).toBe(userContext.identity.companies[0]);
+                expect(viewModel.publishToCustomLmsModels[0].model.activate).toBeFunction();
+                done();
+            });
         });
 
-        it('should identify user', function () {
-            viewModel.activate('learningPathId');
-            expect(userContext.identify).toHaveBeenCalled();
-        });
+        it('should set learningPathId', function (done) {
+            viewModel.laerningPathId = '';
 
-        describe('when user is identified', function () {
-            var company = { name: 'Company' };
-            beforeEach(function () {
-                identifyDefer.resolve();
-                userContext.identity = {
-                    companies: [{ id: 'companyId', priority: 0, name: 'companyName' }]
-                };
+            var promise = viewModel.activate('learningPathId');
+
+            promise.fin(function () {
+                expect(viewModel.learningPathId).toBe('learningPathId');
+                done();
             });
-
-            it('should set publishToCustomLmsModels', function (done) {
-                viewModel.publishToCustomLmsModels = [];
-
-                viewModel.activate().fin(function () {
-                    expect(viewModel.publishToCustomLmsModels.length).toBe(1);
-                    expect(viewModel.publishToCustomLmsModels[0].company).toBe(userContext.identity.companies[0]);
-                    expect(viewModel.publishToCustomLmsModels[0].model.activate).toBeFunction();
-                    done();
-                });
-            });
-
-            it('should set learningPathId', function (done) {
-                viewModel.laerningPathId = '';
-
-                var promise = viewModel.activate('learningPathId');
-
-                promise.fin(function () {
-                    expect(viewModel.learningPathId).toBe('learningPathId');
-                    done();
-                });
-            });
-
         });
 
     });

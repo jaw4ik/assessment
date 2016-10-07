@@ -130,16 +130,11 @@ describe('viewModel [courses]', function () {
 
     describe('activate:', function () {
 
-        var identifyUserDeferred;
-
         beforeEach(function () {
 
             dataContext.courses = courses;
             dataContext.templates = templates;
-
-            identifyUserDeferred = Q.defer();
-
-            spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
+            userContext.identity = { email: 'user@user.com' }
         });
 
         it('should return promise', function () {
@@ -153,200 +148,159 @@ describe('viewModel [courses]', function () {
 
         it('should create available sort list array', function(done){
 
-            identifyUserDeferred.resolve();
-
             viewModel.activate().fin(function(){
                 expect(viewModel.sortingOptions.recentlyModified).toBe('recentlyModified');
                 done();
             });
         });
 
-        it('should identify user', function (done) {
-
-            identifyUserDeferred.resolve();
+        it('should set courses data from dataContext', function (done) {
 
             viewModel.activate().fin(function () {
-                expect(userContext.identify).toHaveBeenCalled();
+                expect(viewModel.courses().length).toEqual(5);
                 done();
             });
         });
 
-        describe('when user identified successfully', function () {
+        it('should set templates data from dataContext', function (done) {
 
-            beforeEach(function () {
-                userContext.identity = { email: 'user@user.com' }
+            viewModel.activate().fin(function () {
+                expect(viewModel.availableTemplates().length).toEqual(3);
+                done();
             });
-
-            it('should set courses data from dataContext', function (done) {
-
-                identifyUserDeferred.resolve();
-
-                viewModel.activate().fin(function () {
-                    expect(viewModel.courses().length).toEqual(5);
-                    done();
-                });
-            });
-
-            it('should set templates data from dataContext', function (done) {
-
-                identifyUserDeferred.resolve();
-
-                viewModel.activate().fin(function () {
-                    expect(viewModel.availableTemplates().length).toEqual(3);
-                    done();
-                });
-            });            
+        });            
             
-            it('should set isCreateCourseAvailable', function (done) {
-                identifyUserDeferred.resolve();
-                spyOn(limitCoursesAmount, 'checkAccess').and.returnValue(false);
+        it('should set isCreateCourseAvailable', function (done) {
+            spyOn(limitCoursesAmount, 'checkAccess').and.returnValue(false);
 
+            viewModel.activate().fin(function () {
+                expect(viewModel.isCreateCourseAvailable()).toBe(limitCoursesAmount.checkAccess());
+                done();
+            });
+        });
+
+        it('should set availableTemplates first item', function(done) {
+
+            viewModel.activate().fin(function () {
+                expect(viewModel.availableTemplates()[0]).toBeObject();
+                expect(viewModel.availableTemplates()[0].name).toBe(localizationManager.localize('all'));                    
+                expect(viewModel.availableTemplates()[0].count).toBeObservable();
+                expect(viewModel.availableTemplates()[0].count()).toBe(5);
+                done();
+            });
+        });            
+
+        it('should set default coursesSortOrder value', function(done) {
+            localStorage.removeItem('coursesSortOrder');
+                                
+            viewModel.activate().fin(function () {
+                expect(viewModel.coursesSortOrder()).toBe('recentlyModified');
+                done();
+            });
+        });
+
+        it('should set coursesSortOrder value from localStorage', function(done) {        
+            localStorage.setItem('coursesSortOrder', 'alphanumeric');
+
+            viewModel.activate().fin(function () {
+                expect(viewModel.coursesSortOrder()).toBe('alphanumeric');
+                done();
+            });
+        });
+
+        describe('coursesTemplateFilter ', function() {
+                                
+            it('should be observable ', function(done) {
+                                
                 viewModel.activate().fin(function () {
-                    expect(viewModel.isCreateCourseAvailable()).toBe(limitCoursesAmount.checkAccess());
-                    done();
+                    expect(viewModel.coursesTemplateFilter).toBeObservable();
+                    done(); 
                 });
             });
 
-            it('should set availableTemplates first item', function(done) {
-                identifyUserDeferred.resolve();
-
+                
+            it('should call getCoursesSubCollection after changes', function(done) {                   
+                
                 viewModel.activate().fin(function () {
-                    expect(viewModel.availableTemplates()[0]).toBeObject();
-                    expect(viewModel.availableTemplates()[0].name).toBe(localizationManager.localize('all'));                    
-                    expect(viewModel.availableTemplates()[0].count).toBeObservable();
-                    expect(viewModel.availableTemplates()[0].count()).toBe(5);
-                    done();
-                });
-            });            
+                    viewModel.coursesTemplateFilter(templates[0].name);
 
-            it('should set default coursesSortOrder value', function(done) {
-                identifyUserDeferred.resolve();
-                localStorage.removeItem('coursesSortOrder');
+                    expect(viewModel.ownedCourses().length).toBe(2);
+                    done(); 
+                });
+            }); 
+        });
+
+        describe('coursesTitleFilter ', function() {
+                
+            it('should be observable ', function(done) {
                                 
                 viewModel.activate().fin(function () {
-                    expect(viewModel.coursesSortOrder()).toBe('recentlyModified');
-                    done();
+                    expect(viewModel.coursesTitleFilter).toBeObservable();
+                    done(); 
                 });
             });
 
-            it('should set coursesSortOrder value from localStorage', function(done) {
-                identifyUserDeferred.resolve();                                
-                localStorage.setItem('coursesSortOrder', 'alphanumeric');
+                
+            it('should filter courses by title after changes', function(done) {
 
                 viewModel.activate().fin(function () {
-                    expect(viewModel.coursesSortOrder()).toBe('alphanumeric');
-                    done();
+                    viewModel.coursesTitleFilter('Test Course 4');
+
+                    expect(viewModel.organizationCourses().length).toBe(1);
+                    done(); 
+                });
+            });   
+
+            it('should filter courses by user email after changes', function(done) {
+
+                viewModel.activate().fin(function () {
+                    viewModel.coursesTitleFilter('someone');
+
+                    expect(viewModel.organizationCourses().length).toBe(2);
+                    done(); 
                 });
             });
 
-            describe('coursesTemplateFilter ', function() {
-                                
-                it('should be observable ', function(done) {
-                    identifyUserDeferred.resolve();
-                                
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.coursesTemplateFilter).toBeObservable();
-                        done(); 
-                    });
+            it('should filter courses by user name after changes', function(done) {
+
+                viewModel.activate().fin(function () {
+                    viewModel.coursesTitleFilter('User second');
+
+                    expect(viewModel.organizationCourses().length).toBe(2);
+                    done(); 
                 });
-
-                
-                it('should call getCoursesSubCollection after changes', function(done) {
-                    identifyUserDeferred.resolve();                                
-                
-                    viewModel.activate().fin(function () {
-                        viewModel.coursesTemplateFilter(templates[0].name);
-
-                        expect(viewModel.ownedCourses().length).toBe(2);
-                        done(); 
-                    });
-                }); 
             });
 
-            describe('coursesTitleFilter ', function() {
-                
-                it('should be observable ', function(done) {
-                    identifyUserDeferred.resolve();
-                                
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.coursesTitleFilter).toBeObservable();
-                        done(); 
-                    });
+            it('should not filter courses by current user email after changes', function(done) {
+
+                viewModel.activate().fin(function () {
+                    viewModel.coursesTitleFilter('user@user.com');
+
+                    expect(viewModel.organizationCourses().length).toBe(0);
+                    done(); 
                 });
+            });
 
-                
-                it('should filter courses by title after changes', function(done) {
-                    identifyUserDeferred.resolve();
+            it('should not filter courses by current user name after changes', function(done) {
 
-                    viewModel.activate().fin(function () {
-                        viewModel.coursesTitleFilter('Test Course 4');
+                viewModel.activate().fin(function () {
+                    viewModel.coursesTitleFilter('User first');
 
-                        expect(viewModel.organizationCourses().length).toBe(1);
-                        done(); 
-                    });
-                });   
-
-                it('should filter courses by user email after changes', function(done) {
-                    identifyUserDeferred.resolve();
-
-                    viewModel.activate().fin(function () {
-                        viewModel.coursesTitleFilter('someone');
-
-                        expect(viewModel.organizationCourses().length).toBe(2);
-                        done(); 
-                    });
-                });
-
-                it('should filter courses by user name after changes', function(done) {
-                    identifyUserDeferred.resolve();
-
-                    viewModel.activate().fin(function () {
-                        viewModel.coursesTitleFilter('User second');
-
-                        expect(viewModel.organizationCourses().length).toBe(2);
-                        done(); 
-                    });
-                });
-
-                it('should not filter courses by current user email after changes', function(done) {
-                    identifyUserDeferred.resolve();
-
-                    viewModel.activate().fin(function () {
-                        viewModel.coursesTitleFilter('user@user.com');
-
-                        expect(viewModel.organizationCourses().length).toBe(0);
-                        done(); 
-                    });
-                });
-
-                it('should not filter courses by current user name after changes', function(done) {
-                    identifyUserDeferred.resolve();
-
-                    viewModel.activate().fin(function () {
-                        viewModel.coursesTitleFilter('User first');
-
-                        expect(viewModel.organizationCourses().length).toBe(0);
-                        done(); 
-                    });
+                    expect(viewModel.organizationCourses().length).toBe(0);
+                    done(); 
                 });
             });
         });
     });
 
     describe('courses length visible: ', function() {
-        var identifyUserDeferred;
 
         beforeEach(function () {
             dataContext.courses = courses;
             dataContext.templates = templates;
-
-            identifyUserDeferred = Q.defer();
-
-            spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
         });
 
         it('should courses length visible be observable', function(done) {
-            identifyUserDeferred.resolve();
 
             viewModel.activate().fin(function(){
                 expect(viewModel.isCoursesListEmpty).toBeObservable();
@@ -357,21 +311,15 @@ describe('viewModel [courses]', function () {
     });
 
     describe('course mapper:', function() {
-        var identifyUserDeferred;
 
         beforeEach(function () {
             dataContext.courses = courses;
             dataContext.templates = templates;
-
-            identifyUserDeferred = Q.defer();
-
-            spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
         });
 
         describe('if course createdByName is clear', function(){
 
             it('should set email in createdByName field', function(done) {
-                identifyUserDeferred.resolve();
 
                 viewModel.activate().fin(function(){
 
@@ -384,19 +332,12 @@ describe('viewModel [courses]', function () {
 
     describe('getCoursesSubCollection:', function() {
 
-        var identifyUserDeferred;
-
         beforeEach(function () {
             dataContext.courses = courses;
             dataContext.templates = templates;
-
-            identifyUserDeferred = Q.defer();
-
-            spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
         });
 
         it('should set invisible to courses with another template', function(done) {
-            identifyUserDeferred.resolve();
 
             viewModel.activate().fin(function(){
                 viewModel.coursesTemplateFilter(templates[1].name);
@@ -408,7 +349,6 @@ describe('viewModel [courses]', function () {
 
         describe('recently modified ', function(){
             it('should sort course list', function(done) {
-                identifyUserDeferred.resolve();
 
                 viewModel.activate().fin(function() {
                     viewModel.coursesSortOrder('recentlyModified');
@@ -421,7 +361,6 @@ describe('viewModel [courses]', function () {
 
         describe('recently created ', function(){
             it('should sort course list', function(done) {
-                identifyUserDeferred.resolve();
 
                 viewModel.activate().fin(function() {
                     viewModel.coursesSortOrder('recentlyCreated');      
@@ -434,7 +373,6 @@ describe('viewModel [courses]', function () {
 
         describe('alphanumeric ', function(){
             it('should sort course list', function(done) {
-                identifyUserDeferred.resolve();
 
                 viewModel.activate().fin(function() {
                     viewModel.coursesSortOrder('alphanumeric');

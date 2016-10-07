@@ -20,7 +20,7 @@
         viewModel.courseId = settings.courseId;
         viewModel.sectionId = settings.sectionId;
 
-        return userContext.identify().then(function () {
+        return Q.fcall(function () {
             viewModel.questions([
                 {
                     type: constants.questionType.informationContent.type,
