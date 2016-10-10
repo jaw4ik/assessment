@@ -124,6 +124,8 @@
         'dialogs/organizations/removeUser/removeUser.spec',
         'dialogs/organizations/inviteUsers/inviteUsers.spec',
         'dialogs/themes/delete/deleteTheme.spec',
+        'dialogs/survey/commands/updateVersionCommand.spec',
+        'dialogs/survey/survey.spec',
         //#endregion dialogs
 
         //#region errorHandling

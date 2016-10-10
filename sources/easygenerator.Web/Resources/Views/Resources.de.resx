@@ -410,4 +410,17 @@ easygenerator Team&lt;/p&gt;
   <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
     <value>Sie haben Ihre E-Mail Adresse erfolgreich bestätigt.</value>
   </data>
+  <data name="InviteUserToTheCourseBody" xml:space="preserve">
+    <value>Hallo,
+&lt;br&gt;&lt;br&gt;
+Sie haben sich zum Online-Kurs &lt;strong&gt;"{1}"&lt;/strong&gt; angemeldet.
+&lt;br&gt;&lt;br&gt;
+Bitte klicken Sie auf den nachstehenden Link, um zu beginnen:
+&lt;br&gt;
+&lt;a href="{2}" target="_blank"&gt;{2}&lt;/a&gt;
+&lt;br&gt;&lt;br&gt;
+Vielen Dank!
+&lt;br&gt;
+{0}</value>
+  </data>
 </root>

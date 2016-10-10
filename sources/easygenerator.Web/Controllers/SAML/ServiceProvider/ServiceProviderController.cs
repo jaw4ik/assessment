@@ -35,10 +35,11 @@ namespace easygenerator.Web.Controllers.SAML.ServiceProvider
         private readonly IDomainEventPublisher _domainEventPublisher;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly ISecureTokenProvider<ISecure<SamlIdPUserInfo>> _secureTokenProvider;
+        private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
 
         public ServiceProviderController(ICommandProvider commandProvider, ICommandRunner commandRunner, ISignInCommandRunner signInCommandRunner, IOptionsProvider optionsProvider,
             IUserRepository userRepository, ISamlIdentityProviderRepository samlIdentityProviderRepository, IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher domainEventPublisher,
-            IReleaseNoteFileReader releaseNoteFileReader, ISecureTokenProvider<ISecure<SamlIdPUserInfo>> secureTokenProvider)
+            IReleaseNoteFileReader releaseNoteFileReader, ISecureTokenProvider<ISecure<SamlIdPUserInfo>> secureTokenProvider, ISurveyPopupSettingsProvider surveyPopupVersionReader)
         {
             _commandProvider = commandProvider;
             _commandRunner = commandRunner;
@@ -51,6 +52,7 @@ namespace easygenerator.Web.Controllers.SAML.ServiceProvider
             _domainEventPublisher = domainEventPublisher;
             _releaseNoteFileReader = releaseNoteFileReader;
             _secureTokenProvider = secureTokenProvider;
+            _surveyPopupVersionReader = surveyPopupVersionReader;
         }
 
         [Route("saml/sp/login/{idP}")]
@@ -134,7 +136,7 @@ namespace easygenerator.Web.Controllers.SAML.ServiceProvider
             var userPassword = Guid.NewGuid().ToString("N");
 
             var user = _entityFactory.User(email, userPassword, firstName, lastName, samlMockData, samlMockData, samlMockData, email, AccessType.Trial,
-                _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddDays(trialPeriodDays), false, true, null, null);
+                _releaseNoteFileReader.GetReleaseVersion(), _surveyPopupVersionReader.SurveyPopupVersion, DateTimeWrapper.Now().AddDays(trialPeriodDays), false, true, null, null);
 
             user.AddSamlIdPUserInfo(idP);
             _userRepository.Add(user);

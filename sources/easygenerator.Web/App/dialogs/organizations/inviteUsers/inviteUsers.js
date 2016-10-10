@@ -29,6 +29,7 @@ class InviteUsers{
         this.isValid(true);
         this.organizationId = organizationId;
         this.isShown(true);
+        this.emails([]);
     }
 
     hide() {

@@ -17,7 +17,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
+            AccessType accessPlan, string lastReadReleaseNote, string lastReadSurveyPopup, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
             ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null, bool isEmailConfirmed = false,
             bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
             : base(createdBy)
@@ -42,7 +42,7 @@ namespace easygenerator.DomainModel.Entities
             AllowedSamlServiceProviders = allowedSamlServiceProviders ?? new Collection<SamlServiceProvider>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
             SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
-            Settings = new UserSettings(createdBy, lastReadReleaseNote, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
+            Settings = new UserSettings(createdBy, lastReadReleaseNote, lastReadSurveyPopup, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
 
             AccessType = accessPlan;
 

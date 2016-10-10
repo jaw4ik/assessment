@@ -169,7 +169,10 @@ class QuestionViewModel  {
         if (this.surveyModeIsChanging()) {
             return;
         }
-        
+
+        await this._changeIsSurvey();
+    }
+    async _changeIsSurvey() {
         this.isSurvey(!this.isSurvey());
 
         this.isSurvey() && this.eventTracker.publish(`${events.switchToSurveyMode} (${this.questionType})`);
@@ -184,7 +187,6 @@ class QuestionViewModel  {
         } catch (e) {
             this.surveyModeIsChanging(false);
         }
-        
     }
     setActiveViewModel(question) {
         var activeViewModel = questionViewModelFactory[question.type];

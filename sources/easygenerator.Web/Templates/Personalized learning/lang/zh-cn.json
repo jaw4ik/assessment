@@ -64,5 +64,6 @@
     "[login explanation]": "*通过用以上任一选项进行确认，表明您同意您的成绩和分数将被存储。只有课程的组织者（作者）才可看到这些成绩。",
     "[login skip]": "跳过步骤，匿名启动",
     "[confirn your name and email]": "好，姓名和电子邮件正确无误",
-    "[login header]": "介绍您自己"
+    "[login header]": "介绍您自己",
+    "[survey mode caption]": "答案不会对您的进度有任何影响"
 }

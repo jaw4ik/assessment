@@ -6,7 +6,7 @@
                 <div data-bind="preloader: { settings: 'align-center', styles: { top: '300px' } }"></div>
                 <!-- /ko -->
                 <!-- ko if: settingsAvailable -->
-                <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: configureSettingsUrl() + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + templateId() }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
+                <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: configureSettingsUrl() + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + templateId() }, event: { load: frameLoaded }, windowMessageListener: { callBack: onGetTemplateMessage }" frameborder="0" width="100%" height="2500px"></iframe>
                 <!-- /ko -->
                 <!-- ko ifnot: settingsAvailable -->
                 <span data-bind="localize: { text: 'templateConfigureSettingsNotAvailable' }">Sorry, but the selected template doesn't contain configure settings</span>

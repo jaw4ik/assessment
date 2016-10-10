@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'routing/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
     'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
-'editor/dialogs/editorFeedback/editorFeedback'],
+'editor/dialogs/editorFeedback/editorFeedback', 'dialogs/survey/survey'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, releaseNotesDialog, httpWrapper, editorFeedbackDialog) {
+        constants, leftSideBarManager, widget, releaseNotesDialog, httpWrapper, editorFeedbackDialog, survey) {
 
         "use strict";
 
@@ -182,10 +182,18 @@
                     viewModel.router.isViewReady.subscribe(function (value) {
                         if (value) {
                             if (userContext.identity.showReleaseNote) {
-                                releaseNotesDialog.show();
-                            } 
+                                releaseNotesDialog.show(showSurveyPopup);
+                            } else {
+                                showSurveyPopup();
+                            }
                         }
                     });
+
+                    function showSurveyPopup() {
+                        if (userContext.identity.showSurveyPopup) {
+                            survey.show();                            
+                        }
+                    }
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')
