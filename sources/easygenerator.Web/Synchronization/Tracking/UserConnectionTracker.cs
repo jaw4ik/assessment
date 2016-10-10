@@ -33,6 +33,11 @@ namespace easygenerator.Web.Synchronization.Tracking
             return _connections.Count;
         }
 
+        public int GetOnlineUsersCount()
+        {
+            return GetOnlineUsersCollection().Count();
+        }
+
         public IEnumerable<string> GetOnlineUsersCollection()
         {
             return _connections.Values.Distinct();

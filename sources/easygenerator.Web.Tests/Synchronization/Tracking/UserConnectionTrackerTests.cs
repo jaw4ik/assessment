@@ -174,6 +174,24 @@ namespace easygenerator.Web.Tests.Synchronization.Tracking
 
         #endregion
 
+        #region GetOnlineUsersCount
+
+        [TestMethod]
+        public void GetOnlineUsersCount_ShouldReturnOnlineUsersCount()
+        {
+            //Arrange
+            var userConnectionTracker = new UserConnectionTracker();
+            userConnectionTracker.AddConnection("connection1", "user");
+            userConnectionTracker.AddConnection("connection2", "user2");
+            //Act
+
+
+            //Assert
+            Assert.AreEqual(userConnectionTracker.GetOnlineUsersCollection().Count(), userConnectionTracker.GetOnlineUsersCount());
+        }
+
+        #endregion
+
         #region GetOnlineUsersCollection
 
         [TestMethod]
