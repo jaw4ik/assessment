@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('assessment.publishSettings')
+    angular.module('bootstrapping')
            .service('publishModuleLoader', PublishModuleLoader);
 
     PublishModuleLoader.$inject = ['$q', '$window'];

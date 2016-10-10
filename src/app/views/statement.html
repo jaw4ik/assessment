@@ -1,6 +1,6 @@
 ﻿<div class="statements">
     <tooltip>{{ '[statement question hint]' | translate }}</tooltip>
-
+    <tooltip ng-if="question.isSurveyMode">{{ '[survey mode caption]' | translate }}</tooltip>
     <div class="answers statements-list">
         <div class="answer-pair" ng-repeat="statement in question.statements">
             <div class="answer-container" ng-if="$even">

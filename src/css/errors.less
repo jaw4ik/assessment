@@ -67,6 +67,63 @@
                 }
             }
 
+            &.noaccess-error {
+                .error-content-wrapper {
+                    .display-flex;
+                    .flex-direction(row);
+                    margin: 0 auto;
+                    padding: 100px 0;
+                    max-width: 600px;
+                    overflow: hidden;
+
+                    .noaccess-icon {
+                        text-align: center;
+
+                        .icon-attention {
+                            top: -50px;
+                            position: relative;
+                            font-size: 40px;
+                            color: #43aaa3;
+
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                width: 88px;
+                                height: 88px;
+                                border-radius: 50%;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background-color: fade(#43aaa3,10%);
+                            }
+                        }
+                    }
+
+                    .error-message-container {
+                        .flex(1 1 auto);
+                        padding: 55px 45px 0;
+                        text-align: left;
+                        line-height: 26px;
+                        .border-box;
+
+                        .error-message {
+                            font: 22px 'RobotoslabLight';
+                            .crop-text-by-size-with-dots-multiline(100%);
+                        }
+
+                        .button.large {
+                            min-width: 200px;
+                            max-width: 350px;
+                        }
+                    }
+
+                    .error-button-container {
+                        margin-top: 40px;
+                        text-align: center;
+                    }
+                }
+            }
+
             &.xapi-error {
                 max-width: 755px;
                 margin: 100px auto 0;
@@ -227,6 +284,18 @@
 
                         .button.default {
                             margin-right: 0;
+                        }
+                    }
+                }
+
+                &.noaccess-error {
+                    .error-content-wrapper {
+                        .noaccess-icon {
+                            text-align: center;
+
+                            .icon-attention {
+                                top: -30px;
+                            }
                         }
                     }
                 }

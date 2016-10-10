@@ -11,7 +11,8 @@
                 scope: '='
             },
             link: function ($scope, element) {
-                $(element).draggable({
+                $(element).css('touch-action','none');
+				$(element).draggable({
                     containment: 'document',
                     appendTo: $(element).closest('section'),
                     helper: function () {

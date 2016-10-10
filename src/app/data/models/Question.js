@@ -8,7 +8,7 @@
     factory.$inject = ['$q', '$rootScope', 'LearningContent', 'htmlContentLoader'];
 
     function factory($q, $rootScope, LearningContent, htmlContentLoader) {
-        return function Question(sectionId, id, title, hasContent, learningContents, type, _protected) {
+        return function Question(sectionId, id, title, hasContent, learningContents, type, _protected, isSurvey) {
             var that = this;
             that.id = id;
             that.sectionId = sectionId;
@@ -16,6 +16,12 @@
 
             that.hasContent = hasContent;
             that.content = null;
+            that.affectProgress = true;
+
+            if(typeof isSurvey !== 'undefined'){
+                that.isSurvey = isSurvey;
+                that.affectProgress = !that.isSurvey;
+            }
 
             that.learningContents = learningContents.map(function (learningContent) {
                 var learningContentUrl = 'content/' + that.sectionId + '/' + that.id + '/' + learningContent.id + '.html';

@@ -15,6 +15,8 @@
             that.title = question.title;
             that.content = question.content;
             that.hint = new HintViewModel(question);
+
+            that.isSurveyMode = question.hasOwnProperty('isSurvey') && question.isSurvey;
             
             that.getType = function () {
                 throw 'Could not determine question type for question #' + that.id + ' (' + question.title + ')';

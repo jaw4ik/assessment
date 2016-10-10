@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ng="http://angularjs.org">
-
 <head>
     <title ng-bind="$root.title"></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta name="viewport" content="width=800,maximum-scale=1.0">
-
     <!-- build:css(src) css/vendor.css -->
-    <link href="vendor/easygenerator-plugins/dist/styles.css" rel="stylesheet"/>
+    <link href="vendor/easygenerator-plugins/dist/styles.css" rel="stylesheet" />
     <link href="vendor/angular-dragula/dist/dragula.css" rel="stylesheet" />
     <!-- endbuild -->
-
     <link href="css/styles.css" rel="stylesheet" />
 </head>
-
 <body>
     <div id="main-app">
         <div class="container" ng-view autoscroll="true"></div>
@@ -23,9 +19,7 @@
             <div class="color-ball blue">&nbsp;</div>
             <div class="color-ball yellow">&nbsp;</div>
         </div>
-
         <div ng-controller="ImagePreviewController as preview">
-
             <div class="overlay-container" ng-style="{'display' : preview.visible? 'block': 'none'}">
                 <div class="overlay" ng-click="preview.hide()">
                 </div>
@@ -45,10 +39,8 @@
                 </div>
             </div>
         </div>
-
         <footer></footer>
     </div>
-
     <!-- build:js(src) app/vendor.js  -->
     <script src="vendor/components-webfontloader/webfontloader.js"></script>
     <script src="vendor/easygenerator-plugins/dist/plugins.js"></script>
@@ -65,13 +57,12 @@
     <script src="vendor/autosize/dist/autosize.js"></script>
     <script src="vendor/angular-dragula/dist/angular-dragula.js"></script>
     <!-- endbuild -->
-
     <script type="text/javascript">
         supportedBrowser.configure({
             browsers: {
                 win: {
                     chrome: {},
-                    firefox: {},    
+                    firefox: {},
                     msie: {},
                     edge: {}
                 },
@@ -127,12 +118,9 @@
             }
         }).init();
     </script>
-
     <!-- build:js(src) app/app.js  -->
     <script src="app/app.js" type="text/javascript"></script>
-
     <script src="app/factories/eventPublisher.js"></script>
-
     <script src="app/data/models/Assessment.js"></script>
     <script src="app/data/models/Question.js"></script>
     <script src="app/data/models/SingleSelectText.js"></script>
@@ -148,7 +136,6 @@
     <script src="app/data/models/Hotspot.js"></script>
     <script src="app/data/models/Section.js"></script>
     <script src="app/data/models/LearningContent.js"></script>
-
     <script src="app/controllers/viewmodels/DragAndDropTextViewModel.js"></script>
     <script src="app/controllers/viewmodels/QuestionViewModel.js"></script>
     <script src="app/controllers/viewmodels/SingleSelectImageViewModel.js"></script>
@@ -162,27 +149,25 @@
     <script src="app/controllers/viewmodels/ScenarioQuestionViewModel.js"></script>
     <script src="app/controllers/viewmodels/RankingTextViewModel.js"></script>
     <script src="app/controllers/viewmodels/HintViewModel.js"></script>
-
     <script src="app/data/queries/sectionsQueries.js" type="text/javascript"></script>
     <script src="app/data/dataContext.js" type="text/javascript"></script>
-
     <script src="app/factories/imagePreviewFactory.js"></script>
     <script src="app/factories/questionsFactory.js"></script>
     <script src="app/factories/questionDataProcessor.js"></script>
     <script src="app/factories/viewmodelsFactory.js"></script>
-
     <script src="app/filters/leadingZeros.js"></script>
     <script src="app/filters/time.js"></script>
-    
+
+    <script src="app/services/accessLimiter.js"></script>
     <script src="app/services/attemptsLimiter.js"></script>
     <script src="app/services/timer.js"></script>
     <script src="app/services/htmlContentLoader.js"></script>
     <script src="app/services/questionPool.js"></script>
+    <script src="app/services/userContext.js"></script>
 
     <script src="app/providers/settingsProvider.js"></script>
     <script src="app/providers/htmlTemplatesCacheProvider.js"></script>
     <script src="app/providers/userProvider.js"></script>
-
     <script src="app/directives/widgets/tooltip.js"></script>
     <script src="app/directives/widgets/radio.js"></script>
     <script src="app/directives/widgets/checkbox.js"></script>
@@ -190,13 +175,11 @@
     <script src="app/directives/widgets/imageLoader.js"></script>
     <script src="app/directives/widgets/imageFullscreenPreview.js"></script>
     <script src="app/directives/widgets/clickableArea.js"></script>
-
     <script src="app/directives/statement.js"></script>
     <script src="app/directives/textMatching.js"></script>
     <script src="app/directives/singleSelectImage.js"></script>
     <script src="app/directives/rankingText.js"></script>
     <script src="app/directives/scrollControl.js"></script>
-
     <script src="app/directives/adjustDropspotWidth.js"></script>
     <script src="app/directives/draggable.js"></script>
     <script src="app/directives/droppable.js"></script>
@@ -204,7 +187,6 @@
     <script src="app/directives/blankInput.js"></script>
     <script src="app/directives/blankSelect.js"></script>
     <script src="app/directives/styledContent.js"></script>
-
     <script src="app/directives/entireHeight.js"></script>
     <script src="app/directives/slideToggle.js"></script>
     <script src="app/directives/showToggle.js"></script>
@@ -213,17 +195,16 @@
     <script src="app/directives/mainBackground.js"></script>
     <script src="app/directives/hint.js"></script>
     <script src="app/directives/timer.js"></script>
-
+    <script src="app/directives/loginLeaveAnimation.js"></script>
     <script src="app/controllers/ImagePreviewController.js"></script>
     <script src="app/controllers/MainController.js"></script>
     <script src="app/controllers/SummaryController.js"></script>
     <script src="app/controllers/NotFoundErrorController.js"></script>
-
+    <script src="app/controllers/NoAccessController.js"></script>
+    <script src="app/controllers/LoginController.js"></script>
     <script src="app/modules/xApi/xApi.js" type="text/javascript"></script>
     <script src="app/modules/xApi/controllers/XApiErrorController.js" type="text/javascript"></script>
-    <script src="app/modules/xApi/controllers/XApiLoginController.js" type="text/javascript"></script>
     <script src="app/modules/xApi/directives/courseTitle.js" type="text/javascript"></script>
-    <script src="app/modules/xApi/directives/loginLeaveAnimation.js" type="text/javascript"></script>
     <script src="app/modules/xApi/xApi/configuration/interactionTypes.js"></script>
     <script src="app/modules/xApi/xApi/configuration/settings.js"></script>
     <script src="app/modules/xApi/xApi/configuration/supportedQuestionTypes.js"></script>
@@ -250,18 +231,18 @@
     <script src="app/modules/xApi/xApi/requestManager.js"></script>
     <script src="app/modules/xApi/xApi/statementsStorage.js"></script>
     <script src="app/modules/xApi/xApi/xApiManager.js"></script>
-    
+
     <script src="app/modules/progressStoring/progressStorer.js"></script>
-    
-    <script src="app/modules/publishSettings/publishSettings.js" type="text/javascript"></script>  
-    <script src="app/modules/publishSettings/services/publishModuleLoader.js" type="text/javascript"></script>
+
+    <script src="app/modules/publishSettings/publishSettings.js" type="text/javascript"></script>
     <script src="app/modules/publishSettings/services/publishModulesInitializer.js" type="text/javascript"></script>
     <script src="app/modules/publishSettings/providers/publishSettingsProvider.js" type="text/javascript"></script>
-
+    <script src="app/modules/publishSettings/providers/publishModulesProvider.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/bootstrapping.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/services/webFontLoaderService.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/services/fileReadingService.js" type="text/javascript"></script>
-   
+    <script src="app/modules/bootstrapping/services/publishModuleLoader.js" type="text/javascript"></script>
+
     <script src="app/modules/bootstrapping/tasks/detectDevice.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/tasks/loadFonts.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/tasks/readSettings.js" type="text/javascript"></script>
@@ -270,8 +251,7 @@
     <script src="app/modules/bootstrapping/tasks/preloadHtml.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/tasks/authentication.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/starter.js" type="text/javascript"></script>
-   
+
     <!-- endbuild -->
 </body>
-
 </html>
