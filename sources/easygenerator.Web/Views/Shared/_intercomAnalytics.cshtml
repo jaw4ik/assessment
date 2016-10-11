@@ -7,6 +7,7 @@
         (function () {
             var w = window;
             var ic = w.Intercom;
+
             if (typeof ic === "function") {
                 ic('reattach_activator');
                 ic('update', intercomSettings);
@@ -32,6 +33,12 @@
                     w.addEventListener('load', l, false);
                 }
             }
+
+            Intercom('onShow', function () {
+                if (HS && HS.beacon && HS.beacon.close) {
+                    HS.beacon.close();
+                }
+            });
         })();
         window.analytics = { intercomapp_id: '@((ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection).AppId)' };
     </script>

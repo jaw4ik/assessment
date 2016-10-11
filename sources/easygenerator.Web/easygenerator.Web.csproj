@@ -3849,6 +3849,7 @@
     <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
     <Content Include="Views\Shared\notSupportedPage.cshtml" />
     <Content Include="Views\Shared\_googleAnalytics.cshtml" />
+    <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
     <Content Include="Views\Shared\_nudgespotAnalytics.cshtml" />
@@ -3897,7 +3898,6 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
     <Content Include="Views\Dashboard\UserSearch.cshtml" />
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
@@ -3923,6 +3923,7 @@
     <Content Include="Views\Account\EmailConfirmed.cshtml" />
     <Content Include="Views\CrossProtocolStorage\index.cshtml" />
     <Content Include="Views\IdentityProvider\Auth.cshtml" />
+    <Content Include="Views\Shared\_helpscoutBeacon.cshtml" />
     <Content Include="Templates\Assessment\lang\nb-no.json" />
     <Content Include="Templates\Assessment\lang\nn-no.json" />
     <Content Include="Views\Shared\_sentryTracking.cshtml" />

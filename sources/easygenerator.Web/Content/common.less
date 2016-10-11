@@ -604,3 +604,44 @@ img:hover {
         }
     }
 }
+
+
+
+
+/* Helpscout Beacon styles */
+
+#hs-beacon > div > iframe:first-child {
+    right: 11px !important;
+    bottom: 76px !important;
+    -moz-transform: scale(.1);
+    -ms-transform: scale(.1);
+    -webkit-transform: scale(.1);
+    transform: scale(.1);
+    opacity: 0;
+    -moz-transition: .3s;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+.wf-active #hs-beacon > div > iframe:first-child {
+    opacity: 1;
+    -moz-transform: scale(.7);
+    -ms-transform: scale(.7);
+    -webkit-transform: scale(.7);
+    transform: scale(.7);
+}
+
+#hs-beacon > div > iframe:last-child {
+    bottom: 132px !important;
+}
+
+#intercom-container {
+    z-index: 2199 !important;
+}
+
+/*
+#intercom-container .intercom-launcher-frame {
+    transform-origin: left top;
+    transform: scale(.9, .9);
+}
+*/
