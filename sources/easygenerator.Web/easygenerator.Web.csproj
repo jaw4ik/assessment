@@ -144,6 +144,11 @@
       <HintPath>..\..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StatsdClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DogStatsD-CSharp-Client.2.2.0\lib\net35\StatsdClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -316,6 +321,9 @@
     <Compile Include="Components\Configuration\CourseExamples\CourseCollection.cs" />
     <Compile Include="Components\Configuration\CourseExamples\CourseElement.cs" />
     <Compile Include="Components\Configuration\CourseExamples\CourseExamplesConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\DataDog\DataDogStatsDClientConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\DataDog\Tag.cs" />
+    <Compile Include="Components\Configuration\DataDog\TagsCollection.cs" />
     <Compile Include="Components\Configuration\SAML\ContactElement.cs" />
     <Compile Include="Components\Configuration\SAML\MetadataElement.cs" />
     <Compile Include="Components\Configuration\SAML\OrganizationElement.cs" />
@@ -329,10 +337,13 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\Tasks\DataDogReporterTask.cs" />
     <Compile Include="Controllers\Api\SurveyQuestionController.cs" />
     <Compile Include="Components\SentriClient.cs" />
     <Compile Include="Controllers\CourseExamplesController.cs" />
     <Compile Include="Components\SurveyPopupSettingsProvider.cs" />
+    <Compile Include="DataDog\DataDogStatsDClient.cs" />
+    <Compile Include="DataDog\IDataDogStatsDClient.cs" />
     <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
     <Compile Include="Domain\DomainOperations\CourseOwnershipProvider.cs" />
     <Compile Include="Domain\DomainOperations\OrganizationOperations.cs" />

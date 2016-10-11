@@ -26,6 +26,11 @@ namespace easygenerator.Web.Configuration
             {
                 cacheScheduler.ScheduleTask(typeof(HttpRequestsSenderTask), new TimeSpan(0, 0, 0, configurationReader.HttpRequestsSenderConfiguration.Interval));
             }
+
+            if (configurationReader.DataDogStatsDClientConfiguration.Enabled)
+            {
+                cacheScheduler.ScheduleTask(typeof(DataDogReporterTask), new TimeSpan(0, 0, 0, configurationReader.DataDogStatsDClientConfiguration.Interval));
+            }
         }
     }
 }
