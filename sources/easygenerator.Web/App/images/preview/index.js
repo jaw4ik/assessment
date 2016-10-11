@@ -1,4 +1,8 @@
-﻿class ImagePreview {
+﻿import ko from 'knockout';
+import './bindingHandlers/keyDownBindingHandler';
+import './bindingHandlers/customScrollbarExtender';
+
+class ImagePreview {
     constructor() {
         this.isShown = ko.observable(false);
         this.isLoaded = ko.observable(false);
@@ -13,6 +17,10 @@
     show(index) {
         this.current(index);
         this.isShown(true);
+    }
+
+    chooseImage(image) {
+        this.current(this.images.indexOf(image));
     }
 
     hide() {

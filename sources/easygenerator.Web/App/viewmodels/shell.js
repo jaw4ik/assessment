@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'routing/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
+    'notify', 'constants', 'panels/barManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
 'editor/dialogs/editorFeedback/editorFeedback', 'dialogs/survey/survey'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, releaseNotesDialog, httpWrapper, editorFeedbackDialog, survey) {
+        constants, barManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, editorFeedbackDialog, survey) {
 
         "use strict";
 
@@ -33,7 +33,7 @@
             questionsDeleted: questionsDeleted,
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            leftSideBarManager: leftSideBarManager
+            barManager: barManager
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -81,8 +81,6 @@
 
             return dataContext.initialize()
                 .then(function () {
-                    leftSideBarManager.initialize();
-
                     router.on('router:navigation:processing').then(function () {
                         _.each(CKEDITOR.instances, function (instance) {
                             try {

@@ -9,7 +9,6 @@ import router from 'routing/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
 import questionViewModelFactory from 'viewmodels/questions/questionViewModelFactory';
-import learningContentsViewModel from 'viewmodels/learningContents/learningContents';
 import feedbackViewModel from 'viewmodels/questions/feedback';
 import localizationManager from 'localization/localizationManager';
 import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
@@ -45,7 +44,6 @@ class QuestionViewModel{
         this.surveyModeIsChanging = ko.observable(false);
 
         this.activeQuestionViewModel = null;
-        this.learningContentsViewModel = learningContentsViewModel;
         this.feedbackViewModel = feedbackViewModel;
 
         this.isInformationContent = false;
@@ -120,7 +118,6 @@ class QuestionViewModel{
         this.hasFeedback = viewModelData.hasFeedback;
         this.feedbackCaptions = viewModelData.feedbackCaptions;
 
-        await this.learningContentsViewModel.initialize(question);
         await this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions, isSurvey: !!question.isSurvey });
     }
     async toggleIsSurvey() {

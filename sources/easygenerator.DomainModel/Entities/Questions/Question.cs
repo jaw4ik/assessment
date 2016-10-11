@@ -44,6 +44,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             LearningContentsOrder = null;
         }
 
+
+
         public string Title { get; private set; }
 
         //TODO: Move to derived type
@@ -55,7 +57,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         protected internal virtual ICollection<LearningContent> LearningContentsCollection { get; set; }
 
-        public IEnumerable<LearningContent> LearningContents => GetOrderedLearningContents().AsEnumerable();
+        public IEnumerable<LearningContent> LearningContents => LearningContentsCollection.OrderBy(_ => _.Position).ToList();
 
         protected internal string LearningContentsOrder { get; set; }
 
@@ -112,10 +114,6 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfLearningContentIsInvalid(learningContent);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            var learningContents = GetOrderedLearningContents();
-            learningContents.Add(learningContent);
-            DoUpdateLearningContentsOrder(learningContents);
-
             LearningContentsCollection.Add(learningContent);
             learningContent.Question = this;
             MarkAsModified(modifiedBy);
@@ -128,10 +126,6 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfLearningContentIsInvalid(learningContent);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            var learningContents = GetOrderedLearningContents();
-            learningContents.Remove(learningContent);
-            DoUpdateLearningContentsOrder(learningContents);
-
             LearningContentsCollection.Remove(learningContent);
             learningContent.Question = null;
             MarkAsModified(modifiedBy);
@@ -139,49 +133,14 @@ namespace easygenerator.DomainModel.Entities.Questions
             RaiseEvent(new LearningContentDeletedEvent(this, learningContent));
         }
 
-        public virtual void UpdateLearningContentsOrder(ICollection<LearningContent> learningContents, string modifiedBy)
-        {
-            ArgumentValidation.ThrowIfNull(learningContents, "learningContents");
-
-            DoUpdateLearningContentsOrder(learningContents);
-            MarkAsModified(modifiedBy);
-
-            RaiseEvent(new LearningContentsReorderedEvent(this));
-        }
-
-        public virtual IList<LearningContent> OrderClonedLearningContents(ICollection<LearningContent> clonedLearningContents)
-        {
-            if (clonedLearningContents == null)
-                return null;
-
-            var originalQuestions = LearningContentsCollection.ToList();
-
-            if (originalQuestions.Count != clonedLearningContents.Count)
-            {
-                throw new ArgumentException("Cloned learning contents collection has to be same length as original.", "clonedLearningContents");
-            }
-
-            return LearningContents.Select(obj => clonedLearningContents.ElementAt(originalQuestions.IndexOf(obj))).ToList();
-        }
-
-        private void DoUpdateLearningContentsOrder(ICollection<LearningContent> learningContents)
-        {
-            LearningContentsOrder = OrderingUtils.GetOrder(learningContents);
-        }
-
-        private ICollection<LearningContent> GetOrderedLearningContents()
-        {
-            return OrderingUtils.OrderCollection(LearningContentsCollection, LearningContentsOrder);
-        }
-
         private static void ThrowIfTitleIsInvalid(string title)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
-            ArgumentValidation.ThrowIfLongerThan255(title, "title");
+            ArgumentValidation.ThrowIfNullOrEmpty(title, nameof(title));
+            ArgumentValidation.ThrowIfLongerThan255(title, nameof(title));
         }
         private static void ThrowIfLearningContentIsInvalid(LearningContent learningContent)
         {
-            ArgumentValidation.ThrowIfNull(learningContent, "explanation");
+            ArgumentValidation.ThrowIfNull(learningContent, nameof(learningContent));
         }
     }
 }

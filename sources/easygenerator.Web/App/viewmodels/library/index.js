@@ -1,12 +1,11 @@
 ﻿define(['viewmodels/shell', 'routing/isViewReadyMixin', 'localization/localizationManager', 'eventTracker', 'durandal/app', 'constants'],
     function (shell, isViewReady, localizationManager, eventTracker, app, constants) {
-        "use strict";
+        'use strict';
 
         var events = {
             navigateToVideos: 'Navigate to videos',
             navigateToAudios: 'Navigate to audios',
-            navigateToImages: 'Navigate to images',
-            navigateToSections: 'Navigate to objectives'
+            navigateToImages: 'Navigate to images'
         }
 
         var childRouter = shell.router.createChildRouter()
@@ -53,10 +52,9 @@
         return {
             router: childRouter,
             activate: function () {
-                if (childRouter.parent.activeInstruction().fragment == 'library') {
+                if (childRouter.parent.activeInstruction().fragment === 'library') {
                     app.trigger(constants.messages.library.defaultActivate);
                 }
-
             }
         };
 

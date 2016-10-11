@@ -6,6 +6,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     {
         private const string Text = "LearningContent text";
         private const string CreatedBy = "useraname@easygenerator.com";
+        private const decimal Position = 1;
 
         public static LearningContent CreateWithText(string text)
         {
@@ -17,9 +18,14 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(createdBy: createdBy);
         }
 
-        public static LearningContent Create(string text = Text, string createdBy = CreatedBy)
+        public static LearningContent CreateWithPosition(decimal position)
         {
-            return new LearningContent(text, createdBy);
+            return Create(position: position);
+        }
+
+        public static LearningContent Create(string text = Text, string createdBy = CreatedBy, decimal position = Position)
+        {
+            return new LearningContent(text, createdBy, position);
         }
     }
 }

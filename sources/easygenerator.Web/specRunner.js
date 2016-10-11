@@ -56,6 +56,29 @@
         'design/templateBrief.spec',
         //#endregion
 
+        //#region content editor
+        'contentEditor/adapters/AdapterBase.spec',
+        'contentEditor/adapters/adaptersLoader.spec',
+        'contentEditor/adapters/QuestionContentAdapter.spec',
+        'contentEditor/components/ButtonsPanelManager.spec',
+        'contentEditor/components/PanelButton.spec',
+        'contentEditor/contentTypes/classicEditor/Viewmodel.spec',
+        'contentEditor/contentTypes/hotspot/Viewmodel.spec',
+        'contentEditor/contentTypes/ContentBase.spec',
+        'contentEditor/contentTypes/contentTypesFactory.spec',
+        'contentEditor/createBar.spec',
+        'contentEditor/editor.spec',
+        'contentEditor/contentTypes/textEditor/viewModel.spec',
+        'contentEditor/contentTypes/textEditorOneColumn/viewModel.spec',
+        'contentEditor/contentTypes/imageEditorOneColumn/Viewmodel.spec',
+        'contentEditor/contentTypes/imageEditorTwoColumns/Viewmodel.spec',
+        'contentEditor/contentTypes/imageInTheLeft/Viewmodel.spec',
+        'contentEditor/contentTypes/imageInTheRight/Viewmodel.spec',
+        'contentEditor/contentTypes/imageEditor/viewModel.spec',
+        'contentEditor/contentTypes/editors/imageEditor/index.spec',
+        'contentEditor/contentTypes/editors/textEditor/index.spec',
+        //#endregion
+
         //#region review
         'review/reviewPanel.spec',
         'review/publish/coursePublish.spec',
@@ -77,7 +100,6 @@
         'review/comments/context/queries/getQuestionData.spec',
         //#endregion
         'authorization/limitCoursesAmount.spec',
-
         //#region commands
         'commands/createQuestionCommand.spec',
         'commands/createSectionCommand.spec',
@@ -241,7 +263,7 @@
         'synchronization/handlers/learningContent/handler.spec',
         'synchronization/handlers/learningContent/eventHandlers/created.spec',
         'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
-        'synchronization/handlers/learningContent/eventHandlers/textUpdated.spec',
+        'synchronization/handlers/learningContent/eventHandlers/updated.spec',
         'synchronization/handlers/answer/handler.spec',
         'synchronization/handlers/answer/eventHandlers/created.spec',
         'synchronization/handlers/answer/eventHandlers/deleted.spec',
@@ -284,7 +306,6 @@
         'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
         'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
         'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
-        'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered.spec',
         'synchronization/handlers/questions/fillInTheBlank/handler.spec',
         'synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated.spec',
         'synchronization/handlers/questions/dragAndDropText/handler.spec',
@@ -314,8 +335,6 @@
         'synchronization/handlers/questions/rankingText/eventHandlers/answerDeleted.spec',
         'synchronization/handlers/questions/rankingText/eventHandlers/answerTextChanged.spec',
         'synchronization/handlers/questions/rankingText/eventHandlers/answersReordered.spec',
-
-        //#endregion
         //#endregion
 
         //#region learning paths
@@ -448,9 +467,6 @@
         'viewmodels/questions/questionTitle.spec',
         'viewmodels/questions/feedback.spec',
         'viewmodels/learningContents/learningContents.spec',
-        'viewmodels/learningContents/learningContentBase.spec',
-        'viewmodels/learningContents/content.spec',
-        'viewmodels/learningContents/hotspotOnAnImage.spec',
         //#endregion
 
         //#region video upload

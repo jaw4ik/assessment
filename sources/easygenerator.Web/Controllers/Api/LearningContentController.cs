@@ -24,14 +24,14 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
         [Route("api/learningContent/create")]
-        public ActionResult Create(Question question, string text)
+        public ActionResult Create(Question question, string text, decimal position)
         {
             if (question == null)
             {
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
-            var learningContent = _entityFactory.LearningContent(text, GetCurrentUsername());
+            var learningContent = _entityFactory.LearningContent(text, GetCurrentUsername(), position);
 
             question.AddLearningContent(learningContent, GetCurrentUsername());
 
@@ -72,6 +72,24 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityCollaborator(typeof(LearningContent))]
+        [Route("api/learningContent/updatePosition")]
+        public ActionResult UpdatePosition(LearningContent learningContent, decimal position)
+        {
+            if (learningContent == null)
+            {
+                return JsonLocalizableError(Errors.LearningContentNotFoundError, Errors.LearningContentNotFoundResourceKey);
+            }
+
+            learningContent.UpdatePosition(position, GetCurrentUsername());
+
+            return JsonSuccess(new
+            {
+                ModifiedOn = learningContent.ModifiedOn
+            });
+        }
+
+        [HttpPost]
         [EntityCollaborator(typeof(Question))]
         [Route("api/learningContents")]
         public ActionResult GetCollection(Question question)
@@ -85,6 +103,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 Id = lo.Id.ToNString(),
                 Text = lo.Text,
+                Position = lo.Position,
                 CreatedOn = lo.CreatedOn
             });
 

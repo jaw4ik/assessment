@@ -143,21 +143,6 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
-        [Route("api/question/updateLearningContentsOrder")]
-        public ActionResult UpdateLearningContentsOrder(Question question, ICollection<LearningContent> learningContents)
-        {
-            if (question == null)
-            {
-                return HttpNotFound(Errors.QuestionNotFoundError);
-            }
-
-            question.UpdateLearningContentsOrder(learningContents, GetCurrentUsername());
-
-            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
-        }
-
-        [HttpPost]
-        [EntityCollaborator(typeof(Question))]
         [EntityCollaborator(typeof(Section))]
         [QuestionAccess]
         [Route("api/question/copy")]

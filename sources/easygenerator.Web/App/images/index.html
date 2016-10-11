@@ -18,7 +18,7 @@
                     <!-- /ko -->
                     <!-- ko foreach: images -->
                     <li class="library-list-item hovered" data-bind="click: isDeleteConfirmationShown() ? function(){} : $parent.showImagePopup.bind($parent) ">
-                        <div class="library-list-item-thumbnail" data-bind="style: { backgroundImage: 'url('+ thumbnailUrl + ')'}">
+                        <div class="library-list-item-thumbnail" data-bind="coverBackground: { src: url, width: 200, height: 150 }">
                             <span class="preview-icon"></span>
                             <!-- ko ifnot: isDeleteConfirmationShown -->
                             <div class="list-item-context-actions-wrapper">

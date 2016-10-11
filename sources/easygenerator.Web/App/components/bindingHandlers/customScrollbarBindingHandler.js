@@ -13,11 +13,14 @@ ko.bindingHandlers.scrollbar = {
             scrollFinished: 'cs-scroll-finished',
             scrollEnabled: 'cs-scroll-enabled'
         };
+        let suppressScrollX = _.isBoolean(valueAccessors().suppressScrollX) ? valueAccessors().suppressScrollX : true;
+        let suppressScrollY = _.isBoolean(valueAccessors().suppressScrollY) ? valueAccessors().suppressScrollY :  false;
 
         let customScrollbarContainer = byClass ? element.getElementsByClassName(byClass)[0] : element;
 
         perfectScrollbar.initialize(customScrollbarContainer, {
-            suppressScrollX: true
+            suppressScrollX: suppressScrollX,
+            suppressScrollY: suppressScrollY
         });
 
         if (checkDOMChanges) {

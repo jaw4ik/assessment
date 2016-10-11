@@ -13,7 +13,8 @@ namespace easygenerator.Web.Components.Mappers
                 Text = entity.Text,
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
-                ModifiedOn = entity.ModifiedOn
+                ModifiedOn = entity.ModifiedOn,
+                Position = entity.Position
             };
         }
     }

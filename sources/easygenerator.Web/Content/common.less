@@ -136,6 +136,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Easygenerator Icons';
+    src: url('font/easygenerator-icons.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*#endregion FONTS CONNECTIONS*/
 
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
@@ -154,13 +161,6 @@ menu, nav, section, summary, mark, audio, video {
     padding: 0;
     margin: 0;
     outline: 0;
-}
-
-html, div, article, aside,
-footer, header, menu, nav, section {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
 }
 
 article, aside, details, figcaption, figure,
@@ -236,8 +236,6 @@ a {
 
 h1 {
     font-size: 2.0em;
-    -webkit-margin-before: 0.67em;
-    -webkit-margin-after: 0.67em;
 }
 
 img:hover {
@@ -311,51 +309,49 @@ img:hover {
 /*#endregion COMMON CLASSES CSS-STYLES*/
 
 /*#region STYLED CONTENT*/
+@main-style-color: #43aaa3;
+@highlighted-font-color: #fff;
+@main-text-color: #42515f;
+
+.margin-bottom() {
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
 
 .styled-content {
-    padding: 12px 20px;
+    padding: 15px 20px;
     font: 18px 'Heuristica-Regular';
-    text-align: justify;
-    line-height: 30px;
+    line-height: 1.5;
     overflow-y: hidden;
     overflow-x: auto;
-    color: #333333;
-    background-color: #fff;
+    color: @main-text-color;
 
     h1, h2, h3 {
-        margin: 40px 0 15px 0;
-        -webkit-margin-before: 40px;
-        -webkit-margin-after: 15px;
         font-family: 'Heuristica-Bold';
         font-weight: normal;
-
-        &:first-child {
-            margin-top: 28px;
-            -webkit-margin-before: 28px;
-        }
+        .margin-bottom;
     }
 
     h1 {
-        font-size: 26px;
-        line-height: 40px;
+        font-size: 24px;
     }
 
     h2 {
-        font-size: 24px;
-        line-height: 40px;
+        font-size: 22px;
     }
 
     h3 {
         font-size: 20px;
-        line-height: 34px;
     }
 
     p, ul, ol {
-        margin: 0 0 20px 0;
+        .margin-bottom;
     }
 
     ul, ol {
-        padding-left: 30px;
+        padding-left: 32px;
+        list-style: none;
 
         h1, h2, h3, p {
             display: inline;
@@ -363,35 +359,41 @@ img:hover {
     }
 
     ol {
-        list-style-position: inside;
+        counter-reset: ol-counter;
 
         & > li {
-            margin-bottom: 8px;
+            position: relative;
+            .margin-bottom;
 
             &:before {
+                content: counter(ol-counter) '.';
+                counter-increment: ol-counter;
                 position: absolute;
                 display: inline-block;
                 width: 58px;
                 margin-left: -58px;
                 text-align: right;
-                padding-right: 5px;
+                padding-right: 12px;
                 box-sizing: border-box;
             }
         }
     }
 
     ul {
-        list-style: none;
-
         & > li {
-            margin-bottom: 8px;
+            position: relative;
+            .margin-bottom;
 
             &:before {
-                content: "•";
-                color: #76cbe3; /* or whatever color you prefer */
-                margin-right: 14px;
+                content: '';
                 position: absolute;
-                margin-left: -15px;
+                display: inline-block;
+                margin-left: -22px;
+                margin-top: 10px;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: @main-style-color;
             }
         }
     }
@@ -407,7 +409,7 @@ img:hover {
 
     img {
         margin: 30px auto 20px;
-        border-radius: 5px;
+        border-radius: 3px;
         display: block;
     }
 
@@ -438,51 +440,27 @@ img:hover {
         }
 
     cite {
-        position: relative;
+        border-left: solid 4px @main-style-color;
         display: block;
-        margin: 15px 165px;
-        font: 18px 'Heuristica-BoldItalic';
-        font-style: normal;
-        line-height: 30px;
+        font-family: 'Heuristica-Italic';
         white-space: pre-line;
-
-        &:before, &:after {
-            position: absolute;
-            font: 50px 'Heuristica-Regular';
-            color: #63c4df;
-        }
-
-        &:before {
-            content: '“';
-            top: -10px;
-            margin-left: -25px;
-        }
-
-        &:after {
-            content: '”';
-            bottom: -40px;
-            margin-left: 5px;
-        }
-
-        &:first-child {
-            margin-top: 3px;
-        }
+        padding-left: 18px;
+        margin: 20px 15% 20px 10px;
     }
 
     a {
-        color: #449eeb;
-        border-bottom: 1px solid #449eeb;
+        color: @main-style-color;
+        border-bottom: 1px solid @main-style-color;
 
         &:hover, &:active, &:focus {
-            color: #0088ae;
-            border-bottom-color: #0088ae;
+            color: shade(@main-style-color,10%);
+            border-bottom-color: shade(@main-style-color,10%);
         }
     }
 
     mark {
-        padding: 0 3px;
-        background-color: #ffe725;
-        color: inherit;
+        background-color: @main-style-color;
+        color: @highlighted-font-color;
     }
 
     table {

@@ -11,7 +11,6 @@ import router from 'routing/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
 import questionViewModelFactory from 'viewmodels/questions/questionViewModelFactory';
-import learningContentsViewModel from 'viewmodels/learningContents/learningContents';
 import feedbackViewModel from 'viewmodels/questions/feedback';
 import localizationManager from 'localization/localizationManager';
 import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
@@ -51,7 +50,6 @@ class QuestionViewModel  {
         this.localizationManager = localizationManager;
 
         this.activeQuestionViewModel= null;
-        this.learningContentsViewModel= learningContentsViewModel;
         this.feedbackViewModel= feedbackViewModel;
 
         this.viewUrl = 'editor/questions/question';
@@ -157,11 +155,7 @@ class QuestionViewModel  {
                 this.hasFeedback = viewModelData.hasFeedback;
                 this.feedbackCaptions = viewModelData.feedbackCaptions;
 
-                var promises = [];
-                promises.push(this.learningContentsViewModel.initialize(question));
-                promises.push(this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions, isSurvey: !!question.isSurvey }));
-
-                return Promise.all(promises);
+                return this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions });
             });
         });
     }

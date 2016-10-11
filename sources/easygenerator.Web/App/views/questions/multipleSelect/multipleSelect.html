@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : answers.isExpanded(), minHeight : 0 }">
+    <section class="content-item-holder" data-bind="expandBlock: { expanded: answers.isExpanded() }">
         <div class="content-section-wrapper answer-options" data-bind="with: answers">
             <div class="question-answer-options-area">
                 <div class="content-section">

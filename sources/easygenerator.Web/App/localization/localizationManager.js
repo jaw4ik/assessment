@@ -1,6 +1,8 @@
 ﻿import _ from 'underscore';
 import jsonReader from 'jsonReader';
 import moment from 'moment';
+import modulesLoader from 'modulesLoader';
+import htmlEditor from 'components/htmlEditor/editorWrapper';
 
 let
     defaultCulture = 'en',
@@ -61,8 +63,10 @@ class LocalizationManager{
         this.currentCulture = _.isString(match) ? match : defaultCulture;
         this.currentLanguage = this.currentCulture.substring(0, 2);
 
+        htmlEditor.setLanguage(this.currentCulture);
+
         if (this.currentCulture !== defaultCulture) {
-            System.import('moment/locale/' + this.currentCulture);
+            modulesLoader.import('moment/locale/' + this.currentCulture);
             moment.locale(this.currentCulture);
         }
 

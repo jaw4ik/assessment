@@ -1,42 +1,19 @@
-﻿<div class="content-section-wrapper" data-bind="hotspoteditorcontainer: { }">
+﻿<div class="content-section-wrapper" data-bind="hotspoteditorcontainer: {}">
     <div class="content-section">
         <div class="expand-collapse-panel" data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
-            <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+            <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }"></span>
             <div class="tooltip-icon" data-bind="tooltip:'top'">
-                <h4 class="tooltip-title" data-bind="localize: { html:'tooltipContentTitle'}"></h4>
-                <div class="tooltip-content" data-bind="localize: { html: 'tooltipContentDescription'}">
+                <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipContentTitle' }"></h4>
+                <div class="tooltip-content" data-bind="localize: { html: 'tooltipContentDescription' }">
                 </div>
-                <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipContentLink'}">
+                <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipContentLink' }">
                 </div>
             </div>
-            <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand'}"></div>
+            <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
         </div>
-        <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
-            <ul class="unstyled question-content-items-list" data-bind="sortableExtended: { data: learningContents, afterMove: updateOrder, isEnabled: isSortingEnabled, maxHeight: 150, options: { handle: '.question-learning-content-drag-wrapper', start: startReordering, stop: stopReordering, distance:5, visible: isExpanded }}">
-                <li class="question-learning-content-list-item draggable">
-                    <!-- ko compose: { view: 'learningContents/types/' + type } --><!-- /ko -->
-                </li>
-            </ul>
-            <!-- ko ifnot: isAddedButtonsShown -->
-            <div class="add-button">
-                <div class="add-button-text-wrapper" data-bind="click: toggleIsAddedButtonsShown">
-                    <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-            <!-- ko if: isAddedButtonsShown -->
-            <div class="add-button inline content">
-                <div class="add-button-text-wrapper" data-bind="click: addContent">
-                    <span class="add-button-text selectable" data-bind="localize: { text: 'addContentOnboardingTaskTitle'}">Add Content</span>
-                </div>
-            </div>
-            <div class="add-button inline hotspot-on-image">
-                <div class="add-button-text-wrapper" data-bind="click: addHotspotOnAnImage">
-                    <span class="add-button-text selectable" data-bind="localize: { text: 'hotspotOnAnImage'}">Add hotspot on image</span>
-                </div>
-            </div>
-            <!-- /ko -->
+        <section class="content-item-holder" data-bind="expandBlock: { expanded: isExpanded() }">
+            <!-- ko compose: { view: 'contentEditor/views/learningContent', model: 'contentEditor/editor', activationData: { adapter: 'contentEditor/adapters/QuestionContentAdapter', adapterActivationData: questionId } } --><!-- /ko -->
         </section>
     </div>
-    <div data-bind="widget: { kind: 'hotSpotOnImageTextEditor' }"></div>
+    <div data-bind="widget: { kind: 'hotspotOnImageTextEditor' }"></div>
 </div>

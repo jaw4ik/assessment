@@ -72,7 +72,7 @@
                     </div>
                     <!-- /ko -->
                 </div>
-                <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+                <section class="content-item-holder" data-bind="expandBlock: { expanded: isExpanded() }">
                     <div class="question-content-items-list">
                         <div class="question-content-item" data-bind="css: { active: hasFocus }">
                             <div class="question-content-wrapper">
@@ -121,7 +121,7 @@
         <!-- ko if: hasFeedback -->
         <!-- ko compose: feedbackViewModel --><!-- /ko -->
         <!-- /ko -->
-        <!-- ko compose: learningContentsViewModel --><!-- /ko -->
+        <!-- ko compose: { model: 'viewmodels/learningContents/learningContents', activationData: questionId } --><!-- /ko -->
         <div class="question-content-holder-overlay" data-bind="css: { show: surveyModeIsChanging }">
             <div data-bind="preloader: { settings: 'blue align-center' }"></div>
         </div>

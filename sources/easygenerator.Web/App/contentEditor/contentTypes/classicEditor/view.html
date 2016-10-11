@@ -1,0 +1,3 @@
+﻿<section class="classic-editor" data-bind="outsideClick: { action: blur }">
+    <div class="question-learning-content selectable" data-bind="ckeditor: { data: data, eventTracker: eventTracker, isEditing: hasFocus, focus: startEditing, blur: function (content) { saveData(content.data()); }, save: function (content) { save(content.data()); }, autosaveInterval: autosaveInterval, localizationManager: localizationManager }"></div>
+</section>

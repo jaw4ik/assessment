@@ -100,14 +100,13 @@
             <section class="question view-module" data-bind="css: questionType">
                 <!-- ko if: hasQuestionView -->
                 <div class="answers">
-                    <!-- ko compose: activeQuestionViewModel -->
-                    <!-- /ko -->
+                    <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
                 </div>
                 <!-- /ko -->
                 <!-- ko if: hasFeedback -->
                 <!-- ko compose: feedbackViewModel --><!-- /ko -->
                 <!-- /ko -->
-                <!-- ko compose: learningContentsViewModel --><!-- /ko -->
+                <!-- ko compose: { model: 'viewmodels/learningContents/learningContents', activationData: questionId } --><!-- /ko -->
             </section>
         </div>
         <div class="question-content-holder-overlay" data-bind="css: { show: surveyModeIsChanging }">

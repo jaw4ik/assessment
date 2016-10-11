@@ -6,8 +6,6 @@ using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
@@ -46,7 +44,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldReturnJsonErrorResult_WnenQuestionIsNull()
         {
             const string text = "text";
-            var result = _controller.Create(null, text);
+            var result = _controller.Create(null, text, 0);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
@@ -62,9 +60,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var question = Substitute.For<Question>();
             var learningContent = Substitute.For<LearningContent>();
 
-            _entityFactory.LearningContent(text, user).Returns(learningContent);
+            _entityFactory.LearningContent(text, user, 10).Returns(learningContent);
 
-            _controller.Create(question, text);
+            _controller.Create(question, text, 10);
 
             question.Received().AddLearningContent(learningContent, user);
         }
@@ -77,9 +75,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(user);
             var learningContent = Substitute.For<LearningContent>();
 
-            _entityFactory.LearningContent(text, user).Returns(learningContent);
+            _entityFactory.LearningContent(text, user, 0).Returns(learningContent);
 
-            var result = _controller.Create(Substitute.For<Question>(), text);
+            var result = _controller.Create(Substitute.For<Question>(), text, 0);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -169,6 +167,45 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var learningContent = Substitute.For<LearningContent>();
 
             var result = _controller.UpdateText(learningContent, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = learningContent.ModifiedOn });
+        }
+
+        #endregion
+
+        #region Update position
+
+        [TestMethod]
+        public void UpdatePosition_ShouldReturnJsonErrorResult_WhenLearningContentIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdatePosition(null, 10);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning Content is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningContentNotFoundError");
+        }
+
+
+        [TestMethod]
+        public void UpdatePosition_ShouldUpdateLearningContentPosition()
+        {
+            const decimal position = 10;
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var learningContent = Substitute.For<LearningContent>();
+
+            _controller.UpdatePosition(learningContent, position);
+
+            learningContent.Received().UpdatePosition(position, user);
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldReturnJsonSuccessResult()
+        {
+            var learningContent = Substitute.For<LearningContent>();
+
+            var result = _controller.UpdatePosition(learningContent, 10);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = learningContent.ModifiedOn });
         }

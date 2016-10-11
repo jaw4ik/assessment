@@ -15,7 +15,6 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
 {
     public class QuestionChangeTracker :
         IDomainEventHandler<FillInTheBlankUpdatedEvent>,
-        IDomainEventHandler<LearningContentsReorderedEvent>,
         IDomainEventHandler<QuestionBackgroundChangedEvent>,
         IDomainEventHandler<QuestionContentUpdatedEvent>,
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
@@ -46,11 +45,6 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
         #region Handlers
 
         public void Handle(FillInTheBlankUpdatedEvent args)
-        {
-            RaiseQuestionChangedEvent(args.Question);
-        }
-
-        public void Handle(LearningContentsReorderedEvent args)
         {
             RaiseQuestionChangedEvent(args.Question);
         }
@@ -154,6 +148,6 @@ namespace easygenerator.Web.Domain.DomainEvents.ChangeTracking.Trackers
             _eventPublisher.Publish(new QuestionChangedEvent(question));
         }
 
-        
+
     }
 }

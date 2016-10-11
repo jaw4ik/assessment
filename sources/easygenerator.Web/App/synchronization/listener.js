@@ -74,15 +74,15 @@
                         sectionQuestionsReordered: sectionEventHandler.questionsReordered,
                         sectionModified: sectionEventHandler.modified,
 
-                        questionCreated: questionEventHandler.question.created,
-                        questionsDeleted: questionEventHandler.question.deleted,
-                        questionTitleUpdated: questionEventHandler.question.titleUpdated,
-                        questionVoiceOverUpdated: questionEventHandler.question.voiceOverUpdated,
-                        questionContentUpdated: questionEventHandler.question.contentUpdated,
-                        questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
-                        questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
-                        questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
-                        learningContentsReordered: questionEventHandler.question.learningContentsReordered,
+                    questionCreated: questionEventHandler.question.created,
+                    questionsDeleted: questionEventHandler.question.deleted,
+                    questionTitleUpdated: questionEventHandler.question.titleUpdated,
+                    questionVoiceOverUpdated: questionEventHandler.question.voiceOverUpdated,
+                    questionContentUpdated: questionEventHandler.question.contentUpdated,
+                    questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
+                    questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
+                    questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
+                    learningContentsReordered: questionEventHandler.question.learningContentsReordered,
 
                         fillInTheBlankUpdated: questionEventHandler.fillInTheBlank.updated,
 
@@ -111,9 +111,9 @@
                         answerTextUpdated: answerEventHandler.textUpdated,
                         answerCorrectnessUpdated: answerEventHandler.answerCorrectnessUpdated,
 
-                        learningContentCreated: learningContentEventHandler.created,
-                        learningContentUpdated: learningContentEventHandler.textUpdated,
-                        learningContentDeleted: learningContentEventHandler.deleted,
+                    learningContentCreated: learningContentEventHandler.created,
+                    learningContentUpdated: learningContentEventHandler.updated,
+                    learningContentDeleted: learningContentEventHandler.deleted,
 
                         hotSpotPolygonCreated: questionEventHandler.hotSpot.polygonCreated,
                         hotSpotPolygonDeleted: questionEventHandler.hotSpot.polygonDeleted,

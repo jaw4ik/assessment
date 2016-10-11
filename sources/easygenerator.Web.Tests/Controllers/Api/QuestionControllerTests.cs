@@ -311,52 +311,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region UpdateLearningContentsOrder
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldReturnHttpNotFoundResult_WhenQuestionIsNull()
-        {
-            //Arrange
-
-            //Act
-            var result = _controller.UpdateLearningContentsOrder(null, new Collection<LearningContent>());
-
-            //Assert
-            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.QuestionNotFoundError);
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldCallUpdateLearningContentsForQuestion()
-        {
-            //Arrange
-            var question = Substitute.For<Question>();
-            var learningContents = new Collection<LearningContent>();
-            _user.Identity.Name.Returns(ModifiedBy);
-
-            //Act
-            _controller.UpdateLearningContentsOrder(question, learningContents);
-
-            //Assert
-            question.Received().UpdateLearningContentsOrder(learningContents, ModifiedBy);
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldReturnJsonSuccessResult()
-        {
-            //Arrange
-            var question = Substitute.For<Question>();
-            var learningContents = new Collection<LearningContent>();
-            _user.Identity.Name.Returns(ModifiedBy);
-
-            //Act
-            var result = _controller.UpdateLearningContentsOrder(question, learningContents);
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
-        }
-
-        #endregion
-
         #region Copy question
 
         [TestMethod]
@@ -426,7 +380,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var destinationSection = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
             var questionCopy = Substitute.For<Question>("Question copy title", CreatedBy);
-            var questionModel = new {Id = "Question Id", Title = "Question title", Type = "Question type"};
+            var questionModel = new { Id = "Question Id", Title = "Question title", Type = "Question type" };
 
             _cloner.Clone(question, user).Returns(questionCopy);
             _entityModelMapper.Map(questionCopy).Returns(questionModel);

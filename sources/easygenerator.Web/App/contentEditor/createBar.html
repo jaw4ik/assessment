@@ -1,0 +1,72 @@
+﻿<section class="content-bar-panel ps-container" data-bind="tabs: {}, stopEventPropagation: { event: 'click' }">
+    <div class="tabs-wrapper">
+        <ul class="tabs">
+            <li class="text-editor" data-tab-link="text" data-bind="localize: { title: 'textTabName' }">
+                <span class="icon"></span>
+                <div class="title-wrapper">
+                    <span class="title" data-bind="localize: { text: 'textTabName' }"></span>
+                </div>
+            </li>
+            <li class="image-editor" data-tab-link="image" data-bind="localize: { title: 'imagesTabName' }">
+                <span class="icon"></span>
+                <div class="title-wrapper">
+                    <span class="title" data-bind="localize: { text: 'imagesTabName' }"></span>
+                </div>
+            </li>
+            <li class="classic" data-tab-link="classic" data-bind="localize: { title: 'classicTabName' }">
+                <span class="icon"></span>
+                <div class="title-wrapper">
+                    <span class="title" data-bind="localize: { text: 'classicTabName' }"></span>
+                </div>
+            </li>
+            <li class="interactive" data-tab-link="interactive" data-bind="localize: { title: 'interactiveTabName' }">
+                <span class="icon"></span>
+                <div class="title-wrapper">
+                    <span class="title" data-bind="localize: { text: 'interactiveTabName' }"></span>
+                </div>
+            </li>
+        </ul>
+        <div class="tabs-content">
+            <div class="tab-content content-editor-items-panel" data-tab-content="text" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">
+                <div class="content-item text-editor one-column" data-bind="draggableData: constants.contentsTypes.textEditorOneColumn, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'oneColumn' }"></div>
+                </div>
+                <div class="content-item text-editor two-columns" data-bind="draggableData: constants.contentsTypes.textEditorTwoColumns, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'twoColumns' }"></div>
+                </div>
+                <div class="content-item text-editor three-columns" data-bind="draggableData: constants.contentsTypes.textEditorThreeColumns, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'threeColumns' }"></div>
+                </div>
+            </div>
+            <div class="tab-content content-editor-items-panel" data-tab-content="image" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">
+                <div class="content-item image-editor one-image" data-bind="draggableData: constants.contentsTypes.imageEditorOneColumn, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'oneImage' }"></div>
+                </div>
+                <div class="content-item image-editor two-image" data-bind="draggableData: constants.contentsTypes.imageEditorTwoColumns, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'twoImages' }"></div>
+                </div>
+                <div class="content-item image-editor image-in-the-left" data-bind="draggableData: constants.contentsTypes.imageInTheLeft, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'imageInTheLeft' }"></div>
+                </div>
+                <div class="content-item image-editor image-in-the-right" data-bind="draggableData: constants.contentsTypes.imageInTheRight, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'imageInTheRight' }"></div>
+                </div>
+            </div>
+            <div class="tab-content content-editor-items-panel" data-tab-content="classic" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">
+                <div class="content-item classic-editor" data-bind="draggableData: constants.contentsTypes.classicEditor, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'classicEditor' }"></div>
+                </div>
+            </div>
+            <div class="tab-content content-editor-items-panel" data-tab-content="interactive" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">
+                <div class="content-item hotspot-on-image" data-bind="draggableData: constants.contentsTypes.hotspotOnImage, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'hotspotOnImage' }"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="controls-wrapper">
+        <button class="action-item-btn btn confirm" data-bind="click: done">
+            <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
+        </button>
+    </div>
+</section>

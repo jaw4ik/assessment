@@ -133,7 +133,6 @@
 }
 
 .application {
-    .unselectable();
     width: 100%;
     min-width: 1024px;
 }
@@ -290,8 +289,7 @@
         border-radius: 3px;
         border: 1px solid #cacaca;
         cursor: pointer;
-        -webkit-transition: border 0.2s;
-        transition: border 0.2s;
+        .transition(border);
     }
 
         .advanced-features-dropdown .btn-head:before {
@@ -685,7 +683,7 @@
     border-radius: 5px;
     cursor: default;
     box-shadow: 0 1px 1px 0 #d1dbe0;
-    transition: box-shadow 0.3s;
+    .transition(box-shadow, 0.3s);
 
     &:hover {
         box-shadow: 0 0 0 1px #4caf50;
@@ -919,7 +917,7 @@
         .main-content-list .list-item-logo.changeable {
             position: relative;
             border: 1px solid #ccc;
-            transition: box-shadow 0.15s linear;
+            .transition(box-shadow, 0.15s);
             overflow: hidden;
         }
 
@@ -963,7 +961,7 @@
                     visibility: hidden;
                     cursor: pointer;
                     opacity: 0;
-                    transition: opacity 0.15s linear;
+                    .transition(opacity, 0.15s);
                 }
 
             .main-content-list .list-item-logo.changeable:hover .overlay.hover {
@@ -1076,7 +1074,7 @@
     border-radius: 15px;
     background-color: #8bc34a;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    transition: box-shadow 0.3s;
+    .transition(box-shadow, 0.3s);
 
     &:hover {
         box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
@@ -1688,13 +1686,15 @@
     border-color: #469dd5;
     text-shadow: none;
     text-transform: uppercase;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    .transition(box-shadow, 0.3s);
 
     &:hover,
     &.active,
     &.active:active {
         background: #3b8abc;
         border-color: #3b8abc;
-        box-shadow: none;
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     }
 
     &.disabled,
@@ -1894,7 +1894,7 @@
     text-align: center;
     opacity: 0;
     z-index: 200;
-    transition: opacity 0.2s ease;
+    .transition(opacity, 0.2s, ease);
 
     &:after {
         content: '';
@@ -2340,7 +2340,7 @@
         background-color: #0c0c0c;
         border-radius: 3px;
         cursor: pointer;
-        transition: top 0.1s linear;
+        .transition(top, 0.1s);
     }
 
     .info-tooltip {
@@ -2349,7 +2349,6 @@
         /* fix for Safari to hide tooltip correctly */
         visibility: initial;
         transition: none;
-        -webkit-transition: none;
     }
 }
 

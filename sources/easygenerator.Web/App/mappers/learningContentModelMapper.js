@@ -7,7 +7,8 @@
                 return new LearningContentModel({
                     id: learningContent.Id,
                     text: learningContent.Text,
-                    type: getLearningContentType(learningContent.Text),
+                    position: learningContent.Position,
+                    type: learningContent.Type || getLearningContentType(learningContent.Text),
                     createdOn: learningContent.CreatedOn
                 });
             };
@@ -21,10 +22,24 @@
             $output.html(text);
             var dataType = $('[data-type]', $output).attr('data-type');
             switch (dataType) {
-                case constants.learningContentsTypes.hotspot:
-                    return constants.learningContentsTypes.hotspot;
+                case constants.contentsTypes.hotspotOnImage:
+                    return constants.contentsTypes.hotspotOnImage;
+                case constants.contentsTypes.textEditorOneColumn:
+                    return constants.contentsTypes.textEditorOneColumn;
+                case constants.contentsTypes.textEditorTwoColumns:
+                    return constants.contentsTypes.textEditorTwoColumns;
+                case constants.contentsTypes.textEditorThreeColumns:
+                    return constants.contentsTypes.textEditorThreeColumns;
+                case constants.contentsTypes.imageEditorOneColumn:
+                    return constants.contentsTypes.imageEditorOneColumn;
+                case constants.contentsTypes.imageEditorTwoColumns:
+                    return constants.contentsTypes.imageEditorTwoColumns;
+                case constants.contentsTypes.imageInTheLeft:
+                    return constants.contentsTypes.imageInTheLeft;
+                case constants.contentsTypes.imageInTheRight:
+                    return constants.contentsTypes.imageInTheRight;
                 default:
-                    return constants.learningContentsTypes.content;
+                    return constants.contentsTypes.classicEditor;
             }
         }
     });

@@ -67,4 +67,17 @@ export default class {
             throw message;
         }
     }
+    static throwIfNumberIsOutOfRange(number, minAllowed, maxAllowed, message) {
+        if (!_.isNumber(minAllowed)) {
+            throw 'minAllowed should be Number';
+        }
+
+        if (!_.isNumber(maxAllowed)) {
+            throw 'maxAllowed should be Number';
+        }
+
+        if (!_.isNumber(number) || number < minAllowed || number > maxAllowed) {
+            throw message;
+        }
+    }
 }

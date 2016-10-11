@@ -44,6 +44,7 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
+        LearningContent LearningContent(string text, string createdBy, decimal position);
         User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote, 
             string lastPassedSurveyPopup);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
@@ -165,6 +166,10 @@ namespace easygenerator.DomainModel
         public LearningContent LearningContent(string text, string createdBy)
         {
             return new LearningContent(text, createdBy);
+        }
+        public LearningContent LearningContent(string text, string createdBy, decimal position)
+        {
+            return new LearningContent(text, createdBy, position);
         }
 
         public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup)

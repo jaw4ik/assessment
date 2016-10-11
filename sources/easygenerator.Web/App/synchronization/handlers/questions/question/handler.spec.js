@@ -50,10 +50,4 @@ describe('synchronization question [handler]', function () {
         });
     });
 
-    describe('learningContentsReordered:', function () {
-        it('should be defined', function () {
-            expect(handler.learningContentsReordered).toBeDefined();
-        });
-    });
-
 });

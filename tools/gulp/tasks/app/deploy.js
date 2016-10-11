@@ -48,7 +48,7 @@ gulp.task('deploy-download-folder', function (cb) {
 });
 
 gulp.task('deploy-css', function () {
-    return gulp.src('./sources/easygenerator.Web/Content/*.css')
+    return gulp.src('./sources/easygenerator.Web/Content/**/*.css')
         .pipe(gulp.dest(outputDirectory + '/Content'));
 });
 
@@ -60,6 +60,9 @@ gulp.task('deploy-main-app', function () {
     gulp.src('./sources/easygenerator.Web/app/localization/lang/**')
         .pipe(gulp.dest(outputDirectory + '/app/localization/lang/'));
     
+	gulp.src('./sources/easygenerator.Web/app/components/htmlEditor/lang/**')
+        .pipe(gulp.dest(outputDirectory + '/app/components/htmlEditor/lang/'));
+	
     return gulp.src('./sources/easygenerator.Web/app/main-built.js')
 		.pipe(has({
 			'release': true
@@ -102,7 +105,7 @@ gulp.task('remove-extra-files', function (cb) {
         outputDirectory + '/apple-touch-icon*',
         outputDirectory + '/Scripts/*.map',
         outputDirectory + '/humans.txt',
-        outputDirectory + '/Content/*.less',
+        outputDirectory + '/Content/**/*.less',
         outputDirectory + '/Scripts/jasmine',
         'tools/WebConfigTransform/' + instance + '.config'], { force: true }, cb);
 });

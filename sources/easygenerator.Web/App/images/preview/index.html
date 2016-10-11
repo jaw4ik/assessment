@@ -1,20 +1,29 @@
 ﻿<section data-bind="if: isShown">
     <div class="modal-dialog-wrapper image-preview" data-bind="dialog: { autoclose: true, isShown: isShown }, css: { visible: isShown }, keyDown: { handlers: { 39: next.bind($data), 37: previous.bind($data) } }">
-        <div class="image-preview-navigation-bar">
-            <div class="image-preview-dialog-close-btn" data-bind="click: hide"></div>
-            <div class="image-preview-btn-container back" data-bind="click: previous, css: { disabled: !isPrevAvailable()}">
-                <div class="image-preview-dialog-btn back"></div>
+        <div class="image-preview-container">
+            <div class="image-preview-close-btn" data-bind="click: hide"></div>
+            <div class="image-preview-dialogue-container">
+                <div class="image-preview-dialogue-image" data-bind="imageLoader: { isLoaded: isLoaded, imageUrl: imageUrl, useParentSize: true }">
+                </div>
+                <!--ko ifnot: isLoaded-->
+                <div data-bind="preloader: { settings: 'align-center' }"></div>
+                <!--/ko-->
+                <div class="image-preview-dialogue-navigate previous" data-bind="click: previous, css: { disabled: !isPrevAvailable()}">
+                    <div class="image-preview-dialogue-navigate-btn"></div>
+                </div>
+                <div class="image-preview-dialogue-navigate next" data-bind="click: next, css: { disabled: !isNextAvailable()}">
+                    <div class="image-preview-dialogue-navigate-btn"></div>
+                </div>
             </div>
-            <div class="image-preview-btn-container next" data-bind="click: next, css: { disabled: !isNextAvailable()}">
-                <div class="image-preview-dialog-btn next"></div>
+            <div class="image-preview-all" data-bind="scrollbarImages:{ suppressScrollX: false, suppressScrollY: true, scrollToElementEnabled: imageUrl, scrollToElementClass: 'selected'  }">
+                <ul class="image-preview-all-list">
+                    <!-- ko foreach: images -->
+                    <li class="image-preview-all-list-item" data-bind="click: $parent.chooseImage.bind($parent), css: { selected: $parent.imageUrl() === url }">
+                        <div class="image-preview-all-list-item-image" data-bind="coverBackground: { src: url, width: 164, height: 94 }"></div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
             </div>
-        </div>
-        <div class="image-preview-dialogue-container" data-bind="click: next">
-            <div data-bind="imageLoader: { isLoaded: isLoaded, imageUrl: imageUrl}">
-            </div>
-            <!--ko ifnot: isLoaded-->
-            <div data-bind="preloader: { settings: 'align-center' }"></div>
-            <!--/ko-->
         </div>
     </div>
 </section>

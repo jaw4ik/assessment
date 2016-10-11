@@ -426,9 +426,9 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void AddLearningContent_ShouldUpdateLearningContentsOrder()
         {
-            var learningContent = LearningContentObjectMother.Create();
-            var learningContent2 = LearningContentObjectMother.Create();
-            var learningContent3 = LearningContentObjectMother.Create();
+            var learningContent = LearningContentObjectMother.CreateWithPosition(1);
+            var learningContent2 = LearningContentObjectMother.CreateWithPosition(2);
+            var learningContent3 = LearningContentObjectMother.CreateWithPosition(3);
 
             var question = DragAndDropTextObjectMother.Create();
             question.LearningContentsCollection = new Collection<LearningContent>()
@@ -436,11 +436,12 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
                 learningContent3,
                 learningContent
             };
-            question.LearningContentsOrder = String.Format("{0},{1}", learningContent.Id, learningContent3.Id);
 
             question.AddLearningContent(learningContent2, ModifiedBy);
 
-            question.LearningContentsOrder.Should().Be(String.Format("{0},{1},{2}", learningContent.Id, learningContent3.Id, learningContent2.Id));
+            question.LearningContents.ElementAt(0).Should().Be(learningContent);
+            question.LearningContents.ElementAt(1).Should().Be(learningContent2);
+            question.LearningContents.ElementAt(2).Should().Be(learningContent3);
         }
 
         #endregion AddLearningContent
@@ -450,114 +451,24 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveLearningContent_ShouldUpdateLearningContentsOrder()
         {
-            var learningContent = LearningContentObjectMother.Create();
-            var learningContent2 = LearningContentObjectMother.Create();
-            var learningContent3 = LearningContentObjectMother.Create();
+            var learningContent = LearningContentObjectMother.CreateWithPosition(1);
+            var learningContent2 = LearningContentObjectMother.CreateWithPosition(2);
+            var learningContent3 = LearningContentObjectMother.CreateWithPosition(3);
 
             var question = DragAndDropTextObjectMother.Create();
             question.LearningContentsCollection = new Collection<LearningContent>()
             {
-                learningContent3,
                 learningContent,
-                learningContent2
+                learningContent2,
+                learningContent3
             };
-            question.LearningContentsOrder = String.Format("{0},{1},{2}", learningContent.Id, learningContent3.Id, learningContent2);
 
             question.RemoveLearningContent(learningContent2, ModifiedBy);
-
-            question.LearningContentsOrder.Should().Be(String.Format("{0},{1}", learningContent.Id, learningContent3.Id));
+            question.LearningContents.ElementAt(0).Should().Be(learningContent);
+            question.LearningContents.ElementAt(1).Should().Be(learningContent3);
         }
 
         #endregion RemoveLearningContent
-
-        #region UpdateLearningContentsOrder
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldThrowArgumentNullException_WhenLearningContentsIsNull()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-
-            //Act
-            Action action = () => question.UpdateLearningContentsOrder(null, ModifiedBy);
-
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("learningContents");
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-
-            //Act
-            Action action = () => question.UpdateLearningContentsOrder(new List<LearningContent>(), null);
-
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldThrowArgumentNullException_WhenModifiedByIsEmpty()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-
-            //Act
-            Action action = () => question.UpdateLearningContentsOrder(new List<LearningContent>(), "");
-
-            //Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldSetLearningContentsOrderToNull_WhenLearningContentsIsEmpty()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-
-            //Act
-            question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
-
-            //Assert
-            question.LearningContentsOrder.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldSetLearningContentsOrder()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-            var learningContents = new List<LearningContent>()
-            {
-                LearningContentObjectMother.Create(),
-                LearningContentObjectMother.Create()
-            };
-
-            question.LearningContentsCollection = learningContents;
-
-            //Act
-            question.UpdateLearningContentsOrder(learningContents, ModifiedBy);
-
-            //Assert
-            question.LearningContentsOrder.Should().Be(String.Format("{0},{1}", learningContents[0].Id, learningContents[1].Id));
-        }
-
-        [TestMethod]
-        public void UpdateLearningContentsOrder_ShouldAddLearningContentsReorderedEvent()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-
-            //Act
-            question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
-
-            //Assert
-            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
-        }
-
-        #endregion UpdateLearningContentsOrder
 
         #region LearningContents
 
@@ -566,44 +477,18 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         {
             //Arrange
             var question = DragAndDropTextObjectMother.Create();
-            var learningContent = LearningContentObjectMother.Create();
-            var learningContent2 = LearningContentObjectMother.Create();
+            var learningContent = LearningContentObjectMother.CreateWithPosition(1);
+            var learningContent2 = LearningContentObjectMother.CreateWithPosition(2);
 
             question.LearningContentsCollection = new List<LearningContent>()
             {
-                learningContent,
-                learningContent2
+                learningContent2,
+                learningContent
             };
-            question.LearningContentsOrder = String.Format("{0},{1}", learningContent2.Id, learningContent.Id);
-
-            //Act
-            var result = question.LearningContents;
 
             //Assert
-            result.First().Should().Be(learningContent2);
-        }
-
-        [TestMethod]
-        public void LearningContents_ShouldReturnAllLearningContents_WhenOrderedCollectionIsNotFull()
-        {
-            //Arrange
-            var question = DragAndDropTextObjectMother.Create();
-            var learningContent = LearningContentObjectMother.Create();
-            var learningContent2 = LearningContentObjectMother.Create();
-
-            question.LearningContentsCollection = new List<LearningContent>()
-            {
-                learningContent,
-                learningContent2
-            };
-            question.LearningContentsOrder = learningContent2.Id.ToString();
-
-            //Act
-            var result = question.LearningContents;
-
-            //Assert
-            result.Count().Should().Be(2);
-            result.First().Should().Be(learningContent2);
+            question.LearningContents.ElementAt(0).Should().Be(learningContent);
+            question.LearningContents.ElementAt(1).Should().Be(learningContent2);
         }
 
         [TestMethod]
@@ -630,50 +515,6 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         }
 
         #endregion
-
-        #region OrderClonedLearningContents
-
-        [TestMethod]
-        public void OrderClonedLearningContents_ShouldReturnNull_IfClonedLearningContentsAreNull()
-        {
-            var question = DragAndDropTextObjectMother.Create();
-
-            var result = question.OrderClonedLearningContents(null);
-            result.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void OrderClonedLearningContents_ShouldThrowArgumentException_IfLengthOfLearningContentsCollectionsAreDifferent()
-        {
-            var question = DragAndDropTextObjectMother.Create();
-            Action action = () => question.OrderClonedLearningContents(new Collection<LearningContent> { LearningContentObjectMother.Create() });
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedLearningContents");
-        }
-
-        [TestMethod]
-        public void OrderClonedLearningContents_ShouldOrderClonedLearningContentsAccordingToQuestionLearningContents()
-        {
-            var learningContent = LearningContentObjectMother.Create("learning content 1");
-            var learningContent2 = LearningContentObjectMother.Create("learning content 2");
-            var learningContent3 = LearningContentObjectMother.Create("learning content 3");
-
-            var clonedLearningContent = LearningContentObjectMother.Create("cloned learning content 1");
-            var clonedLearningContent2 = LearningContentObjectMother.Create("cloned learning content 2");
-            var clonedLearningContent3 = LearningContentObjectMother.Create("cloned learning content 3");
-
-            var question = DragAndDropTextObjectMother.Create();
-            question.AddLearningContent(learningContent, "owner");
-            question.AddLearningContent(learningContent2, "owner");
-            question.AddLearningContent(learningContent3, "owner");
-
-            question.UpdateLearningContentsOrder(new Collection<LearningContent> { learningContent3, learningContent, learningContent2 }, "owner");
-            var result = question.OrderClonedLearningContents(new Collection<LearningContent> { clonedLearningContent, clonedLearningContent2, clonedLearningContent3 });
-
-            result[0].Should().Be(clonedLearningContent3);
-            result[1].Should().Be(clonedLearningContent);
-            result[2].Should().Be(clonedLearningContent2);
-        }
-        #endregion 
 
     }
 }

@@ -45,16 +45,6 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
-        public void Handle_LearningContentsReordered_ShouldPublishQuestionChangedEvent()
-        {
-            //Act
-            _tracker.Handle(new LearningContentsReorderedEvent(FillInTheBlanksObjectMother.Create()));
-
-            //Assert
-            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
-        }
-
-        [TestMethod]
         public void Handle_QuestionContentUpdated_ShouldPublishQuestionChangedEvent()
         {
             //Act

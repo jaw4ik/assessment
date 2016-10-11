@@ -4,7 +4,7 @@
             <span class="expand-collapse-panel-label" data-bind="localize: { text: 'questionFeedback' }">Question feedback</span>
             <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse': 'expand'  }"></div>
         </div>
-        <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+        <section class="content-item-holder" data-bind="expandBlock: { expanded: isExpanded() }">
             <!-- ko foreach: items -->
             <div class="question-feedback-wrapper" data-bind="css: key, css2: { hide: (key === 'incorrect' && $parent.surveyModeEnabled), survey: $parent.surveyModeEnabled }">
                 <div class="question-feedback-icon">

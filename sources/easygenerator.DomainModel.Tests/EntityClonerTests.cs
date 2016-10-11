@@ -107,25 +107,6 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
-        public void Clone_ShouldUpdateLearningContentsOrderForQyestion()
-        {
-            var learningContent = LearningContentObjectMother.CreateWithText("learning content 1");
-            var learningContent2 = LearningContentObjectMother.CreateWithText("learning content 2");
-            var learningContent3 = LearningContentObjectMother.CreateWithText("learning content 3");
-
-            var question = SingleSelectImageObjectMother.Create();
-            question.AddLearningContent(learningContent2, "owner");
-            question.AddLearningContent(learningContent, "owner");
-            question.AddLearningContent(learningContent3, "owner");
-            question.UpdateLearningContentsOrder(new Collection<LearningContent> { learningContent3, learningContent, learningContent2 }, "owner");
-
-            var clonedQuestion = _cloner.Clone(question, "owner");
-            clonedQuestion.LearningContents.ElementAt(0).Text.Should().Be("learning content 3");
-            clonedQuestion.LearningContents.ElementAt(1).Text.Should().Be("learning content 1");
-            clonedQuestion.LearningContents.ElementAt(2).Text.Should().Be("learning content 2");
-        }
-
-        [TestMethod]
         public void Clone_ShouldUpdateAnswersOrderForRankingTextQuestion()
         {
             var answer = RankingTextAnswerObjectMother.CreateWithText("answer 1");

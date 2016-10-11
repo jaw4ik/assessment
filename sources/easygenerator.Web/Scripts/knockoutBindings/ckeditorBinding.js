@@ -13,16 +13,14 @@
             saveIntervalId = null,
             $toolbarElement = null,
             editor = null,
-
+            showOnlyTextFormatting = valueAccessor().showOnlyTextFormatting || false,
             localizationManager = valueAccessor().localizationManager,
-
             inPageSettings = {};
 
         var events = {
             addBlank: 'Add blank (fill in the blanks)',
             addDropDownBlank: 'Add drop down (fill in the blanks)'
         };
-
         var supportedCultures = CKEDITOR.lang.languages;
         CKEDITOR.config.language = supportedCultures[localizationManager.currentCulture] == 1 ? localizationManager.currentCulture : localizationManager.currentLanguage;
 
@@ -43,6 +41,10 @@
             inPageSettings.removePlugins = 'fillintheblank';
         }
 
+        if (showOnlyTextFormatting) {
+            inPageSettings.removePlugins = 'fileuploader,fillintheblank,eqneditor,audiolibrary,documentembed,mediaembed,audioembed,imagelibrary,videolibrary,image';
+        }
+
         $(element).addClass('styled-content');
         $(element).html(data());
 
@@ -51,6 +53,10 @@
 
         editor.on('instanceReady', function () {
             $toolbarElement = $('#cke_' + editor.name);
+
+            $toolbarElement.on('click', function (event) {
+                event.stopPropagation();
+            });
 
             //fix for firefox table resize tools
             if (/Firefox/i.test(navigator.userAgent)) {

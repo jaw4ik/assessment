@@ -27,13 +27,7 @@ IF "%8"=="" SET SurveyDaysUntilShowUp="1"
 call npm update
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
-:: First attempt to install jspm modules
-call node node_modules/jspm/jspm update
-
-:: If jspm modules not installed -> install through proxy (for eg-d-web07)
-IF %ERRORLEVEL% NEQ 0 (
-	call SET HTTPS_PROXY=http://10.0.100.2:3128&node node_modules/jspm/jspm update
-)
+call node node_modules/jspm/jspm install
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 call node node_modules/gulp/bin/gulp deploy --output=%DeploymentDirectory% --instance=%Instance% --version=%Version% --createTags=%CreateTags% --surveyOriginUrl=%SurveyOriginUrl% --surveyPageUrl=%SurveyPageUrl% --surveyVersion=%SurveyVersion% --surveyDaysUntilShowUp=%SurveyDaysUntilShowUp%

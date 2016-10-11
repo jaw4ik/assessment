@@ -6,13 +6,14 @@
             return;
         }
 
-        ko.utils.objectForEach(value, function (keyCode, action) {
-            $(element).keypress(function (e) {
-                if (e.keyCode != keyCode)
+        $(element).keypress(function (e) {
+            ko.utils.objectForEach(value, function (keyCode, action) {
+                if (e.keyCode !== keyCode) {
                     return;
+                }
 
                 try {
-                    action.apply(viewModel);
+                    action.call(viewModel);
                 } finally {
                     event.preventDefault();
                     event.returnValue = false;

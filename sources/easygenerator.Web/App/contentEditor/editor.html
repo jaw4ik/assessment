@@ -1,0 +1,101 @@
+﻿<section class="content-editor" data-bind="css: { 'overlay-enabled': overlayEnabled }">
+
+    <!-- ko if: contentsList().length -->
+    <div class="content-editor-items-list-wrapper" data-bind="outsideClick: { action: hidePlaceholder }, css: { dragging: dragging }">
+
+        <div class="content-controls-wrapper top" data-bind="css: { active: activePlaceholderIndex() === 0 }">
+            <!-- ko ifnot: dragging -->
+            <div class="create-content-button-wrapper" data-bind="tip: { key: 'addContentTooltip' }">
+                <span class="create-content-button" data-bind="click: function() { showPlaceholder(0); }"></span>
+                <div class="overlay"></div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: showPlaceholders() && activePlaceholderIndex() !== 0 -->
+            <div class="create-content-drop-place gu-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': createContentItem } }, draggableData: 0"></div>
+            <!-- /ko -->
+            <!-- ko if: activePlaceholderIndex() === 0 -->
+            <div class="create-content-placeholder gu-placeholder empty-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': createContentItem } }, draggableData: 0">
+                <div class="title" data-bind="localize: { text: 'contentPlaceholderTitle' }"></div>
+                <div class="subtitle" data-bind="localize: { text: 'contentPlaceholderSubtitle' }"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+
+        <div class="content-editor-items-list" data-bind="draggableContainer: { moveTo: { '.content-editor-items-list': reorderContent }, draggableArea: '.content-reordering-handle', events: { drag: startDragging, dragend: endDragging }, mirrorContainer: '.question-view-holder-wrapper' }, foreach: contentsList">
+            <div class="content-editor-item-wrapper" data-bind="draggableData: position">
+                <!-- ko ifnot: isDeleted -->
+                <div class="content-editor-item" data-bind="css: { active: isActive }">
+                    <div class="buttons-panel-wrapper">
+                        <div class="buttons-panel" data-bind="foreach: viewmodel.buttonsPanel.buttons">
+                            <div class="button-item" data-bind="css: cssClass, click: handler, tip: { key: resourceKey, placement: 'left' }">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-view-wrapper" data-bind="heightAnimation: { expanded: !isDragging(), minHeight: 150 }">
+                        <!-- ko compose: { model: viewmodel, view: 'contentEditor/contentTypes/' + type + '/view.html', activationData: [ text, justCreated ] } --><!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isDeleted -->
+                <div class="content-restore-wrapper">
+                    <span class="content-restore">
+                        <span class="content-removed-text" data-bind="localize: { text: 'learningContentRemoved' }"></span>
+                        <span class="content-removed-undo" data-bind="localize: { text: 'undo' }, click: $parent.restoreContent"></span>
+                    </span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: $index() !== ($parent.contentsList().length - 1) -->
+                <div class="content-controls-wrapper separator" data-bind="css: { active: $parent.activePlaceholderIndex() === ($index() + 1) }">
+                    <!-- ko ifnot: $parent.dragging -->
+                    <div class="create-content-button-wrapper" data-bind="tip: { key: 'addContentTooltip' }">
+                        <div class="create-content-button" data-bind="click: function() { $parent.showPlaceholder($index() + 1); }">
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.showPlaceholders() && $parent.activePlaceholderIndex() !== ($index() + 1) -->
+                    <div class="create-content-drop-place gu-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': $parent.createContentItem } }, draggableData: $index() + 1"></div>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.activePlaceholderIndex() === ($index() + 1) -->
+                    <div class="create-content-placeholder gu-placeholder empty-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': $parent.createContentItem } }, draggableData: $index() + 1">
+                        <div class="title" data-bind="localize: { text: 'contentPlaceholderTitle' }"></div>
+                        <div class="subtitle" data-bind="localize: { text: 'contentPlaceholderSubtitle' }"></div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+                <!-- ko if: $index() === ($parent.contentsList().length - 1) -->
+                <div class="content-controls-wrapper-emulator"></div>
+                <!-- /ko -->
+
+            </div>
+        </div>
+
+        <div class="content-controls-wrapper bottom" data-bind="css: { active: activePlaceholderIndex() === contentsList().length }">
+            <!-- ko ifnot: dragging -->
+            <div class="create-content-button-wrapper" data-bind="tip: { key: 'addContentTooltip' }">
+                <span class="create-content-button" data-bind="click: function() { showPlaceholder(contentsList().length); }"></span>
+                <div class="overlay"></div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: showPlaceholders() && activePlaceholderIndex() !== contentsList().length -->
+            <div class="create-content-drop-place gu-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': createContentItem } }, draggableData: contentsList().length"></div>
+            <!-- /ko -->
+            <!-- ko if: activePlaceholderIndex() === contentsList().length -->
+            <div class="create-content-placeholder gu-placeholder empty-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': createContentItem } }, draggableData: contentsList().length">
+                <div class="title" data-bind="localize: { text: 'contentPlaceholderTitle' }"></div>
+                <div class="subtitle" data-bind="localize: { text: 'contentPlaceholderSubtitle' }"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+
+    </div>
+    <!-- /ko -->
+    <!-- ko ifnot: contentsList().length -->
+    <div class="create-content-placeholder gu-placeholder empty-placeholder" data-bind="draggableContainer: { moveFrom: { '.content-editor-items-panel': createContentItem } }, draggableData: 0">
+        <div class="title" data-bind="localize: { text: 'contentPlaceholderTitle' }"></div>
+        <div class="subtitle" data-bind="localize: { text: 'contentPlaceholderSubtitle' }"></div>
+    </div>
+    <!-- /ko -->
+    <div class="overlay"></div>
+</section>

@@ -1,6 +1,5 @@
 @maxWidth: 960px;
 @minWidth: 635px;
-@animation-duration-default-value: 0.2s;
 
 @zindex-review-panel: 2200;
 @zindex-shell-header: 2100;
@@ -108,7 +107,7 @@
 
 /*#region Transitions */
 
-.transition(@transition-property, @transition-duration: @animation-duration-default-value, @transition-function: linear) {
+.transition(@transition-property, @transition-duration: 0.2s, @transition-function: linear) {
     transition-property: ~"@{transition-property}";
     transition-timing-function: @transition-function;
     transition-duration: @transition-duration;
@@ -131,3 +130,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/*#region Cursors */
+
+.cursor-grab() {
+    cursor: url('/Content/images/grab.cur'), move;
+}
+
+.cursor-grabbing() {
+    cursor: url('/Content/images/grabbing.cur'), move;
+}
+
+/*#endregion */
