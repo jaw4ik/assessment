@@ -40,10 +40,5 @@
     "[type your answer here]": "Укажите Ваш ответ...",
     "[tracking and tracing error hint without continue]": "Нажмите \"Попробовать еще\".  Если ошибка повторяется, свяжитесь с организацией, предоставившей Вам курс.",
     "[attempts note limit acceeded]": "Вы использовали все попытки",
-    "[attempts remaining]": "Осталось попыток:",
-    "[the owner of the course has limited the access]": "The owner of the course has limited the access",
-    "[back to sign in]": "Back to sign in",
-    "[survey mode caption]": "The answer will not have any impact on your progress",
-    "[confirn your name and email]": "OK, name and email are correct",
-    "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course."
+    "[attempts remaining]": "Осталось попыток:"
 }

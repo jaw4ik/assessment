@@ -40,10 +40,5 @@
     "[type your answer here]": "Skriv inn svaret ditt her…",
     "[tracking and tracing error hint without continue]": "Start kurset på nytt. Ta kontakt med kursleverandøren dersom problemet fortsetter",
     "[attempts note limit acceeded]": "Du har oversteget antall tillatte forsøk",
-    "[attempts remaining]": "Gjenværende forsøk:",
-    "[the owner of the course has limited the access]": "The owner of the course has limited the access",
-    "[back to sign in]": "Back to sign in",
-    "[survey mode caption]": "The answer will not have any impact on your progress",
-    "[confirn your name and email]": "OK, name and email are correct",
-    "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course."
+    "[attempts remaining]": "Gjenværende forsøk:"
 }
