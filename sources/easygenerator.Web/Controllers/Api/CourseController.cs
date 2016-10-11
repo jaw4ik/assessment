@@ -1,5 +1,4 @@
-﻿using easygenerator.Auth.Attributes.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
@@ -12,20 +11,18 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Mappers;
+using easygenerator.Web.Domain.DomainOperations;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.Coggno;
 using easygenerator.Web.Publish.External;
+using easygenerator.Web.ViewModels.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http.Results;
 using System.Web.Mvc;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
-using easygenerator.Web.Components.ActionResults;
-using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Publish.Coggno;
-using easygenerator.Web.ViewModels.Api;
 using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -50,7 +47,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IExternalPublisher _externalPublisher;
         private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
-        private readonly ICourseDomainOperationExecutor _courseDomainOperationExecutor;
+        private readonly ICourseOperations _courseOperations;
         private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
         private readonly ILog _logger;
         private readonly ConfigurationReader _configurationReader;
@@ -58,7 +55,7 @@ namespace easygenerator.Web.Controllers.Api
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository, ISectionRepository sectionRepository,
             IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher, ICoggnoPublisher coggnoPublisher, IEntityMapper entityMapper,
             IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher, IUserRepository userRepository, ICloner cloner,
-            ICourseDomainOperationExecutor courseDomainOperationExecutor, ISamlServiceProviderRepository samlServiceProviderRepository, ILog logger, ConfigurationReader configurationReader)
+            ICourseOperations courseOperations, ISamlServiceProviderRepository samlServiceProviderRepository, ILog logger, ConfigurationReader configurationReader)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
@@ -74,7 +71,7 @@ namespace easygenerator.Web.Controllers.Api
             _externalPublisher = externalpublisher;
             _userRepository = userRepository;
             _cloner = cloner;
-            _courseDomainOperationExecutor = courseDomainOperationExecutor;
+            _courseOperations = courseOperations;
             _samlServiceProviderRepository = samlServiceProviderRepository;
             _logger = logger;
             _configurationReader = configurationReader;
@@ -91,7 +88,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
-            _courseDomainOperationExecutor.CreateCourse(course);
+            _courseOperations.CreateCourse(course);
 
             return JsonSuccess(_entityMapper.Map(course));
         }
@@ -99,15 +96,16 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [LimitCoursesAmount]
         [Route("api/course/duplicate")]
-        public ActionResult Duplicate(Course course)
+        public ActionResult Duplicate(Course course, bool hasSameName = false)
         {
             if (course == null)
-            {
                 return BadRequest();
-            }
 
-            var duplicatedCourse = GetDuplicatedCourse(course);
-            _courseDomainOperationExecutor.CreateCourse(duplicatedCourse);
+            var duplicatedCourse = hasSameName
+                ? _cloner.Clone(course, GetCurrentUsername(), true)
+                : GetDuplicatedCourse(course);
+
+            _courseOperations.CreateCourse(duplicatedCourse);
 
             return JsonSuccess(new
             {
@@ -160,9 +158,9 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/build")]
-        public ActionResult Build(Course course, bool includeMedia = false)
+        public ActionResult Build(Course course, bool includeMedia = false, bool enableAccessLimitation = false)
         {
-            return Deliver(course, () => _builder.Build(course, includeMedia), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course, includeMedia, enableAccessLimitation), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
         }
 
         [EntityCollaborator(typeof(Course))]
@@ -206,7 +204,7 @@ namespace easygenerator.Web.Controllers.Api
             }
             return Deliver(course, () => _coggnoPublisher.Publish(course, user.FirstName, user.LastName), JsonSuccess);
         }
-        
+
         [HttpPost, AllowAnonymous, CoggnoApiKeyAccess]
         [Route("api/course/publish/coggno/completed")]
         public ActionResult PublishToCoggnoCompleted(CoggnoPublishCompletedViewModel info)
@@ -274,7 +272,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateTitle(courseTitle, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -289,7 +287,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateTemplate(template, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -309,10 +307,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.RelateSection(section, index, GetCurrentUsername());
 
-            return JsonSuccess(new
-            {
-                course.ModifiedOn
-            });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -335,10 +330,7 @@ namespace easygenerator.Web.Controllers.Api
                 course.UnrelateSection(section, GetCurrentUsername());
             }
 
-            return JsonSuccess(new
-            {
-                course.ModifiedOn
-            });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -353,7 +345,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -368,7 +360,43 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateSectionsOrder(sections, GetCurrentUsername());
 
-            return JsonSuccess(new { course.ModifiedOn });
+            return JsonSuccess(new { });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/grantaccess")]
+        public ActionResult GrantAccess(Course course, ICollection<String> users, bool sendInvite = false)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            var user = _userRepository.GetUserByEmail(GetCurrentUsername());
+            if (user == null)
+            {
+                return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
+            }
+
+            course.GrantAccessTo(sendInvite, user, users.ToArray());
+
+            return JsonSuccess(new { });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/removeaccess")]
+        public ActionResult GrantAccess(Course course, string userIdentity)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            course.RemoveAccess(userIdentity);
+
+            return JsonSuccess(new { });
         }
 
         private string GetCourseReviewUrl(string courseId)

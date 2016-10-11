@@ -137,6 +137,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
             organization.CreatedOn.Should().Be(DateTime.MaxValue);
             organization.ModifiedOn.Should().Be(DateTime.MaxValue);
             organization.Users.Should().NotBeEmpty();
+            organization.Settings.Should().BeNull();
             organization.EmailDomains.Should().BeNull();
             organization.EmailDomainCollection.Count().Should().Be(0);
         }
@@ -687,6 +688,95 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
             // Assert
             organization.ModifiedOn.Should().Be(_currentDate);
             organization.ModifiedBy.Should().Be(ModifiedBy);
+        }
+
+        #endregion
+
+        #region GetOrCreateSettings
+
+        [TestMethod]
+        public void GetOrCreateSettings_ShouldCreateSettings_WhenSettingsAreNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+
+            //Act
+            organization.GetOrCreateSettings();
+
+            //Assert
+            Assert.IsNotNull(organization.Settings);
+        }
+
+        [TestMethod]
+        public void GetOrCreateSettings_ShouldReturnSettings_WhenSettingsAreNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+
+            //Act
+            var settings = organization.GetOrCreateSettings();
+
+            //Assert
+            Assert.IsNotNull(settings);
+        }
+
+        [TestMethod]
+        public void GetOrCreateSettings_ShouldReturnSettings_WhenSettingsAreDefined()
+        {
+            //Arrange
+            var settings = OrganizationSettingsObjectMother.Create();
+            var organization = OrganizationObjectMother.CreateWithSettings(settings);
+
+            //Act
+            var result = organization.GetOrCreateSettings();
+
+            //Assert
+            result.ShouldBeEquivalentTo(settings);
+        }
+
+        #endregion
+
+        #region ResetSettings
+
+        [TestMethod]
+        public void ResetSettings_ShouldSetSettingsToNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            organization.GetOrCreateSettings();
+
+            //Act
+            organization.ResetSettings();
+
+            //Assert
+            Assert.IsNull(organization.Settings);
+        }
+
+        [TestMethod]
+        public void ResetSettings_ShouldRaiseOrganizationSettingsResetEvent_WhenSettingsAreDefined()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            organization.GetOrCreateSettings();
+
+            //Act
+            organization.ResetSettings();
+
+            //Assert
+           organization.ShouldContainSingleEvent<OrganizationSettingsResetEvent>();
+        }
+
+        [TestMethod]
+        public void ResetSettings_ShouldNotRaiseOrganizationSettingsResetEvent_WhenSettingsAreNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+
+            //Act
+            organization.ResetSettings();
+
+            //Assert
+            organization.ShouldNotContainSingleEvent<OrganizationSettingsResetEvent>();
         }
 
         #endregion

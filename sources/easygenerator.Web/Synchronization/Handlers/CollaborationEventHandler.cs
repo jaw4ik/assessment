@@ -8,7 +8,7 @@ using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
 using System.Web;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
+using easygenerator.Web.Domain.DomainOperations;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {

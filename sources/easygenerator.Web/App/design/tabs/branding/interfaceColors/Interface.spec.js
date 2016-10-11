@@ -1,4 +1,6 @@
-﻿import Interface from './Interface';
+﻿import app from 'durandal/app';
+
+import Interface from './Interface';
 import { Color } from './Interface';
 import ColorpickerPopover from './ColorpickerPopover';
 import { EVENT_COLOR_SELECTED } from './Interface';
@@ -12,6 +14,7 @@ describe('Interface Color', () => {
 
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(app, 'trigger');
         spyOn(eventTracker, 'publish');
     });
 
@@ -98,7 +101,6 @@ describe('Interface Color', () => {
 
         it(`should trigger event ${EVENT_COLOR_SELECTED}`, () => {
             let color = new Color();
-
             color.updateValue('#ebb');
 
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_COLOR_SELECTED);
@@ -106,10 +108,18 @@ describe('Interface Color', () => {
 
         it(`should trigger event 'Change interface color'`, () => {
             let color = new Color();
-
             color.updateValue('#ebb');
-
             expect(eventTracker.publish).toHaveBeenCalledWith('Change interface color');
+        });
+
+        describe('when current item is not main, button text or text color', () => {
+            
+            it(`should trigger ${EVENT_COLOR_SELECTED} event`, () => {
+                let color = new Color();
+                color.updateValue('#ebb');
+                expect(bus.trigger).toHaveBeenCalledWith(EVENT_COLOR_SELECTED);
+            }); 
+        
         });
 
     });

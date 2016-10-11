@@ -1,0 +1,16 @@
+{
+  "name": "smtool",
+  "version": "1.0.0",
+  "description": "Tool for settings migration",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "andrey baranov",
+  "license": "ISC",
+  "dependencies": {
+    "co": "^4.6.0",
+    "mssql": "^2.3.2",
+    "underscore-node": "^0.1.2"
+  }
+}

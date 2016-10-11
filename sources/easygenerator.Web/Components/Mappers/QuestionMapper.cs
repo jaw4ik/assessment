@@ -2,6 +2,7 @@
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Extensions;
 using System;
+using System.Dynamic;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -9,17 +10,29 @@ namespace easygenerator.Web.Components.Mappers
     {
         public override dynamic Map(Question entity)
         {
-            return new
+            dynamic question = new ExpandoObject();
+
+            question.Id = entity.Id.ToNString();
+            question.Title = entity.Title;
+            question.Content = entity.Content;
+            question.CreatedOn = entity.CreatedOn;
+            question.CreatedBy = entity.CreatedBy;
+            question.ModifiedOn = entity.ModifiedOn;
+            question.VoiceOver = entity.VoiceOver;
+            question.Type = GetQuestionType(entity);
+
+            CheckSurveyQuestion(entity, ref question);
+
+            return question;
+        }
+
+        static void CheckSurveyQuestion(Question entity, ref dynamic question)
+        {
+            var surveyQuestion = entity as SurveyQuestion;
+            if (surveyQuestion != null)
             {
-                Id = entity.Id.ToNString(),
-                Title = entity.Title,
-                Content = entity.Content,
-                CreatedOn = entity.CreatedOn,
-                CreatedBy = entity.CreatedBy,
-                ModifiedOn = entity.ModifiedOn,
-                VoiceOver = entity.VoiceOver,
-                Type = GetQuestionType(entity)
-            };
+                question.IsSurvey = surveyQuestion.IsSurvey;
+            }
         }
 
         static string GetQuestionType(Question question)

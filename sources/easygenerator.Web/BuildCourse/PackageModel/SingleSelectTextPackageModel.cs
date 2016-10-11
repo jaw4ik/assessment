@@ -4,9 +4,6 @@ namespace easygenerator.Web.BuildCourse.PackageModel
 {
     public class SingleSelectTextPackageModel : MultipleselectPackageModel
     {
-        public override string Type
-        {
-            get { return Question.QuestionTypes.SingleSelectText; }
-        }
+        public override string Type => Question.QuestionTypes.SingleSelectText;
     }
 }

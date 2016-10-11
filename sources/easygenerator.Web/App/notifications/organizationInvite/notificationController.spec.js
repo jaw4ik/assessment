@@ -65,17 +65,40 @@ describe('organization invite [notificationController]', () => {
             organizationTitle: 'titile'
         };
 
-        it('should push notification', () => {
-            controller.pushNotification(invite);
+        describe('when invite with status ' + constants.organizationUserStatus.waitingForAcceptance, () => {
 
-            expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.push);
-            expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.organizationInvite + invite.id);
-            expect(app.trigger.calls.mostRecent().args[1].userFirstname).toBe(firstname);
-            expect(app.trigger.calls.mostRecent().args[1].organizationAdminFirstname).toBe(invite.organizationAdminFirstName);
-            expect(app.trigger.calls.mostRecent().args[1].organizationAdminLastname).toBe(invite.organizationAdminLastName);
-            expect(app.trigger.calls.mostRecent().args[1].organizationTitle()).toBe(invite.organizationTitle);
+            beforeEach(() => {
+                invite.status = constants.organizationUserStatus.waitingForAcceptance;
+            });
+
+            it('should push notification', () => {
+                controller.pushNotification(invite);
+
+                expect(app.trigger).toHaveBeenCalled();
+                expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.push);
+                expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.organizationInvite + invite.id);
+                expect(app.trigger.calls.mostRecent().args[1].userFirstname).toBe(firstname);
+                expect(app.trigger.calls.mostRecent().args[1].organizationAdminFirstname).toBe(invite.organizationAdminFirstName);
+                expect(app.trigger.calls.mostRecent().args[1].organizationAdminLastname).toBe(invite.organizationAdminLastName);
+                expect(app.trigger.calls.mostRecent().args[1].organizationTitle()).toBe(invite.organizationTitle);
+            });
+
         });
+
+        describe('when invite with another status', () => {
+
+            beforeEach(() => {
+                invite.status = constants.organizationUserStatus.declined;
+            });
+
+            it('should not push notification', () => {
+                controller.pushNotification(invite);
+
+                expect(app.trigger).not.toHaveBeenCalled();
+            });
+
+        });
+
     });
 
     describe('removeNotification:', () => {

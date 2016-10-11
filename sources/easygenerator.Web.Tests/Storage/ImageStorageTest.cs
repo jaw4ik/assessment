@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.Storage
 
 
         [TestMethod]
-        public void GetImagePath_Should_ReturnCorrectFilePath_WhenScaleBySmallerSideIsTrue()
+        public void GetImagePath_ShouldReturnCorrectFilePath_WhenScaleBySmallerSideIsTrue()
         {
             var resultPath =
                 Path.Combine(imagePath, "cache", "0", imageFilename, cachedImageFilenameWithSmallerSideScaling);
@@ -63,7 +63,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void GetImagePath_Should_ReturnCorrectFilePath_WhenScaleBySmallerSideIsFalse()
+        public void GetImagePath_ShouldReturnCorrectFilePath_WhenScaleBySmallerSideIsFalse()
         {
             var resultPath =
                 Path.Combine(imagePath, "cache", "0", imageFilename, cachedImageFilenameWithoutSmallerSideScaling);
@@ -82,7 +82,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void GetImagePath_Should_CallImageResizer_WhenCachedImageIsNotExists()
+        public void GetImagePath_ShouldCallImageResizer_WhenCachedImageIsNotExists()
         {
             var imageFilepath = Path.Combine(imagePath, "0", imageFilename + imageFileExtension);
 
@@ -95,7 +95,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void GetImagePath_Should_CreateResizedImage_WhenCachedImageIsExists()
+        public void GetImagePath_ShouldCreateResizedImage_WhenCachedImageIsExists()
         {
             _storage.FileExists(Arg.Any<string>()).Returns(true);
 
@@ -109,7 +109,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void GetImagePath_Should_CreateResizedImage_WhenCachedImageIsNotExists()
+        public void GetImagePath_ShouldCreateResizedImage_WhenCachedImageIsNotExists()
         {
             _storage.FileExists(Arg.Any<string>()).Returns(false);
 
@@ -123,7 +123,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void GetCachedImagePath_Should_ReturnCachedFileFolderPath()
+        public void GetCachedImagePath_ShouldReturnCachedFileFolderPath()
         {
             var resultPath =
                 Path.Combine(imagePath, "cache", "0", imageFilename);

@@ -154,24 +154,24 @@ describe('viewmodel [questionModalView]', () => {
         });
     });
 
-    describe('toggleExpandNavigationPanel:', () => {
+    describe('toggleExpandLeftPanel:', () => {
         it('should be function', () => {
-            expect(viewModel.toggleExpandNavigationPanel).toBeFunction();
+            expect(viewModel.toggleExpandLeftPanel).toBeFunction();
         });
 
         describe('when panel is expanded', () => {
             it('should collapse panel', () => {
-                viewModel.isNavigationPanelExpanded(true);
-                viewModel.toggleExpandNavigationPanel();
-                expect(viewModel.isNavigationPanelExpanded()).toBeFalsy();
+                viewModel.isLeftPanelExpanded(true);
+                viewModel.toggleExpandLeftPanel();
+                expect(viewModel.isLeftPanelExpanded()).toBeFalsy();
             });
         });
 
         describe('when panel is collapsed', () => {
             it('should expand panel', () => {
-                viewModel.isNavigationPanelExpanded(false);
-                viewModel.toggleExpandNavigationPanel();
-                expect(viewModel.isNavigationPanelExpanded()).toBeTruthy();
+                viewModel.isLeftPanelExpanded(false);
+                viewModel.toggleExpandLeftPanel();
+                expect(viewModel.isLeftPanelExpanded()).toBeTruthy();
             });
         });
     });

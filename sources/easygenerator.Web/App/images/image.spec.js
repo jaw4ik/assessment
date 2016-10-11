@@ -31,12 +31,6 @@ describe('[image]', () => {
         });
     });
 
-    describe('thumbnailUrl:', function () {
-        it('should be set', function () {
-            expect(viewModel.thumbnailUrl).toBe(image.url + '?width=200&height=150');
-        });
-    });
-
     describe('isDeleteConfirmationShown:', function () {
         it('should be observable', function () {
             expect(viewModel.isDeleteConfirmationShown).toBeObservable();

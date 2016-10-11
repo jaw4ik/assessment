@@ -50,5 +50,25 @@ describe('viewmodel [QuestionStatementBase]', () => {
                 expect(statement.correct).toBeFalsy();
             });
         });
+
+        describe('when statement has property [questionType]', () => {
+
+            it('should create property [questionType]', () => {
+                lrsStatement.questionType = 'some';
+                statement = new QuestionStatementBase(lrsStatement);
+                expect(statement.questionType).toBe('some');
+            });
+
+        });
+
+        describe('when statement has property [isSurvey]', () => {
+
+            it('should create property [isSurvey]', () => {
+                lrsStatement.isSurvey = true;
+                statement = new QuestionStatementBase(lrsStatement);
+                expect(statement.isSurvey).toBeTruthy();
+            });
+
+        });
     });
 });

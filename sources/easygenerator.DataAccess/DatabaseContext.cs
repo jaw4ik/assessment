@@ -121,6 +121,13 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.PublicationUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().HasMany(e => e.CourseCompanies).WithMany(e => e.CompanyCourses).Map(m => m.ToTable("CompanyCourses"));
             modelBuilder.Entity<Course>().HasRequired(e => e.SaleInfo).WithRequiredPrincipal(e => e.Course).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Course>().HasMany(e => e.PublicationAccessControlListCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<CourseAccessControlListEntry>().Property(e => e.UserIdentity).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<CourseAccessControlListEntry>().Property(e => e.UserInvited);
+            modelBuilder.Entity<CourseAccessControlListEntry>().HasRequired(e => e.Course);
+            modelBuilder.Entity<CourseAccessControlListEntry>().Ignore(e => e.ModifiedBy);
+            modelBuilder.Entity<CourseAccessControlListEntry>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.IsAdmin).IsRequired();
@@ -141,7 +148,7 @@ namespace easygenerator.DataAccess
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
             modelBuilder.Entity<CourseTemplateSettings>().HasOptional(e => e.Theme);
-            
+
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();
@@ -154,6 +161,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Question>().Property(e => e.Feedback.IncorrectText).IsMaxLength().IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.LearningContentsOrder).IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.VoiceOver).IsOptional();
+
+            modelBuilder.Entity<SurveyQuestion>().Property(e => e.IsSurvey).IsOptional();
 
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
@@ -184,6 +193,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<SingleSelectImageAnswer>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
+            modelBuilder.Entity<LearningContent>().Property(e => e.Position).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<Answer>().Property(e => e.Text).IsRequired();
@@ -221,11 +231,14 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
 
             modelBuilder.Entity<UserSettings>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
+            modelBuilder.Entity<UserSettings>().Property(e => e.LastPassedSurveyPopup).IsRequired().HasMaxLength(8);
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughLti).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughSamlIdP).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.NewEditor).IsOptional();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsNewEditorByDefault).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.IncludeMediaToPackage).IsRequired();
+            modelBuilder.Entity<UserSettings>().Property(e => e.PersonalAccessType).IsOptional();
+            modelBuilder.Entity<UserSettings>().Property(e => e.PersonalExpirationDate).IsOptional();
             modelBuilder.Entity<UserSettings>().HasRequired(e => e.User).WithRequiredDependent(p => p.Settings).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Ticket>().HasRequired(e => e.User);
@@ -247,6 +260,10 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<TemplateAccessControlListEntry>().Property(e => e.UserIdentity).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<TemplateAccessControlListEntry>().HasRequired(e => e.Template);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.CreatedBy);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.CreatedOn);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.ModifiedBy);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();
             modelBuilder.Entity<MailNotification>().Property(e => e.Subject).HasMaxLength(254).IsRequired();
@@ -364,6 +381,11 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Organization>().Property(e => e.EmailDomains).IsOptional().HasMaxLength(256);
             modelBuilder.Entity<Organization>().HasMany(e => e.UserCollection).WithRequired(e => e.Organization).WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<OrganizationSettings>().HasRequired(e => e.Organization).WithOptional(c => c.Settings).WillCascadeOnDelete(true);
+            modelBuilder.Entity<OrganizationSettings>().Property(e => e.AccessType).IsOptional();
+            modelBuilder.Entity<OrganizationSettings>().Property(e => e.ExpirationDate).IsOptional();
+            modelBuilder.Entity<OrganizationSettings>().HasMany(e => e.TemplateCollection).WithMany(e => e.OrganizationSettingsCollection).Map(m => m.ToTable("OrganizationSettingsTemplates"));
+
             modelBuilder.Entity<OrganizationUser>().HasRequired(e => e.Organization);
             modelBuilder.Entity<OrganizationUser>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<OrganizationUser>().Property(e => e.IsAdmin).IsRequired();
@@ -376,10 +398,9 @@ namespace easygenerator.DataAccess
         {
             SaveChanges();
 
-            foreach (DbEntityEntry entry in ChangeTracker.Entries<Entity>())
+            foreach (DbEntityEntry entry in ChangeTracker.Entries<EventRaiseable>())
             {
-                var entity = entry.Entity as Entity;
-
+                var entity = entry.Entity as EventRaiseable;
                 if (entity == null)
                 {
                     continue;
@@ -455,6 +476,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is OrganizationUser) && (entry.Entity as OrganizationUser).Organization == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is CourseAccessControlListEntry) && (entry.Entity as CourseAccessControlListEntry).Course == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

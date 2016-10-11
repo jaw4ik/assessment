@@ -10,6 +10,7 @@ using easygenerator.Infrastructure.DomainModel.Mappings;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -511,13 +512,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region GetOrganizationEmailDomains
+        #region GetOrganizationInfo
 
         [TestMethod]
-        public void GetOrganizationEmailDomain_ShouldThrowArgumentException_WnenOrganizationsNull()
+        public void GetOrganizationInfo_ShouldThrowArgumentException_WnenOrganizationsNull()
         {
             //Act
-            Action action = () => _controller.GetOrganizationEmailDomains(null);
+            Action action = () => _controller.GetOrganizationInfo(null);
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
@@ -525,18 +526,123 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
         [TestMethod]
-        public void GetOrganizationEmailDomain_ShouldReturnOrganizationEmailDomains()
+        public void GetOrganizationInfo_ShouldReturnInfo_WhenOrganizationSettingsAreNull()
         {
             //Arrgange
-            var emailDomains = "easygenerator.com";
             var organization = OrganizationObjectMother.Create();
-            organization.UpdateEmailDomains(emailDomains);
 
             //Act
-            var result = _controller.GetOrganizationEmailDomains(organization);
+            var result = _controller.GetOrganizationInfo(organization);
 
             //Assert
-            result.Should().BeJsonDataResult().And.Data.Should().Be(emailDomains);
+            result.Should().BeJsonDataResult().And.Data.ShouldBeEquivalentTo(new
+            {
+                Title = organization.Title,
+                EmailDomains = null as object,
+                Settings = null as object
+            });
+        }
+
+        [TestMethod]
+        public void GetOrganizationInfo_ShouldReturnInfo_WhenEmailDomainsIsSet()
+        {
+            //Arrgange
+            var organization = OrganizationObjectMother.CreateWithEmailDomains(EmailDomains);
+
+            //Act
+            var result = _controller.GetOrganizationInfo(organization);
+
+            //Assert
+            result.Should().BeJsonDataResult().And.Data.ShouldBeEquivalentTo(new
+            {
+                Title = organization.Title,
+                EmailDomains = EmailDomains,
+                Settings = null as object
+            });
+        }
+
+        [TestMethod]
+        public void GetOrganizationInfo_ShouldReturnSettings_WhenSettingsIsDefined()
+        {
+            //Arrgange
+            var organization = OrganizationObjectMother.Create();
+            organization.GetOrCreateSettings();
+
+            //Act
+            var result = _controller.GetOrganizationInfo(organization);
+
+            //Assert
+            result.Should().BeJsonDataResult().And.Data.ShouldBeEquivalentTo(new
+            {
+                Title = organization.Title,
+                EmailDomains = null as object,
+                Settings = new
+                {
+                    AccessType = null as object,
+                    ExpirationDate = null as object,
+                    Templates = new List<Template>()
+                }
+            });
+        }
+
+        [TestMethod]
+        public void GetOrganizationInfo_ShouldReturnSettings_WhenSettingsSubscriptionIsDefined()
+        {
+            //Arrgange
+            var organization = OrganizationObjectMother.Create();
+            var settings = organization.GetOrCreateSettings();
+            var accessType = AccessType.Academy;
+            var expirationDate = DateTime.Now;
+            settings.UpdateSubscription(accessType, expirationDate);
+
+            //Act
+            var result = _controller.GetOrganizationInfo(organization);
+
+            //Assert
+            result.Should().BeJsonDataResult().And.Data.ShouldBeEquivalentTo(new
+            {
+                Title = organization.Title,
+                EmailDomains = null as object,
+                Settings = new
+                {
+                    AccessType = $"{accessType} ({(int)accessType})",
+                    ExpirationDate = expirationDate,
+                    Templates = new List<Template>()
+                }
+            });
+        }
+
+        [TestMethod]
+        public void GetOrganizationInfo_ShouldReturnSettings_WhenSettingsTemplatesAreSet()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.Settings.Returns(settings);
+
+            var templates = new List<Template>() { TemplateObjectMother.Create(), TemplateObjectMother.Create() };
+            settings.Templates.Returns(templates);
+
+            //Act
+            var result = _controller.GetOrganizationInfo(organization);
+
+            //Assert
+            result.Should().BeJsonDataResult().And.Data.ShouldBeEquivalentTo(new
+            {
+                Title = organization.Title,
+                EmailDomains = null as object,
+                Settings = new
+                {
+                    AccessType = null as object,
+                    ExpirationDate = null as object,
+                    Templates = templates.Select(template =>
+                        new
+                        {
+                            Name = template.Name,
+                            Id = template.Id.ToNString()
+                        })
+                }
+            });
         }
 
         #endregion
@@ -547,7 +653,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void ClearOrganizationEmailDomain_ShouldThrowArgumentException_WnenOrganizationsNull()
         {
             //Act
-            Action action = () => _controller.GetOrganizationEmailDomains(null);
+            Action action = () => _controller.ClearOrganizationEmailDomains(null);
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
@@ -614,6 +720,381 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Act
             var result = _controller.UpdateOrganizationEmailDomains(organization, EmailDomains);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region UpdateOrganizationSettingsSubscription
+
+        [TestMethod]
+        public void UpdateOrganizationSettingsSubscription_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Arrange
+            var accessType = AccessType.Academy;
+            var expirationDate = DateTime.Now;
+
+            //Act
+            Action action = () => _controller.UpdateOrganizationSettingsSubscription(null, accessType, expirationDate);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationSettingsSubscription_ShouldThrowArgumentException_WnenAccessTypeIsNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            var expirationDate = DateTime.Now;
+
+            //Act
+            Action action = () => _controller.UpdateOrganizationSettingsSubscription(organization, null, expirationDate);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("accessType");
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationSettingsSubscription_ShouldThrowArgumentException_WnenExpirationDateIsNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            var accessType = AccessType.Academy;
+
+            //Act
+            Action action = () => _controller.UpdateOrganizationSettingsSubscription(organization, accessType, null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationSettingsSubscription_ShouldCreateOrganizationSettings_WhenOrganizationSettingsAreNull()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+            organization.GetOrCreateSettings().Returns(OrganizationSettingsObjectMother.Create());
+            var accessType = AccessType.Academy;
+            var expirationDate = DateTime.Now;
+
+            //Act
+            _controller.UpdateOrganizationSettingsSubscription(organization, accessType, expirationDate);
+
+            //Assert
+            organization.Received().GetOrCreateSettings();
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationSettingsSubscription_ShouldUpdateOrganizationSettingsSubscription()
+        {
+            //Arrgange
+            var settings = Substitute.For<OrganizationSettings>();
+            var organization = OrganizationObjectMother.CreateWithSettings(settings);
+            var accessType = AccessType.Academy;
+            var expirationDate = DateTime.Now;
+
+            //Act
+            _controller.UpdateOrganizationSettingsSubscription(organization, accessType, expirationDate);
+
+            //Assert
+            settings.Received().UpdateSubscription(accessType, expirationDate);
+        }
+
+        [TestMethod]
+        public void UpdateOrganizationSettingsSubscription_ShouldReturnSuccessResult()
+        {
+            //Arrgange
+            var settings = Substitute.For<OrganizationSettings>();
+            var organization = OrganizationObjectMother.CreateWithSettings(settings);
+            var accessType = AccessType.Academy;
+            var expirationDate = DateTime.Now;
+
+            //Act
+            var result = _controller.UpdateOrganizationSettingsSubscription(organization, accessType, expirationDate);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region ResetOrganizationSettingsSubscription
+
+        [TestMethod]
+        public void ResetOrganizationSettingsSubscription_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.ResetOrganizationSettingsSubscription(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void ResetOrganizationSettingsSubscription_ShouldReturnJsonSuccess_WnenOrganizationSettingsAreNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+
+            //Act
+            var result = _controller.ResetOrganizationSettingsSubscription(organization);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void ResetOrganizationSettingsSubscription_ShouldResetOrganizationSubscriptionSettings_WnenOrganizationSettingsAreDefined()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.Settings.Returns(settings);
+
+            //Act
+            _controller.ResetOrganizationSettingsSubscription(organization);
+
+            //Assert
+            settings.Received().ResetSubscription();
+        }
+
+        [TestMethod]
+        public void ResetOrganizationSettingsSubscription_ShouldReturnJsonSuccess_WnenOrganizationSettingsAreDefined()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.GetOrCreateSettings().Returns(settings);
+
+            //Act
+            var result = _controller.ResetOrganizationSettingsSubscription(organization);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region AddOrganizationSettingsTemplate
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldThrowArgumentException_WnenOrganizationIsNull()
+        {
+            //Act
+            Action action = () => _controller.AddOrganizationSettingsTemplate(null, TemplateObjectMother.Create());
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldThrowArgumentException_WnenTemplateIsNull()
+        {
+            //Act
+            Action action = () => _controller.AddOrganizationSettingsTemplate(OrganizationObjectMother.Create(), null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldAddOrganizationSettingsTemplate()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var template = Substitute.For<Template>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.GetOrCreateSettings().Returns(settings);
+
+            //Act
+            _controller.AddOrganizationSettingsTemplate(organization, template);
+
+            //Assert
+            settings.Received().AddTemplate(template);
+        }
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldReturnJsonSuccess()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var template = Substitute.For<Template>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.GetOrCreateSettings().Returns(settings);
+
+            //Act
+            var result = _controller.AddOrganizationSettingsTemplate(organization, template);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region RemoveOrganizationSettingsTemplate
+
+        [TestMethod]
+        public void RemoveOrganizationSettingsTemplate_ShouldThrowArgumentException_WnenOrganizationIsNull()
+        {
+            //Act
+            Action action = () => _controller.RemoveOrganizationSettingsTemplate(null, TemplateObjectMother.Create());
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationSettingsTemplate_ShouldThrowArgumentException_WnenTemplateIsNull()
+        {
+            //Act
+            Action action = () => _controller.RemoveOrganizationSettingsTemplate(OrganizationObjectMother.Create(), null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldRemoveOrganizationSettingsTemplate_WnenOrganizationSettingsAreDefined()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var template = Substitute.For<Template>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.Settings.Returns(settings);
+
+            //Act
+            _controller.RemoveOrganizationSettingsTemplate(organization, template);
+
+            //Assert
+            settings.Received().RemoveTemplate(template);
+        }
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldReturnJsonSuccess_WnenOrganizationSettingsAreDefined()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var template = Substitute.For<Template>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.Settings.Returns(settings);
+
+            //Act
+            var result = _controller.RemoveOrganizationSettingsTemplate(organization, template);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void AddOrganizationSettingsTemplate_ShouldReturnJsonSuccess_WnenOrganizationSettingsAreNull()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var template = Substitute.For<Template>();
+            organization.Settings.Returns(null as OrganizationSettings);
+
+            //Act
+            var result = _controller.RemoveOrganizationSettingsTemplate(organization, template);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region ClearOrganizationSettingsTemplates
+
+        [TestMethod]
+        public void ClearOrganizationSettingsTemplates_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.ClearOrganizationSettingsTemplates(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void ClearOrganizationSettingsTemplates_ShouldReturnJsonSuccess_WnenOrganizationSettingsAreNull()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+
+            //Act
+            var result = _controller.ResetOrganizationSettingsSubscription(organization);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void ClearOrganizationSettingsTemplates_ShouldClearOrganizationSettingsTemplates_WnenOrganizationSettingsAreDefined()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.Settings.Returns(settings);
+
+            //Act
+            _controller.ClearOrganizationSettingsTemplates(organization);
+
+            //Assert
+            settings.Received().ClearTemplates();
+        }
+
+        [TestMethod]
+        public void ClearOrganizationSettingsTemplates_ShouldReturnJsonSuccess_WnenOrganizationSettingsAreDefined()
+        {
+            //Arrange
+            var organization = Substitute.For<Organization>();
+            var settings = Substitute.For<OrganizationSettings>();
+            organization.GetOrCreateSettings().Returns(settings);
+
+            //Act
+            var result = _controller.ClearOrganizationSettingsTemplates(organization);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region ResetOrganizationSettings
+
+        [TestMethod]
+        public void ResetOrganizationSettings_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.ResetOrganizationSettings(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void ResetOrganizationSettings_ShouldResetOrganizationSettings()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+
+            //Act
+            _controller.ResetOrganizationSettings(organization);
+
+            //Assert
+            organization.Received().ResetSettings();
+        }
+
+        [TestMethod]
+        public void ResetOrganizationSettings_ShouldReturnSuccessResult()
+        {
+            //Arrgange
+            var organization = Substitute.For<Organization>();
+
+            //Act
+            var result = _controller.ResetOrganizationSettings(organization);
 
             //Assert
             result.Should().BeSuccessResult();

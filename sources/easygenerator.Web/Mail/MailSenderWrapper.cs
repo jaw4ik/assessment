@@ -11,6 +11,7 @@ namespace easygenerator.Web.Mail
         private const string UserEmailConfirmationTemplateName = "UserEmailConfirmationTemplate";
         private const string InviteCollaboratorTemplateName = "InviteCollaboratorTemplate";
         private const string InviteOrganizationUserTemplateName = "InviteOrganizationUserTemplate";
+        private const string InviteUserToTheCourseTemplateName = "InviteUserToTheCourseTemplate";
 
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IMailSender _mailSender;
@@ -72,6 +73,20 @@ namespace easygenerator.Web.Mail
             {
                 Subject = _mailSender.NormalizeMailMessageSubject(String.Format(ViewsResources.Resources.InviteOrganizationUserSubject, userName, organizationTitle)),
                 Body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, WebsiteUrl = websiteUrl, Email = email, OrganizationTitle = organizationTitle }),
+                IsBodyHtml = true
+            };
+
+            _mailSender.Send(mailMessage);
+        }
+
+        public void SendInviteUserToTheCourseMessage(string email, string userName, string courseTitle, string courseUrl)
+        {
+            var templateSettings = _senderSettings.MailTemplatesSettings[InviteUserToTheCourseTemplateName];
+            var fromDisplayName = String.Format(ViewsResources.Resources.InviteUserToTheCourseFromDisplayName, userName);
+            var mailMessage = new MailMessage(new MailAddress(templateSettings.From, fromDisplayName), new MailAddress(email))
+            {
+                Subject = _mailSender.NormalizeMailMessageSubject(String.Format(ViewsResources.Resources.InviteUserToTheCourseSubject, userName, courseTitle)),
+                Body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, CourseTitle = courseTitle, CourseUrl = _urlHelperWrapper.AddCurrentSchemeToUrl(courseUrl), Email = email }),
                 IsBodyHtml = true
             };
 

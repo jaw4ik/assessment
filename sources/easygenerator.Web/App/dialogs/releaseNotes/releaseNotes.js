@@ -1,42 +1,45 @@
-﻿define(['widgets/dialog/viewmodel', 'constants', 'dialogs/releaseNotes/commands/getReleaseNote',
-        'dialogs/releaseNotes/commands/updateLastReadReleaseNote', 'userContext'],
-        function (dialog, constants, getReleaseNote, updateLastReadReleaseNote, userContext) {
-    'use strict';
+﻿import _ from 'underscore';
+import dialog from 'widgets/dialog/viewmodel';
+import constants from 'constants';
+import getReleaseNote from 'dialogs/releaseNotes/commands/getReleaseNote';
+import updateLastReadReleaseNote from 'dialogs/releaseNotes/commands/updateLastReadReleaseNote';
+import userContext from 'userContext';
+import binder from 'binder';
 
-    var viewmodel = {
-        show: show,
-        closed: closed,
-        submit: submit,
-        callbackAfterClose: null,
-        releaseNotes: ''
-    };
+'use strict';
 
-    return viewmodel;
-
-    function show(callbackAfterClose) {
-        getReleaseNote.execute().then(function (response) {
-            if (_.isNullOrUndefined(response) || _.isEmptyOrWhitespace(response)) {
-                dialog.close();
-            } else {
-                viewmodel.releaseNotes = response;
-                viewmodel.callbackAfterClose = callbackAfterClose;
-                dialog.show(viewmodel, constants.dialogs.releaseNote.settings);
-                dialog.on(constants.dialogs.dialogClosed, viewmodel.closed);
-            }
-        });
+class ReleaseNotes {
+    constructor() {
+        binder.bindClass(this);
+        this.callbackAfterClose = null;
+        this.releaseNotes = '';
     }
 
-    function submit() {
+    async show(callbackAfterClose) {
+        let response = await getReleaseNote.execute();
+        if (_.isNullOrUndefined(response) || _.isEmptyOrWhitespace(response)) {
+            dialog.close();
+        } else {
+            this.releaseNotes = response;
+            this.callbackAfterClose = callbackAfterClose;
+            dialog.show(this, constants.dialogs.releaseNote.settings);
+            dialog.on(constants.dialogs.dialogClosed, this.closed);
+        }
+    }
+
+    submit() {
         dialog.close();
     }
 
-    function closed() {
-        if (_.isFunction(viewmodel.callbackAfterClose)) {
-            viewmodel.callbackAfterClose();
+    async closed() {
+        if (_.isFunction(this.callbackAfterClose)) {
+            this.callbackAfterClose();
         }
-        updateLastReadReleaseNote.execute().then(function() {
-            userContext.identity.showReleaseNote = false;
-        });
-        dialog.off(constants.dialogs.dialogClosed, viewmodel.closed);
+        await updateLastReadReleaseNote.execute();
+        userContext.identity.showReleaseNote = false;
+        
+        dialog.off(constants.dialogs.dialogClosed, this.closed);
     }
-});
+}
+
+export default new ReleaseNotes();

@@ -1,5 +1,5 @@
 <div class="single-select-text">
-
+    <tooltip ng-if="question.isSurveyMode">{{ '[survey mode caption]' | translate }}</tooltip>
     <div class="answers" ng-repeat="answer in question.answers">
         <div class="answer-pair" ng-if="$even">
             <div class="answer-container">

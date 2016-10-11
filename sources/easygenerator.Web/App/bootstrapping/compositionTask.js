@@ -17,7 +17,6 @@
         composition.addBindingHandler('autosize');
         composition.addBindingHandler('introAnimate');
         composition.addBindingHandler('expandableBlock');
-        composition.addBindingHandler('tabs');
         composition.addBindingHandler('dialogBindingHandler');
         composition.addBindingHandler('dialogWizardBindingHandler');
     }

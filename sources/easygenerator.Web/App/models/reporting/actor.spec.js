@@ -22,13 +22,19 @@ describe('model [Actor]', function () {
         it('should fill model with correct initial data', function () {
             var spec = {
                 name: "Name",
-                mbox: "mailto:aa@aa.aa"
+                mbox: "mailto:aa@aa.aa",
+                account: {
+                    homePage: 'http://someLMS.com',
+                    name: '12345'
+                }
             };
 
             var actor = new Actor(spec);
 
             expect(actor.name).toEqual(spec.name);
             expect(actor.email).toEqual(spec.mbox.replace('mailto:', ''));
+            expect(actor.account.homePage).toBe(spec.account.homePage);
+            expect(actor.account.name).toBe(spec.account.name);
         });
 
         it('should correctly process empty spec', function () {

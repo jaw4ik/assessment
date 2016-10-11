@@ -133,7 +133,6 @@
 }
 
 .application {
-    .unselectable();
     width: 100%;
     min-width: 1024px;
 }
@@ -290,8 +289,7 @@
         border-radius: 3px;
         border: 1px solid #cacaca;
         cursor: pointer;
-        -webkit-transition: border 0.2s;
-        transition: border 0.2s;
+        .transition(border);
     }
 
         .advanced-features-dropdown .btn-head:before {
@@ -687,7 +685,7 @@
     box-shadow: 0 1px 1px 0 #d1dbe0;
     box-sizing: border-box;
     border: solid 1px transparent;
-    transition: border-color .3s;
+    .transition(border-color, .3s);
 
     &:hover {
         border-color: #4caf50;
@@ -921,7 +919,7 @@
         .main-content-list .list-item-logo.changeable {
             position: relative;
             border: 1px solid #ccc;
-            transition: box-shadow 0.15s linear;
+            .transition(box-shadow, 0.15s);
             overflow: hidden;
         }
 
@@ -965,7 +963,7 @@
                     visibility: hidden;
                     cursor: pointer;
                     opacity: 0;
-                    transition: opacity 0.15s linear;
+                    .transition(opacity, 0.15s);
                 }
 
             .main-content-list .list-item-logo.changeable:hover .overlay.hover {
@@ -1078,7 +1076,7 @@
     border-radius: 15px;
     background-color: #8bc34a;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    transition: box-shadow 0.3s;
+    .transition(box-shadow, 0.3s);
 
     &:hover {
         box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
@@ -1223,7 +1221,7 @@
     }
 
     .btn.disabled {
-        opacity: 0.3;
+        opacity: 0.5;
         cursor: default;
     }
 
@@ -1690,13 +1688,15 @@
     border-color: #469dd5;
     text-shadow: none;
     text-transform: uppercase;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    .transition(box-shadow, 0.3s);
 
     &:hover,
     &.active,
     &.active:active {
         background: #3b8abc;
         border-color: #3b8abc;
-        box-shadow: none;
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     }
 
     &.disabled,
@@ -1896,7 +1896,7 @@
     text-align: center;
     opacity: 0;
     z-index: 200;
-    transition: opacity 0.2s ease;
+    .transition(opacity, 0.2s, ease);
 
     &:after {
         content: '';
@@ -2342,7 +2342,7 @@
         background-color: #0c0c0c;
         border-radius: 3px;
         cursor: pointer;
-        transition: top 0.1s linear;
+        .transition(top, 0.1s);
     }
 
     .info-tooltip {
@@ -2351,7 +2351,6 @@
         /* fix for Safari to hide tooltip correctly */
         visibility: initial;
         transition: none;
-        -webkit-transition: none;
     }
 }
 
@@ -2474,110 +2473,144 @@ ol.circles-list {
 /*#region tags widget */
 
 @default-border-color: #c6d1d8;
-@active-border-color: #469cd5;
+@active-border-color: #469dd5;
 @error-border-color: #953b39;
+@import-btn-hover-color: #1b8bd3;
+@header-color: #464d5d;
 
-.tags-widget {
-    position: relative;
-    padding: 6px;
-    border-radius: 3px;
-    border: 1px solid @default-border-color;
+.tags-widget-container {
 
-    &:hover {
-        box-shadow: 0 0 2px @default-border-color;
+    .tags-header-container {
+        font: 12px 'OpenSans';
+        margin-top: 20px;
+        padding: 15px 0;
+
+        span {
+            text-transform: lowercase;
+            color: @main-color;
+
+            &.tags-header {
+                color: @header-color;
+                font-family: 'OpenSans-Semibold', sans-serif;
+                font-size: 20px;
+                text-transform: none;
+            }
+        }
+
+        .import-tags-btn {
+            color: @active-border-color;
+            text-decoration: underline;
+
+            &:hover {
+                color: @import-btn-hover-color;
+            }
+        }
     }
 
-    &.active {
-        border-color: @active-border-color;
-        box-shadow: 0 0 2px @active-border-color;
-    }
 
-    &.invalid {
-        border-color: @error-border-color;
-        box-shadow: 0 0 2px @error-border-color;
-    }
 
-    &.disabled {
-        opacity: 0.6;
-        pointer-events: none;
-    }
-
-    .tag {
+    .tags-widget {
         position: relative;
-        display: inline-block;
-        max-width: 300px;
-        height: 20px;
-        margin: 3px 2px 3px 0;
-        padding: 0 20px 0 3px;
-        border: 1px solid #a5d7a7;
+        padding: 6px;
         border-radius: 3px;
-        background-color: #edf7ed;
-        vertical-align: middle;
+        border: 1px solid @default-border-color;
 
-        &.selected {
-            background-color: #a5d7a7;
+        &:hover {
+            box-shadow: 0 0 2px @default-border-color;
+        }
+
+        &.active {
+            border-color: @active-border-color;
+            box-shadow: 0 0 2px @active-border-color;
         }
 
         &.invalid {
-            border-color: #fbbdb8;
-            background-color: #fde2e0;
+            border-color: @error-border-color;
+            box-shadow: 0 0 2px @error-border-color;
+        }
+
+        &.disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .tag {
+            position: relative;
+            display: inline-block;
+            max-width: 300px;
+            height: 20px;
+            margin: 3px 2px 3px 0;
+            padding: 0 20px 0 3px;
+            border: 1px solid #a5d7a7;
+            border-radius: 3px;
+            background-color: #edf7ed;
+            vertical-align: middle;
 
             &.selected {
-                background-color: #fbbdb8;
+                background-color: #a5d7a7;
+            }
+
+            &.invalid {
+                border-color: #fbbdb8;
+                background-color: #fde2e0;
+
+                &.selected {
+                    background-color: #fbbdb8;
+                }
+            }
+
+            .tag-input {
+                display: block;
+                max-width: 100%;
+                padding: 0;
+                border: none;
+                border-radius: 3px;
+                background-color: transparent;
+                font: 13px 'Open Sans';
+                color: #42515f;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                outline: none;
+            }
+
+            .delete-btn {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: inline-block;
+                width: 20px;
+                height: 100%;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQxMUVDRTZGMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQxMUVDRTcwMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RDExRUNFNkQyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RDExRUNFNkUyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz49abu9AAAADFBMVEX///9CUV9CUV9CUV+7Hmj8AAAABHRSTlMAWVqzwsIkTQAAACBJREFUCB1jCGBl2CLHoFvBwP2Agf0Cg9wWhgpdhgVcAEEWBbAo6rjWAAAAAElFTkSuQmCC") 6px 5px no-repeat;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.1);
+                }
             }
         }
 
-        .tag-input {
-            display: block;
-            max-width: 100%;
-            padding: 0;
+        .main-input {
+            min-width: 20px;
+            max-width: 90%;
+            margin: 5px 0;
             border: none;
-            border-radius: 3px;
-            background-color: transparent;
-            font: 13px 'Open Sans';
-            color: #42515f;
-            overflow: hidden;
-            text-overflow: ellipsis;
             outline: none;
-        }
+            vertical-align: middle;
+            .placeholder-color(#9ba8b4);
 
-        .delete-btn {
-            position: absolute;
-            right: 0;
-            top: 0;
-            display: inline-block;
-            width: 20px;
-            height: 100%;
-            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQxMUVDRTZGMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQxMUVDRTcwMjY3NTExRTY4MjJBQkI5QjY1M0NEQjgwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RDExRUNFNkQyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RDExRUNFNkUyNjc1MTFFNjgyMkFCQjlCNjUzQ0RCODAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz49abu9AAAADFBMVEX///9CUV9CUV9CUV+7Hmj8AAAABHRSTlMAWVqzwsIkTQAAACBJREFUCB1jCGBl2CLHoFvBwP2Agf0Cg9wWhgpdhgVcAEEWBbAo6rjWAAAAAElFTkSuQmCC") 6px 5px no-repeat;
-            cursor: pointer;
+            &.hidden {
+                opacity: 0;
+            }
 
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.1);
+            &[disabled] {
+                background-color: transparent;
             }
         }
-    }
 
-    .main-input {
-        min-width: 20px;
-        max-width: 90%;
-        margin: 5px 0;
-        border: none;
-        outline: none;
-        vertical-align: middle;
-        .placeholder-color(#9ba8b4);
-
-        &.hidden {
-            opacity: 0;
+        .ps-scrollbar-y-rail {
+            margin-top: 9px;
+            margin-bottom: 9px;
         }
-
-        &[disabled] {
-            background-color: transparent;
-        }
-    }
-
-    .ps-scrollbar-y-rail {
-        margin-top: 9px;
-        margin-bottom: 9px;
     }
 }
 
@@ -2642,6 +2675,10 @@ ol.circles-list {
             color: @search-input-active-text-color;
             font: @search-input-regular-font;
             .placeholder-color(@search-input-regular-color);
+
+            &::-ms-clear {
+                display: none;
+            }
         }
 
         .clear-btn {
@@ -2650,7 +2687,8 @@ ol.circles-list {
             visibility: hidden;
             width: 10px;
             height: 10px;
-            margin-bottom: 8px;
+            margin-left: 5px;
+            margin-bottom: 9px;
             padding: 0px;
             background: url(images/sprites_16.png) -129px -45px no-repeat;
             cursor: pointer;
@@ -2672,7 +2710,9 @@ ol.circles-list {
 /*#region select popover */
 
 @select-popover-default-color: #77899b;
+@select-popover-disabled-color: #bdbdc5;
 @select-popover-active-color: #469dd5;
+@select-popover-count-color: #91a1b0;
 
 .select-popover {
     position: relative;
@@ -2682,13 +2722,13 @@ ol.circles-list {
         display: inline-block;
         padding-right: 15px;
         font: 13px 'Open Sans';
-        color: @select-popover-default-color;
-        cursor: pointer;
+        color: @select-popover-disabled-color;
+        cursor: default;
 
         &:after {
             content: '';
             position: absolute;
-            top: 50%;
+            top: calc(~'50% + 1.5px');
             right: 0;
             margin-top: -1.5px;
             border-width: 3px;
@@ -2696,20 +2736,30 @@ ol.circles-list {
             border-color: @select-popover-default-color transparent transparent transparent;
         }
 
-        &:hover {
-            color: @select-popover-active-color;
+        &.enabled {
+            color: @select-popover-default-color;
+            cursor: pointer;
 
             &:after {
-                border-color: @select-popover-active-color transparent transparent transparent;
+                border-color: @select-popover-disabled-color transparent transparent transparent;
             }
-        }
 
-        &.expanded {
-            color: @select-popover-active-color;
 
-            &:after {
-                margin-top: -4.5px;
-                border-color: transparent transparent @select-popover-active-color transparent;
+            &:hover {
+                color: @select-popover-active-color;
+
+                &:after {
+                    border-color: @select-popover-active-color transparent transparent transparent;
+                }
+            }
+
+            &.expanded {
+                color: @select-popover-active-color;
+
+                &:after {
+                    margin-top: -4.5px;
+                    border-color: transparent transparent @select-popover-active-color transparent;
+                }
             }
         }
     }
@@ -2733,7 +2783,7 @@ ol.circles-list {
         transform-origin: top right;
         .transition('width, height');
 
-        &.expanded {
+        &.visible.expanded {
             transform: scale(1,1);
         }
 
@@ -2774,12 +2824,17 @@ ol.circles-list {
                     background-color: #4caf50;
                 }
             }
+
+            .option-count {
+                color: @select-popover-count-color;
+            }
         }
     }
 }
 
 /*#endregion */
 
+@import "controls.less";
 @import "shell.less";
 @import "editField.less";
 @import "upgradePopup.less";
@@ -2790,6 +2845,8 @@ ol.circles-list {
 @import "tooltip.less";
 @import "questionModalView.less";
 @import "allowCoggnoPopup.less";
+@import "examples.less";
+@import "importFromPresentation.less";
 
 /*#region MEDIA CSS-STYLES*/
 

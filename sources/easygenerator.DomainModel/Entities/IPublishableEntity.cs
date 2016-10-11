@@ -2,7 +2,7 @@
 
 namespace easygenerator.DomainModel.Entities
 {
-    public interface IPublishableEntity : IIdentifieble
+    public interface IPublishableEntity : IIdentifiable
     {
         string PackageUrl { get; }
         string CreatedBy { get; }

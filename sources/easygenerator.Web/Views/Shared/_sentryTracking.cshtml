@@ -1,0 +1,23 @@
+﻿@using System.Configuration
+@using easygenerator.Web.Components.Configuration
+
+
+@if ((ConfigurationManager.GetSection("sentry") as SentryConfigurationSection) != null &&
+    !string.IsNullOrEmpty((ConfigurationManager.GetSection("sentry") as SentryConfigurationSection).ServiceUrl))
+{
+    <script src="https://cdn.ravenjs.com/3.7.0/raven.min.js"></script>
+    <script type="text/javascript">
+        Raven.config('@((ConfigurationManager.GetSection("sentry") as SentryConfigurationSection).ServiceUrl)',
+            {
+                logger: 'javascript',
+                autoBreadcrumbs: {
+                    'xhr': true,
+                    'console': false,
+                    'dom': true,
+                    'location': true
+                }
+            }
+        ).install();
+    </script>
+
+}

@@ -112,7 +112,7 @@ namespace easygenerator.Web.Tests.Publish.Coggno
         }
 
         [TestMethod]
-        public void Publish_MarkAsPublishedForSale_WhenPostSucced()
+        public void PublishMarkAsPublishedForSale_WhenPostSucced()
         {
             //Arrange
             var publicationUrl = "publicationUrl";

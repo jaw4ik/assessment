@@ -72,7 +72,7 @@ namespace easygenerator.Web.Controllers.Api
 
             section.UpdateTitle(title, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -87,7 +87,7 @@ namespace easygenerator.Web.Controllers.Api
 
             section.UpdateLearningObjective(learningObjective, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -102,7 +102,7 @@ namespace easygenerator.Web.Controllers.Api
 
             section.UpdateImageUrl(imageUrl, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]
@@ -140,7 +140,7 @@ namespace easygenerator.Web.Controllers.Api
 
             section.UpdateQuestionsOrder(questions, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
+            return JsonSuccess(new { });
         }
 
         [HttpPost]

@@ -4,7 +4,9 @@ using easygenerator.DomainModel.Events.SectionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
+using easygenerator.Web.Domain.DomainEvents.ChangeTracking.Events;
 using System.Linq;
+using System;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
@@ -13,7 +15,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<SectionImageUrlUpdatedEvent>,
         IDomainEventHandler<SectionLearningObjectiveUpdatedEvent>,
         IDomainEventHandler<QuestionsReorderedEvent>,
-        IDomainEventHandler<QuestionsDeletedEvent>
+        IDomainEventHandler<QuestionsDeletedEvent>,
+        IDomainEventHandler<SectionChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Section> _broadcaster;
 
@@ -47,6 +50,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Section)
                     .questionsDeleted(args.Section.Id.ToNString(), args.Questions.Select(e => e.Id.ToNString()), args.Section.ModifiedOn);
+        }
+
+        public void Handle(SectionChangedEvent args)
+        {
+            _broadcaster.AllCollaborators(args.Section)
+                    .sectionModified(args.Section.Id.ToNString(), args.Section.ModifiedOn);
         }
     }
 }

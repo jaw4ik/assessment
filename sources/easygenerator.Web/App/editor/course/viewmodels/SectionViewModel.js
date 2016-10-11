@@ -25,6 +25,7 @@ var _questionDeleted = new WeakMap();
 var _questionCreated = new WeakMap();
 var _questionsReordered = new WeakMap();
 var _questionCreatedByCollaborator = new WeakMap();
+var _sectionUpdated = new WeakMap();
 
 const eventCategory = 'Course editor (drag and drop)';
 const events = {
@@ -64,6 +65,14 @@ export default class SectionViewModel{
         this.notContainQuestions = ko.computed(() => this.questions().length === 0, this);
         this.isProcessing = ko.observable(isProcessing);
         this.justCreated = ko.observable(isJustCreated);
+
+        _sectionUpdated.set(this, section => {
+            if (section.id !== this.id()) {
+                return;
+            }
+
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
 
         _sectionTitleUpdated.set(this, section => {
             if (section.id !== this.id() || this.title.isEditing()) {
@@ -149,6 +158,7 @@ export default class SectionViewModel{
         app.on(constants.messages.question.titleUpdated, _questionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.deleted, _questionDeleted.get(this).bind(this));
         app.on(constants.messages.question.created, _questionCreated.get(this).bind(this));
+        app.on(constants.messages.section.modified, _sectionUpdated.get(this).bind(this));
     }
     selectTitle() {
         this.title.isSelected(true);
@@ -224,7 +234,6 @@ export default class SectionViewModel{
             success: async url => {
                 let result = await sectionRepository.updateImage(that.id(), url);
                 that.image(result.imageUrl);
-                that.modifiedOn(updateModifiedOn(result.modifiedOn));
                 that.imageLoading(false);
                 notify.saved();
             },

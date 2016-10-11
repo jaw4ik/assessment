@@ -11,7 +11,8 @@
                 startLoading: function () { },
                 success: function () { },
                 error: function () { },
-                complete: function () { }
+                complete: function () { },
+                abort: function () { }
             };
 
             var settings = $.extend({}, defaults, options);
@@ -58,6 +59,16 @@
                     } else {
                         notify.error(settings.notSupportedFileMessage);
                     }
+                })
+                .on('click', function () {
+                    var that = this;
+                    setTimeout(function () {
+                        $(document).one('mousemove', function () {
+                            if (!that.value) {
+                                settings.abort();
+                            }
+                        });
+                    }, 100);
                 })
                 .appendTo(form);
 

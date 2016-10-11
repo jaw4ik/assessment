@@ -13,6 +13,10 @@ namespace easygenerator.StorageServer.Components.Vimeo
     {
         private readonly Configuration _configuration;
 
+        private const string ticketIdFieldName = "ticket_id";
+        private const string uploadLinkSecureFieldName = "upload_link_secure";
+        private const string completeUriFieldName = "complete_uri";
+
         public VimeoPutUpload(Configuration configuration)
         {
             _configuration = configuration;
@@ -22,10 +26,9 @@ namespace easygenerator.StorageServer.Components.Vimeo
         {
             using (var client = new VimeoHttpClient(_configuration.Vimeo.Token))
             {
-                var url = _configuration.Vimeo.Url + _configuration.Vimeo.TicketUrl;
+                var url = $"{_configuration.Vimeo.Url}{_configuration.Vimeo.TicketUrl}?fields={ticketIdFieldName},{uploadLinkSecureFieldName},{completeUriFieldName}";
                 object args = new { type = "streaming" };
                 var response = await client.PostAsJsonAsync(url, args);
-
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -34,9 +37,9 @@ namespace easygenerator.StorageServer.Components.Vimeo
                     var json = JObject.Parse(content);
                     return new VimeoUploadTicketModel()
                     {
-                        Id = json["ticket_id"].Value<String>(),
-                        UploadUrl = json["upload_link_secure"].Value<String>(),
-                        CompleteUrl = json["complete_uri"].Value<String>()
+                        Id = json[ticketIdFieldName].Value<String>(),
+                        UploadUrl = json[uploadLinkSecureFieldName].Value<String>(),
+                        CompleteUrl = json[completeUriFieldName].Value<String>()
                     };
                 }
                 return null;

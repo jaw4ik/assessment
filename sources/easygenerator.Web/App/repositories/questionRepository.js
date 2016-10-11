@@ -415,8 +415,35 @@
                             return;
                         });
                 });
-            }
-        ;
+            },
+
+            updateIsSurvey = function (questionId, isSurvey) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+                    guard.throwIfNotBoolean(isSurvey, 'Question isSurvey is not a boolean');
+
+                    return apiHttpWrapper.post('api/question/updateIsSurvey', { questionId: questionId, isSurvey: isSurvey })
+                        .then(function (response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                            var question = _.find(getQuestions(), function (item) {
+                                return item.id === questionId;
+                            });
+
+                            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+
+                            var modifiedOn = new Date(response.ModifiedOn);
+
+                            question.isSurvey = isSurvey;
+                            question.modifiedOn = modifiedOn;
+
+                            app.trigger(constants.messages.question.isSurveyUpdated, question);
+
+                            return modifiedOn;
+                        });
+                });
+            };
 
         function getQuestions() {
             var questions = [];
@@ -440,6 +467,7 @@
             updateIncorrectFeedback: updateIncorrectFeedback,
             updateLearningContentsOrder: updateLearningContentsOrder,
             getById: getById,
-            updateVoiceOver: updateVoiceOver
+            updateVoiceOver: updateVoiceOver,
+            updateIsSurvey: updateIsSurvey
         };
     });

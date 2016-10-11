@@ -1,21 +1,15 @@
-﻿using System.Collections.Generic;
-using easygenerator.DomainModel.Events;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 using System;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public abstract class Entity : Identifiable
+    public abstract class Entity : EventRaiseable
     {
-        private readonly Queue<Event> _events;
-
         protected internal Entity()
             : base()
         {
             CreatedOn = DateTimeWrapper.Now();
             ModifiedOn = DateTimeWrapper.Now();
-
-            _events = new Queue<Event>();
         }
 
         protected internal Entity(string createdBy)
@@ -41,16 +35,6 @@ namespace easygenerator.DomainModel.Entities
         public string ModifiedBy { get; protected set; }
         public DateTime ModifiedOn { get; protected internal set; }
 
-        protected void RaiseEvent(Event @event)
-        {
-            _events.Enqueue(@event);
-        }
-
-        internal Event DequeueEvent()
-        {
-            return _events.Count > 0 ? _events.Dequeue() : null;
-        }
-
         protected internal virtual void DefineCreatedBy(string createdBy)
         {
             ThrowIfCreatedByIsInvalid(createdBy);
@@ -67,6 +51,15 @@ namespace easygenerator.DomainModel.Entities
             ModifiedOn = DateTimeWrapper.Now();
         }
 
+        public virtual void MarkAsModified(string modifiedBy, DateTime modifiedOn)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+            ThrowIfModifiedOnIsInvalid(modifiedOn);
+
+            ModifiedBy = modifiedBy;
+            ModifiedOn = modifiedOn;
+        }
+
         protected void ThrowIfModifiedByIsInvalid(string modifiedBy)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
@@ -77,6 +70,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(createdBy, "createdBy");
         }
 
-
+        protected void ThrowIfModifiedOnIsInvalid(DateTime modifiedOn)
+        {
+            ArgumentValidation.ThrowIfDateIsInvalid(modifiedOn, "createdOn");
+        }
     }
 }

@@ -6,7 +6,8 @@
                 startLoading: function () { },
                 success: function () { },
                 error: function () { },
-                complete: function () { }
+                complete: function () { },
+                abort: function () { }
             };
 
             var settings = $.extend({}, defaults, options);
@@ -16,9 +17,7 @@
                 supportedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
                 notSupportedFileMessage: localizationManager.localize('imageIsNotSupported'),
 
-                startLoading: function () {
-                    settings.startLoading();
-                },
+                startLoading: settings.startLoading,
                 success: function (data) {
                     var obj = JSON.parse(data);
                     if (obj.data && obj.data.url) {
@@ -44,9 +43,8 @@
                     notify.error(localizationManager.localize(resourceKey));
                     settings.error();
                 },
-                complete: function () {
-                    settings.complete();
-                }
+                complete: settings.complete,
+                abort: settings.abort
             });
         },
         v2: function (file) {

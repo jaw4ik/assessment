@@ -14,7 +14,7 @@
         'organizations/organization/OrganizationUser.spec',
         'organizations/organization/organization.spec',
         //#endregion
-
+        
         //#region drag and drop editor
         'editor/course/viewmodels/CreateBarViewModel.spec',
         'editor/course/viewmodels/QuestionViewModel.spec',
@@ -56,6 +56,29 @@
         'design/templateBrief.spec',
         //#endregion
 
+        //#region content editor
+        'contentEditor/adapters/AdapterBase.spec',
+        'contentEditor/adapters/adaptersLoader.spec',
+        'contentEditor/adapters/QuestionContentAdapter.spec',
+        'contentEditor/components/ButtonsPanelManager.spec',
+        'contentEditor/components/PanelButton.spec',
+        'contentEditor/contentTypes/classicEditor/Viewmodel.spec',
+        'contentEditor/contentTypes/hotspot/Viewmodel.spec',
+        'contentEditor/contentTypes/ContentBase.spec',
+        'contentEditor/contentTypes/contentTypesFactory.spec',
+        'contentEditor/createBar.spec',
+        'contentEditor/editor.spec',
+        'contentEditor/contentTypes/textEditor/viewModel.spec',
+        'contentEditor/contentTypes/textEditorOneColumn/viewModel.spec',
+        'contentEditor/contentTypes/imageEditorOneColumn/Viewmodel.spec',
+        'contentEditor/contentTypes/imageEditorTwoColumns/Viewmodel.spec',
+        'contentEditor/contentTypes/imageInTheLeft/Viewmodel.spec',
+        'contentEditor/contentTypes/imageInTheRight/Viewmodel.spec',
+        'contentEditor/contentTypes/imageEditor/viewModel.spec',
+        'contentEditor/contentTypes/editors/imageEditor/index.spec',
+        'contentEditor/contentTypes/editors/textEditor/index.spec',
+        //#endregion
+
         //#region review
         'review/reviewPanel.spec',
         'review/publish/coursePublish.spec',
@@ -77,7 +100,6 @@
         'review/comments/context/queries/getQuestionData.spec',
         //#endregion
         'authorization/limitCoursesAmount.spec',
-
         //#region commands
         'commands/createQuestionCommand.spec',
         'commands/createSectionCommand.spec',
@@ -103,6 +125,7 @@
         'dialogs/learningPath/customPublish.spec',
         'dialogs/learningPath/defaultPublish.spec',
         'dialogs/learningPath/shareLearningPath.spec',
+        'dialogs/course/addByExample/index.spec',
         'dialogs/course/common/templateSelector/templateBrief.spec',
         'dialogs/course/common/templateSelector/templateSelector.spec',
         'dialogs/course/changeTemplate/changeTemplate.spec',
@@ -123,6 +146,8 @@
         'dialogs/organizations/removeUser/removeUser.spec',
         'dialogs/organizations/inviteUsers/inviteUsers.spec',
         'dialogs/themes/delete/deleteTheme.spec',
+        'dialogs/survey/commands/updateVersionCommand.spec',
+        'dialogs/survey/survey.spec',
         //#endregion dialogs
 
         //#region errorHandling
@@ -149,6 +174,9 @@
         'notifications/organizationInvite/commands/acceptInvite.spec',
         'notifications/organizationInvite/commands/declineInvite.spec',
         'notifications/organizationInvite/notificationController.spec',
+        'notifications/organizationInviteConfirmation/notification.spec',
+        'notifications/organizationInviteConfirmation/commands/getInvites.spec',
+        'notifications/organizationInviteConfirmation/notificationController.spec',
 
         //#endregion 
         'localization/localizationManager.spec',
@@ -192,6 +220,7 @@
         'reporting/viewmodels/questionStatements/experiencedStatement.spec',
         'reporting/viewmodels/questionStatements/answeredStatement.spec',
         'reporting/viewmodels/questionStatements/questionStatementFactory.spec',
+        'reporting/viewmodels/questionStatements/surveyModeExtender/extender.spec',
         'reporting/viewmodels/sectionStatement.spec',
         'reporting/viewmodels/startedStatement.spec',
         'reporting/viewmodels/progressedStatement.spec',
@@ -234,7 +263,7 @@
         'synchronization/handlers/learningContent/handler.spec',
         'synchronization/handlers/learningContent/eventHandlers/created.spec',
         'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
-        'synchronization/handlers/learningContent/eventHandlers/textUpdated.spec',
+        'synchronization/handlers/learningContent/eventHandlers/updated.spec',
         'synchronization/handlers/answer/handler.spec',
         'synchronization/handlers/answer/eventHandlers/created.spec',
         'synchronization/handlers/answer/eventHandlers/deleted.spec',
@@ -244,6 +273,7 @@
         'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
         'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
         'synchronization/handlers/user/eventHandlers/upgradedToAcademy.spec',
+        'synchronization/handlers/user/eventHandlers/upgradedToTrial.spec',
         'synchronization/handlers/user/eventHandlers/downgraded.spec',
         'synchronization/handlers/comment/eventHandlers/deleted.spec',
         'synchronization/handlers/comment/eventHandlers/created.spec',
@@ -276,7 +306,6 @@
         'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
         'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
         'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
-        'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered.spec',
         'synchronization/handlers/questions/fillInTheBlank/handler.spec',
         'synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated.spec',
         'synchronization/handlers/questions/dragAndDropText/handler.spec',
@@ -306,8 +335,6 @@
         'synchronization/handlers/questions/rankingText/eventHandlers/answerDeleted.spec',
         'synchronization/handlers/questions/rankingText/eventHandlers/answerTextChanged.spec',
         'synchronization/handlers/questions/rankingText/eventHandlers/answersReordered.spec',
-
-        //#endregion
         //#endregion
 
         //#region learning paths
@@ -440,9 +467,6 @@
         'viewmodels/questions/questionTitle.spec',
         'viewmodels/questions/feedback.spec',
         'viewmodels/learningContents/learningContents.spec',
-        'viewmodels/learningContents/learningContentBase.spec',
-        'viewmodels/learningContents/content.spec',
-        'viewmodels/learningContents/hotspotOnAnImage.spec',
         //#endregion
 
         //#region video upload
@@ -450,7 +474,6 @@
         'videoUpload/commands/vimeo.spec',
         'videoUpload/handlers/progress.spec',
         'videoUpload/handlers/thumbnails.spec',
-        'videoUpload/handlers/durations.spec',
         'videoUpload/uploadDataContext.spec',
         'videoUpload/uploadTracking.spec',
         'videoUpload/upload.spec',
@@ -474,7 +497,7 @@
         'audio/UploadAudioModel.spec',
         'audio/audioUploadDispatcher.spec',
         'vimeo/queries/checkAvailability.spec',
-        'vimeo/queries/getVideo.spec',
+        'vimeo/queries/getVideoSources.spec',
         //#endregion
 
         //#region images
@@ -483,6 +506,18 @@
         'images/preview/index.spec',
         'images/image.spec',
         'images/index.spec',
+        //#endregion
+
+        //#region course examples
+        'examples/courses/commands/getCourseExamples.spec',
+        'examples/courses/commands/createCourseByExample.spec',
+        'examples/courses/index.spec',
+        'examples/dialogs/watchTutorial.spec',
+        'examples/start.spec',
+        //#endregion
+
+        //#region import from presentation
+        'importfrompresentation/index.spec',
         //#endregion
 
         //#region widgets

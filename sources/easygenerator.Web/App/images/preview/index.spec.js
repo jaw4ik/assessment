@@ -2,8 +2,8 @@
 
 describe('images [preview]', () => {
     let image = {
-             url: 'imageUrl'
-        };
+        url: 'imageUrl'
+    };
 
     describe('isShown:', function () {
         it('should be observable', function () {
@@ -64,6 +64,17 @@ describe('images [preview]', () => {
             viewModel.show(1);
             expect(viewModel.isShown()).toBeTruthy();
         });
+    });
+
+    describe('chooseImage:', () => {
+
+        it('should set new index for current element', () => {
+            viewModel.images = ko.observableArray([{}, {}, image]);
+            viewModel.current(0);
+            viewModel.chooseImage(image);
+            expect(viewModel.current()).toBe(2);
+        });
+
     });
 
     describe('hide:', () => {

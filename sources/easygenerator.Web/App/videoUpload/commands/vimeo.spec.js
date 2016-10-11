@@ -136,8 +136,7 @@ describe('[vimeoCommands]', function () {
             vimeoCommands.getThumbnailUrl(videoId);
 
             expect($.ajax).toHaveBeenCalledWith({
-                url: constants.storage.video.vimeoApiVideosUrl + videoId + '/pictures',
-                headers: { Authorization: constants.storage.video.vimeoToken },
+                url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + videoId) + '&width=200&height=150',
                 method: 'GET',
                 global: false
             });
@@ -183,109 +182,14 @@ describe('[vimeoCommands]', function () {
 
                 var videoId = 0;
                 var resolved = {
-                    data: [{
-                        sizes: [
-                           {
-                               width: 350,
-                               height: 150,
-                               link: 'false'
-                           },
-                           {
-                               width: 200,
-                               height: 150,
-                               link: 'thumbnail'
-                           }
-                        ]
-                    }]
+                    thumbnail_url: 'thumbnail_url'
                 };
 
                 defer.resolve(resolved);
 
                 var promise = vimeoCommands.getThumbnailUrl(videoId);
                 promise.fin(function () {
-                    expect(promise).toBeResolvedWith(resolved.data[0].sizes[1].link);
-                    done();
-                });
-
-            });
-        });
-
-    });
-
-    describe('getVideoDuration:', function () {
-        var defer;
-
-        beforeEach(function () {
-            defer = $.Deferred();
-            spyOn($, 'ajax').and.returnValue(defer.promise());
-        });
-
-        it('should be function', function () {
-            expect(vimeoCommands.getVideoDuration).toBeFunction();
-        });
-
-        it('should return promise', function () {
-            expect(vimeoCommands.getVideoDuration()).toBePromise();
-        });
-
-        it('should send get request', function () {
-            var videoId = 0;
-            vimeoCommands.getVideoDuration(videoId);
-
-            expect($.ajax).toHaveBeenCalledWith({
-                url: constants.storage.video.vimeoApiVideosUrl + videoId,
-                headers: { Authorization: constants.storage.video.vimeoToken },
-                method: 'GET',
-                global: false
-            });
-        });
-
-        describe('when get request failed', function () {
-
-            it('should resolve promise with zero duration', function (done) {
-                var videoId = 0;
-
-                defer.reject();
-
-                var promise = vimeoCommands.getVideoDuration(videoId);
-                promise.fin(function () {
-                    expect(promise).toBeResolvedWith(0);
-                    done();
-                });
-
-            });
-
-        });
-
-        describe('when get request resolved without duration', function () {
-
-            it('should resolve promise with zero duration', function (done) {
-
-                var videoId = 0;
-
-                defer.resolve({});
-
-                var promise = vimeoCommands.getVideoDuration(videoId);
-                promise.fin(function () {
-                    expect(promise).toBeResolvedWith(0);
-                    done();
-                });
-
-            });
-        });
-
-        describe('when get request resolved with correct data', function () {
-
-            it('should resolve promise with duration', function (done) {
-
-                var videoId = 0;
-                var resolved = { duration: 10 };
-
-                defer.resolve(resolved);
-
-                var promise = vimeoCommands.getVideoDuration(videoId);
-                promise.fin(function () {
-                    expect(promise).toBeResolvedWith(10);
+                    expect(promise).toBeResolvedWith(resolved.thumbnail_url);
                     done();
                 });
 

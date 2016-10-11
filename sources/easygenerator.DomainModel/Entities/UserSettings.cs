@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
+using System;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -13,10 +9,11 @@ namespace easygenerator.DomainModel.Entities
         {
         }
 
-        public UserSettings(string createdBy, string lastReadReleaseNote, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
-        :base(createdBy)
+        public UserSettings(string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
+        : base(createdBy)
         {
             LastReadReleaseNote = lastReadReleaseNote;
+            LastPassedSurveyPopup = lastPassedSurveyPopup;
             IsCreatedThroughLti = isCreatedThroughLti;
             IsCreatedThroughSamlIdP = isCreatedThroughSamlIdP;
             NewEditor = newEditor;
@@ -33,6 +30,16 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             LastReadReleaseNote = lastReadReleaseNote;
+            MarkAsModified(modifiedBy);
+        }
+
+        public string LastPassedSurveyPopup { get; private set; }
+        public void UpdateSurveyPopupVersion(string surveyPopupVersion, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(surveyPopupVersion, nameof(surveyPopupVersion));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            LastPassedSurveyPopup = surveyPopupVersion;
             MarkAsModified(modifiedBy);
         }
 
@@ -63,5 +70,33 @@ namespace easygenerator.DomainModel.Entities
             IncludeMediaToPackage = !IncludeMediaToPackage;
             MarkAsModified(modifiedBy);
         }
+
+        #region Personal subscription
+
+        public AccessType? PersonalAccessType { get; protected internal set; }
+        public DateTime? PersonalExpirationDate { get; protected internal set; }
+
+        public virtual UserSubscription GetPersonalSubscription()
+        {
+            return PersonalAccessType.HasValue && PersonalExpirationDate.HasValue
+            ? new UserSubscription(PersonalAccessType.Value, PersonalExpirationDate.Value)
+            : null;
+        }
+
+        public virtual void UpdatePersonalSubscription(AccessType accessType, DateTime expirationDate)
+        {
+            ArgumentValidation.ThrowIfDateIsInvalid(expirationDate, nameof(expirationDate));
+
+            PersonalAccessType = accessType;
+            PersonalExpirationDate = expirationDate;
+        }
+
+        public virtual void ResetPersonalSubscription()
+        {
+            PersonalAccessType = null;
+            PersonalExpirationDate = null;
+        }
+
+        #endregion
     }
 }

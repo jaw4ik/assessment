@@ -8,7 +8,9 @@ import localizationManager from 'localization/localizationManager';
 
 describe('viewmodel [ProgressedStatement]', () => {
     var lrsStatement,
+        lrsStatementWithAccount,
         statement,
+        statementWithAccount,
         attemptId,
         statementId,
         masteredStatements = [
@@ -23,6 +25,7 @@ describe('viewmodel [ProgressedStatement]', () => {
         attemptId = 'attemptId';
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50, actor: { name: 'name', email: 'email' } };
+        lrsStatementWithAccount = { attemptId: attemptId, id: statementId, score: 50, actor: { name: 'name', account: { homePage: 'http://someLRS.com', name: '12345' } } };
         spyOn(XApiProvider, 'getSectionStatements').and.returnValue(Promise.resolve(masteredStatements));
         spyOn(localizationManager, 'localize').and.callFake(function(localizationKey) {
             if (localizationKey === 'reportingInfoNotAvailable') {
@@ -30,6 +33,7 @@ describe('viewmodel [ProgressedStatement]', () => {
             }
         });
         statement = new ProgressedStatement(lrsStatement);
+        statementWithAccount = new ProgressedStatement(lrsStatementWithAccount);
     });
 
     it('should be class', () => {
@@ -46,10 +50,30 @@ describe('viewmodel [ProgressedStatement]', () => {
                 expect(statement.learnerDisplayName).toBe(`${statement.lrsStatement.actor.name} (${statement.lrsStatement.actor.email})`);
             });
 
+            it('should user actors name and account name if account exists', () => {
+                expect(statementWithAccount.learnerDisplayName).toBe(`${statementWithAccount.lrsStatement.actor.name} (${statementWithAccount.lrsStatement.actor.account.name})`);
+            });
+
             it('should return Not Available texts for name and email if they are not exist', () => {
                 var statementWithEmptyActor = new ProgressedStatement({ attemptId: attemptId, id: statementId, score: 50, actor: {} });
                 expect(statementWithEmptyActor.learnerDisplayName).toBe('N/A (N/A)');
             });
+        });
+
+        describe('learnerAccountHomePage:', () => {
+            
+            describe('when actor\'s account is not provided', () => {
+                it('should be not defined', () => {
+                    expect(statement.learnerAccountHomePage).not.toBeDefined();
+                });
+            });
+
+            describe('when actor\'s account is provided', () => {
+                it('should be defined', () => {
+                    expect(statementWithAccount.learnerAccountHomePage).toBe(statementWithAccount.lrsStatement.actor.account.homePage);
+                });
+            });
+
         });
 
         it('should set passed to true if statement verb is passed', () => {

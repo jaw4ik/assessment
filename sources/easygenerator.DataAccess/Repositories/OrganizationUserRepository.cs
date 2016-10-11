@@ -20,6 +20,12 @@ namespace easygenerator.DataAccess.Repositories
         {
         }
 
+        public Organization GetUserMainOrganization(string email)
+        {
+            var user = GetCollection(u => u.Email == email).OrderBy(u => u.CreatedOn).FirstOrDefault();
+            return user?.Organization;
+        }
+
         public OrganizationInvite GetOrganizationInvite(OrganizationUser user)
         {
             var query = @"
@@ -27,11 +33,12 @@ namespace easygenerator.DataAccess.Repositories
                        admin.FirstName as OrganizationAdminFirstName, 
                        admin.LastName as OrganizationAdminLastName, 
                        organization.Title as OrganizationTitle,
-                       organization.Id as OrganizationId
+                       organization.Id as OrganizationId,
+                       organizationUser.Status as Status
                 FROM OrganizationUsers organizationUser
                       INNER JOIN Users admin ON admin.Email = organizationUser.CreatedBy
                       INNER JOIN Organizations organization ON organization.Id = organizationUser.Organization_Id
-                WHERE organizationUser.Status = 0 AND organizationUser.Id = @id
+                WHERE organizationUser.Id = @id
             ";
             return Database.SqlQuery<OrganizationInvite>(query,
                 new SqlParameter("@id", user.Id)).FirstOrDefault();
@@ -44,11 +51,12 @@ namespace easygenerator.DataAccess.Repositories
                        admin.FirstName as OrganizationAdminFirstName, 
                        admin.LastName as OrganizationAdminLastName, 
                        organization.Title as OrganizationTitle,
-                       organization.Id as OrganizationId
+                       organization.Id as OrganizationId,
+                       organizationUser.Status as Status
                 FROM OrganizationUsers organizationUser
                       INNER JOIN Users admin ON admin.Email = organizationUser.CreatedBy
                       INNER JOIN Organizations organization ON organization.Id = organizationUser.Organization_Id
-                WHERE organizationUser.Status = 0 AND organizationUser.Email = @userEmail
+                WHERE organizationUser.Email = @userEmail
             ";
 
             return Database.SqlQuery<OrganizationInvite>(query,

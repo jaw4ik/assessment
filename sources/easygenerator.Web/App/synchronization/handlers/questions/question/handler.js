@@ -6,7 +6,6 @@
     'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated',
     'synchronization/handlers/questions/question/eventHandlers/created',
     'synchronization/handlers/questions/question/eventHandlers/deleted',
-    'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered',
     'synchronization/handlers/questions/question/eventHandlers/voiceOverUpdated'],
     function (
         titleUpdated,
@@ -16,7 +15,6 @@
         incorrectFeedbackUpdated,
         created,
         deleted,
-        learningContentsReordered,
         voiceOverUpdated) {
         "use strict";
 
@@ -28,8 +26,7 @@
             correctFeedbackUpdated: correctFeedbackUpdated,
             incorrectFeedbackUpdated: incorrectFeedbackUpdated,
             created: created,
-            deleted: deleted,
-            learningContentsReordered: learningContentsReordered
+            deleted: deleted
         };
 
     });

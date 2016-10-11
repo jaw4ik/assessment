@@ -9,6 +9,7 @@
            obj.organizationAdminFirstName = spec.organizationAdminFirstName;
            obj.organizationAdminLastName = spec.organizationAdminLastName;
            obj.organizationTitle = spec.organizationTitle;
+           obj.status = spec.status;
 
            return obj;
        };

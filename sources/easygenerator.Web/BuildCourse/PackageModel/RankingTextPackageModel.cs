@@ -8,10 +8,7 @@ namespace easygenerator.Web.BuildCourse.PackageModel
 {
     public class RankingTextPackageModel : QuestionPackageModel
     {
-        public override string Type
-        {
-            get { return Question.QuestionTypes.RankingText; }
-        }
+        public override string Type => Question.QuestionTypes.RankingText;
 
         public List<RankingTextAnswerPackageModel> Answers { get; set; }
     }

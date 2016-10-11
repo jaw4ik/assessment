@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -9,6 +10,7 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using System;
 using System.Collections.Generic;
@@ -208,6 +210,36 @@ namespace easygenerator.Web.Controllers.Api
         [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/info")]
+        public ActionResult GetOrganizationInfo(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            return JsonDataResult(new
+            {
+                Title = organization.Title,
+                EmailDomains = organization.EmailDomains,
+                Settings = organization.Settings == null ? null : new
+                {
+                    AccessType = organization.Settings?.AccessType == null ?
+                    null :
+                    $"{organization.Settings.AccessType.Value} ({(int)organization.Settings.AccessType.Value})",
+                    ExpirationDate = organization.Settings?.ExpirationDate,
+                    Templates = organization.Settings?.Templates.Select(template =>
+                        new
+                        {
+                            Name = template.Name,
+                            Id = template.Id.ToNString()
+                        })
+                }
+            });
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
         [Route("api/organization/emaildomains/update")]
         public ActionResult UpdateOrganizationEmailDomains(Organization organization, string emailDomains)
         {
@@ -222,19 +254,6 @@ namespace easygenerator.Web.Controllers.Api
         [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("easygenerator")]
-        [Route("api/organization/emaildomains/get")]
-        public ActionResult GetOrganizationEmailDomains(Organization organization)
-        {
-            if (organization == null)
-                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
-
-            return JsonDataResult(organization.EmailDomains);
-        }
-
-        [HttpPost]
-        [CustomRequireHttps]
-        [AllowAnonymous]
-        [ExternalApiAuthorize("easygenerator")]
         [Route("api/organization/emaildomains/clear")]
         public ActionResult ClearOrganizationEmailDomains(Organization organization)
         {
@@ -242,6 +261,108 @@ namespace easygenerator.Web.Controllers.Api
                 throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
 
             organization.ClearEmailDomains();
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/subscription/update")]
+        public ActionResult UpdateOrganizationSettingsSubscription(Organization organization, AccessType? accessType, DateTime? expirationDate)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            if (!accessType.HasValue)
+                throw new ArgumentException("Access type is not specified or specified in wrong format", nameof(accessType));
+
+            if (!expirationDate.HasValue)
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
+
+            organization.GetOrCreateSettings().UpdateSubscription(accessType.Value, expirationDate.Value);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/subscription/reset")]
+        public ActionResult ResetOrganizationSettingsSubscription(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.Settings?.ResetSubscription();
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/template/add")]
+        public ActionResult AddOrganizationSettingsTemplate(Organization organization, Template template)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            if (template == null)
+                throw new ArgumentException("Template with specified id does not exist", nameof(template));
+
+            organization.GetOrCreateSettings().AddTemplate(template);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/template/remove")]
+        public ActionResult RemoveOrganizationSettingsTemplate(Organization organization, Template template)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            if (template == null)
+                throw new ArgumentException("Template with specified id does not exist", nameof(template));
+
+            organization.Settings?.RemoveTemplate(template);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/templates/clear")]
+        public ActionResult ClearOrganizationSettingsTemplates(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.Settings?.ClearTemplates();
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/settings/reset")]
+        public ActionResult ResetOrganizationSettings(Organization organization)
+        {
+            if (organization == null)
+                throw new ArgumentException("Organization with specified id does not exist", nameof(organization));
+
+            organization.ResetSettings();
+
             return Success();
         }
 

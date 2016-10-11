@@ -1224,7 +1224,7 @@ describe('viewModel [design]', () => {
 
     });
 
-    describe('settingsChanged:', () => {
+    describe('brandingSettingsChanged:', () => {
 
         beforeEach(() => {
             viewModel.courseId = 'courseId';
@@ -1239,7 +1239,7 @@ describe('viewModel [design]', () => {
             viewModel.brandingTab = new BrandingTab();
             viewModel.brandingTab.logo.imageUrl('imageUrl');
 
-            viewModel.settingsChanged().then(() => {
+            viewModel.brandingSettingsChanged().then(() => {
                 expect(viewModel.settings.branding.logo.url).toEqual('imageUrl');
                 done();
             });
@@ -1252,7 +1252,7 @@ describe('viewModel [design]', () => {
 
             viewModel.brandingTab.colors.colors([{ key: 'key1', value: ko.observable('value1') }, { key: 'key2', value: ko.observable('value2') }]);
 
-            viewModel.settingsChanged().then(() => {
+            viewModel.brandingSettingsChanged().then(() => {
                 expect(viewModel.settings.branding.colors).toBeArray();
                 expect(viewModel.settings.branding.colors.length).toEqual(2);
                 expect(viewModel.settings.branding.colors[0].key).toEqual('key1');
@@ -1277,7 +1277,7 @@ describe('viewModel [design]', () => {
                 viewModel.brandingTab.background.header.image(null);
 
 
-                viewModel.settingsChanged().then(() => {
+                viewModel.brandingSettingsChanged().then(() => {
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.header.color).toEqual('#aabbcc');
                     expect(viewModel.settings.branding.background.header.image).toEqual(null);
@@ -1301,7 +1301,7 @@ describe('viewModel [design]', () => {
                 viewModel.brandingTab.background.header.image('imageUrl');
                 viewModel.brandingTab.background.header.option('original');
 
-                viewModel.settingsChanged().then(() => {
+                viewModel.brandingSettingsChanged().then(() => {
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.header.color).toEqual(null);
                     expect(viewModel.settings.branding.background.header.image.url).toEqual('imageUrl');
@@ -1326,7 +1326,7 @@ describe('viewModel [design]', () => {
                 viewModel.brandingTab.background.body.color('#aabbcc');
                 viewModel.brandingTab.background.body.texture(null);
 
-                viewModel.settingsChanged().then(() => {
+                viewModel.brandingSettingsChanged().then(() => {
                     expect(viewModel.settings.branding.background.body.enabled).toBeTruthy();
                     expect(viewModel.settings.branding.background.body.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.body.color).toEqual('#aabbcc');
@@ -1351,7 +1351,7 @@ describe('viewModel [design]', () => {
                 viewModel.brandingTab.background.body.color(null);
                 viewModel.brandingTab.background.body.texture('texture');
 
-                viewModel.settingsChanged().then(() => {
+                viewModel.brandingSettingsChanged().then(() => {
                     expect(viewModel.settings.branding.background.body.enabled).toBeTruthy();
                     expect(viewModel.settings.branding.background.body.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.body.color).toEqual(null);
@@ -1364,7 +1364,7 @@ describe('viewModel [design]', () => {
 
         it('it should save settings', done => {
 
-            viewModel.settingsChanged({}).then(() => {
+            viewModel.brandingSettingsChanged({}).then(() => {
                 expect(viewModel.saveSettings).toHaveBeenCalled();
                 done();
             });

@@ -1,0 +1,16 @@
+﻿<section class="eg-content-editor" data-bind="outsideClick: { action: endEditing, debounce : true }">
+    <!--ko foreach: instances-->
+    <div class="eg-content-editor-column">
+        <div class="question-learning-content selectable" data-bind="htmlEditor: { 
+             data: $data.data, 
+             isEditing: $data.hasFocus, 
+             focus: $parent.startEditing.bind($parent), 
+             blur: $parent.save.bind($parent) ,
+             save: function (content) { save(content.data()); }, 
+             autosaveInterval: $parent.autosaveInterval,
+             scrollableContainer: '.question-view-holder-wrapper',
+             contentContainer: '.content-editor-item'
+         }"></div>
+    </div>
+    <!-- /ko -->
+</section>

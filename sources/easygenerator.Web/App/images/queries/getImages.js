@@ -1,14 +1,12 @@
 ﻿import http from 'http/apiHttpWrapper.js';
 
-export function execute() {
-    return new Promise((resolve, reject) => {
-        http.get('api/images')
-            .then(response => {
-                if (response && response.success) {
-                    resolve(response.data);
-                } else {
-                    reject("Failed to load Image library");
-                }
-            }).fail(reject);
-    });
+async function execute() {
+    let response = await http.get('api/images');
+    if (!response || !response.success) {
+        throw 'Failed to load Image library';
+    }
+
+    return response.data;
 }
+
+export { execute };

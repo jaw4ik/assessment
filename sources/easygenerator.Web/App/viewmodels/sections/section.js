@@ -92,8 +92,7 @@
         app.on(constants.messages.question.answer.answerCorrectnessUpdatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.createdByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, questionUpdated);
-        app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, questionUpdated);
-        app.on(constants.messages.question.learningContentsReorderedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.learningContent.updatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.dragAndDropText.dropspotCreatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.dragAndDropText.dropspotDeletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.textMatching.answerCreatedByCollaborator, questionUpdated);
@@ -243,7 +242,6 @@
         }
 
         function activate() {
-
             if (arguments.length === 1) {
                 viewModel.courseId = null;
                 viewModel.sectionId = arguments[0];

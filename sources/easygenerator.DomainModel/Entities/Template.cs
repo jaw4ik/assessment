@@ -1,9 +1,10 @@
-﻿using System;
+﻿using easygenerator.DomainModel.Entities.ACL;
+using easygenerator.DomainModel.Entities.Organizations;
+using easygenerator.Infrastructure;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.DomainModel.Entities.ACL;
-using easygenerator.Infrastructure;
-using System.Collections.Generic;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -22,9 +23,12 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal virtual ICollection<Course> Courses { get; set; }
 
+        protected internal virtual ICollection<OrganizationSettings> OrganizationSettingsCollection { get; set; }
+
         protected internal Template()
         {
             AccessControlList = new Collection<TemplateAccessControlListEntry>();
+            OrganizationSettingsCollection = new Collection<OrganizationSettings>();
         }
 
         protected internal Template(string name, string createdBy)
@@ -34,6 +38,7 @@ namespace easygenerator.DomainModel.Entities
 
             Name = name;
             AccessControlList = new Collection<TemplateAccessControlListEntry>();
+            OrganizationSettingsCollection = new Collection<OrganizationSettings>();
         }
 
         protected internal Template(string name, string previewUrl, string createdBy)
@@ -54,7 +59,7 @@ namespace easygenerator.DomainModel.Entities
                 if (IsCustom && !AccessControlList.Any(_ => string.Equals(_.UserIdentity, userIdentity, StringComparison.InvariantCultureIgnoreCase)))
                 {
                     AccessControlList.Add(new TemplateAccessControlListEntry(this, userIdentity));
-                }    
+                }
             }
         }
 

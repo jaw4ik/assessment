@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="content-section-wrapper answer-options content-item-holder" data-bind="with: answers, heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+    <div class="content-section-wrapper answer-options content-item-holder" data-bind="with: answers, expandBlock: { expanded: isExpanded() }">
         <div class="question-answer-options-area">
             <div class="content-section">
                 <div class="content-section-header">
@@ -25,6 +25,7 @@
                     <!-- ko foreach: answers -->
                     <li class="answer-option-item" data-bind="containerHasFocus: { hasFocus: hasFocus, update: function(){ $parent.updateAnswer($data); } }">
                         <div class="answer-options-list-item">
+                            <!-- ko ifnot: $root.surveyModeEnabled -->
                             <div class="question-answer-value-wrapper">
                                 <div class="question-answer-value" tabindex="-1">
                                     <div class="switch-toggle-slider" data-bind="switchToggle: { value: isCorrect, onValueChanged: $parent.statementCorrectnessUpdated }">
@@ -36,6 +37,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- /ko -->
                             <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus() }">
                                 <div class="question-answer-text">
                                     <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', event: { focus: $parent.beginEditText, blur: $parent.endEditText }, autosize: { text: text }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>

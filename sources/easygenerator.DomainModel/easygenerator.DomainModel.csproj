@@ -46,10 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
+    <Compile Include="Entities\ACL\CourseAccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\EventRaiseable.cs" />
     <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
     <Compile Include="Entities\IScormPublishableEntity.cs" />
+    <Compile Include="Entities\Questions\SurveyQuestion.cs" />
+    <Compile Include="Entities\UserSubscription.cs" />
+    <Compile Include="Entities\Organizations\OrganizationSettings.cs" />
     <Compile Include="Entities\SamlServiceProvider.cs" />
     <Compile Include="Entities\SamlIdentityProvider.cs" />
     <Compile Include="Entities\ConsumerTool.cs" />
@@ -59,7 +64,7 @@
     <Compile Include="Entities\DemoCourseInfo.cs" />
     <Compile Include="Entities\Document.cs" />
     <Compile Include="Entities\DocumentType.cs" />
-    <Compile Include="Entities\IIdentifieble.cs" />
+    <Compile Include="Entities\IIdentifiable.cs" />
     <Compile Include="Entities\ILearningPathEntity.cs" />
     <Compile Include="Entities\IPublishableEntity.cs" />
     <Compile Include="Entities\LearningPathSettings.cs" />
@@ -126,6 +131,8 @@
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorAddedEvent.cs" />
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorAdminAccessGrantedEvent.cs" />
     <Compile Include="Events\CourseEvents\Collaboration\CourseCollaboratorRemovedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseInvitationSendedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseAccessRemovedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseProcessedByCoggnoEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedForSaleEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseScormBuildStartedEvent.cs" />
@@ -141,6 +148,7 @@
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateSettingsUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateUpdatedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseAccessGrantedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />
     <Compile Include="Events\DomainEventHandlersProvider.cs" />
     <Compile Include="Events\DomainEventPublisher.cs" />
@@ -153,6 +161,10 @@
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationEmailDomainUpdatedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationSettingsResetEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationSettingsSubscriptionResetEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationSettingsSubscriptionUpdatedEvent.cs" />
+    <Compile Include="Events\OrganizationEvents\OrganizationSettingsTemplateAddedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserReinvitedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationTitleUpdatedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserRemovedEvent.cs" />
@@ -160,6 +172,7 @@
     <Compile Include="Events\OrganizationEvents\OrganizationInviteAcceptedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationInviteDeclinedEvent.cs" />
     <Compile Include="Events\OrganizationEvents\OrganizationUserEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionIsSurveyUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionImageUrlUpdatedEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionEvent.cs" />
     <Compile Include="Events\SectionEvents\SectionLearningObjectiveUpdatedEvent.cs" />
@@ -168,7 +181,6 @@
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotPositionChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotTextChangedEvent.cs" />
-    <Compile Include="Events\QuestionEvents\LearningContentsReorderedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionBackgroundChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonDeletedEvent.cs" />
@@ -214,12 +226,14 @@
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />
-    <Compile Include="Events\UserEvents\UserDonwgraded.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserDonwgradedEvent.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserSubscriptionUpdatedEvent.cs" />
     <Compile Include="Events\UserEvents\UserUpdateEvent.cs" />
-    <Compile Include="Events\UserEvents\UserUpgradedToAcademyBT.cs" />
-    <Compile Include="Events\UserEvents\UserUpgradedToAcademy.cs" />
-    <Compile Include="Events\UserEvents\UserUpgradedToPlus.cs" />
-    <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToAcademyBTEvent.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToAcademyEvent.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToPlusEvent.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToStarterEvent.cs" />
+    <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToTrialEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ISamlServiceProviderRepository.cs" />
     <Compile Include="Repositories\ISamlIdentityProviderRepository.cs" />

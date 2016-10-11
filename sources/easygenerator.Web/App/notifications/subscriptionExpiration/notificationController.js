@@ -24,7 +24,7 @@
         function updateNotification() {
             var accessType = userContext.identity.subscription.accessType;
 
-            if (accessType == constants.accessType.free) {
+            if (accessType != constants.accessType.trial) {
                 app.trigger(constants.notification.messages.remove, constants.notification.keys.subscriptionExpiration);
                 return;
             }

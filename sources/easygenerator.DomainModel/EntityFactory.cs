@@ -13,14 +13,14 @@ namespace easygenerator.DomainModel
         Document Document(string title, string embedCode, DocumentType documentType, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
-        SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
+        SingleSelectText SingleSelectTextQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer);
         SingleSelectImage SingleSelectImageQuestion(string title, string createdBy);
         SingleSelectImage SingleSelectImageQuestion(string title, string createdBy, SingleSelectImageAnswer correctAnswer, SingleSelectImageAnswer incorrectAnswer);
         Multipleselect MultipleselectQuestion(string title, string createdBy);
-        Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
+        Multipleselect MultipleselectQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer);
 
         Statement StatementQuestion(string title, string createdBy);
-        Statement StatementQuestion(string title, string defaultStatementText, string createdBy);
+        Statement StatementQuestion(string title, string defaultStatementText, bool isSurvey, string createdBy);
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy);
@@ -44,9 +44,12 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
-        User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
+        LearningContent LearningContent(string text, string createdBy, decimal position);
+        User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote, 
+            string lastPassedSurveyPopup);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs,  bool? newEditor = true, bool isNewEditorByDefault = true);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, string lastPassedSurveyPopup, DateTime expirationDate, bool isCreatedThroughLti,
+            bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor = true, bool isNewEditorByDefault = true);
         LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user);
         PasswordRecoveryTicket PasswordRecoveryTicket();
         EmailConfirmationTicket EmailConfirmationTicket();
@@ -85,9 +88,9 @@ namespace easygenerator.DomainModel
             return new SingleSelectText(title, createdBy);
         }
 
-        public SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+        public SingleSelectText SingleSelectTextQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer)
         {
-            return new SingleSelectText(title, createdBy, correctAnswer, incorrectAnswer);
+            return new SingleSelectText(title, createdBy, isSurvey, correctAnswer, incorrectAnswer);
         }
 
         public SingleSelectImage SingleSelectImageQuestion(string title, string createdBy)
@@ -105,9 +108,9 @@ namespace easygenerator.DomainModel
             return new Multipleselect(title, createdBy);
         }
 
-        public Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+        public Multipleselect MultipleselectQuestion(string title, string createdBy, bool isSurvey, Answer correctAnswer, Answer incorrectAnswer)
         {
-            return new Multipleselect(title, createdBy, correctAnswer, incorrectAnswer);
+            return new Multipleselect(title, createdBy, isSurvey, correctAnswer, incorrectAnswer);
         }
 
         public Statement StatementQuestion(string title, string createdBy)
@@ -115,9 +118,9 @@ namespace easygenerator.DomainModel
             return new Statement(title, createdBy);
         }
 
-        public Statement StatementQuestion(string title, string defaultStatementText, string createdBy)
+        public Statement StatementQuestion(string title, string defaultStatementText, bool isSurvey, string createdBy)
         {
-            return new Statement(title, defaultStatementText, createdBy);
+            return new Statement(title, defaultStatementText, isSurvey, createdBy);
         }
 
         public FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy)
@@ -164,15 +167,19 @@ namespace easygenerator.DomainModel
         {
             return new LearningContent(text, createdBy);
         }
-
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote)
+        public LearningContent LearningContent(string text, string createdBy, decimal position)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote);
+            return new LearningContent(text, createdBy, position);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor, bool isNewEditorByDefault = true)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, newEditor);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote, lastPassedSurveyPopup);
+        }
+
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, string lastPassedSurveyPopup, DateTime expirationDate, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, ICollection<Company> companies, ICollection<SamlServiceProvider> allowedSamlSPs, bool? newEditor, bool isNewEditorByDefault = true)
+        {
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, lastPassedSurveyPopup, expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companies, allowedSamlSPs, false, newEditor);
         }
 
         public LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user)
@@ -190,7 +197,7 @@ namespace easygenerator.DomainModel
             return new EmailConfirmationTicket();
         }
 
-		public SamlIdPUserInfo SamlIdPUserInfo(SamlIdentityProvider samlIdP, User user)
+        public SamlIdPUserInfo SamlIdPUserInfo(SamlIdentityProvider samlIdP, User user)
         {
             return new SamlIdPUserInfo(samlIdP, user);
         }

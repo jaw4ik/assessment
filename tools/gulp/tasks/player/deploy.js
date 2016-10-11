@@ -12,8 +12,7 @@ var $ = gulpLoadPlugins({
     lazy: true
 });
 
-var outputPlayer = args.outputPlayer || 'D:/Applications/player',
-    instance = args.instance || 'Release';
+var outputPlayer = args.outputPlayer || 'D:/Applications/player';
 
 gulp.task('deploy-player', ['assets-player'], function () {
     var assets = $.useref.assets();
@@ -54,7 +53,7 @@ gulp.task('styles-player', function () {
             strictUnits: true
         }))
         .pipe($.autoprefixer({
-            browsers: config.less.browsers,
+            browsers: config.less.playerBrowsers,
             cascade: false
         }))
         .pipe(gulp.dest(config.less.destPlayer));
@@ -67,6 +66,8 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
         './sources/easygenerator.Player/.bowerrc',
         './sources/easygenerator.Player/www.js',
         './sources/easygenerator.Player/app.js',
+		'./sources/easygenerator.Player/config.js',
+		'./sources/easygenerator.Player/middlewares/*.*',
         './sources/easygenerator.Player/routes/*.*',
         './sources/easygenerator.Player/models/*.*',
         './sources/easygenerator.Player/public/images/*.*',
@@ -79,7 +80,7 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
         .pipe(gulp.dest(outputPlayer));
 });
 
-gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
+gulp.task('assets-player', ['styles-player', 'copy-player'], function () {
     gulp.src([
         './sources/easygenerator.Player/public/styles/style.css',
         './sources/easygenerator.Player/public/styles/video.css',
@@ -93,10 +94,4 @@ gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], fu
         .pipe(gulp.dest(outputPlayer + '/public/styles/template'));
     return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
         .pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
-});
-
-gulp.task('copy-player-config-transform', ['copy-player'], function () {
-    return gulp.src('./tools/PlayerConfigTransform/' + instance + '.transform.js')
-        .pipe($.rename('config.js'))
-        .pipe(gulp.dest(outputPlayer))
 });

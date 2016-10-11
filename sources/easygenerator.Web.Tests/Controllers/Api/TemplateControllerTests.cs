@@ -1,11 +1,8 @@
-﻿using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Storage;
@@ -14,9 +11,13 @@ using FluentAssertions;
 using FluentAssertions.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.Web.Components.Mappers;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -124,6 +125,32 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeFilePathResult();
+        }
+
+        #endregion
+
+        #region GetCustomTemplatesInfo
+
+        [TestMethod]
+        public void GetCustomTemplatesInfo_ShouldReturnInfo()
+        {
+            //Arrgange
+            var template = TemplateObjectMother.Create();
+            _templateStorage.TemplateDirectoryExist(template).Returns(true);
+            _repository.GetCollection().Returns(new Collection<Template>() { template });
+
+            //Act
+            var result = _controller.GetCustomTemplatesInfo();
+
+            //Assert
+            result.Should().BeJsonDataResult().And.Data.ShouldBeEquivalentTo(new List<object>()
+            {
+                new
+                {
+                    template.Name,
+                    Id = template.Id.ToNString()
+                }
+            });
         }
 
         #endregion

@@ -5,7 +5,7 @@
             <div class="title-container">
                 <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
                     <div class="edit-field-paceholder" data-bind="localize: {text: 'giveNameToYourCourse'}, visible: title().length===0"></div>
-                    <div class="edit-field selectable autofocus" data-bind=" editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
+                    <div class="edit-field selectable autofocus" data-bind="editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
                     <div class="validation-message">
                         <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
                     </div>

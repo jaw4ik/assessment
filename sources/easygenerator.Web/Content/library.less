@@ -1,21 +1,22 @@
 ﻿@import 'helpers.less';
 
-@library-list-item-border-color: #e8e8e8;
-@library-list-item-hover-border-color: #71c3ff;
-@library-list-item-box-shadow: 0px 2px 0px 0px @library-list-item-border-color;
+@library-list-item-hover-border-color: #469dd5;
+@library-list-item-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .3);
+@library-list-item-hover-box-shadow: 0px 0px 0px 2px @library-list-item-hover-border-color;
 @vimeo-list-item-hover-box-shadow: 0px 0px 0px 2px @library-list-item-hover-border-color;
-@library-thumbnail-width: 200px;
-@library-thumbnail-height: 150px;
 @add-library-item-button-width: 202px;
 @add-library-item-button-height: 208px;
-@add-library-item-button-background: linear-gradient(-29deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
+@add-library-item-button-hover-border-color: #469dd5;
+@add-library-item-button-background: linear-gradient(-29deg, rgba(224, 242, 255, 1) 50%, rgba(224, 242, 255, .7) 50%);
 @add-library-item-button-icon-background: url(../Content/images/sprites_64.png) -207px -267px;
-@library-thumbnail-box-shadow: 0px 1px 6px 0px #c9ced0;
 @play-icon-background-image: url(../Content/images/sprites_24.png) -88px -87px;
 @upload-error-background: url('../Content/images/sprites_64.png') -277px -266px;
-@library-thumbnail-background: rgba(254,254,254,1) 0,rgba(243,243,243,1) 100%;
+@library-thumbnail-width: 200px;
+@library-thumbnail-height: 150px;
+@library-thumbnail-background: #ffffff;
+@library-thumbnail-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, .3);
 @library-title-font-size: 13px;
-@library-delete-confirmation-background-color: rgba(255, 255, 255, 0.9);
+@library-delete-confirmation-background-color: rgba(255, 255, 255, .9);
 @library-confirmation-text-color: #546677;
 
 .library-list {
@@ -28,11 +29,12 @@
         vertical-align: top;
         margin-left: 45px;
         margin-bottom: 30px;
-        border-radius: 5px;
+        border-radius: 3px;
         cursor: pointer;
-        border: 1px solid @library-list-item-border-color;
         box-shadow: @library-list-item-box-shadow;
-        
+        overflow: hidden;
+        .transition(box-shadow);
+
         &:nth-child(4n+1) {
             margin-left: 0;
         }
@@ -54,12 +56,15 @@
         }
 
         &.hovered:hover {
-            border-color: @library-list-item-hover-border-color;
-            box-shadow: @vimeo-list-item-hover-box-shadow;
+            box-shadow: @library-list-item-hover-box-shadow;
 
             .play-icon {
                 opacity: 0.9;
             }
+        }
+
+        &.selected {
+            box-shadow: @library-list-item-hover-box-shadow;
         }
 
         &.add-library-item-button {
@@ -67,13 +72,13 @@
             width: @add-library-item-button-width;
             height: @add-library-item-button-height;
             background: @add-library-item-button-background;
-            border-radius: 15px;
-            border: 3px solid #fff;
+            border-radius: 5px;
+            border: 2px solid #fff;
             box-shadow: none;
-            transition: border 0.3s;
+            .transition(border);
 
             &:hover {
-                border-color: @library-list-item-hover-border-color;
+                border-color: @add-library-item-button-hover-border-color !important;
             }
 
             &:before {
@@ -128,9 +133,7 @@
             width: @library-thumbnail-width;
             height: @library-thumbnail-height;
             box-shadow: @library-thumbnail-box-shadow;
-            background: radial-gradient(ellipse at center, @library-thumbnail-background);
-            background-repeat: no-repeat;
-            background-position: center;
+            background: @library-thumbnail-background;
 
             &.uploading {
                 text-align: center;
@@ -325,15 +328,14 @@
     @drop-zone-border-color-active: rgba(76, 175, 80, 1);
     @drop-zone-border-color-hover: rgba(76, 175, 80, 0.6);
 
-    .drop-hint { 
+    .drop-hint {
         position: absolute;
         z-index: 99;
         margin-right: 20px;
         width: 100%;
         height: 100%;
         color: @text-color-active;
-
-         .vertical-align();
+        .vertical-align();
 
         .drop-hint-content {
             text-align: center;

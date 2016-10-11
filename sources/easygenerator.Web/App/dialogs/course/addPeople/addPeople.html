@@ -1,0 +1,24 @@
+﻿<div class="modal-dialog-wrapper add-people-to-course" data-bind="ifExtended: { value: isShown, delayOnFalse: 300 }, dialog: { autoclose: true, isShown: isShown, onHide: hide.bind($data) }, css: { visible: isShown }">
+    <div class="modal-dialog-close-btn" data-bind="click: hide.bind($data)"></div>
+    <div class="modal-dialog-content">
+        <form data-bind="submit: submit">
+            <div class="modal-dialog-form-row">
+                <div data-bind="tags: { collection: emails, autofocus: true, disabled: isProcessing, valid: isValid, headerKey: 'addPeople', placeholderKey: 'inviteByEmailAddress', validationPattern: emailValidationPattern }"></div>
+                <div class="users-list-input-description" data-bind="localize: { text: 'useSpaceCommaOrSemocolonBtwEmails'}"></div>
+            </div>
+            <div class="modal-dialog-form-row checkbox-field">
+                <!-- ko checkbox: { value: sendInvitations, valueChanged: sendInvitationsValueChanged, key: 'sendCourseInvitationsToPeople' } --><!-- /ko -->
+            </div>
+        </form>
+    </div>
+    <footer class="modal-dialog-footer">
+        <div class="action-item-btn-wrapper">
+            <!-- ko if: sendInvitations -->
+            <button class="button large main" data-bind="click: submit, disable: isProcessing, css: { progress: isProcessing }, localize: { wrap: 'sendInvites' }"></button>
+            <!-- /ko -->
+            <!-- ko ifnot: sendInvitations -->
+            <button class="button large main" data-bind="click: submit, disable: isProcessing, css: { progress: isProcessing }, localize: { wrap: 'done' }"></button>
+            <!-- /ko -->
+        </div>
+    </footer>
+</div>

@@ -1,98 +1,116 @@
-﻿<section class="question-content-section-holder">
-    <div class="question-view-holder">
-        <section class="question view-module" data-bind="css: questionType">
-            <div class="content-section-wrapper" data-bind="with: questionTitle">
-                <div class="content-section">
-                    <span class="question-content-item-label" data-bind="localize: { text: label } "></span>
-                    <div class="edit-field-wrapper small question-title" data-bind="css: { 'active': text.isEditing(), 'error': !text.isValid() }">
-                        <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }"></div>
-                        <div class="validation-message">
-                            <span data-bind="text: text().trim().length"></span>/<span data-bind="text: questionTitleMaxLength"></span>
+﻿<section class="question-content-section-container" data-bind="css: { 'survey-is-changing': surveyModeIsChanging }">
+    <section class="question-content-section-holder">
+        <div class="question-view-holder">
+            <section class="question view-module" data-bind="css: questionType, css2: { 'survey': surveyModeAvailable }">
+                <div class="content-section-wrapper" data-bind="with: questionTitle">
+                    <div class="content-section">
+                        <span class="question-content-item-label" data-bind="localize: { text: label } "></span>
+                        <div class="edit-field-wrapper small question-title" data-bind="css: { 'active': text.isEditing(), 'error': !text.isValid() }">
+                            <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }"></div>
+                            <div class="validation-message">
+                                <span data-bind="text: text().trim().length"></span>/<span data-bind="text: questionTitleMaxLength"></span>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
-            <div class="content-section-wrapper">
-                <div class="question-extra-content-section content-section">
-                    <!-- ko if: voiceOver.title -->
-                    <div class="voice-over-wrapper">
-                        <label class="question-content-item-label " data-bind="localize: {text: 'voiceOver'}"></label>
-                        <div class="voice-over">
-                            <div class="voice-over-icon"></div>
-                            <div class="voice-over-title" data-bind="text: voiceOver.title"></div>
-                            <span class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update, tip:{ key: 'change' }">
-                            </span>
-                            <span class="voice-over-action-separator"></span>
-                            <span class="voice-over-action delete info-tooltip-holder" data-bind="click: voiceOver.remove, tip: { key: 'delete' }">
-                            </span>
+                <div class="content-section-wrapper">
+                    <div class="question-extra-content-section content-section">
+                        <!-- ko if: voiceOver.title -->
+                        <div class="voice-over-wrapper">
+                            <label class="question-content-item-label " data-bind="localize: {text: 'voiceOver'}"></label>
+                            <div class="voice-over">
+                                <div class="voice-over-icon"></div>
+                                <div class="voice-over-title" data-bind="text: voiceOver.title"></div>
+                                <span class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update, tip:{ key: 'change' }">
+                                </span>
+                                <span class="voice-over-action-separator"></span>
+                                <span class="voice-over-action delete info-tooltip-holder" data-bind="click: voiceOver.remove, tip: { key: 'delete' }">
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: voiceOver.title -->
-                    <div class="extra-content-action-wrapper">
-                        <div class="extra-content-action" data-bind="click: voiceOver.update">
-                            <span class="extra-content-action-text add" data-bind="localize: { text: 'addVoiceOver' }"></span>
-                        </div>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko if: questionContent -->
-                    <!-- ko if: questionContent.isContentDefined -->
-                    <div class="question-extra-content-block" data-bind="with: questionContent">
-                        <span class="question-content-item-label" data-bind="localize:{ text: 'questionContent' }, visible: isExpanded "></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: voiceOver.title -->
                         <div class="extra-content-action-wrapper">
-                            <!-- ko if: isExpanded -->
-                            <div class="extra-content-action" data-bind="click: toggleExpand">
-                                <span class="extra-content-action-text hide" data-bind="localize: { text: 'hideQuestionContent' }"></span>
+                            <div class="extra-content-action" data-bind="click: voiceOver.update">
+                                <span class="extra-content-action-text add" data-bind="localize: { text: 'addVoiceOver' }"></span>
                             </div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: isExpanded -->
-                            <div class="extra-content-action" data-bind="click: toggleExpand">
-                                <span class="extra-content-action-text show" data-bind="localize: { text: 'showQuestionConent' }"></span>
-                            </div>
-                            <!-- /ko -->
                         </div>
-                        <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
-                            <div class="question-content-items-list">
-                                <div class="question-content-item" data-bind="css: { active: hasFocus }">
-                                    <div class="question-content-wrapper">
-                                        <div class="question-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $parent.localizationManager }">
+                        <!-- /ko -->
+                        <!-- ko if: questionContent -->
+                        <!-- ko if: questionContent.isContentDefined -->
+                        <div class="question-extra-content-block" data-bind="with: questionContent">
+                            <span class="question-content-item-label" data-bind="localize:{ text: 'questionContent' }, visible: isExpanded "></span>
+                            <div class="extra-content-action-wrapper">
+                                <!-- ko if: isExpanded -->
+                                <div class="extra-content-action" data-bind="click: toggleExpand">
+                                    <span class="extra-content-action-text hide" data-bind="localize: { text: 'hideQuestionContent' }"></span>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isExpanded -->
+                                <div class="extra-content-action" data-bind="click: toggleExpand">
+                                    <span class="extra-content-action-text show" data-bind="localize: { text: 'showQuestionConent' }"></span>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                            <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+                                <div class="question-content-items-list">
+                                    <div class="question-content-item" data-bind="css: { active: hasFocus }">
+                                        <div class="question-content-wrapper">
+                                            <div class="question-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $parent.localizationManager }">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </section>
+                        </div>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: questionContent -->
+                        <!-- ko ifnot: questionContent.isContentDefined -->
+                        <div class="extra-content-action-wrapper">
+                            <div class="extra-content-action" data-bind="click: questionContent.addContent">
+                                <span class="extra-content-action-text add" data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
                             </div>
-                        </section>
+                        </div>
+                        <!-- /ko -->
+                        <!-- /ko -->
                     </div>
-                    <!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko if: questionContent -->
-                    <!-- ko ifnot: questionContent.isContentDefined -->
-                    <div class="extra-content-action-wrapper">
-                        <div class="extra-content-action" data-bind="click: questionContent.addContent">
-                            <span class="extra-content-action-text add" data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
+                </div>
+                <!-- ko if: surveyModeAvailable -->
+                <div class="switcher-wrapper">
+                    <div class="switch-toggle-slider small on" data-bind="switchToggle: { value: isSurvey, onClick: toggleIsSurvey.bind($data), speed: 100 }">
+                        <div class="switch-toggle-wrapper" style="margin-left: 0px;">
+                            <div class="switch-toggle-on"></div>
+                            <div class="switch-toogle-blob"></div>
+                            <div class="switch-toggle-off"></div>
                         </div>
                     </div>
-                    <!-- /ko -->
-                    <!-- /ko -->
+                    <div class="switch-description enabled" data-bind="css: { enabled: isSurvey }">
+                        <span class="title" data-bind="localize: { text: 'surveyMode' }, click: toggleIsSurvey"></span>
+                        <span class="help-tooltip" data-bind="tip: { key: 'surveyModeCaption', maxWidth: 220 }" data-original-title="" title=""></span>
+                    </div>
                 </div>
-            </div>
-
-        </section>
-    </div>
-</section>
-<section class="question-content-holder">
-    <div class="question-view-holder">
-        <section class="question view-module" data-bind="css: questionType">
-            <!-- ko if: hasQuestionView -->
-            <div class="answers">
-                <!-- ko compose: activeQuestionViewModel -->
                 <!-- /ko -->
-            </div>
-            <!-- /ko -->
-            <!-- ko if: hasFeedback -->
-            <!-- ko compose: feedbackViewModel --><!-- /ko -->
-            <!-- /ko -->
-            <!-- ko compose: learningContentsViewModel --><!-- /ko -->
-        </section>
-    </div>
+            </section>
+        </div>
+    </section>
+    <section class="question-content-holder">
+        <div class="question-view-holder">
+            <section class="question view-module" data-bind="css: questionType">
+                <!-- ko if: hasQuestionView -->
+                <div class="answers">
+                    <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
+                </div>
+                <!-- /ko -->
+                <!-- ko if: hasFeedback -->
+                <!-- ko compose: feedbackViewModel --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko compose: { model: 'viewmodels/learningContents/learningContents', activationData: questionId } --><!-- /ko -->
+            </section>
+        </div>
+        <div class="question-content-holder-overlay" data-bind="css: { show: surveyModeIsChanging }">
+            <div data-bind="preloader: { settings: 'blue align-center' }"></div>
+        </div>
+    </section>
 </section>

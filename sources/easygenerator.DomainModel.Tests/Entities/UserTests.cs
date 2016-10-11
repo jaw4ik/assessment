@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events.UserEvents;
+using easygenerator.DomainModel.Events.UserEvents.SubscriptionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.DomainModel.Tests.ObjectMothers.Tickets;
 using easygenerator.DomainModel.Tests.Utils;
@@ -202,8 +203,9 @@ namespace easygenerator.DomainModel.Tests.Entities
             var role = "Teacher";
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
+            var lastPassedSurveyPopup = "1";
 
-            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, new DateTime(1999, 12, 30));
+            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, lastPassedSurveyPopup, new DateTime(1999, 12, 30));
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
         }
 
@@ -221,12 +223,13 @@ namespace easygenerator.DomainModel.Tests.Entities
             var creationDate = CurrentDate;
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
+            var lastPassedSurveyPopup = "1";
             var company = new Company();
             var samlSP = new SamlServiceProvider();
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, false, new Collection<Company>() { company }, new Collection<SamlServiceProvider>() { samlSP });
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, lastPassedSurveyPopup, expirationDate, false, false, new Collection<Company>() { company }, new Collection<SamlServiceProvider>() { samlSP }, false);
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -1625,7 +1628,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToStarter(DateTime.Now);
 
             //Assert
-            user.ShouldContainSingleEvent<UserUpgradedToStarter>();
+            user.ShouldContainSingleEvent<UserUpgradedToStarterEvent>();
         }
 
         #endregion
@@ -1684,7 +1687,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToPlus(DateTime.Now);
 
             //Assert
-            user.ShouldContainSingleEvent<UserUpgradedToPlus>();
+            user.ShouldContainSingleEvent<UserUpgradedToPlusEvent>();
         }
 
         #endregion
@@ -1743,7 +1746,66 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToAcademy(DateTime.Now);
 
             //Assert
-            user.ShouldContainSingleEvent<UserUpgradedToAcademy>();
+            user.ShouldContainSingleEvent<UserUpgradedToAcademyEvent>();
+        }
+
+        #endregion
+
+        #region UpgradePlanToTrial
+
+        [TestMethod]
+        public void UpgradePlanToTrial_ShouldThrowArgumentException_WhenExpirationTimeLessThanSqlMinDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var minDate = new DateTime(2000, 1, 1);
+            DateTimeWrapper.MinValue = () => minDate;
+
+            //Act
+            Action action = () => user.UpgradePlanToTrial(new DateTime(1999, 12, 30));
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradePlanToTrial_ShouldSetAccessTypeToTrial()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToTrial(DateTime.Now);
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Trial);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToTrial_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var expirationDate = DateTime.MaxValue;
+
+            //Act
+            user.UpgradePlanToTrial(expirationDate);
+
+            //Assert
+            user.ExpirationDate.Should().Be(expirationDate);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToTrial_ShouldAddUserUpgradedToTrial()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToTrial(DateTime.Now);
+
+            //Assert
+            user.ShouldContainSingleEvent<UserUpgradedToTrialEvent>();
         }
 
         #endregion
@@ -1802,7 +1864,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToAcademyBT(DateTime.Now);
 
             //Assert
-            user.ShouldContainSingleEvent<UserUpgradedToAcademyBT>();
+            user.ShouldContainSingleEvent<UserUpgradedToAcademyBTEvent>();
         }
 
         #endregion
@@ -1845,7 +1907,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.DowngradePlanToFree();
 
             //Assert
-            user.ShouldContainSingleEvent<UserDowngraded>();
+            user.ShouldContainSingleEvent<UserDowngradedEvent>();
         }
 
 

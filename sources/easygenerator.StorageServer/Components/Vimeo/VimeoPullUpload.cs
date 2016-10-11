@@ -10,6 +10,8 @@ namespace easygenerator.StorageServer.Components.Vimeo
     {
         private readonly Configuration _configuration;
 
+        private const string uriFieldName = "uri";
+
         public VimeoPullUpload(Configuration configuration)
         {
             _configuration = configuration;
@@ -19,7 +21,7 @@ namespace easygenerator.StorageServer.Components.Vimeo
         {
             using (var client = new VimeoHttpClient(_configuration.Vimeo.Token))
             {
-                var url = _configuration.Vimeo.Url + _configuration.Vimeo.TicketUrl;
+                var url = $"{_configuration.Vimeo.Url}{_configuration.Vimeo.TicketUrl}?fields={uriFieldName}";
                 var response = await client.PostAsJsonAsync(url, new { type = "pull", link = link });
 
                 if (response.IsSuccessStatusCode)
@@ -28,7 +30,7 @@ namespace easygenerator.StorageServer.Components.Vimeo
                     var content = await response.Content.ReadAsStringAsync();
                     var json = JObject.Parse(content);
 
-                    var uri = json["uri"].Value<String>();
+                    var uri = json[uriFieldName].Value<String>();
 
                     return uri.Substring(8);
                 }

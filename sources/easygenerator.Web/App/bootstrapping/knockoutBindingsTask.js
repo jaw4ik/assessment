@@ -9,7 +9,12 @@
     require('components/bindingHandlers/expandableBlockBindingHandler');
     require('components/bindingHandlers/ifExtendedBindingHandler');
     require('components/bindingHandlers/customScrollbarBindingHandler');
+    require('components/bindingHandlers/windowMessageListenerBindingHandler');
     require('components/bindingHandlers/tipBindingHandler');
+    require('components/bindingHandlers/tabsBindingHandler');
+    require('components/bindingHandlers/heightAnimation');
+    require('components/bindingHandlers/expandBlock');
+    require('components/bindingHandlers/stopPropagationBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
@@ -17,33 +22,31 @@
     require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');
     require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
-    require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
-    require('viewmodels/courses/bindingHandlers/tabsBinding');
-    require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
+    require('contentEditor/contentTypes/hotspot/bindingHandlers/hotspotOnImageBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('editor/course/bindingHandlers/hightlightSection');
-    require('editor/course/bindingHandlers/draggableContainer');
-    require('editor/course/bindingHandlers/draggableData');
     require('editor/course/bindingHandlers/tooltipPopover');
-    require('editor/course/bindingHandlers/heightAnimation');
     require('components/bindingHandlers/dates/dateBindingHandler');
     require('components/bindingHandlers/dates/dateFromNowBindingHandler');
     require('components/bindingHandlers/editableTextBindingHandler');
     require('components/bindingHandlers/cursorTooltipBindingHandler');
     require('components/bindingHandlers/ratingBindingHandler');
+    require('components/bindingHandlers/coverBackgroundBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('design/bindingHandlers/spectrumBindingHandler');
     require('design/bindingHandlers/slideToggleBindingHandler');
     require('design/bindingHandlers/brightnessBindingHandler');
     require('design/bindingHandlers/popoverBindingHandler');
     require('design/bindingHandlers/textStyleBindingHandler');
-    require('images/bindingHandlers/keyDownBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
     require('widgets/tags/bindingHandlers/dynamicWidthInput');
     require('widgets/tags/bindingHandlers/setFocusByClick');
+    require('dragAndDrop/bindingHandlers/draggableContainer');
+    require('dragAndDrop/bindingHandlers/draggableData');
+    require('components/htmlEditor/bindingHandlers/htmlEditorBindingHandler');
 
     var task = {
         execute: execute

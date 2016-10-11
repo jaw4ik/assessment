@@ -1,0 +1,22 @@
+﻿<div class="user-notification-wrapper organization-invite">
+    <div class="user-notification-header">
+        <div class="user-notification-header-image-wrapper">
+            <div class="user-notification-header-image" data-bind="text: userAvatarLetter">
+            </div>
+        </div>
+        <div class="user-notification-header-content">
+            <span class="user-notification-title" data-bind="localize: { text: 'confirmMembership' }"></span>
+            <span class="user-notification-sender">
+                <span data-bind="localize: { text: 'upgradeNotificationSender' }"></span>
+            </span>
+        </div>
+    </div>
+    <div class="user-notification-content">
+        <div class="user-notification-content-text">
+            <p class="subtitle"><span data-bind="localize: { text: 'upgradeNotificationHi' }"></span>&nbsp;<span data-bind="text: userFirstname"></span>,</p>
+            <p class="top-indent">
+                <span data-bind="localize: { html: 'notificationAboutEmailVerification' }"></span>
+            </p>
+        </div>
+    </div>
+</div>

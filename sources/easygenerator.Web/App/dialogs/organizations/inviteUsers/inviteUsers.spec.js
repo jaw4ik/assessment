@@ -79,6 +79,14 @@ describe('dialogs organizations [inviteUsers]', () => {
 
             expect(viewModel.isShown()).toBeTruthy();
         });
+
+        it('should set emails to empty', () => {
+            viewModel.emails(['someValue']);
+
+            viewModel.show(organizationId);
+
+            expect(viewModel.emails().length).toBe(0);
+        });
     });
 
     describe('hide:', () => {

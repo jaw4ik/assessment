@@ -1,8 +1,9 @@
 ﻿using System;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using System.Configuration;
+using easygenerator.Web.Components.Configuration.CourseExamples;
 using easygenerator.Web.Components.Configuration.SAML;
+using easygenerator.Web.Components.Configuration.DataDog;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -47,6 +48,8 @@ namespace easygenerator.Web.Components.Configuration
                 return ConfigurationManager.GetSection("mailChimp") as MailChimpConfigurationSection;
             }
         }
+
+        public virtual DataDogStatsDClientConfigurationSection DataDogStatsDClientConfiguration => ConfigurationManager.GetSection("dataDogStatsDClient") as DataDogStatsDClientConfigurationSection;
 
         public virtual ExternalApiSection ExternalApi
         {
@@ -116,6 +119,10 @@ namespace easygenerator.Web.Components.Configuration
 
         public virtual SamlIdPConfigurationSection SamlIdPConfiguration => ConfigurationManager.GetSection("samlIdP") as SamlIdPConfigurationSection;
 
+        public virtual CourseExamplesConfigurationSection CourseExamplesConfiguration => ConfigurationManager.GetSection("courseExamples") as CourseExamplesConfigurationSection;
+
+        public virtual SurveyPopupConfigurationSection SurveyPopup => ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection;
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
@@ -157,6 +164,10 @@ namespace easygenerator.Web.Components.Configuration
             {
                 return ConfigurationManager.GetSection("googleFontsApi") as GoogleFontsApiConfigurationSection;
             }
+        }
+
+        public virtual SentryConfigurationSection SentriConfiguration {
+            get { return ConfigurationManager.GetSection("sentry") as SentryConfigurationSection; }
         }
     }
 }

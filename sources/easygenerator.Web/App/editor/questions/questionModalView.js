@@ -26,9 +26,11 @@ class QuestionModalView {
         this.sectionId = '';
         this.questionId = '';
         this.questionViewModel = ko.observable();
-        this.navigationPanel = navigationPanel;
-        this.isNavigationPanelExpanded = ko.observable(true);
         this.isQuestionViewReady = ko.observable(false);
+        this.isLeftPanelExpanded = ko.observable(true);
+        this.leftPanelExpandedLastState = this.isLeftPanelExpanded();
+        this.isContentBarExpanded = ko.observable(false);
+        this.navigationPanel = navigationPanel;
         this.isLoading = ko.observable(false);
 
         _courseDeleted.set(this, courseId => {
@@ -63,6 +65,8 @@ class QuestionModalView {
         app.on(constants.messages.question.deletedByCollaborator, _questionsDeleted.get(this).bind(this));
         app.on(constants.messages.questionNavigation.navigateToQuestion, _navigateToQuestion.get(this).bind(this));
         app.on(constants.messages.questionNavigation.navigateToCourse, _navigateToCourse.get(this).bind(this));
+        app.on(constants.messages.content.startEditing, this.changePanelToContentBar.bind(this));
+        app.on(constants.messages.content.endEditing, this.changePanelToNavigation.bind(this));
     }
     async initialize(courseId) {
         this.courseId = courseId;
@@ -87,17 +91,21 @@ class QuestionModalView {
     async loadQuestion(sectionId, questionId){
         this.sectionId = sectionId;
         this.questionId = questionId;
+        this.changePanelToNavigation();
         this.isQuestionViewReady(false);
         this.navigationPanel.activate(sectionId, questionId);
         await questionViewModel.activate(this.courseId, sectionId, questionId);
         this.questionViewModel(questionViewModel);
     }
     close() {
+        if(this.isContentBarExpanded()){
+            app.trigger(constants.messages.content.endEditing);
+        }
         modalView.close();
     }
 
-    toggleExpandNavigationPanel() {
-        this.isNavigationPanelExpanded(!this.isNavigationPanelExpanded());
+    toggleExpandLeftPanel() {
+        this.isLeftPanelExpanded(!this.isLeftPanelExpanded());
     }
 
     onQuestionViewCompositionComplete() {
@@ -106,6 +114,23 @@ class QuestionModalView {
     previewCourse() {
         eventTracker.publish(events.previewCourse);
         router.openUrl('/preview/' + this.courseId);
+    }
+    changePanelToContentBar() {
+        if (this.isContentBarExpanded()) {
+            return;
+        }
+
+        this.isContentBarExpanded(true);
+        this.leftPanelExpandedLastState = this.isLeftPanelExpanded();
+        this.isLeftPanelExpanded(true);
+    }
+    changePanelToNavigation() {
+        if (!this.isContentBarExpanded()) {
+            return;
+        }
+
+        this.isContentBarExpanded(false);
+        this.isLeftPanelExpanded(this.leftPanelExpandedLastState);
     }
 }
 

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace easygenerator.Infrastructure
 {
@@ -26,7 +26,7 @@ namespace easygenerator.Infrastructure
 
             if (toValidate.Count == 0)
             {
-                string message = String.Format("{0} cannot be empty.", argumentName);
+                string message = $"{argumentName} cannot be empty.";
 
                 throw new ArgumentException(message, argumentName);
             }
@@ -56,7 +56,7 @@ namespace easygenerator.Infrastructure
 
             if (toValidate.Trim() == String.Empty)
             {
-                throw new ArgumentException(String.Format("The value of {0} cannot be empty.", argumentName), argumentName);
+                throw new ArgumentException($"The value of {argumentName} cannot be empty.", argumentName);
             }
         }
 
@@ -68,7 +68,8 @@ namespace easygenerator.Infrastructure
         {
             if (!Enum.IsDefined(typeof(T), toValidate))
             {
-                throw new ArgumentException(String.Format("The value '{0}' is not expected for Enum of type '{1}'", toValidate, typeof(T).Name), argumentName);
+                throw new ArgumentException(
+                    $"The value '{toValidate}' is not expected for Enum of type '{typeof(T).Name}'", argumentName);
             }
         }
 
@@ -90,7 +91,8 @@ namespace easygenerator.Infrastructure
         {
             if (toValidate.Length > length)
             {
-                throw new ArgumentOutOfRangeException(argumentName, String.Format("The value of {0} cannot be longer than {1}.", argumentName, length));
+                throw new ArgumentOutOfRangeException(argumentName,
+                    $"The value of {argumentName} cannot be longer than {length}.");
             }
         }
 
@@ -103,6 +105,14 @@ namespace easygenerator.Infrastructure
 
             if (!Regex.IsMatch(email, Constants.EmailValidationRegexp))
                 throw new ArgumentException("Invalid email format", argumentName);
+        }
+
+        public static void ThrowIfDateIsInvalid(DateTime date, string argumentName)
+        {
+            if (date < DateTimeWrapper.MinValue())
+            {
+                throw new ArgumentException("Expiration date is invalid", argumentName);
+            }
         }
 
         /// <summary>
@@ -121,12 +131,20 @@ namespace easygenerator.Infrastructure
             }
             catch
             {
-                Type argType = typeof (T);
-                string typeName = String.Format("{0}{1}", argType.Name, argType.IsGenericType ? "<" + String.Concat(argType.GenericTypeArguments.Select(t => t.Name)) + ">" : "");
-                throw new ArgumentException(String.Format("The value of {0} need to be of {1} type.", argumentName, typeName), argumentName);
+                Type argType = typeof(T);
+                string typeName =
+                    $"{argType.Name}{(argType.IsGenericType ? "<" + String.Concat(argType.GenericTypeArguments.Select(t => t.Name)) + ">" : "")}";
+                throw new ArgumentException($"The value of {argumentName} need to be of {typeName} type.", argumentName);
             }
         }
 
+        public static void ThrowIfNumberIsOutOfRange(decimal number, decimal minAllowed, decimal maxAllowed, string argumentName)
+        {
+            if (number < minAllowed || number > maxAllowed)
+            {
+                throw new ArgumentOutOfRangeException(argumentName, $"{argumentName} cannot be less than {minAllowed} and more than {maxAllowed}.");
+            }
+        }
         #endregion
     }
 }

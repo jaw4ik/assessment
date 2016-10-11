@@ -11,11 +11,11 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class QuestionEventHandler :
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
+        IDomainEventHandler<QuestionIsSurveyUpdatedEvent>,
         IDomainEventHandler<QuestionBackgroundChangedEvent>,
         IDomainEventHandler<QuestionContentUpdatedEvent>,
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
-        IDomainEventHandler<LearningContentsReorderedEvent>,
         IDomainEventHandler<FillInTheBlankUpdatedEvent>,
         IDomainEventHandler<QuestionVoiceOverUpdatedEvent>
     {
@@ -46,6 +46,12 @@ namespace easygenerator.Web.Synchronization.Handlers
                 .questionTitleUpdated(args.Question.Id.ToNString(), args.Question.Title, args.Question.ModifiedOn);
         }
 
+        public void Handle(QuestionIsSurveyUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionIsSurveyUpdated(args.Question.Id.ToNString(), args.IsSurvey, args.Question.ModifiedOn);
+        }
+
         public void Handle(QuestionBackgroundChangedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Question)
@@ -62,12 +68,6 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .questionIncorrectFeedbackUpdated(args.Question.Id.ToNString(), args.Question.Feedback.IncorrectText, args.Question.ModifiedOn);
-        }
-
-        public void Handle(LearningContentsReorderedEvent args)
-        {
-            _broadcaster.OtherCollaborators(args.Question)
-                .learningContentsReordered(args.Question.Id.ToNString(), args.Question.LearningContents.Select(e => e.Id.ToNString()), args.Question.ModifiedOn);
         }
 
         public void Handle(FillInTheBlankUpdatedEvent args)

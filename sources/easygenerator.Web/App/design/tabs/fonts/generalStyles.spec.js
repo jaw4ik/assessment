@@ -7,7 +7,6 @@ import { Font, ContentElement} from './generalStyles';
 import userContext from 'userContext';
 
 import { fontFamilies } from './../FontsTab';
-import bus from 'design/bus';
 import eventTracker from 'eventTracker';
 
 
@@ -20,7 +19,6 @@ let spyOn = window.spyOn;
 describe('Font element', () => {
 
     beforeEach(() => {
-        spyOn(bus, 'trigger');
         spyOn(app, 'trigger');
         spyOn(eventTracker, 'publish');
     });
@@ -124,14 +122,14 @@ describe('Font element', () => {
 
 });
 
-describe('Content Element',()=>{
+describe('viewmodel [Content Element]',()=>{
 
     beforeEach(() => {
         spyOn(app, 'trigger');
         spyOn(eventTracker, 'publish');
     });
 
-    describe('isVisible', ()=>{
+    describe('isVisible:', ()=>{
         
         it('should be observable',()=>{
             
@@ -149,7 +147,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('key', ()=>{
+    describe('key:', ()=>{
         
         it('should be defined', ()=>{
         
@@ -160,7 +158,7 @@ describe('Content Element',()=>{
     
     });
     
-    describe('isGeneralSelected', ()=>{
+    describe('isGeneralSelected:', ()=>{
         
         it('should be observable',()=>{
         
@@ -193,7 +191,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('generalFontFamily',()=>{
+    describe('generalFontFamily:',()=>{
     
         it('should be defined',()=>{
         
@@ -211,7 +209,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('size',()=>{
+    describe('size:',()=>{
 
         it('should be observable',()=>{
         
@@ -242,7 +240,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('originalSize', ()=>{
+    describe('originalSize:', ()=>{
     
         it('should be defined', ()=>{
         
@@ -260,7 +258,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('color', ()=>{
+    describe('color:', ()=>{
     
         it('should be observable', ()=>{
         
@@ -279,7 +277,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('generalFontColor',()=>{
+    describe('generalFontColor:',()=>{
 
         it('should be defined and equal generalFontColor', ()=>{
 
@@ -303,7 +301,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('isGeneralColorSelected',()=>{
+    describe('isGeneralColorSelected:',()=>{
     
         it('should be observable',()=>{
 
@@ -335,7 +333,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('textBackgroundColor', ()=>{
+    describe('textBackgroundColor:', ()=>{
     
         it('should be observable', ()=>{
             
@@ -346,7 +344,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('fontWeight', ()=>{
+    describe('fontWeight:', ()=>{
 
         it('should be observable', ()=>{
             let contentElement = new ContentElement({});
@@ -355,7 +353,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('isBold', ()=>{
+    describe('isBold:', ()=>{
     
         it('should be computed', ()=>{
         
@@ -368,7 +366,7 @@ describe('Content Element',()=>{
 
             it('should return true',()=>{
             
-                let contentElement = new ContentElement({fontWeight:700});
+                let contentElement = new ContentElement({fontWeight:'700'});
                 expect(contentElement.isBold()).toBeTruthy();
             
             });        
@@ -379,7 +377,7 @@ describe('Content Element',()=>{
 
             it('should return false',()=>{
             
-                let contentElement = new ContentElement({fontWeight:400});
+                let contentElement = new ContentElement({fontWeight:'400'});
                 expect(contentElement.isBold()).toBeFalsy();
             
             });        
@@ -388,7 +386,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('fontStyle',()=>{
+    describe('fontStyle:',()=>{
     
         it('should be observable',()=>{
             
@@ -407,7 +405,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('isItalic',()=>{
+    describe('isItalic:',()=>{
     
         it('should be computed',()=>{
         
@@ -429,7 +427,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('textDecoration',()=>{
+    describe('textDecoration:',()=>{
     
         it('should be observable',()=>{
         
@@ -448,7 +446,7 @@ describe('Content Element',()=>{
       
     });
 
-    describe('isUnderlined',()=>{
+    describe('isUnderlined:',()=>{
     
         it('should be computed',()=>{
         
@@ -470,7 +468,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('show',()=>{
+    describe('show:',()=>{
     
         it('should be function',()=>{
             
@@ -507,7 +505,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('useGeneral',()=>{
+    describe('useGeneral:',()=>{
     
         it('should be function',()=>{
             
@@ -545,7 +543,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('generalFontChanged',()=>{
+    describe('generalFontChanged:',()=>{
         
         it('should be function',()=>{
         
@@ -588,7 +586,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('fontColorChanged',()=>{
+    describe('fontColorChanged:',()=>{
     
         it('should be function',()=>{
         
@@ -631,7 +629,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('selectGeneralColor', ()=>{
+    describe('selectGeneralColor:', ()=>{
     
         it('should be function',()=>{
         
@@ -672,7 +670,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('selectCustomColor',()=>{
+    describe('selectCustomColor:',()=>{
 
         it('should be function',()=>{
         
@@ -703,7 +701,7 @@ describe('Content Element',()=>{
         
     });
 
-    describe('changeFontFamily', ()=>{
+    describe('changeFontFamily:', ()=>{
     
         it('should be function',()=>{
         
@@ -734,7 +732,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('resetDefaults', ()=>{
+    describe('resetDefaults:', ()=>{
     
         it('should be function',()=>{
         
@@ -757,7 +755,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('toggleBold',()=>{
+    describe('toggleBold:',()=>{
     
         it('should be function',()=>{
         
@@ -788,7 +786,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('toggleItalic',()=>{
+    describe('toggleItalic:',()=>{
     
         it('should be function',()=>{
         
@@ -819,7 +817,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('toggleUnderlined',()=>{
+    describe('toggleUnderlined:',()=>{
     
         it('should be function',()=>{
         
@@ -850,7 +848,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('changeFontSize',()=>{
+    describe('changeFontSize:',()=>{
     
         it('should be function',()=>{
         
@@ -895,7 +893,7 @@ describe('Content Element',()=>{
     
     });
 
-    describe('stopEditingFontSize',()=>{
+    describe('stopEditingFontSize:',()=>{
     
         it('should be function',()=>{
         
@@ -978,7 +976,7 @@ describe('Content Element',()=>{
 
     });
 
-    describe('save', ()=>{
+    describe('save:', ()=>{
     
         it('should be function', ()=>{
         

@@ -365,4 +365,37 @@ easygenerator Team&lt;/p&gt;
   <data name="ForgotPassMailThankYou" xml:space="preserve">
     <value>Dank u voor het gebruik van easygenerator.com en een prettige dag!</value>
   </data>
+  <data name="BackToEasygenerator" xml:space="preserve">
+    <value>Terug naar easygenerator</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Klik hier</value>
+  </data>
+  <data name="EasygeneratorTeam" xml:space="preserve">
+    <value>Easygenerator team</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>email bevestiging</value>
+  </data>
+  <data name="EmailConfirmationCopyPasteLink" xml:space="preserve">
+    <value>Kopier de link naar je browser als hij niet werkt</value>
+  </data>
+  <data name="EmailConfirmationNotConfirmed" xml:space="preserve">
+    <value>Je hebt je aangemeld voor Easygenerator, maar je moet jouw email nog bevestigen</value>
+  </data>
+  <data name="EmailConfirmationPurpose" xml:space="preserve">
+    <value>Uit veiligheidsoverwegingen moet je je email bevestigen voordat je toegang krijgt tot Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>Bevestig jouw email voor Easygenerator</value>
+  </data>
+  <data name="EmailConfirmationSuccessMessage" xml:space="preserve">
+    <value>Jouw email is bevestigd</value>
+  </data>
+  <data name="EmailConfirmationToConfirmEmailAddress" xml:space="preserve">
+    <value>om mijn email te bevestigen</value>
+  </data>
+  <data name="KeepLearning" xml:space="preserve">
+    <value>Ga door met leren</value>
+  </data>
 </root>

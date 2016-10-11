@@ -3,7 +3,7 @@
         "use strict";
 
         var events = {
-            openChangeTemplateDialog:'Open \'change template\' dialog',
+            openChangeTemplateDialog: 'Open \'change template\' dialog',
             updateCourseTemplate: 'Change course template to'
         },
 
@@ -35,11 +35,15 @@
             }
 
             viewModel.isProcessing(true);
-            return courseRepository.updateCourseTemplate(viewModel.courseId, template.id).then(function (courseTemplate) {
-                app.trigger(constants.messages.course.templateUpdated + viewModel.courseId, courseTemplate);
-            }).fin(function () {
-                viewModel.isProcessing(false);
-                dialog.close();
-            });
+            return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
+                .then(function (courseTemplate) {
+                    app.trigger(constants.messages.course.templateUpdated + viewModel.courseId, courseTemplate);
+
+                    viewModel.isProcessing(false);
+                    dialog.close();
+                }).catch(function () {
+                    viewModel.isProcessing(false);
+                    dialog.close();
+                });
         }
     });

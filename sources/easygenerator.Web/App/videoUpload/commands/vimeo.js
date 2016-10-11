@@ -3,8 +3,7 @@
     return {
         putFile: putFile,
         verifyUpload: verifyUpload,
-        getThumbnailUrl: getThumbnailUrl,
-        getVideoDuration: getVideoDuration
+        getThumbnailUrl: getThumbnailUrl
     }
 
     function putFile(uploadUrl, file) {
@@ -41,35 +40,17 @@
         var deferred = Q.defer();
 
         $.ajax({
-            url: constants.storage.video.vimeoApiVideosUrl + id + '/pictures',
-            headers: { Authorization: constants.storage.video.vimeoToken },
+            url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + id) + '&width=200&height=150',
             method: 'GET',
             global: false
         }).then(function (response) {
-            try {
-                deferred.resolve(_.where(response.data[0].sizes, { width: 200, height: 150 })[0].link);
-            } catch (exception) {
-                deferred.resolve(constants.storage.video.defaultThumbnailUrl);
+            if (response && response.thumbnail_url) {
+                deferred.resolve(response.thumbnail_url);
+                return;
             }
+            deferred.resolve(constants.storage.video.defaultThumbnailUrl);
         }).fail(function () {
             deferred.resolve(constants.storage.video.defaultThumbnailUrl);
-        });
-
-        return deferred.promise;
-    }
-
-    function getVideoDuration(id) {
-        var deferred = Q.defer();
-
-        $.ajax({
-            url: constants.storage.video.vimeoApiVideosUrl + id,
-            headers: { Authorization: constants.storage.video.vimeoToken },
-            method: 'GET',
-            global: false
-        }).then(function (response) {
-            deferred.resolve(response.duration || 0);
-        }).fail(function () {
-            deferred.resolve(0);
         });
 
         return deferred.promise;

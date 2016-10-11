@@ -22,6 +22,7 @@ var
     _videos = [],
     _audios = [],
 
+    _courseExamples = null,
     revoked = null;
 
 export default class {
@@ -74,6 +75,12 @@ static get courses() {
 static set courses(courses) {
     _courses = courses || [];
 }
+static get courseExamples() {
+    return _courseExamples;
+}
+static set courseExamples(courseExamples) {
+    _courseExamples = courseExamples;
+}
 static get documents() {
     return _documents;
 }
@@ -121,7 +128,7 @@ async function getCourses(templates, sections) {
     var data = await apiHttpWrapper.post('api/courses');
 
     for (let course of data) {
-        // Temporary - do not display courses if user does not have template
+    // Temporary - do not display courses if user does not have template
         if (_.find(templates, template => course.Template.Id === template.id)) {
             courses.push(courseModelMapper.map(course, sections, templates));
         }

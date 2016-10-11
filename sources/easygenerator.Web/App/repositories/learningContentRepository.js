@@ -8,7 +8,8 @@
             addLearningContent: addLearningContent,
             removeLearningContent: removeLearningContent,
 
-            updateText: updateText
+            updateText: updateText,
+            updatePosition: updatePosition
         };
 
         return repository;
@@ -20,7 +21,6 @@
                 return apiHttpWrapper.post('api/learningContents', { questionId: questionId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.LearningContents, 'Learning content is not an array');
-
                     return _.map(response.LearningContents, learningContentModelMapper.map);
                 });
             });
@@ -31,10 +31,12 @@
                 guard.throwIfNotString(questionId, 'Question id is not a string');
                 guard.throwIfNotAnObject(learningContent, 'Learning content data is not an object');
                 guard.throwIfNotString(learningContent.text, 'Learning content text is not a string');
+                throwIfPositionIsInvalid(learningContent.position);
 
                 var data = {
                     questionId: questionId,
-                    text: learningContent.text
+                    text: learningContent.text,
+                    position: learningContent.position
                 };
 
                 return apiHttpWrapper.post('api/learningContent/create', data).then(function (response) {
@@ -45,10 +47,13 @@
                     var createdOn = new Date(response.CreatedOn);
                     updateQuestionModifiedOnDate(questionId, createdOn);
 
-                    return {
-                        id: response.Id,
-                        createdOn: createdOn
-                    };
+                    return learningContentModelMapper.map({
+                        Id: response.Id,
+                        Text: learningContent.text,
+                        Type: learningContent.type,
+                        Position: learningContent.position,
+                        CreatedOn: createdOn
+                    });
                 });
             });
         }
@@ -103,6 +108,31 @@
             });
         }
 
+        function updatePosition(questionId, learningContentId, position) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
+                throwIfPositionIsInvalid(position);
+
+                var data = {
+                    learningContentId: learningContentId,
+                    position: position
+                };
+
+                return apiHttpWrapper.post('api/learningContent/updatePosition', data).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Learning content modification date is not a string');
+
+                    var modifiedOn = new Date(response.ModifiedOn);
+                    updateQuestionModifiedOnDate(questionId, modifiedOn);
+
+                    return {
+                        modifiedOn: modifiedOn
+                    };
+                });
+            });
+        }
+
         function updateQuestionModifiedOnDate(questionId, modifiedOn) {
             var question = getQuestion(questionId);
             guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
@@ -123,5 +153,8 @@
             });
         }
 
+        function throwIfPositionIsInvalid(position) {
+            guard.throwIfNumberIsOutOfRange(position, -999, 999, 'Learning content position should be number and cannot be less than -999 and more than 999');
+        }
     }
 );

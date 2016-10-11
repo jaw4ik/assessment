@@ -1,28 +1,37 @@
-﻿define(['synchronization/handlers/course/eventHandlers/deleted', 'synchronization/handlers/course/eventHandlers/introductionContentUpdated',
-    'synchronization/handlers/course/eventHandlers/sectionRelated', 'synchronization/handlers/course/eventHandlers/sectionsReordered',
-'synchronization/handlers/course/eventHandlers/sectionsUnrelated', 'synchronization/handlers/course/eventHandlers/published',
-'synchronization/handlers/course/eventHandlers/publishedForSale', 'synchronization/handlers/course/eventHandlers/processedByCoggno',
-'synchronization/handlers/course/eventHandlers/templateUpdated', 'synchronization/handlers/course/eventHandlers/titleUpdated',
-'synchronization/handlers/course/eventHandlers/sectionsReplaced', 'synchronization/handlers/course/eventHandlers/stateChanged',
-'synchronization/handlers/course/eventHandlers/ownershipUpdated'],
-    function (deleted, introductionContentUpdated, sectionRelated, sectionsReordered, sectionsUnrelated, published, publishedForSale, processedByCoggno, templateUpdated, titleUpdated, sectionsReplaced,
-        stateChanged, ownershipUpdated) {
-        "use strict";
+﻿import deleted from 'synchronization/handlers/course/eventHandlers/deleted';
+import introductionContentUpdated from 'synchronization/handlers/course/eventHandlers/introductionContentUpdated';
+import sectionRelated from 'synchronization/handlers/course/eventHandlers/sectionRelated';
+import sectionsReordered from 'synchronization/handlers/course/eventHandlers/sectionsReordered';
+import sectionsUnrelated from 'synchronization/handlers/course/eventHandlers/sectionsUnrelated';
+import published from 'synchronization/handlers/course/eventHandlers/published';
+import publishedForSale from 'synchronization/handlers/course/eventHandlers/publishedForSale';
+import processedByCoggno from 'synchronization/handlers/course/eventHandlers/processedByCoggno';
+import templateUpdated from 'synchronization/handlers/course/eventHandlers/templateUpdated';
+import titleUpdated from 'synchronization/handlers/course/eventHandlers/titleUpdated';
+import sectionsReplaced from 'synchronization/handlers/course/eventHandlers/sectionsReplaced';
+import stateChanged from 'synchronization/handlers/course/eventHandlers/stateChanged';
+import ownershipUpdated from 'synchronization/handlers/course/eventHandlers/ownershipUpdated';
+import modified from 'synchronization/handlers/course/eventHandlers/modified';
+import accessGranted from 'synchronization/handlers/course/eventHandlers/accessGranted';
+import accessRemoved from 'synchronization/handlers/course/eventHandlers/accessRemoved';
+import invitationSended from 'synchronization/handlers/course/eventHandlers/invitationSended';
 
-        return {
-            titleUpdated: titleUpdated,
-            introductionContentUpdated: introductionContentUpdated,
-            templateUpdated: templateUpdated,
-            sectionsReordered: sectionsReordered,
-            published: published,
-            publishedForSale: publishedForSale,
-            processedByCoggno: processedByCoggno,
-            deleted: deleted,
-            sectionRelated: sectionRelated,
-            sectionsUnrelated: sectionsUnrelated,
-            sectionsReplaced: sectionsReplaced,
-            stateChanged: stateChanged,
-            ownershipUpdated: ownershipUpdated
-        };
-
-    });
+export default {
+    titleUpdated,
+    introductionContentUpdated,
+    templateUpdated,
+    sectionsReordered,
+    published,
+    publishedForSale,
+    processedByCoggno,
+    deleted,
+    sectionRelated,
+    sectionsUnrelated,
+    sectionsReplaced,
+    stateChanged,
+    ownershipUpdated,
+    modified,
+    accessGranted,
+    accessRemoved,
+    invitationSended
+};

@@ -1,0 +1,185 @@
+.html-editable.froala-editor {
+    position: relative;
+
+    &.fr-basic {
+        padding: 0px;
+
+        &.fr-box {
+
+            .fr-element {
+                color: inherit;
+            }
+
+            .fr-wrapper {
+                box-shadow: none;
+
+                ::selection {
+                    color: inherit;
+                }
+            }
+        }
+
+        .fr-toolbar {
+            display: flex;
+            border-width: 1px;
+            border-color: rgb(206, 213, 217);
+            border-style: solid;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: -45px;
+            z-index: 300 !important;
+
+            .fr-separator.fr-vs {
+                background: #ced5d9;
+                height: 16px;
+                margin: 10px 0px 0px 0px;
+            }
+
+            .fr-command.fr-btn {
+                &, &:focus, &.fr-active, &.fr-active:focus {
+                    background: transparent;
+                }
+
+                    &:not(.fr-dropdown):hover:before {
+                        position: absolute;
+                        content: '';
+                        height: 27px;
+                        width: 27px;
+                        border: 1px solid #ececec;
+                        border-radius: 2px;
+                        top: 4px;
+                        left: 4px;
+                    }
+
+                    &.fr-dropdown {
+                        &.fr-selection {
+                            font-size: 13px;
+                            font-family: 'Open Sans';
+                            font-weight: 600;
+                            width: 135px;
+                            background: transparent;
+
+                            &:before {
+                                position: absolute;
+                                content: '';
+                                height: 27px;
+                                width: 135px;
+                                border: 1px solid #ececec;
+                                border-radius: 2px;
+                                top: 4px;
+                                left: 0px;
+                            }
+
+                            .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a {
+                                border-bottom: none;
+                            }
+
+                            h1 {
+                                color: red;
+                            }
+                        }
+
+                        &.fr-active {
+                            &:hover,
+                            &:focus {
+                                background: transparent !important;
+                            }
+                        }
+                    }
+            }
+        }
+
+        .fr-sticky-dummy {
+            display: none;
+        }
+    }
+
+    .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a.fr-command {
+        &.fr-active, &:focus, &:active, &:hover {
+            background: #ecf5fb;
+        }
+    }
+
+    .fr-dropdown-list {
+        cite {
+            border-left: none;
+            max-width: none;
+        }
+
+        mark {
+            border-left: none;
+            max-width: none;
+
+            span {
+                background-color: #43aaa3;
+                color: #fff;
+            }
+        }
+
+        a {
+            border-bottom: none;
+        }
+    }
+}
+
+.fr-popup {
+    .fr-checkbox input:checked + span {
+        background: #469dd5;
+        border-color: #469dd5;
+    }
+
+    .fr-checkbox-line label {
+        font-size: 12px;
+        font-family: 'Open Sans';
+        line-height: 2;
+    }
+
+    &.fr-active {
+        border-top: 2px solid #469dd5;
+
+        .fr-arrow {
+            border-bottom: 5px solid #469dd5;
+            top: -7px;
+        }
+    }
+
+    .fr-action-buttons button.fr-command {
+        color: #469dd5;
+
+        &::first-letter {
+            text-transform: capitalize;
+        }
+
+        &:hover, &:focus {
+            background: #ebebeb;
+            color: #469dd5;
+            border-radius: 3px;
+        }
+    }
+
+    .fr-input-line input[type="text"]:focus, .fr-input-line textarea:focus {
+        border-bottom: solid 2px #469dd5;
+    }
+}
+
+.easygenerator-theme.fr-tooltip {
+    background: #55626f;
+    font-size: 12px;
+    font-family: 'Open Sans';
+}
+
+/*#region Extend font-awesome icons */
+
+.fa-mark:before {
+    content: "\e900";
+}
+
+.fr-toolbar .fr-command.fr-btn i.fa-mark {
+    font-family: "Easygenerator Icons";
+    font-size: 18px;
+    margin-top: 9px;
+    margin-left: 9px;
+}
+
+/*#endregion */

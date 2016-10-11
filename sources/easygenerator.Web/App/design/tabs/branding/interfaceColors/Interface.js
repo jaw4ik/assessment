@@ -48,9 +48,13 @@ export class Color{
         let that = this;
 
         this.popover.on(EVENT_COLORPICKER_COLOR_SELECTED).then(value => {
-            if(that.key == '@text-color'){
+            if(that.key === '@text-color'){
                 that.value(value);
                 app.trigger('text-color:changed', value);
+                eventTracker.publish('Change interface color');
+            }else if(that.key === '@button-text-color'){
+                that.value(value);
+                app.trigger('button-text-color:changed', value);
                 eventTracker.publish('Change interface color');
             }else{
                 this.updateValue(value);

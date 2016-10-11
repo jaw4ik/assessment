@@ -58,6 +58,21 @@
       "code": "it",
       "name": "Italian",
       "url": "lang/it.json"
+    },
+    {
+      "code": "nb-no",
+      "name": "Norwegian (Bokmal)",
+      "url": "lang/nb-no.json"
+    },
+    {
+      "code": "nn-no",
+      "name": "Norwegian (Nynorsk)",
+      "url": "lang/nn-no.json"
+    },
+    {
+      "code": "zh-cn",
+      "name": "Chinese",
+      "url": "lang/zh-cn.json"
     }
   ]
 }

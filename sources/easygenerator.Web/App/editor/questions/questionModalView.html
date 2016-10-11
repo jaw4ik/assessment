@@ -1,12 +1,12 @@
 ﻿<section class="question-view">
     <header class="question-header">
-        <div class="back-button-container" data-bind="click: close, css: { expanded : isNavigationPanelExpanded() }">
+        <div class="back-button-container" data-bind="click: close, css: { expanded : isLeftPanelExpanded() }">
             <span class="button-caption" data-bind="localize: { text: 'backToCourse' }">Save and back</span>
         </div>
-        <div class="alternative-back-button-container" data-bind="click: close, css: { expanded : !isNavigationPanelExpanded() }">
-            <span class="alternative-back-button-image" ></span>
+        <div class="alternative-back-button-container" data-bind="click: close, css: { expanded : !isLeftPanelExpanded() }">
+            <span class="alternative-back-button-image"></span>
         </div>
-        <div class="view-title-container" data-bind="with: questionViewModel, css: { expanded: !isNavigationPanelExpanded() }">
+        <div class="view-title-container" data-bind="with: questionViewModel, css: { expanded: !isLeftPanelExpanded() }">
             <div class="view-title-holder">
                 <div class="view-title" data-bind="text: viewCaption"></div>
                 <div class="view-actions-container">
@@ -48,11 +48,12 @@
     <main class="question-main">
         <!-- ko if: isLoading() -->
         <div data-bind="preloader: { settings: 'align-center' }"></div>
-        <!-- /ko -->
+		<!-- /ko -->
         <!-- ko ifnot: isLoading() -->
-            <div class="left-panel" data-bind="css:{ expanded: isNavigationPanelExpanded() }">
+            <div class="left-panel" data-bind="css: { expanded: isLeftPanelExpanded(), 'content-bar-expanded': isContentBarExpanded() }">
                 <!-- ko compose: { model: navigationPanel, activate: false } --><!-- /ko -->
-                <span class="toggle-navigation-button" data-bind="click: toggleExpandNavigationPanel"></span>
+                <!-- ko compose: 'contentEditor/createBar' --><!-- /ko -->
+                <span class="toggle-navigation-button" data-bind="click: toggleExpandLeftPanel"></span>
             </div>
             <div class="question-view-holder-wrapper" data-bind="scrollbar: { checkDOMChanges: true }, tooltipcontainer: { }, style: { opacity: isQuestionViewReady() ? '1' : '0' }">
                 <!-- ko compose: { model: questionViewModel, activate: false, compositionComplete: onQuestionViewCompositionComplete.bind($data) } --><!-- /ko -->

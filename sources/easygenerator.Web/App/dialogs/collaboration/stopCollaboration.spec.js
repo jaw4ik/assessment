@@ -7,7 +7,6 @@ import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
 
 describe('dialog collaboration [stopCollaboration]', () => {
-    let courseId = 'courseId';
 
     beforeEach(() => {
         spyOn(eventTracker, 'publish');
@@ -16,7 +15,6 @@ describe('dialog collaboration [stopCollaboration]', () => {
         });
         spyOn(router, 'navigate');
         spyOn(notify, 'error');
-        router.routeData.courseId = courseId;
     });
 
     describe('ctor:', () => {
@@ -83,10 +81,11 @@ describe('dialog collaboration [stopCollaboration]', () => {
         });
 
         it('should execute stop collaboration command', done => {
+            router.routeData().courseId = 'courseId';
             spyOn(finishCollaborationCommand, 'execute');
             viewModel.stopCollaboration()
                 .then(() => {
-                    expect(finishCollaborationCommand.execute).toHaveBeenCalledWith(courseId);
+                    expect(finishCollaborationCommand.execute).toHaveBeenCalledWith('courseId');
                     done();
                 });
 

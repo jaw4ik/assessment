@@ -40,5 +40,10 @@
     "[type your answer here]": "Vul uw antwoord hier in...",
     "[tracking and tracing error hint without continue]": "Herstart de cursus. Neem contact op met uw cursusleider als het probleem niet is opgelost.",
     "[attempts note limit acceeded]": "U heeft het maximale aantal pogingen bereikt",
-    "[attempts remaining]": "Resterende pogingen:"
+    "[attempts remaining]": "Resterende pogingen:",
+    "[the owner of the course has limited the access]": "De eigenaar van de cursus heeft de toegang beperkt",
+    "[back to sign in]": "Terug naar inloggen",
+    "[survey mode caption]": "The answer will not have any impact on your progress",
+    "[confirn your name and email]": "OK, naam en email zijn correct",
+    "[login explanation]": "* Door akkoord te gaan met het bovenstaande, gaat u ook akkoord met het opslaan van uw leerresultaten. Deze resultaten zijn alleen zichtbaar voor de organisator van uw cursus."
 }

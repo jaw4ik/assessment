@@ -27,7 +27,6 @@
     </div>
     <div class="content-section-wrapper" data-bind="with: questionTitle">
         <div class="content-section">
-
             <div class="edit-field-wrapper small question-title" data-bind="css: { 'active': text.isEditing(), 'error': !text.isValid() }">
                 <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }"></div>
                 <div class="validation-message">
@@ -73,7 +72,7 @@
                     </div>
                     <!-- /ko -->
                 </div>
-                <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+                <section class="content-item-holder" data-bind="expandBlock: { expanded: isExpanded() }">
                     <div class="question-content-items-list">
                         <div class="question-content-item" data-bind="css: { active: hasFocus }">
                             <div class="question-content-wrapper">
@@ -96,16 +95,35 @@
             <!-- /ko -->
             <!-- /ko -->
         </div>
-    </div>
-    <!-- ko if: hasQuestionView -->
-    <div class="answers">
-        <!-- ko compose: activeQuestionViewModel -->
+        <!-- ko if: surveyModeAvailable -->
+        <div class="switcher-wrapper">
+            <div class="switch-toggle-slider small on" data-bind="switchToggle: { value: isSurvey, onClick: toggleIsSurvey.bind($data), speed: 100 }">
+                <div class="switch-toggle-wrapper" style="margin-left: 0px;">
+                    <div class="switch-toggle-on"></div>
+                    <div class="switch-toogle-blob"></div>
+                    <div class="switch-toggle-off"></div>
+                </div>
+            </div>
+            <div class="switch-description enabled" data-bind="css: { enabled: isSurvey }">
+                <span class="title" data-bind="localize: { text: 'surveyMode' }, click: toggleIsSurvey"></span>
+                <span class="help-tooltip" data-bind="tip: { key: 'surveyModeCaption', maxWidth: 220 }" data-original-title="" title=""></span>
+            </div>
+        </div>
         <!-- /ko -->
     </div>
-    <!-- /ko -->
-    <!-- ko if: hasFeedback -->
-    <!-- ko compose: feedbackViewModel --><!-- /ko -->
-    <!-- /ko -->
-    <!-- ko compose: learningContentsViewModel --><!-- /ko -->
-
+    <section class="question-content-holder">
+        <!-- ko if: hasQuestionView -->
+        <div class="answers">
+            <!-- ko compose: activeQuestionViewModel -->
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- ko if: hasFeedback -->
+        <!-- ko compose: feedbackViewModel --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko compose: { model: 'viewmodels/learningContents/learningContents', activationData: questionId } --><!-- /ko -->
+        <div class="question-content-holder-overlay" data-bind="css: { show: surveyModeIsChanging }">
+            <div data-bind="preloader: { settings: 'blue align-center' }"></div>
+        </div>
+    </section>
 </section>

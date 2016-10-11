@@ -17,6 +17,10 @@ class NotificationController
     }
 
     pushNotification(invite) {
+        if (invite.status !== constants.organizationUserStatus.waitingForAcceptance) {
+            return;
+        }
+
         var notification = new Notification(constants.notification.keys.organizationInvite + invite.id,
             invite.id,
             invite.organizationId,

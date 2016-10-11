@@ -28,13 +28,12 @@
                 $valueIndicator = $('<div>').addClass(cssClasses.valueIndicator),
 
                 // options
-                value = valueAccessor().value || 0,
+                value = ko.unwrap(valueAccessor().value) || 0,
                 min = valueAccessor().min || 0,
                 max = valueAccessor().max || 100,
                 step = valueAccessor().step || 1,
                 buttonsNeeded = typeof valueAccessor().buttonsNeeded !== 'undefined' ? valueAccessor().buttonsNeeded : true,
                 events = valueAccessor().events || {};
-
 
             $element
                 .slider({ value: value, min: min, max: max, step: step, slide: slideHandler })
@@ -78,6 +77,9 @@
 
             function minusButtonClickHandler() {
                 var newSliderValue = getSliderValue() - step;
+                if (newSliderValue % 1 !== 0) {
+                    newSliderValue = newSliderValue.toFixed(1);
+                }
                 if (newSliderValue < min) {
                     return;
                 }
@@ -88,6 +90,9 @@
 
             function plusButtonClickHandler() {
                 var newSliderValue = getSliderValue() + step;
+                if (newSliderValue % 1 !== 0) {
+                    newSliderValue = newSliderValue.toFixed(1);
+                }
                 if (newSliderValue > max) {
                     return;
                 }
@@ -97,12 +102,12 @@
             }
 
             function getSliderValue() {
-                return parseInt($element.slider('value'), 10);
+                return +$element.slider('value');
             }
         },
         update: function (element, valueAccessor) {
             var $element = $(element),
-                value = valueAccessor().value;
+                value = ko.unwrap(valueAccessor().value);
 
             setSliderValue($element, value);
             setIndicatorValue($element, value);

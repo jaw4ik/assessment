@@ -21,7 +21,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var collaborator = CourseCollaboratorObjectMother.Create(course, userEmail, createdBy);
+            var collaborator = CourseCollaboratorObjectMother.Create(course, userEmail, false, createdBy);
 
             collaborator.Id.Should().NotBeEmpty();
             collaborator.CreatedBy.Should().Be(createdBy);

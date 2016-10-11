@@ -66,7 +66,7 @@
     }
 
     function createScr(identifier, data) {
-        var src = (window.location.hostname === 'localhost' ? 'http://' : 'https://')
+        var src = (window.location.hostname === 'localhost' && window.location.protocol === 'http:' ? 'http://' : 'https://')
             + window.location.host + '/storageframe#protocol=' + window.location.protocol
             + '&identifier=' + encodeURIComponent(identifier) + '&data=' + encodeURIComponent(JSON.stringify(data));
         return src;

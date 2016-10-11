@@ -1,79 +1,104 @@
-﻿define(['userContext'], function (userContext) {
-    'use strict';
+﻿import _ from 'underscore';
+import userContext from 'userContext';
+import constants from 'constants';
 
-    return function () {
-        var
-            identify = function () {
-                var intercom = window.Intercom;
+let supportedEvents = {
+    upgradeNow: constants.upgradeEvent,
+    downloadScorm: 'Download SCORM 1.2 course'
+};
 
-                if (!intercom) {
-                    return;
-                }
+let intercomEvents = {
+    upgradeNowClicked: '\'Upgrade now\' clicked',
+    scormDownloaded: 'SCORM 1.2 downloaded'
+};
 
-                var username = _.isObject(userContext.identity) ? userContext.identity.email : '';
-                var fullname = _.isObject(userContext.identity) ? userContext.identity.firstname + ' ' + userContext.identity.lastname : '';
-                var role = _.isObject(userContext.identity) ? userContext.identity.role : '';
-                var phone = _.isObject(userContext.identity) ? userContext.identity.phone : '';
-                var profileLink = _.isObject(userContext.identity) ? 'http://' + window.location.host + '/dashboard/users?email=' + encodeURIComponent(userContext.identity.email): '';
+class IntercomWrapper {
+    constructor() {
+        this.intercom = window.Intercom;
+    }
+    boot(email, name, role, phone, plan, profile) {
+        if (!this.intercom) {
+            return;
+        }
 
-                var plan = _.isObject(userContext.identity) && _.isObject(userContext.identity.subscription) ? userContext.identity.subscription.accessType : '';
-                var userPlan = '';
+        let appId = window.analytics.intercomapp_id;
 
-                switch (plan) {
-                    case 0:
-                        {
-                            userPlan = 'Free';
-                            break;
-                        }
-                    case 1:
-                        {
-                            userPlan = 'Starter';
-                            break;
-                        }
-                    case 2:
-                        {
-                            userPlan = 'Plus';
-                            break;
-                        }
-                    case 3:
-                        {
-                            userPlan = 'Academy';
-                            break;
-                        }
-                    case 4:
-                        {
-                            userPlan = 'AcademyBT';
-                            break;
-                        }
-                    case 100:
-                        {
-                            userPlan = 'Trial';
-                            break;
-                        }
-                    default:
-                        {
-                            userPlan = '';
-                            break;
-                        }
-                }
+        this.intercom('boot', { app_id: appId, email: email, name: name, role: role, phone: phone, plan: plan, profile: profile });
+    }
+    trackEvent(event) {
+        if (!this.intercom || !event) {
+            return;
+        }
 
-                intercom('boot', { app_id: window.analytics.intercomapp_id, email: username, name: fullname, role: role, phone: phone, plan: userPlan, profile: profileLink });
-            },
+        this.intercom('trackEvent', event.name, event.metadata);
+    }
+    update() {
+        if (!this.intercom) {
+            return;
+        }
 
-            trackEvent = function () {
-                var intercom = window.Intercom;
+        this.intercom('update');
+    }
+}
 
-                if (!intercom) {
-                    return;
-                }
+export default class IntercomProvider {
+    constructor() {
+        this.intercomWrapper = new IntercomWrapper();
+    }
+    identify() {
+        if (!_.isObject(userContext.identity)) {
+            return;
+        }
 
-                intercom('update');
-            };
+        let email = userContext.identity.email;
+        let name = `${userContext.identity.firstname} ${userContext.identity.lastname}`;
+        let phone = userContext.identity.phone;
+        let role = userContext.identity.role;
+        let accessType = _.isObject(userContext.identity.subscription) ? userContext.identity.subscription.accessType : '';
+        let plan = getPlanName(accessType);
+        let profileLink = `http://${window.location.host}/dashboard/users?email=${encodeURIComponent(email)}`;
 
+        this.intercomWrapper.boot(email, name, phone, role, plan, profileLink);
+    }
+    trackEvent(eventName, category) {
+        let intercomEvent = null;
 
-        return {
-            trackEvent: trackEvent,
-            identify: identify
-        };
-    };
-});
+        switch (eventName) {
+            case supportedEvents.upgradeNow:
+                intercomEvent = { name: intercomEvents.upgradeNowClicked, metadata: { category: category || '' } }
+                break;
+            case supportedEvents.downloadScorm:
+                intercomEvent = { name: intercomEvents.scormDownloaded };
+                break;
+        }
+
+        this.intercomWrapper.trackEvent(intercomEvent);
+        this.intercomWrapper.update();
+    }
+}
+
+function getPlanName(accessType) {
+    let planName = '';
+    switch (accessType) {
+        case constants.accessType.free :
+            planName = 'Free';
+            break;
+        case constants.accessType.starter:
+            planName = 'Starter';
+            break;
+        case constants.accessType.plus:
+            planName = 'Plus';
+            break;
+        case constants.accessType.academy:
+            planName = 'Academy';
+            break;
+        case constants.accessType.academyBT:
+            planName = 'AcademyBT';
+            break;
+        case constants.accessType.trial:
+            planName = 'Trial';
+            break;
+    }
+
+    return planName;
+}

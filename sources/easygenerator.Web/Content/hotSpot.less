@@ -110,26 +110,25 @@
     background: url('/Content/images/no-spots.png') center no-repeat;
 }
 
-.create .hotspot-area,
-.creating .hotspot-area {
-    cursor: crosshair;
-}
+.hotspot-on-image {
+    &.create .hotspot-area,
+    &.creating .hotspot-area {
+        cursor: crosshair;
+    }
 
-.resize .hotspot-area,
-.resizing .hotspot-area {
-    cursor: move;
-}
+    &.resize .hotspot-area,
+    &.resizing .hotspot-area {
+        cursor: move;
+    }
 
-.drag .hotspot-area {
-    cursor: url('/Content/images/grab.cur'), move;
-}
+    &.drag .hotspot-area,
+    &.active .hotspot-area {
+        .cursor-grab;
+    }
 
-.dragging .hotspot-area {
-    cursor: url('/Content/images/grabbing.cur'), move;
-}
-
-.active .hotspot-area {
-    cursor: url('/Content/images/grab.cur'), move;
+    &.dragging .hotspot-area {
+        .cursor-grabbing;
+    }
 }
 
 

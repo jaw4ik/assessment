@@ -86,14 +86,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Kentor.AuthServices, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kentor.AuthServices, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Kentor.AuthServices.0.18.1\lib\net45\Kentor.AuthServices.dll</HintPath>
+      <HintPath>..\..\packages\Kentor.AuthServices.0.19.0\lib\net45\Kentor.AuthServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Kentor.AuthServices.HttpModule, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kentor.AuthServices.HttpModule, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Kentor.AuthServices.HttpModule.0.18.1\lib\net45\Kentor.AuthServices.HttpModule.dll</HintPath>
+      <HintPath>..\..\packages\Kentor.AuthServices.HttpModule.0.19.0\lib\net45\Kentor.AuthServices.HttpModule.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LtiLibrary.Owin.Security.Lti, Version=1.0.5669.24699, Culture=neutral, processorArchitecture=MSIL">
@@ -142,6 +142,11 @@
     </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StatsdClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DogStatsD-CSharp-Client.2.2.0\lib\net35\StatsdClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -249,6 +254,7 @@
     <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\RankingTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ScenarioQuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\SurveyQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -312,6 +318,12 @@
     <Compile Include="Components\BranchTrackProvider.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CoggnoConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\CourseExamples\CourseCollection.cs" />
+    <Compile Include="Components\Configuration\CourseExamples\CourseElement.cs" />
+    <Compile Include="Components\Configuration\CourseExamples\CourseExamplesConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\DataDog\DataDogStatsDClientConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\DataDog\Tag.cs" />
+    <Compile Include="Components\Configuration\DataDog\TagsCollection.cs" />
     <Compile Include="Components\Configuration\SAML\ContactElement.cs" />
     <Compile Include="Components\Configuration\SAML\MetadataElement.cs" />
     <Compile Include="Components\Configuration\SAML\OrganizationElement.cs" />
@@ -320,14 +332,22 @@
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\GoogleFontsApiConfigurationSection.cs" />
     <Compile Include="Components\Configuration\IntercomConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\SentryConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\SurveyPopupConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
-    <Compile Include="Components\DomainOperations\CourseOperations\CourseDomainOperationExecutor.cs" />
-    <Compile Include="Components\DomainOperations\CourseOperations\CourseOwnershipProvider.cs" />
-    <Compile Include="Components\DomainOperations\CourseOperations\CreateCourseOperation.cs" />
-    <Compile Include="Components\DomainOperations\OrganizationOperations\AutoincludeUserToOrganizationOperation.cs" />
-    <Compile Include="Components\DomainOperations\OrganizationOperations\OrganizationDomainOperationExecutor.cs" />
+    <Compile Include="Components\Tasks\DataDogReporterTask.cs" />
+    <Compile Include="Controllers\Api\SurveyQuestionController.cs" />
+    <Compile Include="Components\SentriClient.cs" />
+    <Compile Include="Controllers\CourseExamplesController.cs" />
+    <Compile Include="Components\SurveyPopupSettingsProvider.cs" />
+    <Compile Include="DataDog\DataDogStatsDClient.cs" />
+    <Compile Include="DataDog\IDataDogStatsDClient.cs" />
+    <Compile Include="Domain\DomainOperations\CourseOperations.cs" />
+    <Compile Include="Domain\DomainOperations\CourseOwnershipProvider.cs" />
+    <Compile Include="Domain\DomainOperations\OrganizationOperations.cs" />
+    <Compile Include="Domain\DomainOperations\UserOperations.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -385,21 +405,22 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\OrganizationUserAutoincludeHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Intercom\CourseEventsHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Intercom\QuestionEventsHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Organizaions\OrganizationSettingsApplicationHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Organizaions\OrganizationUserAutoincludeHandler.cs" />
     <Compile Include="Controllers\SAML\IdentityProvider\IdentityProviderController.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderController.cs" />
-    <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\PublicationServerUserHandler.cs" />
     <Compile Include="Publish\Coggno\CoggnoPublisher.cs" />
     <Compile Include="Publish\Coggno\ICoggnoPublisher.cs" />
     <Compile Include="Publish\External\ExternalPublisher.cs" />
     <Compile Include="Publish\External\IExternalPublisher.cs" />
     <Compile Include="Publish\IPublisher.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
-    <Compile Include="DomainEvents\Handlers\Intercom\UserEventsHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Intercom\UserEventsHandler.cs" />
     <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
     <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
     <Compile Include="Import\WinToWeb\Model\WinCourse.cs" />
@@ -409,7 +430,7 @@
     <Compile Include="Import\WinToWeb\Model\WinQuestion.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporter.cs" />
     <Compile Include="Components\IntercomClient.cs" />
-    <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Publish\Publisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -445,28 +466,28 @@
     <Compile Include="SAML\ServiceProvider\Providers\IOptionsProvider.cs" />
     <Compile Include="Security\PermissionsCheckers\RankingTextAnswerPermissionsChecker.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
     <Compile Include="Storage\ICourseStateStorage.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
-    <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\SectionChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfo.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfoInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\ICourseInfoInMemoryStorage.cs" />
@@ -588,9 +609,9 @@
     <Compile Include="Controllers\PreviewController.cs" />
     <Compile Include="Controllers\RedirectToNewStorageController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="DomainEvents\Handlers\WooCommerceUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
-    <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\WooCommerceUserHandler.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -747,6 +768,7 @@
     </Content>
     <Content Include="App\binder.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
+    <Content Include="App\bootstrapping\htmlEditorInitializationTask.js" />
     <Content Include="App\bootstrapping\requestTrackingTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
@@ -769,9 +791,169 @@
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\EditorHandler.js" />
+    <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\ToolbarPositionHandler.js" />
+    <Content Include="App\components\htmlEditor\bindingHandlers\htmlEditorBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\coverBackgroundBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\ifExtendedBindingHandler.js" />
+    <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\FocusHandler.js" />
+    <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\UpdateContentHandler.js" />
+    <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\PasteHtmlHandler.js" />
+    <Content Include="App\components\bindingHandlers\stopPropagationBindingHandler.js" />
+    <Content Include="App\components\htmlEditor\commands\insertLinkCommand.js" />
+    <Content Include="App\components\htmlEditor\commands\markCommand.js" />
+    <Content Include="App\contentEditor\adapters\AdapterBase.js" />
+    <Content Include="App\contentEditor\adapters\AdapterBase.spec.js">
+      <DependentUpon>AdapterBase.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\adapters\adaptersLoader.js" />
+    <Content Include="App\contentEditor\adapters\adaptersLoader.spec.js">
+      <DependentUpon>adaptersLoader.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\adapters\QuestionContentAdapter.js" />
+    <Content Include="App\contentEditor\adapters\QuestionContentAdapter.spec.js">
+      <DependentUpon>QuestionContentAdapter.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\components\ButtonsPanelManager.js" />
+    <Content Include="App\contentEditor\components\ButtonsPanelManager.spec.js">
+      <DependentUpon>ButtonsPanelManager.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\components\PanelButton.js" />
+    <Content Include="App\contentEditor\components\PanelButton.spec.js">
+      <DependentUpon>PanelButton.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\classicEditor\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\ContentBase.js" />
+    <Content Include="App\contentEditor\contentTypes\ContentBase.spec.js">
+      <DependentUpon>ContentBase.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\contentTypesFactory.js" />
+    <Content Include="App\contentEditor\contentTypes\contentTypesFactory.spec.js">
+      <DependentUpon>contentTypesFactory.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\floatingToolbarBindingHandler.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\slideEditButtonsBindingHandler.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\toggleElementSizeBindingHandler.js" />
+    <Content Include="App\contentEditor\contentTypes\imageEditorOneColumn\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\imageEditorTwoColumns\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\resizableBindingHandler.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\components\ImageCropper.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\components\imageSourceHelper.js" />
+    <Content Include="App\contentEditor\contentTypes\imageEditor\components\defaultDataGenerator.js" />
+    <Content Include="App\contentEditor\contentTypes\imageEditor\components\Parser.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\index.html" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\index.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\editors\textEditor\index.html" />
+    <Content Include="App\contentEditor\contentTypes\editors\textEditor\index.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\textEditor\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\hotspot\bindingHandlers\hotspotOnImageBindingHandler.js" />
+    <Content Include="App\contentEditor\contentTypes\hotspot\components\hotspotParser.js" />
+    <Content Include="App\contentEditor\contentTypes\hotspot\components\polygonModel.js" />
+    <Content Include="App\contentEditor\contentTypes\hotspot\view.html" />
+    <Content Include="App\contentEditor\contentTypes\hotspot\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\classicEditor\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\classicEditor\view.html" />
+    <Content Include="App\contentEditor\contentTypes\hotspot\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\imageEditorOneColumn\view.html" />
+    <Content Include="App\contentEditor\contentTypes\imageEditorOneColumn\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\imageEditorTwoColumns\view.html" />
+    <Content Include="App\contentEditor\contentTypes\imageEditorTwoColumns\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\imageEditor\view.html" />
+    <Content Include="App\contentEditor\contentTypes\imageEditor\viewModel.js" />
+    <Content Include="App\contentEditor\contentTypes\imageEditor\viewModel.spec.js">
+      <DependentUpon>viewModel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\imageInTheLeft\view.html" />
+    <Content Include="App\contentEditor\contentTypes\imageInTheLeft\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\imageInTheLeft\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\imageInTheRight\view.html" />
+    <Content Include="App\contentEditor\contentTypes\imageInTheRight\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\imageInTheRight\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\textEditorOneColumn\view.html" />
+    <Content Include="App\contentEditor\contentTypes\textEditorOneColumn\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\textEditorOneColumn\Viewmodel.spec.js">
+      <DependentUpon>Viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\contentTypes\textEditorThreeColumns\view.html" />
+    <Content Include="App\contentEditor\contentTypes\textEditorThreeColumns\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\textEditorTwoColumns\view.html" />
+    <Content Include="App\contentEditor\contentTypes\textEditorTwoColumns\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\textEditor\components\textEditorParser.js" />
+    <Content Include="App\contentEditor\contentTypes\textEditor\view.html" />
+    <Content Include="App\contentEditor\contentTypes\textEditor\viewModel.js" />
+    <Content Include="App\contentEditor\contentTypes\textEditor\viewModel.spec.js">
+      <DependentUpon>viewModel.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\createBar.js" />
+    <Content Include="App\contentEditor\createBar.spec.js">
+      <DependentUpon>createBar.js</DependentUpon>
+    </Content>
+    <Content Include="App\contentEditor\editor.html" />
+    <Content Include="App\contentEditor\editor.js" />
+    <Content Include="App\contentEditor\createBar.html" />
+    <Content Include="App\contentEditor\editor.spec.js">
+      <DependentUpon>editor.js</DependentUpon>
+    </Content>
+    <Content Include="App\components\htmlEditor\constants.js" />
+    <Content Include="App\components\htmlEditor\editorWrapper.js" />
+    <Content Include="App\components\htmlEditor\options.js" />
+    <Content Include="App\components\htmlEditor\commands\alignCommand.js" />
+    <Content Include="App\contentEditor\views\learningContent.html" />
+    <Content Include="App\components\bindingHandlers\windowMessageListenerBindingHandler.js" />
     <Content Include="App\core\bootstrap\visible.js" />
+    <Content Include="App\core\durandal\transitions\entrance.js" />
     <Content Include="App\core\underscore.js" />
+    <Content Include="App\dialogs\course\addByExample\index.html" />
+    <Content Include="App\dialogs\course\addByExample\index.js">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\addByExample\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\examples\courses\commands\createCourseByExample.js" />
+    <Content Include="App\examples\courses\commands\createCourseByExample.spec.js">
+      <DependentUpon>createCourseByExample.js</DependentUpon>
+    </Content>
+    <Content Include="App\examples\courses\commands\getCourseExamples.js" />
+    <Content Include="App\examples\courses\commands\getCourseExamples.spec.js">
+      <DependentUpon>getCourseExamples.js</DependentUpon>
+    </Content>
+    <Content Include="App\examples\courses\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\examples\dialogs\watchTutorial.html" />
+    <Content Include="App\examples\dialogs\watchTutorial.js">
+      <DependentUpon>watchTutorial.html</DependentUpon>
+    </Content>
+    <Content Include="App\examples\courses\index.html" />
+    <Content Include="App\examples\courses\index.js">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
+    <Content Include="App\examples\dialogs\watchTutorial.spec.js">
+      <DependentUpon>watchTutorial.js</DependentUpon>
+    </Content>
+    <Content Include="App\examples\index.html" />
+    <Content Include="App\examples\index.js">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
+    <Content Include="App\examples\start.html" />
     <Content Include="App\design\tabs\common\forbiddenSection.html" />
     <Content Include="App\design\tabs\common\unavailableSection.html" />
     <Content Include="App\design\tabs\FontsTab.spec.js">
@@ -804,17 +986,89 @@
     <Content Include="App\design\tabs\ThemesTab.spec.js">
       <DependentUpon>ThemesTab.js</DependentUpon>
     </Content>
+    <Content Include="App\errorTracking\errorTracker.js" />
+    <Content Include="App\errorTracking\ravenWrapper.js" />
+    <Content Include="App\examples\start.spec.js">
+      <DependentUpon>start.js</DependentUpon>
+    </Content>
+    <Content Include="App\importfrompresentation\index.html" />
+    <Content Include="App\importfrompresentation\index.js">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
+    <Content Include="App\importfrompresentation\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\addPeople\addPeople.html" />
+    <Content Include="App\dialogs\course\addPeople\addPeople.js" />
+    <Content Include="App\dialogs\course\addPeople\addPeople.spec.js">
+      <DependentUpon>addPeople.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInviteConfirmation\commands\getInvites.js" />
+    <Content Include="App\notifications\organizationInviteConfirmation\commands\getInvites.spec.js">
+      <DependentUpon>getInvites.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInviteConfirmation\notification.html" />
+    <Content Include="App\notifications\organizationInviteConfirmation\notification.js" />
+    <Content Include="App\notifications\organizationInviteConfirmation\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\organizationInviteConfirmation\notificationController.js" />
+    <Content Include="App\notifications\organizationInviteConfirmation\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\invitationSended.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\accessRemoved.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\extender.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\extender.spec.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\supportedTypes\multipleSelect.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\supportedTypes\singleSelectText.js" />
+    <Content Include="App\reporting\viewmodels\questionStatements\surveyModeExtender\supportedTypes\statement.js" />
+    <Content Include="App\reporting\views\questionStatements\surveyModeViews\multipleSelect.html" />
+    <Content Include="App\reporting\views\questionStatements\surveyModeViews\singleSelectText.html" />
+    <Content Include="App\reporting\views\questionStatements\surveyModeViews\statement.html" />
+    <Content Include="App\dialogs\survey\commands\updateVersionCommand.js" />
+    <Content Include="App\dialogs\survey\commands\updateVersionCommand.spec.js">
+      <DependentUpon>updateVersionCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\survey\survey.html" />
+    <Content Include="App\dialogs\survey\survey.js" />
+    <Content Include="App\dialogs\survey\survey.spec.js">
+      <DependentUpon>survey.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\modified.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\modified.spec.js">
+      <DependentUpon>modified.js</DependentUpon>
+    </Content>
+    <Content Include="App\components\htmlEditor\commands\paragraphFormatCommand.js" />
+    <Content Include="App\images\preview\bindingHandlers\customScrollbarExtender.js" />
+    <Content Include="App\examples\start.js">
+      <DependentUpon>start.html</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\accessGranted.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\processedByCoggno.spec.js">
       <DependentUpon>processedByCoggno.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\publishedForSale.spec.js">
       <DependentUpon>publishedForSale.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\section\eventHandlers\modified.js" />
+    <Content Include="App\synchronization\handlers\section\eventHandlers\modified.spec.js">
+      <DependentUpon>modified.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\components\usersAccessControlList.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publishingToCoggnoAction.spec.js">
       <DependentUpon>publishingToCoggnoAction.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\publishToCoggno.spec.js">
       <DependentUpon>publishToCoggno.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToTrial.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToTrial.spec.js">
+      <DependentUpon>upgradedToTrial.js</DependentUpon>
+    </Content>
+    <Content Include="App\views\courses\publishingActions\components\usersAccessControlList.html" />
+    <Content Include="App\vimeo\queries\getVideoSources.spec.js">
+      <DependentUpon>getVideoSources.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\allowCoggno\view.html" />
     <Content Include="App\widgets\allowCoggno\viewmodel.js" />
@@ -890,6 +1144,12 @@
     <Content Include="App\http\httpRequestTracker.spec.js">
       <DependentUpon>httpRequestTracker.js</DependentUpon>
     </Content>
+    <Content Include="App\images\imageLibrary.js" />
+    <Content Include="App\images\imageLibrary.spec.js">
+      <DependentUpon>imageLibrary.js</DependentUpon>
+    </Content>
+    <Content Include="App\images\imageLibraryDialog.html" />
+    <Content Include="App\images\imageLibraryDialog.js" />
     <Content Include="App\mappers\commentModelMapper.js" />
     <Content Include="App\mappers\organizationInviteMapper.js" />
     <Content Include="App\mappers\organizationUserMapper.js" />
@@ -963,6 +1223,8 @@
     </Content>
     <Content Include="App\mappers\themeModelMapper.js" />
     <Content Include="App\models\theme.js" />
+    <Content Include="App\modulesLoader.js" />
+    <Content Include="App\panels\contentBarWrapper.html" />
     <Content Include="App\reporting\courseStatementsProvider.spec.js">
       <DependentUpon>courseStatementsProvider.js</DependentUpon>
     </Content>
@@ -1198,9 +1460,10 @@
     <Content Include="App\dialogs\document\preview\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
-    <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
-    <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
-    <Content Include="App\editor\course\bindingHandlers\heightAnimation.js" />
+    <Content Include="App\components\bindingHandlers\expandBlock.js" />
+    <Content Include="App\dragAndDrop\bindingHandlers\draggableContainer.js" />
+    <Content Include="App\dragAndDrop\bindingHandlers\draggableData.js" />
+    <Content Include="App\components\bindingHandlers\heightAnimation.js" />
     <Content Include="App\editor\course\bindingHandlers\tooltipPopover.js" />
     <Content Include="App\editor\course\commands\createQuestionCommand.js" />
     <Content Include="App\editor\course\commands\createSectionCommand.js" />
@@ -1213,9 +1476,9 @@
     <Content Include="App\editor\course\commands\updateQuestionTitleCommand.js" />
     <Content Include="App\editor\course\commands\updateSectionLearningObjectiveCommand.js" />
     <Content Include="App\editor\course\commands\updateSectionTitleCommand.js" />
-    <Content Include="App\editor\course\components\attributesHelper.js" />
-    <Content Include="App\editor\course\components\dragulaAnimation.js" />
-    <Content Include="App\editor\course\components\dragulaContainer.js" />
+    <Content Include="App\dragAndDrop\helpers\attributesHelper.js" />
+    <Content Include="App\dragAndDrop\animation\dragulaAnimation.js" />
+    <Content Include="App\dragAndDrop\dragulaContainer.js" />
     <Content Include="App\editor\course\createBar.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.js" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.html" />
@@ -1291,7 +1554,7 @@
     <Content Include="App\editor\questions\questionModalView.js" />
     <Content Include="App\editor\questions\question.html" />
     <Content Include="App\fonts.js" />
-    <Content Include="App\images\bindingHandlers\keyDownBindingHandler.js" />
+    <Content Include="App\images\preview\bindingHandlers\keyDownBindingHandler.js" />
     <Content Include="App\images\commands\deleteImage.spec.js">
       <DependentUpon>deleteImage.js</DependentUpon>
     </Content>
@@ -1484,6 +1747,9 @@
     <Content Include="App\synchronization\handlers\organizations\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\updated.spec.js">
+      <DependentUpon>updated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\section\eventHandlers\learningObjectiveUpdated.js" />
     <Content Include="App\synchronization\handlers\section\eventHandlers\learningObjectiveUpdated.spec.js">
       <DependentUpon>learningObjectiveUpdated.js</DependentUpon>
@@ -1534,10 +1800,6 @@
     </Content>
     <Content Include="App\treeOfContent\RelatedSectionTreeNode.spec.js">
       <DependentUpon>RelatedSectionTreeNode.js</DependentUpon>
-    </Content>
-    <Content Include="App\videoUpload\handlers\durations.js" />
-    <Content Include="App\videoUpload\handlers\durations.spec.js">
-      <DependentUpon>durations.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\audios\audios.js" />
     <Content Include="App\viewmodels\audios\audios.spec.js">
@@ -1733,10 +1995,10 @@
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\results.js" />
     <Content Include="App\views\courses\course\results\noResults.html" />
-    <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
+    <Content Include="App\views\courses\publishingActions\publishToCustomLms.html" />
     <Content Include="App\images\index.html" />
-    <Content Include="App\views\courses\publishActions\publishToCoggno.html" />
-    <Content Include="App\views\courses\publishActions\updatePublishedToCoggnoCourse.html" />
+    <Content Include="App\views\courses\publishingActions\publishToCoggno.html" />
+    <Content Include="App\views\courses\publishingActions\updatePublishedToCoggnoCourse.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\configure\index.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
@@ -1755,19 +2017,22 @@
       <DependentUpon>checkAvailability.js</DependentUpon>
     </Content>
     <Content Include="App\vimeo\queries\checkAvailability.js" />
-    <Content Include="App\vimeo\queries\getVideo.js" />
-    <Content Include="App\vimeo\queries\getVideo.spec.js">
-      <DependentUpon>getVideo.js</DependentUpon>
-    </Content>
+    <Content Include="App\vimeo\queries\getVideoSources.js" />
     <Content Include="App\widgets\allowCoggno\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\checkbox\view.html" />
+    <Content Include="App\widgets\checkbox\viewmodel.js" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
     <Content Include="App\widgets\dialog\view.html" />
     <Content Include="App\widgets\dialog\viewmodel.js" />
     <Content Include="App\widgets\dialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\hotspotOnImageTextEditor\bindingHadlers\hotspotOnImageTextEditorBindingHandler.js" />
+    <Content Include="App\widgets\hotspotOnImageTextEditor\view.html" />
+    <Content Include="App\widgets\hotspotOnImageTextEditor\viewmodel.js" />
+    <Content Include="App\widgets\hotspotOnImageTextEditor\viewmodel.spec.js" />
     <Content Include="App\widgets\modalView\bindingHandlers\lockScrollBindingHandler.js" />
     <Content Include="App\widgets\modalView\bindingHandlers\visibleAnimateBindingHandler.js" />
     <Content Include="App\widgets\modalView\view.html" />
@@ -1916,10 +2181,6 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
-      <DependentUpon>learningContentsReordered.js</DependentUpon>
-    </Content>
     <Content Include="App\utils\base64.js" />
     <Content Include="App\utils\fileSaverWrapper.js" />
     <Content Include="App\utils\waiter.js" />
@@ -1961,8 +2222,7 @@
     </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
-    <Content Include="App\viewmodels\courses\bindingHandlers\tabsBinding.js" />
-    <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
+    <Content Include="App\components\bindingHandlers\tabsBindingHandler.js" />
     <Content Include="App\viewmodels\courses\course\configure.js" />
     <Content Include="App\viewmodels\courses\course\configure.spec.js">
       <DependentUpon>configure.js</DependentUpon>
@@ -1980,26 +2240,10 @@
       <DependentUpon>publish.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
-    <Content Include="App\viewmodels\learningContents\bindingHandlers\hotspotOnImageBindingHandler.js" />
-    <Content Include="App\viewmodels\learningContents\components\hotspotParser.js" />
-    <Content Include="App\viewmodels\learningContents\components\polygonModel.js" />
-    <Content Include="App\viewmodels\learningContents\content.js" />
-    <Content Include="App\viewmodels\learningContents\content.spec.js">
-      <DependentUpon>content.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.js" />
-    <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.spec.js">
-      <DependentUpon>hotspotOnAnImage.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\learningContents\learningContentBase.js" />
-    <Content Include="App\viewmodels\learningContents\learningContentBase.spec.js">
-      <DependentUpon>learningContentBase.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\learningContents\learningContents.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningContents\learningContentsViewModelFactory.js" />
     <Content Include="App\dialogs\learningPath\commands\deleteLearningPathCommand.js" />
     <Content Include="App\dialogs\learningPath\commands\deleteLearningPathCommand.spec.js">
       <DependentUpon>deleteLearningPathCommand.js</DependentUpon>
@@ -2059,7 +2303,7 @@
       <DependentUpon>getLearningPathByIdQuery.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\sections\index.js" />
-    <Content Include="App\viewmodels\panels\leftSideBarManager.js" />
+    <Content Include="App\panels\barManager.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
@@ -2090,14 +2334,12 @@
     <Content Include="App\views\courses\course\index.html" />
     <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
-    <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
-    <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
-    <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\courses\publishingActions\publishToPublicationServerEmbed.html" />
+    <Content Include="App\views\courses\publishingActions\publishToPublicationServerLink.html" />
+    <Content Include="App\views\courses\publishingActions\publishAsHtml.html" />
+    <Content Include="App\views\courses\publishingActions\publishAsScorm.html" />
+    <Content Include="App\views\courses\publishingActions\updatePublishedCourse.html" />
     <Content Include="App\views\learningContents\learningContents.html" />
-    <Content Include="App\views\learningContents\types\hotspot.html" />
-    <Content Include="App\views\learningContents\types\content.html" />
     <Content Include="App\views\learningPaths\courseSelector\courseSelector.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />
@@ -2114,17 +2356,12 @@
     <Content Include="App\widgets\cursorTooltip\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
-    <Content Include="App\widgets\hotSpotOnImageTextEditor\bindingHadlers\hotspotOnImageTextEditorBindingHandler.js" />
-    <Content Include="App\widgets\hotSpotOnImageTextEditor\view.html" />
-    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.js" />
-    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.spec.js">
-      <DependentUpon>viewmodel.js</DependentUpon>
-    </Content>
     <Content Include="App\wintoweb\commands\convert.js" />
     <Content Include="App\wintoweb\commands\getTicket.js" />
     <Content Include="App\wintoweb\index.html" />
     <Content Include="App\wintoweb\index.js" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Compile Include="Components\Configuration\WinToWebConfigurationSection.cs" />
     <Content Include="BuildLearningPath\Template\app\main.js" />
     <Content Include="BuildLearningPath\Template\app\main.js.map" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.svg" />
@@ -2153,7 +2390,6 @@
     <Content Include="BuildLearningPath\Template\js\components.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="BuildLearningPath\Template\readme.txt" />
-    <Compile Include="Components\Configuration\WinToWebConfigurationSection.cs" />
     <Content Include="config.js" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
@@ -2172,9 +2408,45 @@
     <Content Include="Content\font\robotoslab-bold.woff" />
     <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="Content\font\robotoslab-regular.woff" />
+    <Content Include="Content\froala\easygenerator-theme.css" />
     <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
     <Content Include="Content\images\companies\Nuvola.jpg" />
+    <Content Include="Content\images\examples\about_us.png" />
+    <Content Include="Content\images\examples\beauty_solar_system.png" />
+    <Content Include="Content\images\examples\customer_support.png" />
+    <Content Include="Content\images\examples\data_protection.png" />
+    <Content Include="Content\images\examples\english_infinitive.png" />
+    <Content Include="Content\images\examples\finance_guide.png" />
+    <Content Include="Content\images\examples\fire_safety.png" />
+    <Content Include="Content\images\examples\maths_fun.png" />
+    <Content Include="Content\images\examples\meet_latest_members.png" />
+    <Content Include="Content\images\examples\sharing_experience.png" />
+    <Content Include="Content\images\contentTypes\classic-editor.png" />
+    <Content Include="Content\images\contentTypes\hotspot-on-image.png" />
+    <Content Include="Content\images\contentTypes\image-left-with-text-block.png" />
+    <Content Include="Content\images\contentTypes\image-right-with-text-block.png" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img1.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img2.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img3.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img4.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img5.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img6.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img7.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\animals\img8.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img1.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img2.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img3.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img4.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img5.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img6.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img7.jpg" />
+    <Content Include="Content\images\contentTypes\imageEditor\flowers\img8.jpg" />
+    <Content Include="Content\images\contentTypes\one-image-block.png" />
+    <Content Include="Content\images\contentTypes\one-text-block.png" />
+    <Content Include="Content\images\contentTypes\three-text-blocks.png" />
+    <Content Include="Content\images\contentTypes\two-image-blocks.png" />
+    <Content Include="Content\images\contentTypes\two-text-blocks.png" />
     <Content Include="Content\images\grabbing.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\companies\icemd.png" />
@@ -2186,6 +2458,7 @@
     <Content Include="Content\images\imagePreview.png" />
     <Content Include="Content\images\image-not-found.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
+    <Content Include="Content\images\loader_16x16.gif" />
     <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\oragnizationUserBg.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
@@ -2253,24 +2526,6 @@
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
     <Content Include="googlea3ba679b82d103a3.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\a870685028fd423da95fe913080d2696\be6dce0d945944daa8dc468b52408913.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\content.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\ec9e0ec3cd334e02b765a8511ad1a898.html" />
-    <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\e67e2b52153b4f609100456bbac68278\fbd4f4b9d75045c19a4cbe820dc8a828.html" />
-    <Content Include="Sample Course\content\17dee0e236c24ffebb16b91f42c6f46c\435ed07d804a48419bd21d52ba911bc1\855b1427a7d5409b850a0496e8fd9645.html" />
-    <Content Include="Sample Course\content\17dee0e236c24ffebb16b91f42c6f46c\9d9bee0514274c75a1dadcc2ceba26b4\881cd254eba14acaaa3edcad917da1ac.html" />
-    <Content Include="Sample Course\content\17dee0e236c24ffebb16b91f42c6f46c\f4e8324cd6b349658da9d1f944d38f4b\6ce1541384a445ef95cc626414ba3649.html" />
-    <Content Include="Sample Course\content\32fa52cf544a46bb98303b098e80552f\4618f642dee84430ac605e63a4421dab\65ba70283f9d4fb390fd6a34356523ca.html" />
-    <Content Include="Sample Course\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\89e72a71bf1841959334e4cacde0967b.html" />
-    <Content Include="Sample Course\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\content.html" />
-    <Content Include="Sample Course\content\34642713e62b4d129e1818aa383c66bc\6dcbd7a5188e4714a0461c3c4cd5ee49\fa4817cf08564888bd2b69c48a345dd4.html" />
-    <Content Include="Sample Course\content\34642713e62b4d129e1818aa383c66bc\a2051745fdc64d41bce3e2886763a438\6e1007c0b4ae414f88c036ca1f448d11.html" />
-    <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
-    <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
-    <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Scripts\auth.js" />
     <Content Include="Scripts\Blob.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -2764,6 +3019,21 @@
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.pfx" />
     <Content Include="SAML\IdentityProvider\Certificates\easygenerator.saml.idp.private_key.pem" />
     <Content Include="Content\allowCoggnoPopup.less" />
+    <Content Include="Content\examples.less" />
+    <Content Include="Content\importFromPresentation.less" />
+    <Content Include="Content\controls.less" />
+    <Content Include="Mail\MailTemplates\InviteUserToTheCourseTemplate.cshtml" />
+    <Content Include="Content\contentEditor.less" />
+    <Content Include="App\components\htmlEditor\lang\de.json" />
+    <Content Include="App\components\htmlEditor\lang\es.json" />
+    <Content Include="App\components\htmlEditor\lang\fr.json" />
+    <Content Include="App\components\htmlEditor\lang\it.json" />
+    <Content Include="App\components\htmlEditor\lang\nl.json" />
+    <Content Include="App\components\htmlEditor\lang\pt-br.json" />
+    <Content Include="App\components\htmlEditor\lang\zh-cn.json" />
+    <Content Include="Content\froala\froala.less" />
+    <Content Include="App\components\htmlEditor\lang\uk.json" />
+    <Content Include="Content\font\easygenerator-icons.woff" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -2966,14 +3236,11 @@
     <Content Include="App\synchronization\handlers\learningContent\eventHandlers\deleted.spec.js">
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\textUpdated.spec.js">
-      <DependentUpon>textUpdated.js</DependentUpon>
-    </Content>
     <Content Include="App\synchronization\handlers\learningContent\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\learningContent\handler.js" />
-    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\textUpdated.js" />
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\updated.js" />
     <Content Include="App\synchronization\handlers\learningContent\eventHandlers\deleted.js" />
     <Content Include="App\synchronization\handlers\learningContent\eventHandlers\created.js" />
     <Content Include="App\synchronization\handlers\answer\handler.js" />
@@ -3259,8 +3526,6 @@
     </Content>
     <Content Include="Content\learningPaths.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
-    <Content Include="Sample Course\content\content.html" />
-    <Content Include="Sample Course\content\data.js" />
     <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />
@@ -3270,6 +3535,7 @@
     <Content Include="Scripts\knockoutBindings\foreachAnimatedBinding.js" />
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
+    <Content Include="Scripts\knockoutBindings\textWithMarkedMatchesBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderControlBinding.js" />
@@ -3291,15 +3557,16 @@
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="specRunner.js" />
     <Content Include="Templates\Assessment\app\app.js" />
-    <Content Include="Templates\Assessment\app\modules\xApi\views\login.html" />
     <Content Include="Templates\Assessment\app\modules\xApi\views\xApiError.html" />
     <Content Include="Templates\Assessment\app\vendor.js" />
     <Content Include="Templates\Assessment\app\views\dragAndDropText.html" />
     <Content Include="Templates\Assessment\app\views\fillInTheBlanks.html" />
     <Content Include="Templates\Assessment\app\views\hint.html" />
     <Content Include="Templates\Assessment\app\views\hotspot.html" />
+    <Content Include="Templates\Assessment\app\views\login.html" />
     <Content Include="Templates\Assessment\app\views\main.html" />
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
+    <Content Include="Templates\Assessment\app\views\noaccess.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
     <Content Include="Templates\Assessment\app\views\rankingText.html" />
@@ -3593,10 +3860,8 @@
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Templates\Reader\css\font\robotocondensed-regular.woff" />
-    <Content Include="Templates\Assessment\css\font\badscript-regular.eot" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.ttf" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.woff" />
-    <Content Include="Templates\Assessment\css\font\OCRAExtended.eot" />
     <Content Include="Templates\Assessment\css\font\OCRAExtended.ttf" />
     <Content Include="Templates\Assessment\css\font\OCRAExtended.woff" />
     <Content Include="Templates\Assessment\css\font\opensans-regular.ttf" />
@@ -3659,6 +3924,13 @@
     <Content Include="Views\CrossProtocolStorage\index.cshtml" />
     <Content Include="Views\IdentityProvider\Auth.cshtml" />
     <Content Include="Views\Shared\_helpscoutBeacon.cshtml" />
+    <Content Include="Templates\Assessment\lang\nb-no.json" />
+    <Content Include="Templates\Assessment\lang\nn-no.json" />
+    <Content Include="Views\Shared\_sentryTracking.cshtml" />
+    <Content Include="Templates\Assessment\lang\zh-cn.json" />
+    <Content Include="Templates\Assessment\css\font\Custom-Icons.woff" />
+    <Content Include="Views\Shared\_googleTagManager.cshtml" />
+    <Content Include="Templates\Reader\lang\zh-cn.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

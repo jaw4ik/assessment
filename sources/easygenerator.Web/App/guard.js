@@ -2,6 +2,12 @@
 import ko from 'knockout';
 
 export default class {
+    static throwIfNotDefined(prop, message) {
+        if (_.isUndefined(prop)) {
+            throw message;
+        }
+    }
+
     static throwIfNotAnObject(obj, message) {
         if (!_.isObject(obj)) {
             throw message;
@@ -58,6 +64,19 @@ export default class {
 
     static throwIfNotObservableArray(observableArray, message) {
         if (!ko.isObservable(observableArray) || !_.isArray(ko.unwrap(observableArray))) {
+            throw message;
+        }
+    }
+    static throwIfNumberIsOutOfRange(number, minAllowed, maxAllowed, message) {
+        if (!_.isNumber(minAllowed)) {
+            throw 'minAllowed should be Number';
+        }
+
+        if (!_.isNumber(maxAllowed)) {
+            throw 'maxAllowed should be Number';
+        }
+
+        if (!_.isNumber(number) || number < minAllowed || number > maxAllowed) {
             throw message;
         }
     }

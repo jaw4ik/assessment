@@ -1,0 +1,72 @@
+﻿<div class="publish-tab-content" data-tab-content="coggno">
+    <div class="publish-tab-content-wrapper">
+        <!-- ko if: packageExists() -->
+        <div class="publish-tab-default-container">
+            <!-- ko compose: { view: 'views/courses/publishingActions/updatePublishedToCoggnoCourse', model: $data, activate: false } --><!-- /ko -->
+            <div class="publish-tab-link-container">
+                <h2 class="publish-tab-header" data-bind="localize: { text: 'publishToCoggno' }"></h2>
+                <div class="publish-tab-action-content">
+                    <div class="publish-tab-action-caption" data-bind="localize: { text: 'coggnoCaption' }"></div>
+                    <div class="publish-tab-action-info">
+                        <a class="publish-tab-action-info-link" href="" target="_blank" data-bind="attr: { href: coggnoServiceUrl }, localize: { text: 'learnMore' }">Learn more</a>
+                    </div>
+                </div>
+                <div class="publish-tab-item-service">
+                    <div class="publish-tab-details-container">
+                        <div class="publish-tab-details-header"></div>
+                        <div class="publish-tab-details-message" data-bind="localize: { text: 'courseStored' }">The course is successfully stored</div>
+                        <div class="publish-tab-details-link-container">
+                            <a class="btn publish-tab-details-link" href="" target="_blank" data-bind="css: { green: !courseIsDirty(), 'green-white': courseIsDirty() }, attr: { href: publicationUrl() }, localize: { text: 'openCourseInCoggno' }">
+                                Open the course in Coggno
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="publish-tab-overlay" data-bind="visible: (isCourseDelivering() || isProcessing())"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: packageExists() -->
+        <div class="publish-tab-default-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'publishToCoggno' }"></h2>
+            <div class="publish-tab-action-content">
+                <div class="publish-tab-action-caption" data-bind="localize: { text: 'coggnoCaption' }"></div>
+                <div class="publish-tab-action-info">
+                    <a class="publish-tab-action-info-link" href="" target="_blank" data-bind="attr: { href: coggnoServiceUrl }, localize: { text: 'learnMore' }">Learn more</a>
+                </div>
+            </div>
+            <!-- ko if: isCourseOwn -->
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css: { disabled: isCourseDelivering(), progress: (isPublishing() || isProcessing()) }">
+                <!-- ko if: isPublishing() -->
+                <!-- ko if: state() === states.building || state() === states.publishing -->
+                <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <!-- ko if: isProcessing -->
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'processing' }">Processing...</span>
+                <!-- /ko -->
+                <!-- ko ifnot: isProcessing -->
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'publishToCoggno' }"></span>
+                <!-- /ko -->
+                <!-- /ko -->
+            </button>
+            <!-- ko if: isProcessing -->
+            <div class="publish-processing-message" data-bind="localize: { text: 'PleaseWaitFewMinutes' }">Please wait, this may take a couple of minutes.</div>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko ifnot: isCourseOwn -->
+            <div class="publish-collaborator-lock-container">
+                <div class="publish-collaborator-lock">
+                    <span class="info-icon"></span>
+                    <span class="publish-collaborator-lock-message">
+                        <span data-bind="localize: { text: 'courseWasNotPublishedByOwner' }">The course has not been published by the owner yet.</span><br/>
+                        <span data-bind="localize: { text: 'contactOwnerToPublish' }">Please contact the owner of the course to initiate the publish.</span>
+                    </span>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

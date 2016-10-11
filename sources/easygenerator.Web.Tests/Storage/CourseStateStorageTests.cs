@@ -33,7 +33,7 @@ namespace easygenerator.Web.Tests.Storage
         #region IsDirty
 
         [TestMethod]
-        public void IsDirty_Should_ReturnInMemoryValue_WhenValueIsInMemory()
+        public void IsDirty_ShouldReturnInMemoryValue_WhenValueIsInMemory()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -48,7 +48,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirty_Should_ReturntValueFromRepository_WhenValueIsNotInMemory_AndValueIsInRepository()
+        public void IsDirty_ShouldReturntValueFromRepository_WhenValueIsNotInMemory_AndValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -64,7 +64,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirty_Should_ReturntFalse_WhenValueIsNotInMemory_AndValueIsNotInRepository()
+        public void IsDirty_ShouldReturntFalse_WhenValueIsNotInMemory_AndValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -80,7 +80,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirty_Should_SaveRepositoryValueInMemory_WhenValueIsNotInMemory_AndValueIsInRepository()
+        public void IsDirty_ShouldSaveRepositoryValueInMemory_WhenValueIsNotInMemory_AndValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -97,7 +97,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirty_Should_SaveValueToMemory_WhenValueIsNotInMemory_AndValueIsNotInRepository()
+        public void IsDirty_ShouldSaveValueToMemory_WhenValueIsNotInMemory_AndValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -117,7 +117,7 @@ namespace easygenerator.Web.Tests.Storage
         #region IsDirtyForSale
 
         [TestMethod]
-        public void IsDirtyForSale_Should_ReturnInMemoryValue_WhenValueIsInMemory()
+        public void IsDirtyForSale_ShouldReturnInMemoryValue_WhenValueIsInMemory()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -132,7 +132,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirtyForSale_Should_ReturntValueFromRepository_WhenValueIsNotInMemory_AndValueIsInRepository()
+        public void IsDirtyForSale_ShouldReturntValueFromRepository_WhenValueIsNotInMemory_AndValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -148,7 +148,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirtyForSale_Should_ReturntFalse_WhenValueIsNotInMemory_AndValueIsNotInRepository()
+        public void IsDirtyForSale_ShouldReturntFalse_WhenValueIsNotInMemory_AndValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -164,7 +164,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirtyForSale_Should_SaveRepositoryValueInMemory_WhenValueIsNotInMemory_AndValueIsInRepository()
+        public void IsDirtyForSale_ShouldSaveRepositoryValueInMemory_WhenValueIsNotInMemory_AndValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -181,7 +181,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void IsDirtyForSale_Should_SaveValueToMemory_WhenValueIsNotInMemory_AndValueIsNotInRepository()
+        public void IsDirtyForSale_ShouldSaveValueToMemory_WhenValueIsNotInMemory_AndValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -201,7 +201,7 @@ namespace easygenerator.Web.Tests.Storage
         #region MarkAsDirty
 
         [TestMethod]
-        public void MarkAsDirty_Should_SaveValueToMemory()
+        public void MarkAsDirty_ShouldSaveValueToMemory()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -216,7 +216,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void MarkAsDirty_Should_AddValueToRepository_WhenValueIsNotInRepository()
+        public void MarkAsDirty_ShouldAddValueToRepository_WhenValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -235,7 +235,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void MarkAsDirty_Should_UpdateValueInRepository_WhenValueIsInRepository()
+        public void MarkAsDirty_ShouldUpdateValueInRepository_WhenValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -258,7 +258,7 @@ namespace easygenerator.Web.Tests.Storage
         #region MarkAsClean
 
         [TestMethod]
-        public void MarkAsClean_Should_SaveValueToMemory()
+        public void MarkAsClean_ShouldSaveValueToMemory()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -273,7 +273,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void MarkAsClean_Should_AddValueToRepository_WhenValueIsNotInRepository()
+        public void MarkAsClean_ShouldAddValueToRepository_WhenValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -292,7 +292,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void MarkAsClean_Should_UpdateValueInRepository_WhenValueIsInRepository()
+        public void MarkAsClean_ShouldUpdateValueInRepository_WhenValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -315,7 +315,7 @@ namespace easygenerator.Web.Tests.Storage
         #region MarkAsCleanForSale
 
         [TestMethod]
-        public void MarkAsCleanForSale_Should_SaveValueToMemory()
+        public void MarkAsCleanForSale_ShouldSaveValueToMemory()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -330,7 +330,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void MarkAsCleanForSale_Should_AddValueToRepository_WhenValueIsNotInRepository()
+        public void MarkAsCleanForSale_ShouldAddValueToRepository_WhenValueIsNotInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -349,7 +349,7 @@ namespace easygenerator.Web.Tests.Storage
         }
 
         [TestMethod]
-        public void MarkAsCleanForSale_Should_UpdateValueInRepository_WhenValueIsInRepository()
+        public void MarkAsCleanForSale_ShouldUpdateValueInRepository_WhenValueIsInRepository()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -372,7 +372,7 @@ namespace easygenerator.Web.Tests.Storage
         #region RemoveCourseStateInfo
 
         [TestMethod]
-        public void RemoveCourseStateInfo_Should_CallInMemoryStorageRemoveCourseState()
+        public void RemoveCourseStateInfo_ShouldCallInMemoryStorageRemoveCourseState()
         {
             //Arrange
             var course = CourseObjectMother.Create();

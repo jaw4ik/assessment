@@ -18,7 +18,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void SaveCourseStateInfo_Should_AddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
+        public void SaveCourseStateInfo_ShouldAddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
         {
             //Arrange
             var info = new CourseInfo();
@@ -33,7 +33,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void SaveCourseState_Should_AddUpdateCourseState_When_CourseStateIsPresentInTheCollection()
+        public void SaveCourseState_ShouldAddUpdateCourseState_When_CourseStateIsPresentInTheCollection()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -49,7 +49,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void RemoveCourseState_Should_RemoveCourseState()
+        public void RemoveCourseState_ShouldRemoveCourseState()
         {
             //Arrange
             var info = new CourseInfo();
@@ -64,7 +64,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void RemoveCourseState_Should_DoNothing_When_CourseStateIsNotPresentInCollection()
+        public void RemoveCourseState_ShouldDoNothing_When_CourseStateIsNotPresentInCollection()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -77,7 +77,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void GetCourseState_Should_ReturnCourseState()
+        public void GetCourseState_ShouldReturnCourseState()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -92,7 +92,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         }
 
         [TestMethod]
-        public void GetCourseState_Should_ReturnDefaultCourseState_WhenNotInCollection()
+        public void GetCourseState_ShouldReturnDefaultCourseState_WhenNotInCollection()
         {
             //Arrange
             var course = CourseObjectMother.Create();

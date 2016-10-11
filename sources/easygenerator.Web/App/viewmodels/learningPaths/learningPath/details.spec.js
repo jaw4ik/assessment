@@ -355,7 +355,7 @@ describe('viewModel [learningPath details]', function () {
             it('should push course to courses collection', function (done) {
                 viewModel.entities([]);
                 viewModel.addCourse(course);
-                courseRepository.getById(course.id).fin(function () {
+                courseRepository.getById(course.id).then(function () {
                     expect(viewModel.entities().length).toBe(1);
                     done();
                 });

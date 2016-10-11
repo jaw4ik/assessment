@@ -52,14 +52,14 @@
                 </ul>
                 <div class="publish-tabs-content">
                     <!-- ko foreach: publishToCustomLmsModels -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToCustomLms', model: $data.model, activationData: { courseId: $parent.courseId, companyInfo: $data.company } } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/publishToCustomLms', model: $data.model, activationData: { courseId: $parent.courseId, companyInfo: $data.company } } --><!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: !publishToCustomLmsModels[0] || !publishToCustomLmsModels[0].company.hideDefaultPublishOptions -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } --><!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } --><!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToCoggno', model: publishToCoggnoAction, activationData: courseId } --><!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } --><!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/publishToCoggno', model: publishToCoggnoAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/publishAsScorm', model: scormBuildAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishingActions/publishAsHtml', model: buildAction, activationData: courseId } --><!-- /ko -->
                     <!-- /ko -->
                 </div>
             </div>

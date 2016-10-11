@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -39,6 +40,65 @@ namespace easygenerator.DataAccess.Repositories
                 new SqlParameter("@createdBy", username),
                 new SqlParameter("@status", OrganizationUserStatus.Accepted)
                 ).AsNoTracking().ToList();
+        }
+
+        public Section GetSectionRelatedToQuestion(Guid sectionId)
+        {
+            const string query = @"
+                SELECT section.* FROM Sections section INNER JOIN Questions question ON question.Section_Id = section.Id
+                WHERE question.Id = @questionId
+            ";
+
+            return ((DbSet<Section>)_dataContext.GetSet<Section>()).SqlQuery(query,
+                new SqlParameter("@questionId", sectionId)).FirstOrDefault();
+        }
+
+        public Section GetSectionRelatedToAnswer(Guid contentId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(contentId, "Answers");
+        }
+
+        public Section GetSectionRelatedToLearningContent(Guid contentId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(contentId, "LearningContents");
+        }
+
+        public Section GetSectionRelatedToDropspot(Guid dropspotId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(dropspotId, "Dropspots");
+        }
+
+        public Section GetSectionRelatedToHotSpotPolygon(Guid hotspotPolygonId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(hotspotPolygonId, "HotSpotPolygons");
+        }
+
+        public Section GetSectionRelatedToTextMatchingAnswer(Guid answerId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(answerId, "TextMatchingAnswers");
+        }
+
+        public Section GetSectionRelatedToSingleSelectImageAnswer(Guid answerId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(answerId, "SingleSelectImageAnswers");
+        }
+
+        public Section GetSectionRelatedToRankingTextAnswer(Guid answerId)
+        {
+            return GetSectionRelatedToQuestionBasedEntity(answerId, "RankingTextAnswers");
+        }
+
+        private Section GetSectionRelatedToQuestionBasedEntity(Guid entityId, string entityTableName)
+        {
+            var query = String.Format(@"
+                    SELECT section.* FROM Sections section inner join(
+                        SELECT question.Section_Id FROM Questions question inner join {0} entity ON entity.Question_Id = question.Id
+                        WHERE entity.Id = @entityId
+                    ) quest ON section.Id = quest.Section_Id
+            ", entityTableName);
+
+            return ((DbSet<Section>)_dataContext.GetSet<Section>()).SqlQuery(query,
+                new SqlParameter("@entityId", entityId)).FirstOrDefault();
         }
     }
 }

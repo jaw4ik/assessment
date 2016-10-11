@@ -1,1 +1,1 @@
-easyresources generate -o "../../sources/easygenerator.Web/App/localization/lang" -e "RU"
+easyresources generate --useDefaultLocalizationWhenNoTranslation 1 -o "../../sources/easygenerator.Web/App/localization/lang" -e "RU"

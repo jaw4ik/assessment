@@ -1,122 +1,118 @@
 ﻿import { iterable } from 'models/helpers';
 
-export default {
-appVersion: window.egVersion,
-
+var constants = {
+    appVersion: window.egVersion,
     accessType: {
-    free: 0,
-    starter: 1,
-    plus: 2,
-    academy: 3,
-    academyBT: 4,
-    trial: 100
+        free: 0,
+        starter: 1,
+        plus: 2,
+        academy: 3,
+        academyBT: 4,
+        trial: 100
     },
-
-organizationUserStatus: {
+    organizationUserStatus: {
         waitingForAcceptance: 0,
         accepted: 1,
         declined: 2,
         waitingForEmailConfirmation: 3
-},
-
-courseOwnership: {
+    },
+    courseOwnership: {
         owned: 0,
         shared: 1,
         organization: 2
-},
-
-documentType: Object.assign({
-    video: 0,
-    powerPoint: 1,
-    pdf: 2,
-    office: 3
-}, iterable),
-
-    questionType: {
-    multipleSelect: {
-                type: 'multipleSelect',
-                image: '/Content/images/multiselect-question.png'
     },
+    documentType: Object.assign({
+        video: 0,
+        powerPoint: 1,
+        pdf: 2,
+        office: 3
+    }, iterable),
+    questionType: {
+        multipleSelect: {
+            type: 'multipleSelect',
+            image: '/Content/images/multiselect-question.png'
+        },
         fillInTheBlank: {
-                type: 'fillInTheBlank',
-                image: '/Content/images/fillintheblank-question.png'
+            type: 'fillInTheBlank',
+            image: '/Content/images/fillintheblank-question.png'
         },
         dragAndDropText: {
-                type: 'dragAndDropText',
-                image: '/Content/images/draganddroptext-question.png'
+            type: 'dragAndDropText',
+            image: '/Content/images/draganddroptext-question.png'
         },
         singleSelectText: {
-                type: 'singleSelectText',
-                image: '/Content/images/singleselecttext-question.png'
+            type: 'singleSelectText',
+            image: '/Content/images/singleselecttext-question.png'
         },
         informationContent: {
-                type: 'informationContent',
-                image: '/Content/images/info-question.png'
+            type: 'informationContent',
+            image: '/Content/images/info-question.png'
         },
         singleSelectImage: {
-                type: 'singleSelectImage',
-                image: '/Content/images/singleselectimage-question.png'
+            type: 'singleSelectImage',
+            image: '/Content/images/singleselectimage-question.png'
         },
         textMatching: {
-                type: 'textMatching',
-                image: '/Content/images/textmatching-question.png'
+            type: 'textMatching',
+            image: '/Content/images/textmatching-question.png'
         },
         hotspot: {
-                type: 'hotspot',
-                image: '/Content/images/hotspot-question.png'
+            type: 'hotspot',
+            image: '/Content/images/hotspot-question.png'
         },
         statement: {
-                type: 'statement',
-                image: '/Content/images/statement-question.png'
+            type: 'statement',
+            image: '/Content/images/statement-question.png'
         },
         openQuestion: {
-                type: 'openQuestion',
-                image: '/Content/images/open-question.png'
+            type: 'openQuestion',
+            image: '/Content/images/open-question.png'
         },
         scenario: {
-                type: 'scenario',
-                image: '/Content/images/scenario-question.png'
+            type: 'scenario',
+            image: '/Content/images/scenario-question.png'
         },
         rankingText: {
-                type: 'rankingText',
-                image: '/Content/images/rankingtext-question.png'
+            type: 'rankingText',
+            image: '/Content/images/rankingtext-question.png'
         }
     },
-
-questionFeedback: {
+    questionFeedback: {
         correct: 'correct',
         incorrect: 'incorrect'
-},
-
-learningContentsTypes: {
-        content: 'content',
-        hotspot: 'hotspot'
-},
-
-sortingOptions: {
+    },
+    contentsTypes: {
+        hotspotOnImage: 'hotspot',
+        classicEditor: 'classicEditor',
+        textEditorOneColumn: 'textEditorOneColumn',
+        textEditorTwoColumns: 'textEditorTwoColumns',
+        textEditorThreeColumns: 'textEditorThreeColumns',
+        imageEditorOneColumn: 'imageEditorOneColumn',
+        imageEditorTwoColumns: 'imageEditorTwoColumns',
+        imageInTheLeft: 'imageInTheLeft',
+        imageInTheRight: 'imageInTheRight'
+    },
+    sortingOptions: {
         byTitleAsc: 'byTitleAsc',
         byTitleDesc: 'byTitleDesc'
-},
-
-publishingStates: {
+    },
+    publishingStates: {
         building: 'building',
         publishing: 'publishing',
         succeed: 'succeed',
         failed: 'failed'
-},
-
-collaboratorStates: {
+    },
+    collaboratorStates: {
         deleting: 'deleting'
-},
-autosaveTimersInterval: {
+    },
+    autosaveTimersInterval: {
         answerOption: 60000,
         learningContent: 60000,
         entityContent: 60000,
         questionTitle: 5000,
         feedbackText: 60000
-},
-
-validation: {
+    },
+    validation: {
         sectionTitleMaxLength: 255,
         courseTitleMaxLength: 255,
         organizationTitleMaxLength: 255,
@@ -125,9 +121,8 @@ validation: {
         textMatchingValueMaxLength: 255,
         learningPathTitleMaxLength: 255,
         documentTitleMaxLength: 255
-},
-
-messages: {
+    },
+    messages:{
         user: {
             identified: 'user:identified',
             downgraded: 'user:downgraded',
@@ -137,15 +132,15 @@ messages: {
             upgradedToAcademyBT: 'user:upgradedToAcademyBT',
             planChanged: 'user:planChanged'
         },
-    library: {
+        library: {
             defaultActivate: 'library:default:activate'
-    },
-    questionNavigation: {
+        },
+        questionNavigation: {
             navigateToQuestion: 'navigation:navigateToQuestion',
             navigateToCourse: 'navigation:navigateToCurse'
-    },
-    organization: {
-            created:'organization:created'  ,
+        },
+        organization: {
+            created: 'organization:created',
             userRemoved: 'organization:userRemoved',
             usersAdded: 'organization:usersAdded',
             userRegistered: 'organization:userRegistsred',
@@ -156,8 +151,8 @@ messages: {
             membershipStarted: 'organization:membershipStarted',
             membershipFinished: 'organization:membershipFinished',
             courseCollaborationStarted: 'organization:courseCollaborationStarted'
-    },
-    course: {
+        },
+        course: {
             created: 'course:created',
             deleted: 'course:deleted',
             deletedByCollaborator: 'course:deletedByCollaborator',
@@ -175,43 +170,47 @@ messages: {
             templateUpdated: 'course:templateUpdated',
             stateChanged: 'course:stateChanged',
             ownershipUpdated: 'course:ownershipUpdated',
-
+            modified: 'course:modified',
+            peopleAdded: 'course:peopleAdded',
+            accessGranted: 'course:accessGranted',
+            accessRemoved: 'course:accessRemoved',
+            invitationSended: 'course:invitationSended',
             build: {
-            started: 'course:build-started',
-            completed: 'course:build-completed',
-            failed: 'course:build-failed'
+                started: 'course:build-started',
+                completed: 'course:build-completed',
+                failed: 'course:build-failed'
             },
-        scormBuild: {
+            scormBuild: {
                 started: 'course:scormBuild-started',
                 completed: 'course:scormBuild-completed',
                 failed: 'course:scormBuild-failed'
-        },
-        publish: {
+            },
+            publish: {
                 started: 'course:publish-started',
                 completed: 'course:publish-completed',
                 failed: 'course:publish-failed'
-        },
-        publishToCoggno: {
-            started: 'course:publish-coggno-started',
-            completed: 'course:publish-coggno-completed',
-            failed: 'course:publish-coggno-failed',
-            processed: 'course:processing-coggno-completed'
-        },
-        publishForReview: {
-            started: 'course:review-publish-started',
-            completed: 'course:review-publish-completed',
-            failed: 'course:review-publish-failed'
-        },
-        publishToCustomLms: {
+            },
+            publishToCoggno: {
+                started: 'course:publish-coggno-started',
+                completed: 'course:publish-coggno-completed',
+                failed: 'course:publish-coggno-failed',
+                processed: 'course:processing-coggno-completed'
+            },
+            publishForReview: {
+                started: 'course:review-publish-started',
+                completed: 'course:review-publish-completed',
+                failed: 'course:review-publish-failed'
+            },
+            publishToCustomLms: {
                 started: 'course:publishToCustomLms-started',
                 completed: 'course:publishToCustomLms-comleted',
                 failed: 'course:publishToCustomLms-failed'
-        },
-        delivering: {
+            },
+            delivering: {
                 started: 'course:delivering-started',
                 finished: 'course:delivering-finished'
-        },
-        collaboration: {
+            },
+            collaboration: {
                 inviteCreated: 'course:collaboration-invite-created:',
                 inviteRemoved: 'course:collaboration-invite-removed:',
                 inviteAccepted: 'course:collaboration-invite-accepted',
@@ -225,31 +224,31 @@ messages: {
                 finished: 'course:collaboration-finished',
                 finishedByCollaborator: 'course:collaboration-finishedByCollaborator',
                 deleting: {
-                started: 'collaborator:deleting-started:',
-                completed: 'collaborator:deleting-completed:',
-                failed: 'collaborator:deleting-failed:'
+                    started: 'collaborator:deleting-started:',
+                    completed: 'collaborator:deleting-completed:',
+                    failed: 'collaborator:deleting-failed:'
                 }
-        },
-        comment: {
+            },
+            comment: {
                 deletedByCollaborator: 'course:comment:deletedByCollaborator',
                 createdByCollaborator: 'course:comment:createdByCollaborator'
-        }
-    },
-    learningPath: {
+            }
+        },
+        learningPath: {
             courseSelector: {
                 courseSelected: 'learningPath:course-selector:course-selected',
                 courseDeselected: 'learningPath:course-selector:course-deselected'
             },
-        removeCourse: 'learningPath:removeCourse',
-        createCourse: 'learningPath:createCourse',
-        removeDocument: 'learningPath:removeDocument',
-        delivering: {
-            started: 'learningPath:delivering-started',
-            finished: 'learningPath:delivering-finished'
+            removeCourse: 'learningPath:removeCourse',
+            createCourse: 'learningPath:createCourse',
+            removeDocument: 'learningPath:removeDocument',
+            delivering: {
+                started: 'learningPath:delivering-started',
+                finished: 'learningPath:delivering-finished'
+            },
+            deleted: 'learningPath:deleted'
         },
-        deleted: 'learningPath:deleted'
-    },
-    section: {
+        section: {
             createdInCourse: 'section:createdInCourse',
             deleted: 'section:deleted',
             titleUpdated: 'section:titleUpdated',
@@ -260,13 +259,15 @@ messages: {
             imageUrlUpdatedByCollaborator: 'section:imageUrlUpdatedByCollaborator',
             questionsReordered: 'section:questionsReordered',
             questionsReorderedByCollaborator: 'section:questionsReorderedByCollaborator',
-            navigated: 'section:navigatedTo'
-    },
-    question: {
+            navigated: 'section:navigatedTo',
+            modified: 'section:modified'
+        },
+        question: {
             created: 'question:created',
             createdByCollaborator: 'question:createdByCollaborator',
             deleted: 'questions:deleted',
             titleUpdated: 'question:titleUpdated',
+            isSurveyUpdated: 'question:isSurveyUpdated',
             voiceOverUpdatedByCollaborator: 'question:voiceOverUpdatedByCollaborator',
             titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
             contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
@@ -278,150 +279,141 @@ messages: {
             navigated: 'question:navigatedTo',
 
             answer: {
-            addedByCollaborator: 'question:answer:addedByCollaborator',
-            deletedByCollaborator: 'question:answer:deletedByCollaborator',
-            textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
-            answerCorrectnessUpdatedByCollaborator: 'question:answer:answerCorrectnessUpdatedByCollaborator',
-            singleSelectTextDeleteByCollaborator: 'question:answer:singleSelectTextDeletedByCollaborator'
+                addedByCollaborator: 'question:answer:addedByCollaborator',
+                deletedByCollaborator: 'question:answer:deletedByCollaborator',
+                textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
+                answerCorrectnessUpdatedByCollaborator: 'question:answer:answerCorrectnessUpdatedByCollaborator',
+                singleSelectTextDeleteByCollaborator: 'question:answer:singleSelectTextDeletedByCollaborator'
             },
 
-        learningContent: {
+            learningContent: {
                 createdByCollaborator: 'learningContent:createdByCollaborator',
                 deletedByCollaborator: 'learningContent:deletedByCollaborator',
-                textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
-                remove: 'learningContent:remove',
-                updateText: 'learningContent:updateText',
-                restore: 'learningContent:restore'
-        },
+                updatedByCollaborator: 'learningContent:updatedByCollaborator'
+            },
 
-        fillInTheBlank: {
+            fillInTheBlank: {
                 updatedByCollaborator: 'question:fillInTheBlank:updatedByCollaborator'
-        },
+            },
 
-        dragAndDropText: {
+            dragAndDropText: {
                 dropspotCreatedByCollaborator: 'question:dragAndDrop:dropspotCreatedByCollaborator',
                 dropspotPositionChangedByCollaborator: 'question:dragAndDrop:dropspotPositionChangedByCollaborator',
                 dropspotTextChangedByCollaborator: 'question:dragAndDrop:dropspotTextChangedByCollaborator',
                 dropspotDeletedByCollaborator: 'question:dragAndDrop:dropspotDeletedByCollaborator'
-        },
+            },
 
-        hotSpot: {
+            hotSpot: {
                 polygonCreatedByCollaborator: 'question:hotSpot:polygonCreatedByCollaborator',
                 polygonUpdatedByCollaborator: 'question:hotSpot:polygonUpdatedByCollaborator',
                 polygonDeletedByCollaborator: 'question:hotSpot:polygonDeletedByCollaborator',
                 isMultipleUpdatedByCollaborator: 'question:hotSpot:isMultipleUpdatedByCollaborator'
-        },
+            },
 
-        textMatching: {
+            textMatching: {
                 answerCreatedByCollaborator: 'question:textMatching:answerCreatedByCollaborator',
                 answerDeletedByCollaborator: 'question:textMatching:answerDeletedByCollaborator',
                 answerKeyChangedByCollaborator: 'question:textMatching:answerKeyChangedByCollaborator',
                 answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator'
-        },
+            },
 
-        rankingText: {
+            rankingText: {
                 answerCreatedByCollaborator: 'question:rankingText:answerCreatedByCollaborator',
                 answerDeletedByCollaborator: 'question:rankingText:answerDeletedByCollaborator',
                 answerTextChangedByCollaborator: 'question:rankingText:answerTextChangedByCollaborator',
                 answersReorderedByCollaborator: 'question:rankingText:answersReorderedByCollaborator'
-        },
+            },
 
-        singleSelectImage: {
+            singleSelectImage: {
                 answerCreatedByCollaborator: 'question:singleSelectImage:answerCreatedByCollaborator',
                 answerDeletedByCollaborator: 'question:singleSelectImage:answerDeletedByCollaborator',
                 answerImageUpdatedByCollaborator: 'question:singleSelectImage:answerImageUpdatedByCollaborator',
                 correctAnswerChangedByCollaborator: 'question:singleSelectImage:correctAnswerChangedByCollaborator'
-        },
+            },
 
-        scenario: {
+            scenario: {
                 dataUpdated: 'question:scenario:dataUpdated',
                 masteryScoreUpdated: 'question:scenario:masteryScoreUpdated'
-        }
-
-    },
-    treeOfContent: {
+            }
+        },
+        treeOfContent: {
             expanded: 'treeOfContent:expanded',
             collapsed: 'treeOfContent:collapsed'
-    },
-    onboarding: {
+        },
+        onboarding: {
             closed: 'onboarding:closed'
-    },
-    sidePanel: {
+        },
+        sidePanel: {
             expanded: 'sidePanel:expanded',
             collapsed: 'sidePanel:collapsed'
-    },
-    notification: {
-
-    },
-    branchtrack: {
+        },
+        notification: {},
+        branchtrack: {
             projectSelected: 'branchtrack:projectSelected',
             dialogClosed: 'branchtrack:dialogClosed'
-    },
-    includeMedia: {
+        },
+        content: {
+            create: 'content:create',
+            startEditing: 'content:startEditing',
+            endEditing: 'content:endEditing'
+        },
+        includeMedia: {
             modeChanged: 'includeMedia:modeChanged'
-    },
-    themes: {
+        },
+        themes: {
             added: 'themes:added',
             updated: 'themes:updated',
             deleted: 'themes:deleted'
-    }
-},
-
-patterns: {
+        }
+    },
+    //Ok
+    patterns: {
         email: /^[^@\s]+@[^@\s]+$/,
         coursePage: /courses\/[\d\w]+/
     },
-
-notification: {
+    notification: {
         keys: {
             subscriptionExpiration: 'notificationkeys:subscriptionExpiration',
             collaborationInvite: 'notificationkeys:collaborationInvite',
-            organizationInvite: 'notificationkeys:organizationInvite'
+            organizationInvite: 'notificationkeys:organizationInvite',
+            organizationInviteConfirmation: 'notificationkeys:organizationInviteConfirmation'
         },
-    messages: {
+        messages: {
             push: 'notification:push',
             remove: 'notification:remove'
-    }
-},
-
-upgradeEvent: 'Upgrade now',
-
-    upgradeUrl: '/account/upgrade',
-signinUrl: '/signin',
-
-upgradeCategory: {
-    scorm: 'SCORM 1.2',
-    changeLogo: 'Change logo',
-    externalReview: 'External review',
-    header: 'Header',
-    userMenuInHeader: 'User menu in header',
-    questions: 'Questions',
-    expirationNotification: 'Expiration notification',
-    courseLimitNotification: 'Course limit notification'
-},
-
-maxStarterPlanCollaborators: 3,
-
-    eventCategories: {
-    header: 'Header',
-    informationContent: 'Information'
+        }
     },
-
-clientContextKeys: {
+    upgradeEvent: 'Upgrade now',
+    upgradeUrl: '/account/upgrade',
+    signinUrl: '/signin',
+    upgradeCategory: {
+        scorm: 'SCORM 1.2',
+        changeLogo: 'Change logo',
+        externalReview: 'External review',
+        header: 'Header',
+        userMenuInHeader: 'User menu in header',
+        questions: 'Questions',
+        expirationNotification: 'Expiration notification',
+        courseLimitNotification: 'Course limit notification'
+    },
+    maxStarterPlanCollaborators: 3,
+    eventCategories: {
+        header: 'Header',
+        informationContent: 'Information'
+    },
+    clientContextKeys: {
         lastCreatedQuestionId: 'lastCreatedQuestionId',
         lastCreatedCourseId: 'lastCreatedCourseId',
         lastCreatedLearningPathId: 'lastCreatedLearningPathId',
         lastCreatedSectionId: 'lastCreatedSectionId',
         lastVistedCourse: 'lastVistedCourse',
         lastVisitedSection: 'lastVisitedSection',
-        showCreateCoursePopup: 'showCreateCoursePopup',
+        showCreateCourseView: 'showCreateCourseView',
         highlightedSectionId: 'highlightedSectionId',
         questionDataToNavigate: 'questionDataToNavigate'
-},
-
-reporting: {
-        xApiVerbIds:
-        {
+    },
+    reporting: {
+        xApiVerbIds: {
             started: 'http://adlnet.gov/expapi/verbs/launched',
             progressed: 'http://adlnet.gov/expapi/verbs/progressed',
             passed: 'http://adlnet.gov/expapi/verbs/passed',
@@ -430,11 +422,11 @@ reporting: {
             mastered: 'http://adlnet.gov/expapi/verbs/mastered',
             experienced: 'http://adlnet.gov/expapi/verbs/experienced'
         },
-    xApiActivityTypes: {
+        xApiActivityTypes: {
             course: 'http://adlnet.gov/expapi/activities/course',
             objective: 'http://adlnet.gov/expapi/activities/objective'
-    },
-    filterKeys: {
+        },
+        filterKeys: {
             courseId: 'context.extensions.http://easygenerator/expapi/course/id',
             learningPathId: 'context.extensions.http://easygenerator/expapi/learningpath/id',
             verb: 'verb',
@@ -445,51 +437,51 @@ reporting: {
             attemptId: 'registration',
             parentId: 'parent',
             embeded: 'embeded'
-    }
-},
-
-frameSize: {
+        }
+    },
+    frameSize: {
         width: {
             name: 'frameWidth',
             value: 930
         },
-    height: {
+        height: {
             name: 'frameHeight',
             value: 700
-    }
-},
-
-embedCode: '<iframe width="{W}" height="{H}" src="{src}" frameborder="0" allowfullscreen></iframe>',
-
+        }
+    },
+    //Ok
+    embedCode: '<iframe width="{W}" height="{H}" src="{src}" frameborder="0" allowfullscreen></iframe>',
     copyToClipboardWait: 5000,
-
-results: {
-    pageSize: 10
-},
-
-player: {
-        host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
-},
-
-storage: {
-        host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+    results: {
+        pageSize: 10
+    },
+    player: {
+        host: window.playerUrl ? `//${window.playerUrl}`: '//localhost:555',
+        sourcesPath: '/sources'
+    },
+    templates: {
+        newEditorDefaultText: '<h1>Heading 1 text goes here</h1><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>'
+    },
+    storage: {
+        host: window.storageServiceUrl ? `//${window.storageServiceUrl}`: '//localhost:888',
         mediaUrl: '/media',
         userUrl: '/user',
         changesInQuota: 'storage:changesInQuota',
         video: {
-        vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
-        vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
-        ticketUrl: '/api/media/video/upload',
-        finishUrl: '/api/media/video/upload/finish',
-        progressUrl: '/api/media/video/upload/progress',
-        defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
-        cancelUrl: '/api/media/video/upload/cancel',
-        deleteUrl: '/api/media/video/delete',
-        statuses: {
+            vimeoUrl: 'https://vimeo.com',
+            vimeoOembedUrl: '/api/oembed.json',
+            vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
+            ticketUrl: '/api/media/video/upload',
+            finishUrl: '/api/media/video/upload/finish',
+            progressUrl: '/api/media/video/upload/progress',
+            defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
+            cancelUrl: '/api/media/video/upload/cancel',
+            deleteUrl: '/api/media/video/delete',
+            statuses: {
                 loaded: 'loaded',
                 failed: 'failed',
                 inProgress: 'inProgress'
-        },
+            },
             vimeoVerifyStatus: 308,
             changesInUpload: 'video:changesInUpload',
             trackChangesInUploadTimeout: 500,
@@ -498,186 +490,200 @@ storage: {
             updateUploadTimeout: 60000,
             removeVideoAfterErrorTimeout: 5000
         },
-    audio: {
-            convertionUrl: window.convertionServiceUrl ? "//" + window.convertionServiceUrl : '//staging.easygenerator.com/convertion',
+        audio: {
+            convertionUrl: window.convertionServiceUrl ? `//${window.convertionServiceUrl}`: '//staging.easygenerator.com/convertion',
             pullUrl: '/api/media/audio/pull',
             ticketUrl: '/api/media/audio/ticket',
             deleteUrl: '/api/media/audio/delete',
             trackerTimeout: 25000,
             statuses: {
-            available: 'available',
-            notAvailable: 'notAvailable',
-            notStarted: 'notStarted',
-            loaded: 'loaded',
-            failed: 'failed',
-            inProgress: 'inProgress'
+                available: 'available',
+                notAvailable: 'notAvailable',
+                notStarted: 'notStarted',
+                loaded: 'loaded',
+                failed: 'failed',
+                inProgress: 'inProgress'
             },
-        changesInUpload: 'video:changesInUpload',
-        iframeWidth: 600,
-        iframeHeight: 180,
-        embedIframeWidth: 300,
-        embedIframeHeight: 46
-    }
-},
-
-dialogs: {
+            changesInUpload: 'video:changesInUpload',
+            iframeWidth: 600,
+            iframeHeight: 180,
+            embedIframeWidth: 300,
+            embedIframeHeight: 46
+        }
+    },
+    dialogs: {
         stepSubmitted: 'dialog:step-submitted',
         dialogClosed: 'dialog:dialogClosed',
         deleteItem: {
-        settings: {
-                    containerCss: 'delete-item'
-        }
+            settings: {
+                containerCss: 'delete-item'
+            }
         },
-    deleteSection: {
+        deleteSection: {
             settings: {
                 containerCss: 'delete-section'
             }
-    },
-    deleteCourse: {
+        },
+        deleteCourse: {
             settings: {
                 containerCss: 'delete-course'
             }
-    },
-    createCourse: {
+        },
+        createCourse: {
             settings: {
                 containerCss: 'create-course'
             }
-    },
-    changeCourseTemplate: {
+        },
+        changeCourseTemplate: {
             settings: {
                 containerCss: 'change-course-template'
             }
-    },
-    releaseNote: {
+        },
+        releaseNote: {
             settings: {
                 containerCss: 'release-note'
             }
-    },
-    moveCopyQuestion: {
+        },
+        moveCopyQuestion: {
             settings: {
                 containerCss: 'move-copy-question'
             }
-    },
-    chooseVoiceOver: {
+        },
+        chooseVoiceOver: {
             settings: {
                 containerCss: 'choose-voice-over'
             }
-    },
-    branchtrack: {
+        },
+        branchtrack: {
             settings: {
                 containerCss: 'branchtrack-dialog'
             }
-    },
-    editorFeedback: {
+        },
+        survey: {
+            settings: {
+                containerCss: 'survey'
+            }
+        },
+        editorFeedback: {
             settings: {
                 containerCss: 'editor-feedback',
                 boundless: true
             }
-    },
-    upgrade: {
+        },
+        watchTutorial: {
+            settings: {
+                containerCss: 'watch-tutorial'
+            }
+        },
+        addCourseByExamples: {
+            settings: {
+                containerCss: 'add-course-by-examples'
+            }
+        },
+        upgrade: {
             settings: {
                 default: {
-            titleKey: 'upgradeDialogBoldTitle',
-            subtitleKey: '',
-            descriptionKey: '',
-            upgradeBtnTextKey: 'upgradeDialogUpgradeNow',
-            skipBtnTextKey: 'upgradeDialogMaybeLater',
-            containerCss: 'upgrade-dialog-empty',
-            eventCategory: ''
-    },
-
-    downloadResults: {
-            containerCss: 'upgrade-dialog-download-results',
-            eventCategory: 'Download results CSV',
-            subtitleKey: 'resultsUpgradeForDownloadCSVDialogTitle2',
-            descriptionKey: 'resultsUpgradeForDownloadCSVDialogHtml'
-    },
-
-    loadMoreResults: {
-            containerCss: 'upgrade-dialog-all-results',
-            eventCategory: 'Load more results',
-            subtitleKey: 'resultsUpgradeDialogTitle2',
-            descriptionKey: 'resultsUpgradeDialogText'
-    },
-
-    extendedResults: {
-            containerCss: 'upgrade-dialog-extended-results',
-            eventCategory: 'Load extended results',
-            subtitleKey: 'resultsUpgradeForExtendedResultsTitle2',
-            descriptionKey: 'resultsUpgradeForExtendedResultsHtml'
-    },
-
-    videoUpload: {
-            containerCss: 'upgrade-dialog-video-upload',
-            eventCategory: 'Video library',
-            subtitleKey: 'videoUpgradeToUpload',
-            descriptionKey: 'videoUpgradeToUploadHtml'
-    },
-
-    duplicateCourse: {
-            containerCss: 'upgrade-dialog-duplicate-course',
-            eventCategory: 'Duplicate course',
-            subtitleKey: 'coursesUpgradeToHaveMore',
-            descriptionKey: 'coursesUpgradeToHaveMoreHtml'
-    },
-
-    audioUpload: {
-            containerCss: 'upgrade-dialog-audio-upload',
-            eventCategory: 'Audio library',
-            subtitleKey: 'audioUploadUpgradeSubtitle',
-            descriptionKey: 'audioUploadUpgradeText'
-    },
-
-    manageOrganization: {
-            containerCss: 'upgrade-dialog-manage-organization',
-            eventCategory: 'Manage organization',
-            subtitleKey: 'manageOrganizationUpgradeSubtitle',
-            descriptionKey: 'manageOrganizationUpgradeText'
-    },
-    publishToCoggno: {
-        containerCss: 'upgrade-dialog-publish-coggno',
-        eventCategory: 'Publish to Coggno',
-        subtitleKey: 'publishToCoggnoUpgradeSubtitle',
-        descriptionKey: 'publishToCoggnoUpgradeText'
-    },
-    saveThemes: {
-            containerCss: 'upgrade-dialog-save-themes',
-            eventCategory: 'Save themes',
-            subtitleKey: 'saveThemesUpgradeSubtitle',
-            descriptionKey: 'saveThemesUpgradeText'
-    }
-    }
-}
-},
-
-newCourseEditor: {
-        switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
-        switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
-},
-
-winToWeb: {
-        host: window.winToWebConvertionServiceUrl ? "//" + window.winToWebConvertionServiceUrl : '//localhost:444'
-},
-
-coggno: {
-    serviceUrl: window.coggnoServiceUrl || 'https://coggno.com/',
-    serviceProviderUrl: window.coggnoServiceProviderUrl || 'https://coggno.com/easygenerator/sp/saml_login'
-},
-
-comment: {
-        context: {
-            types: {
-                    course: 'course',
-                    section: 'section',
-                    question: 'question',
-                    informationContent: 'informationContent'
-            },
-            properties: {
-                    title: 'title',
-                    introduction: 'introduction',
-                    voiceOver: 'voiceOver',
-                    learningContent: 'learningContent'
+                    titleKey: 'upgradeDialogBoldTitle',
+                    subtitleKey: '',
+                    descriptionKey: '',
+                    upgradeBtnTextKey: 'upgradeDialogUpgradeNow',
+                    skipBtnTextKey: 'upgradeDialogMaybeLater',
+                    containerCss: 'upgrade-dialog-empty',
+                    eventCategory: ''
+                },
+                downloadResults: {
+                    containerCss: 'upgrade-dialog-download-results',
+                    eventCategory: 'Download results CSV',
+                    subtitleKey: 'resultsUpgradeForDownloadCSVDialogTitle2',
+                    descriptionKey: 'resultsUpgradeForDownloadCSVDialogHtml'
+                },
+                loadMoreResults: {
+                    containerCss: 'upgrade-dialog-all-results',
+                    eventCategory: 'Load more results',
+                    subtitleKey: 'resultsUpgradeDialogTitle2',
+                    descriptionKey: 'resultsUpgradeDialogText'
+                },
+                extendedResults: {
+                    containerCss: 'upgrade-dialog-extended-results',
+                    eventCategory: 'Load extended results',
+                    subtitleKey: 'resultsUpgradeForExtendedResultsTitle2',
+                    descriptionKey: 'resultsUpgradeForExtendedResultsHtml'
+                },
+                videoUpload: {
+                    containerCss: 'upgrade-dialog-video-upload',
+                    eventCategory: 'Video library',
+                    subtitleKey: 'videoUpgradeToUpload',
+                    descriptionKey: 'videoUpgradeToUploadHtml'
+                },
+                duplicateCourse: {
+                    containerCss: 'upgrade-dialog-duplicate-course',
+                    eventCategory: 'Duplicate course',
+                    subtitleKey: 'coursesUpgradeToHaveMore',
+                    descriptionKey: 'coursesUpgradeToHaveMoreHtml'
+                },
+                audioUpload: {
+                    containerCss: 'upgrade-dialog-audio-upload',
+                    eventCategory: 'Audio library',
+                    subtitleKey: 'audioUploadUpgradeSubtitle',
+                    descriptionKey: 'audioUploadUpgradeText'
+                },
+                manageOrganization: {
+                    containerCss: 'upgrade-dialog-manage-organization',
+                    eventCategory: 'Manage organization',
+                    subtitleKey: 'manageOrganizationUpgradeSubtitle',
+                    descriptionKey: 'manageOrganizationUpgradeText'
+                },
+                publishToCoggno: {
+                    containerCss: 'upgrade-dialog-publish-coggno',
+                    eventCategory: 'Publish to Coggno',
+                    subtitleKey: 'publishToCoggnoUpgradeSubtitle',
+                    descriptionKey: 'publishToCoggnoUpgradeText'
+                },
+                saveThemes: {
+                    containerCss: 'upgrade-dialog-save-themes',
+                    eventCategory: 'Save themes',
+                    subtitleKey: 'saveThemesUpgradeSubtitle',
+                    descriptionKey: 'saveThemesUpgradeText'
+                }
+            }
+        },
+        imageLibraryDialog: {
+            settings: {
+                containerCss: 'image-library-dialog'
             }
         }
-}
+    },
+    newCourseEditor: {
+        switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
+        switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
+    },
+    winToWeb: {
+        host: window.winToWebConvertionServiceUrl ? `//${window.winToWebConvertionServiceUrl}`: '//localhost:444'
+    },
+    coggno: {
+        serviceUrl: window.coggnoServiceUrl || 'https://coggno.com/',
+        serviceProviderUrl: window.coggnoServiceProviderUrl || 'https://coggno.com/easygenerator/sp/saml_login'
+    },
+    surveyPopup: {
+        originUrl: window.surveyPopupOriginUrl,
+        pageUrl: window.surveyPopupPageUrl
+    },
+    comment: {
+        context: {
+            types: {
+                course: 'course',
+                section: 'section',
+                question: 'question',
+                informationContent: 'informationContent'
+            },
+            properties: {
+                title: 'title',
+                introduction: 'introduction',
+                voiceOver: 'voiceOver',
+                learningContent: 'learningContent'
+            }
+        }
+    }
 };
+
+export default constants;

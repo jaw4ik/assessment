@@ -72,6 +72,8 @@ namespace easygenerator.Web.Configuration
             );
 
             var stylesBundle = new StyleBundle("~/Content/css")
+                .Include("~/Content/froala/easygenerator-theme.css")
+                .Include("~/Content/froala/froala.css")
                 .Include("~/Content/durandal.css")
                 .Include("~/Content/common.css")
                 .Include("~/Content/styles.css")
@@ -111,7 +113,8 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/rankingText.css")
                 .Include("~/Content/slider.css")
                 .Include("~/Content/configure.css")
-                .Include("~/Content/organization.css");
+                .Include("~/Content/organization.css")
+                .Include("~/Content/contentEditor.css");
 
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);

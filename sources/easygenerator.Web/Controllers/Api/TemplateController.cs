@@ -1,15 +1,15 @@
 ﻿using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Mappers;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Storage;
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -58,6 +58,25 @@ namespace easygenerator.Web.Controllers.Api
 
             var filePath = _templateStorage.GetAbsoluteFilePath(template, resourcePath);
             return File(filePath, MimeMapping.GetMimeMapping(filePath));
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/templates/custom/info")]
+        public ActionResult GetCustomTemplatesInfo()
+        {
+            var result = _templateRepository.GetCollection()
+                .Where(template => template.IsCustom && _templateStorage.TemplateDirectoryExist(template))
+                .Select(template => new
+                {
+                    template.Name,
+                    Id = template.Id.ToNString()
+                })
+                .Where(template => template != null);
+
+            return JsonDataResult(result);
         }
     }
 }

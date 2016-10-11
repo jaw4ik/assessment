@@ -72,6 +72,9 @@
     <Compile Include="Entities\DocumentTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
     <Compile Include="Entities\LearningPathTests.cs" />
+    <Compile Include="Entities\Organizations\OrganizationSettingsTests.cs" />
+    <Compile Include="Entities\Questions\SurveyQuestionTest.cs" />
+    <Compile Include="ObjectMothers\Organizations\OrganizationSettingsObjectMother.cs" />
     <Compile Include="Entities\SamlIdPUserInfoTests.cs" />
     <Compile Include="Entities\LtiUserInfoTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
@@ -134,8 +137,9 @@
     <Compile Include="ObjectMothers\RankingTextObjectMother.cs" />
     <Compile Include="ObjectMothers\ScenarioObjectMother.cs" />
     <Compile Include="ObjectMothers\StatementObjectMother.cs" />
-    <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
+    <Compile Include="ObjectMothers\SectionObjectMother.cs" />
     <Compile Include="ObjectMothers\OnboardingObjectMother.cs" />
+    <Compile Include="ObjectMothers\SurveyQuestionObjectMother.cs" />
     <Compile Include="ObjectMothers\Tickets\EmailConfirmationTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\Tickets\PasswordRecoveryTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\MultipleselectObjectMother.cs" />

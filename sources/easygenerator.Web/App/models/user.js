@@ -13,6 +13,7 @@
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
         this.showReleaseNote = spec.showReleaseNote;
+        this.showSurveyPopup = spec.showSurveyPopup;
         this.newEditor = spec.newEditor;
         this.isCreatedThroughLti = spec.isCreatedThroughLti;
         this.isCreatedThroughSamlIdP = spec.isCreatedThroughSamlIdP;
@@ -99,6 +100,14 @@
         guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
         this.subscription = {
             accessType: constants.accessType.academyBT,
+            expirationDate: new Date(expirationDate)
+        };
+    };
+
+    User.prototype.upgradeToTrial = function (expirationDate) {
+        guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
+        this.subscription = {
+            accessType: constants.accessType.trial,
             expirationDate: new Date(expirationDate)
         };
     };

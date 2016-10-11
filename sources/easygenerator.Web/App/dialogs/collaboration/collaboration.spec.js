@@ -8,7 +8,6 @@ import constants from 'constants';
 import router from 'routing/router';
 import userContext from 'userContext';
 import addCollaboratorViewModel from 'dialogs/collaboration/addCollaborator';
-import StopCollaborationViewModel from 'dialogs/collaboration/stopCollaboration';
 import courseRepository from 'repositories/courseRepository';
 
 describe('dialog [collaboration]', () => {

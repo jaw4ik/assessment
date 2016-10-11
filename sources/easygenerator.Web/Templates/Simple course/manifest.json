@@ -43,7 +43,7 @@
           "colors": [
             {
               "key": "@text-color",
-              "value": "#252728"
+              "value": "#42515f"
             },
             {
               "key": "@main-color",
@@ -60,6 +60,14 @@
             {
               "key": "@content-body-color",
               "value": "#fff"
+            },
+            {
+              "key": "@correct-color",
+              "value": "#4caf50"
+            },
+            {
+              "key": "@incorrect-color",
+              "value": "#f16162"
             }
           ],
           "background": {
@@ -86,9 +94,9 @@
           },
           {
             "key": "Heading1",
-            "size": 26,
+            "size": 24,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -98,9 +106,9 @@
           },
           {
             "key": "Heading2",
-            "size": 24,
+            "size": 22,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -112,7 +120,7 @@
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -124,7 +132,7 @@
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -136,7 +144,7 @@
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "italic",
@@ -148,11 +156,11 @@
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#fff",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
-            "textBackgroundColor": "#2d9ec6",
+            "textBackgroundColor": "#43aaa3",
             "isGeneralSelected": true,
             "isGeneralColorSelected": true
           },
@@ -160,7 +168,7 @@
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#2d9ec6",
+            "color": "#43aaa3",
             "fontWeight": "normal",
             "textDecoration": "underline",
             "fontStyle": "normal",
@@ -198,6 +206,14 @@
             {
               "key": "@content-body-color",
               "value": "#232323"
+            },
+            {
+              "key": "@correct-color",
+              "value": "#4caf50"
+            },
+            {
+              "key": "@incorrect-color",
+              "value": "#f16162"
             }
           ],
           "background": {
@@ -224,7 +240,7 @@
           },
           {
             "key": "Heading1",
-            "size": 26,
+            "size": 24,
             "fontFamily": "Roboto Slab",
             "color": "#d7d7d7",
             "fontWeight": "700",
@@ -236,7 +252,7 @@
           },
           {
             "key": "Heading2",
-            "size": 24,
+            "size": 22,
             "fontFamily": "Roboto Slab",
             "color": "#d7d7d7",
             "fontWeight": "700",
@@ -286,11 +302,11 @@
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#d7d7d7",
+            "color": "#fff",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
-            "textBackgroundColor": "#33b3e2",
+            "textBackgroundColor": "#336577",
             "isGeneralSelected": true,
             "isGeneralColorSelected": true
           },
@@ -298,7 +314,7 @@
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#33b3e2",
+            "color": "#336577",
             "fontWeight": "normal",
             "textDecoration": "underline",
             "fontStyle": "normal",
@@ -319,7 +335,7 @@
           "colors": [
             {
               "key": "@text-color",
-              "value": "#252728"
+              "value": "#42515f"
             },
             {
               "key": "@main-color",
@@ -336,6 +352,14 @@
             {
               "key": "@content-body-color",
               "value": "#fff"
+            },
+            {
+              "key": "@correct-color",
+              "value": "#3fe471"
+            },
+            {
+              "key": "@incorrect-color",
+              "value": "#ff6047"
             }
           ],
           "background": {
@@ -362,9 +386,9 @@
           },
           {
             "key": "Heading1",
-            "size": 26,
+            "size": 24,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -374,9 +398,9 @@
           },
           {
             "key": "Heading2",
-            "size": 24,
+            "size": 22,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -388,7 +412,7 @@
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -400,7 +424,7 @@
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -412,7 +436,7 @@
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "italic",
@@ -424,11 +448,11 @@
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#fff",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
-            "textBackgroundColor": "#e9d20b",
+            "textBackgroundColor": "#2fa6d1",
             "isGeneralSelected": true,
             "isGeneralColorSelected": true
           },
@@ -436,7 +460,7 @@
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#e9d20b",
+            "color": "#2fa6d1",
             "fontWeight": "normal",
             "textDecoration": "underline",
             "fontStyle": "normal",
@@ -457,7 +481,7 @@
           "colors": [
             {
               "key": "@text-color",
-              "value": "#252728"
+              "value": "#42515f"
             },
             {
               "key": "@main-color",
@@ -474,6 +498,14 @@
             {
               "key": "@content-body-color",
               "value": "#fff"
+            },
+            {
+              "key": "@correct-color",
+              "value": "#349b79"
+            },
+            {
+              "key": "@incorrect-color",
+              "value": "#d64869"
             }
           ],
           "background": {
@@ -501,9 +533,9 @@
           },
           {
             "key": "Heading1",
-            "size": 26,
+            "size": 24,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -513,9 +545,9 @@
           },
           {
             "key": "Heading2",
-            "size": 24,
+            "size": 22,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -527,7 +559,7 @@
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -539,7 +571,7 @@
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -551,7 +583,7 @@
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "italic",
@@ -563,11 +595,11 @@
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#fff",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
-            "textBackgroundColor": "#7596b7",
+            "textBackgroundColor": "#3b6998",
             "isGeneralSelected": true,
             "isGeneralColorSelected": true
           },
@@ -575,7 +607,7 @@
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#7596b7",
+            "color": "#3b6998",
             "fontWeight": "normal",
             "textDecoration": "underline",
             "fontStyle": "normal",
@@ -596,7 +628,7 @@
           "colors": [
             {
               "key": "@text-color",
-              "value": "#252728"
+              "value": "#42515f"
             },
             {
               "key": "@main-color",
@@ -613,6 +645,14 @@
             {
               "key": "@content-body-color",
               "value": "#fff"
+            },
+            {
+              "key": "@correct-color",
+              "value": "#4caf50"
+            },
+            {
+              "key": "@incorrect-color",
+              "value": "#f16162"
             }
           ],
           "background": {
@@ -639,9 +679,9 @@
           },
           {
             "key": "Heading1",
-            "size": 26,
+            "size": 24,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -651,9 +691,9 @@
           },
           {
             "key": "Heading2",
-            "size": 24,
+            "size": 22,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -665,7 +705,7 @@
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "700",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -677,7 +717,7 @@
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
@@ -689,7 +729,7 @@
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#42515f",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "italic",
@@ -701,11 +741,11 @@
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#252728",
+            "color": "#fff",
             "fontWeight": "normal",
             "textDecoration": "none",
             "fontStyle": "normal",
-            "textBackgroundColor": "#aed580",
+            "textBackgroundColor": "#46a24a",
             "isGeneralSelected": true,
             "isGeneralColorSelected": true
           },
@@ -713,7 +753,7 @@
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
-            "color": "#aed580",
+            "color": "#46a24a",
             "fontWeight": "normal",
             "textDecoration": "underline",
             "fontStyle": "normal",

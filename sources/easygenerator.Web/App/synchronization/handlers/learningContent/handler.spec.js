@@ -8,9 +8,9 @@ describe('synchronization learningContent [handler]', function () {
         });
     });
 
-    describe('textUpdated:', function () {
+    describe('updated:', function () {
         it('should be function', function () {
-            expect(handler.textUpdated).toBeFunction();
+            expect(handler.updated).toBeFunction();
         });
     });
 

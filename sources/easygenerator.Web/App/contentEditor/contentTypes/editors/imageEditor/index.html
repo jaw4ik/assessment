@@ -1,0 +1,65 @@
+﻿<div class="question-learning-content image-editor" data-bind="resizable: { init: twoImagesMode, enabled: isResizeMode, handler: sizeChanged }">
+    <div class="image-editor-container" data-bind="css: { resizable: isResizeMode, inactive: !isReadyForEdit(), edit: isEditMode, 'link-editing': linkTooltipShowed }">
+
+        <!-- ko if: isEditMode -->
+        <div class="image-editor-edit-container" data-bind="outsideClick: { action: stopEditMode, debounce: true }, floatingToolbar: { parent: 'image-editor-container', scrollContainer: 'question-view-holder-wrapper', parentSizeChanged: isSizeChanged }">
+            <div class="image-editor-edit-actions" data-bind="css: { shown: !isResizeMode() }">
+                <!-- ko ifnot: twoImagesMode -->
+                <button class="image-editor-edit-action-btn left" data-bind="click: toLeft, css: { active: contentType() === constants.contentsTypes.imageInTheLeft }, tip: { key: 'imageInTheLeft' }"></button>
+                <button class="image-editor-edit-action-btn right" data-bind="click: toRight, css: { active: contentType() === constants.contentsTypes.imageInTheRight }, tip: { key: 'imageInTheRight' }"></button>
+                <button class="image-editor-edit-action-btn center" data-bind="click: toCenter, css: { active: contentType() === constants.contentsTypes.imageEditorOneColumn }, tip: { key: 'imageInTheCenter' }"></button>
+                <!-- /ko -->
+                <!-- ko if: twoImagesMode -->
+                <button class="image-editor-edit-action-btn swap" data-bind="click: swap, tip: { key: 'swapImages' }"></button>
+                <!-- /ko -->
+                <button class="image-editor-edit-action-btn cropper" data-bind="click: startResizing, tip: { key: 'resizeCropImage' }"></button>
+            </div>
+            <div class="image-editor-edit-resize" data-bind="css: { shown: isResizeMode }">
+                <p data-bind="localize: { text: 'zoom' }"></p>
+                <div class="slider-control-wrapper">
+                    <div data-bind="sliderControl: { value: scale, min: 0.5, max: 2, step: 0.1, events: { change: scaleChanged, slide: scaleChanged } }"></div>
+                </div>
+                <button class="image-editor-edit-resize-scale-to-default-btn" data-bind="click: resetImage, tip: { key: 'fillTheArea' }"></button>
+                <button class="btn green" data-bind="localize: { text: 'ok' }, click: stopResizing"></button>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko ifnot: isEditMode -->
+        <section class="image-editor-edit-panel" data-bind="slideEditImageButtons: {}, toggleElementSize: { isResizeMode: isResizeMode, smallHandler: canShowActionButtonTooltip, smallHeightHandler: canShowChangeImageButtonTooltip }, event: { dblclick: startResizing }, keyDown: { handlers: { 27: stopResizeAndEdit }, bubbling: true }">
+            <div class="edit-image-container column edit-image" data-step="1">
+                <div class="image-editor-btn change" data-next-button="" data-bind="click: callbacks.startEditing, tip: { key: 'changeImage', isShown: canShowActionButtonTooltip }">
+                    <span class="btn-text" data-bind="localize: { text: 'changeImage' }"></span>
+                </div>
+                <div class="image-editor-btn edit" data-bind="click: startEditMode, tip: { key: 'editImage', isShown: canShowActionButtonTooltip }">
+                    <span class="btn-text" data-bind="localize: { text: 'editImage' }"></span>
+                </div>
+            </div>
+            <div class="edit-image-container row change-image" data-step="2">
+                <div class="edit-image-wrapper">
+                    <div class="image-editor-btn arrow small" data-prev-button="" data-bind="tip: { key: 'back' }"></div>
+                </div>
+                <div class="edit-image-wrapper">
+                    <div class="image-editor-btn upload" data-bind="click: upload, tip: { key: 'uploadFromPC', isShown: canShowChangeImageButtonTooltip }">
+                        <span class="btn-text" data-bind="localize: { text: 'uploadFromPC' }"></span>
+                    </div>
+                    <div class="image-editor-btn library" data-bind="click: getFromLibrary, tip: { key: 'chooseFromLibrary', isShown: canShowChangeImageButtonTooltip }">
+                        <span class="btn-text" data-bind="localize: { text: 'chooseFromLibrary' }"></span>
+                    </div>
+                    <div class="image-editor-btn link" data-bind="click: showLinkTooltip, css: { active: linkTooltipShowed, 'tooltip-disable': linkTooltipShowed }, outsideClick: { action: hideLinkTooltip }, tip: { key: 'addFromLink', isShown: canShowChangeImageButtonTooltip }">
+                        <span class="btn-text" data-bind="localize: { text: 'addFromLink' }"></span>
+                        <div class="image-editor-link-container" data-bind="css: { showed: linkTooltipShowed }, stopPropagation: {}">
+                            <input type="text" class="image-editor-link-input" data-bind="localize: { placeholder: 'pasteOrTypeImageLink' }, textInput: imageUrlFromLink"/>
+                            <button class="btn green" data-bind="localize: { text: 'ok' }, click: getFromLink"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /ko -->
+
+        <div class="image-editor-wrapper" data-bind="resizable: { init: !twoImagesMode(), enabled: isResizeMode, handler: sizeChanged }">
+            <!-- ko compose: imageCropper --><!-- /ko -->
+        </div>
+    </div>
+</div>

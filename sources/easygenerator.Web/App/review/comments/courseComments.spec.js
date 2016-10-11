@@ -46,14 +46,16 @@ describe('review [course comments]', () => {
 
     describe('initialize:', () => {
 
-        it('should set isLoading flag to true', () => {
-            spyOn(userContext, 'identify').and.returnValue(Promise.resolve());
+        it('should set isLoading flag to true', done => (async () => {
+            var commentsPromise = Promise.resolve({});
+            spyOn(getCourseCommentsCommand, 'execute').and.returnValue(commentsPromise);
             spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+            spyOn(viewModel, 'isLoading');
             viewModel.isLoading(false);
 
-            viewModel.initialize('123');
-            expect(viewModel.isLoading()).toBeTruthy();
-        });
+            await viewModel.initialize('123');
+            expect(viewModel.isLoading).toHaveBeenCalledWith(true);
+        })().then(done));
 
         describe('when courseId is not a string', () => {
             it('should reject promise', done => {
@@ -65,153 +67,116 @@ describe('review [course comments]', () => {
         });
 
         describe('when courseId is a string', () => {
-            let courseId = '123';
+            let courseId = '123', getCommentsDefer;
+
+            beforeEach(() => {
+                getCommentsDefer = Q.defer();
+                spyOn(getCourseCommentsCommand, 'execute').and.returnValue(getCommentsDefer.promise);
+            });
 
             it('should subscribe on comment deleted event', done => (async () => {
-                spyOn(userContext, 'identify').and.returnValue(Promise.resolve());
-                spyOn(getCourseCommentsCommand, 'execute').and.returnValue(Promise.resolve());
                 await viewModel.initialize(courseId);
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.comment.deletedByCollaborator + courseId, viewModel._commentDeletedProxy);
             })().then(done));
 
             it('should subscribe on comment created event', done => (async () => {
-                spyOn(userContext, 'identify').and.returnValue(Promise.resolve());
-                spyOn(getCourseCommentsCommand, 'execute').and.returnValue(Promise.resolve());
                 await viewModel.initialize(courseId);
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.comment.createdByCollaborator + courseId, viewModel._commentCreatedProxy);
             })().then(done));
 
-            it('should update user identity', () => {
-                spyOn(userContext, 'identify');
-                viewModel.initialize('123');
-                expect(userContext.identify).toHaveBeenCalled();
+            it('should update hasAccessToComments', done => {
+                spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+                viewModel.hasAccessToComments(true);
+
+                viewModel.initialize('123').then(() => {
+                    expect(viewModel.hasAccessToComments()).toBeFalsy();
+                    done();    
+                });
             });
 
-            describe('and user identity updated', () => {
-
-                let getCommentsDefer;
-
+            describe('and user has no starter access', () => {
                 beforeEach(() => {
-                    spyOn(userContext, 'identify').and.returnValue(Promise.resolve());
-                    getCommentsDefer = Q.defer();
-                    spyOn(getCourseCommentsCommand, 'execute').and.returnValue(getCommentsDefer.promise);
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                 });
 
-                it('should update hasAccessToComments', done => {
-                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-                    viewModel.hasAccessToComments(true);
-
+                it('should not receive comments from repository', done => {
                     viewModel.initialize('123').then(() => {
-                        expect(viewModel.hasAccessToComments()).toBeFalsy();
+                        expect(getCourseCommentsCommand.execute).not.toHaveBeenCalled();
                         done();    
                     });
                 });
+            });
 
-                describe('and user has no starter access', () => {
+            describe('and user has starter access', () => {
+                let comment = {
+                    id: 'id',
+                    text: 'text',
+                    name: 'name',
+                    email: 'email',
+                    createdOn: new Date(2016, 12, 21)
+                },
+                    oldComment = {
+                        id: 'id2',
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: new Date(2015, 12, 21)
+                    };
+
+                beforeEach(() => {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                });
+
+                it('should receive comments', done => {
+                    getCommentsDefer.resolve([]);
+                    viewModel.initialize('123').then(() => {
+                        expect(getCourseCommentsCommand.execute).toHaveBeenCalledWith('123');
+                        done();
+                    });
+                });
+
+                describe('and comments received', () => {
                     beforeEach(() => {
-                        spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+                        getCommentsDefer.resolve([oldComment, comment]);
                     });
 
-                    it('should not receive comments from repository', done => {
+                    it('should update comments in viewModel', done => {
+                        viewModel.comments([]);
                         viewModel.initialize('123').then(() => {
-                            expect(getCourseCommentsCommand.execute).not.toHaveBeenCalled();
+                            expect(viewModel.comments().length).toBe(2);
+                            done();    
+                        });
+                    });
+
+                    it('should order comments', done => {
+                        viewModel.comments([]);
+                        viewModel.initialize('123').then(() => {
+                            expect(viewModel.comments()[0].id).toBe(comment.id);
+                            expect(viewModel.comments()[1].id).toBe(oldComment.id);
+                            done();    
+                        });
+                    });
+
+                    it('should set isLoading to false', done => {
+                        viewModel.isLoading(true);
+                        viewModel.initialize('123').then(() => {
+                            expect(viewModel.isLoading()).toBeFalsy();
                             done();    
                         });
                     });
                 });
 
-                describe('and user has starter access', () => {
-                    let comment = {
-                        id: 'id',
-                        text: 'text',
-                        name: 'name',
-                        email: 'email',
-                        createdOn: new Date(2016, 12, 21)
-                    },
-                        oldComment = {
-                            id: 'id2',
-                            text: 'text',
-                            name: 'name',
-                            email: 'email',
-                            createdOn: new Date(2015, 12, 21)
-                        };
-
+                describe('and comments not received', () => {
                     beforeEach(() => {
-                        spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                        getCommentsDefer.reject();
                     });
 
-                    it('should receive comments', done => {
-                        getCommentsDefer.resolve([]);
+                    it('should set isLoading to false', done => {
+                        viewModel.isLoading(true);
                         viewModel.initialize('123').then(() => {
-                            expect(getCourseCommentsCommand.execute).toHaveBeenCalledWith('123');
+                            expect(viewModel.isLoading()).toBeFalsy();
                             done();
                         });
-                    });
-
-                    describe('and comments received', () => {
-                        beforeEach(() => {
-                            getCommentsDefer.resolve([oldComment, comment]);
-                        });
-
-                        it('should update comments in viewModel', done => {
-                            viewModel.comments([]);
-                            viewModel.initialize('123').then(() => {
-                                expect(viewModel.comments().length).toBe(2);
-                                done();    
-                            });
-                        });
-
-                        it('should order comments', done => {
-                            viewModel.comments([]);
-                            viewModel.initialize('123').then(() => {
-                                expect(viewModel.comments()[0].id).toBe(comment.id);
-                                expect(viewModel.comments()[1].id).toBe(oldComment.id);
-                                done();    
-                            });
-                        });
-
-                        it('should set isLoading to false', done => {
-                            viewModel.isLoading(true);
-                            viewModel.initialize('123').then(() => {
-                                expect(viewModel.isLoading()).toBeFalsy();
-                                done();    
-                            });
-                        });
-                    });
-
-                    describe('and comments not received', () => {
-                        beforeEach(() => {
-                            getCommentsDefer.reject();
-                        });
-
-                        it('should set isLoading to false', done => {
-                            viewModel.isLoading(true);
-                            viewModel.initialize('123').then(() => {
-                                expect(viewModel.isLoading()).toBeFalsy();
-                                done();
-                            });
-                        });
-                    });
-                });
-            });
-        
-            describe('and user identity is not updated', function() {
-                beforeEach(function() {
-                    spyOn(userContext, 'identify').and.returnValue(Promise.reject("reason"));
-                });
-
-                it('should notify error', (done) => {
-                    viewModel.initialize('123').then(function() {
-                        expect(notify.error).toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-                it('should set isLoading to false', (done) => {
-                    viewModel.isLoading(true);
-                    viewModel.initialize('123').then(function() {
-                        expect(viewModel.isLoading()).toBeFalsy();
-                        done();
                     });
                 });
             });

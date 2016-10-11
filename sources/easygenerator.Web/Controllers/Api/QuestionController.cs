@@ -16,8 +16,8 @@ namespace easygenerator.Web.Controllers.Api
     [NoCache]
     public class QuestionController : DefaultApiController
     {
-        private ICloner _cloner;
-        private IEntityModelMapper<Question> _entityModelMapper;
+        private readonly ICloner _cloner;
+        private readonly IEntityModelMapper<Question> _entityModelMapper;
 
         public QuestionController(ICloner cloner, IEntityModelMapper<Question> entityModelMapper)
         {
@@ -139,21 +139,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             return JsonSuccess(new { ModifiedOn = section.ModifiedOn });
-        }
-
-        [HttpPost]
-        [EntityCollaborator(typeof(Question))]
-        [Route("api/question/updateLearningContentsOrder")]
-        public ActionResult UpdateLearningContentsOrder(Question question, ICollection<LearningContent> learningContents)
-        {
-            if (question == null)
-            {
-                return HttpNotFound(Errors.QuestionNotFoundError);
-            }
-
-            question.UpdateLearningContentsOrder(learningContents, GetCurrentUsername());
-
-            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
         [HttpPost]

@@ -1,27 +1,27 @@
-﻿import app from 'durandal/app';
+﻿import ko from 'knockout';
+import _ from 'underscore';
+import app from 'durandal/app';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import questionRepository from 'repositories/questionRepository';
-import sectionRepository from 'repositories/sectionRepository';
-import courseRepository from 'repositories/courseRepository';
-import createQuestionCommand from 'commands/createQuestionCommand';
 import createNextQuestionCommand from 'editor/questions/commands/createNextQuestion';
 import duplicateQuestionCommand from 'editor/questions/commands/duplicateQuestion';
 import router from 'routing/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
 import questionViewModelFactory from 'viewmodels/questions/questionViewModelFactory';
-import learningContentsViewModel from 'viewmodels/learningContents/learningContents';
 import feedbackViewModel from 'viewmodels/questions/feedback';
 import localizationManager from 'localization/localizationManager';
 import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
 import deleteQuestionDialog from 'editor/questions/dialogs/deleteQuestion/deleteQuestion';
 import VoiceOver from 'viewmodels/questions/voiceOver';
+import notify from 'notify';
 
 const events = {
     navigateToSection: 'Navigate to objective details',
-    duplicateItem: 'Duplicate item'
+    duplicateItem: 'Duplicate item',
+    switchToSurveyMode: 'Switch to the survey mode'
 };
 
 const eventsForQuestionContent = {
@@ -42,12 +42,14 @@ class QuestionViewModel  {
         this.questionTitle= null;
         this.voiceOver = null;
         this.questionContent = null;
+        this.surveyModeAvailable = false;
+        this.isSurvey = ko.observable(false);
+        this.surveyModeIsChanging = ko.observable(false);
 
         this.eventTracker = eventTracker;
         this.localizationManager = localizationManager;
 
         this.activeQuestionViewModel= null;
-        this.learningContentsViewModel= learningContentsViewModel;
         this.feedbackViewModel= feedbackViewModel;
 
         this.viewUrl = 'editor/questions/question';
@@ -117,7 +119,6 @@ class QuestionViewModel  {
             app.trigger(constants.messages.questionNavigation.navigateToQuestion, {questionId: response.id, sectionId: that.sectionId});
         });
     }
-
     showMoveCopyDialog() {
         moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId, this.isContent);
     }
@@ -127,7 +128,6 @@ class QuestionViewModel  {
     navigateToSectionEvent() {
         eventTracker.publish(events.navigateToSection);
     }
-
     activate(courseId, sectionId, questionId) {
         if (!courseId || !sectionId || !questionId) {
             throw 'Invalid arguments';
@@ -142,6 +142,8 @@ class QuestionViewModel  {
             this.activeQuestionViewModel = this.setActiveViewModel(question);
             this.questionType = question.type;
             this.isContent = question.type === constants.questionType.informationContent.type;
+            this.surveyModeAvailable = question.hasOwnProperty('isSurvey');
+            this.isSurvey(!!question.isSurvey);
             this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
             return this.activeQuestionViewModel.initialize(this.sectionId, question).then(viewModelData => {
@@ -153,15 +155,33 @@ class QuestionViewModel  {
                 this.hasFeedback = viewModelData.hasFeedback;
                 this.feedbackCaptions = viewModelData.feedbackCaptions;
 
-                var promises = [];
-                promises.push(this.learningContentsViewModel.initialize(question));
-                promises.push(this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions }));
-
-                return Promise.all(promises);
+                return this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions });
             });
         });
     }
+    async toggleIsSurvey() {
+        if (this.surveyModeIsChanging()) {
+            return;
+        }
 
+        await this._changeIsSurvey();
+    }
+    async _changeIsSurvey() {
+        this.isSurvey(!this.isSurvey());
+
+        this.isSurvey() && this.eventTracker.publish(`${events.switchToSurveyMode} (${this.questionType})`);
+
+        this.surveyModeIsChanging(true);
+        try {
+            await questionRepository.updateIsSurvey(this.questionId, this.isSurvey());
+            _.delay(() => {
+                this.surveyModeIsChanging(false);
+                notify.saved();
+            }, 1000);
+        } catch (e) {
+            this.surveyModeIsChanging(false);
+        }
+    }
     setActiveViewModel(question) {
         var activeViewModel = questionViewModelFactory[question.type];
         if (!activeViewModel) {

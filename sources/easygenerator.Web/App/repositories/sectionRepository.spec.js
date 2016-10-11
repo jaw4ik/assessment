@@ -416,27 +416,10 @@ describe('repository [sectionRepository]', function () {
 
             });
 
-            describe('and response has no modification date', function () {
-
-                it('should reject promise', function (done) {
-                    var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
-                    var promise = repository.updateTitle(obj.id, obj.title);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
-
             describe('and section not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
-                        modifiedOn = new Date();
+                    var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
 
                     dataContext.sections = [];
 
@@ -447,7 +430,7 @@ describe('repository [sectionRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    post.resolve({});
                 });
 
             });
@@ -456,7 +439,7 @@ describe('repository [sectionRepository]', function () {
                 var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
                     modifiedOn = new Date();
 
-                dataContext.sections = [{ id: obj.id, title: '', modifiedOn: '' }];
+                dataContext.sections = [{ id: obj.id, title: '', modifiedOn: modifiedOn }];
 
                 var promise = repository.updateTitle(obj.id, obj.title);
 
@@ -466,12 +449,11 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
             it('should send section:titleUpdated event', function (done) {
-                var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
-                    modifiedOn = new Date();
+                var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
 
                 dataContext.sections = [{ id: obj.id, title: '', modifiedOn: '' }];
 
@@ -482,23 +464,7 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
-            });
-
-            it('should resolve promise with modification date', function (done) {
-                var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
-                    modifiedOn = new Date();
-
-                dataContext.sections = [{ id: obj.id, title: '', modifiedOn: '' }];
-
-                var promise = repository.updateTitle(obj.id, obj.title);
-
-                promise.fin(function () {
-                    expect(promise).toBeResolvedWith(modifiedOn);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
         });
@@ -598,27 +564,10 @@ describe('repository [sectionRepository]', function () {
 
             });
 
-            describe('and response has no modification date', function () {
-
-                it('should reject promise', function (done) {
-                    var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' };
-                    var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
-
             describe('and section not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
-                        modifiedOn = new Date();
+                    var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' };
 
                     dataContext.sections = [];
 
@@ -629,7 +578,7 @@ describe('repository [sectionRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    post.resolve({});
                 });
 
             });
@@ -638,7 +587,7 @@ describe('repository [sectionRepository]', function () {
                 var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
                     modifiedOn = new Date();
 
-                dataContext.sections = [{ id: obj.id, learningObjective: '', modifiedOn: '' }];
+                dataContext.sections = [{ id: obj.id, learningObjective: '', modifiedOn: modifiedOn }];
 
                 var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
 
@@ -648,12 +597,11 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
             it('should send section:titleUpdated event', function (done) {
-                var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
-                    modifiedOn = new Date();
+                var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' };
 
                 dataContext.sections = [{ id: obj.id, learningObjective: '', modifiedOn: '' }];
 
@@ -664,23 +612,7 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
-            });
-
-            it('should resolve promise with modification date', function (done) {
-                var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
-                    modifiedOn = new Date();
-
-                dataContext.sections = [{ id: obj.id, learningObjective: '', modifiedOn: '' }];
-
-                var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
-
-                promise.fin(function () {
-                    expect(promise).toBeResolvedWith(modifiedOn);
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
         });
@@ -779,27 +711,10 @@ describe('repository [sectionRepository]', function () {
 
             });
 
-            describe('and response has no modification date', function () {
-
-                it('should reject promise', function (done) {
-                    var obj = { id: 'section_id', imageUrl: 'image/url' };
-                    var promise = repository.updateImage(obj.id, obj.imageUrl);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
-
             describe('and section not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
-                    var obj = { id: 'section_id', imageUrl: 'image/url' },
-                        modifiedOn = new Date();
+                    var obj = { id: 'section_id', imageUrl: 'image/url' };
 
                     dataContext.sections = [];
 
@@ -810,7 +725,7 @@ describe('repository [sectionRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    post.resolve({});
                 });
 
             });
@@ -819,7 +734,7 @@ describe('repository [sectionRepository]', function () {
                 var obj = { id: 'section_id', imageUrl: 'image/url' },
                     modifiedOn = new Date();
 
-                dataContext.sections = [{ id: obj.id, imageUrl: '', modifiedOn: '' }];
+                dataContext.sections = [{ id: obj.id, imageUrl: '', modifiedOn: modifiedOn }];
 
                 var promise = repository.updateImage(obj.id, obj.imageUrl);
 
@@ -829,12 +744,11 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
             it('should send section:imageUrlUpdated event', function (done) {
-                var obj = { id: 'section_id', imageUrl: 'image/url' },
-                    modifiedOn = new Date();
+                var obj = { id: 'section_id', imageUrl: 'image/url' };
 
                 dataContext.sections = [{ id: obj.id, imageUrl: '', modifiedOn: '' }];
 
@@ -845,12 +759,11 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
-            it('should resolve promise with modification date and image url', function (done) {
-                var obj = { id: 'section_id', imageUrl: 'image/url' },
-                    modifiedOn = new Date();
+            it('should resolve promise with image url', function (done) {
+                var obj = { id: 'section_id', imageUrl: 'image/url' };
 
                 dataContext.sections = [{ id: obj.id, imageUrl: '', modifiedOn: '' }];
 
@@ -858,13 +771,12 @@ describe('repository [sectionRepository]', function () {
 
                 promise.fin(function () {
                     expect(promise).toBeResolvedWith({
-                        modifiedOn: modifiedOn,
                         imageUrl: obj.imageUrl + '?width=120&height=120&scaleBySmallerSide=true'
                     });
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
         });
@@ -1073,31 +985,12 @@ describe('repository [sectionRepository]', function () {
                 });
 
             });
-
-            describe('and response has no modification date', function () {
-
-                it('should reject promise', function (done) {
-                    var sectionId = 'dfhsfgsfgh',
-                        questionId = 'asdasdasd';
-
-                    var promise = repository.updateQuestionsOrder(sectionId, [{ id: questionId }]);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Response does not have modification date');
-                        done();
-                    });
-
-                    post.resolve({});
-                });
-
-            });
-
+                       
             describe('and section not found in dataContext', function () {
 
                 it('should reject promise', function (done) {
                     var sectionId = 'dfhsfgsfgh',
-                        questionId = 'asdasdasd',
-                        modifiedOn = new Date();
+                        questionId = 'asdasdasd';
 
                     dataContext.sections = [];
 
@@ -1108,7 +1001,7 @@ describe('repository [sectionRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    post.resolve({});
                 });
 
             });
@@ -1116,8 +1009,7 @@ describe('repository [sectionRepository]', function () {
             it('should update section in dataContext', function (done) {
                 var sectionId = 'dfhsfgsfgh',
                     questionId1 = 'asdasdasd',
-                    questionId2 = 'asdasdasd2',
-                    modifiedOn = new Date();
+                    questionId2 = 'asdasdasd2';
 
                 dataContext.sections = [{ id: sectionId, questions: [{ id: questionId2 }, { id: questionId1 }] }];
 
@@ -1129,14 +1021,13 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
 
             it('should trigger section:questionsReordered event', function (done) {
                 var sectionId = 'dfhsfgsfgh',
                     questionId1 = 'asdasdasd',
-                    questionId2 = 'asdasdasd2',
-                    modifiedOn = new Date();
+                    questionId2 = 'asdasdasd2';
 
                 dataContext.sections = [{ id: sectionId, questions: [{ id: questionId2 }, { id: questionId1 }] }];
 
@@ -1147,27 +1038,9 @@ describe('repository [sectionRepository]', function () {
                     done();
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                post.resolve({});
             });
-
-            it('should resolve promise with modification date', function (done) {
-                var sectionId = 'dfhsfgsfgh',
-                    questionId1 = 'asdasdasd',
-                    questionId2 = 'asdasdasd2',
-                    modifiedOn = new Date();
-
-                dataContext.sections = [{ id: sectionId, questions: [{ id: questionId2 }, { id: questionId1 }] }];
-
-                var promise = repository.updateQuestionsOrder(sectionId, [{ id: questionId1 }, { id: questionId2 }]);
-
-                promise.fin(function () {
-                    expect(promise).toBeResolvedWith({ modifiedOn: modifiedOn });
-                    done();
-                });
-
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
-            });
-
+        
         });
 
     });

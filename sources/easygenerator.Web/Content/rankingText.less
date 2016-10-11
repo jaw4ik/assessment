@@ -1,4 +1,6 @@
-﻿@active-answer-border-color: #469dd5;
+﻿@import "helpers.less";
+
+@active-answer-border-color: #469dd5;
 
 @sort-btn: url('images/sprites_24.png') -65px -148px;
 @sort-btn-dragging: url('images/sprites_24.png') -36px -148px;
@@ -28,7 +30,7 @@
         }
 
         .answer-sort-btn {
-            cursor: url('/Content/images/grabbing.cur'), move;
+            .cursor-grabbing;
 
             &:before {
                 background: @sort-btn-element-in-edit;
@@ -39,7 +41,7 @@
     .answer-sort-btn {
         flex: 0 0 25px;
         position: relative;
-        cursor: url('/Content/images/grab.cur'), move;
+        .cursor-grab;
 
         &:before {
             content: '';

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
@@ -15,10 +14,6 @@ namespace easygenerator.DomainModel
         protected static MethodInfo Guid_NewGuidMethodInfo = typeof(Guid).GetMethod("NewGuid");
         protected static FieldInfo DateTimeWrapper_NowPropertyInfo = typeof(DateTimeWrapper).GetField("Now");
 
-        protected static MethodInfo EntityTypeCloner_UpdateLearningContentsOrderInQuestion =
-           typeof(EntityCloner).GetMethod("UpdateLearningContentsOrderInQuestion",
-               BindingFlags.NonPublic | BindingFlags.Instance);
-
         protected static MethodInfo EntityTypeCloner_UpdateQuestionsOrderInSection =
             typeof(EntityCloner).GetMethod("UpdateQuestionsOrderInSection", BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -27,7 +22,7 @@ namespace easygenerator.DomainModel
 
         protected static MethodInfo EntityTypeCloner_UpdateAnswersOrderInQuestion =
             typeof(EntityCloner).GetMethod("UpdateAnswersOrderInQuestion", BindingFlags.NonPublic | BindingFlags.Instance);
-        
+
         public override T Clone<T>(T obj, params object[] args)
         {
             if (obj is Entity)
@@ -142,11 +137,6 @@ namespace easygenerator.DomainModel
                     }
                 }
 
-                if (typeof(Question).IsAssignableFrom(type))
-                {
-                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateLearningContentsOrderInQuestion, source, target));
-                }
-
                 if (typeof(RankingText).IsAssignableFrom(type))
                 {
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateAnswersOrderInQuestion, source, target));
@@ -161,7 +151,7 @@ namespace easygenerator.DomainModel
                 {
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateSectionsOrderInCourse, source, target));
                 }
-                
+
                 return list;
             }
             return null;
@@ -177,12 +167,6 @@ namespace easygenerator.DomainModel
         {
             var orderedClonedQuestions = source.OrderClonedQuestions(target.QuestionsCollection);
             target.UpdateQuestionsOrder(orderedClonedQuestions, target.CreatedBy);
-        }
-
-        protected virtual void UpdateLearningContentsOrderInQuestion(Question source, Question target)
-        {
-            var orderedClonedLearningContents = source.OrderClonedLearningContents(target.LearningContentsCollection);
-            target.UpdateLearningContentsOrder(orderedClonedLearningContents, target.CreatedBy);
         }
 
         protected virtual void UpdateAnswersOrderInQuestion(RankingText source, RankingText target)

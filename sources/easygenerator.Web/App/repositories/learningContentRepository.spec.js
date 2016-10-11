@@ -115,13 +115,14 @@ describe('repository [learningContentRepository]', function () {
                 var questionId = 'asdasd';
                 var promise = repository.getCollection(questionId);
 
-                var learningContents = [{ Id: 'asdads', Text: 'sadfsghdfgdg', CreatedOn: new Date().toISOString() }];
+                var learningContents = [{ Id: 'asdads', Text: 'sadfsghdfgdg', CreatedOn: new Date().toISOString(), Position: 1 }];
 
                 promise.fin(function () {
                     expect(promise.inspect().value.length).toEqual(1);
                     expect(promise.inspect().value[0].id).toEqual(learningContents[0].Id);
                     expect(promise.inspect().value[0].text).toEqual(learningContents[0].Text);
                     expect(promise.inspect().value[0].createdOn).toEqual(learningContents[0].CreatedOn);
+                    expect(promise.inspect().value[0].position).toEqual(learningContents[0].Position);
                     done();
                 });
 
@@ -259,15 +260,67 @@ describe('repository [learningContentRepository]', function () {
 
         });
 
+        describe('when learning content position is undefined', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.addLearningContent('asadasda', { text: 'text' });
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is null', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.addLearningContent('asadasda', { text: 'text', position: null });
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is less than 0', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.addLearningContent('asadasda', { text: 'text', position: -1000 });
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is more than 999', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.addLearningContent('asadasda', { text: 'text', position: 1000 });
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
         it('should send request to \'api/learningContent/create\'', function (done) {
             var
                 questionId = 'asdasdasd',
-                learningContent = { text: 'asdadsadsasdasd' };
+                learningContent = { text: 'asdadsadsasdasd', position: 1 };
 
             var promise = repository.addLearningContent(questionId, learningContent);
 
             promise.fin(function () {
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContent/create', { questionId: questionId, text: learningContent.text });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContent/create', { questionId: questionId, text: learningContent.text, position: learningContent.position });
                 done();
             });
 
@@ -281,7 +334,7 @@ describe('repository [learningContentRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         questionId = 'asdasdasd',
-                        learningContent = { text: 'asdadsadsasdasd' };
+                        learningContent = { text: 'asdadsadsasdasd', position: 1 };
 
                     var promise = repository.addLearningContent(questionId, learningContent);
 
@@ -300,7 +353,7 @@ describe('repository [learningContentRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         questionId = 'asdasdasd',
-                        learningContent = { text: 'asdadsadsasdasd' };
+                        learningContent = { text: 'asdadsadsasdasd', position: 1 };
 
                     var promise = repository.addLearningContent(questionId, learningContent);
 
@@ -319,7 +372,7 @@ describe('repository [learningContentRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         questionId = 'asdasdasd',
-                        learningContent = { text: 'asdadsadsasdasd' };
+                        learningContent = { text: 'asdadsadsasdasd', position: 1 };
 
                     var promise = repository.addLearningContent(questionId, learningContent);
 
@@ -338,7 +391,7 @@ describe('repository [learningContentRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         questionId = 'asdasdasd',
-                        learningContent = { text: 'asdadsadsasdasd' };
+                        learningContent = { text: 'asdadsadsasdasd', position: 1 };
 
                     dataContext.sections = [];
 
@@ -357,7 +410,7 @@ describe('repository [learningContentRepository]', function () {
             it('should update question modifiedOn date', function (done) {
                 var
                     questionId = 'asdasdasd',
-                    learningContent = { text: 'asdadsadsasdasd' },
+                    learningContent = { text: 'asdadsadsasdasd', position: 1 },
                     createdOnDate = new Date();
 
                 dataContext.sections = [{
@@ -377,7 +430,7 @@ describe('repository [learningContentRepository]', function () {
             it('should resolve promise with modifiedOn date', function (done) {
                 var
                     questionId = 'asdasdasd',
-                    learningContent = { text: 'asdadsadsasdasd' },
+                    learningContent = { text: 'asdadsadsasdasd', type: 'type', position: 1 },
                     responseId = 'asdasdasd',
                     createdOnDate = new Date();
 
@@ -388,7 +441,11 @@ describe('repository [learningContentRepository]', function () {
                 var promise = repository.addLearningContent(questionId, learningContent);
 
                 promise.fin(function () {
-                    expect(promise).toBeResolvedWith({ id: responseId, createdOn: createdOnDate });
+                    expect(promise.inspect().value.id).toEqual(responseId);
+                    expect(promise.inspect().value.text).toEqual(learningContent.text);
+                    expect(promise.inspect().value.type).toEqual(learningContent.type);
+                    expect(promise.inspect().value.position).toEqual(learningContent.position);
+                    expect(promise.inspect().value.createdOn).toEqual(createdOnDate);
                     done();
                 });
 
@@ -847,6 +904,272 @@ describe('repository [learningContentRepository]', function () {
                 }];
 
                 var promise = repository.updateText(questionId, learningContentId, learningContentText);
+
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith({ modifiedOn: modifiedOnDate });
+                    done();
+                });
+
+                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
+            });
+
+        });
+
+    });
+
+    describe('updatePosition:', function () {
+
+        it('should be function', function () {
+            expect(repository.updatePosition).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(repository.updatePosition()).toBePromise();
+        });
+
+        describe('when question id is undefined', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition(undefined, 'asdasdasd', 1);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Question id is not a string');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when question id is null', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition(null, 'asdasdasd', 1);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Question id is not a string');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when question id is not a string', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition({}, 'asdasdasd', 1);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Question id is not a string');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content id is undefined', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', undefined, 1);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content id is not a string');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content id is null', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', null, 1);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content id is not a string');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content id is not a string', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', {}, 1);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content id is not a string');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is undefined', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', 'asdagfhjfghjfghj', undefined);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is null', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', 'asdagfhjfghjfghj', null);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is less than 0', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', 'asdagfhjfghjfghj', -1000);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learning content position is more than 999', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updatePosition('asdasdasd', 'asdagfhjfghjfghj', 1000);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Learning content position should be number and cannot be less than -999 and more than 999');
+                    done();
+                });
+            });
+
+        });
+
+        it('should send request to \'api/learningContent/updatePosition\'', function (done) {
+            var
+                questionId = 'asdasdasd',
+                learningContentId = 'asdadsadfghfgh',
+                learningContentPosition = 1;
+
+            var promise = repository.updatePosition(questionId, learningContentId, learningContentPosition);
+
+            promise.fin(function () {
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContent/updatePosition', { learningContentId: learningContentId, position: learningContentPosition });
+                done();
+            });
+
+            post.reject('I`ll be back');
+        });
+
+        describe('when learning content position successfully updated on server', function () {
+
+            describe('and response is not an object', function () {
+
+                it('should reject promise', function (done) {
+                    var
+                        questionId = 'asdasdasd',
+                        learningContentId = 'asdadsadfghfgh',
+                        learningContentPosition = 1;
+
+                    var promise = repository.updatePosition(questionId, learningContentId, learningContentPosition);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Response is not an object');
+                        done();
+                    });
+
+                    post.resolve('I`ll be back');
+                });
+
+            });
+
+            describe('and response has no modification date', function () {
+
+                it('should reject promise', function (done) {
+                    var
+                        questionId = 'asdasdasd',
+                        learningContentId = 'asdadsadfghfgh',
+                        learningContentPosition = 1;
+
+                    var promise = repository.updatePosition(questionId, learningContentId, learningContentPosition);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Learning content modification date is not a string');
+                        done();
+                    });
+
+                    post.resolve({});
+                });
+
+            });
+
+            describe('and question not found in data context', function () {
+
+                it('should reject promise', function (done) {
+                    var
+                        questionId = 'asdasdasd',
+                        learningContentId = 'asdadsadfghfgh',
+                        learningContentPosition = 1;
+
+                    dataContext.sections = [];
+
+                    var promise = repository.updatePosition(questionId, learningContentId, learningContentPosition);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: new Date().toISOString() });
+                });
+
+            });
+
+            it('should update question modifiedOn date', function (done) {
+                var
+                    questionId = 'asdasdasd',
+                    learningContentId = 'asdadsadfghfgh',
+                    learningContentPosition = 1,
+                    modifiedOnDate = new Date();
+
+                dataContext.sections = [{
+                    questions: [{ id: questionId, modifiedOn: '' }]
+                }];
+
+                var promise = repository.updatePosition(questionId, learningContentId, learningContentPosition);
+
+                promise.fin(function () {
+                    expect(dataContext.sections[0].questions[0].modifiedOn).toEqual(modifiedOnDate);
+                    done();
+                });
+
+                post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
+            });
+
+            it('should resolve promise with modifiedOn date', function (done) {
+                var
+                    questionId = 'asdasdasd',
+                    learningContentId = 'asdadsadfghfgh',
+                    learningContentPosition = 1,
+                    modifiedOnDate = new Date();
+
+                dataContext.sections = [{
+                    questions: [{ id: questionId, modifiedOn: '' }]
+                }];
+
+                var promise = repository.updatePosition(questionId, learningContentId, learningContentPosition);
 
                 promise.fin(function () {
                     expect(promise).toBeResolvedWith({ modifiedOn: modifiedOnDate });

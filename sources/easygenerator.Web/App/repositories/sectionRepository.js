@@ -73,7 +73,6 @@
 
                 return apiHttpWrapper.post('api/section/updatetitle', { sectionId: sectionId, title: title }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var section = _.find(dataContext.sections, function (item) {
                         return item.id === sectionId;
@@ -82,11 +81,8 @@
                     guard.throwIfNotAnObject(section, 'Section does not exist in dataContext');
 
                     section.title = title;
-                    section.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger(constants.messages.section.titleUpdated, section);
-
-                    return section.modifiedOn;
                 });
             });
         }
@@ -98,7 +94,6 @@
 
                 return apiHttpWrapper.post('api/section/updatelearningobjective', { sectionId: sectionId, learningObjective: learningObjective }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var section = _.find(dataContext.sections, function (item) {
                         return item.id === sectionId;
@@ -107,11 +102,8 @@
                     guard.throwIfNotAnObject(section, 'Section does not exist in dataContext');
 
                     section.learningObjective = learningObjective;
-                    section.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger(constants.messages.section.learningObjectiveUpdated, section);
-
-                    return section.modifiedOn;
                 });
             });
         }
@@ -125,7 +117,6 @@
 
                 return apiHttpWrapper.post('api/section/updateimage', { sectionId: sectionId, imageUrl: imageUrl }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var section = _.find(dataContext.sections, function (item) {
                         return item.id === sectionId;
@@ -134,12 +125,10 @@
                     guard.throwIfNotAnObject(section, 'Section does not exist in dataContext');
 
                     section.image = imageUrl;
-                    section.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger(constants.messages.section.imageUrlUpdated, section);
 
                     return {
-                        modifiedOn: section.modifiedOn,
                         imageUrl: imageUrl
                     };
                 });
@@ -194,7 +183,6 @@
 
                 return apiHttpWrapper.post('api/section/updatequestionsorder', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var section = _.find(dataContext.sections, function (item) {
                         return item.id === sectionId;
@@ -208,13 +196,7 @@
                         });
                     });
 
-                    section.modifiedOn = new Date(response.ModifiedOn);
-
                     app.trigger(constants.messages.section.questionsReordered, section);
-
-                    return {
-                        modifiedOn: section.modifiedOn
-                    };
                 });
             });
         }

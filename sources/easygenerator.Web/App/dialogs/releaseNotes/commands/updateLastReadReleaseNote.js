@@ -1,10 +1,9 @@
-﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
-    'use strict';
+﻿import apiHttpWrapper from 'http/apiHttpWrapper';
 
-    return {
-        execute: function () {
-            return apiHttpWrapper.post('/api/user/releasenote');
-        }
-    };
+'use strict';
 
-})
+export default {
+    execute () {
+        return apiHttpWrapper.post('/api/user/releasenote');
+    }
+}

@@ -13,9 +13,13 @@ var buildUtils = buildUtilsModule();
 
 var outputDirectory = args.output || 'D:/Applications/easygenerator',
     instance = args.instance || 'Release',
-    version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
-    createTags = Boolean(args.createTags);
-	
+    version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',    
+    createTags = Boolean(args.createTags),
+    surveyOriginUrl = typeof args.surveyOriginUrl === 'string' && args.surveyOriginUrl !== '' ? args.surveyOriginUrl : '',
+    surveyPageUrl = typeof args.surveyPageUrl === 'string' && args.surveyPageUrl !== '' ? args.surveyPageUrl : '',
+    surveyVersion = (typeof args.surveyVersion === 'string' && args.surveyVersion !== '') || (typeof args.surveyVersion === 'number' && args.surveyVersion >= 0) ? args.surveyVersion : '1',
+    surveyDaysUntilShowUp = (typeof args.surveyDaysUntilShowUp === 'string' && args.surveyDaysUntilShowUp !== '') || (typeof args.surveyDaysUntilShowUp === 'number' && args.surveyDaysUntilShowUp >= 0) ? args.surveyDaysUntilShowUp : '1';
+
 var samlCertsFolderName = 'EgSamlIdPCertificates';
 
 gulp.task('build-main-project', function () {
@@ -44,7 +48,7 @@ gulp.task('deploy-download-folder', function (cb) {
 });
 
 gulp.task('deploy-css', function () {
-    return gulp.src('./sources/easygenerator.Web/Content/*.css')
+    return gulp.src('./sources/easygenerator.Web/Content/**/*.css')
         .pipe(gulp.dest(outputDirectory + '/Content'));
 });
 
@@ -56,6 +60,9 @@ gulp.task('deploy-main-app', function () {
     gulp.src('./sources/easygenerator.Web/app/localization/lang/**')
         .pipe(gulp.dest(outputDirectory + '/app/localization/lang/'));
     
+	gulp.src('./sources/easygenerator.Web/app/components/htmlEditor/lang/**')
+        .pipe(gulp.dest(outputDirectory + '/app/components/htmlEditor/lang/'));
+	
     return gulp.src('./sources/easygenerator.Web/app/main-built.js')
 		.pipe(has({
 			'release': true
@@ -98,7 +105,7 @@ gulp.task('remove-extra-files', function (cb) {
         outputDirectory + '/apple-touch-icon*',
         outputDirectory + '/Scripts/*.map',
         outputDirectory + '/humans.txt',
-        outputDirectory + '/Content/*.less',
+        outputDirectory + '/Content/**/*.less',
         outputDirectory + '/Scripts/jasmine',
         'tools/WebConfigTransform/' + instance + '.config'], { force: true }, cb);
 });
@@ -111,16 +118,40 @@ gulp.task('add-version', function (cb) {
     cb();
 });
 
+gulp.task('add-survey-popup-settings', function (cb) {
+    xmlpoke(outputDirectory + '/Web.config', function (webConfig) {
+        webConfig.withBasePath('configuration')
+            .setOrAdd('surveyPopup/@originUrl', surveyOriginUrl)
+            .setOrAdd('surveyPopup/@pageUrl', surveyPageUrl)
+            .setOrAdd('surveyPopup/@version', surveyVersion)
+            .setOrAdd('surveyPopup/@numberOfDaysUntilShowUp', surveyDaysUntilShowUp);
+    });
+    cb();
+});
+
 gulp.task('clean', function (callback) {
     del([outputDirectory], { force: true }, callback);
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'run-unit-tests', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'include-saml-certificates', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
+    runSequence('build',
+        'run-unit-tests',
+        'deploy-download-folder',
+        'deploy-css',
+        'deploy-vendor',
+        'remove-app-sources',
+        'deploy-main-app',
+        'include-saml-certificates',
+        'deploy-web-config',
+        'remove-extra-files',
+        'add-version',
+        'add-survey-popup-settings', runSequenceCallback);
+
+    function runSequenceCallback(){
         if (createTags) {
             runSequence('create-tags', cb);
         } else {
             cb();
         }
-    });
+    }
 });

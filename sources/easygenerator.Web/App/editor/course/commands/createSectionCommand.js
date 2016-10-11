@@ -3,7 +3,6 @@ import app from 'durandal/app';
 import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import localizationManager from 'localization/localizationManager';
-import eventTracker from 'eventTracker';
 import constants from 'constants';
 
 export default class {

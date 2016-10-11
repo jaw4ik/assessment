@@ -3,7 +3,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Storage;
 using System.Linq;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
+using easygenerator.Web.Domain.DomainOperations;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -59,7 +59,12 @@ namespace easygenerator.Web.Components.Mappers
                 {
                     Id = obj.Id.ToNString()
                 }),
-                Ownership = _courseOwnershipProvider.GetCourseOwnership(course, username)
+                Ownership = _courseOwnershipProvider.GetCourseOwnership(course, username),
+                PublicationAccessControlList = course.PublicationAccessControlList.OrderByDescending(obj => obj.CreatedOn).Select(obj => new
+                {
+                    UserIdentity = obj.UserIdentity,
+                    UserInvited = obj.UserInvited
+                })
             };
         }
 

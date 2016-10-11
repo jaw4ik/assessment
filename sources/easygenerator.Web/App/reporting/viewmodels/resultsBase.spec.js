@@ -604,6 +604,20 @@ describe('ResultsBase instance', function () {
             expect(viewModel.downloadResults()).toBePromise();
         });
 
+        describe('when request not started yet', function(){
+            var promise;
+
+            beforeEach(function () {
+                promise = viewModel.downloadResults();
+            });
+
+            it('should start preparing data', function () {
+                expect(viewModel.isPreparing()).toBeTruthy();
+
+                promise.fin();
+            });
+        });
+
         it('should send event \'Download results\'', function (done) {
             viewModel.downloadResults().fin(function () {
                 expect(eventTracker.publish).toHaveBeenCalledWith('Download results');
@@ -650,6 +664,13 @@ describe('ResultsBase instance', function () {
                     });
                 });
 
+                it('should stop preparing data', function (done) {
+                    viewModel.downloadResults().fin(function () {
+                        expect(viewModel.isPreparing()).toBeFalsy();
+                        done();
+                    });
+                });
+
             });
 
             describe('and all results were not loaded yet', function () {
@@ -678,6 +699,13 @@ describe('ResultsBase instance', function () {
                     viewModel.cachedResultsForDownload = null;
                     viewModel.downloadResults().fin(function () {
                         expect(viewModel.cachedResultsForDownload).toBeString();
+                        done();
+                    });
+                });
+
+                it('should stop preparing data', function (done) {
+                    viewModel.downloadResults().fin(function () {
+                        expect(viewModel.isPreparing()).toBeFalsy();
                         done();
                     });
                 });
@@ -713,6 +741,37 @@ describe('ResultsBase instance', function () {
                 });
             });
 
+            it('should stop preparing data', function (done) {
+                viewModel.downloadResults().fin(function () {
+                    expect(viewModel.isPreparing()).toBeFalsy();
+                    done();
+                });
+            });
+
+        });
+
+        describe('when error rejected', function(){
+            var promise;
+
+            beforeEach(function () {
+                promise = viewModel.downloadResults();
+                spyOn(userContext, 'hasStarterAccess').and.throwError('error');
+            });
+
+            it('should stop preparing data', function (done) {
+                promise.fail(function(e){                
+                    expect(viewModel.isPreparing()).toBeFalsy();
+                    expect(e.message).toBe('error');
+                    done();
+                });
+            });
+        });
+
+        it('should send event \'Download results\'', function (done) {
+            viewModel.downloadResults().fin(function () {
+                expect(eventTracker.publish).toHaveBeenCalledWith('Download results');
+                done();
+            });
         });
 
     });

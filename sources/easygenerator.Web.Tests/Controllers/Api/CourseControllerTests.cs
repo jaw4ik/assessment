@@ -10,9 +10,11 @@ using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.Coggno;
 using easygenerator.Web.Publish.External;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -25,9 +27,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using easygenerator.Web.Components.DomainOperations.CourseOperations;
-using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Publish.Coggno;
+using easygenerator.Web.Domain.DomainOperations;
 using easygenerator.Web.ViewModels.Api;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IExternalPublisher _externalPublisher;
         private IUserRepository _userRepository;
         private ICloner _cloner;
-        private ICourseDomainOperationExecutor _courseDomainOperationExecutor;
+        private ICourseOperations _courseOperations;
         private ISamlServiceProviderRepository _samlServiceProviderRepository;
         private ILog _logger;
         private ConfigurationReader _configurationReader;
@@ -78,7 +78,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
-            _courseDomainOperationExecutor = Substitute.For<ICourseDomainOperationExecutor>();
+            _courseOperations = Substitute.For<ICourseOperations>();
             _samlServiceProviderRepository = Substitute.For<ISamlServiceProviderRepository>();
             _logger = Substitute.For<ILog>();
             _configurationReader = Substitute.For<ConfigurationReader>();
@@ -86,8 +86,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context.User.Returns(_user);
 
             _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _sectionRepository, _entityFactory, _urlHelper, _publisher, _coggnoPublisher,
-                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _courseDomainOperationExecutor, _samlServiceProviderRepository,
-                _logger,  _configurationReader);
+                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner, _courseOperations, _samlServiceProviderRepository,
+                _logger, _configurationReader);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -122,7 +122,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Create(title, null);
 
-            _courseDomainOperationExecutor.Received().CreateCourse(Arg.Is<Course>(exp => exp.Title == title));
+            _courseOperations.Received().CreateCourse(Arg.Is<Course>(exp => exp.Title == title));
         }
 
         [TestMethod]
@@ -154,7 +154,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Create(title, null);
 
-            _courseDomainOperationExecutor.Received().CreateCourse(course);
+            _courseOperations.Received().CreateCourse(course);
         }
 
         #endregion
@@ -175,7 +175,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
 
-            _courseDomainOperationExecutor.Received().CreateCourse(courseToDuplicate);
+            _courseOperations.Received().CreateCourse(courseToDuplicate);
         }
 
         [TestMethod]
@@ -186,6 +186,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
             courseToDuplicate.Title.Should().Be(courseTitle + " (copy)");
+        }
+
+        [TestMethod]
+        public void Duplicate_WhenHasSameNameIsTrue_ShouldNotAddDuplicatedCourseSuffixToCourseTitle()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            var courseTitle = courseToDuplicate.Title;
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate, true);
+            courseToDuplicate.Title.Should().Be(courseTitle);
         }
 
         [TestMethod]
@@ -211,6 +221,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
             sectionToDuplicate.Title.Should().Be(sectionTitle + " (copy)");
+        }
+
+        [TestMethod]
+        public void Duplicate_WhenHasSameNameIsTrue_ShouldNotAddDuplicatedSectionSuffixToSectionsTitles()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            Section sectionToDuplicate = SectionObjectMother.Create();
+            courseToDuplicate.RelateSection(sectionToDuplicate, 0, "some@user.com");
+            var sectionTitle = sectionToDuplicate.Title;
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate, true);
+            sectionToDuplicate.Title.Should().Be(sectionTitle);
         }
 
         [TestMethod]
@@ -934,7 +956,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateTitle(course, String.Empty);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
 
@@ -984,7 +1006,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateTemplate(course, template);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion
@@ -1154,7 +1176,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateIntroductionContent(course, "some content");
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion UpdateContent
@@ -1197,7 +1219,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateSectionsOrderedList(course, new List<Section>());
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion UpdateSectionsOrder

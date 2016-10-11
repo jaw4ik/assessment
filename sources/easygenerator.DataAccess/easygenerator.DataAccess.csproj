@@ -479,6 +479,30 @@
     <Compile Include="Migrations\201607210758181_AddThemes.Designer.cs">
       <DependentUpon>201607210758181_AddThemes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607271120360_AddOrganizationSettings.cs" />
+    <Compile Include="Migrations\201607271120360_AddOrganizationSettings.Designer.cs">
+      <DependentUpon>201607271120360_AddOrganizationSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.cs" />
+    <Compile Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.Designer.cs">
+      <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609090948261_AddAccessControlListToCourse.cs" />
+    <Compile Include="Migrations\201609090948261_AddAccessControlListToCourse.Designer.cs">
+      <DependentUpon>201609090948261_AddAccessControlListToCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.cs" />
+    <Compile Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.Designer.cs">
+      <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609271156142_AddLastPassedSurveyPopupForSurveyPopup.cs" />
+    <Compile Include="Migrations\201609271156142_AddLastPassedSurveyPopupForSurveyPopup.Designer.cs">
+      <DependentUpon>201609271156142_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610101138191_AddPositionToLearningContent.cs" />
+    <Compile Include="Migrations\201610101138191_AddPositionToLearningContent.Designer.cs">
+      <DependentUpon>201610101138191_AddPositionToLearningContent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
@@ -835,6 +859,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607210758181_AddThemes.resx">
       <DependentUpon>201607210758181_AddThemes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607271120360_AddOrganizationSettings.resx">
+      <DependentUpon>201607271120360_AddOrganizationSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608041135482_AddOrganizationSettingsTemplates.resx">
+      <DependentUpon>201608041135482_AddOrganizationSettingsTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609090948261_AddAccessControlListToCourse.resx">
+      <DependentUpon>201609090948261_AddAccessControlListToCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201421329_AddIsSurveyPropertyToTheQuestion.resx">
+      <DependentUpon>201609201421329_AddIsSurveyPropertyToTheQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609271156142_AddLastPassedSurveyPopupForSurveyPopup.resx">
+      <DependentUpon>201609271156142_AddLastPassedSurveyPopupForSurveyPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610101138191_AddPositionToLearningContent.resx">
+      <DependentUpon>201610101138191_AddPositionToLearningContent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

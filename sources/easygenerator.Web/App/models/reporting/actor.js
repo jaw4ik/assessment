@@ -8,6 +8,9 @@
         if (spec.mbox) {
             this.email = spec.mbox.replace('mailto:', '');
         }
+        if (spec.account) {
+            this.account = spec.account;
+        }
     };
 
     return Actor;

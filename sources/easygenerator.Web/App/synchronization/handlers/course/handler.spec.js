@@ -74,4 +74,9 @@ describe('synchronization course [handler]', function () {
         });
     });
 
+    describe('modified:', function() {
+        it('should be a function', function() {
+            expect(handler.modified).toBeFunction();
+        });
+    });
 });

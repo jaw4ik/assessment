@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Entities.ACL;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -20,6 +21,7 @@ namespace easygenerator.DomainModel.Entities
             TemplateSettings = new Collection<CourseTemplateSettings>();
             LearningPathCollection = new Collection<LearningPath>();
             CourseCompanies = new Collection<Company>();
+            PublicationAccessControlListCollection = new Collection<CourseAccessControlListEntry>();
         }
 
         protected internal Course(string title, Template template, string createdBy)
@@ -36,6 +38,7 @@ namespace easygenerator.DomainModel.Entities
             TemplateSettings = new Collection<CourseTemplateSettings>();
             LearningPathCollection = new Collection<LearningPath>();
             CourseCompanies = new Collection<Company>();
+            PublicationAccessControlListCollection = new Collection<CourseAccessControlListEntry>();
             SaleInfo = new CourseSaleInfo(this);
             BuildOn = null;
             IntroductionContent = null;
@@ -50,9 +53,10 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Template = template;
-            MarkAsModified(modifiedBy);
 
             template.GrantAccessTo(Collaborators.Select(_ => _.Email).Concat(new[] { CreatedBy }).ToArray());
+
+            MarkAsModified(modifiedBy);
 
             RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }
@@ -484,6 +488,52 @@ namespace easygenerator.DomainModel.Entities
                 CourseCompanies.Add(company);
             }
         }
+
+        #endregion
+
+        #region User access
+
+        public virtual void GrantAccessTo(bool sendInvite, User createdBy, params string[] userIdentities)
+        {
+            var entriesWereAdded = false;
+
+            foreach (var userIdentity in userIdentities)
+            {
+                var accessControlListEntry = PublicationAccessControlListCollection.FirstOrDefault(_ => string.Equals(_.UserIdentity, userIdentity, StringComparison.InvariantCultureIgnoreCase));
+                if (accessControlListEntry == null)
+                {
+                    PublicationAccessControlListCollection.Add(accessControlListEntry = new CourseAccessControlListEntry(this, userIdentity, createdBy.Email));
+                    entriesWereAdded = true;
+                }
+
+                if (sendInvite)
+                {
+                    accessControlListEntry.InviteUser();
+                    RaiseEvent(new CourseInvitationSendedEvent(this, userIdentity, createdBy));
+                }
+            }
+
+            if (entriesWereAdded)
+            {
+                RaiseEvent(new CourseAccessGrantedEvent(this, userIdentities, sendInvite));
+            }
+        }
+
+        public virtual void RemoveAccess(string userIdentity)
+        {
+            var accessControlListEntry = PublicationAccessControlListCollection.FirstOrDefault(_ => string.Equals(_.UserIdentity, userIdentity, StringComparison.InvariantCultureIgnoreCase));
+            if (accessControlListEntry != null)
+            {
+                PublicationAccessControlListCollection.Remove(accessControlListEntry);
+                accessControlListEntry.Course = null;
+
+                RaiseEvent(new CourseAccessRemovedEvent(this, userIdentity));
+            }
+        }
+
+        protected internal virtual ICollection<CourseAccessControlListEntry> PublicationAccessControlListCollection { get; set; }
+
+        public virtual IEnumerable<CourseAccessControlListEntry> PublicationAccessControlList => PublicationAccessControlListCollection.AsEnumerable();
 
         #endregion
 

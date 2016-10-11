@@ -13,6 +13,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
             return Create(title: title);
         }
 
+        public static Organization CreateWithSettings(OrganizationSettings settings)
+        {
+            return Create(settings: settings);
+        }
+
         public static Organization CreateWithCreatedBy(string createdBy)
         {
             return Create(createdBy: createdBy);
@@ -23,9 +28,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers.Organizations
             return Create(emailDomains: emailDomains);
         }
 
-        public static Organization Create(string title = Title, string createdBy = CreatedBy, string emailDomains = null)
+        public static Organization Create(string title = Title, string createdBy = CreatedBy, string emailDomains = null, OrganizationSettings settings = null)
         {
-            return new Organization(title, createdBy, emailDomains);
+            return new Organization(title, createdBy, emailDomains, settings);
         }
     }
 }

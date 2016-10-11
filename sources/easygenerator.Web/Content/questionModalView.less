@@ -7,6 +7,7 @@
         transform: scale(.9,.9);
         opacity: 0;
     }
+
     100% {
         transform: scale(1,1);
         opacity: 1;
@@ -18,6 +19,7 @@
         transform: scale(1,1);
         opacity: 1;
     }
+
     100% {
         transform: scale(.9,.9);
         opacity: 0;
@@ -28,6 +30,7 @@
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 0.8;
     }
@@ -37,6 +40,7 @@
     0% {
         opacity: 0.8;
     }
+
     100% {
         opacity: 0;
     }
@@ -57,7 +61,7 @@
             animation: showModalView linear .2s forwards;
         }
 
-        &.hidden{
+        &.hidden {
             animation: hideModalView linear .2s forwards;
         }
     }
@@ -86,7 +90,7 @@
             animation: showBlockout linear .2s forwards;
         }
 
-        &.hidden{
+        &.hidden {
             animation: hideBlockout linear .2s forwards;
         }
     }
@@ -234,7 +238,7 @@
                             background-color: #fff;
                             transform: scale(0,0);
                             transform-origin: top right;
-                            transition: transform .2s linear;
+                            .transition(transform);
 
 
                             .actions-menu-list-item {
@@ -252,9 +256,10 @@
                                     &.delete {
                                         color: #ee6556;
                                     }
-                                    &.delete:before {
-                                        background: url('images/sprites_16.png') -2px -148px no-repeat;
-                                    }
+
+                                        &.delete:before {
+                                            background: url('images/sprites_16.png') -2px -148px no-repeat;
+                                        }
                                 }
 
                                 &:before {
@@ -375,7 +380,7 @@
                             background-color: #fff;
                             transform: scale(0,0);
                             transform-origin: top right;
-                            transition: transform .2s linear;
+                            .transition(transform);
                         }
 
                         &.expanded {
@@ -586,14 +591,15 @@
         overflow: hidden;
 
         .left-panel {
-            width: 0;
-            height: 100%;
             position: absolute;
-            z-index: 10;
-            background: #f1f1f1;
+            left: -280px;
+            width: 280px;
+            height: 100%;
             border-right: 1px solid #c6d1d8;
+            background: #f1f1f1;
             box-shadow: 1px 0 5px 0 rgba(0,0,0,.15);
-            transition: width @navigation-tree-expand-duration linear;
+            .transition(left, @navigation-tree-expand-duration);
+            z-index: 10;
 
             .toggle-navigation-button {
                 position: absolute;
@@ -627,12 +633,12 @@
 
             .navigation-view-sections-list {
                 margin-left: -280px;
-                transition: margin @navigation-tree-expand-duration linear;
+                .transition(margin, @navigation-tree-expand-duration);
             }
 
             &.expanded {
-                transition: width @navigation-tree-expand-duration linear;
-                width: 280px;
+                .transition(left, @navigation-tree-expand-duration);
+                left: 0;
 
                 .toggle-navigation-button {
                     width: 25px;
@@ -655,7 +661,20 @@
 
                 .navigation-view-sections-list {
                     margin-left: 0;
-                    transition: margin @navigation-tree-expand-duration linear;
+                    .transition(margin, @navigation-tree-expand-duration);
+                }
+            }
+
+            .content-bar-panel {
+                position: absolute;
+                top: 0;
+                right: 100%;
+                .transition(right, @navigation-tree-expand-duration);
+            }
+
+            &.content-bar-expanded {
+                .content-bar-panel {
+                    right: 0;
                 }
             }
         }
@@ -710,14 +729,14 @@
     .left-panel.expanded + .question-view-holder-wrapper {
         .question-view-holder {
             margin-left: 320px;
-            transition: margin-left @navigation-tree-expand-duration linear;
+            .transition(margin-left, @navigation-tree-expand-duration);
         }
     }
 
     .left-panel:not(.expanded) + .question-view-holder-wrapper {
         .question-view-holder {
             margin-left: 64px;
-            transition: margin-left @navigation-tree-expand-duration linear;
+            .transition(margin-left, @navigation-tree-expand-duration);
         }
     }
 
@@ -727,25 +746,25 @@
 
     .back-button-container {
         width: 280px;
-        transition: width @navigation-tree-expand-duration linear;
+        .transition(width, @navigation-tree-expand-duration);
     }
 
     .question-view .question-header {
         .back-button-container:not(.expanded) {
             width: 0;
             overflow: hidden;
-            transition: width @navigation-tree-expand-duration linear;
+            .transition(width, @navigation-tree-expand-duration);
             border: 0;
             margin-right: 0;
         }
 
         .view-title-container {
             margin-left: 310px;
-            transition: margin @navigation-tree-expand-duration linear;
+            .transition(margin, @navigation-tree-expand-duration);
 
             &.expanded {
                 margin-left: 74px;
-                transition: margin @navigation-tree-expand-duration linear;
+                .transition(margin, @navigation-tree-expand-duration);
             }
         }
     }
@@ -770,7 +789,7 @@
             width: 64px;
             display: flex;
             background-color: transparent;
-            transition: width @navigation-tree-expand-duration linear;
+            .transition(width, @navigation-tree-expand-duration);
             transition-delay: @navigation-tree-expand-duration;
         }
     }

@@ -1,0 +1,10 @@
+﻿<section class="question-learning-contents">
+    <!-- ko if: activePlaceholderIndex() !== null || contentsList().length -->
+    <!-- ko compose: { model: $data, view: 'contentEditor/editor', activate: false, preserveContext: true } --><!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: activePlaceholderIndex() === null && contentsList().length === 0 -->
+    <div class="create-content-area" data-bind="click: startCreatingContents">
+        <span class="create-content-text" data-bind="localize: { text: 'clickToAddLearningContent' }">Click to add content</span>
+    </div>
+    <!-- /ko -->
+</section>

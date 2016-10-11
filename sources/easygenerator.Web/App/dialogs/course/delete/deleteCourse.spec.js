@@ -93,7 +93,7 @@ describe('dialog [deleteCourse]', function () {
 
             it('should close dialog', function (done) {
                 viewModel.deleteCourse();
-                courseRepository.removeCourse().fin(function () {
+                courseRepository.removeCourse().then(function () {
                     expect(dialog.close).toHaveBeenCalled();
                     done();
                 });
@@ -102,7 +102,7 @@ describe('dialog [deleteCourse]', function () {
             it('should set isDeleting to false', function (done) {
                 viewModel.isDeleting(true);
                 viewModel.deleteCourse();
-                courseRepository.removeCourse().fin(function () {
+                courseRepository.removeCourse().then(function () {
                     expect(viewModel.isDeleting()).toBeFalsy();
                     done();
                 });

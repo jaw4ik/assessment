@@ -25,13 +25,20 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void LearningContent_ShouldThrowArgumentException_WhenTextIsEmpty()
+        public void LearningContent_ShouldThrowArgumentOutOfRangeException_WhenPositionIsLessThenMinus999()
         {
-            Action action = () => LearningContentObjectMother.CreateWithText(String.Empty);
+            Action action = () => LearningContentObjectMother.CreateWithPosition(-1000);
 
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("position");
         }
 
+        [TestMethod]
+        public void LearningContent_ShouldThrowArgumentOutOfRangeException_WhenPositionIsMoreThen999()
+        {
+            Action action = () => LearningContentObjectMother.CreateWithPosition(1000);
+
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("position");
+        }
 
         [TestMethod]
         public void LearningContent_ShouldCreateLearningContentInstance()
@@ -39,7 +46,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string text = "text";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var answer = LearningContentObjectMother.Create(text, CreatedBy);
+            var answer = LearningContentObjectMother.Create(text, CreatedBy, 10);
 
             answer.Id.Should().NotBeEmpty();
             answer.Text.Should().Be(text);
@@ -48,6 +55,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             answer.ModifiedOn.Should().Be(DateTime.MaxValue);
             answer.CreatedBy.Should().Be(CreatedBy);
             answer.ModifiedBy.Should().Be(CreatedBy);
+            answer.Position.Should().Be(10);
         }
 
         #endregion
@@ -62,16 +70,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             Action action = () => learningContent.UpdateText(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("text");
-        }
-
-        [TestMethod]
-        public void UpdateText_ShouldThrowArgumentException_WhenTitleIsEmpty()
-        {
-            var learningContent = LearningContentObjectMother.Create();
-
-            Action action = () => learningContent.UpdateText(String.Empty, ModifiedBy);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
         }
 
         [TestMethod]
@@ -138,6 +136,97 @@ namespace easygenerator.DomainModel.Tests.Entities
             learningContent.UpdateText("Some text", "username");
 
             learningContent.ShouldContainSingleEvent<LearningContentUpdatedEvent>();
+        }
+
+        #endregion
+
+        #region Update position
+
+        [TestMethod]
+        public void UpdatePosition_ShouldUpdatePosition()
+        {
+            const decimal position = 1;
+            var learningContent = LearningContentObjectMother.Create();
+
+            learningContent.UpdatePosition(position, ModifiedBy);
+
+            learningContent.Position.Should().Be(position);
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var learningContent = LearningContentObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            learningContent.UpdatePosition(1, ModifiedBy);
+
+            learningContent.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+
+            Action action = () => learningContent.UpdatePosition(1, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+
+            Action action = () => learningContent.UpdatePosition(1, null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldUpdateModifiedBy()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+            const string user = "Some user";
+
+            learningContent.UpdatePosition(1, user);
+
+            learningContent.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldAddLearningContentUpdatedEvent()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+
+            learningContent.UpdatePosition(1, "username");
+
+            learningContent.ShouldContainSingleEvent<LearningContentUpdatedEvent>();
+        }
+
+
+        [TestMethod]
+        public void UpdatePosition_ShouldThrowArgumentOutOfRangeException_WhenPositionIsLessThenMinus999()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+
+            Action action = () => learningContent.UpdatePosition(-1000, "modifier");
+
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("position");
+        }
+
+        [TestMethod]
+        public void UpdatePosition_ShouldThrowArgumentOutOfRangeException_WhenPositionIsMoreThen999()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+
+            Action action = () => learningContent.UpdatePosition(1000, "modifier");
+
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("position");
         }
 
         #endregion

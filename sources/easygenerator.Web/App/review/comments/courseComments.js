@@ -26,14 +26,12 @@ class CourseComments {
         
     async initialize(courseId) {
         this.isLoading(true);
-
         guard.throwIfNotString(courseId, 'Course id is not a string');
         this.courseId = courseId;
         app.on(constants.messages.course.comment.deletedByCollaborator + this.courseId, this._commentDeletedProxy);
         app.on(constants.messages.course.comment.createdByCollaborator + this.courseId, this._commentCreatedProxy);
 
         try {
-            await userContext.identify();
             this.hasAccessToComments(userContext.hasStarterAccess());
             if (userContext.hasStarterAccess()) {
                 let comments = await getCourseCommentsCommand.execute(courseId);

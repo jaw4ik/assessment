@@ -11,8 +11,8 @@ namespace easygenerator.DomainModel.Entities.Questions
         public Statement(string title, string createdBy)
             : base(title, createdBy) { }
 
-        public Statement(string title, string defaultStatementText, string createdBy)
-            : base(title, createdBy)
+        public Statement(string title, string defaultStatementText, bool isSurvey, string createdBy)
+            : base(title, createdBy, isSurvey)
         {
             var correctAnswer = new Answer(defaultStatementText, true, createdBy, DateTimeWrapper.Now());
             var incorrectAnswer = new Answer(defaultStatementText, false, createdBy, DateTimeWrapper.Now().AddSeconds(1));

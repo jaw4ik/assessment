@@ -68,7 +68,5 @@ ko.bindingHandlers.lockScroll = {
             scrollLocker.deactivate();
             lockSubscription.dispose();
         });
-    },
-    update: (element, valueAccessor) => {
     }
 };

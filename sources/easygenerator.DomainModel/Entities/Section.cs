@@ -60,7 +60,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
 
             RaiseEvent(new SectionLearningObjectiveUpdatedEvent(this));
-        }
+        }        
 
         protected internal virtual ICollection<Course> RelatedCoursesCollection { get; set; }
 

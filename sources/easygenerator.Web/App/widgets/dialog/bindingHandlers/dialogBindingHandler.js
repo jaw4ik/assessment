@@ -1,7 +1,11 @@
-﻿ko.bindingHandlers.dialog = {
-    init: function () {
-    },
-    update: function (element, valueAccessor) {
+﻿import ko from 'knockout';
+import _ from 'underscore';
+import $ from 'jquery';
+
+var dialogsCounter = 0;
+
+ko.bindingHandlers.dialog = {
+    update: (element, valueAccessor) => {
         var $element = $(element),
             $parent = $element.parent(),
             $html = $('html'),
@@ -14,6 +18,7 @@
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,
             onHide = valueAccessor().onHide,
             scrollLocker = createScrollLocker();
+            
 
         if (isShown()) {
             show();
@@ -25,8 +30,16 @@
             if ($element.data('isShown'))
                 return;
 
+            $element.data('index', ++dialogsCounter);
+
             $element.data('isShown', true);
-            var $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
+
+            if($('.modal-dialog-blockout').length === 0){
+                var $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
+            } else {
+                var $blockout = $('.modal-dialog-blockout').first();
+            }
+
             if (isBoundless) {
                 $blockout.addClass('boundless');
             }
@@ -54,11 +67,17 @@
             if (!$element.data('isShown'))
                 return;
 
-            isShown(false);
+            if (dialogsCounter) {
+                --dialogsCounter;
+            }
+
             $element.data('isShown', false);
-            $('.modal-dialog-blockout').fadeOut(speed, function () {
-                $(this).remove();
-            });
+
+            if (!dialogsCounter) {
+                $('.modal-dialog-blockout').fadeOut(speed, function () {
+                    $(this).remove();
+                });
+            }
 
             $element.fadeOut(speed, function () {
                 scrollLocker.releaseScroll();
@@ -69,11 +88,14 @@
                 }
             });
             $parent.off('click', blockoutClickHandler);
+            isShown(false);
         }
 
         function closeOnEscape(evt) {
             if (evt.keyCode === 27) {
-                hide();
+                if($element.data('index') == dialogsCounter){
+                    hide();
+                }
             }
         }
 
@@ -151,4 +173,4 @@
             isShown(false);
         });
     }
-};
+}

@@ -28,7 +28,7 @@
     function activate(learningPathId) {
         viewModel.learningPathId = learningPathId;
 
-        return userContext.identify().then(function () {
+        return Q.fcall(function () {
             viewModel.publishToCustomLmsModels = userContext.identity.companies.sort(function (company1, company2) {
                 if (company1.priority === company2.priority) {
                     return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();

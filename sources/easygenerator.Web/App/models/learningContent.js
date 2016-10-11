@@ -8,6 +8,8 @@
 
             obj.text = spec.text;
 
+            obj.position = spec.position;
+
             obj.type = spec.type;
 
             return obj;

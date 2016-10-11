@@ -5,10 +5,7 @@ namespace easygenerator.Web.BuildCourse.PackageModel
 {
     public class FillInTheBlanksPackageModel : QuestionPackageModel
     {
-        public override string Type
-        {
-            get { return Question.QuestionTypes.FillInTheBlanks; }
-        }
+        public override string Type => Question.QuestionTypes.FillInTheBlanks;
 
         public List<BlankAnswerGroupPackageModel> AnswerGroups { get; set; }
     }

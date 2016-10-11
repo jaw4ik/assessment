@@ -34,7 +34,7 @@
         isDefined: function (obj) {
             return !_.isUndefined(obj);
         },
-        isCompleteMatch: function(x, y) {
+        isCompleteMatch: function (x, y) {
             if (x === null || x === undefined || y === null || y === undefined) {
                 return x === y;
             }
@@ -71,7 +71,7 @@
             }
 
             // recursive object equality check
-            return Object.keys(x).every(function(i) {
+            return Object.keys(x).every(function (i) {
                 return _.isCompleteMatch(x[i], y[i]);
             });
         }

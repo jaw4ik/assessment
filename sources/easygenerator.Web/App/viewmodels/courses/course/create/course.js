@@ -97,9 +97,7 @@
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, viewModel.sectionsDisconnected);
         app.on(constants.messages.section.titleUpdatedByCollaborator, viewModel.sectionTitleUpdated);
         app.on(constants.messages.section.imageUrlUpdatedByCollaborator, viewModel.sectionImageUpdated);
-        app.on(constants.messages.section.questionsReorderedByCollaborator, viewModel.sectionUpdated);
-        app.on(constants.messages.question.createdByCollaborator, viewModel.sectionUpdated);
-        app.on(constants.messages.question.deletedByCollaborator, viewModel.sectionUpdated);
+        app.on(constants.messages.section.modified, viewModel.sectionUpdated);
 
         return viewModel;
 
@@ -116,7 +114,6 @@
                 success: function (url) {
                     sectionRepository.updateImage(section.id, url).then(function (result) {
                         section.imageUrl(result.imageUrl);
-                        section.modifiedOn(result.modifiedOn);
                         section.isImageLoading(false);
                         eventTracker.publish(events.changeSectionImage);
                         notify.saved();

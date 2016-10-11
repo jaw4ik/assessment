@@ -59,7 +59,7 @@
             <div data-bind="preloader: { settings: 'grey align-center', styles: { top: '300px' } }"></div>
             <!-- /ko -->
             <!-- ko if: template().settingsAvailable -->
-            <iframe id="template-settings" class="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: tab() && tab().url + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + template().id }, event: { load: settingsFrameLoaded }, windowMessageListener: onGetTemplateMessage.bind($root)" frameborder="0"></iframe>
+            <iframe id="template-settings" class="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: tab() && tab().url + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + template().id }, event: { load: settingsFrameLoaded }, windowMessageListener: { callBack: onGetTemplateMessage.bind($root) }" frameborder="0"></iframe>
             <!-- /ko -->
             <!-- ko ifnot: template().settingsAvailable -->
             <span class="unavailable-settings" data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>

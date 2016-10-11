@@ -2,6 +2,35 @@
 
 describe('[guard]', function () {
 
+    describe('throwIfNotDefined:', function () {
+
+        describe('when argument is not defined', function () {
+
+            it('should throw exception with message', function () {
+                var message = 'message';
+                var f = function () {
+                    guard.throwIfNotDefined(undefined, message);
+                };
+
+                expect(f).toThrow(message);
+            });
+
+        });
+
+        describe('when argument is defined', function () {
+
+            it('should not throw exception with message', function () {
+                var f = function () {
+                    guard.throwIfNotDefined('property', '');
+                };
+
+                expect(f).not.toThrow();
+            });
+
+        });
+
+    });
+
     describe('throwIfNotAnObject:', function () {
 
         describe('when argument is not an object', function () {
@@ -203,6 +232,89 @@ describe('[guard]', function () {
             it('should not throw exception', function () {
                 var f = function () {
                     guard.throwIfNotPositiveNumber(100);
+                };
+
+                expect(f).not.toThrow();
+            });
+
+        });
+
+    });
+
+    describe('throwIfNumberIsOutOfRange:', function () {
+
+        it('should be function', function () {
+            expect(guard.throwIfNumberIsOutOfRange).toBeFunction();
+        });
+
+        describe('when minAllowed argument is not a number', function () {
+
+            it('should throw exception with message', function () {
+                var f = function () {
+                    guard.throwIfNumberIsOutOfRange();
+                };
+
+                expect(f).toThrow('minAllowed should be Number');
+            });
+
+        });
+
+        describe('when maxAllowed argument is not a number', function () {
+
+            it('should throw exception with message', function () {
+                var f = function () {
+                    guard.throwIfNumberIsOutOfRange(null, 1);
+                };
+
+                expect(f).toThrow('maxAllowed should be Number');
+            });
+
+        });
+
+        describe('when number argument is not a number', function () {
+
+            it('should throw exception with message', function () {
+                var message = 'error message';
+                var f = function () {
+                    guard.throwIfNumberIsOutOfRange(null, 0, 100, message);
+                };
+
+                expect(f).toThrow(message);
+            });
+
+        });
+
+        describe('when number argument is less then minAllowed', function () {
+
+            it('should throw exception with message', function () {
+                var message = 'error message';
+                var f = function () {
+                    guard.throwIfNumberIsOutOfRange(-1, 0, 100, message);
+                };
+
+                expect(f).toThrow(message);
+            });
+
+        });
+
+        describe('when number argument is more then maxAllowed', function () {
+
+            it('should not throw exception', function () {
+                var message = 'error message';
+                var f = function () {
+                    guard.throwIfNumberIsOutOfRange(101, 0, 100, message);
+                };
+
+                expect(f).toThrow(message);
+            });
+
+        });
+
+        describe('when number argument is inside the boundaries', function () {
+
+            it('should not throw exception', function () {
+                var f = function () {
+                    guard.throwIfNumberIsOutOfRange(10, 0, 100);
                 };
 
                 expect(f).not.toThrow();
