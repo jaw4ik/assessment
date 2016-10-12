@@ -78,12 +78,12 @@ class QuestionModalView {
             modalView.close();
             return;
         }
-
-        modalView.open();
+        
         this.isLoading(true);
 
         await httpRequestTracker.waitForRequestFinalization();
         await this.loadQuestion(sectionId, questionId);
+        modalView.open();
 
         this.isLoading(false);
     }
