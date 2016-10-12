@@ -830,5 +830,37 @@
       "code": "vi",
       "url": "lang/vi.json"
     }
-  ]
+  ],
+  "defaultTemplateSettings": {
+        "sectionsLayout": {
+            "key": "Tiles"
+        },
+        "treeOfContent": {
+            "enabled": true
+        },
+        "xApi": {
+            "enabled": true,
+            "selectedLrs": "default",
+            "lrs": {
+                "uri": "",
+                "credentials": {
+                    "username": "",
+                    "password": ""
+                },
+                "authenticationRequired": false
+            },
+            "allowedVerbs": []
+        },
+        "languages": {
+            "selected": "en",
+            "customTranslations": {}
+        },
+        "pdfExport": {
+            "enabled": false
+        },
+        "showConfirmationPopup": true,
+        "allowContentPagesScoring": false,
+        "allowCrossDeviceSaving": true,
+        "allowLoginViaSocialMedia": true
+    }
 }

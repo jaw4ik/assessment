@@ -24,7 +24,7 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
-    "css": "github:systemjs/plugin-css@0.1.30",
+    "css": "github:systemjs/plugin-css@0.1.31",
     "dragula": "npm:dragula@3.7.2",
     "durandal": "core/durandal",
     "font-awesome": "npm:font-awesome@4.6.3",
@@ -102,7 +102,7 @@ System.config({
       "crossvent": "npm:crossvent@1.5.4"
     },
     "npm:font-awesome@4.6.3": {
-      "css": "github:systemjs/plugin-css@0.1.29"
+      "css": "github:systemjs/plugin-css@0.1.31"
     },
     "npm:froala-editor@2.3.4": {
       "font-awesome": "npm:font-awesome@4.6.3",
