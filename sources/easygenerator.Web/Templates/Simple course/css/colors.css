@@ -328,7 +328,6 @@ body {
     font-weight: @Normal-fontWeight;
     font-size: @Normal-size;
     text-decoration: @Normal-textDecoration;
-    background-color: @Normal-textBackgroundColor;
 
     h1 {
         .h1-styled-text;

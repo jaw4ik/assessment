@@ -3,7 +3,7 @@
 @if (ConfigurationManager.AppSettings.AllKeys.Contains("NudgespotToken") && ConfigurationManager.AppSettings["NudgespotToken"].Length > 0)
 {
     <script type="text/javascript">
-        (function (d, n) {
+       /* (function (d, n) {
 
             var s, a, p; s = document.createElement("script");
             s.type = "text/javascript";
@@ -29,7 +29,7 @@
                     f(n, m[i]);
             }
         })(document, window.nudgespot || []);
-        nudgespot.init('@ConfigurationManager.AppSettings["NudgespotToken"]');
+        nudgespot.init('@ConfigurationManager.AppSettings["NudgespotToken"]');*/
 </script>
 
 
