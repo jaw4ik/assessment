@@ -43,6 +43,7 @@ export default class {
 
         if(justCreated){
             this.instances[0].hasFocus(true);
+            this.save();
         }
     }
 
