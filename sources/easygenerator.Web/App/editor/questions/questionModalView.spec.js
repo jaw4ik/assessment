@@ -71,11 +71,6 @@ describe('viewmodel [questionModalView]', () => {
             });    
         });
 
-        it('should open modal view', () => {
-            viewModel.open(sectionId, questionId);
-            expect(modalView.open).toHaveBeenCalled();
-        });
-
         it('should set isLoading to true', () => {
             viewModel.isLoading(false);
             viewModel.open(sectionId, questionId);
@@ -119,6 +114,11 @@ describe('viewmodel [questionModalView]', () => {
             it('should activate question view model', done => (async () => {
                 await viewModel.open(sectionId, questionId);
                 expect(questionViewModel.activate).toHaveBeenCalledWith(courseId, sectionId, questionId);
+            })().then(done));
+
+            it('should open modal view', done => (async () => {
+                await viewModel.open(sectionId, questionId);
+                expect(modalView.open).toHaveBeenCalled();
             })().then(done));
 
             it('should set isLoading to false', done => (async () => {
