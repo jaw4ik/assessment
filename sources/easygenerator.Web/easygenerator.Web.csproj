@@ -3931,6 +3931,7 @@
     <Content Include="Templates\Assessment\css\font\Custom-Icons.woff" />
     <Content Include="Views\Shared\_googleTagManager.cshtml" />
     <Content Include="Templates\Reader\lang\zh-cn.json" />
+    <Content Include="Templates\Personalized learning\css\font\Custom-Icons.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
