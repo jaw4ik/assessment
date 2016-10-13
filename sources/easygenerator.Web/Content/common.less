@@ -635,7 +635,17 @@ img:hover {
     bottom: 132px !important;
 }
 
-#hs-beacon > div > iframe,
+@media screen and ( max-height: 670px ) {
+    #hs-beacon > div > iframe:first-child {
+        right: 76px !important;
+        bottom: 11px !important;
+    }
+
+    #hs-beacon > div > iframe:last-child {
+        bottom: 74px !important;
+    }
+}
+
 #intercom-container {
     z-index: 2199 !important;
 }
