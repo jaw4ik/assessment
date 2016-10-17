@@ -63,16 +63,25 @@
                 .on('click', function () {
                     var that = this;
                     setTimeout(function () {
-                        $(document).one('mousemove', function () {
-                            if (!that.value) {
-                                settings.abort();
-                            }
-                        });
+                        abortHandler.call(that, settings);
                     }, 100);
                 })
                 .appendTo(form);
 
             input.click();
+
+            function abortHandler(settings) {
+                var that = this;
+                $(document).one('mousemove', function () {
+                    if (document.hasFocus()) {
+                        if (!that.value) {
+                            settings.abort();
+                        }
+                    } else {
+                        abortHandler.call(that, settings);
+                    }
+                });
+            }
 
             function getSupportedExtensionsRegexBody(extensions) {
                 var result = '';
