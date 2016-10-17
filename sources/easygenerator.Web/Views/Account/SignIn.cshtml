@@ -12,7 +12,7 @@
                     <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
                         <div class="user-form-input-holder email">
                             <span class="user-form-input-wrapper"></span>
-                            <input class="user-form-input" type="text" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: username, valueUpdate: 'input', event: { blur: username.markAsModified }" ondrop="return false;" />
+                            <input class="user-form-input" type="email" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: username, valueUpdate: 'input', event: { blur: username.markAsModified }" ondrop="return false;" />
                         </div>
                         <!-- ko if: !username.isValid() && username.isModified() -->
                         <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
