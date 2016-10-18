@@ -32,7 +32,7 @@
                     <div class="user-form-row" data-bind="css: { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
                         <div class="user-form-input-holder email">
                             <span class="user-form-input-wrapper"></span>
-                            <input tabindex="2" class="user-form-input" type="text" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
+                            <input tabindex="2" class="user-form-input" type="email" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
                         </div>
                         <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
                         <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage' "></span>
