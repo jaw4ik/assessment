@@ -24,7 +24,7 @@
                         <div class="answer-sort-btn"></div>
                         <div class="answer-text-wrapper">
                             <div class="question-answer-text">
-                                <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', autosize: { text: text }, event: { focus: $parent.beginEditText, blur: $parent.endEditText }, selectTextInAnswer: {}, hasFocus: text.isEditing"></textarea>
+                                <textarea class="editarea-editable-text selectable" data-bind="value: text, autosize: { text: text }, event: { focus: $parent.beginEditText, blur: $parent.endEditText }, selectTextInAnswer: {}, hasFocus: text.isEditing"></textarea>
                                 <div class="empty-answer-instruction" data-bind="localize: { text: 'rankingChoiceEmptyInstruction'}, visible: text().length === 0 && !text.isEditing() "></div>
                             </div>
                         </div>

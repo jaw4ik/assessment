@@ -28,7 +28,7 @@
             <div class="comments-expander" data-bind="css: { 'collapsed': !isExpanded(), 'expanded': isExpanded() }"></div>
         </div>
         <form class="add-comment-form">
-            <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: showTextValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
+            <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, css: { error: showTextValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
             <div class="identify-user-form" data-bind="css: { shown: showIdentifyUserForm()}">
                 <div class="identify-user-title">@Resources.IdentifyMessage</div>
                 <div class="identify-user-row">

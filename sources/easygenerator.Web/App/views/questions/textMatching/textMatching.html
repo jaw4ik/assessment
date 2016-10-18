@@ -41,7 +41,7 @@
                             <div class="answer-options-list-item">
                                 <div class="question-answer-text-wrapper" tabindex="0" data-bind="css: { active: key.hasFocus(), error: !key.isValid()}, event: { focusin: key.beginEditText}">
                                     <div class="question-answer-text">
-                                        <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', autosize: { text: key }, event: { focus: key.beginEditText, blur: function(data, event){ key.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: key.hasFocus()"></textarea>
+                                        <textarea class="editarea-editable-text selectable" data-bind="value: key, autosize: { text: key }, event: { focus: key.beginEditText, blur: function(data, event){ key.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: key.hasFocus()"></textarea>
                                     </div>
                                     <div class="chars-counter" data-bind="css: { error: !key.isValid() }">
                                         <span data-bind="text: key().trim().length"></span>/<span>255</span>
@@ -50,7 +50,7 @@
                                 <div class="question-answer-text-wrapper" tabindex="0" data-bind="css: { active: value.hasFocus(), error: !value.isValid()}, event: { focusin: value.beginEditText}">
                                     <div class="puzzle-item"></div>
                                     <div class="question-answer-text">
-                                        <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', autosize: { text: value }, event: { focus: value.beginEditText, blur: function(data, event){ value.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: value.hasFocus()"></textarea>
+                                        <textarea class="editarea-editable-text selectable" data-bind="value: value, autosize: { text: value }, event: { focus: value.beginEditText, blur: function(data, event){ value.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}, hasFocus: value.hasFocus()"></textarea>
                                     </div>
                                     <div class="chars-counter" data-bind="css: { error: !value.isValid() }">
                                         <span data-bind="text: value().trim().length"></span>/<span>255</span>

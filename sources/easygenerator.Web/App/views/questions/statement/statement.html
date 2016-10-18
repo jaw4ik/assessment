@@ -40,7 +40,7 @@
                             <!-- /ko -->
                             <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus() }">
                                 <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', event: { focus: $parent.beginEditText, blur: $parent.endEditText }, autosize: { text: text }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, event: { focus: $parent.beginEditText, blur: $parent.endEditText }, autosize: { text: text }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>
                                 </div>
                             </div>
                             <!-- ko if: $parent.canRemoveAnswer -->
