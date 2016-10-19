@@ -136,7 +136,7 @@ describe('[vimeoCommands]', function () {
             vimeoCommands.getThumbnailUrl(videoId);
 
             expect($.ajax).toHaveBeenCalledWith({
-                url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + videoId) + '&width=200&height=150',
+                url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + videoId) + '&width=200&height=113',
                 method: 'GET',
                 global: false
             });

@@ -2,7 +2,7 @@
     <div class="content-section-wrapper">
         <div class="content-section">
             <div class="audio-library clearfix">
-                <div class="add-audio-button" data-bind="browse: { click: onOpenFileBrowseDialog, before: library.ensureCanAddAudio, callback: uploadAudio }">
+                <div class="add-audio-button" data-bind="browse: { click: onOpenFileBrowseDialog, before: library.ensureCanAddAudio, callback: uploadAudio }, css: { 'with-indicator': storageSpaceProgressBarVisibility }">
                     <div class="free-space-section" data-bind="visible: storageSpaceProgressBarVisibility">
                         <span class="free-space-info">
                             <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>
@@ -18,13 +18,13 @@
                     <span class="tip-arrow-text" data-bind="localize: { text : 'uploadAudioDescription' }">Upload your own audio by click on this button</span>
                 </div>
                 <!-- /ko -->
-                <div class="audio-list-container">
-                    <div class="drop-hint drop-zone overlay" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }">
-                        <div class="drop-hint-content">
-                            <h3 data-bind="localize: { text : 'dropHere' }"></h3>
-                            <span data-bind="localize: { text : 'anyAudioFormats' }"></span>
-                        </div>
+                <div class="drop-hint drop-zone overlay" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }">
+                    <div class="drop-hint-content">
+                        <h3 data-bind="localize: { text : 'dropHere' }"></h3>
+                        <span data-bind="localize: { text : 'anyAudioFormats' }"></span>
                     </div>
+                </div>
+                <div class="audio-list-container">
                     <ul class="audio-list" data-bind="foreachAnimated: { data: library.audios, removeDelay: 0, speed: 0.3 }">
                         <!-- ko if: status() == $parent.library.statuses.loaded -->
                         <li class="audio-list-item audio" data-bind="click: $parent.library.showAudioDetails, css: { inactive: status() !== $parent.library.statuses.loaded, 'delete-popup-shown': isDeleteConfirmationShown }">

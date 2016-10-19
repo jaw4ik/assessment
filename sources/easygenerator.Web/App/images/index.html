@@ -4,21 +4,21 @@
             <div class="images-container">
                 <div class="drop-hint drop-zone overlay" data-bind="dropUpload: { callback: uploadImage.bind($data) }">
                     <div class="drop-hint-content">
-                        <h3 data-bind="localize: { text : 'dropHere' }">Drop here</h3>
-                        <span data-bind="localize: { text : 'anyImageFormats' }">Any image formats</span>
+                        <h3 data-bind="localize: { text : 'dropHere' }"></h3>
+                        <span data-bind="localize: { text : 'anyImagesFormats' }"></span>
                     </div>
                 </div>
                 <ul class="library-list">
                     <li class="library-list-item add-library-item-button" data-bind="browse: { callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }, click: openChooseImageDialogHandler"></li>
-
                     <!-- ko ifnot: images().length -->
                     <li class="add-library-item-button-description">
-                        <span class="tip-arrow-text" data-bind="localize: { text : 'uploadImageDescription' }">Upload your own image by click on this button</span>
+                        <span class="tip-arrow-text" data-bind="localize: { text : 'uploadImageDescription' }"></span>
                     </li>
                     <!-- /ko -->
-                    <!-- ko foreach: images -->
+
+                    <!-- ko lazyForeach: images -->
                     <li class="library-list-item hovered" data-bind="click: isDeleteConfirmationShown() ? function(){} : $parent.showImagePopup.bind($parent) ">
-                        <div class="library-list-item-thumbnail" data-bind="coverBackground: { src: url, width: 200, height: 150 }">
+                        <div class="library-list-item-thumbnail" data-bind="coverBackground: { src: url, width: 200, height: 113 }">
                             <span class="preview-icon"></span>
                             <!-- ko ifnot: isDeleteConfirmationShown -->
                             <div class="list-item-context-actions-wrapper">
