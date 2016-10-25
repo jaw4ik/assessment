@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/ce73c31df6a6a083371a44a0fe3cba96
+ * (2) http://ckeditor.com/builder/f842dd46db53e4bb6f871524b01a7085
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/ce73c31df6a6a083371a44a0fe3cba96
+ * (3) http://ckeditor.com/builder/download/f842dd46db53e4bb6f871524b01a7085
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -42,6 +42,7 @@ var CKBUILDER_CONFIG = {
 		'.jscsrc',
 		'.jshintignore',
 		'.jshintrc',
+		'less',
 		'.mailmap',
 		'node_modules',
 		'package.json',
@@ -98,15 +99,15 @@ var CKBUILDER_CONFIG = {
 		'widget' : 1,
 		'wsc' : 1
 	},
-	languages: {
-        'de' : 1,
+	languages : {
+		'de' : 1,
 		'en' : 1,
+		'es' : 1,
 		'fr' : 1,
-        'nl' : 1,
+		'it' : 1,
+		'nl' : 1,
 		'pt-br' : 1,
 		'uk' : 1,
-		'zh-cn': 1,
-		'es': 1,
-        'it': 1
+		'zh-cn' : 1
 	}
 };
