@@ -47,6 +47,7 @@
     require('dragAndDrop/bindingHandlers/draggableContainer');
     require('dragAndDrop/bindingHandlers/draggableData');
     require('components/htmlEditor/bindingHandlers/htmlEditorBindingHandler');
+    require('components/bindingHandlers/copyToClipboardBindingHandler');
 
     var task = {
         execute: execute
