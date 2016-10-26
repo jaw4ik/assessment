@@ -202,10 +202,11 @@ describe('viewmodel [questionModalView]', () => {
             expect(eventTracker.publish).toHaveBeenCalledWith('Preview course');
         });
 
-        it('should open preview course url', () => {
+        it('should open preview question url', () => {
             viewModel.courseId = courseId;
+            viewModel.questionId = questionId;
             viewModel.previewCourse();
-            expect(router.openUrl).toHaveBeenCalledWith('/preview/courseId');
+            expect(router.openUrl).toHaveBeenCalledWith('/preview/' + courseId + '/?questionId=' + questionId);
         });
     });
 
