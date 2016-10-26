@@ -368,7 +368,6 @@ img:hover {
             &:before {
                 content: counter(ol-counter) '.';
                 counter-increment: ol-counter;
-                position: absolute;
                 display: inline-block;
                 width: 58px;
                 margin-left: -58px;
@@ -386,13 +385,12 @@ img:hover {
 
             &:before {
                 content: '';
-                position: absolute;
                 display: inline-block;
-                margin-left: -22px;
-                margin-top: 10px;
+                margin: 0 20px 0 -25px;
                 width: 5px;
                 height: 5px;
                 border-radius: 50%;
+                vertical-align: middle;
                 background-color: @main-style-color;
             }
         }
