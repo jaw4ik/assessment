@@ -1,54 +1,43 @@
-﻿define(['widgets/notifyViewer/viewmodel', 'localization/localizationManager'], function (notifyViewer, localizationManager) {
-    "use strict";
+﻿import binder from 'binder';
+import notifyViewer from 'widgets/notifyViewer/viewmodel';
+import localizationManager from 'localization/localizationManager';
 
-    var
-        noticeTypes = {
-            info: "info",
-            error: "error",
-            success: "success"
-        },
+const noticeTypes = {
+    info: 'info',
+    error: 'error',
+    success: 'success'
+};
 
-        success = function (message) {
-            showNotification(message, noticeTypes.success);
-        },
+class Notify {
+    constructor() {
+        binder.bindClass(this);
+    }
 
-        info = function (message) {
-            showNotification(message, noticeTypes.info);
-        },
+    success(message) {
+        this._showNotification(message, noticeTypes.success);
+    }
 
-        error = function (message) {
-            showNotification(message, noticeTypes.error);
-        },
+    info(message) {
+        this._showNotification(message, noticeTypes.info);
+    }
 
-        saved = function () {
-            var message = localizationManager.localize('allChangesAreSaved');
-            showNotification(message, noticeTypes.success);
-        },
+    error(message) {
+        this._showNotification(message || localizationManager.localize('anErrorOccurred'), noticeTypes.error);
+    }
 
-        showNotification = function (message, type) {
-            var notificationItem = {
-                text: message,
-                type: type
-            };
+    saved() {
+        let message = localizationManager.localize('allChangesAreSaved');
+        this._showNotification(message, noticeTypes.success);
+    }
 
-           notifyViewer.notifications.remove(function (item) {
-                return item.text == message && item.type == type;
-           });
+    hide() {
+        notifyViewer.notifications.removeAll();
+    }
 
-           notifyViewer.notifications.push(notificationItem);
-        },
+    _showNotification(text, type) {
+        notifyViewer.notifications.remove(item => item.text === text && item.type === type);
+        notifyViewer.notifications.push({ text, type });
+    }
+}
 
-        hide = function () {
-            notifyViewer.notifications.removeAll();
-        };
-
-    return {
-        success: success,
-        info: info,
-        error: error,
-        saved: saved,
-
-        hide: hide
-    };
-
-});
+export default new Notify();

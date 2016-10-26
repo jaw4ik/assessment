@@ -23,6 +23,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "clipboard": "npm:clipboard@1.5.15",
     "core-js": "npm:core-js@1.2.7",
     "css": "github:systemjs/plugin-css@0.1.31",
     "dragula": "npm:dragula@3.7.2",
@@ -79,6 +80,11 @@ System.config({
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:clipboard@1.5.15": {
+      "good-listener": "npm:good-listener@1.2.0",
+      "select": "npm:select@1.1.0",
+      "tiny-emitter": "npm:tiny-emitter@1.1.0"
+    },
     "npm:contra@1.9.4": {
       "atoa": "npm:atoa@1.0.0",
       "ticky": "npm:ticky@1.0.1"
@@ -107,6 +113,9 @@ System.config({
     "npm:froala-editor@2.3.4": {
       "font-awesome": "npm:font-awesome@4.6.3",
       "jquery": "npm:jquery@3.1.1"
+    },
+    "npm:good-listener@1.2.0": {
+      "delegate": "npm:delegate@3.1.0"
     },
     "npm:guillotine@1.3.1": {
       "jquery": "npm:jquery@3.1.1"

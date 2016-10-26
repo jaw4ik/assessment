@@ -27,7 +27,6 @@ namespace easygenerator.Web.Configuration
                 .Include("~/scripts/jquery.extensions.js")
                 .Include("~/scripts/jquery.autosize.js")
                 .Include("~/scripts/md5.js")
-                .Include("~/scripts/zeroclipboard.js")
                 .Include("~/scripts/Blob.js")
                 .Include("~/scripts/FileSaver.js")
                 .Include("~/scripts/polyfills.js")

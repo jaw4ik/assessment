@@ -791,6 +791,7 @@
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\bindingHandlers\copyToClipboardBindingHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\EditorHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\ToolbarPositionHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\htmlEditorBindingHandler.js" />
@@ -3069,7 +3070,6 @@
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
     <Content Include="Scripts\knockoutBindings\circleProgressBinding.js" />
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
-    <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
     <Content Include="App\fileUpload.js" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
@@ -3571,8 +3571,6 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\external-helpers.js" />
     <Content Include="Scripts\underscore.min.js" />
-    <Content Include="Scripts\zeroclipboard.js" />
-    <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="specRunner.js" />
     <Content Include="Templates\Assessment\app\app.js" />
     <Content Include="Templates\Assessment\app\modules\xApi\views\xApiError.html" />
