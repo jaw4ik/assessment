@@ -538,6 +538,7 @@
         'notify.spec',
         'uiLocker.spec',
         'userContext.spec',
+        'fonts.spec',
 
         //#region http
         'http/apiHttpWrapper.spec',

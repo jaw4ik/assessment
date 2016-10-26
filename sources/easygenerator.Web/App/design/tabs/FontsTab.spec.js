@@ -1,4 +1,5 @@
 ﻿import FontsTab from './FontsTab.js';
+import { fontFamilies } from './FontsTab.js';
 
 import fonts from 'fonts';
 import userContext from 'userContext';
@@ -108,8 +109,18 @@ describe('Fonts tab', () => {
         });
 
         it('should load font families', done =>{
-            spyOn(fonts, 'load');
             let tab = new FontsTab();
+
+            tab.customFonts.push({family: 'custom', needToLoad: true, place: 'someurl'});
+
+            var familiesToLoad = tab.customFonts.concat(_.filter(fontFamilies, (font) => { return font.needToLoad; }));
+            familiesToLoad = familiesToLoad.map(font => { return font.name; });
+
+            spyOn(fonts, 'load').and.callFake(function(fontFamilies){
+                _.each(fontFamilies, function(font){
+                    expect(_.contains(familiesToLoad, font.family)).toBeTruthy();
+                });
+            });
 
             let settings = { 
                 fonts: [],
@@ -120,7 +131,7 @@ describe('Fonts tab', () => {
             let defaults = {fonts: [] };
 
             tab.activate(settings, defaults).then(() => {
-                expect(fonts.load).toHaveBeenCalledWith(["Bad Script", "Ledger", "PT Sans", "PT Serif", "Roboto", "Roboto Mono", "Roboto Slab"]);
+                expect(fonts.load).toHaveBeenCalled();
                 done();
             });
 

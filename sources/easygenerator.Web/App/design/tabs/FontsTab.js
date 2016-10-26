@@ -21,6 +21,8 @@ export default class FontsTab {
 
         this.isLoadingSettings = ko.observable(true);
         this.available = null;
+        
+        this.customFonts = [];
     }
 
     expand(section) {
@@ -32,13 +34,20 @@ export default class FontsTab {
 
     activate(settings, defaults, allowEdit){
         let that = this;
+
+        _.each(this.customFonts, (font) => {
+            if(!_.contains(fontFamilies, font)){
+                fontFamilies.push(font);
+            }
+        });
+
         return new Promise(resolve => {
             this.generalStyles.activate(settings, defaults, allowEdit);
             this.contentStyles.activate(settings, defaults, allowEdit);
             resolve();
         }).then(() => {
             let familiesToLoad = _.map(_.filter(fontFamilies, fontFamily => { return fontFamily.needToLoad }), font => {
-                return font.name;
+                return {"family": font.name, "place": font.place};
             });
             return fonts.load(familiesToLoad);
         }).then(() => {
@@ -48,49 +57,67 @@ export default class FontsTab {
     }
 }
 
-export const fontFamilies = [
+var fontFamilies = [
     {
         name: 'Arial',
-        needToLoad: false
+        needToLoad: false,
+        place: 'none'
     },
     {
         name: 'Bad Script',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
+    },
+    {
+        name: 'Dyslexie',
+        needToLoad: true,
+        place: 'custom'
     },
     {
         name: 'Ledger',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
     },
     {
         name: 'Open Sans',
-        needToLoad: false
+        needToLoad: false,
+        place: 'google'
     },
     {
         name: 'PT Sans',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
     },
     {
         name: 'PT Serif',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
     },
     {
         name: 'Roboto',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
     },
     {
         name: 'Roboto Mono',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
     },
     {
         name: 'Roboto Slab',
-        needToLoad: true
+        needToLoad: true,
+        place: 'google'
     },
     {
         name: 'Times new roman',
-        needToLoad: false
+        needToLoad: false,
+        place: 'none'
     },
     {
         name: 'Verdana',
-        needToLoad: false
+        needToLoad: false,
+        place: 'none'
     }
 ];
+
+export { fontFamilies };

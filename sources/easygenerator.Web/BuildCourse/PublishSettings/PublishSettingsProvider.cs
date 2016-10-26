@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
 using easygenerator.DomainModel.Entities.ACL;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PublishSettings.Models;
@@ -27,6 +28,8 @@ namespace easygenerator.Web.BuildCourse.PublishSettings
                                                     .Select(entry => new { Email = entry.UserIdentity })
                 };
             }
+
+            publishSettings.CustomFontPlace = ConfigurationManager.AppSettings["customFontUrl"];
 
             return JsonConvert.SerializeObject(publishSettings, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() });
         }

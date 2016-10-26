@@ -41,7 +41,8 @@
                 configure: (manifest.settingsUrls && manifest.settingsUrls.configure) ? templateUrl + manifest.settingsUrls.configure : null
             },
             shortDescription: manifest.shortDescription,
-            goal: manifest.goal
+            goal: manifest.goal,
+            fonts: manifest.fonts
         };
     }
 });

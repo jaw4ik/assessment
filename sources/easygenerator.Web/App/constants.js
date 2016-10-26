@@ -683,6 +683,9 @@ var constants = {
                 learningContent: 'learningContent'
             }
         }
+    },
+    fonts: {
+        customFontUrl: window.customFontUrl || '/Content/common.css'
     }
 };
 

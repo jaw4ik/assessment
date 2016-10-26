@@ -20,6 +20,8 @@
             obj.supports = spec.supports;
             obj.presets = spec.presets;
 
+            obj.fonts = spec.fonts;
+
             return obj;
         };
 

@@ -58,7 +58,7 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
     bootstrapper.run();
 
     await* [
-        fonts.load(['Open+Sans:400,400italic,300italic,300,600,600italic:latin,cyrillic-ext', 'Droid+Sans+Mono::latin']),
+        fonts.load([{"family":'Open+Sans:400,400italic,300italic,300,600,600italic:latin,cyrillic-ext', "place":'google'}, {"family":'Droid+Sans+Mono::latin', "place":'google'}]),
         userContext.identify(),
         userContext.identifyStoragePermissions(),
         synchronization.start(),

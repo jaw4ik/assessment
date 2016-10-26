@@ -11,6 +11,7 @@ export default class TemplateBrief {
         this.settingsAvailable = template.settingsUrls.design != null;
         this.previewDemoUrl = template.previewDemoUrl;
         this.presets = template.presets;
+        this.fonts = template.fonts;
         this.isLoading = ko.observable(false);
     }
 }

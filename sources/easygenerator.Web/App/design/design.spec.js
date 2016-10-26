@@ -210,11 +210,11 @@ describe('viewModel [design]', () => {
 
             let
                 templates = [
-                    { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) },
+                    { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false), fonts: [{fontFamily: 'customFont', url: 'someurl', isLocal: false}] },
                     { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) },
                     { id: "2", name: "Simple", thumbnail: "path/to/image2.png", supports: ['branding'], presets: [{ title: 'default', settings: { branding: {} } }], settingsUrls: { design: null, configure: null } }
                 ],
-                template = templates[1],
+                template = templates[0],
                 course = { id: 'courseId', template: template, createdBy: 'user@easygenerator.com' };
 
             
@@ -403,6 +403,20 @@ describe('viewModel [design]', () => {
                     expect(viewModel.loadSettings).toHaveBeenCalledWith();
                     done();
                 }); 
+            });
+
+            describe('after load settings', () => {
+                it('should add custom fonts into fonts tab', done => {
+                    resolve(course);
+
+                    getCourseTemplateSettings.resolve();
+                    viewModel.activate(course.id).then(() => {
+                        expect(viewModel.loadSettings).toHaveBeenCalledWith();
+                        console.log(viewModel.template());
+                        expect(viewModel.fontsTab.customFonts[0].name).toBe('customFont');
+                        done();
+                    }); 
+                });
             });
 
         });

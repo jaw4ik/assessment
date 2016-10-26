@@ -117,8 +117,25 @@ class Design{
             this.subscriptions.push(app.on(themesEvents.discardChanges).then(() => this.discardThemeChanges()));
             
             this.updateTabCollection(course.template);
+            
+            var that = this;
+            
+            return this.loadSettings().then(() => {
+                that.fontsTab.customFonts = [];
 
-            return this.loadSettings();
+                _.each(that.template().fonts, (font) => {
+                    if(!font.isLocal){
+                        that.fontsTab.customFonts.push({
+                            name: font.fontFamily,
+                            needToLoad: true,
+                            place: font.url,
+                            isCustom: true
+                        });
+
+                        that.fontsTab.customFonts = _.uniq(that.fontsTab.customFonts, (font) => {return font.name;});
+                    }
+                });
+            });
         }).catch(reason => {
             router.activeItem.settings.lifecycleData = { redirect: '404' };
             throw reason;
@@ -289,7 +306,7 @@ class Design{
                 this.settings = deepExtend(response.settings, response.theme.settings ? cloneObject(response.theme.settings) : {});
                 return;
             }
-            
+
             let preset;
             if (Array.isArray(this.template().presets)) {
                 preset = _.find(this.template().presets, p => p.title && p.title === (response.extraData && response.extraData.preset));
@@ -360,7 +377,10 @@ class Design{
 
     fontSettingsChanged() {
         this.settings.fonts = _.flatten([this.fontsTab.generalStyles.mainFont, this.fontsTab.contentStyles.elements()]).map(f => {
+            var place = f.fontFamily ? _.find(f.fontFamilies, (font => font.name === f.fontFamily())).place : null;
+
             return {
+                place: place,
                 key: f.key,
                 fontFamily: f.fontFamily ? f.fontFamily() : null,
                 fontWeight: f.fontWeight ? f.fontWeight() : null,

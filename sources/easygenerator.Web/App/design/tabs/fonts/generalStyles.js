@@ -31,6 +31,7 @@ export default class GeneralStyles {
     activate(settings, defaults, allowEdit) {
         this.available = userContext.hasPlusAccess();
         this.allowEdit = allowEdit;
+        this.fontFamilies = fontFamilies;
 
         let colors = Array.isArray(settings.branding.colors) ? settings.branding.colors : Array.isArray(defaults.branding.colors) ? defaults.branding.colors : [];
         let fonts = Array.isArray(settings.fonts) ? settings.fonts : Array.isArray(defaults.fonts) ? defaults.fonts : [];

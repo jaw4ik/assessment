@@ -13,6 +13,8 @@ namespace easygenerator.Web.BuildCourse.PublishSettings.Models
         public List<Module> Modules { get; set; }
 
         public AccessLimitation AccessLimitation { get; set; }
+
+        public string CustomFontPlace { get; set; }
     }
 
 

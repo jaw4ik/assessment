@@ -22,14 +22,16 @@
         "variants": [
             "400"
         ],
-        "local": true
+        "url": "./css/fonts.css",
+        "isLocal": true
     },
     {
         "fontFamily": "Custom Icons",
         "variants": [
             "400"
         ],
-        "local": true
+        "url": "./css/fonts.css",
+        "isLocal": true
     }
   ],
   "presets": [
@@ -89,10 +91,12 @@
         },
         "fonts": [
           {
+            "place": "google",
             "key": "main-font",
             "fontFamily": "Roboto Slab"
           },
           {
+            "place": "google",
             "key": "Heading1",
             "size": 24,
             "fontFamily": "Roboto Slab",
@@ -105,6 +109,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading2",
             "size": 22,
             "fontFamily": "Roboto Slab",
@@ -117,6 +122,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
@@ -129,6 +135,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -141,6 +148,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -153,6 +161,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -165,6 +174,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -235,10 +245,12 @@
         },
         "fonts": [
           {
+            "place": "google",
             "key": "main-font",
             "fontFamily": "Roboto Slab"
           },
           {
+            "place": "google",
             "key": "Heading1",
             "size": 24,
             "fontFamily": "Roboto Slab",
@@ -251,6 +263,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading2",
             "size": 22,
             "fontFamily": "Roboto Slab",
@@ -263,6 +276,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
@@ -275,6 +289,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -287,6 +302,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -299,6 +315,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -311,6 +328,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -381,10 +399,12 @@
         },
         "fonts": [
           {
+            "place": "google",
             "key": "main-font",
             "fontFamily": "Roboto Slab"
           },
           {
+            "place": "google",
             "key": "Heading1",
             "size": 24,
             "fontFamily": "Roboto Slab",
@@ -397,6 +417,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading2",
             "size": 22,
             "fontFamily": "Roboto Slab",
@@ -409,6 +430,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
@@ -421,6 +443,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -433,6 +456,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -445,6 +469,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -457,6 +482,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -528,10 +554,12 @@
         },
         "fonts": [
           {
+            "place": "google",
             "key": "main-font",
             "fontFamily": "Roboto Slab"
           },
           {
+            "place": "google",
             "key": "Heading1",
             "size": 24,
             "fontFamily": "Roboto Slab",
@@ -544,6 +572,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading2",
             "size": 22,
             "fontFamily": "Roboto Slab",
@@ -556,6 +585,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
@@ -568,6 +598,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -580,6 +611,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -592,6 +624,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -604,6 +637,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -674,10 +708,12 @@
         },
         "fonts": [
           {
+            "place": "google",
             "key": "main-font",
             "fontFamily": "Roboto Slab"
           },
           {
+            "place": "google",
             "key": "Heading1",
             "size": 24,
             "fontFamily": "Roboto Slab",
@@ -690,6 +726,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading2",
             "size": 22,
             "fontFamily": "Roboto Slab",
@@ -702,6 +739,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Heading3",
             "size": 20,
             "fontFamily": "Roboto Slab",
@@ -714,6 +752,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Normal",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -726,6 +765,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Quote",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -738,6 +778,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "Highlighted",
             "size": 18,
             "fontFamily": "Roboto Slab",
@@ -750,6 +791,7 @@
             "isGeneralColorSelected": true
           },
           {
+            "place": "google",
             "key": "links",
             "size": 18,
             "fontFamily": "Roboto Slab",

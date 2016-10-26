@@ -991,6 +991,9 @@
     <Content Include="App\examples\start.spec.js">
       <DependentUpon>start.js</DependentUpon>
     </Content>
+    <Content Include="App\fonts.spec.js">
+      <DependentUpon>fonts.js</DependentUpon>
+    </Content>
     <Content Include="App\importfrompresentation\index.html" />
     <Content Include="App\importfrompresentation\index.js">
       <DependentUpon>index.html</DependentUpon>
