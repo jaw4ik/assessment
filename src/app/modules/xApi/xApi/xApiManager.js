@@ -20,7 +20,7 @@
         function init(id, title, absUrl, email, username, account) {
             xApiSettings.init();
             xApi = new TinCan();
-            xApi.actor = createActor(username, email, account);
+            xApi.actor = createActor(username, email, account) || {};
             try {
                 xApi.addRecordStore(createLRS());
             } catch (e) {
