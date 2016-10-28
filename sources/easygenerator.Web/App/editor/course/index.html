@@ -84,7 +84,7 @@
                                         <!-- ko ifnot: title.isEditing -->
                                         <button class="sections-list-item-actions-toggle-questions" data-bind="css: { collapsed: !questionsExpanded() }"></button>
                                         <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
-                                            <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: function() { menuExpanded(false); } }"></button>
+                                            <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: function() { menuExpanded(false); } }, stopEventPropagation: { event: 'click' }"></button>
                                             <ul class="sections-list-item-actions-menu">
                                                 <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: selectTitle, localize: {text:'editTitle'}, stopEventPropagation: { event: 'click'}">Edit title</li>
                                                 <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage, localize: {text: 'changeImage'}, stopEventPropagation: { event: 'click'}">Change image</li>
