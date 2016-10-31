@@ -8,6 +8,7 @@ import localizationManager from 'localization/localizationManager';
 import notify from 'notify';
 
 describe('viewModel [feedback]', function () {
+    var emptyCenteredText = '<p style="text-align: center;"></p>';
 
     beforeEach(function () {
         spyOn(localizationManager, 'localize').and.callFake(function (arg) {
@@ -188,7 +189,7 @@ describe('viewModel [feedback]', function () {
 
                     it('should remove feedback', function () {
                         viewModel.correctFeedback.updateText();
-                        expect(viewModel.correctFeedback.text()).toBe(' ');
+                        expect(viewModel.correctFeedback.text()).toBe(emptyCenteredText);
                     });
 
                 });
@@ -350,7 +351,7 @@ describe('viewModel [feedback]', function () {
 
                     it('should remove feedback', function () {
                         viewModel.incorrectFeedback.updateText();
-                        expect(viewModel.incorrectFeedback.text()).toBe(' ');
+                        expect(viewModel.incorrectFeedback.text()).toBe(emptyCenteredText);
                     });
 
                 });

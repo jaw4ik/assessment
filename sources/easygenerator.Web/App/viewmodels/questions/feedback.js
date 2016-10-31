@@ -7,6 +7,8 @@
             incorrectFeedbackUpdated: 'Update feedback content (incorrect answer)'
         };
 
+        var emptyCenteredText = '<p style="text-align: center;"></p>';
+
         var viewModel = {
             questionId: null,
             surveyModeEnabled: ko.observable(false),
@@ -47,8 +49,8 @@
                 previousText: '',
                 captions: {},
                 init: function (text, captions) {
-                    feedbackObject.text(text || '');
-                    feedbackObject.previousText = text || '';
+                    feedbackObject.text(text || emptyCenteredText);
+                    feedbackObject.previousText = text || emptyCenteredText;
                     feedbackObject.captions = captions;
                 },
                 hasFocus: ko.observable(false),
@@ -58,7 +60,7 @@
                     }
 
                     if (_.isEmptyHtmlText(feedbackObject.text())) {
-                        feedbackObject.text(' ');
+                        feedbackObject.text(emptyCenteredText);
                     }
 
                     feedbackObject.previousText = feedbackObject.text();
@@ -69,7 +71,7 @@
                 }
             };
             feedbackObject.isEmpty = ko.computed(function () {
-                return feedbackObject.text().length === 0;
+                return _.isEmptyHtmlText(feedbackObject.text());
             });
 
             return feedbackObject;
