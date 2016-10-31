@@ -3,7 +3,7 @@
         <div class="dialog-title" data-bind="localize: { text: 'audioLibrary' }"></div>
         <div class="dialog-title-info" data-bind="localize: { text: 'chooseFileForVoiceOver'}"></div>
     </div>
-    <div class="dialog-body">
+    <div class="dialog-body" data-bind="scrollbar: { checkDOMChanges: true }">
         <div class="dialog-body-wrapper">
             <!-- ko if: isLoading -->
             <div data-bind="preloader: { settings: 'align-center' }"></div>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <!-- ko if: library.audios().length -->
-            <div class="audio-list-container" data-bind="scrollbar: { checkDOMChanges: true }">
+            <div class="audio-list-container">
                 <ul class="audio-list">
                     <li class="audio-upload-hint">
                         <span data-bind="localize: { text: 'dropAudioFilesHereOr'}"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { click: onOpenFileBrowseDialog, before: library.ensureCanAddAudio, callback: uploadAudio }"></a>

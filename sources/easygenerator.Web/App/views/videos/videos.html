@@ -3,7 +3,7 @@
         <div class="content-section">
             <ul class="library-list">
 
-                <li class="library-list-item add-library-item-button" data-bind="click: addVideo">
+                <li class="library-list-item add-library-item-button" data-bind="click: addVideo, css: { 'with-indicator': storageSpaceProgressBarVisibility }">
                     <div class="free-space-section" data-bind="visible: storageSpaceProgressBarVisibility">
                         <span class="free-space-info">
                             <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>

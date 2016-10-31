@@ -1,34 +1,40 @@
 ﻿<section class="images">
     <h1 class="dialog-header" data-bind="localize: { text: 'imageLibrary' }"></h1>
-    <div class="dialog-content" data-bind="scrollbar:{ checkDOMChanges: true }">
-        <!-- ko ifnot: images().length -->
-        <div class="drop-hint drop-zone" data-bind="dropUpload: { callback: uploadImage.bind($data) }">
-            <div class="drop-hint-content">
-                <div class="drop-hint-upload-image"></div>
-                <div class="drop-hint-upload-text">
-                    <h3 data-bind="localize: { text : 'dragAndDrop' }"></h3>
-                    <span data-bind="localize: { text : 'anyImagesFormatsOr' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { click: openChooseImageDialogHandler, callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }"></a>
+    <div id="imageLibraryDialog" class="dialog-content" data-bind="scrollbar:{ checkDOMChanges: true }">
+        <div class="dialog-content-wrapper">
+            <div class="drop-hint drop-zone" data-bind="dropUpload: { callback: uploadImage.bind($data) }, css: { overlay: images().length }">
+                <div class="drop-hint-content">
+                    <!-- ko if: images().length -->
+                    <h3 data-bind="localize: { text : 'dropHere' }"></h3>
+                    <span data-bind="localize: { text : 'anyImagesFormats' }"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: images().length -->
+                    <div class="drop-hint-upload-image"></div>
+                    <div class="drop-hint-upload-text">
+                        <h3 data-bind="localize: { text : 'dragAndDrop' }"></h3>
+                        <span data-bind="localize: { text : 'anyImagesFormatsOr' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { click: openChooseImageDialogHandler, callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }"></a>
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
-        </div>
-        <!-- /ko -->
-        <div class="images-container">
-            <ul class="library-list">
-                <!-- ko if: images().length -->
-                <li class="library-list-item add-library-item-button" data-bind="browse: { callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }, click: openChooseImageDialogHandler"></li>
-                <!-- /ko -->
-                <!-- ko foreach: images -->
-                <li class="library-list-item hovered" data-bind="click: $parent.selectImage, event : { dblclick: $parent.selectImageAndCloseDialog }, css: { selected: $parent.selectedImageId() === id }">
-                    <div class="library-list-item-thumbnail" data-bind="coverBackground: { src: url, width: 190, height: 110 }">
-                        <span class="preview-icon" data-bind="click: $parent.showImagePopup.bind($parent)"></span>
-                        <span class="list-item-selected-indicator"></span>
-                    </div>
-                    <div class="library-list-item-title-container">
-                        <span class="library-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
-                    </div>
-                </li>
-                <!-- /ko -->
-            </ul>
+            <!-- ko if: images().length -->
+            <div class="images-container">
+                <ul class="library-list">
+                    <li class="library-list-item add-library-item-button" data-bind="browse: { callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }, click: openChooseImageDialogHandler"></li>
+                    <!-- ko lazyForeach: { data: images, scrollableContainer: '#imageLibraryDialog' } -->
+                    <li class="library-list-item hovered" data-bind="click: $parent.selectImage, event : { dblclick: $parent.selectImageAndCloseDialog }, css: { selected: $parent.selectedImageId() === id }">
+                        <div class="library-list-item-thumbnail" data-bind="coverBackground: { src: url, width: 200, height: 113 }">
+                            <span class="preview-icon" data-bind="click: $parent.showImagePopup.bind($parent)"></span>
+                            <span class="list-item-selected-indicator"></span>
+                        </div>
+                        <div class="library-list-item-title-container">
+                            <span class="library-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <!-- /ko -->
         </div>
     </div>
     <div class="dialog-footer">

@@ -40,7 +40,7 @@
         var deferred = Q.defer();
 
         $.ajax({
-            url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + id) + '&width=200&height=150',
+            url: constants.storage.video.vimeoUrl + constants.storage.video.vimeoOembedUrl + '?url=' + encodeURIComponent(constants.storage.video.vimeoUrl + '/' + id) + '&width=200&height=113',
             method: 'GET',
             global: false
         }).then(function (response) {

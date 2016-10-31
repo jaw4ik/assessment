@@ -474,7 +474,7 @@ var constants = {
             ticketUrl: '/api/media/video/upload',
             finishUrl: '/api/media/video/upload/finish',
             progressUrl: '/api/media/video/upload/progress',
-            defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
+            defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x113.jpg',
             cancelUrl: '/api/media/video/upload/cancel',
             deleteUrl: '/api/media/video/delete',
             statuses: {

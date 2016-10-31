@@ -792,6 +792,7 @@
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
     <Content Include="App\components\bindingHandlers\copyToClipboardBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\lazyForeachBindingHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\EditorHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\ToolbarPositionHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\htmlEditorBindingHandler.js" />

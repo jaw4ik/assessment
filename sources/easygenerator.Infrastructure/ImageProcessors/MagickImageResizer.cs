@@ -37,7 +37,7 @@ namespace easygenerator.Infrastructure.ImageProcessors
 
         public static void Resize(this MagickImage image, int width, int height, bool scaleBySmallerSide)
         {
-            if (ScaleByWidth(image.Width, image.Height, scaleBySmallerSide))
+            if (ScaleByWidth(width, height, scaleBySmallerSide))
             {
                 if (image.Width > width)
                 {

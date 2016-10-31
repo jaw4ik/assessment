@@ -25,7 +25,7 @@ export default class ImageLibrary {
 
         try {
             let images = await getImages.execute();
-            _.each(images, image => this.images.push(new Image(image)));
+            this.images(_.map(images, image => new Image(image)));
             preview.images = this.images;
         } catch (e) {
             notify.error(e);

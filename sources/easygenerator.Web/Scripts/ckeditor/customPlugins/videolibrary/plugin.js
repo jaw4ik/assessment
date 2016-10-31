@@ -13,17 +13,17 @@
 
         constants: {
             player: {
-                host: "//" + window.playerUrl
+                host: '//' + window.playerUrl
             },
             storage: {
-                host: "//" + window.storageServiceUrl,
+                host: '//' + window.storageServiceUrl,
                 mediaUrl: '/media',
                 video: {
                     vimeoUrl: 'https://vimeo.com',
                     vimeoOembedUrl: '/api/oembed.json',
-                    defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
+                    defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x113.jpg',
                     iframeWidth: 600,
-                    iframeHeight: 335,
+                    iframeHeight: 335
                 }
             }
         },

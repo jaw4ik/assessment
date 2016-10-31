@@ -3,15 +3,13 @@
 @shadow-color: #e8e8e8;
 
 @add-audio-border-color: #fff;
-@add-audio-box-shadow: 0px 2px 0px 0px @shadow-color;
 @add-audio-button-width: 202px;
-@add-audio-button-height: 208px;
-@add-audio-button-background-webkit: -webkit-linear-gradient(120deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
-@add-audio-button-background: linear-gradient(-29deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
+@add-audio-button-height: 170px;
+@add-audio-button-background: linear-gradient(-29deg, rgba(224, 242, 255, 1) 50%, rgba(224, 242, 255, .7) 50%);
 @add-audio-button-icon-background: url(../Content/images/sprites_64.png);
 
 @audio-background-color: #fff;
-@audio-action-hover-border-color: #71c3ff;
+@audio-action-hover-border-color: #469dd5;
 @upload-error-background: url('../Content/images/sprites_32.png');
 @audio-loaded-text-color: #546677;
 @audio-uploading-text-color: #77899b;
@@ -29,6 +27,7 @@
 
 .audios {
     .audio-library {
+        position: relative;
         margin-top: 30px;
 
         .add-audio-button {
@@ -36,13 +35,12 @@
             float: left;
             width: @add-audio-button-width;
             height: @add-audio-button-height;
-            border: 3px solid @add-audio-border-color;
-            border-radius: 15px;
-            background: @add-audio-button-background-webkit;
+            border: 2px solid @add-audio-border-color;
+            border-radius: 5px;
             background: @add-audio-button-background;
-            box-shadow: @add-audio-box-shadow;
+            box-shadow: none;
             cursor: pointer;
-            transition: border 0.3s;
+            .transition(border-color);
 
             &:hover {
                 border-color: @audio-action-hover-border-color;
@@ -59,6 +57,10 @@
                 height: 64px;
                 background: @add-audio-button-icon-background -207px -269px;
                 content: '';
+            }
+
+            &.with-indicator:before {
+                top: 42%;
             }
 
             .free-space-section {
@@ -122,12 +124,8 @@
 }
 
 .audio-list-container {
-    position: relative;
 
     .audio-list {
-        margin-right: 15px;
-        padding: 1px;
-        padding-bottom: 3px;
         list-style: none;
 
         .audio-list-item, .audio-upload-hint {
@@ -136,7 +134,7 @@
             padding: 0 10px;
             height: 50px;
             border: 1px solid transparent;
-            border-radius: 5px;
+            border-radius: 3px;
             background-color: @audio-background-color;
             box-shadow: 0 2px 0 @shadow-color;
             color: @audio-loaded-text-color;
@@ -144,10 +142,7 @@
             font-family: 'OpenSans';
             align-items: center;
             justify-content: center;
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
+            .transition(border-color);
         }
 
         .audio-upload-hint {

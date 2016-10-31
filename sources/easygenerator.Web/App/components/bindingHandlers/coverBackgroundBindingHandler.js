@@ -12,6 +12,8 @@ ko.bindingHandlers.coverBackground = {
             return;
         }
 
+        setImageSrc(element, '/Content/images/buildprogress.gif', '24px');
+
         let thumbnailUrl = src + `?width=${width}&height=${height}&scaleBySmallerSide=true`;
         let imageSize = await getImageSize(thumbnailUrl);
 
@@ -21,8 +23,7 @@ ko.bindingHandlers.coverBackground = {
         }
 
         if (imageSize.width >= width && imageSize.height >= height) {
-            $(element).css('background-size', 'cover');
-            setImageSrc(element, thumbnailUrl);
+            setImageSrc(element, thumbnailUrl, 'cover');
             return;
         }
 
@@ -30,10 +31,10 @@ ko.bindingHandlers.coverBackground = {
         imageSize = await getImageSize(thumbnailUrl);
 
         if (imageSize.width >= width && imageSize.height >= height) {
-            $(element).css('background-size', 'cover');
+            setImageSrc(element, thumbnailUrl, 'cover');
+        } else {
+            setImageSrc(element, thumbnailUrl);
         }
-
-        setImageSrc(element, thumbnailUrl);
     }
 };
 
@@ -47,11 +48,12 @@ function getImageSize(src) {
     });
 }
 
-function setImageSrc(element, src) {
+function setImageSrc(element, src, size = 'auto') {
     $(element).css({
         'background-repeat': 'no-repeat',
         'background-position': 'center',
-        'background-image': 'url(' + src + ')'
+        'background-image': 'url(' + src + ')',
+        'background-size': size
     });
 }
 
