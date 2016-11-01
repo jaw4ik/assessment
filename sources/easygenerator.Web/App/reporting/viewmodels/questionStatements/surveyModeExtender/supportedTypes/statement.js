@@ -18,7 +18,7 @@ export default function() {
         this.answers = _.map(choices, choice => new StatementAnswers(choice.description['en-US'], false, false));
         return;
     }
-    
+
     responseAnswers = _.map(responseAnswers,
         answer => {
             let temp = answer.split('[.]');
@@ -36,5 +36,5 @@ export default function() {
         return new StatementAnswers(choice.description['en-US'], true, answer.value);
     });
 
-
+    this.csvResponse = _.chain(this.answers).filter(answer => answer.isAnswered).map(answer => `[${answer.isTrue}] ${answer.title}`).value().join('; ');
 };

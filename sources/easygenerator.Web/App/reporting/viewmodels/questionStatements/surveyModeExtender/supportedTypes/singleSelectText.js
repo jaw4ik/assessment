@@ -18,4 +18,6 @@ export default function() {
     } else {
         this.answers = _.map(choices, choice => new SingleSelectAnswer(choice.description['en-US'], _.some(responseIds, id => id === choice.id)));
     }
+
+    this.csvResponse = _.chain(this.answers).filter(answer => answer.selected).map(answer => answer.title).value().join('; ');
 }

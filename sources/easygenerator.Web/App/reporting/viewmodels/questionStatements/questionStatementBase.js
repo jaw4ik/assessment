@@ -16,5 +16,7 @@ export default class extends ExpandableStatement {
         if (statement.hasOwnProperty('isSurvey')) {
             this.isSurvey = statement.isSurvey;
         }
+
+        this.csvResponse = this.lrsStatement.response;
     }
 }

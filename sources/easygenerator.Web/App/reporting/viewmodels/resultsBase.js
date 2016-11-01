@@ -320,7 +320,7 @@
                                 questionResult.lrsStatement.name,
                                 questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect,
                                 questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage,
-                                questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol
+                                questionResult.hasAnswer && !questionResult.hasScore ? questionResult.csvResponse : emptyCellSymbol
                             ]).concat(questionResultRightPart));
                             csvList.push(questionAnsweredResultCsv);
 
