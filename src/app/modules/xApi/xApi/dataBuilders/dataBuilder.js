@@ -40,7 +40,7 @@
             var data = courseDataBuilder.courseStartedData();
             data.object = defaultActivity();
             data.context = defaultContext();
-            data.actor = actor;
+            data.actor = actor || {};
 
             return new TinCan.Statement(data);
         }
@@ -49,7 +49,7 @@
             var data = courseDataBuilder.courseResultData(course);
             data.object = defaultActivity();
             data.context = defaultContext();
-            data.actor = actor;
+            data.actor = actor || {};
 
             return new TinCan.Statement(data);
         }
@@ -58,7 +58,7 @@
             var data = courseDataBuilder.courseStoppedData();
             data.object = defaultActivity();
             data.context = defaultContext();
-            data.actor = actor;
+            data.actor = actor || {};
 
             return new TinCan.Statement(data);
         }
@@ -66,7 +66,7 @@
         function sectionMastered(section) {
             var data = sectionDataBuilder.sectionMasteredData(section, rootUrl);
             data.context = defaultContext();
-            data.actor = actor;
+            data.actor = actor || {};
 
             return new TinCan.Statement(data);
         }
@@ -74,7 +74,7 @@
         function questionAnswered(item) {
             var data = questionDataBuilder.questionAnswered(item, rootUrl);
             data.context = addExtensionsToContext(data.context);
-            data.actor = actor;
+            data.actor = actor || {};
 
             return new TinCan.Statement(data);
         }
@@ -82,7 +82,7 @@
         function learningContentExperienced(item) {
             var data = learningContentDataBuilder.learningContentExperienced(item.question, item.time, rootUrl);
             data.context = addExtensionsToContext(data.context);
-            data.actor = actor;
+            data.actor = actor || {};
 
             return new TinCan.Statement(data);
         }

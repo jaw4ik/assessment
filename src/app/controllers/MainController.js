@@ -16,10 +16,8 @@
         
         if(settings.xApi.enabled && !xAPIManager.isInitialized && user){
             xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), user.email.trim(), user.username.trim(), user.account || null, settings.xApi);
-        } else if(!settings.xApi.enabled){
-            xAPIManager.off();
         }
-
+        
         that.title = $rootScope.title = assessment.title;
         that.hasIntroductionContent = assessment.hasIntroductionContent;
         that.logoUrl = settings.logo.url;
