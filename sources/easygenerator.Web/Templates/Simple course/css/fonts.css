@@ -2,20 +2,20 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1477899407148); /* For IE6-8 */
+  src: url(../fonts/MaterialIcons-Regular.woff?v=1478007722684); /* For IE6-8 */
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1477899407148) format('woff'),
+       url(MaterialIcons-Regular.woff?v=1478007722684) format('woff'),
 }
 
 @font-face {
     font-family: 'Custom Icons';
     font-weight: normal;
     font-style: normal;
-    src: url(../fonts/Custom-Icons.woff?v=1477899407148); /* For IE6-8 */
+    src: url(../fonts/Custom-Icons.woff?v=1478007722684); /* For IE6-8 */
     src: local('Custom Icons'),
         local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1477899407148) format('woff'),
+        url(Custom-Icons.woff?v=1478007722684) format('woff'),
 }
 
 .material-icons {
@@ -57,69 +57,88 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.icon-attention:before {
-    content: "\e91a";
+
+.icon-check_mark:before {
+  content: "\e900";
 }
-.icon-home:before {
-    content: "\e91b";
+.icon-eye:before {
+  content: "\e901";
 }
-.icon-envelope:before {
-    content: "\e915";
+.icon-eye_lock:before {
+  content: "\e902";
 }
-.icon-lock:before {
-    content: "\e914";
+.icon-mail:before {
+  content: "\e903";
 }
-.icon-link:before {
-    content: "\e90f";
+.icon-name:before {
+  content: "\e904";
 }
-.icon-all_devices:before {
-    content: "\e90b";
-}
-.icon-no_connection:before {
-    content: "\e90c";
-}
-.icon-user:before {
-    content: "\e90a";
-}
-.icon-linkedin:before {
-    content: "\e90e";
-}
-.icon-google:before {
-    content: "\e907";
-}
-.icon-facebook:before {
-    content: "\e908";
-}
-.icon-twitter:before {
-    content: "\e909";
-}
-.icon-password:before {
-    content: "\e90d";
-}
-.icon-google2:before {
-    content: "\e910";
-}
-.icon-facebook2:before {
-    content: "\e911";
-}
-.icon-linkedin2:before {
-    content: "\e912";
-}
-.icon-email:before {
-    content: "\e913";
+.icon-password2:before {
+  content: "\e905";
 }
 .icon-correct_check:before {
-    content: "\e900";
-}
-.icon-survey:before{
-    content: "\e99c";
+  content: "\e906";
 }
 .icon-incorrect_cross:before {
-    content: "\e901";
+  content: "\e907";
 }
 .icon-left_arrow:before {
-    content: "\e902";
+  content: "\e908";
 }
 .icon-up_arrow:before {
-    content: "\e903";
+  content: "\e909";
+}
+.icon-google:before {
+  content: "\e90a";
+}
+.icon-facebook:before {
+  content: "\e90b";
+}
+.icon-twitter:before {
+  content: "\e90c";
+}
+.icon-user:before {
+  content: "\e90d";
+}
+.icon-all_devices:before {
+  content: "\e90e";
+}
+.icon-no_connection:before {
+  content: "\e90f";
+}
+.icon-password:before {
+  content: "\e910";
+}
+.icon-linkedin:before {
+  content: "\e911";
+}
+.icon-link:before {
+  content: "\e912";
+}
+.icon-google2:before {
+  content: "\e913";
+}
+.icon-facebook2:before {
+  content: "\e914";
+}
+.icon-linkedin2:before {
+  content: "\e915";
+}
+.icon-email:before {
+  content: "\e916";
+}
+.icon-lock:before {
+  content: "\e917";
+}
+.icon-envelope:before {
+  content: "\e918";
+}
+.icon-attention:before {
+  content: "\e91a";
+}
+.icon-home:before {
+  content: "\e91b";
+}
+.icon-survey:before {
+  content: "\e99c";
 }

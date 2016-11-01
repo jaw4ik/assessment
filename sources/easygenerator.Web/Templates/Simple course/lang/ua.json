@@ -124,5 +124,17 @@
     "[submit results and logout]": "Надіслати прогрес",
     "[questions correct]": "правильних відповідей",
     "[contents readed]": "матеріалів переглянуто",
-    "[section]": "Секція"
+    "[section]": "Секція",
+    "[get secret link to]": "Надіслати секретне посилдання на",
+    "[you can sign in to the course]": ", Ви зможете увійти в курс моментально",
+    "[send me the link]": "Надішліть мені посилання",
+    "[close course]": "Закрити курс",
+    "[OK, email are correct]": "ОК, пошта правильна",
+    "[type your password]": "Введіть свій пароль",
+    "[OK, go to the course]": "ОК, перейти до курса",
+    "[back]": "Назад",
+    "[set your name and password]": "Вкажіть Ваше ім'я та пароль",
+    "[no spaces]": "Без пробілів",
+    "[at least 7 characters]": "Не менше 7 символів",
+    "[set your name]": "Вкажіть Ваше ім'я"
 }

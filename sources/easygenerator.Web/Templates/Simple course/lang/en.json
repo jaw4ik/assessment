@@ -84,7 +84,7 @@
     "[take a break and continue later]": "Take a break and continue later",
     "[login header]": "Introduce yourself",
     "[login skip]": "Skip step, start anonymously",
-    "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.",
+    "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored.These results will only be visible to the organizer (author) of your course.",
     "[login name field]": "Name",
     "[login email field]": "Email",
     "[login use e-mail]": "Use e-mail",
@@ -130,5 +130,17 @@
     "[submit results and logout]": "Submit results and logout",
     "[questions correct]": "questions correct",
     "[contents readed]": "content were read",
-    "[section]": "Section"
+    "[section]": "Section",
+    "[get secret link to]": "Get a secret link sent to",
+    "[you can sign in to the course]": ", so you can sign in to the course instantly!",
+    "[send me the link]": "Send me the link",
+    "[close course]": "Close course",
+    "[OK, email are correct]": "OK, email are correct",
+    "[type your password]": "Type your password",
+    "[OK, go to the course]": "OK, go to the course",
+    "[back]": "Back",
+    "[set your name and password]": "Set your name and password",
+    "[no spaces]": "No spaces",
+    "[at least 7 characters]": "At least 7 characters",
+    "[set your name]": "Set your name"
 }

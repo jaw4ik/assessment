@@ -71,7 +71,7 @@ body {
 }
 
 .header:before {
-    background-color: tint(@main-color,20%);
+    background-color: fade(@main-color, 70%);
 }
 
 .button {
@@ -883,7 +883,7 @@ body {
 
             header {
                 p {
-                    color: fade(@text-color, 50%);
+                    color: fade(@text-color, 70%);
                 }
 
                 .icon-container {
@@ -1219,26 +1219,6 @@ body {
 }
 
 /*#endregion CUSTOM SROLLBAR*/
-
-.or-separator {
-    .or-separator-text {
-        color: fade(@text-color, 50%);
-
-        &:before,
-        &:after {
-            background: fade(@text-color, 10%);
-        }
-    }
-}
-
-.social-networks-btn {
-    color: fade(@main-color, 70%);
-
-    &:hover, &:focus {
-        color: @main-color;
-    }
-}
-
 .helper-tooltip-container {
 
     .material-icons {
@@ -1378,3 +1358,188 @@ body {
     }
 }
 /*#endregion */
+
+.or-separator {
+    .or-separator-text {
+        color: fade(@text-color, 50%);
+
+        &:before,
+        &:after {
+            background: fade(@text-color, 10%);
+        }
+    }
+}
+
+/*#region ACCOUNT*/
+
+.account {
+    .content {
+        h3,h4{
+            color: fade(@text-color, 70%);
+        }
+
+        .social-container{
+            .social-button{
+                color: fade(@main-color, 70%);
+
+                &:hover, &:focus {
+                    color: @main-color;
+                }
+            }
+        }
+        .input-container{
+
+            &.error{
+                .input-field,
+                .input-field:not(.empty){
+                    border-color: @incorrect-color;
+                }
+                .input-icon{
+                    color: @incorrect-color;
+                }
+                .validation-container{
+                    .validator{
+                        color: @incorrect-color;
+                        .validator-icon{
+                            color: @content-body-color;
+                            background-color: @incorrect-color;
+                        }
+                    }
+                }
+            }
+
+            .input-field{
+                font-family: @main-font-fontFamily;
+                border-color: fade(@text-color, 30%);
+                color: @text-color;
+
+                &:hover, &:focus {
+                    border-color: @main-color;
+                    box-shadow: 0px 1px 0px @main-color;
+                }
+
+                &:hover ~ .input-icon, &:focus ~ .input-icon {
+                    color: @main-color;
+
+                    &.password{
+                        color: fade(@text-color, 50%);
+                    }
+                }
+
+                &:not(.empty){
+                    &:focus,
+                    &:hover{
+                        border-color: @main-color;
+                        box-shadow: 0px 1px 0px @main-color;
+                    }
+                    border-color: fade(@text-color, 30%);
+                    box-shadow: none;
+                }
+
+                &:not(.empty):focus ~ .input-icon,
+                &:not(.empty):hover ~ .input-icon  {
+                    color: @main-color;
+
+                    &.password{
+                        color: fade(@text-color, 50%);
+                    }
+                }
+            }
+
+            .input-label{
+                color: fade(@text-color, 50%);
+            }
+
+            .input-icon{
+                color: fade(@text-color, 40%);
+
+                &.password{
+                    color: fade(@text-color, 50%);
+
+                    &:hover{
+                        color: @text-color;
+                    }
+                }
+            }
+
+            .error-message{
+                color: @incorrect-color;
+            }
+            .validation-container{
+                color: fade(@text-color, 40%);
+                
+                .validator{
+                    transition: color .2s linear;
+                    &.correct{
+                        color: fade(@text-color, 60%);
+                        .validator-icon{
+                            background-color: @correct-color;
+                        }
+                    }
+                    .validator-icon{
+                        transition: color .2s linear, background-color .2s linear;
+                        color: @content-body-color;
+                        background-color: fade(@text-color, 40%);
+                    }
+                }
+            }
+
+            
+        }
+        hr{
+            border-color: fade(@text-color, 10%);
+        }
+        .account-hint{
+            color: fade(@text-color, 50%);
+
+            a{
+                color: fade(@main-color, 70%);
+
+                &:hover{
+                    color: @main-color;
+                }
+            }
+        }
+        .back-button-container{
+            color: fade(@text-color, 70%);
+
+            &:hover{
+                color: @main-color;
+                .back-button-arrow{
+                    color: @main-color;
+                }
+            }
+
+            .back-button-arrow{
+                color: fade(@text-color, 70%);
+            }
+        }
+    }
+}
+
+.secret-link-confirm-container {
+    color: fade(@text-color, 70%);
+
+    .secret-link-confirm-wrapper {
+        background-color: fade(@main-color, 10%);
+
+        .icon-envelope {
+            color: fade(@main-color, 70%);
+        }
+    }
+}
+.popup-wrapper{
+    .secret-link-confirm-container {
+        color: fade(@text-color, 70%);
+
+        .secret-link-confirm-wrapper {
+            background-color: fade(@correct-color, 10%);
+
+            .icon-envelope {
+                color: @correct-color
+            }
+        }
+    }
+}
+
+/*#endregion ACCOUNT*/
