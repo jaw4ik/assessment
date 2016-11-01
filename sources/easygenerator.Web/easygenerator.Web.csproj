@@ -242,6 +242,7 @@
     <Compile Include="BuildCourse\CourseBuilderBase.cs" />
     <Compile Include="BuildCourse\Fonts\Entities\Font.cs" />
     <Compile Include="BuildCourse\Fonts\FontsProvider.cs" />
+    <Compile Include="BuildCourse\Fonts\Custom\CustomFontsApiService.cs" />
     <Compile Include="BuildCourse\Fonts\Google\GoogleFontsApiService.cs" />
     <Compile Include="BuildCourse\Fonts\IFontsApiService.cs" />
     <Compile Include="BuildCourse\ICourseContentProvider.cs" />

@@ -17,6 +17,7 @@ using easygenerator.Infrastructure.Serialization.Providers;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Fonts;
 using easygenerator.Web.BuildCourse.Fonts.Google;
+using easygenerator.Web.BuildCourse.Fonts.Custom;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
@@ -90,7 +91,6 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageMediaFetcher>();
             builder.RegisterType<PackageFontsFetcher>().As<IPackageFontsFetcher>();
             builder.RegisterType<FontsProvider>();
-            builder.RegisterType<GoogleFontsApiService>().As<IFontsApiService>();
 
             builder.RegisterType<DocumentContentPathProvider>();
             builder.RegisterType<DocumentContentProvider>().As<IDocumentContentProvider>();
@@ -131,6 +131,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PublishSettingsProvider>();
             builder.RegisterType<BranchTrackProvider>();
             builder.RegisterType<FileDownloader>();
+            builder.RegisterType<CustomFontsApiService>();
+            builder.RegisterType<GoogleFontsApiService>();
 
             #region Domain operations
 
