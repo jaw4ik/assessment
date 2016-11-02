@@ -124,79 +124,115 @@ describe('viewmodel hotspotOnImage', () => {
             expect(hotspotOnImage.background.isLoading()).toBeFalsy();
         });
 
-        it('should not change polygons which are in bounds', () => {
+        describe('when all polygons are in bounds', () => {
             var polygon = {
                 id: 'id',
-                points: ko.observableArray([
-                    { x: 1, y: 1 },
-                    { x: 1, y: 10 },
-                    { x: 10, y: 10 },
-                    { x: 10, y: 1 }
-                ])
+                points: ko.observableArray([])
             };
-            hotspotOnImage.polygons([polygon]);
 
-            hotspotOnImage.background.onload(width, height);
+            beforeEach(() => {
+                polygon.points([
+                    { x: 0, y: 0 },
+                    { x: 0, y: 11 },
+                    { x: 11, y: 11 },
+                    { x: 11, y: 0 }
+                ]);
+                hotspotOnImage.polygons([polygon]);
+                hotspotOnImage.background.onload(width, height);
+            });
 
-            expect(hotspotOnImage.polygons().length).toBe(1);
+            it('should not change polygons which are in bounds', () => {
+                expect(hotspotOnImage.polygons().length).toBe(1);
+                expect(hotspotOnImage.polygons()[0].points()).toBe(polygon.points());
+            });
 
-            expect(hotspotOnImage.polygons()[0].points()).toBe(polygon.points());
-
+            it('should not update HotspotOnAnImage ', () => {
+                expect(hotspotOnImage.updateHotspotOnAnImage).not.toHaveBeenCalled();
+            });
         });
 
-        it('should remove polygons which are out of bounds', () => {
+        describe('when polygons are out of bounds ', () => {
             var polygon = {
                 id: 'id',
-                points: ko.observableArray([
+                points: ko.observableArray([])
+            };
+
+            beforeEach(() => {
+                polygon.points([
                     { x: 1001, y: 1001 },
                     { x: 1001, y: 1010 },
                     { x: 1010, y: 1010 },
                     { x: 1010, y: 1001 }
-                ])
-            };
-            hotspotOnImage.polygons([polygon]);
-            hotspotOnImage.background.onload(width, height);
-
-            expect(hotspotOnImage.deletePolygon).toHaveBeenCalledWith(polygon.id);
+                ]);
+                hotspotOnImage.polygons([polygon]);
+                hotspotOnImage.background.onload(width, height);
+            });
+            
+            it('should remove polygons', () => {
+                expect(hotspotOnImage.deletePolygon).toHaveBeenCalledWith(polygon.id);
+            });
+            
+            it('should update HotspotOnAnImage ', () => {
+                expect(hotspotOnImage.updateHotspotOnAnImage).toHaveBeenCalled();
+            });
         });
 
-        it('should remove polygons which are smaller then the minimal size', () => {
+        describe('when polygons are smaller then the minimal size', () => {
             var polygon = {
                 id: 'id',
-                points: ko.observableArray([
+                points: ko.observableArray([])
+            };
+
+            beforeEach(() => {
+                polygon.points([
                     { x: width - minPolygonSize, y: height - minPolygonSize },
                     { x: width - minPolygonSize, y: height + minPolygonSize },
                     { x: width + minPolygonSize, y: height + minPolygonSize },
                     { x: width + minPolygonSize, y: height - minPolygonSize }
-                ])
-            };
-
-            hotspotOnImage.polygons([polygon]);
-            hotspotOnImage.background.onload(width, height);
-
-            expect(hotspotOnImage.deletePolygon).toHaveBeenCalledWith(polygon.id);
+                ]);
+                hotspotOnImage.polygons([polygon]);
+                hotspotOnImage.background.onload(width, height);    
+            });
+            
+            it('should remove polygons', () => {
+                expect(hotspotOnImage.deletePolygon).toHaveBeenCalledWith(polygon.id);    
+            });
+            
+            it('should update HotspotOnAnImage ', () => {
+                expect(hotspotOnImage.updateHotspotOnAnImage).toHaveBeenCalled();
+            });
         });
 
-        it('should edit polygons which are partly out of bounds', () => {
+        describe('when polygons are partly out of bounds', () => {
             var polygon = {
                 id: 'id',
-                points: ko.observableArray([
-                    { x: 1, y: 1 },
-                    { x: 1, y: 1010 },
-                    { x: 1010, y: 1010 },
-                    { x: 1010, y: 1 }
-                ])
-            };
-            var correctPoints = [
+                points: ko.observableArray([])
+            },
+            correctPoints = [
                 { x: 1, y: 1 },
                 { x: 1, y: height },
                 { x: width, y: height },
                 { x: width, y: 1 }
             ];
-            hotspotOnImage.polygons([polygon]);
-            hotspotOnImage.background.onload(width, height);
 
-            expect(hotspotOnImage.updatePolygon).toHaveBeenCalledWith(polygon.id, correctPoints);
+            beforeEach(() => {
+                polygon.points([
+                    { x: 1, y: 1 },
+                    { x: 1, y: 1010 },
+                    { x: 1010, y: 1010 },
+                    { x: 1010, y: 1 }
+                ]);
+                hotspotOnImage.polygons([polygon]);
+                hotspotOnImage.background.onload(width, height);
+            });
+
+            it('should edit polygons', () => {
+                expect(hotspotOnImage.updatePolygon).toHaveBeenCalledWith(polygon.id, correctPoints);
+            });
+            
+            it('should update HotspotOnAnImage ', () => {
+                expect(hotspotOnImage.updateHotspotOnAnImage).toHaveBeenCalled();
+            });
         });
     });
 

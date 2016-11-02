@@ -39,7 +39,12 @@ export default class extends ContentBase {
         });
         this.background.onload = (width, height) => {
             that.background.isLoading(false);
+            that.polygons.isDirty = false;
+
             that.fitPointsIntoBounds(width, height);
+            if (that.polygons.isDirty) {
+                that.updateHotspotOnAnImage();
+            }
         };
 
         this.data = ko.observable(null);
@@ -117,7 +122,7 @@ export default class extends ContentBase {
     }
     fitPointsIntoBounds(width, height) {
         let that = this;
-        _.each(that.polygons(), polygon => {
+        _.each(_.clone(that.polygons()), polygon => {
             let points = polygon.points();
             let polygonIsOutOfBounds = _.min(points, point => point.x).x > width || _.min(points, point => point.y).y > height;
             let dirtyPointsCount = 0;
@@ -137,11 +142,14 @@ export default class extends ContentBase {
                                       && _.min(points, point => point.y).y + minPolygonSize < _.max(points, point => point.y).y;
                 if (!polygonSizeIsValid) {
                     that.deletePolygon(polygon.id);
+                    that.polygons.isDirty = true;
                 } else if (dirtyPointsCount > 0) {
                     that.updatePolygon(polygon.id, polygon.points());
+                    that.polygons.isDirty = true;
                 }
             } else {
                 that.deletePolygon(polygon.id);
+                that.polygons.isDirty = true;
             }
         });
     }
