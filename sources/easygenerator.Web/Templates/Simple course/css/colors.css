@@ -1531,6 +1531,7 @@ body {
 .popup-wrapper{
     .secret-link-confirm-container {
         color: fade(@text-color, 70%);
+        background-color: @content-body-color;
 
         .secret-link-confirm-wrapper {
             background-color: fade(@correct-color, 10%);
