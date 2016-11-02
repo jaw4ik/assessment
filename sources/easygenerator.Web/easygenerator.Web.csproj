@@ -700,6 +700,7 @@
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\CoggnoPublishCompletedViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\UpgradeUserViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\CourseViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\UserInfoSearchViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\UserInfoViewModel.cs" />

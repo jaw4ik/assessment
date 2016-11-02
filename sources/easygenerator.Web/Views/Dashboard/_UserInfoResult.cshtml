@@ -7,11 +7,25 @@
         <tr><th>Last name:</th><td>@Model.LastName</td></tr>
         <tr><th>Role:</th><td>@DisplayStringValue(Model.Role)</td></tr>
         <tr><th>Country:</th><td>@Model.Country</td></tr>
-        <tr><th>Plan:</th><td>@Model.AccessType</td></tr>
+        <tr><th>Plan:</th><td>
+            @Model.AccessType
+            <a style="cursor: pointer;" onclick="document.querySelector('#upgradeUser').style.display = 'block'; return false;">Change</a>
+        </td></tr>
         <tr><th>Expiration date:</th><td>@DisplayNullableDateTimeValue(Model.ExpirationDate)</td></tr>
         <tr><th>Phone:</th><td>@Model.Phone</td></tr>
         <tr><th>Created on:</th><td>@Model.CreatedOn</td></tr>
     </table>
+    <section id="upgradeUser" style="display: none;">
+        <h3>Change user plan</h3>
+        @using (Html.BeginRouteForm("UpgradeUser"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("email", Model.UpgradeUserViewModel.UserEmail)
+            @Html.DropDownList("selectedPlan", @Model.UpgradeUserViewModel.UserPlansList)
+            @Html.EditorFor(model => model.UpgradeUserViewModel.ExpirationDate, null, "expirationDate", new { htmlAttributes = new { placeholder = "MM/dd/yyyy" } })
+            <input type="submit" value="Upgrade" />
+        }
+    </section>
     <h3>Owned courses (@Model.Courses.Count())</h3>
     @foreach (var course in Model.Courses)
     {
