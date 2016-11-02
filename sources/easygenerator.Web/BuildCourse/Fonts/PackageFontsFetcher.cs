@@ -53,26 +53,29 @@ namespace easygenerator.Web.BuildCourse.Fonts
             var supportFeatures = manifest["supports"];
             if (supportFeatures != null && supportFeatures.ToArray().Any(_ => _.Value<string>().Equals("fonts", StringComparison.CurrentCultureIgnoreCase)))
             {
-                designTabFonts.AddRange(GetFontsFromSettings(course.GetTemplateSettings(course.Template)));
-                designTabFonts.AddRange(GetFontsFromSettings(course.GetTemplateTheme(course.Template)?.Settings));
+                var themeSetting = course.GetTemplateTheme(course.Template)?.Settings;
+                var settings = JObject.Parse(themeSetting ?? "{}");
+                var templateSettings = course.GetTemplateSettings(course.Template);
+                settings.Merge(JObject.Parse(templateSettings ?? "{}"), new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Merge, MergeNullValueHandling = MergeNullValueHandling.Merge });
+
+                designTabFonts.AddRange(GetFontsFromSettings(settings));
 
                 // as default we have to load Roboto Slab
                 if (designTabFonts.Count == 0)
                 {
-                    designTabFonts.Add(new Font("Roboto Slab"));
+                    designTabFonts.Add(new Font("Roboto Slab", place: "google"));
                 }
             }
             return designTabFonts;
         }
 
-        private IEnumerable<Font> GetFontsFromSettings(string settingsString)
+        private IEnumerable<Font> GetFontsFromSettings(JObject settings)
         {
-            if (string.IsNullOrEmpty(settingsString))
+            if (settings == null)
             {
                 return new List<Font>();
             }
 
-            var settings = JObject.Parse(settingsString);
             var fonts = settings["fonts"]?.ToArray();
 
             if (fonts == null)
@@ -81,8 +84,7 @@ namespace easygenerator.Web.BuildCourse.Fonts
             }
 
             return fonts.Where(font => font != null && font.HasValues && font["fontFamily"] != null)
-                    .Select(font => new Font(font["fontFamily"].Value<string>()));
-            
+                    .Select(font => new Font(font["fontFamily"].Value<string>(), place: font["place"].Value<string>()));
         }
 
         private List<Font> GetTemplateFonts(JObject manifest)
@@ -94,7 +96,7 @@ namespace easygenerator.Web.BuildCourse.Fonts
             {
                 foreach (var font in manifestFonts)
                 {
-                    if (!font["local"].Value<bool>())
+                    if (!isLocalFont(font))
                     {
                         var fontFamilyName = font["fontFamily"].Value<string>();
                         var fontVariants = font["variants"].ToArray().Select(_ => new Font(fontFamilyName, _.Value<string>())).ToList();
@@ -105,13 +107,20 @@ namespace easygenerator.Web.BuildCourse.Fonts
             return templateFonts;
         }
 
+        //ToDo: Change all templates to use one value.
+        private bool isLocalFont(JToken font)
+        {
+            return (font["isLocal"] != null && font["isLocal"].Value<bool>())
+                || (font["local"] != null && font["local"].Value<bool>());
+        }
+
         private void ChangeManifestToUseLocalFonts(JObject manifest)
         {
             var manifestFonts = manifest["fonts"]?.ToArray();
 
             if (manifestFonts != null)
             {
-                foreach (var font in manifestFonts.Where(font => !font["local"].Value<bool>()))
+                foreach (var font in manifestFonts.Where(font => font["local"] != null && !font["local"].Value<bool>()))
                 {
                     font["local"] = "true";
                 }
@@ -121,6 +130,9 @@ namespace easygenerator.Web.BuildCourse.Fonts
         private void AddFontsToPackage(string buildDirectory, IEnumerable<Font> fontsToAdd)
         {
             //remove standard fonts
+            fontsToAdd = fontsToAdd.Where(_ => !_.Place.Equals("none", StringComparison.CurrentCultureIgnoreCase));
+
+            //ToDo: Fix all templates
             fontsToAdd = fontsToAdd.Where(_ => !StandardFonts.Any(fontName => _.FontFamily.Equals(fontName, StringComparison.CurrentCultureIgnoreCase)));
 
             if (!fontsToAdd.Any())

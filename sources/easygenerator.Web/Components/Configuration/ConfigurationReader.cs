@@ -166,6 +166,11 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public string CustomFontPath
+        {
+            get { return ConfigurationManager.AppSettings["customFontPath"]; }
+        }
+
         public virtual SentryConfigurationSection SentriConfiguration {
             get { return ConfigurationManager.GetSection("sentry") as SentryConfigurationSection; }
         }
