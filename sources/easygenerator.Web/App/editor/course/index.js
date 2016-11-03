@@ -1,6 +1,7 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
 import app from 'durandal/app';
+import router from 'plugins/router';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
 import notify from 'notify';
@@ -141,6 +142,12 @@ export default class {
         return instance;
     }
     async activate(courseId, sectionId, questionId) {
+        if(sectionId && questionId){
+            clientContext.set(constants.clientContextKeys.questionDataToNavigate, {
+                sectionId,
+                questionId
+            });
+        }
         if (!this.canReuseForRoute(courseId)) {
             let course = await courseRepository.getById(courseId);
             this.id = course.id;
@@ -386,7 +393,10 @@ export default class {
         }
 
         return Promise.all(promises)
-            .then(() => { return true; })
+            .then(() => {
+                router.navigate(`courses/${courseId}`, { replace: true, trigger: false });
+                return true; 
+            })
             .catch(() => { return { redirect: '404' }; });
     }
 };
