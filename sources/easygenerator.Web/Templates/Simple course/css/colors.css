@@ -277,13 +277,10 @@ body {
 }
 
 .information-content-title {
-    font-size: @Heading2-size;
-    font-weight: @Heading2-fontWeight;
-    color: @Heading2-color;
-    font-family: @Heading2-fontFamily;
-    font-style: @Heading2-fontStyle;
-    text-decoration: @Heading2-textDecoration;
-    background-color: @Heading2-textBackgroundColor;
+    .h3-styled-text;
+    color: @Heading3-color;
+    background-color: @Heading3-textBackgroundColor;
+
     border-bottom-color: fade(@Normal-color, 10%);
 }
 
