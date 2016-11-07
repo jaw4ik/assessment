@@ -6,7 +6,7 @@ import eventTracker from 'eventTracker';
 import notify from 'notify';
 import constants from 'constants';
 
-export default function(id, key, value, hasFocus) {
+export default function(id, key, value) {
     var
         that = this,
         self = {
@@ -21,7 +21,7 @@ export default function(id, key, value, hasFocus) {
     this.id = id;
 
     this.key = ko.observable(key);
-    this.key.hasFocus = ko.observable(hasFocus);
+    this.key.hasFocus = ko.observable(false);
 
     this.key.isValid = ko.computed(function() {
         return !_.isEmptyHtmlText(that.key()) && that.key().length <= constants.validation.textMatchingKeyMaxLength;

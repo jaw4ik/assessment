@@ -10,8 +10,18 @@
 
         $element.focus(function () {
             if (!$element.hasClass(activeClass)) {
-                element.select();
                 $element.addClass(activeClass);
+
+                function selectText() {
+                    if (_.isFunction(element.select)) {
+                        element.select();
+                    } else {
+                        $element.selectText();
+                    }
+                }
+
+                selectText();
+                window.setTimeout(selectText, 1);
 
                 // Work around WebKit's little problem
                 function mouseUpHandler() {

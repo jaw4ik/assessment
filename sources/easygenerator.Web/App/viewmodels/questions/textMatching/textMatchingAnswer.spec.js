@@ -35,22 +35,9 @@ describe('textMatchingAnswer:', function () {
             });
 
             describe('hasFocus:', function () {
-                it('should be observable', function () {
+                it('should be false', function () {
                     expect(answer.key.hasFocus).toBeObservable();
-                });
-
-                describe('when hasFocus parameter of construnctor is defined', function() {
-                    it('should be set to hasFocus', function() {
-                        answer = new TextMatchingAnswer('id', 'key', 'value', true);
-                        expect(answer.key.hasFocus()).toBeTruthy();
-                    });
-                });
-
-                describe('when hasFocus parameter of construnctor is not defined', function () {
-                    it('should be set to false', function() {
-                        answer = new TextMatchingAnswer('id', 'key', 'value');
-                        expect(answer.key.hasFocus()).toBeFalsy();
-                    });
+                    expect(answer.key.hasFocus()).toBeFalsy();
                 });
             });
 
@@ -189,8 +176,9 @@ describe('textMatchingAnswer:', function () {
             });
 
             describe('hasFocus:', function () {
-                it('should be observable', function () {
+                it('should be false', function () {
                     expect(answer.value.hasFocus).toBeObservable();
+                    expect(answer.value.hasFocus()).toBeFalsy();
                 });
             });
 

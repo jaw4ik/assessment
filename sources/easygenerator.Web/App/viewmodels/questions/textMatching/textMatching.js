@@ -109,7 +109,9 @@ function addAnswer() {
     eventTracker.publish(viewModel.events.addAnswer);
     return addAnswerCommand.execute(viewModel.questionId).then(function (response) {
         notify.saved();
-        viewModel.answers.push(new TextMatchingAnswer(response.Id, response.Key, response.Value, true));
+        var answer = new TextMatchingAnswer(response.Id, response.Key, response.Value);
+        viewModel.answers.push(answer);
+        answer.key.hasFocus(true);
     });
 }
 
