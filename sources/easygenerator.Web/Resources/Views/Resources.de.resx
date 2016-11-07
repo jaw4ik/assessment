@@ -310,10 +310,10 @@ Ihr easygenerator-Team&lt;/p&gt;
     <value>Kennwort anzeigen</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>Anmelden</value>
+    <value>Einloggen</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>Anmelden</value>
+    <value>Registrieren</value>
   </data>
   <data name="SignUpButton" xml:space="preserve">
     <value>Registrieren</value>
