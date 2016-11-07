@@ -24,7 +24,7 @@ export default function(id, key, value) {
     this.key.hasFocus = ko.observable(false);
 
     this.key.isValid = ko.computed(function() {
-        return !_.isEmptyHtmlText(that.key()) && that.key().length <= constants.validation.textMatchingKeyMaxLength;
+        return !_.isEmptyHtmlText(that.key()) && that.key().trim().length <= constants.validation.textMatchingKeyMaxLength;
     });
 
     this.changeOriginalKey = function(newKey) {
@@ -61,7 +61,7 @@ export default function(id, key, value) {
     this.value = ko.observable(value);
     this.value.hasFocus = ko.observable(false);
     this.value.isValid = ko.computed(function() {
-        return !_.isEmptyHtmlText(that.value()) && that.value().length <= constants.validation.textMatchingValueMaxLength;
+        return !_.isEmptyHtmlText(that.value()) && that.value().trim().length <= constants.validation.textMatchingValueMaxLength;
     });
     this.changeOriginalValue = function(newValue) {
         self.value = newValue;
