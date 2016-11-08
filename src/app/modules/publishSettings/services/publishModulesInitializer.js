@@ -28,6 +28,11 @@
                     module.courseFinished(eventData);
                 });
             }
+            if (_.isFunction(module.courseFinalized)) {
+                $rootScope.$on('course:finalized', function (scope, data) {
+                    module.courseFinalized();
+                });
+            }
         }
     }
 }());

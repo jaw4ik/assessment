@@ -50,9 +50,16 @@
                 eventPublisher.publishRootScopeEvent('course:started');
             };
 
-            that.finish = function (callback) {
+            that.restart = function (callback) {
                 that.isFinished = true;
                 eventPublisher.publishRootScopeEvent('course:finished', that, callback);
+            };
+
+            that.finish = function (callback) {
+                that.isFinished = true;
+                eventPublisher.publishRootScopeEvent('course:finished', that, function() {
+                    eventPublisher.publishRootScopeEvent('course:finalized', that, callback);
+                });
             };
 
             that.sendCourseResult = function (masteryScore) {
