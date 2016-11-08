@@ -3951,6 +3951,7 @@
     <Content Include="Templates\Reader\lang\zh-cn.json" />
     <Content Include="Templates\Personalized learning\css\font\Custom-Icons.woff" />
     <Content Include="Views\Shared\_helpscoutBeacon.cshtml" />
+    <Content Include="Templates\Simple course\lang\fa.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

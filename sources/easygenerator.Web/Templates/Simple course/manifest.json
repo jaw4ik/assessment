@@ -871,6 +871,10 @@
     {
       "code": "vi",
       "url": "lang/vi.json"
+    },
+    {
+      "code": "fa",
+      "url": "lang/fa.json"
     }
   ],
   "defaultTemplateSettings": {
