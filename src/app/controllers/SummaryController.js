@@ -38,7 +38,7 @@
             that.isSendingRequest = true;
             that.finished = true;
 
-            assessment.finish(function () {
+            assessment.restart(function () {
                 that.isSendingRequest = false;
                 questionPool.refresh();
                 $location.path('/').search('tryAgain');
