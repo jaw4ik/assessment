@@ -9,10 +9,10 @@
         initialized: false,
         apiWrapper: getApiWrapper(),
         startTime: null
-    }
+    };
 
     var lmsReporting = {
-        initialize: function () {
+        initialize: function() {
             self.initialized = self.apiWrapper.doLMSInitialize() == 'true';
             if (self.initialized) {
                 self.startTime = new Date();
@@ -35,13 +35,14 @@
             getAccountId: function() {
                 return self.apiWrapper.doLMSGetValue('cmi.core.student_id');
             },
-            getAccountHomePage: function () {
-                return window.location.origin;
+            getAccountHomePage: function() {
+                return window.location.origin || window.location.protocol + '//' + window.location.host;
             }
         },
 
-        courseFinished: sendCourseFinished
-    }
+        courseFinished: sendCourseResults,
+        courseFinalized: finalizeCourseSession
+    };
 
     return lmsReporting;
 
@@ -98,18 +99,20 @@
         return (typeof value === 'function') ? value() : value;
     }
 
-    function sendCourseFinished(course) {
+    function sendCourseResults(course) {
         self.apiWrapper.doLMSSetValue('cmi.core.score.min', '0');
         self.apiWrapper.doLMSSetValue('cmi.core.score.max', '100');
         self.apiWrapper.doLMSSetValue('cmi.core.score.raw', getValue(course.result) * 100);
         self.apiWrapper.doLMSSetValue('cmi.core.lesson_status', getValue(course.isCompleted) ? 'passed' : 'failed');
         self.apiWrapper.doLMSCommit();
+    }
 
-        endSession();
-
+    function finalizeCourseSession() {
         if (window.removeEventListener) {
             window.removeEventListener('unload', endSession);
         }
+
+        endSession();
     }
 
     function getApiWrapper() {
