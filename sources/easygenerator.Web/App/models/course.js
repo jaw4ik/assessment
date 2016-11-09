@@ -26,7 +26,7 @@
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
             this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl, true);
             this.publishToCoggno = deliveringScormPackageAction.call(this, publishToCoggnoActionHandler, spec.saleInfo.documentId);
-            this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl);
+            this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl, true);
             this.publishToCustomLms = publishToCustomLms;
 
             this.getState = getState;
