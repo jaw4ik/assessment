@@ -1270,7 +1270,7 @@ body {
                     background-color: fade(@correct-color, 10%);
                     border-top-color: fade(@correct-color, 20%);
 
-                    .section-header-analytic::before{
+                    .section-header-analytic-icon{
                         background-color: @correct-color;
                     }
                 }
@@ -1279,7 +1279,7 @@ body {
                     background-color: fade(@incorrect-color, 10%);
                     border-top-color: fade(@incorrect-color, 20%);  
 
-                    .section-header-analytic::before{
+                    .section-header-analytic-icon{
                         background-color: @incorrect-color;
                     }
                 }
@@ -1302,21 +1302,21 @@ body {
                 .question-header{   
                     &.survey{
                         &::after,
-                        &::before{
+                        .question-header-icon{
                             color: @secondary-color;
                         }
                     }
 
-                    &.wrong{
+                    &.incorrect{
                         &::after,
-                        &::before{
+                        .question-header-icon{
                             color: @incorrect-color;
                         }
                     }
 
                     &.correct{
                         &::after,
-                        &::before{
+                        .question-header-icon{
                             color: @correct-color;
                         }
                     }
