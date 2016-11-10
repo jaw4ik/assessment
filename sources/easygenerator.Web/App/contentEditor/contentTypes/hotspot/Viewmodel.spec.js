@@ -387,31 +387,6 @@ describe('viewmodel hotspotOnImage', () => {
             });
         });
 
-        describe('when image upload aborted', () => {
-
-            beforeEach(() => {
-                imageUploadFake = (spec) => {
-                    spec.abort();
-                };
-                spyOn(hotspotOnImage, 'delete');
-            });
-
-            describe('when background is empty', () => {
-                it('should call delete', () => {
-                    hotspotOnImage.background('');
-                    hotspotOnImage.uploadBackground();
-                    expect(hotspotOnImage.delete).toHaveBeenCalled();
-                });
-            });
-
-            describe('when background is not empty', () => {
-                it('should not call delete', () => {
-                    hotspotOnImage.background('background');
-                    hotspotOnImage.uploadBackground();
-                    expect(hotspotOnImage.delete).not.toHaveBeenCalled();
-                });
-            });
-        });
     });
 
     describe('editingEnded:', () => {

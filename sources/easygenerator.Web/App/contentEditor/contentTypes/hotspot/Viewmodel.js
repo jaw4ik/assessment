@@ -103,11 +103,6 @@ export default class extends ContentBase {
             },
             complete: function () {
                 uiLocker.unlock();
-            },
-            abort: function() {
-                if (_.isEmpty(that.background())) {
-                    that.delete();
-                }
             }
         });
     }

@@ -6,8 +6,7 @@
                 startLoading: function () { },
                 success: function () { },
                 error: function () { },
-                complete: function () { },
-                abort: function () { }
+                complete: function () { }
             };
 
             var settings = $.extend({}, defaults, options);
@@ -43,8 +42,7 @@
                     notify.error(localizationManager.localize(resourceKey));
                     settings.error();
                 },
-                complete: settings.complete,
-                abort: settings.abort
+                complete: settings.complete
             });
         },
         v2: function (file) {
