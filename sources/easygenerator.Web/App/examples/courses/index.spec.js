@@ -103,7 +103,7 @@ describe('examples [CourseExamples]', () => {
 
     describe('createByExample', () => {
         it('should publish \'Create a course from an example\' event', () => {
-            spyOn(createCourseByExampleCommand, 'execute').and.returnValue(Promise.resolve());
+            spyOn(createCourseByExampleCommand, 'execute').and.returnValue(Promise.resolve(course1));
 
             viewModel.createByExample(course1);
             expect(eventTracker.publish).toHaveBeenCalledWith('Create a course from an example', null, { Example_Course_Title: course1.title });
