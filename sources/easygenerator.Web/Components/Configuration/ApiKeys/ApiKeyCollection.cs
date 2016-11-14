@@ -1,4 +1,6 @@
 ﻿using System.Configuration;
+using System.Linq;
+using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.Web.Components.Configuration.ApiKeys
 {
@@ -35,6 +37,14 @@ namespace easygenerator.Web.Components.Configuration.ApiKeys
         public override bool IsReadOnly()
         {
             return false;
+        }
+
+        public new ApiKeyElement this[string name]
+        {
+            get
+            {
+                return this.OfType<ApiKeyElement>().FirstOrDefault(item => item.Name == name);
+            }
         }
     }
 }

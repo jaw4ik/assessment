@@ -16,5 +16,7 @@ namespace easygenerator.Web.ViewModels.Dashboard
         public string Phone { get; set; }
         public DateTime CreatedOn { get; set; }
         public IEnumerable<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
+
+        public UpgradeUserViewModel UpgradeUserViewModel { get; set; }
     }
 }
