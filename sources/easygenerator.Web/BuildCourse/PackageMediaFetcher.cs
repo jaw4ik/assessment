@@ -11,6 +11,8 @@ namespace easygenerator.Web.BuildCourse
 {
     public class PackageMediaFetcher
     {
+        private const string ImageResizerQueryPattern = @"\?width=\d+\&height=\d+&scaleBySmallerSide=\w+";
+
         private readonly string[] MediaExtensions = {".BMP", ".GIF", ".JPE", ".JPEG", ".JPG", ".MAC", ".PNG", ".TGA", ".TIFF"};
 
         private readonly CourseContentPathProvider _buildPathProvider;
@@ -71,7 +73,7 @@ namespace easygenerator.Web.BuildCourse
 
         private void ProcessSection(SectionPackageModel section, string folderForMedia)
         {
-            section.ImageUrl = DownloadImage(section.ImageUrl, folderForMedia);
+            section.ImageUrl = DownloadImage(Regex.Replace(section.ImageUrl, ImageResizerQueryPattern, string.Empty), folderForMedia);
             section.Questions.ForEach(question => ProcessQuestion(question, folderForMedia));
         }
 
