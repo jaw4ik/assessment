@@ -1,9 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.Web.Controllers;
+using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Dashboard;
 using FluentAssertions;
@@ -17,6 +24,8 @@ namespace easygenerator.Web.Tests.Controllers
         private DashboardController _controller;
         private IUserRepository _userRepository;
         private ICourseRepository _courseRepository;
+        private ConfigurationReader _configurationReader;
+        private UserController _userController;
 
         private const string UserEmail = "some@mail.com";
 
@@ -25,7 +34,11 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _userRepository = Substitute.For<IUserRepository>();
             _courseRepository = Substitute.For<ICourseRepository>();
-            _controller = new DashboardController(_userRepository, _courseRepository);
+            _configurationReader = Substitute.For<ConfigurationReader>();
+            _userController = new UserController(_userRepository, Substitute.For<IEntityFactory>(), Substitute.For<IDomainEventPublisher>(),
+                Substitute.For<IMailSenderWrapper>(), Substitute.For<IReleaseNoteFileReader>(), Substitute.For<ISamlServiceProviderRepository>(),
+                Substitute.For<ISurveyPopupSettingsProvider>(), _configurationReader);
+            _controller = new DashboardController(_userRepository, _courseRepository, _configurationReader, _userController);
         }
 
         #region Index
