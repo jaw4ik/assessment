@@ -806,6 +806,20 @@
     <Content Include="App\components\bindingHandlers\stopPropagationBindingHandler.js" />
     <Content Include="App\components\htmlEditor\commands\insertLinkCommand.js" />
     <Content Include="App\components\htmlEditor\commands\markCommand.js" />
+    <Content Include="App\constants\accessType.js" />
+    <Content Include="App\constants\clientContextKeys.js" />
+    <Content Include="App\constants\comment.js" />
+    <Content Include="App\constants\contentsTypes.js" />
+    <Content Include="App\constants\dialogs.js" />
+    <Content Include="App\constants\documentType.js" />
+    <Content Include="App\constants\index.js" />
+    <Content Include="App\constants\messages.js" />
+    <Content Include="App\constants\notification.js" />
+    <Content Include="App\constants\questionType.js" />
+    <Content Include="App\constants\reporting.js" />
+    <Content Include="App\constants\storage.js" />
+    <Content Include="App\constants\upgradeCategory.js" />
+    <Content Include="App\constants\validation.js" />
     <Content Include="App\contentEditor\adapters\AdapterBase.js" />
     <Content Include="App\contentEditor\adapters\AdapterBase.spec.js">
       <DependentUpon>AdapterBase.js</DependentUpon>
