@@ -251,5 +251,32 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
         #endregion
 
+        [TestMethod]
+        public void IsValid_ShouldReturnFalse_WhenProjectIdIsNullOrEmpty()
+        {
+            //Arrange
+            var question = ScenarioObjectMother.Create();
+            question.UpdateData(null, "", "", "", "some user");
+
+            //Act
+            var isValid = question.IsValid();
+
+            //Assert
+            isValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void IsValid_ShouldReturnTrue_WhenProjectIdIsNotEmptyString()
+        {
+            //Arrange
+            var question = ScenarioObjectMother.Create();
+            question.UpdateData("someid", "", "", "", "some user");
+
+            //Act
+            var isValid = question.IsValid();
+
+            //Assert
+            isValid.Should().BeTrue();
+        }
     }
 }
