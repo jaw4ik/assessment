@@ -20,7 +20,6 @@ export default class extends PublishingToCoggnoAction {
     constructor() {
         super();
 
-        this.coggnoServiceUrl = constants.coggno.serviceUrl;
         this.coggnoServiceProviderUrl = constants.coggno.serviceProviderUrl;
         this.isPublishing = ko.computed(() => this.state() === constants.publishingStates.building || this.state() === constants.publishingStates.publishing, this);
         this.isProcessing = ko.observable();

@@ -134,12 +134,6 @@ describe('course delivering action [publishToCoggno]', function () {
         });
     });
 
-    describe('coggnoServiceUrl:', function () {
-        it('should be defined', function () {
-            expect(viewModel.coggnoServiceUrl).toBeDefined();
-        });
-    });
-
     describe('coggnoServiceProviderUrl:', function () {
         it('should be defined', function () {
             expect(viewModel.coggnoServiceProviderUrl).toBeDefined();
