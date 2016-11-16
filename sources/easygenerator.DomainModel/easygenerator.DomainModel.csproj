@@ -52,6 +52,7 @@
     <Compile Include="Entities\EventRaiseable.cs" />
     <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
     <Compile Include="Entities\IScormPublishableEntity.cs" />
+    <Compile Include="Entities\Questions\IValidatable.cs" />
     <Compile Include="Entities\Questions\SurveyQuestion.cs" />
     <Compile Include="Entities\UserSubscription.cs" />
     <Compile Include="Entities\Organizations\OrganizationSettings.cs" />
