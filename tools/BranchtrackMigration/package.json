@@ -1,0 +1,17 @@
+{
+  "name": "sqlmigration",
+  "version": "1.0.0",
+  "description": "Tool for SQL migration",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yuriy savchuk",
+  "license": "ISC",
+  "dependencies": {
+    "co": "^4.6.0",
+    "msnodesqlv8": "^0.2.10",
+    "mssql": "^2.3.2"
+  }
+}

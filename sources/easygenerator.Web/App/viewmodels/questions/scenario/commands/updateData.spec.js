@@ -1,5 +1,6 @@
 ﻿import command from './updateData';
 
+import $ from 'jquery';
 import apiHttpWrapper from 'http/apiHttpWrapper';
 
 describe('command [updateData]', function () {
@@ -11,7 +12,7 @@ describe('command [updateData]', function () {
             questionId = 'questionId',
             projectInfo = {
                 token: 'token',
-                embed_code: 'embed_code',
+                embed_code: '<iframe src="some_src">',
                 embed_url: 'embed_url',
                 zip_url: 'zip_url'
             };
@@ -31,12 +32,14 @@ describe('command [updateData]', function () {
         it('should send request to the server to update scenario data', function (done) {
             dfd.resolve();
 
+            const scenarioDisableFocusParameter = '?disable-focus';
+
             command.execute(questionId, projectInfo).then(function () {
                 expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/scenario/updatedata', {
                     questionId: questionId,
                     projectId: projectInfo.token,
-                    embedCode: projectInfo.embed_code,
-                    embedUrl: projectInfo.embed_url,
+                    embedCode: $(projectInfo.embed_code).attr('src', $(projectInfo.embed_code).attr('src') + scenarioDisableFocusParameter).get(0).outerHTML,
+                    embedUrl: projectInfo.embed_url + scenarioDisableFocusParameter,
                     projectArchiveUrl: projectInfo.zip_url
                 });
                 done();

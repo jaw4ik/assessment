@@ -8,17 +8,15 @@
                 <div class="publish-tab-action-content">
                     <div class="publish-tab-action-caption" data-bind="localize: { text: 'coggnoCaption' }"></div>
                     <div class="publish-tab-action-info">
-                        <a class="publish-tab-action-info-link" href="" target="_blank" data-bind="attr: { href: coggnoServiceUrl }, localize: { text: 'learnMore' }">Learn more</a>
+                        <a class="publish-tab-action-info-link" href="http://help.easygenerator.com/article/75-sell-your-courses" target="_blank" data-bind="localize: { text: 'learnMore' }"></a>
                     </div>
                 </div>
                 <div class="publish-tab-item-service">
                     <div class="publish-tab-details-container">
                         <div class="publish-tab-details-header"></div>
-                        <div class="publish-tab-details-message" data-bind="localize: { text: 'courseStored' }">The course is successfully stored</div>
+                        <div class="publish-tab-details-message" data-bind="localize: { text: 'courseStored' }"></div>
                         <div class="publish-tab-details-link-container">
-                            <a class="btn publish-tab-details-link" href="" target="_blank" data-bind="css: { green: !courseIsDirty(), 'green-white': courseIsDirty() }, attr: { href: publicationUrl() }, localize: { text: 'openCourseInCoggno' }">
-                                Open the course in Coggno
-                            </a>
+                            <a class="btn publish-tab-details-link" href="" target="_blank" data-bind="css: { green: !courseIsDirty(), 'green-white': courseIsDirty() }, attr: { href: publicationUrl() }, localize: { text: 'openCourseInCoggno' }"></a>
                         </div>
                     </div>
                 </div>
@@ -32,7 +30,7 @@
             <div class="publish-tab-action-content">
                 <div class="publish-tab-action-caption" data-bind="localize: { text: 'coggnoCaption' }"></div>
                 <div class="publish-tab-action-info">
-                    <a class="publish-tab-action-info-link" href="" target="_blank" data-bind="attr: { href: coggnoServiceUrl }, localize: { text: 'learnMore' }">Learn more</a>
+                    <a class="publish-tab-action-info-link" href="http://help.easygenerator.com/article/75-sell-your-courses" target="_blank" data-bind="localize: { text: 'learnMore' }"></a>
                 </div>
             </div>
             <!-- ko if: isCourseOwn -->
@@ -44,7 +42,7 @@
                 <!-- /ko -->
                 <!-- ko ifnot: isPublishing() -->
                 <!-- ko if: isProcessing -->
-                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'processing' }">Processing...</span>
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'processing' }"></span>
                 <!-- /ko -->
                 <!-- ko ifnot: isProcessing -->
                 <span class="publish-tab-btn-caption" data-bind="localize: { text: 'publishToCoggno' }"></span>
@@ -52,7 +50,7 @@
                 <!-- /ko -->
             </button>
             <!-- ko if: isProcessing -->
-            <div class="publish-processing-message" data-bind="localize: { text: 'PleaseWaitFewMinutes' }">Please wait, this may take a couple of minutes.</div>
+            <div class="publish-processing-message" data-bind="localize: { text: 'PleaseWaitFewMinutes' }"></div>
             <!-- /ko -->
             <!-- /ko -->
             <!-- ko ifnot: isCourseOwn -->
@@ -60,8 +58,8 @@
                 <div class="publish-collaborator-lock">
                     <span class="info-icon"></span>
                     <span class="publish-collaborator-lock-message">
-                        <span data-bind="localize: { text: 'courseWasNotPublishedByOwner' }">The course has not been published by the owner yet.</span><br/>
-                        <span data-bind="localize: { text: 'contactOwnerToPublish' }">Please contact the owner of the course to initiate the publish.</span>
+                        <span data-bind="localize: { text: 'courseWasNotPublishedByOwner' }"></span><br/>
+                        <span data-bind="localize: { text: 'contactOwnerToPublish' }"></span>
                     </span>
                 </div>
             </div>

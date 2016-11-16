@@ -56,7 +56,7 @@ namespace easygenerator.Web.BuildCourse
                 ImageUrl = String.IsNullOrEmpty(section.ImageUrl)
                     ? _urlHelper.ToAbsoluteUrl(Constants.Section.DefaultImageUrl)
                     : section.ImageUrl,
-                Questions = (section.Questions ?? new Collection<Question>()).Select(MapQuestion).ToList()
+                Questions = (section.Questions ?? new Collection<Question>()).Where(q => !(q is IValidatable) || (q as IValidatable).IsValid()).Select(MapQuestion).ToList()
             };
         }
 

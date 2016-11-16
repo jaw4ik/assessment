@@ -2,7 +2,7 @@
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
-    public class Scenario : Question
+    public class Scenario : Question, IValidatable
     {
         public Scenario() { }
         public Scenario(string title, int masteryScore, string createdBy)
@@ -38,6 +38,11 @@ namespace easygenerator.DomainModel.Entities.Questions
             MarkAsModified(modifiedBy);
 
             RaiseEvent(new ScenarioMasteryScoreUpdatedEvent(this, masteryScore));
+        }
+
+        public bool IsValid()
+        {
+            return !string.IsNullOrEmpty(ProjectId);
         }
     }
 }
