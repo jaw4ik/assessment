@@ -1,17 +1,31 @@
-﻿module.exports = {
-    accessType:         require('./accessType'),
-    clientContextKeys:  require('./clientContextKeys'),
-    comment:            require('./comment'),
-    contentsTypes:      require('./contentsTypes'),
-    dialogs:            require('./dialogs'),
-    documentType:       require('./documentType'),
-    messages:           require('./messages'),
-    notification:       require('./notification'),
-    questionType:       require('./questionType'),
-    reporting:          require('./reporting'),
-    storage:            require('./storage'),
-    upgradeCategory:    require('./upgradeCategory'),
-    validation:         require('./validation'),
+﻿import accessType from './accessType';
+import clientContextKeys from './clientContextKeys';
+import comment from './comment';
+import contentsTypes from './contentsTypes';
+import dialogs from './dialogs';
+import documentType from './documentType';
+import messages from './messages';
+import notification from './notification';
+import questionType from './questionType';
+import reporting from './reporting';
+import storage from './storage';
+import upgradeCategory from './upgradeCategory';
+import validation from './validation';
+
+export default {
+    accessType:         accessType,
+    clientContextKeys:  clientContextKeys,
+    comment:            comment,
+    contentsTypes:      contentsTypes,
+    dialogs:            dialogs,
+    documentType:       documentType,
+    messages:           messages,
+    notification:       notification,
+    questionType:       questionType,
+    reporting:          reporting,
+    storage:            storage,
+    upgradeCategory:    upgradeCategory,
+    validation:         validation,
 
     appVersion: window.egVersion,
     organizationUserStatus: {
