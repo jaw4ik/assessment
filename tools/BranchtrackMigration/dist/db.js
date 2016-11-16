@@ -5,7 +5,7 @@ let sql = require('mssql');
 module.exports = {
 	connect(config) { 
 		return new Promise((resolve, reject) => {
-			let connection = new sql.Connection(config, function (err, db) {
+			let connection = new sql.Connection(config, function (err) {
 				if (err) {
 					reject(err)
 					return
@@ -20,9 +20,9 @@ module.exports = {
 			connection.request().query(query, function (err, data) {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					resolve(data);
 				}
-				resolve(data);
 			});
 		});
 	},
@@ -40,7 +40,13 @@ module.exports = {
 				}
 
 				dataArray.forEach(item => request.execute(iterator(item)));
-				resolve();
+				request.unprepare(function(err) {
+					if (err){
+						reject(err);
+					} else {
+						resolve();
+					}
+				});
 			});
 		});
 	}
