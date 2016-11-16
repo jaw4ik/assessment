@@ -10,12 +10,12 @@ let obj = {}
 
 // localhost config
 obj.config = {
-  database: "easygenerator-web",
-  server: "127.0.0.1",
-  driver: "msnodesqlv8",
-  options: {
-    trustedConnection: true
-  }
+    database: "easygenerator-web",
+    server: "127.0.0.1",
+    driver: "msnodesqlv8",
+    options: {
+        trustedConnection: true
+    }
 };
 
 // staging config
@@ -24,8 +24,8 @@ obj.config = {
 //     password: 'Easy123!',
 //     server: '52.203.242.134',
 //     port: 1433,
-//     database: 'yrsavchuk.easygenerator.com'
-// }
+//     database: 'performance.easygenerator.com'
+// };
 
 // live config
 // obj.config = {
@@ -34,7 +34,7 @@ obj.config = {
 //     server: '127.0.0.1',
 //     port: 1533,
 //     database: 'live.easygenerator.com'
-// }
+// };
 
 
 // 2.specify migration function
@@ -42,6 +42,7 @@ obj.config = {
 obj.migration = (connection) => {
     return co(function* () {
         let scenarioQuestions = yield db.selectQuery(connection, 'SELECT * FROM ScenarioQuestions');
+        console.log('Scenario questions found: ' + scenarioQuestions.length);
         
         yield db.updateQuery(connection,
             'UPDATE ScenarioQuestions SET EmbedCode = @embedCode, EmbedUrl = @embedUrl WHERE Id = @id', 
@@ -65,6 +66,7 @@ obj.migration = (connection) => {
                     }
                 }
 
+                console.log('Scenario processed: ' + currentScenario.Id);
                 return { embedCode: currentScenario.EmbedCode, embedUrl: currentScenario.EmbedUrl, id: currentScenario.Id };
             });
     });
