@@ -3,9 +3,9 @@
         <div class="content-section">
             <div class="results-title">
                 <!-- ko ifnot: noResults() -->
-                <button class="download-results action-item-btn btn green" data-bind="click:downloadResults, css: {'disabled':isPreparing}, disable: isPreparing">
+                <button class="download-results action-item-btn btn green" data-bind="click:downloadResults, css: {'disabled':isPreparing}, disable: isPreparing, tip: { key: !isPreparing()?'downloadLearnersResults':'preparing' }">
                     <span class="action-item-btn-caption progress" data-bind="localize: { text: 'preparing' }, css:{'invisible': !isPreparing() }">Preparing...</span>
-                    <span class="action-item-btn-caption" data-bind="localize: { text: 'downloadLearnersResults'}, css:{'invisible': isPreparing}">Download results</span>
+                    <span class="action-item-btn-caption" data-bind="localize: { text: 'downloadLearnersResults' }, css:{'invisible': isPreparing }">Download results</span>
                 </button>
                 <!-- /ko -->
                 <span data-bind="localize: { text: 'learnersResults' }">Learners results</span>
