@@ -14,27 +14,18 @@ ko.bindingHandlers.coverBackground = {
 
         setImageSrc(element, '/Content/images/buildprogress.gif', '24px');
 
-        let thumbnailUrl = src + `?width=${width}&height=${height}&scaleBySmallerSide=true`;
+        let thumbnailUrl = src;
+        let backgroundSize = 'initial';
         let imageSize = await getImageSize(thumbnailUrl);
 
-        if (imageSize.width < width && imageSize.height < height) {
-            setImageSrc(element, thumbnailUrl);
-            return;
+        if(imageSize.width >= width || imageSize.height >= height) {
+            thumbnailUrl = `${thumbnailUrl}?width=${width}&height=${height}`;
+            backgroundSize = 'contain';
         }
-
-        if (imageSize.width >= width && imageSize.height >= height) {
-            setImageSrc(element, thumbnailUrl, 'cover');
-            return;
+        if(imageSize.width >= width && imageSize.height >= height) {
+            backgroundSize = 'cover';
         }
-
-        thumbnailUrl = src + `?width=${width}&height=${height}`;
-        imageSize = await getImageSize(thumbnailUrl);
-
-        if (imageSize.width >= width && imageSize.height >= height) {
-            setImageSrc(element, thumbnailUrl, 'cover');
-        } else {
-            setImageSrc(element, thumbnailUrl);
-        }
+        setImageSrc(element, thumbnailUrl, backgroundSize);
     }
 };
 
@@ -48,7 +39,7 @@ function getImageSize(src) {
     });
 }
 
-function setImageSrc(element, src, size = 'auto') {
+function setImageSrc(element, src, size = 'initial') {
     $(element).css({
         'background-repeat': 'no-repeat',
         'background-position': 'center',
