@@ -21,6 +21,7 @@ var outputDirectory = args.output || 'D:/Applications/easygenerator',
     surveyDaysUntilShowUp = (typeof args.surveyDaysUntilShowUp === 'string' && args.surveyDaysUntilShowUp !== '') || (typeof args.surveyDaysUntilShowUp === 'number' && args.surveyDaysUntilShowUp >= 0) ? args.surveyDaysUntilShowUp : '1';
 
 var samlCertsFolderName = 'EgSamlIdPCertificates';
+var testResultsDirectory = './TestResults';
 
 gulp.task('build-main-project', function () {
     return buildUtils.buildProjects(['./sources/easygenerator.Web/easygenerator.Web.csproj'], outputDirectory + '/bin', outputDirectory);
@@ -130,7 +131,8 @@ gulp.task('add-survey-popup-settings', function (cb) {
 });
 
 gulp.task('clean', function (callback) {
-    del([outputDirectory], { force: true }, callback);
+    del([outputDirectory,
+		 testResultsDirectory], { force: true }, callback);
 });
 
 gulp.task('deploy', function (cb) {
