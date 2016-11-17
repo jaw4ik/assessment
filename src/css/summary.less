@@ -2,6 +2,7 @@
 
 @summary-incorrect-question-color: #f16462;
 @summary-correct-question-color: #50b2ac;
+@summary-survey-question-color: #49b8e7;
 
 .summary {
     min-width: 600px;
@@ -232,6 +233,30 @@
 
                         .question-title-cell {
                             border-left: 2px solid @summary-correct-question-color;
+                        }
+                    }                    
+
+                    &.survey {
+                        border-bottom: 2px solid @summary-survey-question-color;
+
+                        .question-number-cell {
+                            .question-number-container {
+                                .question-number {
+                                    color: @summary-survey-question-color;
+
+                                    &:before {
+                                        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAgMAAACJFjxpAAAACVBMVEUAAABJuOf////Ala4iAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAAEISURBVHja7c6xDQAgCEVBl2T/VeztSDRIuFdS8G8tSZIkSZIkSZIkSZKkR8URAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEB/QPYhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAcQPYOAAAAAAAAAAAAAAAAAADwP+DWEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAX4AkSZIkSZpXFAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQD5AkSZIkSePb+pCRh1O6ImgAAAAASUVORK5CYII=');
+                                        height: 18px;
+                                        background-size: 100%;
+                                        width: 18px;
+                                        margin-top: -9px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .question-title-cell {
+                            border-left: 2px solid @summary-survey-question-color;
                         }
                     }
                 }

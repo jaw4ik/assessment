@@ -13,11 +13,12 @@
         that.title = assessment.title;
         that.logoUrl = settings.logo.url;
         that.questions = _.chain(assessment.questions).filter(function(question){
-            return question.affectProgress;
+            return question.affectProgress || question.isSurvey;
         }).map(function(question){
             return {
                 title: question.title,
-                isCorrect: question.score === 100
+                isCorrect: question.score === 100,
+                isSurvey: question.isSurvey
             };
         }).value();
 
