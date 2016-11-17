@@ -1,0 +1,9 @@
+﻿<div class="slider-container" data-bind="css: settings, sliderBindingHandler: { imgArray: images, shouldDisplayIcons: shouldDisplayIcons }">
+    <div class="next-arrow-btn" data-bind="click: next"></div>
+    <div class="previus-arrow-btn" data-bind="click: previus"></div>
+    <div class="close-btn" data-bind="click: close"></div>
+    <div class="main-image">
+        <div class="preloader" data-bind="preloader: { settings: 'align-center z-index' }, visible: imageLoaded()"></div>
+        <img data-bind="imageLazyLoadBindingHandler: { src: selectedImage(), loaded: imageLoaded }">
+    </div>  
+</div>

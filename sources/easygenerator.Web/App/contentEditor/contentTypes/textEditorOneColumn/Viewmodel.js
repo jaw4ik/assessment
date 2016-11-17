@@ -37,7 +37,7 @@ export default class extends ContentBase {
     saveData(data) {
         if (_.isEmptyHtmlText(data)) {
             this.delete();
-        }else{
+        } else{
             this.save(data);
         }
     }

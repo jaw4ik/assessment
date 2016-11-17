@@ -56,7 +56,7 @@
         'design/templateBrief.spec',
         //#endregion
 
-        //#region content editor
+        ////#region content editor
         'contentEditor/adapters/AdapterBase.spec',
         'contentEditor/adapters/adaptersLoader.spec',
         'contentEditor/adapters/QuestionContentAdapter.spec',
@@ -70,6 +70,8 @@
         'contentEditor/editor.spec',
         'contentEditor/contentTypes/textEditor/viewModel.spec',
         'contentEditor/contentTypes/textEditorOneColumn/viewModel.spec',
+        'contentEditor/contentTypes/linkCuration/viewModel.spec',
+        'contentEditor/contentTypes/linkCurationBlock/Viewmodel.spec',
         'contentEditor/contentTypes/imageEditorOneColumn/Viewmodel.spec',
         'contentEditor/contentTypes/imageEditorTwoColumns/Viewmodel.spec',
         'contentEditor/contentTypes/imageInTheLeft/Viewmodel.spec',
@@ -77,7 +79,7 @@
         'contentEditor/contentTypes/imageEditor/viewModel.spec',
         'contentEditor/contentTypes/editors/imageEditor/index.spec',
         'contentEditor/contentTypes/editors/textEditor/index.spec',
-        //#endregion
+        ////#endregion
 
         //#region review
         'review/reviewPanel.spec',
@@ -99,7 +101,7 @@
         'review/comments/context/queries/getSection.spec',
         'review/comments/context/queries/getQuestionData.spec',
         //#endregion
-        'authorization/limitCoursesAmount.spec',
+        //'authorization/limitCoursesAmount.spec',
         //#region commands
         'commands/createQuestionCommand.spec',
         'commands/createSectionCommand.spec',
@@ -112,7 +114,7 @@
         'commands/allowCoggnoCommand.spec',
         //#endregion commands
 
-        //#region dialogs
+        ////#region dialogs
         'dialogs/collaboration/addCollaborator.spec',
         'dialogs/collaboration/collaboration.spec',
         'dialogs/collaboration/collaborator.spec',
@@ -281,7 +283,7 @@
 
         'synchronization/handlers/collaboration/eventHandlers/collaboratorAccessTypeUpdated.spec',
 
-        // #region organinizations synchronization
+        //#region organinizations synchronization
         'synchronization/handlers/organizations/handler.spec',
         'synchronization/handlers/organizations/eventHandlers/userRegistered.spec',
         'synchronization/handlers/organizations/eventHandlers/titleUpdated.spec',
@@ -530,7 +532,7 @@
         'widgets/dialog/viewmodel.spec',
         'widgets/modalView/viewmodel.spec',
         'widgets/allowCoggno/viewmodel.spec',
-        //#endregion
+        ////#endregion
         'viewmodels/user/userMenu.spec',
         'viewmodels/shell.spec',
         'bootstrapper.spec',

@@ -994,5 +994,9 @@
     "zoom": "缩放",
     "surveyMode": "调查模式（中性反馈，无评分）",
     "responseForLearnerAnswer": "学习者问题的回答",
-    "surveyModeCaption": "当您想向学习者询问一些没有正确或错误答案的问题（例如拥有哪些技能？）的时候，可使用这个。此外，这些问题将不包含在计分内。"
+    "surveyModeCaption": "当您想向学习者询问一些没有正确或错误答案的问题（例如拥有哪些技能？）的时候，可使用这个。此外，这些问题将不包含在计分内。",
+    "addLinkCurationDescription": "Add link description (optional)",
+    "useExample": "Use example",
+    "editLink": "Edit link",
+    "notValidLink": "Not valid link"
 }

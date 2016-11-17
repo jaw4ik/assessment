@@ -4,7 +4,7 @@ import constants from 'constants';
 
 import * as parser from './components/textEditorParser';
 
-/*import Viewmodel from 'contentEditor/contentTypes/textEditor/viewModel';
+import Viewmodel from 'contentEditor/contentTypes/textEditor/viewModel';
 import {TextEditor} from 'contentEditor/contentTypes/textEditor/viewModel';
 
 describe('[textEditor Viewmodel]', () => {
@@ -55,7 +55,11 @@ describe('[textEditor Viewmodel]', () => {
         it('should set callbacks', ()=>{
             let newData = ko.observable('newData');
             let justCreated = false;
-            let callbacks ={};
+            let callbacks = {
+                startEditing: () => {},
+                endEditing: () => {},
+                save: () => {}
+            };
             viewmodel.activate(newData, justCreated, callbacks);
             expect(viewmodel.callbacks).toBeDefined();
             expect(viewmodel.callbacks).toEqual(callbacks);
@@ -72,7 +76,13 @@ describe('[textEditor Viewmodel]', () => {
     });
     
     describe('setData', ()=>{
-    
+        
+        let callbacks = {
+            startEditing: () => {},
+            endEditing: () => {},
+            save: () => {}
+        };
+
         it('should be function', ()=>{
             expect(viewmodel.setData).toBeFunction();
         });
@@ -82,6 +92,7 @@ describe('[textEditor Viewmodel]', () => {
             it('should create editor instances', ()=>{
                 let newData = ko.observable(['newData1','newData2']);
                 let justCreated = true;
+                viewmodel.activate(newData, justCreated, callbacks);
                 viewmodel.setData(newData, justCreated);
                 expect(viewmodel.instances.length).toEqual(2);
             });
@@ -94,6 +105,7 @@ describe('[textEditor Viewmodel]', () => {
                 spyOn(parser, 'initialize');
                 let newData = ko.observable(['newData']);
                 let justCreated = true;
+                viewmodel.activate(newData, justCreated, callbacks);
                 viewmodel.setData(newData, justCreated);
                 expect(parser.initialize).not.toHaveBeenCalled();
 
@@ -102,6 +114,7 @@ describe('[textEditor Viewmodel]', () => {
             it('should create instance of editor', ()=>{
                 let newData = ko.observable(['newData']);
                 let justCreated = true;
+                viewmodel.activate(newData, justCreated, callbacks);
                 viewmodel.setData(newData, justCreated);
                 expect(viewmodel.instances.length).toEqual(1);
             });
@@ -137,7 +150,12 @@ describe('[textEditor Viewmodel]', () => {
     });
 
     describe('endEditing', ()=>{
-        
+        let callbacks = {
+            startEditing: () => {},
+            endEditing: () => {},
+            save: () => {}
+        };
+
         it('should be function', ()=>{
             expect(viewmodel.endEditing).toBeFunction();
         });
@@ -146,7 +164,7 @@ describe('[textEditor Viewmodel]', () => {
             it('should not call endEditing callback', ()=>{
                 let newData = ko.observable(['newData']);
                 let justCreated = true;
-                viewmodel.activate(newData, justCreated, {endEditing:()=>{}});
+                viewmodel.activate(newData, justCreated, callbacks);
                 spyOn(viewmodel.callbacks, 'endEditing');
                 viewmodel.endEditing();
                 expect(viewmodel.callbacks.endEditing).not.toHaveBeenCalled();
@@ -157,7 +175,7 @@ describe('[textEditor Viewmodel]', () => {
             it('should stop editing', ()=>{
                 let newData = ko.observable(['newData']);
                 let justCreated = true;
-                viewmodel.activate(newData, justCreated, {endEditing:()=>{}});
+                viewmodel.activate(newData, justCreated, callbacks);
                 viewmodel.isEditing
                 viewmodel.endEditing();
                 expect(viewmodel.isEditing()).toBeFalsy();
@@ -166,17 +184,17 @@ describe('[textEditor Viewmodel]', () => {
             it('should remove focus from every editor instance', ()=>{
                 let newData = ko.observable(['newData']);
                 let justCreated = true;
-                viewmodel.activate(newData, justCreated, {endEditing:()=>{}});
+                viewmodel.activate(newData, justCreated, callbacks);
                 viewmodel.instances[0].hasFocus = ko.observable(true);
                 viewmodel.isEditing=ko.observable(true);
                 viewmodel.endEditing();
                 expect(viewmodel.instances[0].hasFocus()).toBeFalsy();
             });
 
-            it('should call end editing callback'<()=>{
+            it('should call end editing callback', ()=>{
                 let newData = ko.observable(['newData']);
                 let justCreated = true;
-                viewmodel.activate(newData, justCreated, {endEditing:()=>{}});
+                viewmodel.activate(newData, justCreated, callbacks);
                 viewmodel.isEditing=ko.observable(true);
                 spyOn(viewmodel.callbacks, 'endEditing');
                 viewmodel.endEditing();
@@ -206,4 +224,4 @@ describe('[textEditor Viewmodel]', () => {
 
     });
 
-});*/
+});

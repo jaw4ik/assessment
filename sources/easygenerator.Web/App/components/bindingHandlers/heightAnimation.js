@@ -1,4 +1,4 @@
-﻿import ko from 'knockout';
+import ko from 'knockout';
 import $ from 'jquery';
 import composition from 'durandal/composition';
 
@@ -6,6 +6,7 @@ const overlayHideClass = 'overlay-hide';
 
 ko.bindingHandlers.heightAnimation = {
     init: (element, valueAccessor) => {
+        
         let initHeight = valueAccessor().initHeight,
             $element = $(element);
 
@@ -15,6 +16,7 @@ ko.bindingHandlers.heightAnimation = {
         }
     },
     update: (element, valueAccessor) => {
+        
         let expanded = ko.utils.unwrapObservable(valueAccessor().expanded),
             duration = valueAccessor().duration || 300,
             minHeight = valueAccessor().minHeight || 0,

@@ -4,6 +4,7 @@
     textEditorOneColumn: 'textEditorOneColumn',
     textEditorTwoColumns: 'textEditorTwoColumns',
     textEditorThreeColumns: 'textEditorThreeColumns',
+    linkCuration: 'linkCuration',
     imageEditorOneColumn: 'imageEditorOneColumn',
     imageEditorTwoColumns: 'imageEditorTwoColumns',
     imageInTheLeft: 'imageInTheLeft',

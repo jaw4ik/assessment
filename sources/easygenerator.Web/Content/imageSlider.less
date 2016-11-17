@@ -1,0 +1,82 @@
+﻿.slider-container {
+
+    &.defalut {
+        width: 100%;
+        height: 100%;
+
+        .hover {
+            cursor: pointer;
+            background-color: rgba(73, 80, 86, .9);
+        }
+
+        &.deleted {
+            display: none;
+        }
+        /*====================
+        left button
+        ===================== */
+        .next-arrow-btn {
+            border-radius: 4px 0px 0px 4px;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(96, 103, 111, 0.1) url('images/arrow_button_left.png');
+            visibility: hidden;
+            width: 25px;
+            height: 25px;
+            z-index: 1000;
+            &:hover {
+                .hover;
+            }
+        }
+        /*====================
+            rigth button
+        ===================== */
+        .previus-arrow-btn {
+            border-radius: 0px 4px 4px 0px;
+            position: absolute;
+            top: 5px;
+            left: 30px;
+            background: rgba(96, 103, 111, 0.1) url('images/arrow_button_right.png');
+            visibility: hidden;
+            width: 25px;
+            height: 25px;
+            z-index: 1000;
+            &:hover {
+                .hover;
+            }
+        }
+        /*====================
+            close
+        ===================== */
+        .close-btn {
+            border-radius: 4px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(96, 103, 111, 0.1) url('images/exit_button.png');
+            visibility: hidden;
+            cursor: default;
+            width: 25px;
+            height: 25px;
+            z-index: 1000;
+            &:hover {
+                .hover;
+            }
+        }
+
+        .main-image {
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+    }
+}
