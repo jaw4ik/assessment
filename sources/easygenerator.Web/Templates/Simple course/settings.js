@@ -27,5 +27,6 @@
     },
     "showConfirmationPopup":true,
     "allowCrossDeviceSaving": true,
-    "allowLoginViaSocialMedia": true
+    "allowLoginViaSocialMedia": true,
+    "hideSendMeSecretLink": false
 }
