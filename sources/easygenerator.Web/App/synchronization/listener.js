@@ -71,6 +71,7 @@
 
                         sectionTitleUpdated: sectionEventHandler.titleUpdated,
                         sectionImageUrlUpdated: sectionEventHandler.imageUrlUpdated,
+                        sectionLearningObjectiveUpdated: sectionEventHandler.learningObjectiveUpdated,
                         sectionQuestionsReordered: sectionEventHandler.questionsReordered,
                         sectionModified: sectionEventHandler.modified,
 
