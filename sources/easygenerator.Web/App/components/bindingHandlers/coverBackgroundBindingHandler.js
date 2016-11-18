@@ -21,8 +21,9 @@ ko.bindingHandlers.coverBackground = {
         if(imageSize.width >= width || imageSize.height >= height) {
             thumbnailUrl = `${thumbnailUrl}?width=${width}&height=${height}`;
             backgroundSize = 'contain';
-        }
+        } 
         if(imageSize.width >= width && imageSize.height >= height) {
+            thumbnailUrl = `${thumbnailUrl}&scaleBySmallerSide=true`;
             backgroundSize = 'cover';
         }
         setImageSrc(element, thumbnailUrl, backgroundSize);
@@ -39,7 +40,7 @@ function getImageSize(src) {
     });
 }
 
-function setImageSrc(element, src, size = 'initial') {
+function setImageSrc(element, src, size) {
     $(element).css({
         'background-repeat': 'no-repeat',
         'background-position': 'center',
