@@ -42,7 +42,7 @@
         <div class="summary-questions-container">
             <div class="questions-title">{{ '[summary page questions list title]' | translate }}</div>
             <ul class="questions unstyled">
-                <li class="question-item" ng-repeat="question in summary.questions" ng-class="{ correct: question.isCorrect }">
+                <li class="question-item" ng-repeat="question in summary.questions" ng-class="{ correct: question.isCorrect, survey: question.isSurvey }">
                     <div class="question-number-cell">
                         <div class="question-number-container">
                             <span class="question-number">{{ $index + 1 | leadingZeros: 2 }}</span>
