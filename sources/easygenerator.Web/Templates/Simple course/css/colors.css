@@ -852,6 +852,10 @@ body {
     }
 }
 
+.summary-extended-background{
+    background-color: @content-body-color;
+}
+
 .exit-course-button {
     color: @button-text-color;
     background-color: @main-color;
