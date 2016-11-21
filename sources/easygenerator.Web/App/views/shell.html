@@ -73,7 +73,7 @@
             </div>
         </header>
 
-        <main id="view_content" data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></main>
+        <div role="main" id="view_content" data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
 
         <!-- ko ifnot: router.isViewReady -->
         <div data-bind="preloader: { settings: 'align-center' }"></div>
