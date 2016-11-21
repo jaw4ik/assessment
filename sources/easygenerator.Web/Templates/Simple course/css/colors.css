@@ -615,11 +615,11 @@ body {
 
     .select-wrapper {
         .value {
-            &.default when (@Normal-size < 14px) {
+            .default when (@Normal-size < 14px) {
                 font-size: @Normal-size;
             }
 
-            &.default when (@Normal-size >= 14px) {
+            .default when (@Normal-size >= 14px) {
                 font-size: 14px;
             }
         }
