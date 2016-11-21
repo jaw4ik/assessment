@@ -25,11 +25,11 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "clipboard": "npm:clipboard@1.5.15",
     "core-js": "npm:core-js@1.2.7",
-    "css": "github:systemjs/plugin-css@0.1.31",
+    "css": "github:systemjs/plugin-css@0.1.32",
     "dragula": "npm:dragula@3.7.2",
     "durandal": "core/durandal",
-    "font-awesome": "npm:font-awesome@4.6.3",
-    "froala-editor": "npm:froala-editor@2.3.4",
+    "font-awesome": "npm:font-awesome@4.7.0",
+    "froala-editor": "npm:froala-editor@2.3.5",
     "guillotine": "npm:guillotine@1.3.1",
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
@@ -107,11 +107,11 @@ System.config({
       "contra": "npm:contra@1.9.4",
       "crossvent": "npm:crossvent@1.5.4"
     },
-    "npm:font-awesome@4.6.3": {
-      "css": "github:systemjs/plugin-css@0.1.31"
+    "npm:font-awesome@4.7.0": {
+      "css": "github:systemjs/plugin-css@0.1.32"
     },
-    "npm:froala-editor@2.3.4": {
-      "font-awesome": "npm:font-awesome@4.6.3",
+    "npm:froala-editor@2.3.5": {
+      "font-awesome": "npm:font-awesome@4.7.0",
       "jquery": "npm:jquery@3.1.1"
     },
     "npm:good-listener@1.2.0": {
