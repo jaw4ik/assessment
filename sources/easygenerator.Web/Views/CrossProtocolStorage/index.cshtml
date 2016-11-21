@@ -21,6 +21,35 @@
                     return matches ? matches[1] : null;
                 }
 
+                function isReferrerAllowed(protocol, origin) {
+                    if (!document.referrer) {
+                        return false;
+                    }
+                    var refLink = document.createElement('a');
+                    refLink.href = document.referrer;
+                    var refPort = refLink.port;
+                    var refOrigin = protocol + '//' + refLink.hostname;
+                    if ((refPort === '80' || refPort === '443') && refOrigin === origin) {
+                        return true;
+                    }
+                    if (refPort) {
+                        refOrigin += ':' + refPort;
+                    }
+                    if (refOrigin === origin) {
+                        return true;
+                    }
+                    return false;
+                }
+
+                function blockThirdPartyAccess(protocol, origin) {
+                    if (window.parent === window) {
+                        throw 'access to cross-protocol-storage blocked for same window';
+                    }
+                    if (!isReferrerAllowed(protocol, origin)) {
+                        throw 'access to cross-protocol-storage blocked for referrer ' + referrer;
+                    }
+                }
+
                 var protocol = getHashValue('protocol');
                 var identifier = getHashValue('identifier');
                 var data = JSON.parse(decodeURIComponent(getHashValue('data')));
@@ -28,6 +57,8 @@
                     return;
                 }
                 var origin = protocol + '//' + window.location.host;
+                blockThirdPartyAccess(protocol, origin);
+
                 var returnValue = '#localStorage#' + decodeURIComponent(identifier);
                 if ('getItem' in data) {
                     var gotItem = localStorage.getItem(data.getItem);
