@@ -29,10 +29,12 @@
                     refLink.href = document.referrer;
                     var refPort = refLink.port;
                     var refOrigin = protocol + '//' + refLink.hostname;
-                    if (refPort === '80' && refOrigin === origin) {
+                    if ((refPort === '80' || refPort === '443') && refOrigin === origin) {
                         return true;
                     }
-                    refOrigin += refPort;
+                    if (refPort) {
+                        refOrigin += ':' + refPort;
+                    }
                     if (refOrigin === origin) {
                         return true;
                     }
