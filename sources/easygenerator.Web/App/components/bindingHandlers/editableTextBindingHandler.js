@@ -75,6 +75,15 @@ ko.bindingHandlers.editableText = {
         }).on('blur', () => {
             $element.scrollLeft(0);
             $element.off('DOMSubtreeModified', updateValue);
+        }).on('keydown', event => { // fix for safari (history back on backspace)
+            if (event.keyCode !== 8) {
+                return;
+            }
+            var val = $element.text();
+            if(val.length === 1) {
+                $element.text('');
+                event.preventDefault();
+            }
         });
 
         return ko.bindingHandlers.contentEditableFix.init(element, function () {
