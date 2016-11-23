@@ -1251,7 +1251,7 @@ body {
     #content{
         .result-header{
             .course-title{				
-                .course-title-label{
+                .course-label{
                     color: fade(@text-color, 50%);
                 }
             }
