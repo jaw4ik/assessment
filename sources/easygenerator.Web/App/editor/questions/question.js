@@ -155,7 +155,7 @@ class QuestionViewModel  {
                 this.hasFeedback = viewModelData.hasFeedback;
                 this.feedbackCaptions = viewModelData.feedbackCaptions;
 
-                return this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions });
+                return this.feedbackViewModel.initialize({ questionId: question.id, captions: this.feedbackCaptions, isSurvey: !!question.isSurvey });
             });
         });
     }
