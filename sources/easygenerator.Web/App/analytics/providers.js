@@ -1,5 +1,5 @@
-﻿define(['has', 'analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/nudgespotProvider', 'analytics/providers/intercomProvider'],
-    function (has, consoleProvider, mixpanelProvider, nudgespotProvider, IntercomProvider) {
+﻿define(['has', 'analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/intercomProvider'],
+    function (has, consoleProvider, mixpanelProvider, IntercomProvider) {
 
         var providers = [];
 
@@ -14,7 +14,6 @@
             providers.push(consoleProvider());
         }
         providers.push(mixpanelProvider());
-        providers.push(nudgespotProvider());
         providers.push(new IntercomProvider());
         providers.identify();
 

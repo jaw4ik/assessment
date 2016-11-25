@@ -714,7 +714,6 @@
     <Content Include="App\analytics\providers\consoleProvider.js" />
     <Content Include="App\analytics\providers\intercomProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
-    <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\audio\audioLibrary\audioLibrary.js" />
     <Content Include="App\audio\audioLibrary\audioLibrary.spec.js">
       <DependentUpon>audioLibrary.js</DependentUpon>
@@ -3885,7 +3884,6 @@
     <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
-    <Content Include="Views\Shared\_nudgespotAnalytics.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

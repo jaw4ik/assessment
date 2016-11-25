@@ -1,10 +1,10 @@
 ﻿var app = app || {};
 
-(function (application) {
+(function(application) {
 
     function mixpanelAnalyticsProvider() {
         return {
-            trackEvent: function (eventName, eventProperties) {
+            trackEvent: function(eventName, eventProperties) {
                 var peopleSetDeferred = $.Deferred(),
                     trackEventDeferred = $.Deferred();
 
@@ -41,13 +41,13 @@
                             });
                         }
 
-                        _.isEmpty(peopleProperties) ? peopleSetDeferred.resolve() : mixpanel.people.set(peopleProperties, function () {
+                        _.isEmpty(peopleProperties) ? peopleSetDeferred.resolve() : mixpanel.people.set(peopleProperties, function() {
                             peopleSetDeferred.resolve();
                         });
 
                         properties.Email = username;
 
-                        mixpanel.track(eventName, properties, function () {
+                        mixpanel.track(eventName, properties, function() {
                             trackEventDeferred.resolve();
                         });
 
@@ -70,47 +70,9 @@
         };
     }
 
-    function nudgespotAnalyticsProvider() {
-        return {
-            trackEvent: function (eventName, eventProperties) {
-                var deferred = jQuery.Deferred();
-                var nudgespot = window.nudgespot;
-
-                if (nudgespot) {
-                    var username = eventProperties.username;
-                    var firstname = eventProperties.firstname;
-                    var lastname = eventProperties.lastname;
-
-                    var properties = {};
-
-                    if (username) {
-                        nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
-                        properties.email = username;
-
-                        nudgespot.track(eventName, properties, function () {
-                            resolve();
-                        });
-                        _.delay(resolve, application.constants.timeout.nudgespot);
-                    } else {
-                        console.error('nudgespot can\'t identify a user');
-                        resolve();
-                    }
-                } else {
-                    resolve();
-                }
-
-                function resolve() {
-                    deferred.resolve();
-                }
-
-                return deferred.promise();
-            }
-        };
-    }
-
     function googleAnalyticsProvider() {
         return {
-            trackEvent: function (eventName, eventProperties) {
+            trackEvent: function(eventName, eventProperties) {
                 var deferred = jQuery.Deferred();
                 var gaq = window._gaq;
 
@@ -128,7 +90,7 @@
 
                 return deferred.promise();
             },
-            trackPageview: function (url) {
+            trackPageview: function(url) {
                 var deferred = jQuery.Deferred();
                 var gaq = window._gaq;
 
@@ -150,21 +112,19 @@
     }
 
     var mixpanelProvider = mixpanelAnalyticsProvider();
-    var nudgespotProvider = nudgespotAnalyticsProvider();
     var googleProvider = googleAnalyticsProvider();
 
-    application.trackEvent = function (eventName, eventProperties) {
+    application.trackEvent = function(eventName, eventProperties) {
         return jQuery.when(
-            nudgespotProvider.trackEvent(eventName, eventProperties),
             mixpanelProvider.trackEvent(eventName, eventProperties),
             googleProvider.trackEvent(eventName, eventProperties)
         );
     };
 
-    application.trackPageview = function (url) {
+    application.trackPageview = function(url) {
         return jQuery.when(
             googleProvider.trackPageview(url)
         );
     };
 
-}(app))
+}(app));
