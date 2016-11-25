@@ -195,10 +195,15 @@ export default class SectionViewModel{
         } else {
             this.learningObjective(this.originalLearningObjective);
         }
+    }    
+    selectLearningObjectiveText(){   
+        if (this.learningObjective.isEmpty()) {     
+            this.learningObjective.isSelected(true);
+        }
     }
     toggleLearningObjectiveVisibility() {
-        if (this.learningObjective.isEmpty() && !this.learningObjective.isVisible()) {
-            this.learningObjective.isSelected(true);
+        if (!this.learningObjective.isEmpty() || this.learningObjective.isVisible()) {
+            this.learningObjective.isSelected(false);
         }
         this.learningObjective.isVisible(!this.learningObjective.isVisible());
     }
