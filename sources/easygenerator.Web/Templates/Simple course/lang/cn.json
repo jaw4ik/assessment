@@ -126,9 +126,22 @@
     "[the owner of the course has limited the access]": "课程拥有人限制了访问",
     "[back to sign in]": "返回登录",
     "[survey mode caption]": "答案不会对您的进度有任何影响",
+    "[survey mode answered caption]": "答案不会对您的进度有任何影响",
     "[continue course]": "继续课程",
     "[submit results and logout]": "提交成绩并登出",
     "[questions correct]": "问题正确",
     "[contents readed]": "内容已阅",
-    "[section]": "章节"
+    "[section]": "章节",
+    "[get secret link to]": "获取所发送的密码链接",
+    "[you can sign in to the course]": "，便可即刻登录课程！",
+    "[send me the link]": "将链接发送给我",
+    "[close course]": "关闭课程",
+    "[OK, email are correct]": "好，电子邮件正确无误",
+    "[type your password]": "输入您的密码",
+    "[OK, go to the course]": "好，转到课程",
+    "[back]": "返回",
+    "[set your name and password]": "设置名称和密码",
+    "[no spaces]": "无空间",
+    "[at least 7 characters]": "至少 7 个字符",
+    "[set your name]": "设置您的名称"
 }

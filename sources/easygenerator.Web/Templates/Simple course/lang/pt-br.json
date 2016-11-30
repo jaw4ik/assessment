@@ -126,9 +126,22 @@
     "[the owner of the course has limited the access]": "O proprietário do curso limitou o acesso",
     "[back to sign in]": "Voltar para fazer login",
     "[survey mode caption]": "A resposta não afetará seu progresso",
+    "[survey mode answered caption]": "A resposta não afeta seu progresso",
     "[continue course]": "Continuar o curso",
     "[submit results and logout]": "Enviar resultados e fazer logoff",
     "[questions correct]": "questões corretas",
     "[contents readed]": "conteúdos foram lidos",
-    "[section]": "Seção"
+    "[section]": "Seção",
+    "[get secret link to]": "Solicite o envio de um link secreto",
+    "[you can sign in to the course]": "para poder fazer login no curso imediatamente!",
+    "[send me the link]": "Enviar o link",
+    "[close course]": "Fechar curso",
+    "[OK, email are correct]": "Ok, e-mail correto",
+    "[type your password]": "Digite sua senha",
+    "[OK, go to the course]": "OK, ir para o curso",
+    "[back]": "Voltar",
+    "[set your name and password]": "Defina seu nome e senha",
+    "[no spaces]": "Sem espaços",
+    "[at least 7 characters]": "Pelo menos 7 caracteres",
+    "[set your name]": "Defina seu nome"
 }

@@ -144,5 +144,6 @@
     "[set your name and password]": "Set your name and password",
     "[no spaces]": "No spaces",
     "[at least 7 characters]": "At least 7 characters",
-    "[set your name]": "Set your name"
+    "[set your name]": "Set your name",
+    "[text matching question pdf hint]": "Сombine elements from the left column with the elements on the right"
 }

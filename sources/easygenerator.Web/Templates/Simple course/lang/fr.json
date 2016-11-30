@@ -126,9 +126,22 @@
     "[the owner of the course has limited the access]": "Le propriétaire du cours a limité l'accès",
     "[back to sign in]": "Retour à la connexion",
     "[survey mode caption]": "La réponse n'aura pas d'impact sur vos progrès",
+    "[survey mode answered caption]": "La réponse n'a aucun impact sur vos progrès",
     "[continue course]": "Continuer le cours",
     "[submit results and logout]": "Soumettre les résultats et fermer la session",
     "[questions correct]": "questions correctes",
     "[contents readed]": "contenu lu",
-    "[section]": "Section"
+    "[section]": "Section",
+    "[get secret link to]": "Faites-vous envoyer un lien secret",
+    "[you can sign in to the course]": "pour pouvoir vous connecter au cours instantanément !",
+    "[send me the link]": "Envoyez-moi le lien",
+    "[close course]": "Terminer le cours",
+    "[OK, email are correct]": "Ok, l'adresse e-mail est correcte",
+    "[type your password]": "Saisissez votre mot de passe",
+    "[OK, go to the course]": "OK, accéder au cours",
+    "[back]": "Retour",
+    "[set your name and password]": "Définissez votre nom et votre mot de passe",
+    "[no spaces]": "Aucun espace",
+    "[at least 7 characters]": "7 caractères minimum",
+    "[set your name]": "Définissez votre nom"
 }
