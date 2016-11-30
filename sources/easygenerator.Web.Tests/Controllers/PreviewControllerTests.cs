@@ -113,7 +113,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.GetPreviewCoursePublishSettings(course);
 
             //Assert
-            _publishSettingsProvider.Received().GetPublishSettings(Arg.Any<IEnumerable<PackageModule>>());
+            _publishSettingsProvider.Received().GetPublishSettings(Arg.Any<IEnumerable<PackageModule>>(), PublishSettingsProvider.Mode.Preview);
         }
 
         [TestMethod]

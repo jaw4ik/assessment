@@ -2,118 +2,20 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1481635874869); /* For IE6-8 */
+  src: url(../fonts/MaterialIcons-Regular.woff?v=1481812388115); /* For IE6-8 */
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1481635874869) format('woff'),
-=======
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1481628581531); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1481628581531) format('woff'),
-=======
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1481534198784); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1481534198784) format('woff'),
-=======
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1481200211293); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1481200211293) format('woff'),
-=======
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1481053112408); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1481053112408) format('woff'),
-=======
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1480595437988); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1480595437988) format('woff'),
-=======
-<<<<<<< HEAD
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1480583602152); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1480583602152) format('woff'),
-=======
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1480074677575); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1480074677575) format('woff'),
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
+       url(MaterialIcons-Regular.woff?v=1481812388115) format('woff'),
 }
 
 @font-face {
     font-family: 'Custom Icons';
     font-weight: normal;
     font-style: normal;
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1481635874869); /* For IE6-8 */
+    src: url(../fonts/Custom-Icons.woff?v=1481812388115); /* For IE6-8 */
     src: local('Custom Icons'),
         local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1481635874869) format('woff'),
-=======
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1481628581531); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1481628581531) format('woff'),
-=======
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1481534198784); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1481534198784) format('woff'),
-=======
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1481200211293); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1481200211293) format('woff'),
-=======
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1481053112408); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1481053112408) format('woff'),
-=======
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1480595437988); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1480595437988) format('woff'),
-=======
-<<<<<<< HEAD
-    src: url(../fonts/Custom-Icons.woff?v=1480583602152); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1480583602152) format('woff'),
-=======
-    src: url(../fonts/Custom-Icons.woff?v=1480074677575); /* For IE6-8 */
-    src: local('Custom Icons'),
-        local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1480074677575) format('woff'),
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
->>>>>>> Add logic for preview of a specific page or item for simple course
+        url(Custom-Icons.woff?v=1481812388115) format('woff'),
 }
 
 .material-icons {

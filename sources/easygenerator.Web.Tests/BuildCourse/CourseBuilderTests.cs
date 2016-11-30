@@ -67,7 +67,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void Build_ShouldPublishBuildStartedEvent()
         {
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _eventPublisher.ShouldPublishEvent<CourseBuildStartedEvent>();
@@ -82,7 +82,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _fileManager.Received().CreateDirectory(buildDirectory);
@@ -99,7 +99,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
@@ -116,7 +116,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
             
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _buildContentProvider.Received().AddSettingsFileToPackageDirectory(Arg.Any<string>(), TemplateSettings);
@@ -133,7 +133,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _buildContentProvider.Received().AddThemeSettingsFileToPackageDirectory(Arg.Any<string>(), ThemeSettings);
@@ -170,7 +170,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _buildPackageCreator.Received().CreatePackageFromFolder(buildDirectory, buildPackageFileName);
@@ -183,7 +183,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var buildId = GetBuildId();
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _course.PackageUrl.Should().Be(buildId + ".zip");
@@ -200,7 +200,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetDownloadPath().Returns(downloadPath);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _fileManager.Received().DeleteFilesInDirectory(downloadPath, _coursePackageModel.Id + "*.zip", buildId + ".zip");
@@ -219,7 +219,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _fileManager.Received().DeleteFilesInDirectory(downloadPath, _coursePackageModel.Id + "*.zip", buildId + ".zip");
@@ -235,7 +235,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _fileManager.Received().DeleteDirectory(buildDirectory);
@@ -253,7 +253,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             _fileManager.Received().DeleteDirectory(buildDirectory);
@@ -268,7 +268,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            var result = _builder.Build(_course);
+            var result = _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             result.Should().BeFalse();
@@ -283,7 +283,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            var result = _builder.Build(_course);
+            var result = _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             result.Should().BeTrue();
@@ -295,7 +295,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             //Arrange
 
             //Act
-            var result = _builder.Build(_course);
+            var result = _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             result.Should().BeTrue();

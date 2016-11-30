@@ -31,10 +31,10 @@ namespace easygenerator.Web.BuildCourse
             _eventPublisher = eventPublisher;
         }
 
-        public override bool Build(Course course, bool includeMedia = false, bool enableAccessLimitation = false)
+        public override bool Build(Course course, string publishMode, bool includeMedia = false, bool enableAccessLimitation = false)
         {
             _eventPublisher.Publish(new CourseBuildStartedEvent(course));
-            return base.Build(course, includeMedia, enableAccessLimitation);
+            return base.Build(course, publishMode, includeMedia, enableAccessLimitation);
         }
 
         protected override void OnAfterBuildPackageCreated(Course course, string buildId)
