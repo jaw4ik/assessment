@@ -61,7 +61,7 @@ export default class {
 
     async mapContent(content, justCreated) {
         let viewmodel = await contentTypesFactory.createContentViewmodel(content.type);
-
+        
         viewmodel.on('save', (text) => this.saveContent(content, text));
         viewmodel.on('startEditing', () => this.startEditingContent(content));
         viewmodel.on('endEditing', () => this.endEditingContent(content));

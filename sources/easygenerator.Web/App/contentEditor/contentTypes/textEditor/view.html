@@ -3,6 +3,7 @@
     <div class="eg-content-editor-column">
         <div class="question-learning-content selectable" data-bind="htmlEditor: { 
              data: $data.data, 
+             placeholderText: '',
              isEditing: $data.hasFocus, 
              focus: $parent.startEditing.bind($parent), 
              blur: $parent.save.bind($parent) ,

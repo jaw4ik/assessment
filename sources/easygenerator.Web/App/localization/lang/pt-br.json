@@ -994,5 +994,9 @@
     "zoom": "Zoom",
     "surveyMode": "Modo de pesquisa (comentários neutros e sem pontuação)",
     "responseForLearnerAnswer": "Responder às questões de seus alunos",
-    "surveyModeCaption": "É possível usar esse modo quando deseja perguntar algo ao aluno (por exemplo, que habilidades possui?) que não tenha uma resposta correta ou incorreta. Além disso, a questão será excluída da pontuação."
+    "surveyModeCaption": "É possível usar esse modo quando deseja perguntar algo ao aluno (por exemplo, que habilidades possui?) que não tenha uma resposta correta ou incorreta. Além disso, a questão será excluída da pontuação.",
+    "addLinkCurationDescription": "Add link description (optional)",
+    "useExample": "Use example",
+    "editLink": "Edit link",
+    "notValidLink": "Not valid link"
 }

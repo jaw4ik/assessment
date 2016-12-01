@@ -1,5 +1,6 @@
 ﻿<section class="content-bar-panel ps-container" data-bind="tabs: {}, stopEventPropagation: { event: 'click' }">
     <div class="tabs-wrapper">
+        <!--data-bind=''-->
         <ul class="tabs">
             <li class="text-editor" data-tab-link="text" data-bind="localize: { title: 'textTabName' }">
                 <span class="icon"></span>
@@ -36,6 +37,9 @@
                 </div>
                 <div class="content-item text-editor three-columns" data-bind="draggableData: constants.contentsTypes.textEditorThreeColumns, click: createContent">
                     <div class="title not-accessible" data-bind="localize: { text: 'threeColumns' }"></div>
+                </div>
+                 <div class="content-item text-editor link" data-bind="draggableData: constants.contentsTypes.linkCuration, click: createContent">
+                    <div class="title not-accessible" data-bind="text: 'Link (curation)'"></div>
                 </div>
             </div>
             <div class="tab-content content-editor-items-panel" data-tab-content="image" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">

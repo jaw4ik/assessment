@@ -58,5 +58,6 @@ namespace easygenerator.Infrastructure
         public const string UserNotMemberOfCompanyResourceKey = "userNotMemberOfCompany";
 
         public const string ProjectDoesntExist = "Project doesn't exist";
+        public const string NotValidUrl = "Not valid Url";
     }
 }

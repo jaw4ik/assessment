@@ -994,5 +994,9 @@
     "zoom": "Appliquez un effet de zoom",
     "surveyMode": "Mode enquête (avis neutre et pas de score)",
     "responseForLearnerAnswer": "Répondre à la question de vos apprenants",
-    "surveyModeCaption": "À utiliser lorsque vous souhaitez poser à l'apprenant une question qui n'a pas de réponse correcte ou incorrecte (par exemple, « quelles sont vos compétences ? »). Cette question sera, de plus, exclue du score."
+    "surveyModeCaption": "À utiliser lorsque vous souhaitez poser à l'apprenant une question qui n'a pas de réponse correcte ou incorrecte (par exemple, « quelles sont vos compétences ? »). Cette question sera, de plus, exclue du score.",
+    "addLinkCurationDescription": "Add link description (optional)",
+    "useExample": "Use example",
+    "editLink": "Edit link",
+    "notValidLink": "Not valid link"
 }

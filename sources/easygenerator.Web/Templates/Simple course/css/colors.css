@@ -1545,3 +1545,47 @@ body {
 }
 
 /*#endregion ACCOUNT*/
+
+
+/*region CURATION*/
+.content-inner-wrapper {
+    border-top: 1px solid fade(@Normal-color, 10%);
+    border-bottom: 1px solid fade(@Normal-color, 10%);
+   .text-wrapper {
+        .text-block {
+            div.link-title {
+                &.parsed {
+                    color: @main-color;
+                }
+                &.empty {
+                    background-color: fade(@Normal-color, 10%);
+                }
+            }
+            div.link-content {
+                &.parsed {
+                    color: @text-color;
+                } 
+                &.empty {
+                    &:before {
+                        background-color: fade(@Normal-color, 10%);
+                    }
+                    &:after {
+                        background-color: fade(@Normal-color, 10%);
+                    }
+                }
+            }
+        }
+        .static-link-present {
+            .link-url {
+                color: fade(@text-color, 70%);
+            }
+        }
+    }
+    div.images {
+        &.parsed {  
+            background-color: fade(@Normal-color, 5%);
+        }
+    }
+}
+/*#endregion CURATION*/
+

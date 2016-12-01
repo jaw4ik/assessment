@@ -31,24 +31,23 @@ export default class {
     setData(data, justCreated){
         let parsedData = justCreated ? data() : parser.initialize(ko.utils.unwrapObservable(data));
         if(!this.instances.length){
-            _.each(parsedData, column =>{ 
+            _.each(parsedData, column => { 
                 this.instances.push(new TextEditor(column, this.save.bind(this)));
             });
         }
         else{
-            _.each(parsedData, (column, index)=>{ 
+            _.each(parsedData, (column, index) => { 
                 this.instances[index].data(column);
             });
         }
 
-        if(justCreated){
-            this.instances[0].hasFocus(true);
+        if(justCreated) {
             this.save();
         }
     }
 
-    save(){
-        let dataSet = _.map(this.instances, i=>{
+    save() {
+        let dataSet = _.map(this.instances, i => {
             return i.data();
         });
 
