@@ -341,7 +341,6 @@
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Tasks\DataDogReporterTask.cs" />
-    <Compile Include="Controllers\Api\LinkRequestController.cs" />
     <Compile Include="Controllers\Api\ProxyRequestController.cs" />
     <Compile Include="Controllers\Api\SurveyQuestionController.cs" />
     <Compile Include="Components\SentriClient.cs" />
