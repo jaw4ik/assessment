@@ -121,6 +121,7 @@
     "[collapse]": "Minimizar",
     "[keep me logged-in for the next courses]": "Mantenha-me conectado nos próximos cursos",
     "[please close the browser tab now]": "Por vavor, feche a aba do navegador agora",
+    "[the course has been finished]": "O curso foi concluído",
     "[finish course when tracking disabled]": "Finalizar o curso",
     "[ok finish course]": "OK, finalizar o curso",
     "[the owner of the course has limited the access]": "O proprietário do curso limitou o acesso",
@@ -133,7 +134,7 @@
     "[contents readed]": "conteúdos foram lidos",
     "[section]": "Seção",
     "[get secret link to]": "Solicite o envio de um link secreto",
-    "[you can sign in to the course]": "para poder fazer login no curso imediatamente!",
+    "[you can sign in to the course]": ", para poder fazer login no curso imediatamente!",
     "[send me the link]": "Enviar o link",
     "[close course]": "Fechar curso",
     "[OK, email are correct]": "Ok, e-mail correto",
@@ -143,5 +144,7 @@
     "[set your name and password]": "Defina seu nome e senha",
     "[no spaces]": "Sem espaços",
     "[at least 7 characters]": "Pelo menos 7 caracteres",
-    "[set your name]": "Defina seu nome"
+    "[set your name]": "Defina seu nome",
+    "[text matching question pdf hint]": "Combinar elementos da coluna esquerda com os elementos à direita",
+    "[forgot password email sent]": "Nós lhe enviamos um e-mail com instruções de como ressetar sua senha."
 }

@@ -121,6 +121,7 @@
     "[collapse]": "折叠",
     "[keep me logged-in for the next courses]": "后续课程均保持登录状态",
     "[please close the browser tab now]": "现在请关闭浏览器选项卡",
+    "[the course has been finished]": "课程已完成",
     "[finish course when tracking disabled]": "完成课程",
     "[ok finish course]": "好的，完成课程",
     "[the owner of the course has limited the access]": "课程拥有人限制了访问",
@@ -143,5 +144,7 @@
     "[set your name and password]": "设置名称和密码",
     "[no spaces]": "无空间",
     "[at least 7 characters]": "至少 7 个字符",
-    "[set your name]": "设置您的名称"
+    "[set your name]": "设置您的名称",
+    "[text matching question pdf hint]": "将左侧的要素与右侧的要素结合起来",
+    "[forgot password email sent]": "我们已经给你发送一封邮件说明如何重设密码"
 }

@@ -121,6 +121,7 @@
     "[collapse]": "Einklappen",
     "[keep me logged-in for the next courses]": "Für die nächsten Kurse angemeldet bleiben",
     "[please close the browser tab now]": "Bitte schließen Sie jetzt die Browser-Registerkarte",
+    "[the course has been finished]": "Der Kurs ist beendet",
     "[finish course when tracking disabled]": "Kurs beenden",
     "[ok finish course]": "OK, Kurs beenden",
     "[the owner of the course has limited the access]": "Der Besitzer des Kurses hat den Zugriff beschränkt",
@@ -143,5 +144,7 @@
     "[set your name and password]": "Ihren Namen und Ihr Kennwort festlegen",
     "[no spaces]": "Keine Leerzeichen",
     "[at least 7 characters]": "Mindestens 7 Zeichen",
-    "[set your name]": "Ihren Namen festlegen"
+    "[set your name]": "Ihren Namen festlegen",
+    "[text matching question pdf hint]": "Elemente aus der linken Spalte mit den Elementen aus der rechten verbinden",
+    "[forgot password email sent]": "Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet."
 }

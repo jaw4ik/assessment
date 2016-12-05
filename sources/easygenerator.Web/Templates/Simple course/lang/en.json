@@ -103,7 +103,7 @@
     "[show]": "Show",
     "[hide]": "Hide",
     "[login pasword is not valid]": "Enter a valid passsword",
-    "[login email / password combination is not valid]": "That email / password combination is not valid.",
+    "[login email / password combination is not valid]": "Email/password combination is invalid.",
     "[remember me on this device]": "Remember me on this device",
     "[show other options]": "Show me the info now",
     "[hide other options]": "Hide info",
@@ -145,5 +145,7 @@
     "[no spaces]": "No spaces",
     "[at least 7 characters]": "At least 7 characters",
     "[set your name]": "Set your name",
-    "[text matching question pdf hint]": "Сombine elements from the left column with the elements on the right"
+    "[text matching question pdf hint]": "Сombine elements from the left column with the elements on the right",
+    "[forgot password email sent]": "We've sent you an e-mail with instructions on how to reset your password.",
+    "[forgot password]": "Forgot password?"
 }

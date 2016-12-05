@@ -132,7 +132,7 @@
     "[contents readed]": "Inhoud is gelezen",
     "[section]": "Sectie",
     "[get secret link to]": "Stuur privé link naar:",
-    "[you can sign in to the course]": "Je kan je inschrijven voor de cursus",
+    "[you can sign in to the course]": ", Je kan je inschrijven voor de cursus",
     "[send me the link]": "Stuur mij een link",
     "[close course]": "Sluit cursus",
     "[OK, email are correct]": "Ok, email is correct",
@@ -142,5 +142,6 @@
     "[set your name and password]": "Stel naam en wachtwoord in",
     "[no spaces]": "Geen spaties",
     "[at least 7 characters]": "Minimaal 7 characters",
-    "[set your name]": "Voer uw naam in"
+    "[set your name]": "Voer uw naam in",
+    "[forgot password email sent]": "We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord."
 }
