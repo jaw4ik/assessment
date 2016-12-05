@@ -164,6 +164,7 @@ node_modules/
 bower_components/
 tools/easyresources/_templates/
 typings/
+*.eslintrc.json
 
 # RIA/Silverlight projects
 Generated_Code/

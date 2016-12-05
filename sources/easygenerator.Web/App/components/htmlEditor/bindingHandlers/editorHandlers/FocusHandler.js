@@ -33,7 +33,7 @@ class FocusHandler extends EditorHandler {
 
     on() {
         let that = this;
-        this.$element.on(constants.events.editorFocus, () => {
+        this.$element.on(constants.events.editorFocus, (e, editor) => {
             if (!that.isEditing())
                 that.isEditing(true);
             if(this.type !== global_constants.contentsTypes.linkCuration)
@@ -41,7 +41,7 @@ class FocusHandler extends EditorHandler {
                     that.focusHandler.call(that.context, that.contextArg);
 
             that.saveIntervalId = setInterval(that.saveData, that.autosaveInterval);
-            that.$element.froalaEditor(constants.commands.showToolbar);
+            _.defer(() => that.$element.froalaEditor(constants.commands.showToolbar));
         });
 
         this.$element.on(constants.events.editorBlur, () => {
@@ -51,7 +51,7 @@ class FocusHandler extends EditorHandler {
                     that.blurHandler.call(that.context, that.contextArg);
 
             clearInterval(that.saveIntervalId);
-            that.$element.froalaEditor(constants.commands.hideToolbar);
+            _.defer(() => that.$element.froalaEditor(constants.commands.hideToolbar));
         });
 
         if (this.isEditing()) {

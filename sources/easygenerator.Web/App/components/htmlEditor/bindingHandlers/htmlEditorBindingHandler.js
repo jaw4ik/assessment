@@ -62,6 +62,16 @@ ko.bindingHandlers.htmlEditor = {
             }
         });
 
+        _.defer(() => {
+            if(!_.isUndefined(viewModel.hasFocus)) {
+                if(viewModel.hasFocus()) {
+                    var editor = $element.data(constants.editor);
+                    editor.events.focus();
+                    editor.selection.restore;
+                }
+            }
+        });
+
         return { controlsDescendantBindings: true };
     }, 
     update: (element, valueAccessor) => {

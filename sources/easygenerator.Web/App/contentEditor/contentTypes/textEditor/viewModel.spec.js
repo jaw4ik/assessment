@@ -9,6 +9,12 @@ import {TextEditor} from 'contentEditor/contentTypes/textEditor/viewModel';
 
 describe('[textEditor Viewmodel]', () => {
 
+    let callbacks = {
+        startEditing: () => {},
+        endEditing: () => {},
+        save: () => {}
+    };
+
     var viewmodel;
     beforeEach(() => {
         viewmodel = new Viewmodel();
@@ -76,13 +82,7 @@ describe('[textEditor Viewmodel]', () => {
     });
     
     describe('setData', ()=>{
-        
-        let callbacks = {
-            startEditing: () => {},
-            endEditing: () => {},
-            save: () => {}
-        };
-
+       
         it('should be function', ()=>{
             expect(viewmodel.setData).toBeFunction();
         });
@@ -133,7 +133,7 @@ describe('[textEditor Viewmodel]', () => {
             spyOn(parser, 'updateTextEditorContent');
             let newData = ko.observable(['newData']);
             let justCreated = true;
-            viewmodel.activate(newData, justCreated, {save:()=>{}});
+            viewmodel.activate(newData, justCreated, callbacks);
             viewmodel.save();
             expect(parser.updateTextEditorContent).toHaveBeenCalled();
         });
@@ -141,7 +141,7 @@ describe('[textEditor Viewmodel]', () => {
         it('should call save callback', ()=>{
             let newData = ko.observable(['newData']);
             let justCreated = true;
-            viewmodel.activate(newData, justCreated, {save:()=>{}});
+            viewmodel.activate(newData, justCreated, callbacks);
             spyOn(viewmodel.callbacks, 'save');
             viewmodel.save();
             expect(viewmodel.callbacks.save).toHaveBeenCalled();
@@ -150,12 +150,7 @@ describe('[textEditor Viewmodel]', () => {
     });
 
     describe('endEditing', ()=>{
-        let callbacks = {
-            startEditing: () => {},
-            endEditing: () => {},
-            save: () => {}
-        };
-
+        
         it('should be function', ()=>{
             expect(viewmodel.endEditing).toBeFunction();
         });
@@ -163,7 +158,7 @@ describe('[textEditor Viewmodel]', () => {
         describe('when current element is not editing', ()=>{
             it('should not call endEditing callback', ()=>{
                 let newData = ko.observable(['newData']);
-                let justCreated = true;
+                let justCreated = false;
                 viewmodel.activate(newData, justCreated, callbacks);
                 spyOn(viewmodel.callbacks, 'endEditing');
                 viewmodel.endEditing();
