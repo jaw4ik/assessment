@@ -632,7 +632,7 @@ ul {
   margin-bottom: 5px !important;
 }
 .styled-content .content-inner-wrapper .text-wrapper .static-link-present {
-  width: 60%;
+  width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
