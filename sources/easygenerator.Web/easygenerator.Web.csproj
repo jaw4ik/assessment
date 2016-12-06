@@ -5824,7 +5824,6 @@
     <Content Include="Templates\Personalized learning\css\img\easy-supported-browser-logo.png" />
     <Content Include="Templates\Personalized learning\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Personalized learning\css\img\header-bg.jpg" />
-    <Content Include="Templates\Personalized learning\css\img\link-image-not-found.png" />
     <Content Include="Templates\Personalized learning\css\img\linkArrow.png" />
     <Content Include="Templates\Personalized learning\css\img\newSprite.png" />
     <Content Include="Templates\Personalized learning\css\img\review-sprites.png" />
@@ -5877,7 +5876,6 @@
     <Content Include="Templates\Reader\css\img\easy-supported-browser-browser-bg.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-logo.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-top-part-bg.png" />
-    <Content Include="Templates\Reader\css\img\link-image-not-found.png" />
     <Content Include="Templates\Reader\css\img\linkArrow.png" />
     <Content Include="Templates\Reader\css\img\reader.png" />
     <Content Include="Templates\Reader\css\img\review-sprites.png" />
