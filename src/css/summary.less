@@ -68,6 +68,60 @@
                     left: 50%;
                     margin-left: -300px;
                     position: absolute;
+
+                    .progress-control-wrapper {
+                        height: 100%;
+                        width: 100%;
+                        position: relative;
+                    }
+
+                    .tooltip-container {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        margin-top: 13px;
+                        margin-left: -64px;
+                        height: 26px;
+                        width: 128px;                      
+
+                        .title {
+                            position: absolute;
+                            top: 100%;
+                            right: -2px;
+                            min-width: 100px;
+                            opacity: 0;
+                            padding: 2px;
+                            border-radius: 5px;
+                            margin-top: 5px;
+                            font-size: 12px;
+                            color: #fff;
+                            font-family: RobotoslabLight;
+                            word-wrap: break-word;
+                            background-color: rgba(84,102,119,.9);
+                            transition: all linear 0.2s;
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: -4.99px;
+                                right: 8px;
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 0 4px 5px;
+                                border-color: transparent;
+                                border-bottom-color: rgba(84,102,119,.9);
+                            } 
+                        }
+
+                        &:hover {
+
+                            .title {
+                                margin-top: 3px;
+                                opacity: 0.9;
+                            }
+                        }
+                    }
                 }
             }
 

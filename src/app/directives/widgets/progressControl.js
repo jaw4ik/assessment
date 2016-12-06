@@ -11,7 +11,7 @@
         translate = $translate;
         return {
             restrict: 'E',
-            template: '<canvas></canvas>',
+            template: '<div class="progress-control-wrapper"><canvas></canvas><span class="tooltip-container"></span></div>',
             scope: {
                 progress: '=',
                 masteryScore: '='
@@ -28,7 +28,7 @@
         loadArrowImages(scope);
         removeFontPreloadelements();
 
-        var canvas = $(element).children('canvas');
+        var canvas = $(element).children('.progress-control-wrapper').children('canvas');
         canvas.attr('width', '600');
         canvas.attr('height', '250');
         canvas.attr('data-score', scope.progress);
@@ -78,7 +78,7 @@
             var statusText = translation,
             statusTextColor = scope.progress >= scope.masteryScore ? '#4cbae6' : '#f16162';
 
-            drawMultilineText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 120, 0, 1);
+            drawMultilineText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 120, 0, 1, true);
 
             drawMasteryScore(scope, context, circleX, circleY, circleRadius);
         });
@@ -103,7 +103,7 @@
             masteryScoreHintTextAlign = isLeftSideText ? 'right' : 'left';
 
         translate('[tracking and tracing mastery score hint]').then(function (translation) {
-            drawMultilineText(context, translation, '19px Rabiohead, BadScriptRegular', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, masteryScoreHintTextAlign, 150, 20, 2);
+            drawMultilineText(context, translation, '19px Rabiohead, BadScriptRegular', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, masteryScoreHintTextAlign, 150, 20, 2, false);
 
             // draw mastery score arrow
             var masteryScoreArrowX = isLeftSideText ? masteryScoreX - 63 : masteryScoreX + 22,
@@ -163,14 +163,14 @@
         context.closePath();
     }
 
-    function drawMultilineText(context, text, font, color, positionX, positionY, align, maxWidth, lineHeight, maxLinesCount) {
+    function drawMultilineText(context, text, font, color, positionX, positionY, align, maxWidth, lineHeight, maxLinesCount, needWriteTooltip) {
         context.beginPath();
         setTextStyles(context, font, color, align);
 
         var words = text.split(' '),
             writedLinesCount = 0,
             line = '';
-        
+
         for (var n = 0; n < words.length; n++) {
             var testLine = line + words[n],
                 testLineWidth = context.measureText(testLine).width,
@@ -180,6 +180,9 @@
             if (testLineWidth > maxWidth) {
                 if (isLastLine || isLastWord) {
                     writeLineWithDots(testLine);
+                    if (needWriteTooltip) {
+                        addMultilineTextTitle(testLine.toLowerCase());
+                    }
                     break;
                 } else {
                     writeLine(line);
@@ -215,6 +218,13 @@
         }
 
         context.closePath();
+    }
+
+    function addMultilineTextTitle(text) {
+        var title = $('<span>');
+        title.addClass('title');
+        title.text(text);
+        $('.tooltip-container').html(title);
     }
 
     function setTextStyles(context, font, color, align) {
