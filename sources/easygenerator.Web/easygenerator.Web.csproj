@@ -2436,6 +2436,7 @@
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="BuildLearningPath\Template\readme.txt" />
     <Content Include="config.js" />
+    <Content Include="Content\durandal.css" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
     <Content Include="Content\font\heuristica-bolditalic.woff" />
@@ -6638,7 +6639,6 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="BuildCourse\Scorm\Modules\js\lms.js" />
-    <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
