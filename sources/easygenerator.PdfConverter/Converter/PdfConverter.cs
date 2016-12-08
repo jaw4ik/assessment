@@ -13,6 +13,7 @@ namespace easygenerator.PdfConverter.Converter
         {
             var htmlToPdfConverter = new HtmlToPdfConverter();
             htmlToPdfConverter.LowQuality = !highQuality;
+            htmlToPdfConverter.CustomWkHtmlArgs = " --window-status READY ";
 
             htmlToPdfConverter.GeneratePdfFromFile(url, null, filePath);
         }
