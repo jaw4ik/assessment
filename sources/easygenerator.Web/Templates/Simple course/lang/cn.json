@@ -146,5 +146,7 @@
     "[at least 7 characters]": "至少 7 个字符",
     "[set your name]": "设置您的名称",
     "[text matching question pdf hint]": "将左侧的要素与右侧的要素结合起来",
-    "[forgot password email sent]": "我们已经给你发送一封邮件说明如何重设密码"
+    "[forgot password email sent]": "我们已经给你发送一封邮件说明如何重设密码",
+    "[question page title]": "问题",
+    "[sections page title]": "章节"
 }

@@ -125,5 +125,7 @@
     "[ok finish course]": "قبول، درس بسته شود",
     "[the owner of the course has limited the access]": "صاحب درس دسترسی را محدود کرده است",
     "[back to sign in]": "بازگشت",
-    "[survey mode caption]": "جواب تاثیری در روند پیشرفت تان ندارد"
+    "[survey mode caption]": "جواب تاثیری در روند پیشرفت تان ندارد",
+    "[question page title]": "سوال",
+    "[sections page title]": "بخش ها"
 }

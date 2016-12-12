@@ -143,5 +143,7 @@
     "[no spaces]": "Geen spaties",
     "[at least 7 characters]": "Minimaal 7 characters",
     "[set your name]": "Voer uw naam in",
-    "[forgot password email sent]": "We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord."
+    "[forgot password email sent]": "We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord.",
+    "[question page title]": "Vraag",
+    "[sections page title]": "Secties"
 }
