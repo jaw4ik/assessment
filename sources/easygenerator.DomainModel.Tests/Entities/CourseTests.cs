@@ -92,6 +92,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.SectionsOrder.Should().BeNull();
             course.CourseCompanies.Should().BeEmpty();
             course.SaleInfo.Course_Id.Should().Be(course.Id);
+            course.QuestionShortIdsInfo.Course_Id.Should().Be(course.Id);
         }
 
         #endregion

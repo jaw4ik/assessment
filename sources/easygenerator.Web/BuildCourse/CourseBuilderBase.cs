@@ -3,7 +3,12 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.Extensions;
 using System;
+using System.Collections;
+using System.Linq;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.BuildCourse.PublishSettings;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -50,8 +55,12 @@ namespace easygenerator.Web.BuildCourse
                 _buildContentProvider.AddSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateSettings(course.Template), includeMedia);
                 _buildContentProvider.AddThemeSettingsFileToPackageDirectory(buildDirectoryPath, course.GetTemplateThemeSettings(course.Template), includeMedia);
 
+                course.QuestionShortIdsInfo.Refresh();
+
                 var modulesList = _packageModulesProvider.GetModulesList(course);
-                _buildContentProvider.AddPublishSettingsFileToPackageDirectory(buildDirectoryPath, _publishSettingsProvider.GetPublishSettings(modulesList, enableAccessLimitation ? course.PublicationAccessControlList : null));
+                var publishSettings = _publishSettingsProvider.GetPublishSettings(modulesList, course.QuestionShortIdsInfo.GetShortIds(), enableAccessLimitation ? course.PublicationAccessControlList : null);
+
+                _buildContentProvider.AddPublishSettingsFileToPackageDirectory(buildDirectoryPath, publishSettings);
                 _buildContentProvider.AddModulesFilesToPackageDirectory(buildDirectoryPath, modulesList);
 
                 OnAfterBuildContentAdded(course, buildId);

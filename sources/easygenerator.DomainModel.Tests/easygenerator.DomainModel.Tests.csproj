@@ -68,12 +68,14 @@
   <ItemGroup>
     <Compile Include="Entities\ACL\TemplateAccessControlListEntryTests.cs" />
     <Compile Include="Entities\CourseCollaboratorTests.cs" />
+    <Compile Include="Entities\CourseQuestionShortIdsInfoTests.cs" />
     <Compile Include="Entities\CourseStateTests.cs" />
     <Compile Include="Entities\DocumentTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
     <Compile Include="Entities\LearningPathTests.cs" />
     <Compile Include="Entities\Organizations\OrganizationSettingsTests.cs" />
     <Compile Include="Entities\Questions\SurveyQuestionTest.cs" />
+    <Compile Include="ObjectMothers\CourseQuestionShortIdsInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\Organizations\OrganizationSettingsObjectMother.cs" />
     <Compile Include="Entities\SamlIdPUserInfoTests.cs" />
     <Compile Include="Entities\LtiUserInfoTests.cs" />

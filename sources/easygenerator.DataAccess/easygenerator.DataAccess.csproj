@@ -503,6 +503,10 @@
     <Compile Include="Migrations\201610101138191_AddPositionToLearningContent.Designer.cs">
       <DependentUpon>201610101138191_AddPositionToLearningContent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611290837155_AddQuestionShortIdsInfo.cs" />
+    <Compile Include="Migrations\201611290837155_AddQuestionShortIdsInfo.Designer.cs">
+      <DependentUpon>201611290837155_AddQuestionShortIdsInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
@@ -877,6 +881,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610101138191_AddPositionToLearningContent.resx">
       <DependentUpon>201610101138191_AddPositionToLearningContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611290837155_AddQuestionShortIdsInfo.resx">
+      <DependentUpon>201611290837155_AddQuestionShortIdsInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

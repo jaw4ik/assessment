@@ -40,6 +40,7 @@ namespace easygenerator.DomainModel.Entities
             CourseCompanies = new Collection<Company>();
             PublicationAccessControlListCollection = new Collection<CourseAccessControlListEntry>();
             SaleInfo = new CourseSaleInfo(this);
+            QuestionShortIdsInfo = new CourseQuestionShortIdsInfo(this);
             BuildOn = null;
             IntroductionContent = null;
             SectionsOrder = null;
@@ -363,7 +364,7 @@ namespace easygenerator.DomainModel.Entities
         #region SaleInfo
 
         public virtual CourseSaleInfo SaleInfo { get; protected internal set; }
-
+        public virtual CourseQuestionShortIdsInfo QuestionShortIdsInfo { get; protected internal set; }
         public void MarkAsPublishedForSale()
         {
             SaleInfo.IsProcessing = true;

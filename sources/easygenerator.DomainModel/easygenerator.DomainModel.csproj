@@ -49,6 +49,7 @@
     <Compile Include="Entities\ACL\CourseAccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\CourseQuestionShortIdsInfo.cs" />
     <Compile Include="Entities\EventRaiseable.cs" />
     <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
     <Compile Include="Entities\IScormPublishableEntity.cs" />

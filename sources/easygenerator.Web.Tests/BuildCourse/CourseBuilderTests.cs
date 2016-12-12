@@ -15,6 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using easygenerator.Web.BuildCourse.PublishSettings;
 
 namespace easygenerator.Web.Tests.BuildCourse
@@ -136,6 +137,26 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Assert
             _buildContentProvider.Received().AddThemeSettingsFileToPackageDirectory(Arg.Any<string>(), ThemeSettings);
+        }
+
+        [TestMethod]
+        public void Build_ShouldRefreshQuestionShortIdsInfo()
+        {
+            //Arrange
+            var buildDirectory = "SomeBuildPath";
+            var buildPackageFileName = "SomePackageFileName";
+
+            _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
+            _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
+
+            //Act
+            _builder.Build(_course);
+
+            //Assert
+            var results = _course.QuestionShortIdsInfo.GetShortIds();
+            results.Count.Should().Be(2);
+            results[_course.RelatedSections.ElementAt(0).Questions.ElementAt(0).Id.ToString("N")].Should().Be(0);
+            results[CourseQuestionShortIdsInfo.NextAvailableIndex].Should().Be(1);
         }
 
         [TestMethod]
@@ -311,7 +332,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             var theme = ThemeObjectMother.Create(template, "My theme", ThemeSettings);
             course.AddTemplateTheme(template, theme);
-
+            
             return course;
         }
 
