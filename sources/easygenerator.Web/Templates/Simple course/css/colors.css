@@ -1484,8 +1484,13 @@ body {
                     }
                 }
             }
+            .forgot-password {
+                color: fade(@text-color, 70%);
 
-            
+                &:hover{
+                    color: @text-color;
+                }
+            }
         }
         hr{
             border-color: fade(@text-color, 10%);
