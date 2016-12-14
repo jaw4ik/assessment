@@ -146,5 +146,7 @@
     "[at least 7 characters]": "Al menos 7 caracteres",
     "[set your name]": "Defina su nombre",
     "[text matching question pdf hint]": "Combine elementos de la columna izquierda con elementos de la derecha",
-    "[forgot password email sent]": "Le hemos enviado un correo electrónico con instrucciones sobre cómo restablecer su contraseña."
+    "[forgot password email sent]": "Le hemos enviado un correo electrónico con instrucciones sobre cómo restablecer su contraseña.",
+    "[question page title]": "Pregunta",
+    "[sections page title]": "Secciones"
 }

@@ -78,5 +78,9 @@
     "[Overall progress]": "Результат",
     "[OK, close course]": "Закрыть курс",
     "[take a brake]": "Пауза",
-    "[note that]": "Обратите внимание:"
+    "[note that]": "Обратите внимание:",
+    "[take a break and continue later]": "Сделать паузу и продолжить позже",
+    "[finish course when tracking disabled]": "Закончить курс",
+    "[ok finish course]": "Да, закончить курс",
+    "[question page title]": "Вопрос"
 }

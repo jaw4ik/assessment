@@ -141,5 +141,14 @@
     "[set your name]": "Вкажіть Ваше ім'я",
     "[text matching question pdf hint]": "Поєднайте відповіді з правої та лівої колонок таким чином, щоб вони відповідали один одному",
     "[forgot password email sent]": "На Ваш e-mail було надіслано листа з інструкціями для відновлення пароля.",
-    "[forgot password]": "Забули пароль?"
+    "[forgot password]": "Забули пароль?",
+    "[results page title]": "Результати",
+    "[introduction page title]": "Введення",
+    "[not found page title]": "Не знайдено",
+    "[question page title]": "Запитання",
+    "[sections page title]": "Розділи",
+    "[login page title]": "Вхід",
+    "[limited access page title]": "Обмежений доступ",
+    "[sign in page title]": "Авторизація",
+    "[register page title]": "Реєстрація"
 }

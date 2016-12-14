@@ -146,5 +146,7 @@
     "[at least 7 characters]": "Mindestens 7 Zeichen",
     "[set your name]": "Ihren Namen festlegen",
     "[text matching question pdf hint]": "Elemente aus der linken Spalte mit den Elementen aus der rechten verbinden",
-    "[forgot password email sent]": "Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet."
+    "[forgot password email sent]": "Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet.",
+    "[question page title]": "Frage",
+    "[sections page title]": "Abschnitte"
 }

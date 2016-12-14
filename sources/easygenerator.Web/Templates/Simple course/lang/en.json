@@ -147,5 +147,14 @@
     "[set your name]": "Set your name",
     "[text matching question pdf hint]": "Сombine elements from the left column with the elements on the right",
     "[forgot password email sent]": "We've sent you an e-mail with instructions on how to reset your password.",
-    "[forgot password]": "Forgot password?"
+    "[forgot password]": "Forgot password?",
+    "[results page title]": "Results",
+    "[introduction page title]": "Introduction",
+    "[not found page title]": "Not found",
+    "[question page title]": "Question",
+    "[sections page title]": "Sections",
+    "[login page title]": "Login",
+    "[limited access page title]": "Limited access",
+    "[sign in page title]": "Sign in",
+    "[register page title]": "Register"
 }
