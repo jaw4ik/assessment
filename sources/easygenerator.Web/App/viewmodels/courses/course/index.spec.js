@@ -3,6 +3,7 @@
 import repository from 'repositories/courseRepository';
 import collaboratorRepository from 'repositories/collaboratorRepository';
 import app from 'durandal/app';
+import userContext from 'userContext';
 import clientContext from 'clientContext';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
@@ -187,13 +188,45 @@ describe('viewModel [course index]', function () {
             viewModel.preview();
             expect(eventTracker.publish).toHaveBeenCalledWith('Preview course');
         });
+        
+        describe('when old editor on', function () {
+            beforeEach(function(){
+                userContext.identity = {newEditor: false};
+            });
 
-        it('should open course URL', function () {
-            viewModel.id = 'id';
-            viewModel.preview();
-            expect(router.openUrl).toHaveBeenCalledWith('/preview/id');
+            describe('when question id was found:', function(){
+                beforeEach(function(){
+                    spyOn(router, 'routeData').and.returnValue({questionId:'someQuestionId'});
+                });
+
+                it('should open question URL', function () {
+                    viewModel.id = 'id';
+                    viewModel.preview();
+                    expect(router.openUrl).toHaveBeenCalledWith('/preview/id/?questionId=someQuestionId');
+                });
+            });
+            
+            describe('when question id was not found:', function(){
+                it(' should open course URL', function () {
+                    viewModel.id = 'id';
+                    viewModel.preview();
+                    expect(router.openUrl).toHaveBeenCalledWith('/preview/id');
+                });
+            });
         });
-
+        
+        describe('when new editor on', function () {
+            beforeEach(function(){
+                userContext.identity = {newEditor: true};
+            });
+            
+            it(' should open course URL', function () {
+                viewModel.id = 'id';
+                viewModel.preview();
+                expect(router.openUrl).toHaveBeenCalledWith('/preview/id');
+            });
+            
+        });
     });
 
     describe('share:', function () {

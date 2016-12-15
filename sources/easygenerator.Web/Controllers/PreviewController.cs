@@ -15,6 +15,7 @@ using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Storage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Controllers
 {
@@ -73,7 +74,7 @@ namespace easygenerator.Web.Controllers
             }
 
             var modulesList = _packageModulesProvider.GetModulesList(course);
-            return Content(_publishSettingsProvider.GetPublishSettings(modulesList));
+            return Content(_publishSettingsProvider.GetPublishSettings(modulesList, PublishSettingsProvider.Mode.Preview));
         }
 
         [Route("preview/{courseId}/content/content.html")]

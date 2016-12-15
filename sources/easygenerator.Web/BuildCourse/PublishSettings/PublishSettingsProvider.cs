@@ -13,7 +13,16 @@ namespace easygenerator.Web.BuildCourse.PublishSettings
 {
     public class PublishSettingsProvider
     {
-        public virtual string GetPublishSettings(IEnumerable<PackageModule> packageModules, Dictionary<string, int> shortIds = null, IEnumerable<CourseAccessControlListEntry> accessControlList = null)
+        public class Mode
+        {
+            public const string Default = "Publish";
+            public const string Lms = "Lms";
+            public const string Review = "Review";
+            public const string Sales = "Sales";
+            public const string Preview = "Preview";
+        }
+
+        public virtual string GetPublishSettings(IEnumerable<PackageModule> packageModules, string publishMode = Mode.Default, Dictionary<string, int> shortIds = null, IEnumerable<CourseAccessControlListEntry> accessControlList = null)
         {
             var publishSettings = new Models.PublishSettings();
             foreach (var module in packageModules)
@@ -36,7 +45,8 @@ namespace easygenerator.Web.BuildCourse.PublishSettings
             }
 
             publishSettings.CustomFontPlace = ConfigurationManager.AppSettings["customFontUrl"];
-            
+            publishSettings.PublishMode = publishMode;
+
             return JsonConvert.SerializeObject(publishSettings, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() });
         }
     }

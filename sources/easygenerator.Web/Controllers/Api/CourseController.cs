@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -160,7 +161,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/build")]
         public ActionResult Build(Course course, bool includeMedia = false, bool enableAccessLimitation = false)
         {
-            return Deliver(course, () => _builder.Build(course, includeMedia, enableAccessLimitation), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course, PublishSettingsProvider.Mode.Default, includeMedia, enableAccessLimitation), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
         }
 
         [EntityCollaborator(typeof(Course))]
@@ -168,7 +169,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/scormbuild")]
         public ActionResult ScormBuild(Course course, bool includeMedia = false)
         {
-            return Deliver(course, () => _scormCourseBuilder.Build(course, includeMedia), () => JsonSuccess(new { course.ScormPackageUrl }));
+            return Deliver(course, () => _scormCourseBuilder.Build(course, PublishSettingsProvider.Mode.Lms, includeMedia), () => JsonSuccess(new { course.ScormPackageUrl }));
         }
 
         [HttpPost]

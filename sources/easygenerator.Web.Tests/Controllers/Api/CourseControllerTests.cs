@@ -29,6 +29,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.Web.Domain.DomainOperations;
 using easygenerator.Web.ViewModels.Api;
+using easygenerator.Web.BuildCourse.PublishSettings;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -404,7 +405,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Build_ShouldReturnJsonErrorResult_WhenBuildFails()
         {
             //Arrange
-            _builder.Build(Arg.Any<Course>()).Returns(false);
+            _builder.Build(Arg.Any<Course>(), PublishSettingsProvider.Mode.Default).Returns(false);
 
             //Act
             var result = _controller.Build(CourseObjectMother.Create());
@@ -418,8 +419,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _builder.Build(course).Returns(true);
-            _builder.When(x => x.Build(course)).Do(x => ((Course)x.Args()[0]).UpdatePackageUrl("Some url"));
+            _builder.Build(course, PublishSettingsProvider.Mode.Default).Returns(true);
+            _builder.When(x => x.Build(course, PublishSettingsProvider.Mode.Default)).Do(x => ((Course)x.Args()[0]).UpdatePackageUrl("Some url"));
 
             //Act
             var result = _controller.Build(course);
@@ -449,7 +450,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void ScormBuild_ShouldReturnJsonErrorResult_WhenBuildFails()
         {
             //Arrange
-            _builder.Build(Arg.Any<Course>()).Returns(false);
+            _builder.Build(Arg.Any<Course>(), PublishSettingsProvider.Mode.Lms).Returns(false);
 
             //Act
             var result = _controller.ScormBuild(CourseObjectMother.Create());
@@ -463,8 +464,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _scormCourseBuilder.Build(course).Returns(true);
-            _scormCourseBuilder.When(x => x.Build(course)).Do(x => ((Course)x.Args()[0]).UpdateScormPackageUrl("Some url"));
+            _scormCourseBuilder.Build(course, PublishSettingsProvider.Mode.Lms).Returns(true);
+            _scormCourseBuilder.When(x => x.Build(course, PublishSettingsProvider.Mode.Lms)).Do(x => ((Course)x.Args()[0]).UpdateScormPackageUrl("Some url"));
 
             //Act
             var result = _controller.ScormBuild(course);

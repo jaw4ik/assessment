@@ -113,7 +113,7 @@ class QuestionModalView {
     }
     previewCourse() {
         eventTracker.publish(events.previewCourse);
-        router.openUrl('/preview/' + this.courseId);
+        router.openUrl('/preview/' + this.courseId + '/?questionId=' + this.questionId);
     }
     changePanelToContentBar() {
         if (this.isContentBarExpanded()) {
