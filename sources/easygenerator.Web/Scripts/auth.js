@@ -2,6 +2,7 @@
     var tokenNamespace = 'token.';
     var cookieTokens = ['preview', 'upgradeAccount', 'saml'];
     var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount', 'settings', 'saml'];
+    var signInUrlKey = 'signInUrl';
 
     var localStorageProvider = window.localStorageProvider;
 
@@ -16,17 +17,21 @@
         loginByAuthToken: loginByAuthToken,
         getCompanyIdFromHash: getCompanyIdFromHash,
         getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash,
-        getSamlIdPUserInfoTokenFromHash: getSamlIdPUserInfoTokenFromHash
+        getSamlIdPUserInfoTokenFromHash: getSamlIdPUserInfoTokenFromHash,
+        getSignInUrl: getSignInUrl
     };
 
     function isAuthTokenPresentInHash() {
         var hashParams = getHashParams(window.location.hash);
-        return hashParams && (!_.isNullOrUndefined(hashParams['token.lti']) || !_.isNullOrUndefined(hashParams['token.samlAuth']));
+        return hashParams && (
+            !_.isNullOrUndefined(hashParams['token.lti']) ||
+            !_.isNullOrUndefined(hashParams['token.samlAuth']) ||
+            !_.isNullOrUndefined(hashParams['token.externalAuth']));
     }
 
     function loginByAuthToken() {
         var hashParams = getHashParams(window.location.hash);
-        var authToken = hashParams['token.lti'] || hashParams['token.samlAuth'];
+        var authToken = hashParams['token.lti'] || hashParams['token.samlAuth'] || hashParams['token.externalAuth'];
 
         return Q.promise(function(resolve, reject) {
             $.ajax({
@@ -39,12 +44,17 @@
             }).done(function (response) {
                 if (response && response.success) {
                     setTokens(response.data).then(function () {
+                        if (hashParams['token.externalAuth'] && hashParams[signInUrlKey]) {
+                            setSignInUrl(hashParams[signInUrlKey]);
+                        } else {
+                            setSignInUrl();
+                        }
                         resolve(true);
                     });
                     return;
                 }
                 resolve(false);
-            }).fail(function(reason) {
+            }).fail(function (reason) {
                 reject(reason);
             });
         });
@@ -98,6 +108,7 @@
             if (!requiredEndpoints.every(function(endpoint) { return tokenEndpoints.indexOf(endpoint) > -1; })) defer.resolve(false);
             else {
                 setTokens(tokens).then(function () {
+                    setSignInUrl();
                     defer.resolve(true);
                 }).fail(function () {
                     defer.resolve(false);
@@ -158,8 +169,8 @@
         return Q.all(removeTokenPromises);
     }
 
-    function getCookieToken(cname) {
-        var name = tokenNamespace + cname + "=";
+    function getCookie(cname) {
+        var name = cname + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
@@ -171,6 +182,10 @@
             }
         }
         return undefined;
+    }
+
+    function getCookieToken(cname) {
+        return getCookie(tokenNamespace + cname);
     }
 
     function getHashParams(queryString) {
@@ -186,6 +201,21 @@
         })
         .object()
         .value();
+    }
+
+    function setSignInUrl(signInUrl) {
+        document.cookie = signInUrlKey + '=;expires=Wed 01 Jan 1970';
+        if (!signInUrl) {
+            return;
+        }
+        var d = new Date();
+        d.setTime(d.getTime() + 2592000000);
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = signInUrlKey + '=' + signInUrl + ';' + expires;
+    }
+
+    function getSignInUrl() {
+        return getCookie(signInUrlKey);
     }
 
 }());

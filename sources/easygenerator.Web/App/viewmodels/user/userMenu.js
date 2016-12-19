@@ -110,7 +110,8 @@ class UserMenu {
 
     async signOut() {
         await window.auth.logout();
-        router.setLocation(constants.signinUrl);
+        var signInUrl = window.auth.getSignInUrl() || constants.signinUrl;
+        router.setLocation(signInUrl);
     }
 }
 

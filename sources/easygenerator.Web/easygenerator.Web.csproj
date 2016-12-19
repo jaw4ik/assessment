@@ -314,6 +314,7 @@
     <Compile Include="Components\ActionFilters\Authorization\ApiKeyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\WebApiKeyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\OrganizationAdminAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
