@@ -7,6 +7,8 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.Mappers.Organizations;
+using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 using System.Linq;
 using System.Web.Mvc;
@@ -61,7 +63,22 @@ namespace easygenerator.Web.Controllers
             return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
         }
 
-        [HttpPost, Scope("lti", "samlAuth")]
+        [HttpPost, AllowAnonymous, CustomRequireHttps, WebApiKeyAccess("ExternalAuthToken")]
+        public ActionResult ExternalAuthToken(string username, string password, string grant_type)
+        {
+            if (grant_type == "password")
+            {
+                var user = _repository.GetUserByEmail(username);
+                if (user != null && user.VerifyPassword(password))
+                {
+                    var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, new[] { "externalAuth" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
+                    return JsonSuccess(tokens);
+                }
+            }
+            return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+        }
+
+        [HttpPost, Scope("lti", "samlAuth", "externalAuth")]
         public ActionResult Tokens(string[] endpoints)
         {
             var tokens = _tokenProvider.GenerateTokens(GetCurrentUsername(), Request.Url.Host, endpoints);

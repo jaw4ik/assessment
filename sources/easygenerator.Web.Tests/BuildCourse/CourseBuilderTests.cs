@@ -150,7 +150,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Default);
 
             //Assert
             var results = _course.QuestionShortIdsInfo.GetShortIds();

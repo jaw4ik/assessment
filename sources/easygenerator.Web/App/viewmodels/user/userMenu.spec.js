@@ -474,6 +474,7 @@ describe('viewModel [userMenu]', () => {
         beforeEach(() => {
             spyOn(router, 'setLocation');
             spyOn(window.auth, 'logout');
+            spyOn(window.auth, 'getSignInUrl').and.returnValue(undefined);
         });
 
         it('should be function', () => {
