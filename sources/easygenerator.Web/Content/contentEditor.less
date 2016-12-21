@@ -1,4 +1,5 @@
-﻿@import "helpers.less";
+﻿
+@import "helpers.less";
 
 /*#region panel */
 
@@ -956,8 +957,9 @@
             overflow: hidden;
             .done {
                 height: 22px;
-                display: inline-block;
-                white-space: normal;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 vertical-align: middle;
             }
             .empty {
