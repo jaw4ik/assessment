@@ -5,7 +5,7 @@
            <div class='link-editor-description'>
                 <div data-bind="htmlEditor: { 
                     data: instance.map.customDescription, 
-                    placeholderText: 'Add link description here (optional)...',
+                    placeholderText: localizationManager.localize('addLinkCurationDescription'),
                     isEditing: instance.hasFocus,
                     focus: startEditing,
                     blur: save,
