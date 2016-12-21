@@ -995,8 +995,15 @@
     "surveyMode": "Mode enquête (avis neutre et pas de score)",
     "responseForLearnerAnswer": "Répondre à la question de vos apprenants",
     "surveyModeCaption": "À utiliser lorsque vous souhaitez poser à l'apprenant une question qui n'a pas de réponse correcte ou incorrecte (par exemple, « quelles sont vos compétences ? »). Cette question sera, de plus, exclue du score.",
-    "addLinkCurationDescription": "Add link description (optional)",
-    "useExample": "Use example",
-    "editLink": "Edit link",
-    "notValidLink": "Not valid link"
+    "addLinkCurationDescription": "Ajouter une description de lien (facultatif)",
+    "useExample": "Utiliser un exemple",
+    "editLink": "Modifier le lien",
+    "notValidLink": "Lien non valide",
+    "linkCurationBlock": "Lien (conservation)",
+    "videoWithText": "Vidéo avec texte",
+    "videoInTheLeft": "Vidéo de gauche",
+    "videoInTheRight": "Vidéo de droite",
+    "singleAudio": "Fichier audio unique",
+    "singleVideo": "Vidéo unique",
+    "mediaTabName": "Média"
 }

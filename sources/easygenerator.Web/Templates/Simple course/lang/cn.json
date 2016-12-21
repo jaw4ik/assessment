@@ -147,6 +147,14 @@
     "[set your name]": "设置您的名称",
     "[text matching question pdf hint]": "将左侧的要素与右侧的要素结合起来",
     "[forgot password email sent]": "我们已经给你发送一封邮件说明如何重设密码",
+    "[forgot password]": "忘记密码？",
+    "[results page title]": "成绩",
+    "[introduction page title]": "简介",
+    "[not found page title]": "未找到",
     "[question page title]": "问题",
-    "[sections page title]": "章节"
+    "[sections page title]": "章节",
+    "[login page title]": "登录",
+    "[limited access page title]": "有限的访问",
+    "[sign in page title]": "登录",
+    "[register page title]": "注册"
 }

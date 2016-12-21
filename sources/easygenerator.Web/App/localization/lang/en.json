@@ -998,5 +998,12 @@
     "addLinkCurationDescription": "Add link description (optional)",
     "useExample": "Use example",
     "editLink": "Edit link",
-    "notValidLink": "Not valid link"
+    "notValidLink": "Not valid link",
+    "linkCurationBlock": "Link (curation)",
+    "videoWithText": "Video with text",
+    "videoInTheLeft": "Video in the left",
+    "videoInTheRight": "Video in the right",
+    "singleAudio": "Single audio",
+    "singleVideo": "Single video",
+    "mediaTabName": "Media"
 }

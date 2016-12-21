@@ -103,7 +103,7 @@
     "[show]": "Mostrar",
     "[hide]": "Ocultar",
     "[login pasword is not valid]": "Digite uma senha válida",
-    "[login email / password combination is not valid]": "Essa combinação de e-mail/senha não é válida.",
+    "[login email / password combination is not valid]": "Combinação de e-mail/senha inválida.",
     "[remember me on this device]": "Permanecer conectado como",
     "[show other options]": "Mostre-me a informação agora",
     "[hide other options]": "Ocultar informação",
@@ -147,6 +147,14 @@
     "[set your name]": "Defina seu nome",
     "[text matching question pdf hint]": "Combinar elementos da coluna esquerda com os elementos à direita",
     "[forgot password email sent]": "Nós lhe enviamos um e-mail com instruções de como ressetar sua senha.",
+    "[forgot password]": "Esqueceu sua senha?",
+    "[results page title]": "Resultados",
+    "[introduction page title]": "Introdução",
+    "[not found page title]": "Não encontrado",
     "[question page title]": "Questão",
-    "[sections page title]": "Seções"
+    "[sections page title]": "Seções",
+    "[login page title]": "Login",
+    "[limited access page title]": "Acesso limitado",
+    "[sign in page title]": "Fazer login",
+    "[register page title]": "Registrar"
 }

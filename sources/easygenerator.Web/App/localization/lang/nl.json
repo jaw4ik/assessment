@@ -88,7 +88,7 @@
     "added": "Toegevoegd",
     "fixed": "Gerepareerd",
     "futureFeatures": "Waaraan wij werken",
-    "inProgress": "In behandeling",
+    "inProgress": "Gestart",
     "switchToOld": "Naar oude versie",
     "switchToNew": "Naar nieuwe versie",
     "warning": "Waarschuwing",
@@ -309,7 +309,7 @@
     "loadingReportedResults": "Data wordt opgeladen",
     "showMore": "Toon meer",
     "showLess": "Toon minder",
-    "passed": "Verlopen",
+    "passed": "Geslaagd",
     "failed": "Mislukt",
     "courseStartedAt": "De cursus start om",
     "courseFinishedAt": "en eindigt om",
@@ -998,5 +998,12 @@
     "addLinkCurationDescription": "Add link description (optional)",
     "useExample": "Use example",
     "editLink": "Edit link",
-    "notValidLink": "Not valid link"
+    "notValidLink": "Not valid link",
+    "linkCurationBlock": "Link (curation)",
+    "videoWithText": "Video with text",
+    "videoInTheLeft": "Video in the left",
+    "videoInTheRight": "Video in the right",
+    "singleAudio": "Single audio",
+    "singleVideo": "Single video",
+    "mediaTabName": "Media"
 }

@@ -995,8 +995,15 @@
     "surveyMode": "Umfrage-Modus (neutrales Feedback und keine Bewertung)",
     "responseForLearnerAnswer": "Fragen Ihrer Lerner beantworten",
     "surveyModeCaption": "Sie können dies verwenden, wenn Sie Lerner etwas fragen möchten (beispielsweise über welche Fähigkeiten sie verfügen), für das es keine richtige oder falsche Antwort gibt. Zudem wird die Frage von der Bewertung ausgeschlossen.",
-    "addLinkCurationDescription": "Add link description (optional)",
-    "useExample": "Use example",
-    "editLink": "Edit link",
-    "notValidLink": "Not valid link"
+    "addLinkCurationDescription": "Link-Beschreibung hinzufügen (optional)",
+    "useExample": "Beispiel verwenden",
+    "editLink": "Link bearbeiten",
+    "notValidLink": "Kein gültiger Link",
+    "linkCurationBlock": "Link (Pflege)",
+    "videoWithText": "Video mit Text",
+    "videoInTheLeft": "Video auf der linken Seite",
+    "videoInTheRight": "Video auf der rechten Seite",
+    "singleAudio": "Einzelne Audio-Datei",
+    "singleVideo": "Einzelnes Video",
+    "mediaTabName": "Medien"
 }
