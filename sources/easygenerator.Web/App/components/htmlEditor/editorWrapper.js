@@ -14,10 +14,6 @@ class FroalaEditor {
         this.editor = this.initFroalaModule(froala.default).FroalaEditor;
     }
 
-    addPlugin(name) {
-        return this.loadFroalaModule(`froala-editor/js/plugins/${name}.min`);
-    }
-
     async setLanguage(lang) {
         if (lang === 'en')
             return;

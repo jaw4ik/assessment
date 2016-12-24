@@ -286,5 +286,15 @@ namespace easygenerator.DomainModel.Tests
             var clonedCourse = _cloner.Clone(course, "owner");
             clonedCourse.CreatedOn.Should().Be(DateTime.MaxValue);
         }
+
+        [TestMethod]
+        public void Clone_ShouldSetQuestionShortIdsToNull()
+        {
+            var course = CourseObjectMother.Create();
+            course.QuestionShortIdsInfo = new CourseQuestionShortIdsInfo(course, "{}");
+
+            var clonedCourse = _cloner.Clone(course, "owner");
+            clonedCourse.QuestionShortIdsInfo.QuestionShortIds.Should().Be(null);
+        }
     }
 }

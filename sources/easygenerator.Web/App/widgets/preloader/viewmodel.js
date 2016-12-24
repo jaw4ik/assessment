@@ -30,7 +30,7 @@
 
         position:
             {align-center} - aligning preloader to center horizontally
-
+            
         color:
             {black} - black color
             {white} - white color

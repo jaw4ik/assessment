@@ -18,8 +18,7 @@ ko.bindingHandlers.htmlEditor = {
         let $element = $(element),
             data = valueAccessor().data,
             scrollableContainer = valueAccessor().scrollableContainer || 'body',
-            allBindings = ko.utils.unwrapObservable(bindings())
-        ;
+            allBindings = ko.utils.unwrapObservable(bindings());
 
         let editorHandlers = [
             new PasteHtmlHandler($element),
@@ -27,14 +26,19 @@ ko.bindingHandlers.htmlEditor = {
             new ToolbarPositionHandler($element, scrollableContainer, valueAccessor().contentContainer || '.content-section'),
             new FocusHandler($element,
                 data,
+                valueAccessor().placeholderText,
                 valueAccessor().isEditing,
                 valueAccessor().save,
                 valueAccessor().focus,
                 valueAccessor().blur,
+                valueAccessor().type || 'default',
                 bindingContext.$root,
                 viewModel,
                 valueAccessor().autosaveInterval || 60000)
         ];
+
+        let defaultPlaceholder = options.basicHtmlEditor.placeholderText;
+        options.basicHtmlEditor.placeholderText = valueAccessor().placeholderText || options.basicHtmlEditor.placeholderText;
 
         $element
             .addClass(classes.htmlEditable)
@@ -42,7 +46,8 @@ ko.bindingHandlers.htmlEditor = {
             .froalaEditor({ scrollableContainer: scrollableContainer })
             .find(`.${constants.classes.wrapper}`).addClass(classes.styledContent);
 
-        // provide froala editor instance for flexibility
+        options.basicHtmlEditor.placeholderText = defaultPlaceholder;
+
         if(allBindings.froalaInstance && ko.isWriteableObservable(allBindings.froalaInstance)) {
             allBindings.froalaInstance($element.data(constants.editor) );
         }
@@ -57,12 +62,21 @@ ko.bindingHandlers.htmlEditor = {
             }
         });
 
+        _.defer(() => {
+            if(!_.isUndefined(viewModel.hasFocus)) {
+                if(viewModel.hasFocus()) {
+                    var editor = $element.data(constants.editor);
+                    editor.events.focus();
+                    editor.selection.restore;
+                }
+            }
+        });
+
         return { controlsDescendantBindings: true };
     }, 
     update: (element, valueAccessor) => {
         let $element = $(element),
-           data = ko.utils.unwrapObservable(valueAccessor().data)
-        ;
+           data = ko.utils.unwrapObservable(valueAccessor().data);
 
         let editorInstance = $element.data(constants.editor);
         if(editorInstance == null) {

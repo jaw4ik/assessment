@@ -11,6 +11,7 @@ import reporting from './reporting';
 import storage from './storage';
 import upgradeCategory from './upgradeCategory';
 import validation from './validation';
+import linkCuration from './linkCuration'
 
 export default {
     accessType:         accessType,
@@ -26,6 +27,7 @@ export default {
     storage:            storage,
     upgradeCategory:    upgradeCategory,
     validation:         validation,
+    linkCuration:       linkCuration,
 
     appVersion: window.egVersion,
     organizationUserStatus: {

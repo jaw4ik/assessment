@@ -16,6 +16,9 @@ export default class {
         this.eventTracker = eventTracker;
         this.autosaveInterval = constants.autosaveTimersInterval.learningContent;
         this.isEditing = ko.observable(false);
+        
+        let $html = $('html');
+        _.defer(() => $html.trigger('click'));
     }
 
     activate(data, justCreated, callbacks) {
@@ -30,25 +33,24 @@ export default class {
 
     setData(data, justCreated){
         let parsedData = justCreated ? data() : parser.initialize(ko.utils.unwrapObservable(data));
-        if(!this.instances.length){
-            _.each(parsedData, column =>{ 
+        if(!this.instances.length) {
+            _.each(parsedData, column => { 
                 this.instances.push(new TextEditor(column, this.save.bind(this)));
             });
-        }
-        else{
-            _.each(parsedData, (column, index)=>{ 
+        } else {
+            _.each(parsedData, (column, index) => { 
                 this.instances[index].data(column);
             });
         }
 
-        if(justCreated){
-            this.instances[0].hasFocus(true);
-            this.save();
+        if(justCreated) {
+            this.startEditing(this.instances[0]);
+            this.save();    
         }
     }
 
-    save(){
-        let dataSet = _.map(this.instances, i=>{
+    save() {
+        let dataSet = _.map(this.instances, i => {
             return i.data();
         });
 
@@ -58,7 +60,7 @@ export default class {
 
     endEditing(){
         if(this.isEditing()){
-            _.each(this.instances, i =>{
+            _.each(this.instances, i => {
                 i.hasFocus(false);
             });
             this.isEditing(false);

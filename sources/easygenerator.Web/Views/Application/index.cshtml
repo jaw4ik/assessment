@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=640,maximum-scale=1.0">
     <meta name="description" content="">
     <title>easygenerator</title>
-
+   
     @Styles.Render("~/Content/css")
     @Html.Partial("_mixpanelAnalytics")
     @Html.Partial("_intercomAnalytics")
@@ -36,6 +36,7 @@
                     <div class="pulsar-loader-item"></div>
                 </div>
             </div>
+            <div data-bind="preloader: { settings: 'align-center' }"></div>
         }
 
         if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
@@ -77,39 +78,57 @@
         </script>
     }
 
-    <script type="text/javascript">
-        @helper AddConfigAppSettingToWindow(string settingKey, string windowKey = null)
+<script type="text/javascript">
+    @helper AddConfigAppSettingToWindow(string settingKey, string windowKey = null)
+    {
+        if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[settingKey]))
         {
-            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[settingKey]))
-            {
-                    var key = String.IsNullOrEmpty(windowKey) ? @Char.ToLowerInvariant(settingKey[0]) + settingKey.Substring(1) : windowKey;
-                    <text>window.@key = '@ConfigurationManager.AppSettings[settingKey]';</text>
-            }
+            var key = String.IsNullOrEmpty(windowKey) ? @Char.ToLowerInvariant(settingKey[0]) + settingKey.Substring(1) : windowKey;
+            <text>window.@key = '@ConfigurationManager.AppSettings[settingKey]';</text>
         }
+    }
 
-        @AddConfigAppSettingToWindow("version", "egVersion")
-        @AddConfigAppSettingToWindow("StorageServiceUrl")
-        @AddConfigAppSettingToWindow("ConvertionServiceUrl")
-        @AddConfigAppSettingToWindow("PlayerUrl")
-        @AddConfigAppSettingToWindow("WinToWebConvertionServiceUrl")
-        @AddConfigAppSettingToWindow("FroalaLicenseKey")
-        @AddConfigAppSettingToWindow("customFontUrl")
+    @AddConfigAppSettingToWindow("version", "egVersion")
+    @AddConfigAppSettingToWindow("StorageServiceUrl")
+    @AddConfigAppSettingToWindow("ConvertionServiceUrl")
+    @AddConfigAppSettingToWindow("PlayerUrl")
+    @AddConfigAppSettingToWindow("WinToWebConvertionServiceUrl")
+    @AddConfigAppSettingToWindow("FroalaLicenseKey")
         
-        @if ((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection) != null)
-        {
-            <text>
+    @if ((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection) != null)
+    {
+        <text>
             window.surveyPopupOriginUrl = '@((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection).OriginUrl)';
             window.surveyPopupPageUrl = '@((ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection).PageUrl)';
-            </text>
-        }
+        </text>
+    }
 
-        @if ((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection) != null)
-        {
-            <text>
-                window.coggnoServiceUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceUrl)';
-                window.coggnoServiceProviderUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceProviderUrl)';
-            </text>
-        }
+    @if ((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection) != null)
+    {
+        <text>
+        window.coggnoServiceUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceUrl)';
+        window.coggnoServiceProviderUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceProviderUrl)';
+        </text>
+    }
+    </script>
+    
+    @*TODO: show this section( FB library import )*@
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1101442909905362',
+                xfbml      : true,
+                version    : 'v2.7'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 
     @Scripts.Render("~/bundles/scripts/system")

@@ -82,11 +82,15 @@ export default class{
 
         _.each(instances, column => {
             let columnsArray = [];
-
             _.each(column, row => {
-                columnsArray.push(this._createInstance(row.type, row.data));
+                let tempInstance = this._createInstance(row.type, row.data);
+                if(tempInstance instanceof TextEditor && !this.isEditing() && justCreated) {
+                    this.isEditing(true);
+                    tempInstance.callbacks.startEditing();
+                    tempInstance.hasFocus(true);
+                }
+                columnsArray.push(tempInstance);
             });
-
             this.instances.push(columnsArray);
         });
     }

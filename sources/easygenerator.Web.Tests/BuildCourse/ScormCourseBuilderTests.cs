@@ -73,7 +73,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void Build_ShouldPublishCourseScormBuildStartedEvent()
         {
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _eventPublisher.ShouldPublishEvent<CourseScormBuildStartedEvent>();
@@ -88,7 +88,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().CreateDirectory(buildDirectory);
@@ -102,7 +102,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns("SomePackageFileName");
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
@@ -123,7 +123,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _fileManager.GetAllFilesInDirectory(Arg.Any<string>()).Returns(files);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().CopyFileToDirectory(files[0], buildDirectory);
@@ -145,7 +145,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _fileManager.GetRelativePath(Arg.Any<string>(), Arg.Any<string>()).Returns(e => e[0]);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _razorTemplateProvider.Received().Get("~/BuildCourse/Scorm/Templates/imsmanifest.cshtml",
@@ -169,7 +169,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _razorTemplateProvider.Get(Arg.Any<string>(), Arg.Any<object>()).Returns(manifestContent);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().WriteToFile(Path.Combine(buildDirectory, "imsmanifest.xml"), manifestContent);
@@ -187,7 +187,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns("SomePackageFileName");
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _razorTemplateProvider.Received().Get("~/BuildCourse/Scorm/Templates/metadata.cshtml",
@@ -208,7 +208,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _razorTemplateProvider.Get(Arg.Any<string>(), Arg.Any<object>()).Returns(metadataContent);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().WriteToFile(Path.Combine(buildDirectory, "metadata.xml"), metadataContent);
@@ -224,7 +224,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _razorTemplateProvider.Get(Arg.Any<string>(), Arg.Any<object>()).Returns(manifestContent);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().WriteToFile(Path.Combine(buildDirectory, "imsmanifest.xml"), manifestContent);
@@ -241,7 +241,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var buildId = GetBuildId();
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _course.ScormPackageUrl.Should().Be(buildId + ".zip");
@@ -267,7 +267,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetDownloadPath().Returns(downloadPath);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().DeleteFilesInDirectory(downloadPath, _coursePackageModel.Id + "*.zip", buildId + ".zip");
@@ -286,7 +286,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().DeleteFilesInDirectory(downloadPath, _coursePackageModel.Id + "*.zip", buildId + ".zip");
@@ -302,7 +302,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().DeleteDirectory(buildDirectory);
@@ -320,7 +320,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            _builder.Build(_course);
+            _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             _fileManager.Received().DeleteDirectory(buildDirectory);
@@ -340,7 +340,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 .Do(e => { throw null; });
 
             //Act
-            var result = _builder.Build(_course);
+            var result = _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             result.Should().BeFalse();
@@ -359,7 +359,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _razorTemplateProvider.Get(Arg.Any<string>(), Arg.Any<object>()).Returns(String.Empty);
 
             //Act
-            var result = _builder.Build(_course);
+            var result = _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             result.Should().BeTrue();
@@ -375,7 +375,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _razorTemplateProvider.Get(Arg.Any<string>(), Arg.Any<object>()).Returns(String.Empty);
 
             //Act
-            var result = _builder.Build(_course);
+            var result = _builder.Build(_course, PublishSettingsProvider.Mode.Lms);
 
             //Assert
             result.Should().BeTrue();

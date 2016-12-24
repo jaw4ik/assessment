@@ -109,6 +109,12 @@ namespace easygenerator.DomainModel
                             list.Add(Expression.Assign(Expression.Property(target, member), Expression.New(typeof(CourseSaleInfo))));
                             continue;
                         }
+
+                        if (member.Name == "QuestionShortIdsInfo")
+                        {
+                            list.Add(Expression.Assign(Expression.Property(target, member), Expression.New(typeof(CourseQuestionShortIdsInfo))));
+                            continue;
+                        }
                     }
 
                     // cloning of cources is not needed.

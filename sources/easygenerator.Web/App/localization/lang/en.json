@@ -994,5 +994,16 @@
     "zoom": "Zoom",
     "surveyMode": "Survey mode (neutral feedback and no scoring)",
     "responseForLearnerAnswer": "Respond to your learners question",
-    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer. In addition to that, the question will be excluded from scoring."
+    "surveyModeCaption": "You can use this when you want to ask something to the learner (for example which skills do you possess?) that does not have a correct or incorrect answer. In addition to that, the question will be excluded from scoring.",
+    "addLinkCurationDescription": "Add link description (optional)",
+    "useExample": "Use example",
+    "editLink": "Edit link",
+    "notValidLink": "Not valid link",
+    "linkCurationBlock": "Link (curation)",
+    "videoWithText": "Video with text",
+    "videoInTheLeft": "Video in the left",
+    "videoInTheRight": "Video in the right",
+    "singleAudio": "Single audio",
+    "singleVideo": "Single video",
+    "mediaTabName": "Media"
 }

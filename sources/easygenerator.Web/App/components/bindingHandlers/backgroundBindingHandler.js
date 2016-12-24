@@ -20,7 +20,6 @@
                                 if (_.isFunction(value.onload)) {
                                     value.onload(image.width, image.height);
                                 }
-
                                 $(element).animate({ opacity: 1 }, 300);
                             });
                     });

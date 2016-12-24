@@ -28,6 +28,5 @@
     "showConfirmationPopup":true,
     "allowCrossDeviceSaving": true,
     "allowLoginViaSocialMedia": true,
-    "hideSendMeSecretLink": false,
-    "hideFinishButton": false
+    "hideFinishActionButtons": false
 }

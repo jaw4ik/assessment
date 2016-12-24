@@ -7,7 +7,7 @@ var templates = {
     3: `<div data-type="${constants.contentsTypes.textEditorThreeColumns}" class="eg-content-editor" style="width:100%;"><div class='column' style="display:inline-block; width:33%; vertical-align:top">{data1}</div><div class='column' style="display:inline-block; vertical-align:top; width:33%">{data2}</div><div class='column' style="display:inline-block; width:33%; vertical-align:top">{data3}</div></div>`,
 };
 
-export function initialize(data, type){
+export function initialize(data, type) {
     let $input = $('<output>');
     $input.html(data);
     let markup = $input.find('.column');
@@ -17,7 +17,7 @@ export function initialize(data, type){
     return output;
 }
 
-export function updateTextEditorContent(data){
+export function updateTextEditorContent(data) {
     let template = templates[data.length];
     _.each(data, (column, index)=>{
         template = template.replace('{data'+ (index+1) +'}', column);

@@ -97,7 +97,7 @@
                                         <!-- /ko -->
                                     </div>
                                 </div>
-                                <div class="sections-list-item-learning-section-container" data-bind="slideToggle: learningObjective.isVisible, stopEventPropagation: { event: 'click'}">
+                                <div class="sections-list-item-learning-section-container" data-bind="slideToggle: learningObjective.isVisible, slideToggleCallback: selectLearningObjectiveText.bind($data), stopEventPropagation: { event: 'click'}">
                                     <h3 class="sections-list-item-learning-section-header" data-bind="localize: { text: 'learningObjectiveWithColon' }"></h3>
                                     <div class="sections-list-item-learning-section-title-container">
                                         <div class="sections-list-item-learning-section-title-wrapper" data-bind="css: { active: learningObjective.isEditing, error: !learningObjective.isValid() }">

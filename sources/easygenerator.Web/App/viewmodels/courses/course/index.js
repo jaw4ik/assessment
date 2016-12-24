@@ -144,7 +144,15 @@
 
         function preview() {
             eventTracker.publish(events.previewCourse);
-            router.openUrl('/preview/' + viewModel.id);
+            var url = '/preview/' + viewModel.id;
+
+            if (!userContext.identity.newEditor) {
+                var questionId = router.routeData().questionId;
+                if (!_.isNullOrUndefined(questionId)) {
+                    url += '/?questionId=' + questionId;
+                }
+            }
+            router.openUrl(url);
         }
 
         function share() {

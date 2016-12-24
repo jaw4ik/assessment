@@ -26,6 +26,8 @@
                     return constants.contentsTypes.hotspotOnImage;
                 case constants.contentsTypes.textEditorOneColumn:
                     return constants.contentsTypes.textEditorOneColumn;
+                case constants.contentsTypes.linkCuration:
+                    return constants.contentsTypes.linkCuration;
                 case constants.contentsTypes.textEditorTwoColumns:
                     return constants.contentsTypes.textEditorTwoColumns;
                 case constants.contentsTypes.textEditorThreeColumns:

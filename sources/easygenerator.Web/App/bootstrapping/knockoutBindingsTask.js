@@ -41,6 +41,8 @@
     require('design/bindingHandlers/popoverBindingHandler');
     require('design/bindingHandlers/textStyleBindingHandler');
     require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
+    require('widgets/imageSlider/bindingHandlers/sliderBindingHandler');
+    require('widgets/imageSlider/bindingHandlers/imageLazyLoadBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
     require('widgets/tags/bindingHandlers/dynamicWidthInput');
     require('widgets/tags/bindingHandlers/setFocusByClick');

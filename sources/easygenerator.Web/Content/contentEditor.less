@@ -1,4 +1,5 @@
-﻿@import "helpers.less";
+﻿
+@import "helpers.less";
 
 /*#region panel */
 
@@ -7,6 +8,12 @@
 @text-color: #7c858e;
 @text-hover-color: #42515f;
 @box-shadow-color: rgba(0,0,0,.3);
+
+//common style 
+.fr-wrapper.show-placeholder .fr-placeholder {
+    font-family: 'RobotoSlab-Light';
+}
+//
 
 .content-bar-wrapper {
     width: 300px;
@@ -247,6 +254,10 @@
             .three-columns& {
                 background-image: url('images/contentTypes/three-text-blocks.png');
             }
+            
+            .link& {
+                background-image: url('images/contentTypes/four-link-blocks.png');
+            }
         }
 
         .image-editor& {
@@ -320,6 +331,8 @@
 
 /*#region editor */
 
+/*#region hh2g3r5t2*/
+
 @buttons-panel-border-radius: 3px;
 @create-content-button-border-color: #dce1e4;
 @create-content-button-hover-border-color: #4caf50;
@@ -333,7 +346,7 @@
 
 @placeholder-active-background-color: #e4f3e5;
 
-@content-item-vertical-margin: 15px;
+@content-item-vertical-margin: 17px;
 @content-item-horizontal-margin: 20px;
 
 .overlay-background() {
@@ -609,7 +622,7 @@
             min-height: @content-drop-place-size;
             border-radius: 4px;
             background-color: @placeholder-active-background-color;
-        }
+        }   
     }
 
     .create-content-placeholder {
@@ -768,6 +781,7 @@
         }
     }
 }
+/*#endregion*/
 
 .content-editor-item-wrapper {
     position: relative;
@@ -791,6 +805,7 @@
                 margin: 0 @content-item-horizontal-margin;
 
                 .eg-content-editor-row {
+                    position: relative;
                     word-break: break-word;                    
 
                     &:not(:last-child) {
@@ -857,7 +872,6 @@
                     }
                 }
 
-
                 &:before {
                     content: "";
                     display: inline-block;
@@ -873,9 +887,277 @@
     }
 }
 
-.question-learning-content.image-editor {
-    .unselectable;
+// ---------------------------------------------------------------------------------------------------
 
+//CURATION
+
+@link-block-height: 113px;
+@link-block-width: 203px;
+@link-editing-opacity: 0.4;
+@link-normal-opacity: 1;
+@empty-background-color: rgba(222,222,222,.4);
+@error-color: #ff7171;
+
+.question-learning-content.selectable.link-block {
+    width: 100%;
+}
+.link-editing {
+    opacity: @link-editing-opacity;
+}
+.link-normal {
+    opacity: @link-normal-opacity;
+}
+
+.link-block-wrapper {
+    font: 18px 'Heuristica-Regular';
+    margin: 0 15px 0 15px;
+
+    .link-editor-description  {
+        margin-bottom: 11px;
+        .fr-element.fr-view * {
+            margin-bottom: 0px;
+        }
+    }
+    .link-content-wrapper {
+        width: 90%;
+        padding-top: 15px;
+        border-top: 1px solid @empty-background-color;
+        border-bottom: 1px solid @empty-background-color;
+        min-height: 145px;
+    }
+    div.inner-image-wrapper {
+        height: @link-block-height;
+        width: @link-block-width;
+        overflow: hidden;
+        position: relative; 
+    }
+    .image-block-link {
+        position: relative;
+        float: left;
+        margin-right: 19px;
+        &.empty {
+            background-color: @empty-background-color;
+            border-radius: 3px;
+        }
+        &.parsed {
+            border-radius: 3px;
+        }
+        &.deleted {
+            display: none;
+        }
+    }
+
+    .text-link-wrapper { 
+        width: 90%;
+        min-height: @link-block-height;
+    }
+    .text-block-link {
+        .link-title {
+            color: #469dd5;
+            overflow: hidden;
+            .done {
+                height: 22px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                vertical-align: middle;
+            }
+            .empty {
+                width: 40%;
+                height: 5px;
+                margin: 10px 0 4px 0;
+                background-color: @empty-background-color;
+                border-radius: 3px;
+            }
+        }
+        .link-content { 
+            margin-top: 12px;
+            overflow: hidden;
+            .done { 
+                line-height: 23px !important;
+                font: 16px 'Heuristica-Regular';
+                color: #42515f;
+                height: 46px;
+            } 
+            .empty {
+                width: 100%;
+                height: 25px;
+                &:before {
+                    content: '';
+                    width: 80%;
+                    display: block;
+                    height: 5px;
+                    background-color: @empty-background-color;
+                    border-radius: 3px; 
+                }
+                &:after {
+                    content: '';
+                    margin-top: 10px;
+                    display: block;
+                    width: 60%;
+                    height: 5px;
+                    background-color: @empty-background-color;
+                    border-radius: 3px;
+                }
+            }
+        }
+    }
+
+    @-webkit-keyframes not-valid-url-animation {
+        0%   { margin-left: 0px; }
+        20%  { margin-left: 10px; }
+        40%  { margin-left: -10px; }
+        60%  { margin-left: 10px; }
+        80%  { margin-left: -10px; }
+        100% { margin-left: 0px; }
+    }
+
+    @keyframes not-valid-url-animation {
+        0%   { margin-left: 0px; }
+        20%  { margin-left: 10px; }
+        40%  { margin-left: -10px; }
+        60%  { margin-left: 10px; }
+        80%  { margin-left: -10px; }
+        100% { margin-left: 0px; }
+    }   
+
+    .input-block-link {
+        overflow: hidden;
+        .link-input-block-wrapper {
+            height: 40px;
+            width: 50%;
+            position: absolute;
+            bottom: 0;
+            &.error {
+                -webkit-animation-name: not-valid-url-animation; 
+                -webkit-animation-duration: 0.4s;
+                animation-name: not-valid-url-animation;
+                animation-duration: 0.4s;
+                border-radius: 4px;
+            }
+        }
+
+        .form-wrapper {
+            position: relative;
+            .link-input {    
+                margin: 0 auto;
+                width: 100%;
+                height: 40px;
+                padding: 10px 70px 6px 30px;
+                font-family: 'Heuristica-Regular';
+                font-size: 14px;
+                color: #989292;
+                background-color: #fff;
+                background: url(images/linkArrow.png) no-repeat scroll 10px;
+                background-position-y: center; 
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                &:focus {
+                    -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,.15);
+                    -moz-box-shadow: 0px 0 5px 1px rgba(0,0,0,.15);
+                    box-shadow: 0 0 5px 1px rgba(0,0,0,.15);
+                    border: 1px solid #469dd5;
+                }
+                &.error {
+                    -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,.15);
+                    -moz-box-shadow: 0px 0 5px 1px rgba(0,0,0,.15);
+                    box-shadow: 0 0 5px 1px rgba(0,0,0,.15);
+                    border: 1px solid @error-color;
+                }
+            }
+            .link-exmpl {
+                &:hover {
+                    cursor: pointer; 
+                    opacity: 1;
+                }
+                text-decoration: underline;
+                font-size: 11px;
+                font-family: 'Open Sans', sans-serif;
+                color: #469dd5;
+                opacity: .8;
+                position: absolute;
+                visibility: visible;
+                right: 71px;
+                top: 12px;
+            }
+            .submit-link-button {
+                margin-top: -36px;
+                min-width: 63px;
+                height: 30px;
+                right: 3px;
+                position: absolute;
+                margin-left: -68px;
+                text-transform: uppercase;
+            }
+            .link-input-status-message {
+                display: none;
+                &.error {
+                    display: block;
+                    color: @error-color;
+                    font-family: Arial;
+                    font-size: 11px;
+                    position: absolute;
+                    float: right;
+                    margin-top: 42px;
+                }
+            }
+        }
+        .static-link-present {
+            font-size: 14px;
+            //overflow: hidden;
+            white-space: nowrap;
+            position: absolute;
+            bottom: 0;
+            //width: 80%;
+            div.static-link-wrapper { 
+                margin-bottom: 8px; 
+                div.unactive-link {
+                    float: left;
+                    position: relative;
+                    max-width: 300px; 
+                    overflow: hidden;
+                    white-space: nowrap;
+                    padding: 1px 0 0 22px;
+                    margin: 0 5px 10px 0;
+                    background: url(images/linkArrow.png) no-repeat 2px 3px;
+                    color: #978b8b;
+                    &:after {
+                        content: "";
+                        pointer-events: none;
+                        position: absolute;
+                        width: 10px;
+                        height: 100%;
+                        top: 0; right: 0;
+                        background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                        background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                        background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                        background-image: -o-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                        background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                    }
+                }
+                .edit-link {
+                    &:hover {
+                        cursor: pointer; cursor: hand;
+                        border-bottom: 1px solid #469dd5;
+                    }
+                    font-size: 12px;
+                    background: url(images/pen-edit-link.png) no-repeat 1px 3px;
+                    font-family: 'Open Sans', sans-serif;
+                    padding: 0 0 1px 14px;
+                    text-overflow: ellipsis;
+                    border-bottom: 1px dashed #469dd5;
+                    color: #469dd5;
+                } 
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------
+
+/*#region hh2g3r5t3*/
+
+.question-learning-content.image-editor {
     .image-editor-container {
         position: relative;
         display: flex;
@@ -1213,7 +1495,6 @@
             border-radius: 3px;
             box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.15);
             transition: opacity .2s linear;
-            z-index: 2;
 
             &.shown {
                 top: -52px;
@@ -1494,5 +1775,7 @@
 .hotspot-on-image-container {
     margin: @content-item-vertical-margin @content-item-horizontal-margin;
 }
+
+/*#endregion */
 
 /*#endregion */

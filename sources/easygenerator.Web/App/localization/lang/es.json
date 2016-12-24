@@ -994,5 +994,16 @@
     "zoom": "Zoom",
     "surveyMode": "Modo encuesta (opinión neutral, sin puntuación)",
     "responseForLearnerAnswer": "Responder a la pregunta de los estudiantes",
-    "surveyModeCaption": "Puede utilizar esto cuando desea preguntar algo al alumno que no tiene una respuesta correcta o incorrecta (por ejemplo, \"¿qué habilidades posee?\"). Además, la pregunta se excluirá de la puntuación."
+    "surveyModeCaption": "Puede utilizar esto cuando desea preguntar algo al alumno que no tiene una respuesta correcta o incorrecta (por ejemplo, \"¿qué habilidades posee?\"). Además, la pregunta se excluirá de la puntuación.",
+    "addLinkCurationDescription": "Añadir descripción del vínculo (opcional)",
+    "useExample": "Usar ejemplo",
+    "editLink": "Editar vínculo",
+    "notValidLink": "Vínculo no válido",
+    "linkCurationBlock": "Vínculo (curación)",
+    "videoWithText": "Vídeo con texto",
+    "videoInTheLeft": "Vídeo a la izquierda",
+    "videoInTheRight": "Vídeo a la derecha",
+    "singleAudio": "Audio único",
+    "singleVideo": "Vídeo único",
+    "mediaTabName": "Multimedia"
 }

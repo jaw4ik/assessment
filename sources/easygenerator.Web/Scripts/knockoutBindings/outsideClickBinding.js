@@ -8,7 +8,7 @@
             debounce = valueAccessor().debounce;
 
         var clickHandler = function (event) {
-            if ($document.has(element).length === 0) { 
+            if ($document.has(element).length === 0) {
                 $html.unbind('click', clickHandler);
                 return;
             }
@@ -21,7 +21,7 @@
                 return;
             }
 
-            action();
+            if (!_.isUndefined(action)) { action(); }
         };
 
         if (debounce) {
@@ -29,7 +29,7 @@
                 $html.bind('click', clickHandler);
             });
         } else {
-            $html.bind('click', clickHandler);
+            $html.bind('click', clickHandler);      
         }
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
