@@ -224,3 +224,5 @@ FakesAssemblies/
 
 #Autotests ignore
 /sources/easygenerator.Web.AutoTests/errorShots/*
+/sources/easygenerator.Web.AutoTests/allure-results/*
+/sources/easygenerator.Web.AutoTests/allure-report/*

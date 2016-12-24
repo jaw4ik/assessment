@@ -73,7 +73,7 @@ describe('Sign Up:', () => {
             });
 
             it('should not mark appropriate condition as successful', () => {
-                var hasClass = browser.hasClass(signUpPage.passwordLengthControl, 'success');
+                var hasClass = signUpPage.passwordLengthControl.hasClass('success');
                 expect(hasClass).toBeFalsy();
             });
         });
@@ -84,7 +84,7 @@ describe('Sign Up:', () => {
             });
 
             it('should not mark appropriate condition as successful', () => {
-                var hasClass = browser.hasClass(signUpPage.passwordSpacesControl, 'success');
+                var hasClass = signUpPage.passwordSpacesControl.hasClass('success');
                 expect(hasClass).toBeFalsy();
             });
         });
@@ -96,12 +96,12 @@ describe('Sign Up:', () => {
             });
 
             it('should mark length control as successful', () => {
-                var lengthSuccess = browser.hasClass(signUpPage.passwordLengthControl, 'success');
+                var lengthSuccess = signUpPage.passwordLengthControl.hasClass('success');
                 expect(lengthSuccess).toBeTruthy();
             });
 
             it('should mark space control as successful', () => {
-                var spacesSuccess = browser.hasClass(signUpPage.passwordSpacesControl, 'success');
+                var spacesSuccess = signUpPage.passwordSpacesControl.hasClass('success');
                 expect(spacesSuccess).toBeTruthy();
             });
         });
@@ -109,7 +109,7 @@ describe('Sign Up:', () => {
         describe('when show password option is not set', () => {
             beforeEach(() => {
                 var checkbox = signUpPage.togglePasswordVisibility;
-                browser.unselectCheckBox(checkbox);
+                checkbox.unselectCheckBox();
                 signUpPage.password.setValue('I am hidden');
             });
 
@@ -122,7 +122,7 @@ describe('Sign Up:', () => {
         describe('when show password option is set', () => {
             beforeEach(() => {
                 var checkbox = signUpPage.togglePasswordVisibility;
-                browser.selectCheckBox(checkbox);
+                checkbox.selectCheckBox();
                 signUpPage.password.setValue('I am visible');
             });
 
@@ -137,17 +137,15 @@ describe('Sign Up:', () => {
 
             beforeEach(() => {
                 signUpPage.sumbitCreds(user);
-            });
-
-            it('should redirect to second step', () => {
-                expect(browser.getUrl()).toBe(browser.baseUrl() + '/signupsecondstep');
+                browser.waitForUrlChange('/signupsecondstep', 3000);
             });
 
             it('should set user data to session storage', () => {
-                expect(signUpPage.sessionUserData.firstName).toBe(user.firstName);
-                expect(signUpPage.sessionUserData.lastName).toBe(user.lastName);
-                expect(signUpPage.sessionUserData.email).toBe(user.email);
-                expect(signUpPage.sessionUserData.password).toBe(user.password);
+                var data = signUpPage.sessionUserData;
+                expect(data.firstName).toBe(user.firstName);
+                expect(data.lastName).toBe(user.lastName);
+                expect(data.email).toBe(user.email);
+                expect(data.password).toBe(user.password);
             });
 
         });

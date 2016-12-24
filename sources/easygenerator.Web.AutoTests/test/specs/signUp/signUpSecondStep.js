@@ -75,7 +75,7 @@ describe('Sign Up second step:', () => {
                     it('should show options using filter', () => {
                         signUpSecondPage.countrySelectCurrent.click();
                         signUpSecondPage.countryInput.setValue(user.country.substring(0, user.country.length - 1));
-                        var hasActiveClass = browser.hasClass(signUpSecondPage.getCountryOption(user.country), 'active');
+                        var hasActiveClass = signUpSecondPage.getCountryOption(user.country).hasClass('active');
                         expect(hasActiveClass).toBeTruthy();
                     });
                 });

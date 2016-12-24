@@ -6,6 +6,7 @@ import config from '../../config';
 import fileUrl from 'file-url';
 import phantom from 'phantom';
 import co from 'co';
+import { exec } from 'child_process';
 
 var buildUtils = buildUtilsModule();
 var $ = gulpLoadPlugins({
@@ -29,7 +30,14 @@ gulp.task('run-unit-tests', function (cb) {
     runSequence('run-server-tests', 'run-jasmine-tests', cb);
 });
 
+gulp.task('run-auto-tests', function () {
+	process.chdir('sources/easygenerator.Web.AutoTests');
+    return gulp.src('wdio.conf.js').pipe(require('../../../../sources/easygenerator.Web.AutoTests/node_modules/gulp-webdriver')({}));
+});
 
+gulp.task('auto-tests', ['run-auto-tests'], function() {
+	return exec('allure generate ./allure-results && allure report open').stdout.pipe(process.stdout);
+});
 
 const execute = url => new Promise((resolve, reject) => {
     const constants = {

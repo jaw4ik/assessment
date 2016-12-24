@@ -9,37 +9,30 @@ function add(commandName, commandMethod, overwrite) {
     return browser.addCommand(commandName, commandMethod, overwrite);
 }
 
-function getElement(selector) {
-    return typeof selector === 'string' ? browser.element(selector) : selector;
-}
-
 module.exports = {
     install() {
-        add('hasClass', (selector, className) => {
-            var element = getElement(selector);
-            var classList = element.getAttribute('class').split(' ');
+        add('hasClass', function(className) {
+            var classList = this.getAttribute('class').split(' ');
             return classList.indexOf(className) !== -1;
         });
-        add('baseUrl', () => {
+        add('baseUrl', function() {
             return config.baseUrl;
         });
-        add('waitForUrlChange', (expectedUrl, timeout) => {
-            browser.waitUntil(() => {
-                return browser.getUrl() === (config.baseUrl + expectedUrl);
+        add('waitForUrlChange', function(expectedUrl, timeout) {
+            this.waitUntil(() => {
+                return this.getUrl() === (config.baseUrl + expectedUrl);
             }, timeout, `url has not been changed to ${config.baseUrl}${expectedUrl} after ${timeout} ms`);
         });
-        add('selectCheckBox', selector => {
-            var checkbox = getElement(selector);
-            var selected = checkbox.isSelected();
+        add('selectCheckBox', function() {
+            var selected = this.isSelected();
             if (!selected) {
-                checkbox.click();
+                this.click();
             }
         });
-        add('unselectCheckBox', selector => {
-            var checkbox = getElement(selector);
-            var selected = checkbox.isSelected();
+        add('unselectCheckBox', function() {
+            var selected = this.isSelected();
             if (selected) {
-                checkbox.click();
+                this.click();
             }
         });
         add('webSessionStorage', (method, value) => {
