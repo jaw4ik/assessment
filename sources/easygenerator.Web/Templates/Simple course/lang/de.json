@@ -103,7 +103,7 @@
     "[show]": "Anzeigen",
     "[hide]": "Ausblenden",
     "[login pasword is not valid]": "Geben Sie ein gültiges Kennwort ein",
-    "[login email / password combination is not valid]": "Diese E-Mail-/Kennwort-Kombination ist nicht gültig.",
+    "[login email / password combination is not valid]": "E-Mail-/Kennwort-Kombination ist nicht gültig.",
     "[remember me on this device]": "Bleiben Sie angemeldet",
     "[show other options]": "Informationen mir jetzt anzeigen",
     "[hide other options]": "Informationen ausblenden",
@@ -147,6 +147,14 @@
     "[set your name]": "Ihren Namen festlegen",
     "[text matching question pdf hint]": "Elemente aus der linken Spalte mit den Elementen aus der rechten verbinden",
     "[forgot password email sent]": "Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet.",
+    "[forgot password]": "Kennwort vergessen?",
+    "[results page title]": "Ergebnisse",
+    "[introduction page title]": "Einführung",
+    "[not found page title]": "Nicht gefunden",
     "[question page title]": "Frage",
-    "[sections page title]": "Abschnitte"
+    "[sections page title]": "Abschnitte",
+    "[login page title]": "Anmeldung",
+    "[limited access page title]": "Eingeschränkter Zugriff",
+    "[sign in page title]": "Anmelden",
+    "[register page title]": "Registrieren"
 }

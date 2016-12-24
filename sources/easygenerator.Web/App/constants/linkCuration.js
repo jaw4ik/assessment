@@ -2,12 +2,9 @@
     urls: [
         'https://www.theguardian.com/international',
         'https://elearningindustry.com/',
-        'https://www.easygenerator.com/',
         'http://edition.cnn.com/world',
         'http://www.bbc.com/news/world',
-        'http://www.nbcnews.com/news/world',
         'http://www.usatoday.com/news/world/',
-        'http://news.sky.com/world',
         'http://www.foxnews.com/world.html',
         'http://globalnews.ca/world/',
         'https://www.reddit.com/r/worldnews/',

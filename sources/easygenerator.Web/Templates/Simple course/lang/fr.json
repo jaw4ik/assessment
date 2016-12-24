@@ -147,6 +147,14 @@
     "[set your name]": "Définissez votre nom",
     "[text matching question pdf hint]": "Combiner les éléments de la colonne de gauche avec ceux de droite",
     "[forgot password email sent]": "Nous vous avons envoyé un email avec des instructions sur comment réinitialiser votre mot de passe.",
+    "[forgot password]": "Mot de passe oublié ?",
+    "[results page title]": "Résultats",
+    "[introduction page title]": "Introduction",
+    "[not found page title]": "Introuvable",
     "[question page title]": "Question",
-    "[sections page title]": "Sections"
+    "[sections page title]": "Sections",
+    "[login page title]": "Connexion",
+    "[limited access page title]": "Accès limité",
+    "[sign in page title]": "Se connecter",
+    "[register page title]": "S'inscrire"
 }

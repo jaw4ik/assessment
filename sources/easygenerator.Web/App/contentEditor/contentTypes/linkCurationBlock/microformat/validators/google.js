@@ -25,10 +25,8 @@ export class google extends abstractValidator {
             apiHttpWrapper.post('/api/proxyPost', { url: url })
                 .then((response) => { 
                     if(response.success) {
-                        debugger;
                         resolve(response);
                     } else {
-                        debugger;
                         reject(response); 
                     }
                 });

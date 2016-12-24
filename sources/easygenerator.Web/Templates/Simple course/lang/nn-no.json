@@ -120,6 +120,8 @@
     "[expand]": "Utvid",
     "[collapse]": "Lukk",
     "[keep me logged-in for the next courses]": "Hugs pålogging til neste kurs",
+    "[finish course when tracking disabled]": "Avslutt kurset",
+    "[ok finish course]": "Ok, avslutt kurset",
     "[question page title]": "Spørsmål",
     "[sections page title]": "Avsnitt"
 }
