@@ -220,3 +220,6 @@ FakesAssemblies/
 
 # PdfConverter ignore files
 /sources/easygenerator.PdfConverter/Pdf_Download
+
+#Autotests ignore
+/sources/easygenerator.Web.AutoTests/errorShots/*
