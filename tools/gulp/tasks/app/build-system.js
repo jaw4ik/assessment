@@ -8,7 +8,7 @@ var SystemJSBuilder = jspm.Builder;
 
 gulp.task('build-system', function () {
     return new SystemJSBuilder(config.app.baseAppPath, config.app.systemConfigFilePath)
-        .bundle('[**/*]', {
+        .bundle('**/*', {
             config: {
                 meta: {
                     '*.html': {

@@ -24,7 +24,7 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "clipboard": "npm:clipboard@1.5.15",
-    "core-js": "npm:core-js@1.2.7",
+    "core-js": "npm:core-js@2.4.1",
     "css": "github:systemjs/plugin-css@0.1.32",
     "dragula": "npm:dragula@3.7.2",
     "durandal": "core/durandal",
@@ -89,7 +89,7 @@ System.config({
       "atoa": "npm:atoa@1.0.0",
       "ticky": "npm:ticky@1.0.1"
     },
-    "npm:core-js@1.2.7": {
+    "npm:core-js@2.4.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
