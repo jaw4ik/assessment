@@ -613,18 +613,6 @@ body {
 .fill-in-the-blank {
     color: @text-color;
 
-    .select-wrapper {
-        .value {
-            .default when (@Normal-size < 14px) {
-                font-size: @Normal-size;
-            }
-
-            .default when (@Normal-size >= 14px) {
-                font-size: 14px;
-            }
-        }
-    }
-
     .blankInput {
         .normal-styled-text;
         color: @text-color;
