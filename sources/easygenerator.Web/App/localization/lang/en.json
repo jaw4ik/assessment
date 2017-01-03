@@ -1005,5 +1005,7 @@
     "videoInTheRight": "Video in the right",
     "singleAudio": "Single audio",
     "singleVideo": "Single video",
-    "mediaTabName": "Media"
+    "mediaTabName": "Media",
+    "pasteOrTypeVideoLink": "Paste or type video link...",
+    "changeVideo": "Change video"
 }

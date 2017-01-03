@@ -1005,5 +1005,7 @@
     "videoInTheRight": "Відео праворуч",
     "singleAudio": "Одне аудіо",
     "singleVideo": "Одне відео",
-    "mediaTabName": "Медіа"
+    "mediaTabName": "Медіа",
+    "pasteOrTypeVideoLink": "Вставте або введіть посилання на відео тут...",
+    "changeVideo": "Змінити відео"
 }

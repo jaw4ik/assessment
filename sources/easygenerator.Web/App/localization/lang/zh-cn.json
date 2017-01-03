@@ -1005,5 +1005,7 @@
     "videoInTheRight": "右边的视频",
     "singleAudio": "单个音频",
     "singleVideo": "单个视频",
-    "mediaTabName": "媒体"
+    "mediaTabName": "媒体",
+    "pasteOrTypeVideoLink": "Paste or type video link...",
+    "changeVideo": "Change video"
 }
