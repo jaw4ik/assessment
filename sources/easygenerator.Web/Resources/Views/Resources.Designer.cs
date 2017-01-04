@@ -142,7 +142,7 @@ namespace ViewsResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright © 2016 easygenerator. All rights reserved..
+        ///   Looks up a localized string similar to Copyright © 2017 easygenerator. All rights reserved..
         /// </summary>
         public static string CopyrightText {
             get {

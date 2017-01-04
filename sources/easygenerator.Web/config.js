@@ -29,7 +29,7 @@ System.config({
     "dragula": "npm:dragula@3.7.2",
     "durandal": "core/durandal",
     "font-awesome": "npm:font-awesome@4.7.0",
-    "froala-editor": "npm:froala-editor@2.3.5",
+    "froala-editor": "npm:froala-editor@2.4.0",
     "guillotine": "npm:guillotine@1.3.1",
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
@@ -110,7 +110,7 @@ System.config({
     "npm:font-awesome@4.7.0": {
       "css": "github:systemjs/plugin-css@0.1.32"
     },
-    "npm:froala-editor@2.3.5": {
+    "npm:froala-editor@2.4.0": {
       "font-awesome": "npm:font-awesome@4.7.0",
       "jquery": "npm:jquery@3.1.1"
     },
