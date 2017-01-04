@@ -1,26 +1,17 @@
 ﻿define(['durandal/app', 'routing/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video',
     'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager',
-    'storageFileUploader', 'widgets/upgradeDialog/viewmodel', 'viewmodels/videos/commands/deleteVideo', 'notify'
+    'storageFileUploader', 'widgets/upgradeDialog/viewmodel', 'notify',
+    'videoUpload/settings', 'videoUpload/models/VideoModel', 'commands/videos/index'
 ],
-    function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeDialog, deleteVideoCommand, notify) {
+
+function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeDialog, notify, uploadSettings, VideoModel, videoCommands) {
         "use strict";
-
-        app.on(constants.storage.video.changesInUpload, updateVideos);
-
-        app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
 
         var eventCategory = 'Video library',
             events = {
                 openUploadVideoDialog: 'Open \"choose video file\" dialog',
                 deleteVideoFromLibrary: 'Delete video from library'
-            },
-            uploadSettings = {
-                acceptedTypes: '*',
-                supportedExtensions: '*',
-                uploadErrorMessage: localizationManager.localize('videoUploadError'),
-                notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace'),
-                startUpload: videoUpload.upload
-            };
+            }
 
         var viewModel = {
             videos: ko.observableArray([]),
@@ -29,12 +20,16 @@
             availableStorageSpacePersentages: ko.observable(0),
             statuses: constants.storage.video.statuses,
             addVideo: addVideo,
+            storageSpace: null,
+            deactivate: deactivate,
             activate: activate,
             updateVideos: updateVideos,
             showVideoPopup: showVideoPopup,
             showDeleteVideoConfirmation: showDeleteVideoConfirmation,
             hideDeleteVideoConfirmation: hideDeleteVideoConfirmation,
-            deleteVideo: deleteVideo
+            deleteVideo: deleteVideo,
+            uploadSubscription: null,
+            quotaSubscription: null
         }
 
         return viewModel;
@@ -57,12 +52,15 @@
         }
 
         function activate() {
+            viewModel.uploadSubscription = app.on(uploadSettings.events.upload, updateVideos);
+            viewModel.quotaSubscription = app.on(uploadSettings.events.quota, setAvailableStorageSpace);
+
             return userContext.identifyStoragePermissions().then(function () {
                 return repository.getCollection().then(function (videos) {
                     return thumbnailLoader.getThumbnailUrls(videos).then(function () {
                         viewModel.videos([]);
                         _.each(videos, function (video) {
-                            viewModel.videos.push(mapVideo(video));
+                            viewModel.videos.push(new VideoModel(video));
                         });
                         setAvailableStorageSpace();
                     });
@@ -70,21 +68,9 @@
             });
         }
 
-        function mapVideo(item) {
-            var video = {};
-
-            video.id = item.id;
-            video.title = item.title;
-            video.vimeoId = ko.observable(item.vimeoId);
-            video.createdOn = ko.observable(item.createdOn);
-            video.modifiedOn = ko.observable(item.modifiedOn);
-            video.thumbnailUrl = ko.observable(item.thumbnailUrl);
-            video.progress = ko.observable(item.progress || 0);
-            video.status = ko.observable(item.status || viewModel.statuses.loaded);
-            video.isDeleteConfirmationShown = ko.observable(false);
-            video.isDeleting = ko.observable(false);
-
-            return video;
+        function deactivate() {
+            viewModel.uploadSubscription.off();
+            viewModel.quotaSubscription.off();
         }
 
         function showDeleteVideoConfirmation(video) {
@@ -99,7 +85,7 @@
             eventTracker.publish(events.deleteVideoFromLibrary);
 
             video.isDeleting(true);
-            return deleteVideoCommand.execute(video.id)
+            videoCommands.deleteVideo(video.id)
                 .then(function () {
                     viewModel.videos.remove(video);
                     notify.saved();
@@ -117,7 +103,7 @@
                     });
 
                     if (!viewModelVideo) {
-                        viewModel.videos.unshift(mapVideo(video));
+                        viewModel.videos.unshift(new VideoModel(video));
                     } else {
                         viewModelVideo.vimeoId(video.vimeoId);
                         viewModelVideo.createdOn(video.createdOn);
@@ -140,23 +126,11 @@
         }
 
         function setAvailableStorageSpace() {
-            if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-                viewModel.storageSpaceProgressBarVisibility(false);
-                return;
+            viewModel.storageSpace = videoCommands.getAvailableStorageSpace();
+            if (viewModel.storageSpace) {
+                viewModel.storageSpaceProgressBarVisibility(true);
+                viewModel.availableStorageSpace(viewModel.storageSpace.availableStorageSpace);
+                viewModel.availableStorageSpacePersentages(viewModel.storageSpace.availableStorageSpacePersentages);
             }
-            viewModel.storageSpaceProgressBarVisibility(true);
-
-            var free = userContext.storageIdentity.availableStorageSpace,
-                max = userContext.storageIdentity.totalStorageSpace,
-                value = free / 1073741824;
-
-            viewModel.availableStorageSpacePersentages(Math.round((max - free) / max * 100));
-
-            if (value >= 1) {
-                viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
-                return;
-            }
-            value = value * 1024;
-            viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
         }
     });

@@ -33,7 +33,7 @@
 
     removeVideo = function (id) {
         var videoToRemove = _.find(dataContext.videos, function (video) {
-            return video.id == id;
+            return video.id === id;
         });
         if (videoToRemove) {
             var index = dataContext.videos.indexOf(videoToRemove);

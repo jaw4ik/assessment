@@ -22,7 +22,7 @@ class ImageLibraryDialog extends ImageLibrary {
     }
 
     chooseImage(callback) {
-        dialog.show(this, constants.dialogs.imageLibraryDialog.settings);
+        dialog.show(this, constants.dialogs.mediaLibraryDialog.settings);
         this.callback = callback;
     }
 

@@ -4,6 +4,17 @@
     userUrl: '/user',
     changesInQuota: 'storage:changesInQuota',
     video: {
+        editorVideoFrameSize: {
+                width: {
+                    name: 'width',
+                    value: 880  
+                },
+                height: {
+                    name: 'height',
+                    value: 500
+            }
+        },
+        defaultIframeSource: `https://www.youtube.com/embed/iFOaqOMODvk`,
         vimeoUrl: 'https://vimeo.com',
         vimeoOembedUrl: '/api/oembed.json',
         vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
@@ -24,6 +35,7 @@
         iframeWidth: 600,
         iframeHeight: 335,
         updateUploadTimeout: 60000,
+        pendingTimeout: 16000,
         removeVideoAfterErrorTimeout: 5000
     },
     audio: {

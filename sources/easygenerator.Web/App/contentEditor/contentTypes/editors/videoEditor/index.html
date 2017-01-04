@@ -1,0 +1,62 @@
+﻿<div class="question-learning-content image-editor">
+    <div class="image-editor-container video" data-bind="css: { edit: isEditMode() }, click: startEditMode">
+        
+        <!-- ko if: isEditMode -->
+        <div class="video-editor-edit-container" data-bind="outsideClick: { action: stopEditMode, debounce: true }, floatingToolbar: { parent: 'image-editor-container', scrollContainer: 'question-view-holder-wrapper', parentSizeChanged: isSizeChanged }">
+            <div class="image-editor-edit-actions shown">
+                <div class="video-editor image-editor-edit-action-block" data-bind="dropDown: {}, css: { 'single-button': contentType() !== contentsTypes.singleVideo }">
+                    <button class="video-editor-edit-action-btn change" data-bind="tip: { key: 'changeVideo' }"></button>
+                    <ul class="change-image-options">
+                        <li class="item">
+                            <div class="image-editor-btn upload" data-bind="click: upload">
+                                <span class="btn-text" data-bind="localize: { text: 'uploadFromPC' }"></span>
+                                <span class="upgrade-link" data-bind="visible: !storageSpace(), localize: { text: 'upgradeNow' }"></span>
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="image-editor-btn library" data-bind="click: getFromLibrary">
+                                <span class="btn-text" data-bind="localize: { text: 'chooseFromLibrary' }"></span>
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="image-editor-btn link" data-bind="click: showLinkTooltip, outsideClick: { action: hideLinkTooltip }, stopPropagation: {}">
+                                <span class="btn-text" data-bind="localize: { text: 'enterVideoUrl' }"></span>
+                                <div class="image-editor-link-container" data-bind="css: { showed: linkTooltipShowed }, stopPropagation: {}">
+                                    <textarea class="image-editor-link-input" data-bind="localize: { placeholder: 'pasteOrTypeVideoLink' }, textInput: videoFrameTextAreaInputValue"></textarea>
+                                    <a class="link-back" data-bind="click: hideLinkTooltip, localize: { text: 'back' }"></a>
+                                    <button class="btn green" data-bind="localize: { text: 'ok' }, click: getFromLink"></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- ko ifnot: contentType() === contentsTypes.singleVideo -->
+                <button class="video-editor-edit-action-btn left" data-bind="click: toLeft, css: { active: contentType() === contentsTypes.videoInTheLeft }, tip: { key: 'videoInTheLeft' }"></button>
+                <button class="video-editor-edit-action-btn right" data-bind="click: toRight, css: { active: contentType() === contentsTypes.videoInTheRight }, tip: { key: 'videoInTheRight' }"></button>
+                <button class="video-editor-edit-action-btn center" data-bind="click: toCenter, css: { active: contentType() === contentsTypes.videoWithText }, tip: { key: 'videoWithText' }"></button>
+                <!-- /ko -->
+                <!-- ko if: false -->
+                <button class="video-editor-edit-action-btn cropper" data-bind="click: startResizing, tip: { key: 'resizeCropImage' }"></button>
+                <!-- /ko -->
+            </div>
+
+        </div>
+        <!-- /ko -->
+        <!-- ko if: video.status() === statuses.inProgress || isPending -->
+        <div class="video-circular-bar uploading">
+            <canvas width="140" height="140" class="circle-progress" data-bind="circleProgress: { 'type': isPending() ? 'pending' : 'progress', progress: video.progress, 'lineWidth': 2 }"></canvas>
+            <span class="progress" data-bind="text: video.progress() === null ? '' : video.progress() + '%'"></span>
+            <span class="free-space-info" data-bind="visible: !!storageSpace() && !isPending()">
+                <span class="free-space-value" data-bind="text: storageSpace().availableStorageSpace"></span>
+            </span>
+        </div>
+        <!-- /ko -->
+
+        <div class="video-editor-wrapper" data-bind="css: { edit: isEditMode() }">
+            <!-- ko if: video.status() !== statuses.inProgress && !isPending() -->
+                <div data-bind="compose: videoFrame"></div> 
+            <!-- /ko -->
+            <div data-bind="css: { preventor: !isEditMode() }"></div>
+        </div>
+    </div>
+</div>

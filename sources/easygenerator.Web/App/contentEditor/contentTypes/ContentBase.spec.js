@@ -77,7 +77,8 @@ describe('[ContentBase]', () => {
         it('should trigger save event with data', () => {
             let dataToSave = 'dataToSave';
             contentBase.save(dataToSave);
-            expect(contentBase.trigger).toHaveBeenCalledWith('save', dataToSave);
+            let callback;
+            expect(contentBase.trigger).toHaveBeenCalledWith('save', dataToSave, callback);
         });
 
     });

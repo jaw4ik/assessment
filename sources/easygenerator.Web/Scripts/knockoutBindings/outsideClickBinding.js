@@ -12,7 +12,7 @@
                 $html.unbind('click', clickHandler);
                 return;
             }
-
+           
             if (event.target === this) { // fix for dragula container, it fire unclear 'click' event with target 'html'
                 return;
             }
@@ -21,7 +21,12 @@
                 return;
             }
 
-            if (!_.isUndefined(action)) { action(); }
+            if (_.isUndefined(action)) {
+                return;
+            }
+
+            action(); 
+        
         };
 
         if (debounce) {

@@ -17,7 +17,9 @@ export default class {
     constructor() {
         binder.bindClass(this);
 
-        this.$image = $('<img>').on('load', this._imageLoaded);
+        this.$image = $('<img>')
+            .on('load', this._imageLoaded)
+            .on('error', () => { this.reset(); });
         this.disabled = false;
     }
     setImage(imageSrc, initialOptions) {

@@ -13,7 +13,7 @@
         upload: upload
     }
 
-    function upload(options) {
+    function upload(options, associatedLearningContentId, callback) {
         var settings = $.extend({}, defaultSettings, options);
 
         var input = $("<input>")
@@ -21,7 +21,6 @@
             .attr('name', 'file')
             .attr('accept', settings.acceptedTypes)
             .on('change', function (e) {
-
                 var filePath = $(this).val(),
                     file = e.target.files[0],
                     isExtensionValid;
@@ -38,7 +37,9 @@
                         if (file.size > userContext.storageIdentity.availableStorageSpace) {
                             notify.error(settings.notAnoughSpaceMessage);
                         } else {
-                            settings.startUpload(file, settings);
+                           if (_.isFunction(callback))
+                                callback();
+                           settings.startUpload(file, settings, associatedLearningContentId);
                         }
                     });
 

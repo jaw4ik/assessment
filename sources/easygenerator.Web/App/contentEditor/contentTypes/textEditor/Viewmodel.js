@@ -16,7 +16,8 @@ export default class {
         this.eventTracker = eventTracker;
         this.autosaveInterval = constants.autosaveTimersInterval.learningContent;
         this.isEditing = ko.observable(false);
-        
+
+        //TODO: fix outside click focus
         let $html = $('html');
         _.defer(() => $html.trigger('click'));
     }

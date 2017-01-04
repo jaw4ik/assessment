@@ -30,5 +30,8 @@ export default {
         let js = JSON.parse(json);
 
         return this.replicateObservableObject(to, js);
-    }
+    },
+    equals(target, source) {
+        return ko.toJSON(target) === ko.toJSON(source);
+    }		     
 }

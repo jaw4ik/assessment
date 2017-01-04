@@ -1,5 +1,4 @@
 ﻿import ContentBase from './../ContentBase';
-
 import localizationManager from 'localization/localizationManager';
 import eventTracker from 'eventTracker';
 import constants from 'constants';

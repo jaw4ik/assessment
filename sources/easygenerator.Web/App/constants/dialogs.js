@@ -134,9 +134,9 @@
             }
         }
     },
-    imageLibraryDialog: {
+    mediaLibraryDialog: {
         settings: {
-            containerCss: 'image-library-dialog'
+            containerCss: 'media-library-dialog'
         }
     }
 };

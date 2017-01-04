@@ -82,14 +82,15 @@ export default {
     frameSize: {
         width: {
             name: 'frameWidth',
-            value: 930
+            value: 930  
         },
         height: {
             name: 'frameHeight',
             value: 700
         }
-    },
+    },  
     embedCode: '<iframe width="{W}" height="{H}" src="{src}" frameborder="0" allowfullscreen></iframe>',
+    urlRegexExpression: /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/,
     copyToClipboardWait: 5000,
     results: {
         pageSize: 10

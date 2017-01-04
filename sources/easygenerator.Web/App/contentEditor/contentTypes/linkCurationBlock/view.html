@@ -1,5 +1,4 @@
-﻿
-<section class='eg-content-editor' data-bind='outsideClick: { action: endEditing, debounce: true }'>
+﻿<section class='eg-content-editor' data-bind='outsideClick: { action: endEditing, debounce: true }'>
     <div class='question-learning-content selectable link-block' data-bind="click: function() { if(!isEditing()) startEditing() }"> 
         <div class='link-block-wrapper'> 
            <div class='link-editor-description'>
@@ -18,18 +17,18 @@
             <!--LINK CONTENT WRAPPER-->
             <div class='link-content-wrapper'>
                 <!--IMAGE BLOCK -->
-                <div class='image-block-link' data-bind="
-                    css: { 
+                <div class='image-block-link' data-bind=
+                    "css: { 
                         deleted: instance.parsed() && !instance.map.selectedImage().length, 
                         parsed: !!instance.map.selectedImage().length,
                         empty: !instance.parsed() && !instance.map.selectedImage().length }">
                     <!--PRELOADER-->
-                    <div data-bind="
-                        preloader: { settings: 'align-center z-index' }, 
+                    <div data-bind=
+                        "preloader: { settings: 'align-center z-index' }, 
                         visible: instance.isInProcess() && (!!instance.map.selectedImage().length || !instance.parsed())">
                     </div>
-                    <div class="inner-image-wrapper" data-bind="
-                        css: { 
+                    <div class="inner-image-wrapper" data-bind=
+                        "css: { 
                             'link-editing': instance.isLinkEditing, 
                             'link-normal': !instance.isLinkEditing },
                         imageSlider: { 
@@ -42,21 +41,21 @@
                 </div>
                 <!--TEXT BLOCK-->
                 <div class='text-link-wrapper'>
-                    <div class='text-block-link' data-bind="
-                        css: { 
+                    <div class='text-block-link' data-bind=
+                        "css: { 
                             'link-editing': instance.isLinkEditing, 
                             'link-normal': !instance.isLinkEditing }">
                         <div class='link-title'>
-                            <div data-bind="
-                                css: { 
+                            <div data-bind=
+                                "css: { 
                                     done: instance.map.title(), 
                                     empty: !instance.map.title() }, 
                                 text: instance.map.title">
                             </div>
                         </div>
                         <div class='link-content'>
-                            <div data-bind="
-                                css: { 
+                            <div data-bind=
+                                "css: { 
                                     done: instance.map.description(), 
                                     empty: !instance.map.description() }, 
                                 text: instance.map.description"></div> 
@@ -68,25 +67,25 @@
                             css: { error: !instance.isValidUrl() && instance.hasFocus() }, 
                             visible: (!instance.parsed() || instance.isLinkEditing())">
                             <form class='form-wrapper'>
-                                <input spellcheck='false' class='link-input' type='text' tabindex='0' placeholder='Paste link here...' data-bind="
-                                    css: { error: !instance.isValidUrl() && instance.hasFocus() }, 
+                                <input spellcheck='false' class='link-input' type='text' tabindex='0' placeholder='Paste link here...' data-bind=
+                                    "css: { error: !instance.isValidUrl() && instance.hasFocus() }, 
                                     value: instance.map.url, 
                                     valueUpdate: 'afterkeydown',
                                     hasfocus: instance.hasFocus(),
                                     enterKeyDownBindingHandler: function() { instance.getCurationLink(instance.map.url()) }"/>
-                                <a class='link-exmpl' data-bind="
-                                    click: instance.useExample, 
+                                <a class='link-exmpl' data-bind=
+                                    "click: instance.useExample, 
                                     style: { visibility: !!instance.map.url().length ? 'hidden' : 'visible' },
                                     localize: { text: 'useExample' }"></a> 
                                 <button class='submit-link-button button small main' type='button' data-bind="click: function() { instance.getCurationLink(instance.map.url()); }, text: 'ok'"></button>
-                                <span class='link-input-status-message' data-bind="
-                                    css: { error: !instance.isValidUrl() && instance.hasFocus() },
+                                <span class='link-input-status-message' data-bind=
+                                    "css: { error: !instance.isValidUrl() && instance.hasFocus() },
                                     localize: { text: 'notValidLink' }"></span>
                             </form>
                         </div>
                         <!--LINK STATIC PRESENT BLOCK-->
-                        <div class='static-link-present' data-bind="
-                            click: instance.editLink, 
+                        <div class='static-link-present' data-bind=
+                            "click: instance.editLink, 
                             visible: instance.parsed() && !instance.isLinkEditing()">   
                             <div class='static-link-wrapper'>  
                                 <div class='unactive-link' data-bind="text: instance.map.url()"></div>
