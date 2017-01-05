@@ -53,7 +53,7 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers.Organizaions
         public void Handle(UserEmailConfirmedEvent args)
         {
             _organizationUserRepository.GetCollection(user => user.Email == args.User.Email && user.Status == OrganizationUserStatus.WaitingForEmailConfirmation)
-                .ForEach(user => user.AcceptInvite());
+                .ForEach(user => _organizationOperations.AcceptInvite(user));
 
             _unitOfWork.Save();
         }

@@ -23,6 +23,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Domain.DomainOperations;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -49,6 +50,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IOrganizationUserRepository _organizationUserRepository;
         private ICourseRepository _courseRepository;
         private ICloner _cloner;
+        private IOrganizationOperations _organizationOperations;
 
 
         [TestInitialize]
@@ -68,8 +70,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(CurrentUserEmail);
             _courseRepository = Substitute.For<ICourseRepository>();
             _cloner = Substitute.For<ICloner>();
+            _organizationOperations = Substitute.For<IOrganizationOperations>();
             _controller = new OrganizationController(_organizationRepository, _organizationMapper, _entityFactory, _entityMapper, _userRepository,
-                _mailSenderWrapper, _inviteMapper, _organizationUserRepository, _courseRepository, _cloner);
+                _mailSenderWrapper, _inviteMapper, _organizationUserRepository, _courseRepository, _cloner, _organizationOperations);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -456,28 +459,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.AcceptOrganizationInvite(user);
 
             //Assert
-            user.Received().AcceptInvite();
+            _organizationOperations.Received().AcceptInvite(user);
         }
-
-        [TestMethod]
-        public void AcceptOrganizationInvite_ShouldCollaborateAsAdminForEachUserOwnedCourse()
-        {
-            //Arrange
-            var course = Substitute.For<Course>();
-            var organization = OrganizationObjectMother.Create();
-            var adminUser = organization.Users.First();
-
-            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail);
-
-            _courseRepository.GetOwnedCourses(user.Email).Returns(new List<Course>() { course });
-
-            //Act
-            _controller.AcceptOrganizationInvite(user);
-
-            //Assert
-            course.Received().CollaborateAsAdmin(adminUser.Email);
-        }
-
+        
         [TestMethod]
         public void AcceptOrganizationInvite_ShouldReturnJsonSuccess()
         {

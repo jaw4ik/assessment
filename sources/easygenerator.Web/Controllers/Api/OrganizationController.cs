@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Domain.DomainOperations;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -31,10 +32,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
         private readonly ICourseRepository _courseRepository;
         private readonly ICloner _cloner;
+        private readonly IOrganizationOperations _organizationOperations;
 
         public OrganizationController(IOrganizationRepository organizationRepository, IOrganizationMapper organizationMapper, IEntityFactory entityFactory, IEntityMapper entityMapper,
             IUserRepository userRepository, IMailSenderWrapper mailSenderWrapper, IOrganizationInviteMapper organizationInviteMapper, IOrganizationUserRepository organizationUserRepository,
-            ICourseRepository courseRepository, ICloner cloner)
+            ICourseRepository courseRepository, ICloner cloner, IOrganizationOperations organizationOperations)
         {
             _organizationRepository = organizationRepository;
             _organizationMapper = organizationMapper;
@@ -46,6 +48,7 @@ namespace easygenerator.Web.Controllers.Api
             _organizationUserRepository = organizationUserRepository;
             _courseRepository = courseRepository;
             _cloner = cloner;
+            _organizationOperations = organizationOperations;
         }
 
         [HttpPost]
@@ -176,16 +179,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return HttpNotFound(Errors.OrganizationUserNotFoundError);
             }
-
-            organizationUser.AcceptInvite();
-
-            foreach (var course in _courseRepository.GetOwnedCourses(organizationUser.Email))
-            {
-                foreach (var organizationAdmin in organizationUser.Organization.Users.Where(u => u.IsAdmin && u.Status == OrganizationUserStatus.Accepted))
-                {
-                    course.CollaborateAsAdmin(organizationAdmin.Email);
-                }
-            }
+            _organizationOperations.AcceptInvite(organizationUser);
 
             return JsonSuccess();
         }
