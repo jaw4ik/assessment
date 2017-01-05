@@ -8,6 +8,9 @@ import phantom from 'phantom';
 import co from 'co';
 import { exec } from 'child_process';
 
+const autotestsProjectName = 'easygenerator.Web.AutoTests';
+const autotestsDir = `sources/${autotestsProjectName}`;
+
 var buildUtils = buildUtilsModule();
 var $ = gulpLoadPlugins({
     lazy: true
@@ -30,13 +33,30 @@ gulp.task('run-unit-tests', function (cb) {
     runSequence('run-server-tests', 'run-jasmine-tests', cb);
 });
 
-gulp.task('run-auto-tests', function () {
-	process.chdir('sources/easygenerator.Web.AutoTests');
-    return gulp.src('wdio.conf.js').pipe(require('../../../../sources/easygenerator.Web.AutoTests/node_modules/gulp-webdriver')({}));
+gulp.task('chdir-autotests', () => {
+	const currentDir = process.cwd();
+	if(currentDir.indexOf(autotestsProjectName) !== -1) {
+		return;
+	}
+	return process.chdir(autotestsDir);
 });
 
-gulp.task('auto-tests', ['run-auto-tests'], function() {
-	return exec('allure generate ./allure-results && allure report open').stdout.pipe(process.stdout);
+gulp.task('run-autotests', ['chdir-autotests'], () => {
+    return gulp.src('wdio.conf.js').pipe(require(`../../../../${autotestsDir}/node_modules/gulp-webdriver`)({})).on('error', function(err) {
+		console.log(err.toString());
+		this.emit('end');
+	});
+});
+
+gulp.task('build-autotests-report', ['chdir-autotests'], () => {
+	var result = exec('allure generate ./allure-results && allure report open');
+	result.stdout.pipe(process.stdout);
+	result.stderr.pipe(process.stderr);
+	return result;
+});
+
+gulp.task('autotests', cb => {
+	runSequence('run-autotests', 'build-autotests-report', cb);
 });
 
 const execute = url => new Promise((resolve, reject) => {
