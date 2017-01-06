@@ -1006,6 +1006,6 @@
     "singleAudio": "Einzelne Audio-Datei",
     "singleVideo": "Einzelnes Video",
     "mediaTabName": "Medien",
-    "pasteOrTypeVideoLink": "Paste or type video link...",
-    "changeVideo": "Change video"
+    "pasteOrTypeVideoLink": "Videoverknüpfung einfügen oder eingeben...",
+    "changeVideo": "Video ändern"
 }
