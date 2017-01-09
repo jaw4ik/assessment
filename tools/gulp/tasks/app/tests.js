@@ -6,10 +6,13 @@ import config from '../../config';
 import fileUrl from 'file-url';
 import phantom from 'phantom';
 import co from 'co';
+import fs from 'fs';
+import del from 'del';
 import { exec } from 'child_process';
 
 const autotestsProjectName = 'easygenerator.Web.AutoTests';
 const autotestsDir = `sources/${autotestsProjectName}`;
+const wdioConf = 'wdio.conf.js';
 
 var buildUtils = buildUtilsModule();
 var $ = gulpLoadPlugins({
@@ -33,6 +36,7 @@ gulp.task('run-unit-tests', function (cb) {
     runSequence('run-server-tests', 'run-jasmine-tests', cb);
 });
 
+/* autotests */
 gulp.task('chdir-autotests', () => {
 	const currentDir = process.cwd();
 	if(currentDir.indexOf(autotestsProjectName) !== -1) {
@@ -41,8 +45,30 @@ gulp.task('chdir-autotests', () => {
 	return process.chdir(autotestsDir);
 });
 
-gulp.task('run-autotests', ['chdir-autotests'], () => {
-    return gulp.src('wdio.conf.js').pipe(require(`../../../../${autotestsDir}/node_modules/gulp-webdriver`)({})).on('error', function(err) {
+gulp.task('delete-autotests-result', ['chdir-autotests'], () => {
+	const options = require(`../../../../${autotestsDir}/${wdioConf}`).config.reporterOptions;
+	if (!options || !options.allure || !options.allure.outputDir) {
+		return;
+	}
+	const allureResultsDir = options.allure.outputDir;
+	return del([`${allureResultsDir}/**`, 'allure-report/**']);
+});
+
+gulp.task('delete-autotests-error-shots', ['chdir-autotests'], () => {
+	const errorShotsPath = require(`../../../../${autotestsDir}/${wdioConf}`).config.screenshotPath;
+	if (!errorShotsPath) {
+		return;
+	}
+	return del([`${errorShotsPath}/**`]);
+});
+
+gulp.task('create-autotests-error-shots-folder', ['delete-autotests-error-shots'], cb => {
+	const errorShotsPath = require(`../../../../${autotestsDir}/${wdioConf}`).config.screenshotPath;
+	fs.mkdir(errorShotsPath, cb);
+});
+
+gulp.task('run-autotests', ['chdir-autotests', 'delete-autotests-result', 'create-autotests-error-shots-folder'], () => {
+    return gulp.src(wdioConf).pipe(require(`../../../../${autotestsDir}/node_modules/gulp-webdriver`)({})).on('error', function(err) {
 		console.log(err.toString());
 		this.emit('end');
 	});
@@ -58,6 +84,7 @@ gulp.task('build-autotests-report', ['chdir-autotests'], () => {
 gulp.task('autotests', cb => {
 	runSequence('run-autotests', 'build-autotests-report', cb);
 });
+/* autotests */
 
 const execute = url => new Promise((resolve, reject) => {
     const constants = {

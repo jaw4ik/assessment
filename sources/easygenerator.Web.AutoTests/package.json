@@ -8,6 +8,7 @@
     "email": "petriv.roma@gmail.com"
   },
   "devDependencies": {
+    "del": "^2.2.2",
     "gulp-webdriver": "^2.0.3",
     "node-uuid": "^1.4.7",
     "wdio-allure-reporter": "^0.1.2",

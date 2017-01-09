@@ -33,13 +33,13 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 2,
+    maxInstances: process.env.maxInstances ? parseInt(process.env.maxInstances) : 2,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
+    capabilities: process.env.capabilities ? JSON.parse(process.env.capabilities) : [{
         maxInstances: 2,
         browserName: 'chrome'
     }, {
@@ -72,7 +72,7 @@ exports.config = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
-    baseUrl: 'http://localhost:666',
+    baseUrl: process.env.baseUrl || 'http://localhost:666',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 60000,
@@ -119,7 +119,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    reporters: ['allure'],
+    reporters: ['spec', 'allure'],
     reporterOptions: {
         allure: {
             outputDir: 'allure-results'
@@ -135,8 +135,14 @@ exports.config = {
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
         // an assertion fails.
-        expectationResultHandler: function(passed, assertion) {
-            // do something
+        expectationResultHandler: function (passed, assertion) {
+			if (passed) {
+                return;
+            }
+            const browserName = this.desiredCapabilities.browserName.split(' ').join('_');
+            const date = (new Date()).toISOString().split(':').join('-');
+            const shotName = `ERROR_${browserName}_${date}.png`;
+            this.saveScreenshot(`${exports.config.screenshotPath}${shotName}`);
         }
     },
     
