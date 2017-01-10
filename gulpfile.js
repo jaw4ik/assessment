@@ -96,7 +96,7 @@ gulp.task('bower', ['clean'], function () {
 });
 
 gulp.task('css', ['clean', 'bower'], function () {
-    gulp.src(['./src/css/font/fonts.less', './src/css/styles.less'])
+    return gulp.src(['./src/css/font/fonts.less', './src/css/styles.less'])
         .pipe(less())
         .pipe(css())
         .pipe(csso())
