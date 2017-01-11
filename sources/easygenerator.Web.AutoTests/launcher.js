@@ -17,6 +17,7 @@ class Launcher {
     run() {
         this.removeResults();
         this.removeErrorShots();
+        this.removeSeleniumLogs();
 
         return wdio.get(this).run().then(code => {
             console.log(`process exited with code ${code}`);
@@ -41,6 +42,13 @@ class Launcher {
         }
         del.sync([`${errorShotsPath}/**`]);
         fs.mkdirSync(errorShotsPath);
+    }
+    removeSeleniumLogs() {
+        const logsPath = wdioConfig.get(this).config.seleniumLogs;
+        if (!logsPath) {
+            return;
+        }
+        del.sync([`${logsPath}/**`]);
     }
 };
 

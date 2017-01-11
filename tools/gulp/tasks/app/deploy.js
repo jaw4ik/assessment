@@ -53,8 +53,8 @@ gulp.task('deploy-css', function () {
         .pipe(gulp.dest(outputDirectory + '/Content'));
 });
 
-gulp.task('remove-app-sources', function (cb) {
-    del(outputDirectory + '/app', { force: true }, cb);
+gulp.task('remove-app-sources', function () {
+    return del(outputDirectory + '/app', { force: true });
 });
 
 gulp.task('deploy-main-app', function () {
@@ -87,7 +87,7 @@ gulp.task('include-saml-certificates', function(cb) {
 			cb();
 			return;
 		}
-		del([`${outputDirectory}/SAML/IdentityProvider/Certificates/*`], { force: true }, function(){
+		del([`${outputDirectory}/SAML/IdentityProvider/Certificates/*`], { force: true }).then(function(){
 			gulp.src(`./tools/${samlCertsFolderName}/${instance}/*`)
 				.pipe(gulp.dest(`${outputDirectory}/SAML/IdentityProvider/Certificates`));
 			cb();
@@ -95,8 +95,8 @@ gulp.task('include-saml-certificates', function(cb) {
 	});
 });
 
-gulp.task('remove-extra-files', function (cb) {
-    del([outputDirectory + '/*debug.config',
+gulp.task('remove-extra-files', function () {
+    return del([outputDirectory + '/*debug.config',
         outputDirectory + '/*release.config',
         outputDirectory + '/packages.config',
         outputDirectory + '/bin/*.config',
@@ -108,7 +108,7 @@ gulp.task('remove-extra-files', function (cb) {
         outputDirectory + '/humans.txt',
         outputDirectory + '/Content/**/*.less',
         outputDirectory + '/Scripts/jasmine',
-        'tools/WebConfigTransform/' + instance + '.config'], { force: true }, cb);
+        'tools/WebConfigTransform/' + instance + '.config'], { force: true });
 });
 
 gulp.task('add-version', function (cb) {
@@ -130,9 +130,9 @@ gulp.task('add-survey-popup-settings', function (cb) {
     cb();
 });
 
-gulp.task('clean', function (callback) {
-    del([outputDirectory,
-		 testResultsDirectory], { force: true }, callback);
+gulp.task('clean', function () {
+    return del([outputDirectory,
+		 testResultsDirectory], { force: true });
 });
 
 gulp.task('deploy', function (cb) {

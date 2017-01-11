@@ -67,7 +67,16 @@ gulp.task('create-autotests-error-shots-folder', ['delete-autotests-error-shots'
 	fs.mkdir(errorShotsPath, cb);
 });
 
-gulp.task('run-autotests', ['chdir-autotests', 'delete-autotests-result', 'create-autotests-error-shots-folder'], () => {
+gulp.task('delete-autotests-selenium-logs', ['chdir-autotests'], () => {
+	const logsPath = require(`../../../../${autotestsDir}/${wdioConf}`).config.seleniumLogs;
+	if (!logsPath) {
+		return;
+	}
+	return del([`${logsPath}/**`]);
+	
+});
+
+gulp.task('run-autotests', ['chdir-autotests', 'delete-autotests-result', 'create-autotests-error-shots-folder', 'delete-autotests-selenium-logs'], () => {
     return gulp.src(wdioConf).pipe(require(`../../../../${autotestsDir}/node_modules/gulp-webdriver`)({})).on('error', function(err) {
 		console.log(err.toString());
 		this.emit('end');
@@ -75,7 +84,12 @@ gulp.task('run-autotests', ['chdir-autotests', 'delete-autotests-result', 'creat
 });
 
 gulp.task('build-autotests-report', ['chdir-autotests'], () => {
-	var result = exec('allure generate ./allure-results && allure report open');
+	const options = require(`../../../../${autotestsDir}/${wdioConf}`).config.reporterOptions;
+	if (!options || !options.allure || !options.allure.outputDir) {
+		return;
+	}
+	const allureResultsDir = options.allure.outputDir;
+	var result = exec(`allure generate ${allureResultsDir} && allure report open`);
 	result.stdout.pipe(process.stdout);
 	result.stderr.pipe(process.stderr);
 	return result;
