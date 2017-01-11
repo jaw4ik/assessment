@@ -16,9 +16,7 @@ gulp.task('create-tags', function () {
             'simple',
             'personalized-learning',
             'assessment',
-            'reader',
-            'ICEMD',
-            'ac-nielsen'
+            'reader'
         ],
         github = new GitHubApi({
             // required
