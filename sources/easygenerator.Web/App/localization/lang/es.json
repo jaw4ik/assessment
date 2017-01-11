@@ -1005,5 +1005,7 @@
     "videoInTheRight": "Vídeo a la derecha",
     "singleAudio": "Audio único",
     "singleVideo": "Vídeo único",
-    "mediaTabName": "Multimedia"
+    "mediaTabName": "Multimedia",
+    "pasteOrTypeVideoLink": "Pegue o escriba el vínculo de vídeo...",
+    "changeVideo": "Cambiar vídeo"
 }

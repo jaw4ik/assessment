@@ -139,7 +139,7 @@
     <value>继续</value>
   </data>
   <data name="CopyrightText" xml:space="preserve">
-    <value>© 2016 easygenerator版权所有，保留所有权利</value>
+    <value>© 2017 easygenerator版权所有，保留所有权利</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>出错了。请重试。如果问题仍然存在请联系support@easygenerator.com</value>

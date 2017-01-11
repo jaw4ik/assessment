@@ -124,7 +124,7 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.Handlers
         #region Handle UserEmailConfirmedEmail
 
         [TestMethod]
-        public void Handle_UserEmailConfirmedEmail_ShouldAutoincludeUsersWithDomainToOrganization()
+        public void Handle_UserEmailConfirmedEmail_ShouldAcceptOrganizationInvite()
         {
             //Arrange
             var user = UserObjectMother.CreateWithEmail(UserEmail);
@@ -139,8 +139,8 @@ namespace easygenerator.Web.Tests.Domain.DomainEvents.Handlers
             _handler.Handle(e);
 
             //Assert
-            user1.Received().AcceptInvite();
-            user2.Received().AcceptInvite();
+            _organizationOperations.Received().AcceptInvite(user1);
+            _organizationOperations.Received().AcceptInvite(user2);
         }
 
         [TestMethod]

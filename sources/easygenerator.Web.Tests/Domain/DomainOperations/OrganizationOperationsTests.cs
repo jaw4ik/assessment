@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace easygenerator.Web.Tests.Domain.DomainOperations
 {
@@ -25,6 +26,7 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
         private IMailSenderWrapper _mailSenderWrapper;
         private IUserOperations _userOperations;
         private IUserRepository _userRepository;
+        private ICourseRepository _courseRepository;
 
         [TestInitialize]
         public void Initialize()
@@ -33,8 +35,9 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _userOperations = Substitute.For<IUserOperations>();
             _userRepository = Substitute.For<IUserRepository>();
+            _courseRepository = Substitute.For<ICourseRepository>();
 
-            _organizationOperations = new OrganizationOperations(_entityFactory, _mailSenderWrapper, _userOperations, _userRepository);
+            _organizationOperations = new OrganizationOperations(_entityFactory, _mailSenderWrapper, _userOperations, _userRepository, _courseRepository);
         }
 
         #region AutoincludeUser
@@ -377,6 +380,41 @@ namespace easygenerator.Web.Tests.Domain.DomainOperations
             template2.Received().GrantAccessTo(user.Email);
         }
 
+        #endregion
+
+        #region AcceptInvite
+        [TestMethod]
+        public void AcceptInvite_ShouldAcceptInviteForUser()
+        {
+            //Arrange
+            var user = Substitute.For<OrganizationUser>();
+
+            //Act
+            _organizationOperations.AcceptInvite(user);
+
+            //Assert
+            user.Received().AcceptInvite();
+        }
+
+        [TestMethod]
+        public void AcceptInvite_ShouldCollaborateAsAdminForEachUserOwnedCourse()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var organization = OrganizationObjectMother.Create();
+            var CurrentUserEmail = "user@easygenerator.com";
+            
+            var adminUser = organization.Users.First();
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail);
+
+            _courseRepository.GetOwnedCourses(user.Email).Returns(new List<Course>() { course });
+
+            //Act
+            _organizationOperations.AcceptInvite(user);
+
+            //Assert
+            course.Received().CollaborateAsAdmin(adminUser.Email);
+        }
         #endregion
     }
 }
