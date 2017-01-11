@@ -61,6 +61,11 @@ describe('Fonts tab', () => {
     });
 
     describe('activate:', () => {
+
+        beforeEach(() => {
+            let promise = Promise.resolve();
+            spyOn(fonts, 'load').and.returnValue(promise);
+        });
         
         it('should activate general tab', done =>{
             
@@ -116,7 +121,7 @@ describe('Fonts tab', () => {
             var familiesToLoad = tab.customFonts.concat(_.filter(fontFamilies, (font) => { return font.needToLoad; }));
             familiesToLoad = familiesToLoad.map(font => { return font.name; });
 
-            spyOn(fonts, 'load').and.callFake(function(fontFamilies){
+            fonts.load.and.callFake(function(fontFamilies){
                 _.each(fontFamilies, function(font){
                     expect(_.contains(familiesToLoad, font.family)).toBeTruthy();
                 });
