@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('assessment.xApi')
+    angular.module('assessment')
         .directive('courseTitle', courseTitle);
 
     function courseTitle() {
@@ -13,13 +13,22 @@
                 function checkFontSize() {
                     var lenght = $element[0].innerHTML.length;
 
-                    if (lenght > 70) {
-                        lenght < 140 ? $element.css('font-size', '30px') : $element.css('font-size', '20px');
+                    if (window.innerWidth > 640) {
+                        changeFontSize($element, lenght, 20, 30);
+                    } else {
+                        changeFontSize($element, lenght, 22, 24);
                     }
+
                     unbind();
                 }
 
             }
         };
+    }
+
+    function changeFontSize($element, lenght, minValue, maxValue) {
+        if (lenght > 70) {
+            lenght < 140 ? $element.css('font-size', maxValue + 'px') : $element.css('font-size', minValue + 'px');
+        }
     }
 }());
