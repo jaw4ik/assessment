@@ -1,4 +1,4 @@
-﻿﻿# easygenerator.Web.AutoTests
+﻿#easygenerator.Web.AutoTests
 
 ##Configuration:
 1. Make sure you have installed `nodejs >= 6.0`, `java > 7`,  `Visual C++ Build Tools`.
