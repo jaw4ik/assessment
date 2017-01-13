@@ -543,8 +543,8 @@
     "openQuestionEditor": "Offene Frage-Editor",
     "createResponseForProvidedAnswer": "Erstellen Sie eine Rückmeldung für eine angegebene Antwort",
     "responseForProvidedAnswer": "Rückmeldung für die angegebene Antwort",
-    "createResponseForEmptyAnswer": "Erstellen Sie eine Rückmeldung für eine fehelende Antwort",
-    "responseForEmptyAnswer": "Rückmeldung für die fehelende Antwort",
+    "createResponseForEmptyAnswer": "Erstellen Sie eine Rückmeldung für eine fehlende Antwort",
+    "responseForEmptyAnswer": "Rückmeldung für die fehlende Antwort",
     "scenario": "Szenario",
     "newScenarioQuestionTitle": "Szenario-Frage ohne Titel",
     "scenarioDesigner": "Szenario-Designer",
@@ -1007,5 +1007,8 @@
     "singleVideo": "Einzelnes Video",
     "mediaTabName": "Medien",
     "pasteOrTypeVideoLink": "Videoverknüpfung einfügen oder eingeben...",
-    "changeVideo": "Video ändern"
+    "changeVideo": "Video ändern",
+    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
+    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "enterVideoUrlOrIframeTag": "Video-URL oder iFrame-Tag eingeben"
 }

@@ -1007,5 +1007,8 @@
     "singleVideo": "Vidéo unique",
     "mediaTabName": "Média",
     "pasteOrTypeVideoLink": "Collez ou tapez le lien vers la vidéo...",
-    "changeVideo": "Changer de vidéo"
+    "changeVideo": "Changer de vidéo",
+    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
+    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "enterVideoUrlOrIframeTag": "Saisissez l'URL de la vidéo ou la balise iframe"
 }

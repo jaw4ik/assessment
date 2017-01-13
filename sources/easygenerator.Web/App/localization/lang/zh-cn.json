@@ -1007,5 +1007,8 @@
     "singleVideo": "单个视频",
     "mediaTabName": "媒体",
     "pasteOrTypeVideoLink": "在此粘贴或写下视频链接...",
-    "changeVideo": "更改视频"
+    "changeVideo": "更改视频",
+    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
+    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "enterVideoUrlOrIframeTag": "输入视频网址或 iframe 标签"
 }
