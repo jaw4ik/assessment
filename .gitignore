@@ -221,3 +221,9 @@ FakesAssemblies/
 
 # PdfConverter ignore files
 /sources/easygenerator.PdfConverter/Pdf_Download
+
+#Autotests ignore
+/sources/easygenerator.Web.AutoTests/errorShots/*
+/sources/easygenerator.Web.AutoTests/allure-results/*
+/sources/easygenerator.Web.AutoTests/allure-report/*
+/sources/easygenerator.Web.AutoTests/seleniumLogs/*

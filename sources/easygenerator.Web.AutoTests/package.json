@@ -1,0 +1,20 @@
+{
+  "name": "easygenerator.web.auto-tests",
+  "version": "0.0.0",
+  "description": "easygenerator.Web.AutoTests",
+  "main": "app.js",
+  "author": {
+    "name": "r.petriv",
+    "email": "petriv.roma@gmail.com"
+  },
+  "dependencies": {
+    "del": "^2.2.2",
+    "gulp-webdriver": "^2.0.3",
+    "node-uuid": "^1.4.7",
+    "wdio-allure-reporter": "^0.1.2",
+    "wdio-jasmine-framework": "^0.2.16",
+    "wdio-selenium-standalone-service": "0.0.7",
+    "wdio-spec-reporter": "0.0.3",
+    "webdriverio": "^4.5.2"
+  }
+}
