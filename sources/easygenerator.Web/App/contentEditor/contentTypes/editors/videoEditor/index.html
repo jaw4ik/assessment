@@ -10,7 +10,6 @@
                         <li class="item">
                             <div class="image-editor-btn upload" data-bind="click: upload">
                                 <span class="btn-text" data-bind="localize: { text: 'uploadFromPC' }"></span>
-                                <span class="upgrade-link" data-bind="visible: !storageSpace(), localize: { text: 'upgradeNow' }"></span>
                             </div>
                         </li>
                         <li class="item">
@@ -22,7 +21,7 @@
                             <div class="image-editor-btn link" data-bind="click: showLinkTooltip, outsideClick: { action: hideLinkTooltip }, stopPropagation: {}">
                                 <span class="btn-text" data-bind="localize: { text: 'enterVideoUrl' }"></span>
                                 <div class="image-editor-link-container" data-bind="css: { showed: linkTooltipShowed }, stopPropagation: {}">
-                                    <textarea class="image-editor-link-input" data-bind="localize: { placeholder: 'pasteOrTypeVideoLink' }, textInput: videoFrameTextAreaInputValue"></textarea>
+                                    <textarea class="image-editor-link-input" data-bind="localize: { placeholder: 'pasteOrTypeVideoLinkOrAnyEmbed' }, textInput: videoFrameTextAreaInputValue"></textarea>
                                     <a class="link-back" data-bind="click: hideLinkTooltip, localize: { text: 'back' }"></a>
                                     <button class="btn green" data-bind="localize: { text: 'ok' }, click: getFromLink"></button>
                                 </div>
@@ -35,19 +34,15 @@
                 <button class="video-editor-edit-action-btn right" data-bind="click: toRight, css: { active: contentType() === contentsTypes.videoInTheRight }, tip: { key: 'videoInTheRight' }"></button>
                 <button class="video-editor-edit-action-btn center" data-bind="click: toCenter, css: { active: contentType() === contentsTypes.videoWithText }, tip: { key: 'videoWithText' }"></button>
                 <!-- /ko -->
-                <!-- ko if: false -->
-                <button class="video-editor-edit-action-btn cropper" data-bind="click: startResizing, tip: { key: 'resizeCropImage' }"></button>
-                <!-- /ko -->
             </div>
-
         </div>
         <!-- /ko -->
         <!-- ko if: video.status() === statuses.inProgress || isPending -->
         <div class="video-circular-bar uploading">
             <canvas width="140" height="140" class="circle-progress" data-bind="circleProgress: { 'type': isPending() ? 'pending' : 'progress', progress: video.progress, 'lineWidth': 2 }"></canvas>
             <span class="progress" data-bind="text: video.progress() === null ? '' : video.progress() + '%'"></span>
-            <span class="free-space-info" data-bind="visible: !!storageSpace() && !isPending()">
-                <span class="free-space-value" data-bind="text: storageSpace().availableStorageSpace"></span>
+            <span class="free-space-info" data-bind="visible: !!videoFileSize() && !isPending()">
+                <span class="free-space-value" data-bind="text: videoFileSize"></span>
             </span>
         </div>
         <!-- /ko -->

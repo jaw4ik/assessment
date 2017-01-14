@@ -1,5 +1,5 @@
 ﻿
-const props = {
+var props = {
     math: {
         circ: Math.PI * 2,
         quart: Math.PI / 2
@@ -10,31 +10,27 @@ const props = {
         firstPendingArc: 'rgba(250,170,74,0.8)',
         secondPendingArc: 'rgba(250,170,74,0.8)'
     }
-}
+};
 
-function drawFullBasicCircleBar(context, centerX, centerY, radius, lineWidth, basicColor)
-{
-    context.clearRect(centerX - radius - lineWidth,
-        centerY - radius - lineWidth,
-        radius * 2 + (lineWidth * 2),
-        radius * 2 + (lineWidth * 2));
+function drawFullBasicCircleBar(context, centerX, centerY, radius, lineWidth, basicColor) {
+    context.clearRect(centerX - radius - lineWidth, centerY - radius - lineWidth, radius * 2 + (lineWidth * 2), radius * 2 + (lineWidth * 2));
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, props.math.circ);
     context.strokeStyle = basicColor;
     context.lineWidth = lineWidth;
     context.closePath();
     context.stroke();
-}
+};
 
-function drawCircleBar(context, centerX, centerY, radius, startAt, amount, lineLength = 0, color = props.colors.progress) {
+function drawCircleBar(context, centerX, centerY, radius, startAt, amount, lineLength, color) {
     context.beginPath();
     context.strokeStyle = color;
     context.arc(centerX, centerY, radius, -(props.math.quart) + startAt - lineLength, ((props.math.circ) * amount.toFixed(2)) - props.math.quart, false);
     context.stroke();
-}
+};
 
     ko.bindingHandlers.circleProgress = {
-        init: (element, valueAccessor) => {
+        init: function (element, valueAccessor) {
             const that = {};
             that.cnxt = element.getContext('2d');
             that.$element = $(element),
@@ -59,7 +55,7 @@ function drawCircleBar(context, centerX, centerY, radius, startAt, amount, lineL
 
                 let firstArcAmount = 0;
                 let secondArcAmount = 0;
-                that.pendingArcInterval = setInterval(() => {
+                that.pendingArcInterval = setInterval(function() {
                     
                     if (firstArcAmount > 1 + (props.math.circ) * 0.004) {
                         firstArcAmount = 0;
@@ -92,7 +88,7 @@ function drawCircleBar(context, centerX, centerY, radius, startAt, amount, lineL
                         secondArcAmount,
                         1,
                         props.colors.secondPendingArc);
-                }, 0);
+                }.bind(this), 0);
             } else {
                 if(!_.isNull(that.pendingArcInterval)) {
                     clearInterval(that.pendingArcInterval);
@@ -102,7 +98,7 @@ function drawCircleBar(context, centerX, centerY, radius, startAt, amount, lineL
                     let amount = that.progress;
                     that.progress = valueAccessor().progress() / 100;
 
-                    var interval = setInterval(() => {
+                    var interval = setInterval(function() {
                         amount += 0.005;
                         if (amount > that.progress) {
                             amount = that.progress;
@@ -126,7 +122,7 @@ function drawCircleBar(context, centerX, centerY, radius, startAt, amount, lineL
                             amount,
                             0,
                             props.colors.progress);
-                    }, 0);
+                    }.bind(this), 0);
                 }
             }
         }

@@ -7,6 +7,7 @@ import TextEditor, { className as textEditorClassName } from '../editors/textEdi
 import VideoEditor, { className as videoEditorClassName } from '../editors/videoEditor/index';
 import { getDefaultDataByType } from './components/defaultDataGenerator';
 import uploadManager from 'videoUpload/uploadManager';
+import eventTracker from 'eventTracker';
 
 function checkCallbacksReqiredProperties(callbacks) {
     return _.isFunction(callbacks.startEditing) &&
@@ -79,6 +80,7 @@ export default class{
 
         let editorInstances = null;
         if (justCreated) {
+            eventTracker.publish(`Add Media Block typeof ${this.contentType}`);
             editorInstances = data();
         } else {
             let parsedData = contentEditorParser.parse(ko.unwrap(data));
@@ -90,14 +92,14 @@ export default class{
 
             _.each(column, row => {
                 let tempInstance = this._createInstance(row.type, row.data);
-                this.setVideoEditorOnFocus(tempInstance, justCreated);
+                this._setVideoEditorOnFocus(tempInstance, justCreated);
                 columnsArray.push(tempInstance);
             });
             this.editorInstances.push(columnsArray);
         });
     }
 
-    setVideoEditorOnFocus(instance, justCreated) {
+    _setVideoEditorOnFocus(instance, justCreated) {
         if (instance instanceof VideoEditor && !this.isEditing() && justCreated) {
             this.isEditing(true);
             instance.startEditMode();

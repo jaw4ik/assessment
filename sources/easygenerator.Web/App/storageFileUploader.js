@@ -9,6 +9,8 @@
         startUpload: function () { }
     };
 
+    var bytesInMegabyte = 1048576;
+
     return {
         upload: upload
     }
@@ -37,8 +39,11 @@
                         if (file.size > userContext.storageIdentity.availableStorageSpace) {
                             notify.error(settings.notAnoughSpaceMessage);
                         } else {
-                           if (_.isFunction(callback))
-                                callback();
+                           if (_.isFunction(callback)) {
+                               var fileSizeInMegabytes = (file.size / bytesInMegabyte).toFixed(2);
+                               callback(fileSizeInMegabytes);
+                           }
+                               
                            settings.startUpload(file, settings, associatedLearningContentId);
                         }
                     });

@@ -9,11 +9,11 @@ import thumbnailsHandler from 'videoUpload/handlers/thumbnails';
 import userContext from 'userContext';
 import localizationManager from 'localization/localizationManager';
 import storageFileUploader from 'storageFileUploader';
-import deleteVideoCommand from 'viewmodels/videos/commands/deleteVideo';
+import videoCommands from 'commands/videos/index';
 import notify from 'notify';
 
 describe('viewModel [videos]', function () {
-
+    
     beforeEach(function () {
         spyOn(localizationManager, 'localize');
         userContext.storageIdentity = {};
@@ -166,7 +166,6 @@ describe('viewModel [videos]', function () {
                 expect(repository.getCollection).toHaveBeenCalled();
                 done();
             });
-
         });
 
         it('should load thumbnails for all videos', function (done) {
@@ -176,7 +175,6 @@ describe('viewModel [videos]', function () {
                 expect(thumbnailsHandler.getThumbnailUrls).toHaveBeenCalledWith([video]);
                 done();
             });
-
         });
 
         it('should map all videos', function (done) {
@@ -195,7 +193,6 @@ describe('viewModel [videos]', function () {
                 expect(viewModel.videos()[0].isDeleting()).toBeFalsy();
                 done();
             });
-
         });
 
         describe('when user has free plan', function () {
@@ -209,12 +206,10 @@ describe('viewModel [videos]', function () {
                 viewModel.storageSpaceProgressBarVisibility(true);
 
                 viewModel.activate().then(function () {
-                    expect(viewModel.storageSpaceProgressBarVisibility()).toEqual(false);
+                    expect(viewModel.storageSpace).toEqual(false);
                     done();
                 });
-
             });
-
         });
 
         describe('when user has not free plan', function () {
@@ -244,7 +239,7 @@ describe('viewModel [videos]', function () {
                     var promise = viewModel.activate();
 
                     promise.fin(function () {
-                        expect(viewModel.availableStorageSpace()).toBe('1.0' + localizationManager.localize('gb'));
+                        expect(viewModel.availableStorageSpace()).toBe('1.00' + localizationManager.localize('gb'));
                         done();
                     });
 
@@ -273,7 +268,7 @@ describe('viewModel [videos]', function () {
                     var promise = viewModel.activate();
 
                     promise.fin(function () {
-                        expect(viewModel.availableStorageSpace()).toBe('1024.0' + localizationManager.localize('mb'));
+                        expect(viewModel.availableStorageSpace()).toBe('1024.00' + localizationManager.localize('mb'));
                         done();
                     });
 
@@ -434,17 +429,17 @@ describe('viewModel [videos]', function () {
 
     describe('deleteVideo:', function () {
         var video = {
-            id: 'id',
-            isDeleting: ko.observable(),
-            isDeleteConfirmationShown: ko.observable()
-        },
+                id: 'id',
+                isDeleting: ko.observable(),
+                isDeleteConfirmationShown: ko.observable()
+            },
             deleteVideoDefer = Q.defer();
 
         beforeEach(function () {
             viewModel.videos([video]);
             spyOn(notify, 'saved');
             spyOn(eventTracker, 'publish');
-            spyOn(deleteVideoCommand, 'execute').and.returnValue(deleteVideoDefer.promise);
+            spyOn(videoCommands, 'deleteVideo').and.returnValue(deleteVideoDefer.promise);
         });
 
         it('should publish \'Delete video from library\' event', function () {
@@ -460,7 +455,7 @@ describe('viewModel [videos]', function () {
 
         it('should delete video', function () {
             viewModel.deleteVideo(video);
-            expect(deleteVideoCommand.execute).toHaveBeenCalledWith(video.id);
+            expect(videoCommands.deleteVideo).toHaveBeenCalledWith(video.id);
         });
 
         describe('and when video deleted successfully', function () {
@@ -469,14 +464,14 @@ describe('viewModel [videos]', function () {
             });
 
             it('should delete video from video library list', function (done) {
-                viewModel.deleteVideo(video).fin(function () {
+                viewModel.deleteVideo(video).then(function () {
                     expect(viewModel.videos().length).toBe(0);
                     done();
                 });
             });
 
             it('should show saved notification', function (done) {
-                viewModel.deleteVideo(video).fin(function () {
+                viewModel.deleteVideo(video).then(function () {
                     expect(notify.saved).toHaveBeenCalled();
                     done();
                 });
@@ -484,7 +479,7 @@ describe('viewModel [videos]', function () {
 
             it('should set video isDeleting to false', function (done) {
                 video.isDeleting(true);
-                viewModel.deleteVideo(video).fin(function () {
+                viewModel.deleteVideo(video).then(function () {
                     expect(video.isDeleting()).toBeFalsy();
                     done();
                 });
@@ -492,7 +487,7 @@ describe('viewModel [videos]', function () {
 
             it('should set video isDeleteConfirmationShown to false', function (done) {
                 video.isDeleteConfirmationShown(true);
-                viewModel.deleteVideo(video).fin(function () {
+                viewModel.deleteVideo(video).then(function () {
                     expect(video.isDeleteConfirmationShown()).toBeFalsy();
                     done();
                 });
@@ -506,7 +501,7 @@ describe('viewModel [videos]', function () {
 
             it('should set video isDeleting to false', function (done) {
                 video.isDeleting(true);
-                viewModel.deleteVideo(video).fin(function () {
+                viewModel.deleteVideo(video).then(function () {
                     expect(video.isDeleting()).toBeFalsy();
                     done();
                 });
@@ -514,7 +509,7 @@ describe('viewModel [videos]', function () {
 
             it('should set video isDeleteConfirmationShown to false', function (done) {
                 video.isDeleteConfirmationShown(true);
-                viewModel.deleteVideo(video).fin(function () {
+                viewModel.deleteVideo(video).then(function () {
                     expect(video.isDeleteConfirmationShown()).toBeFalsy();
                     done();
                 });

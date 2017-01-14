@@ -85,11 +85,10 @@ function (app, router, constants, eventTracker, repository, videoPopup, videoUpl
             eventTracker.publish(events.deleteVideoFromLibrary);
 
             video.isDeleting(true);
-            videoCommands.deleteVideo(video.id)
+            return videoCommands.deleteVideo(video.id)
                 .then(function () {
                     viewModel.videos.remove(video);
                     notify.saved();
-                }).fin(function () {
                     video.isDeleteConfirmationShown(false);
                     video.isDeleting(false);
                 });

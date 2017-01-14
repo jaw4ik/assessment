@@ -11,7 +11,7 @@ import userContext from 'userContext';
 import uploadSettings from 'videoUpload/settings';
 import utils from 'utils/observableHelpers';
 
-let eventCategory = 'Media Editor - Video library',
+let eventCategory = 'Video library',
     events = {
         openUploadVideoDialog: 'Open \"choose video file\" dialog',
         deleteVideoFromLibrary: 'Delete video from library'

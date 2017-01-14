@@ -9,7 +9,6 @@ async function deleteVideo (videoId) {
     dataContext.videos = _.reject(dataContext.videos, (video) => {
         return video.id === videoId;
     });
-
     await userContext.identifyStoragePermissions();
     app.trigger(constants.storage.changesInQuota);
     app.trigger(constants.storage.video.changesInUpload);

@@ -1008,6 +1008,7 @@
     "mediaTabName": "Медіа",
     "pasteOrTypeVideoLink": "Вставте або введіть посилання на відео тут...",
     "changeVideo": "Змінити відео",
-    "pasteOrTypeVideoUrlOrIframeTag": "Напишіть чи вставте відео посилання або 'iframe' тег",
-    "enterVideoUrl": "Додайте відео посилання (YouTube, Vimeo ect)"
+    "pasteOrTypeVideoLinkOrAnyEmbed": "Вставте або введіть посилання на відео чи будь-який код вставки",
+    "enterVideoUrl": "Додайте відео посилання (YouTube, Vimeo або інше...)",
+    "enterVideoUrlOrIframeTag": "Додайте відео посилання або 'iframe' тег"
 }

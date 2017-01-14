@@ -1,4 +1,5 @@
 ﻿import $ from 'jquery';
+import { className as videoEditorClassName } from 'contentEditor/contentTypes/editors/videoEditor/index';
 import _ from 'underscore';
 
 const cssClasses = {
@@ -52,7 +53,7 @@ export default class {
                     .addClass(cssClasses.row)
                     .attr(attributeNames.contentDataType, row.className)
                     .html(row.data());
-                if (row.className === 'VideoEditor') {
+                if (row.className === videoEditorClassName) {
                     $row.attr('style', 'padding-bottom: 55.25%');
                     $row.addClass(cssClasses.videoEditor);
                 }

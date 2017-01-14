@@ -1,5 +1,4 @@
-﻿import userContext from 'userContext';
-import repository from 'repositories/videoRepository';
+﻿import repository from 'repositories/videoRepository';
 import thumbnailLoader from 'videoUpload/handlers/thumbnails';
 import { map } from 'videoUpload/mappers/videoMapper';
 

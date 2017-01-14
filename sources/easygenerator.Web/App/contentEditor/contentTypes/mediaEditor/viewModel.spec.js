@@ -1,231 +1,291 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
-import ViewModel, { errors } from './viewModel';
+import MediaEditorViewModel, { errors } from './viewModel';
 import binder from 'binder';
 import constants from 'constants';
+import contentEditorParser from './components/parser';
 import { getDefaultDataByType } from './components/defaultDataGenerator';
-import contentEditorParser from './components/Parser';
+import VideoEditor, { className as videoEditorClassName } from '../editors/videoEditor/index';
+import TextEditor, { className as textEditorClassName } from '../editors/textEditor/index';
 
-describe('viewmodel [imageEditor]', () => {
 
-    let viewModel = null;
-    let data, justCreated, contentType, callbacks;
-    beforeEach(() => {
-        viewModel = new ViewModel();
-        spyOn(binder, 'bindClass');
-        data = ko.observable('');
-        contentType = constants.contentsTypes.imageEditorOneColumn;
-        justCreated = true;
-        callbacks = {
-            startEditing: () => {},
-            enableOverlay: () => {},
-            disableOverlay: () => {},
-            save: () => {},
-            editingEndedEventTrigger: ko.observable(() => {})
-        };
+describe('viewmodel [mediaEditor]', () => {
+
+    let viewModel = new MediaEditorViewModel();
+    let id = '123';
+    let data = ko.observable('');
+    let contentType = constants.contentsTypes.singleVideo;
+    let justCreated = true;
+    let callbacks = {
+        startEditing: () => {},
+        enableOverlay: () => {},
+        disableOverlay: () => {},
+        save: () => {},
+        endEditing: () => {}
+    };
+    
+
+    it('should return ctor function', () => {
+        expect(MediaEditorViewModel).toBeFunction();
     });
 
-    it('should return ctor function',
-        () => {
-            expect(ViewModel).toBeFunction();
+    describe('ctor', () => {
+        beforeEach(() => {
+            spyOn(binder, 'bindClass');
         });
 
-    describe('ctor',
-        () => {
-            it('should bind class',
-                () => {
-                    let viewmodel = new ViewModel();
-                    expect(binder.bindClass).toHaveBeenCalled();
-                });
-
-            it('should initialize fields',
-                () => {
-                    expect(viewModel.instances).toBeObservableArray();
-                    expect(viewModel.isEditing).toBeObservable();
-                    expect(viewModel.isEditing()).toBeFalsy();
-                    expect(viewModel.contentType).toBe('');
-                    expect(viewModel.callbacks).toBe(null);
-                });
+        it('should bind class', () => {
+            viewModel = new MediaEditorViewModel();
+            expect(binder.bindClass).toHaveBeenCalled();
         });
 
-    describe('activate:',
-        () => {
+        it('should initialize fields', () => {
+            expect(viewModel.editorInstances).toBeObservableArray();
+            expect(viewModel.isEditing).toBeObservable();
+            expect(viewModel.isEditing()).toBeFalsy();
+            expect(viewModel.contentType).toBe('');
+            expect(viewModel.learningContentId).toBe(null);
+            expect(viewModel.callbacks).toBe(null);
+        });
+    });
 
-            describe('when data is not a function',
-                () => {
-                    it(`should throw an exception -> ${errors.dataMustBeObservable}`,
-                        () => {
-                            let action = () => {
-                                viewModel.activate(null);
-                            };
-                            expect(action).toThrow(errors.dataMustBeObservable);
-                        });
-                });
+    describe('activate:', () => {
 
-            describe('when justCreated is not a boolean',
-                () => {
-                    it(`should throw an exceprion ${errors.justCreatedMustBeABoolean}`,
-                        () => {
-                            let action = () => {
-                                viewModel.activate(() => {}, '');
-                            };
-                            expect(action).toThrow(errors.justCreatedMustBeABoolean);
-                        });
-                });
-
-            describe('when content type is not a string',
-                () => {
-                    it(`should throw an exception ${errors.contentTypeMustBeAStringAndOneOfAvailableTypes}`,
-                        () => {
-                            let action = () => {
-                                viewModel.activate(() => {}, false, {});
-                            };
-                            expect(action).toThrow(errors.contentTypeMustBeAStringAndOneOfAvailableTypes);
-                        });
-
-                    describe('and when content type is string but not supprted',
-                        () => {
-                            it(`should throw an exception ${errors.contentTypeMustBeAStringAndOneOfAvailableTypes}`,
-                                () => {
-                                    let action = () => {
-                                        viewModel.activate(() => {}, false, 'some string');
-                                    };
-                                    expect(action).toThrow(errors.contentTypeMustBeAStringAndOneOfAvailableTypes);
-                                });
-                        });
-                });
-
-            describe('when callbacks is not provided',
-                () => {
-                    it(`should throw an exception ${errors.callbacksIsNotProvided}`,
-                        () => {
-                            let action = () => {
-                                viewModel.activate(() => {}, false, constants.contentsTypes.imageEditorOneColumn);
-                            };
-                            expect(action).toThrow(errors.callbacksIsNotProvided);
-                        });
-                });
-
-            describe('when callbacks not provide needed function',
-                () => {
-                    it(`should throw an exception ${errors.callbacksMustProvideFunctions}`,
-                        () => {
-                            let action = () => {
-                                viewModel.activate(() => {},
-                                    false,
-                                    constants.contentsTypes.imageEditorOneColumn,
-                                    {});
-                            };
-                            expect(action).toThrow(errors.callbacksMustProvideFunctions);
-                        });
-                });
-
-            describe('when all arguments are valid',
-                () => {
-                    beforeEach(() => {
-                        spyOn(viewModel, 'setData');
-                        spyOn(viewModel, 'saveData');
-                    });
-
-                    it('should initialize callbacks',
-                        () => {
-                            viewModel.activate(data, justCreated, contentType, callbacks);
-                            expect(viewModel.callbacks).toBe(callbacks);
-                        });
-
-                    it('should initialize content type',
-                        () => {
-                            viewModel.activate(data, justCreated, contentType, callbacks);
-                            expect(viewModel.contentType).toBe(contentType);
-                        });
-
-                    it('should call setData',
-                        () => {
-                            viewModel.activate(data, justCreated, contentType, callbacks);
-                            expect(viewModel.setData).toHaveBeenCalledWith(data, justCreated);
-                        });
-
-                    describe('and when content just created',
-                        () => {
-                            it('should call saveData',
-                                () => {
-                                    viewModel.activate(data, justCreated, contentType, callbacks);
-                                    expect(viewModel.saveData).toHaveBeenCalled();
-                                });
-                        });
-                });
+        describe('when data is not a function', () => {
+            it(`should throw an exception -> ${errors.dataMustBeObservable}`, () => {
+                let action = () => { 
+                    viewModel.activate('', null);
+                };
+                expect(action).toThrow(errors.dataMustBeObservable);
+            });
         });
 
-    describe('setData:',
-        () => {
-            
+        describe('when justCreated is not a boolean', () => {
+            it(`should throw an exceprion ${errors.justCreatedMustBeABoolean}`, () => {
+                let action = () => {
+                    viewModel.activate('', () => {}, '');
+                };
+                expect(action).toThrow(errors.justCreatedMustBeABoolean);
+            });
         });
 
-    describe('_createInstance:',
-        () => {
-            
-        });
-
-    describe('endEdit:',
-        () => {
-            
-        });
-
-    describe('saveData:',
-        () => {
-            beforeEach(() => {
-                viewModel.activate(data, justCreated, contentType, callbacks);
-                spyOn(contentEditorParser, 'toHtml').and.returnValue('data');
-                spyOn(viewModel.callbacks, 'save');
+        describe('when content type is not a string', () => {
+            it(`should throw an exception ${errors.contentTypeMustBeAStringAndOneOfAvailableTypes}`, () => {
+                let action = () => {
+                    viewModel.activate('', () => {}, false, {});
+                };
+                expect(action).toThrow(errors.contentTypeMustBeAStringAndOneOfAvailableTypes);
             });
 
-            it('should convert instances to html',
-                () => {
-                    viewModel.saveData();
-                    expect(contentEditorParser.toHtml).toHaveBeenCalled();
+            describe('and when content type is string but not supprted', () => {
+                it(`should throw an exception ${errors.contentTypeMustBeAStringAndOneOfAvailableTypes}`, () => {
+                    let action = () => {
+                        viewModel.activate('', () => {}, false, 'some string');
+                    };
+                    expect(action).toThrow(errors.contentTypeMustBeAStringAndOneOfAvailableTypes);
                 });
-
-            it('should save data',
-                () => {
-                    viewModel.saveData();
-                    expect(viewModel.callbacks.save).toHaveBeenCalledWith('data');
-                });
+            });
         });
 
-    describe('changeType:',
-        () => {
+        describe('when callbacks is not provided', () => {
+            it(`should throw an exception ${errors.callbacksIsNotProvided}`, () => {
+                let action = () => {
+                    viewModel.activate('', () => {}, false, constants.contentsTypes.singleVideo);
+                };
+                expect(action).toThrow(errors.callbacksIsNotProvided);
+            });
+        });
+
+        describe('when callbacks not provide needed function', () => {
+            it(`should throw an exception ${errors.callbacksMustProvideFunctions}`, () => {
+                let action = () => {
+                    viewModel.activate('', 
+                        () => {},
+                        false,
+                        constants.contentsTypes.singleVideo, 
+                        {});
+                };
+                expect(action).toThrow(errors.callbacksMustProvideFunctions);
+            });
+        });
+
+        describe('when all arguments are valid', () => {
+            beforeEach(() => {
+                spyOn(viewModel, 'setData');
+                spyOn(viewModel, 'saveData');
+            });
+
+            it('should initialize callbacks', () => {
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                expect(viewModel.callbacks).toBe(callbacks);
+            });
+
+            it('should initialize content type', () => {
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                expect(viewModel.contentType).toBe(contentType);
+            });
+
+            it('should call setData', () => {
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                expect(viewModel.setData).toHaveBeenCalledWith(data, justCreated);
+            });
+
+            describe('and when content just created', () => {
+                it('should call saveData', () => {
+                    viewModel.activate(id, data, justCreated, contentType, callbacks);
+                    expect(viewModel.saveData).toHaveBeenCalled();
+                });
+            });
+        });
+    });
+
+    describe('setData:', () => {
+        beforeEach(() => {
+            spyOn(contentEditorParser, 'parse').and.returnValue({output: 'data', contentType: 'videoEditor'});
+        });
+
+        it('should not call parse when justCreated', () => {
+            viewModel.setData(data, true);
+            expect(contentEditorParser.parse).not.toHaveBeenCalled();
+        });
+
+        it('should call parse when not justCreated', () => {
+            viewModel.setData(data, false);
+            expect(contentEditorParser.parse).toHaveBeenCalled();
+        });
+    });
+
+    describe('_setVideoEditorOnFocus', () => {
+        let videoEditorInstance;
+        
+        beforeEach(() => {
+            viewModel.isEditing(false);
+            videoEditorInstance = viewModel._createInstance(videoEditorClassName, 'data');
+            spyOn(videoEditorInstance, 'startEditMode');
+        });
+
+        it('isEditing property should be true after calling _setVideoEditorOnFocus', () => {
+            viewModel._setVideoEditorOnFocus(videoEditorInstance, true);
+            expect(viewModel.isEditing()).toBe(true);
+        });
+        
+        it('should call startEditMode', () => {
+            viewModel._setVideoEditorOnFocus(videoEditorInstance, true);
+            expect(videoEditorInstance.startEditMode).toHaveBeenCalled();
+        });
+    });
+    
+    describe('_createInstance:', () => {
+        describe('when creating instance typeof VideoEditor:', () => {
+            it('should be instance typeof VideoEditor', () => {
+                let videoEditorInstance = viewModel._createInstance(videoEditorClassName, 'data');
+                expect(videoEditorInstance instanceof VideoEditor).toBe(true);
+            });
+        }); 
+
+        describe('when creating instance typeof TextEditor:', () => {
+            it('should be instance typeof TextEditor', () => {
+                let textEditorInstance = viewModel._createInstance(textEditorClassName, 'data');
+                expect(textEditorInstance instanceof TextEditor).toBe(true);
+            });
+        }); 
+    });   
+
+    describe('endEditing:', () => {
+        let instances;
+        
+        beforeEach(() => {
+            contentType = constants.contentsTypes.videoInTheLeft;
+            viewModel.activate(id, data, justCreated, contentType, callbacks);
+            instances = viewModel.getVideoAndTextInstance(viewModel.editorInstances());
+
+            spyOn(instances.videoInstance, 'stopEditMode');
+            viewModel.endEditing();
+        });
+
+        it('should call stopEditMode on videoEditorInstance',() => {
+            expect(instances.videoInstance.stopEditMode).toHaveBeenCalled();
             
         });
 
-    describe('broadcastToOtherInstances:',
-        () => {
-            describe('when message type is sizeChanged',
-                () => {
-                    it('should call _instanceSizeChanged',
-                        () => {
-                            spyOn(viewModel, '_instanceSizeChanged');
-                            viewModel.broadcastToOtherInstances(viewModel, 'sizeChanged', { width: 100, height: 200 });
-                            expect(viewModel._instanceSizeChanged).toHaveBeenCalledWith(viewModel, 100, 200);
-                        });
-                });
-            describe('when message type is resizingStopped',
-                () => {
-                    it('should call _instanceResizingStopped',
-                        () => {
-                            spyOn(viewModel, '_instanceResizingStopped');
-                            viewModel.broadcastToOtherInstances(viewModel, 'resizingStopped', { width: 100, height: 200 });
-                            expect(viewModel._instanceResizingStopped).toHaveBeenCalledWith(viewModel);
-                        });
-                });
+        it('should set hasFocus at false on textEditorInstance',() => {
+            expect(instances.textInstance.hasFocus()).toBe(false);
+        });
+    });
+
+    describe('saveData:', () => {
+        beforeEach(() => {
+            spyOn(viewModel.callbacks, 'save');
         });
 
-    describe('_instanceSizeChanged:',
-        () => {
-            
+        it('should call save callback', () => {
+            viewModel.activate(id, data, justCreated, contentType, callbacks);
+            viewModel.saveData(justCreated);
+            expect(viewModel.callbacks.save).toHaveBeenCalled();
+        });
+    });
+
+    describe('changeType to specified:', () => {
+        beforeEach(() => {
+            viewModel.activate(id, data, justCreated, contentType, callbacks);
         });
 
-    describe('_instanceResizingStopped:',
-        () => {
-            
+        it('should change content type to videoInTheLeft', () => {
+            viewModel.changeType(constants.contentsTypes.videoInTheLeft);
+            expect(viewModel.contentType).toEqual(constants.contentsTypes.videoInTheLeft);
+        }); 
+        
+        it('should change content type to videoInTheRight', () => {
+            viewModel.changeType(constants.contentsTypes.videoInTheRight);
+            expect(viewModel.contentType).toEqual(constants.contentsTypes.videoInTheRight);
         });
+
+        it('should change content type to videoWithText', () => {
+            viewModel.changeType(constants.contentsTypes.videoWithText);
+            expect(viewModel.contentType).toEqual(constants.contentsTypes.videoWithText);
+        });
+    });
+
+    describe('getVideoAndTextInstance:', () => {
+        describe('should return object', () => {
+            let instances;
+
+            it('{ textInstance should be null; videoInstance not to be null } for singleVideo type', () => {
+                contentType = constants.contentsTypes.singleVideo;
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                instances = viewModel.getVideoAndTextInstance(viewModel.editorInstances());
+
+                expect(instances.videoInstance).not.toBeNull();
+                expect(instances.textInstance).toBeNull();
+            });
+
+            it('{ videoInstance and textInstance should not to be null } for videoInTheLeft type', () => {
+                contentType = constants.contentsTypes.videoInTheLeft;
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                instances = viewModel.getVideoAndTextInstance(viewModel.editorInstances());
+
+                expect(instances.videoInstance).not.toBeNull();
+                expect(instances.textInstance).not.toBeNull();
+            });
+
+            it('{ videoInstance and textInstance should not to be null } for videoInTheRight type', () => {
+                contentType = constants.contentsTypes.videoInTheRight;
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                instances = viewModel.getVideoAndTextInstance(viewModel.editorInstances());
+
+                expect(instances.videoInstance).not.toBeNull();
+                expect(instances.textInstance).not.toBeNull();
+            });
+            
+            it('{ videoInstance and textInstance should not to be null } for videoWithText type', () => {
+                contentType = constants.contentsTypes.videoWithText;
+                viewModel.activate(id, data, justCreated, contentType, callbacks);
+                instances = viewModel.getVideoAndTextInstance(viewModel.editorInstances());
+
+                expect(instances.videoInstance).not.toBeNull();
+                expect(instances.textInstance).not.toBeNull();
+            });
+        });
+    });
+
 });

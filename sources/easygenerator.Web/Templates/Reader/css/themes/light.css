@@ -547,6 +547,8 @@ ul {
   font-family: Roboto Slab;
 }
 .styled-content {
+  /*region MEDIA EDITOR VIDEO*/
+  /*endregion*/
   /*#region CURATION*/
   /*#endregion CURATION*/
   word-wrap: break-word;
@@ -554,6 +556,22 @@ ul {
   font-size: 18px;
   color: #42515f;
   line-height: 1.5;
+}
+.styled-content .video-editor {
+  position: relative;
+  height: 0;
+  width: 100%;
+}
+.styled-content .video-editor iframe {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%!important;
+  height: 100%!important;
+  border: 0;
 }
 .styled-content .link-curation-block {
   min-height: 72px;

@@ -18,23 +18,29 @@ export default class {
         this.src = ko.observable(src || constants.storage.video.defaultIframeSource);
     }
 
+    update(src, width, height) {
+        this.width(width || defaultSize.width);
+        this.height(height || defaultSize.height);
+        this.src(src || constants.storage.video.defaultIframeSource);
+    }
+
     toHtml() {
-        return `<iframe src="${this.src()}" width="${this.width()}" height="${this.height()}"></iframe>`;
+        return `<iframe src="${this.src()}" width="${this.width()}" height="${this.height()}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`;
     }
 
     static getFrameParamsFromHtml(html) {
         let params = {};
-        params.src = this._getFrameParamFromHtml('src', html);
-        params.width = this._getFrameParamFromHtml('width', html);
-        params.height = this._getFrameParamFromHtml('height', html);
+        params.src = this._getFrameParamFromHtmlByName('src', html);
+        params.width = this._getFrameParamFromHtmlByName('width', html);
+        params.height = this._getFrameParamFromHtmlByName('height', html);
         return params;
     }
     
-    static _getFrameParamFromHtml(paramName, html) {
+    static _getFrameParamFromHtmlByName(paramName, html) {
         let matches = new RegExp(`${paramName}=["|'](\\S+)["|']`, 'i').exec(html);
         if (_.isNull(matches)) return;
 
-        return matches[1]
+        return matches[1];
     }
 
     static isFrameValid(html) {

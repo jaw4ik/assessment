@@ -1171,7 +1171,8 @@
             }
 
             .submit-link-button {
-                margin-top: -36px;
+                top: 5px;
+                bottom: 0px;
                 min-width: 63px;
                 height: 30px;
                 right: 3px;
@@ -2018,35 +2019,20 @@
             transition: opacity .2s linear;
             z-index: 200;
 
-            &.shown {
-                top: -52px;
-                opacity: 1;
-            }
+            &.hide { display: none; }
 
             .image-editor-edit-actions {
-                display: none;
                 justify-content: center;
                 align-items: center;
                 padding: 0 18px;
                 height: 100%;
-
-                &.shown {
-                    display: flex;
-                }
+                display: flex;
             }
 
             .image-editor-edit-action-block {
                 position: relative;
                 display: inline-block;
                 vertical-align: middle;
-
-                .upgrade-link {
-                    text-transform: uppercase;
-                    font-family: 'OpenSans',sans-serif;
-                    color: rgba(76,175,80,.7);
-                    font-size: 12px;
-                    padding: 1px 5px 0 20px;
-                }
 
                 &.single-button {
                     width: 37px;
@@ -2440,8 +2426,9 @@
             border: 2px solid transparent;
             border-radius: 3px;
 
-            &.edit {
+            &.edit, &:hover {
                 border: 2px solid #50a1d7;
+                cursor:pointer;
             }
 
             .preventor {
@@ -2470,8 +2457,6 @@
                 border: 0;
             }
         }
-
-
 
         .video-circular-bar {
             &.uploading {
