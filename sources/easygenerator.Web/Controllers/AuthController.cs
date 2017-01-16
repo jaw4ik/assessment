@@ -13,6 +13,7 @@ using easygenerator.Web.Extensions;
 using System.Linq;
 using System.Web.Mvc;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Security.BruteForceLoginProtection;
 
 namespace easygenerator.Web.Controllers
 {
@@ -28,12 +29,15 @@ namespace easygenerator.Web.Controllers
         private readonly IOrganizationInviteMapper _organizationInviteMapper;
         private readonly ISamlServiceProviderRepository _samlServiceProviderRepository;
         private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
+        private readonly IIPInfoProvider _ipInfoProvider;
+        private readonly IReCaptchaVerifier _reCaptchaVerifier;
+        private readonly IBruteForceLoginProtectionManager _bruteForceLoginProtectionManager;
         private readonly ConfigurationReader _configurationReader;
 
         public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IReleaseNoteFileReader releaseNoteFileReader, IEntityModelMapper<Company> companyMapper,
             IOrganizationRepository organizationRepository, IOrganizationMapper organizationMapper, IOrganizationUserRepository organizationUserRepository,
             IOrganizationInviteMapper organizationInviteMapper, ISamlServiceProviderRepository samlServiceProviderRepository, ISurveyPopupSettingsProvider surveyPopupVersionReader,
-            ConfigurationReader configurationReader)
+            IIPInfoProvider ipInfoProvider, IReCaptchaVerifier reCaptchaVerifier, IBruteForceLoginProtectionManager bruteForceLoginProtectionManager, ConfigurationReader configurationReader)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
@@ -45,22 +49,36 @@ namespace easygenerator.Web.Controllers
             _organizationInviteMapper = organizationInviteMapper;
             _samlServiceProviderRepository = samlServiceProviderRepository;
             _surveyPopupVersionReader = surveyPopupVersionReader;
+            _ipInfoProvider = ipInfoProvider;
+            _reCaptchaVerifier = reCaptchaVerifier;
+            _bruteForceLoginProtectionManager = bruteForceLoginProtectionManager;
             _configurationReader = configurationReader;
         }
 
         [HttpPost, AllowAnonymous]
-        public ActionResult Token(string username, string password, string grant_type, string[] endpoints)
+        public ActionResult Token(string username, string password, string grant_type, string[] endpoints, string grecaptchaResponse)
         {
-            if (grant_type == "password")
+            if (grant_type != "password")
             {
-                var user = _repository.GetUserByEmail(username);
-                if (user != null && user.VerifyPassword(password))
-                {
-                    var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, endpoints);
-                    return JsonSuccess(tokens);
-                }
+                return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
             }
-            return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+            var user = _repository.GetUserByEmail(username);
+            if (user == null)
+            {
+                return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+            }
+            var ip = _ipInfoProvider.GetIP(HttpContext);
+            if (_bruteForceLoginProtectionManager.IsRequiredCaptcha(username, ip) && !_reCaptchaVerifier.Verify(grecaptchaResponse, ip))
+            {
+                return new HttpStatusCodeResult(400, Errors.CaptchaVerificationFailed);
+            }
+            if (!user.VerifyPassword(password))
+            {
+                _bruteForceLoginProtectionManager.StoreFailedAttempt(username, ip);
+                return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+            }
+            var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, endpoints);
+            return JsonSuccess(tokens);
         }
 
         [HttpPost, AllowAnonymous, CustomRequireHttps, WebApiKeyAccess("ExternalAuthToken")]
@@ -116,7 +134,7 @@ namespace easygenerator.Web.Controllers
                     expirationDate = user.ExpirationDate
                 },
                 showReleaseNote = releaseVersion != user.Settings.LastReadReleaseNote,
-                showSurveyPopup = user.Settings.LastPassedSurveyPopup != surveyPopupVersion && user.CreatedOn.AddDays(numberOfDaysUntilShowUp) <= DateTimeWrapper.Now() 
+                showSurveyPopup = user.Settings.LastPassedSurveyPopup != surveyPopupVersion && user.CreatedOn.AddDays(numberOfDaysUntilShowUp) <= DateTimeWrapper.Now()
                     && !string.IsNullOrEmpty(surveyPopupPageUrl) && !string.IsNullOrEmpty(surveyPopupOriginUrl),
                 newEditor = user.Settings.NewEditor,
                 isCreatedThroughLti = user.Settings.IsCreatedThroughLti,

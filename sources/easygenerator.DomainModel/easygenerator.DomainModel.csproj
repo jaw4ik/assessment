@@ -52,9 +52,12 @@
     <Compile Include="Entities\CourseQuestionShortIdsInfo.cs" />
     <Compile Include="Entities\EventRaiseable.cs" />
     <Compile Include="Entities\ICoggnoPublishableEntity.cs" />
+    <Compile Include="Entities\LoginInfo.cs" />
     <Compile Include="Entities\IScormPublishableEntity.cs" />
     <Compile Include="Entities\Questions\IValidatable.cs" />
     <Compile Include="Entities\Questions\SurveyQuestion.cs" />
+    <Compile Include="Entities\IPLoginInfo.cs" />
+    <Compile Include="Entities\UserLoginInfo.cs" />
     <Compile Include="Entities\UserSubscription.cs" />
     <Compile Include="Entities\Organizations\OrganizationSettings.cs" />
     <Compile Include="Entities\SamlServiceProvider.cs" />
@@ -237,6 +240,8 @@
     <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToStarterEvent.cs" />
     <Compile Include="Events\UserEvents\SubscriptionEvents\UserUpgradedToTrialEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IUserLoginInfoRepository.cs" />
+    <Compile Include="Repositories\IIPLoginInfoRepository.cs" />
     <Compile Include="Repositories\ISamlServiceProviderRepository.cs" />
     <Compile Include="Repositories\ISamlIdentityProviderRepository.cs" />
     <Compile Include="Repositories\IConsumerToolRepository.cs" />

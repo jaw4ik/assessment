@@ -63,6 +63,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.Web.Domain.DomainOperations;
+using easygenerator.Web.Security.BruteForceLoginProtection;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -133,6 +134,10 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<FileDownloader>();
             builder.RegisterType<CustomFontsApiService>();
             builder.RegisterType<GoogleFontsApiService>();
+            builder.RegisterType<ReCaptchaVerifier>().As<IReCaptchaVerifier>().SingleInstance();
+            builder.RegisterType<IPInfoProvider>().As<IIPInfoProvider>().SingleInstance();
+            builder.RegisterGeneric(typeof(BruteForceLoginProtectionProvider<>)).As(typeof(IBruteForceLoginProtectionProvider<>)).SingleInstance();
+            builder.RegisterType<BruteForceLoginProtectionManager>().As<IBruteForceLoginProtectionManager>().SingleInstance();
 
             #region Domain operations
 

@@ -55,6 +55,8 @@ namespace easygenerator.DataAccess
         public DbSet<LearningContent> LearningContents { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<IPLoginInfo> IPLoginInfos { get; set; }
+        public DbSet<UserLoginInfo> UserLoginInfos { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CourseCollaborator> CourseCollaborators { get; set; }
         public DbSet<Onboarding> Onboardings { get; set; }
@@ -232,7 +234,22 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().HasMany(e => e.AllowedSamlServiceProviders).WithMany(e => e.Users).Map(m => m.ToTable("UserSamlSPs"));
             modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
             modelBuilder.Entity<User>().HasMany(e => e.SamlIdPUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
+            modelBuilder.Entity<User>().HasRequired(e => e.LoginInfo).WithRequiredPrincipal(e => e.User).WillCascadeOnDelete();
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
+
+            modelBuilder.Entity<UserLoginInfo>().Property(e => e.Email).IsRequired().HasMaxLength(254).HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]
+            {
+                new IndexAttribute("IX_Email") { IsUnique = true }
+            }));
+            modelBuilder.Entity<UserLoginInfo>().Property(e => e.FailedLoginAttemptsCount).IsRequired();
+            modelBuilder.Entity<UserLoginInfo>().Property(e => e.LastFailTime).IsOptional();
+
+            modelBuilder.Entity<IPLoginInfo>().Property(e => e.IP).IsRequired().HasMaxLength(63).HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]
+            {
+                new IndexAttribute("IX_IP") { IsUnique = true }
+            }));
+            modelBuilder.Entity<IPLoginInfo>().Property(e => e.FailedLoginAttemptsCount).IsRequired();
+            modelBuilder.Entity<IPLoginInfo>().Property(e => e.LastFailTime).IsOptional();
 
             modelBuilder.Entity<UserSettings>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
             modelBuilder.Entity<UserSettings>().Property(e => e.LastPassedSurveyPopup).IsRequired().HasMaxLength(8);

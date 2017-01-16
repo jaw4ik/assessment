@@ -98,7 +98,7 @@ app.signUpSecondStepModel = function () {
             type: 'POST'
         }).done(function (response) {
             $.when(
-                login(response.data, data.password),
+                login(response.data, data.password, data.grecaptchaResponse),
                 app.trackEvent(app.constants.events.signupSecondStep, { username: response.data, firstname: data.firstName, lastname: data.lastName, role: data.userRole }),
                 app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
             ).done(function () {
@@ -111,13 +111,14 @@ app.signUpSecondStepModel = function () {
         });
     };
 
-    function login(username, password) {
+    function login(username, password, grecaptchaResponse) {
         var defer = $.Deferred();
         var data = {
             username: username,
             password: password,
             grant_type: "password",
-            endpoints: window.auth.getRequiredEndpoints()
+            endpoints: window.auth.getRequiredEndpoints(),
+            grecaptchaResponse: grecaptchaResponse
         };
 
         var requestArgs = {

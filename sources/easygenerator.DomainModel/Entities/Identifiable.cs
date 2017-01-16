@@ -9,6 +9,11 @@ namespace easygenerator.DomainModel.Entities
             Id = Guid.NewGuid();
         }
 
+        protected Identifiable(Guid id)
+        {
+            Id = id;
+        }
+
         public Guid Id { get; private set; }
     }
 }

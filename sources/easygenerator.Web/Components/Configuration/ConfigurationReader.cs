@@ -174,5 +174,6 @@ namespace easygenerator.Web.Components.Configuration
         public virtual SentryConfigurationSection SentriConfiguration {
             get { return ConfigurationManager.GetSection("sentry") as SentryConfigurationSection; }
         }
+        public virtual ReCaptchaConfigurationSection ReCaptchaConfiguration => ConfigurationManager.GetSection("reCaptcha") as ReCaptchaConfigurationSection;
     }
 }

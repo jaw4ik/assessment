@@ -14,6 +14,16 @@
     <meta name="viewport" content="width=640,maximum-scale=1.0">
     @Styles.Render("~/Content/css")
     @Html.Partial("_mixpanelAnalytics")
+
+    @*Captcha section*@
+    @if (this.Request.QueryString["captcha"] == "true")
+    {
+        <script type="text/javascript">
+            window.reCaptchaEnabled = true;
+        </script>
+        <script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
+    }
+    @*Captcha section*@
 </head>
 <body class="try">
 @Html.Partial("_googleTagManager")
