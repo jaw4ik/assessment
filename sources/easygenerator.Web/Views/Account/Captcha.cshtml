@@ -1,0 +1,7 @@
+﻿@using System.Configuration
+@using easygenerator.Web.Components.Configuration
+
+@if (this.Request.QueryString["captcha"] == "true")
+{
+    <div class="g-recaptcha" data-callback="recaptchaChecked" data-expired-callback="recaptchaExpired" data-sitekey="@((ConfigurationManager.GetSection("reCaptcha") as ReCaptchaConfigurationSection).SiteKey)"></div>
+}

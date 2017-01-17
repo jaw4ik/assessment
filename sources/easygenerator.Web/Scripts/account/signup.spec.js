@@ -250,6 +250,12 @@
 
         });
 
+        describe('grecaptchaResponse', function() {
+            it('should be observable', function() {
+                expect(viewModel.grecaptchaResponse).toBeObservable();
+            });
+        });
+
         describe('isUserNameEditing:', function () {
 
             it('should be observable', function () {
@@ -331,6 +337,7 @@
                     viewModel.password('abcABC123');
                     viewModel.lastName('lastName');
                     viewModel.firstName('firstName');
+                    viewModel.grecaptchaResponse('response');
 
                     expect(viewModel.isFormValid()).toBeTruthy();
                 });
@@ -344,6 +351,7 @@
                     viewModel.password('');
                     viewModel.lastName('');
                     viewModel.firstName('');
+                    viewModel.grecaptchaResponse('');
 
                     expect(viewModel.isFormValid()).toBeFalsy();
                 });
@@ -664,12 +672,14 @@
                 viewModel.password('abcABC123');
                 viewModel.firstName('firstName');
                 viewModel.lastName('lastName');
+                viewModel.grecaptchaResponse('response');
 
                 data = {
                     email: viewModel.userName(),
                     password: viewModel.password(),
                     firstName: viewModel.firstName(),
                     lastName: viewModel.lastName(),
+                    grecaptchaResponse: viewModel.grecaptchaResponse()
                 };
 
                 spyOn(app, 'assingLocation');

@@ -507,8 +507,14 @@
     <Compile Include="Migrations\201611290837155_AddQuestionShortIdsInfo.Designer.cs">
       <DependentUpon>201611290837155_AddQuestionShortIdsInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701160953076_AddLoginInfo.cs" />
+    <Compile Include="Migrations\201701160953076_AddLoginInfo.Designer.cs">
+      <DependentUpon>201701160953076_AddLoginInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserLoginInfoRepository.cs" />
+    <Compile Include="Repositories\IPLoginInfoRepository.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
     <Compile Include="Repositories\SamlIdentityProviderRepository.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -884,6 +890,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611290837155_AddQuestionShortIdsInfo.resx">
       <DependentUpon>201611290837155_AddQuestionShortIdsInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701160953076_AddLoginInfo.resx">
+      <DependentUpon>201701160953076_AddLoginInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

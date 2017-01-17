@@ -59,5 +59,6 @@ namespace easygenerator.Infrastructure
 
         public const string ProjectDoesntExist = "Project doesn't exist";
         public const string NotValidUrl = "Not valid Url";
+        public const string CaptchaVerificationFailed = "Captcha verification failed";
     }
 }

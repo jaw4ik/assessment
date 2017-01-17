@@ -63,6 +63,7 @@
                         </ul>
                     </div>
                 </div>
+                @Html.Partial("Captcha")
                 <div class="user-form-row submit">
                     <div class="formBtn">
                         <button class="orange btn user-form-btn" type="submit" data-bind="css: { disabled: !isFormValid() || isSignupRequestPending() }, enable: isFormValid() && !isSignupRequestPending(), click: signUp">

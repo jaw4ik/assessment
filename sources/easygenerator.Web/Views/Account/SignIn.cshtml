@@ -45,6 +45,7 @@
                         <span class="user-form-notification-text">@Resources.ForgotPasswordSent</span>
                     </div>
                     <!-- /ko -->
+                    @Html.Partial("Captcha")
                     <div class="user-form-row submit">
                         <div class="formBtn">
                             <button class="green btn user-form-btn" type="submit" data-bind="css: { disabled: !canSubmit() || isSigninRequestPending() }, enable: canSubmit, clock: submit">
@@ -62,5 +63,4 @@
             </div>
         </div>
     </div>
-
 </section>

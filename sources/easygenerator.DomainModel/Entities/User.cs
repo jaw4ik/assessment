@@ -43,6 +43,7 @@ namespace easygenerator.DomainModel.Entities
             LtiUserInfoes = new Collection<LtiUserInfo>();
             SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
             Settings = new UserSettings(createdBy, lastReadReleaseNote, lastReadSurveyPopup, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
+            LoginInfo = new UserLoginInfo(this);
 
             AccessType = accessPlan;
 
@@ -72,6 +73,7 @@ namespace easygenerator.DomainModel.Entities
         public virtual IEnumerable<Company> Companies => CompaniesCollection.OrderByDescending(e => e.Priority).ThenBy(e => e.CreatedOn).AsEnumerable();
         protected internal virtual ICollection<Organization> OrganizationsCollection { get; set; }
         public virtual IEnumerable<Organization> Organizations => OrganizationsCollection.AsEnumerable();
+        public virtual UserLoginInfo LoginInfo { get; protected internal set; }
 
         public virtual void AddCompany(Company company, string modifiedBy)
         {

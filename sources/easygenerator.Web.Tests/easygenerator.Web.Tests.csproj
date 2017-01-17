@@ -184,6 +184,8 @@
     <Compile Include="Components\ActionFilters\Permissions\EntityOwnerAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttributeTests.cs" />
+    <Compile Include="Components\ReCaptchaVerifierTests.cs" />
+    <Compile Include="Components\IPInfoProviderTests.cs" />
     <Compile Include="Components\BranchTrackProviderTests.cs" />
     <Compile Include="Components\BrowserSupportTest.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
@@ -259,6 +261,8 @@
     <Compile Include="SAML\ServiceProvider\Providers\OptionsProviderTests.cs" />
     <Compile Include="SAML\ServiceProvider\Providers\SignInCommandRunnerTests.cs" />
     <Compile Include="SAML\ServiceProvider\Providers\CommandRunnerTests.cs" />
+    <Compile Include="Security\BruteForceLoginProtection\BruteForceLoginProtectionProviderTests.cs" />
+    <Compile Include="Security\BruteForceLoginProtection\BruteForceLoginProtectionManagerTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="Domain\DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />

@@ -16,12 +16,14 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Security.BruteForceLoginProtection;
 
 namespace easygenerator.Web.Tests.Controllers
 {
     [TestClass]
     public class AccountControllerTests
     {
+        private const string ip = "127.0.0.1";
         private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
 
         private AccountController _controller;
@@ -29,8 +31,10 @@ namespace easygenerator.Web.Tests.Controllers
         private IAuthenticationProvider _authenticationProvider;
         private IUserRepository _userRepository;
         private IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
+        private IIPInfoProvider _ipInfoProvider;
+        private IBruteForceLoginProtectionManager _bruteForceLoginProtectionManager;
 
-        IPrincipal _user;
+       IPrincipal _user;
         HttpContextBase _context;
 
 
@@ -40,7 +44,11 @@ namespace easygenerator.Web.Tests.Controllers
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _userRepository = Substitute.For<IUserRepository>();
             _wooCommerceAutologinUrlProvider = Substitute.For<IWooCommerceAutologinUrlProvider>();
-            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider);
+            _ipInfoProvider = Substitute.For<IIPInfoProvider>();
+            _bruteForceLoginProtectionManager = Substitute.For<IBruteForceLoginProtectionManager>();
+            _ipInfoProvider.GetIP(Arg.Any<HttpContextBase>()).Returns(ip);
+
+            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider, _ipInfoProvider, _bruteForceLoginProtectionManager);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -136,10 +144,11 @@ namespace easygenerator.Web.Tests.Controllers
         #region SignUp
 
         [TestMethod]
-        public void SignUp_ShouldReturnViewResult()
+        public void SignUp_ShouldReturnViewResult_WhenCaptchaIsNotRequired()
         {
             //Arrange
-
+            string res = null;
+            _bruteForceLoginProtectionManager.GetUrlWithCaptcha(Arg.Any<HttpContextBase>(), ip).Returns(res);
 
             //Act
             var result = _controller.SignUp();
@@ -149,9 +158,25 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
+        public void SignUp_ShouldReturnRedirectResult_WhenCaptchaIsRequired()
+        {
+            //Arrange
+            string res = "https://redirect.com";
+            _bruteForceLoginProtectionManager.GetUrlWithCaptcha(Arg.Any<HttpContextBase>(), ip).Returns(res);
+
+            //Act
+            var result = _controller.SignUp();
+
+            //Assert
+            ActionResultAssert.IsRedirectResult(result, res);
+        }
+
+        [TestMethod]
         public void SignUp_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
         {
             //Arrange
+            string res = null;
+            _bruteForceLoginProtectionManager.GetUrlWithCaptcha(Arg.Any<HttpContextBase>(), ip).Returns(res);
             _authenticationProvider.IsUserAuthenticated().Returns(false);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
 
@@ -209,16 +234,31 @@ namespace easygenerator.Web.Tests.Controllers
         #region SignIn
 
         [TestMethod]
-        public void SignIn_ShouldReturnViewResult()
+        public void SignIn_ShouldReturnViewResult_WhenCaptchaIsNotRequired()
         {
             //Arrange
-
+            string res = null;
+            _bruteForceLoginProtectionManager.GetUrlWithCaptcha(Arg.Any<HttpContextBase>(), ip).Returns(res);
 
             //Act
             var result = _controller.SignIn();
 
             //Assert
             ActionResultAssert.IsViewResult(result);
+        }
+
+        [TestMethod]
+        public void SignIn_ShouldReturnRedirectResult_WhenCaptchaIsRequired()
+        {
+            //Arrange
+            string res = "https://redirect.com";
+            _bruteForceLoginProtectionManager.GetUrlWithCaptcha(Arg.Any<HttpContextBase>(), ip).Returns(res);
+
+            //Act
+            var result = _controller.SignIn();
+
+            //Assert
+            ActionResultAssert.IsRedirectResult(result, res);
         }
 
         #endregion

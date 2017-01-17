@@ -169,6 +169,12 @@
 
         });
 
+        describe('grecaptchaResponse:', function() {
+            it('should be observable', function () {
+                expect(viewModel.grecaptchaResponse).toBeObservable();
+            });
+        });
+
         describe('hasError:', function () {
 
             it('should be observable', function () {
@@ -265,11 +271,12 @@
 
             });
 
-            describe('when username is an email string and password is empty or whitespace', function () {
+            describe('when username is an email string and password is not empty or whitespace', function () {
 
                 it('should be true', function () {
                     viewModel.username("username@easygenerator.com");
                     viewModel.password("abc123");
+                    viewModel.grecaptchaResponse("response");
 
                     expect(viewModel.canSubmit()).toBeTruthy();
                 });
@@ -363,10 +370,12 @@
                 var password = "Abc123! ";
                 var grant_type = "password";
                 var endpoints = window.auth.getRequiredEndpoints();
+                var grecaptchaResponse = "response";
 
                 beforeEach(function () {
                     viewModel.username(username);
                     viewModel.password(password);
+                    viewModel.grecaptchaResponse(grecaptchaResponse);
                 });
 
                 it('should trim username before sending request', function () {
@@ -380,7 +389,8 @@
                             username: username,
                             password: password,
                             grant_type: grant_type,
-                            endpoints: endpoints
+                            endpoints: endpoints,
+                            grecaptchaResponse: grecaptchaResponse
                         },
                         type: 'POST'
                     });
@@ -397,7 +407,8 @@
                             username: username,
                             password: password,
                             grant_type: grant_type,
-                            endpoints: endpoints
+                            endpoints: endpoints,
+                            grecaptchaResponse: grecaptchaResponse
                         },
                         type: 'POST'
                     });
@@ -418,7 +429,8 @@
                             username: username,
                             password: password,
                             grant_type: grant_type,
-                            endpoints: endpoints
+                            endpoints: endpoints,
+                            grecaptchaResponse: grecaptchaResponse
                         },
                         type: 'POST'
                     });
@@ -436,6 +448,7 @@
                     var message = "message";
 
                     beforeEach(function (done) {
+                        spyOn(viewModel, 'resetCaptcha');
                         ajax.reject(message);
                         done();
                     });
@@ -443,6 +456,11 @@
                     it('should display message with an error', function () {
                         viewModel.submit();
                         expect(viewModel.errorMessage()).toEqual(message);
+                    });
+
+                    it('should reset captcha', function () {
+                        viewModel.submit();
+                        expect(viewModel.resetCaptcha).toHaveBeenCalled();
                     });
 
                     it('should set isSigninRequestPending to false', function () {
@@ -497,6 +515,7 @@
                             var message = 'message';
 
                             beforeEach(function (done) {
+                                spyOn(viewModel, 'resetCaptcha');
                                 ajax.resolve({ success: false, message: message });
                                 done();
                             });
@@ -505,6 +524,11 @@
                                 viewModel.submit();
 
                                 expect(viewModel.errorMessage()).toEqual(message);
+                            });
+
+                            it('should reset captcha', function () {
+                                viewModel.submit();
+                                expect(viewModel.resetCaptcha).toHaveBeenCalled();
                             });
 
                             it('should set isSigninRequestPending to false', function () {

@@ -24,6 +24,7 @@ app.signupModel = function () {
         isPasswordEditing: ko.observable(false),
         isFirstNameErrorVisible: ko.observable(false),
         isLastNameErrorVisible: ko.observable(false),
+        grecaptchaResponse: ko.observable(!window.reCaptchaEnabled),
         onFocusFirstName: onFocusFirstName,
         onFocusLastName: onFocusLastName,
 
@@ -66,7 +67,7 @@ app.signupModel = function () {
 
     viewModel.isFormValid = ko.computed(function () {
         return viewModel.userName.isValid() && viewModel.password.isValid()
-            && viewModel.firstName.isValid() && viewModel.lastName.isValid();
+            && viewModel.firstName.isValid() && viewModel.lastName.isValid() && viewModel.grecaptchaResponse();
     });
 
     viewModel.userPreciselyExists = ko.computed(function () {
@@ -77,6 +78,17 @@ app.signupModel = function () {
         if (viewModel.userName() != newValue)
             viewModel.userExists(false);
     });
+
+    /* declare callbacks for google reCaptcha */
+    if (window.reCaptchaEnabled) {
+        window.recaptchaChecked = function (response) {
+            viewModel.grecaptchaResponse(response);
+        }
+
+        window.recaptchaExpired = function () {
+            viewModel.grecaptchaResponse(false);
+        }
+    }
 
     return viewModel;
 
@@ -139,7 +151,8 @@ app.signupModel = function () {
             email: viewModel.userName().trim().toLowerCase(),
             password: viewModel.password(),
             firstName: viewModel.firstName(),
-            lastName: viewModel.lastName()
+            lastName: viewModel.lastName(),
+            grecaptchaResponse: (typeof viewModel.grecaptchaResponse() === 'string') ? viewModel.grecaptchaResponse() : ''
         };
 
         app.clientSessionContext.set(app.constants.userSignUpFirstStepData, data);

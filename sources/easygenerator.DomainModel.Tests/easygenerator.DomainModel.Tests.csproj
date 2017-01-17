@@ -67,6 +67,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\ACL\TemplateAccessControlListEntryTests.cs" />
+    <Compile Include="Entities\UserLoginInfoTests.cs" />
+    <Compile Include="Entities\IPLoginInfoTests.cs" />
     <Compile Include="Entities\CourseCollaboratorTests.cs" />
     <Compile Include="Entities\CourseQuestionShortIdsInfoTests.cs" />
     <Compile Include="Entities\CourseStateTests.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="Entities\LearningPathTests.cs" />
     <Compile Include="Entities\Organizations\OrganizationSettingsTests.cs" />
     <Compile Include="Entities\Questions\SurveyQuestionTest.cs" />
+    <Compile Include="ObjectMothers\UserLoginInfoObjectMother.cs" />
+    <Compile Include="ObjectMothers\IPLoginInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseQuestionShortIdsInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\Organizations\OrganizationSettingsObjectMother.cs" />
     <Compile Include="Entities\SamlIdPUserInfoTests.cs" />

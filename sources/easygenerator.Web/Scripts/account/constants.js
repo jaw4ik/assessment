@@ -18,6 +18,7 @@ app.constants.pageviewUrls = {
 };
 
 app.constants.userSignUpFirstStepData = "userSignUpFirstStepData";
+app.constants.userSignInData = 'userSignInData';
 
 app.constants.patterns = {
     email: /^[^@\s]+@[^@\s]+$/
