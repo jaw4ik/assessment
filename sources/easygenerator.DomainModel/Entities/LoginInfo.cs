@@ -13,6 +13,7 @@ namespace easygenerator.DomainModel.Entities
 
     public abstract class LoginInfo : Identifiable, ILoginInfo
     {
+        private const int FailedLoginCounterMaxValue = 1000000;
         protected LoginInfo()
         {
         }
@@ -30,7 +31,11 @@ namespace easygenerator.DomainModel.Entities
 
         public void StoreFailedLogin()
         {
-            FailedLoginAttemptsCount++;
+            // If number of failed attempts is to large, stop incrementing it to avoid SQL limits
+            if (FailedLoginAttemptsCount < FailedLoginCounterMaxValue)
+            {
+                FailedLoginAttemptsCount++;
+            }
             LastFailTime = DateTimeWrapper.Now();
         }
 

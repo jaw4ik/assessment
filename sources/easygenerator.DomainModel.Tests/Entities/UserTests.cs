@@ -253,6 +253,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.Settings.IsCreatedThroughSamlIdP.Should().Be(false);
             user.Settings.NewEditor.Should().Be(true);
             user.Settings.IsNewEditorByDefault.Should().Be(true);
+            user.LoginInfo.LastFailTime.HasValue.Should().Be(false);
+            user.LoginInfo.FailedLoginAttemptsCount.Should().Be(0);
         }
 
         [TestMethod]

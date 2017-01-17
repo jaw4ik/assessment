@@ -81,6 +81,7 @@ namespace easygenerator.Web.Controllers
             return JsonSuccess(tokens);
         }
 
+        //TODO: check brute force after this method will be used
         [HttpPost, AllowAnonymous, CustomRequireHttps, WebApiKeyAccess("ExternalAuthToken")]
         public ActionResult ExternalAuthToken(string username, string password, string grant_type)
         {
