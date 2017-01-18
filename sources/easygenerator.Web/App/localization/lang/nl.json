@@ -1007,5 +1007,8 @@
     "singleVideo": "Single video",
     "mediaTabName": "Media",
     "pasteOrTypeVideoLink": "Paste or type video link...",
-    "changeVideo": "Change video"
+    "changeVideo": "Change video",
+    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
+    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "enterVideoUrlOrIframeTag": "Enter video URL or iframe tag"
 }

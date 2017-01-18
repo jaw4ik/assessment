@@ -828,7 +828,7 @@
     "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change the logo",
     "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
     "colorThemes": "Color themes",
-    "uploadFileFromDisc": "Upload from your hard disc",
+    "uploadFileFromDisc": "Upload from your hard drive",
     "attachByLink": "Attach a link to the logo",
     "pasteImageLink": "Paste image link here",
     "attach": "Attach",
@@ -1007,5 +1007,8 @@
     "singleVideo": "Single video",
     "mediaTabName": "Media",
     "pasteOrTypeVideoLink": "Paste or type video link...",
-    "changeVideo": "Change video"
+    "changeVideo": "Change video",
+    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
+    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "enterVideoUrlOrIframeTag": "Enter video URL or iframe tag"
 }
