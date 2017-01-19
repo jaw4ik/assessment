@@ -21,9 +21,10 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             bool isCreatedThroughLti = false, 
             bool isCreatedThroughSamlIdP = false,
             bool isNewEditorByDefault = true,
-            bool includeMediaToPackage = false)
+            bool includeMediaToPackage = false,
+            bool? isSurvicateAnswered = null)
         {
-            return new UserSettings(createdBy, lastReadReleaseNote, lastPassedSurveyPopup, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
+            return new UserSettings(createdBy, lastReadReleaseNote, lastPassedSurveyPopup, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage, isSurvicateAnswered);
         }
     }
 }

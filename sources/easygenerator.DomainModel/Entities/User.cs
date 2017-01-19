@@ -19,7 +19,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
             AccessType accessPlan, string lastReadReleaseNote, string lastReadSurveyPopup, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
             ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null, bool isEmailConfirmed = false,
-            bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false)
+            bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false, bool? isSurvicateAnswered = null)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -42,8 +42,8 @@ namespace easygenerator.DomainModel.Entities
             AllowedSamlServiceProviders = allowedSamlServiceProviders ?? new Collection<SamlServiceProvider>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
             SamlIdPUserInfoes = new Collection<SamlIdPUserInfo>();
-            Settings = new UserSettings(createdBy, lastReadReleaseNote, lastReadSurveyPopup, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage);
             LoginInfo = new UserLoginInfo(this);
+            Settings = new UserSettings(createdBy, lastReadReleaseNote, lastReadSurveyPopup, isCreatedThroughLti, isCreatedThroughSamlIdP, newEditor, isNewEditorByDefault, includeMediaToPackage, isSurvicateAnswered);
 
             AccessType = accessPlan;
 
@@ -149,6 +149,11 @@ namespace easygenerator.DomainModel.Entities
 
             Organization = organization;
             MarkAsModified(modifiedBy);
+        }
+        
+        public virtual bool CheckIfCanShowSurvicate()
+        {
+            return !(Settings.IsSurvicateAnswered ?? false || DateTime.Compare(DateTimeWrapper.Now(), CreatedOn.AddDays(7)) < 0);
         }
 
         public virtual void UpdateCountry(string country, string modifiedBy)

@@ -9,7 +9,7 @@ namespace easygenerator.DomainModel.Entities
         {
         }
 
-        public UserSettings(string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage)
+        public UserSettings(string createdBy, string lastReadReleaseNote, string lastPassedSurveyPopup, bool isCreatedThroughLti, bool isCreatedThroughSamlIdP, bool? newEditor, bool isNewEditorByDefault, bool includeMediaToPackage, bool? isSurvicateAnswered)
         : base(createdBy)
         {
             LastReadReleaseNote = lastReadReleaseNote;
@@ -19,6 +19,7 @@ namespace easygenerator.DomainModel.Entities
             NewEditor = newEditor;
             IsNewEditorByDefault = isNewEditorByDefault;
             IncludeMediaToPackage = includeMediaToPackage;
+            IsSurvicateAnswered = isSurvicateAnswered;
         }
 
         public virtual User User { get; set; }
@@ -55,6 +56,17 @@ namespace easygenerator.DomainModel.Entities
             {
                 NewEditor = true;
             }
+            MarkAsModified(modifiedBy);
+        }
+
+        public bool? IsSurvicateAnswered { get; private set; }
+
+        public virtual void SwitchSurvicateAnsweredStatus(string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            IsSurvicateAnswered = !(IsSurvicateAnswered ?? false);
+
             MarkAsModified(modifiedBy);
         }
 

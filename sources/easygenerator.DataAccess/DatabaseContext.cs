@@ -256,6 +256,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughLti).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsCreatedThroughSamlIdP).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.NewEditor).IsOptional();
+            modelBuilder.Entity<UserSettings>().Property(e => e.IsSurvicateAnswered).IsOptional();
             modelBuilder.Entity<UserSettings>().Property(e => e.IsNewEditorByDefault).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.IncludeMediaToPackage).IsRequired();
             modelBuilder.Entity<UserSettings>().Property(e => e.PersonalAccessType).IsOptional();

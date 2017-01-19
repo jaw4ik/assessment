@@ -26,7 +26,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var lastPassedSurveyPopup = "1";
 
             //Act
-            var settings = new UserSettings(createdBy, lastReadReleaseNote, lastPassedSurveyPopup, false, false, true, true, false);
+            var settings = new UserSettings(createdBy, lastReadReleaseNote, lastPassedSurveyPopup, false, false, true, true, false, false);
 
             //Assert
             settings.CreatedBy.Should().Be(createdBy);
@@ -37,6 +37,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             settings.NewEditor.Should().BeTrue();
             settings.IsNewEditorByDefault.Should().BeTrue();
             settings.IncludeMediaToPackage.Should().BeFalse();
+            settings.IsSurvicateAnswered.Should().BeFalse();
         }
 
         #endregion
@@ -203,6 +204,90 @@ namespace easygenerator.DomainModel.Tests.Entities
             settings.UpdateSurveyPopupVersion("aaa", modifiedBy);
 
             settings.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region SwitchSurvicateAnsweredStatus
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.SwitchSurvicateAnsweredStatus(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var settings = UserSettingsObjectMother.Create();
+
+            Action action = () => settings.SwitchSurvicateAnsweredStatus(string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var settings = UserSettingsObjectMother.Create();
+            settings.SwitchSurvicateAnsweredStatus(modifiedBy);
+
+            settings.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var settings = UserSettingsObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            settings.SwitchSurvicateAnsweredStatus(modifiedBy);
+
+            settings.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_WhenSurvicateAnsweredIsNull_ShouldSetSurvicateAnsweredToTrue()
+        {
+            var settings = UserSettingsObjectMother.Create();
+            const string modifiedBy = "admin";
+
+            settings.SwitchSurvicateAnsweredStatus(modifiedBy);
+
+            settings.IsSurvicateAnswered.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_WhenSurvicateAnsweredIsFalse_ShouldSetSurvicateAnsweredToTrue()
+        {
+            var settings = UserSettingsObjectMother.Create(isSurvicateAnswered: false);
+
+            const string modifiedBy = "admin";
+
+            settings.SwitchSurvicateAnsweredStatus(modifiedBy);
+
+            settings.IsSurvicateAnswered.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void SwitchSurvicateAnsweredStatus_WhenSurvicateAnsweredIsTrue_ShouldSetSurvicateAnsweredToTrue()
+        {
+            var settings = UserSettingsObjectMother.Create(isSurvicateAnswered: true);
+
+            const string modifiedBy = "admin";
+
+            settings.SwitchSurvicateAnsweredStatus(modifiedBy);
+
+            settings.IsSurvicateAnswered.Should().Be(false);
         }
 
         #endregion

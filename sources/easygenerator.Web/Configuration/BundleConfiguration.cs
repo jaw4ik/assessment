@@ -96,6 +96,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/cssPreloaders.css")
                 .Include("~/Content/imageSlider.css")
                 .Include("~/Content/navigationBar.css")
+                .Include("~/Content/survicate.css")
                 .Include("~/Content/treeOfContent.css")
                 .Include("~/Content/switchToggle.css")
                 .Include("~/Content/onboarding.css")

@@ -28,7 +28,7 @@ app.configurePlugins({
     dialog: true,
     http: true,
     widget: {
-        kinds: ['preloader', 'tags', 'searchInput', 'selectPopover', 'checkbox', 'imageSlider']
+        kinds: ['preloader', 'tags', 'searchInput', 'selectPopover', 'checkbox', 'imageSlider', 'survicateWrapper']
     }
 });
 

@@ -23,6 +23,7 @@
         this.companies = spec.companies && spec.companies.length ? spec.companies.map(companyMapper.map) : [];
         this.organizations = spec.organizations && spec.organizations.length ? spec.organizations.map(organizationMapper.map) : [];
         this.organizationInvites = spec.organizationInvites && spec.organizationInvites.length ? spec.organizationInvites.map(organizationInviteMapper.map) : [];
+        this.canShowSurvicate = spec.canShowSurvicate;
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {

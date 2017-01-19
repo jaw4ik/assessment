@@ -3,6 +3,11 @@
 
     var specs = [
 
+        //#region analytics
+        'analytics/survicate/commands/switchAnsweredStatusCommand.spec',
+        'analytics/survicate/survicateLoader.spec',
+        //#endregion
+
         //#region organizations
         'organizations/commands/createOrganization.spec',
         'organizations/commands/getOrganization.spec',
@@ -532,6 +537,7 @@
         'widgets/dialog/viewmodel.spec',
         'widgets/modalView/viewmodel.spec',
         'widgets/allowCoggno/viewmodel.spec',
+        'widgets/survicateWrapper/viewmodel.spec',
         ////#endregion
         'viewmodels/user/userMenu.spec',
         'viewmodels/shell.spec',

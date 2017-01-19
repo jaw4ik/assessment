@@ -144,7 +144,8 @@ namespace easygenerator.Web.Controllers
                     _samlServiceProviderRepository.GetByAssertionConsumerService(_configurationReader.CoggnoConfiguration.AssertionConsumerServiceUrl)
                 ),
                 isNewEditorByDefault = user.Settings.IsNewEditorByDefault,
-                includeMediaToPackage = user.Settings.IncludeMediaToPackage
+                includeMediaToPackage = user.Settings.IncludeMediaToPackage,
+                canShowSurvicate = user.CheckIfCanShowSurvicate()
             });
 
         }

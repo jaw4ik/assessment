@@ -25,6 +25,7 @@
 
             switchEditorMessageVisible: ko.observable(true),
             newEditor: ko.observable(false),
+            canShowSurvicate: ko.observable(true),
             switchEditor: switchEditor,
             closeSwitchEditorMessage: closeSwitchEditorMessage,
 
@@ -106,6 +107,7 @@
 
                         router.setDefaultLocationHash(isShowStartView ? { hash: 'start' } : clientContext.get(hex_md5(userContext.identity.email)));
                         viewModel.newEditor(userContext.identity.newEditor);
+                        viewModel.canShowSurvicate(userContext.identity.canShowSurvicate);
                     }
 
                     router.map([

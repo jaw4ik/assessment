@@ -2099,6 +2099,73 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region CheckIfCanShowSurvicate
+
+        [TestMethod]
+        public void CheckIfCanShowSurvicate_ShouldReturnTrue_WhenIsSurvicateAnsweredPropertyIsFalse()
+        {
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var user = new User();
+            DateTimeWrapper.Now = () => user.CreatedOn.AddDays(8);
+            user.Settings = UserSettingsObjectMother.Create();
+
+            if (user.Settings.IsSurvicateAnswered ?? false)
+            {
+                user.Settings.SwitchSurvicateAnsweredStatus("test");
+            }
+
+            user.CheckIfCanShowSurvicate().Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void CheckIfCanShowSurvicate_ShouldReturnFalse_WhenIsSurvicateAnsweredPropertyIsTrue()
+        {
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var user = new User();
+            DateTimeWrapper.Now = () => user.CreatedOn.AddDays(8);
+            user.Settings = UserSettingsObjectMother.Create();
+
+            if (!(user.Settings.IsSurvicateAnswered ?? false))
+            {
+                user.Settings.SwitchSurvicateAnsweredStatus("test");
+            }
+
+            user.CheckIfCanShowSurvicate().Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void CheckIfCanShowSurvicate_ShouldReturnFalse_WhenItDoNotTookSevenDaysAfterRegistration()
+        {
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var user = new User();
+            DateTimeWrapper.Now = () => user.CreatedOn.AddDays(3);
+            user.Settings = UserSettingsObjectMother.Create();
+
+            if (user.Settings.IsSurvicateAnswered ?? false)
+            {
+                user.Settings.SwitchSurvicateAnsweredStatus("test");
+            }
+
+            user.CheckIfCanShowSurvicate().Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void CheckIfCanShowSurvicate_ShouldReturnTrue_WhenItTookSevenDaysAfterRegistration()
+        {
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var user = new User();
+            DateTimeWrapper.Now = () => user.CreatedOn.AddDays(8);
+            user.Settings = UserSettingsObjectMother.Create();
+
+            if (user.Settings.IsSurvicateAnswered ?? false)
+            {
+                user.Settings.SwitchSurvicateAnsweredStatus("test");
+            }
+
+            user.CheckIfCanShowSurvicate().Should().BeTrue();
+        }
+
+        #endregion
 
         #region User Companies
 

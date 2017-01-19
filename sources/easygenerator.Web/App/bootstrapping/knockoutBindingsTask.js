@@ -45,7 +45,8 @@
     require('widgets/imageSlider/bindingHandlers/imageLazyLoadBindingHandler');
     require('widgets/modalView/bindingHandlers/visibleAnimateBindingHandler');
     require('widgets/tags/bindingHandlers/dynamicWidthInput');
-    require('widgets/tags/bindingHandlers/setFocusByClick');
+    require('widgets/tags/bindingHandlers/setFocusByClick'); 
+    require('widgets/survicateWrapper/bindingHandlers/survicateAnimationBindingHandler');
     require('dragAndDrop/bindingHandlers/draggableContainer');
     require('dragAndDrop/bindingHandlers/draggableData');
     require('components/htmlEditor/bindingHandlers/htmlEditorBindingHandler');

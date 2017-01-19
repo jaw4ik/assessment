@@ -511,6 +511,10 @@
     <Compile Include="Migrations\201701160953076_AddLoginInfo.Designer.cs">
       <DependentUpon>201701160953076_AddLoginInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701191406311_AddSurvicate.cs" />
+    <Compile Include="Migrations\201701191406311_AddSurvicate.Designer.cs">
+      <DependentUpon>201701191406311_AddSurvicate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\UserLoginInfoRepository.cs" />
@@ -893,6 +897,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701160953076_AddLoginInfo.resx">
       <DependentUpon>201701160953076_AddLoginInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701191406311_AddSurvicate.resx">
+      <DependentUpon>201701191406311_AddSurvicate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

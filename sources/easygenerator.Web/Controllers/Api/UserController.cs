@@ -273,5 +273,15 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess();
         }
+
+        [HttpPost]
+        [Route("api/user/switchsurvicateansweredstatus")]
+        public ActionResult UpdateSurvicateStatus()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            user.Settings.SwitchSurvicateAnsweredStatus(user.Email);
+
+            return JsonSuccess();
+        }
     }
 }

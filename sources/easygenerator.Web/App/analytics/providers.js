@@ -1,6 +1,5 @@
 ﻿define(['has', 'analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/intercomProvider'],
     function (has, consoleProvider, mixpanelProvider, IntercomProvider) {
-
         var providers = [];
 
         providers.identify = function () {
