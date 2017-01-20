@@ -40,6 +40,13 @@ namespace easygenerator.Web.BuildLearningPath
             _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course);
             _buildContentProvider.AddSettingsFileToPackageDirectory(courseDirectoryPath, getLearningPathCourseSettings(course, learningPath));
             _buildContentProvider.AddThemeSettingsFileToPackageDirectory(courseDirectoryPath, course.GetTemplateThemeSettings(course.Template));
+
+            var modulesList = _packageModulesProvider.GetModulesList(course);
+            //TODO: When access limitation in learning path was appear, add it to the last property
+            var publishSettings = _publishSettingsProvider.GetPublishSettings(modulesList, PublishSettingsProvider.Mode.Default, course.QuestionShortIdsInfo.GetShortIds(), null);
+
+            _buildContentProvider.AddPublishSettingsFileToPackageDirectory(courseDirectoryPath, publishSettings);
+            _buildContentProvider.AddModulesFilesToPackageDirectory(courseDirectoryPath, modulesList);
         }
 
         private string getLearningPathCourseSettings(Course course, LearningPath learningPath)
