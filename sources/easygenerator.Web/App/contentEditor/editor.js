@@ -14,9 +14,7 @@ const events = {
     reorderContent: 'Reorder content',
     duplicateContent: 'Duplicate content',
     deleteContent: 'Delete content',
-    restoreContent: 'Restore content',
-    startEditingContent: 'Start editing content',
-    endEditingContent: 'End editing content'
+    restoreContent: 'Restore content'
 };
 
 export default class {
@@ -81,7 +79,6 @@ export default class {
                 return;
             }
 
-            eventTracker.publish(events.startEditingContent);
             content.isActive(true);
             app.trigger(constants.messages.content.startEditing);
         };
@@ -90,7 +87,6 @@ export default class {
                 return;
             }
 
-            eventTracker.publish(events.endEditingContent);
             content.isActive(false);
         };
         

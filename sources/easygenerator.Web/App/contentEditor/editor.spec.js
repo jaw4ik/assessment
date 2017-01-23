@@ -185,11 +185,6 @@ describe('[Content editor]', () => {
                     mappedContent.isActive(false);
                 });
 
-                it('should send event', () => {
-                    mappedContent.setActive();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Start editing content');
-                });
-
                 it('should set isActive to true', () => {
                     mappedContent.setActive();
                     expect(mappedContent.isActive()).toBeTruthy();
@@ -230,12 +225,7 @@ describe('[Content editor]', () => {
                 beforeEach(() => {
                     mappedContent.isActive(true);
                 });
-
-                it('should send event', () => {
-                    mappedContent.setInactive();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('End editing content');
-                });
-
+                
                 it('should set isActive to false', () => {
                     mappedContent.setInactive();
                     expect(mappedContent.isActive()).toBeFalsy();
