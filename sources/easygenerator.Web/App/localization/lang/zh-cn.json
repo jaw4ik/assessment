@@ -1008,7 +1008,7 @@
     "mediaTabName": "媒体",
     "pasteOrTypeVideoLink": "在此粘贴或写下视频链接...",
     "changeVideo": "更改视频",
-    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
-    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "pasteOrTypeVideoLinkOrAnyEmbed": "Paste or type video link (YouTube, Vimeo) or any embed code...",
+    "enterVideoUrl": "输入视频网址（YouTube，Vimeo 等）",
     "enterVideoUrlOrIframeTag": "输入视频网址或 iframe 标签"
 }

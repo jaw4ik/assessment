@@ -1008,7 +1008,7 @@
     "mediaTabName": "Medien",
     "pasteOrTypeVideoLink": "Videoverknüpfung einfügen oder eingeben...",
     "changeVideo": "Video ändern",
-    "pasteOrTypeVideoUrlOrIframeTag": "Paste or type video URL or iframe tag",
-    "enterVideoUrl": "Enter video URL (YouTube, Vimeo etc)",
+    "pasteOrTypeVideoLinkOrAnyEmbed": "Paste or type video link (YouTube, Vimeo) or any embed code...",
+    "enterVideoUrl": "Video-URL (YouTube, Vimeo usw.) eingeben",
     "enterVideoUrlOrIframeTag": "Video-URL oder iFrame-Tag eingeben"
 }
