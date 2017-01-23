@@ -8,7 +8,7 @@ import imageUpload from 'imageUpload';
 import './bindingHandlers/resizableBindingHandler';
 import './bindingHandlers/toggleElementSizeBindingHandler';
 import './bindingHandlers/slideEditButtonsBindingHandler';
-import './bindingHandlers/floatingToolbarBindingHandler';
+import 'components/bindingHandlers/floatingToolbarBindingHandler';
 
 export const className = 'ImageEditor';
 

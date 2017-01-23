@@ -45,7 +45,7 @@
                     <!-- ko if: status() == $parent.statuses.inProgress -->
                     <div class="library-list-item-thumbnail uploading">
                         <canvas width="70" height="70" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 2 }"></canvas>
-                        <span class="library-uploading-progress" data-bind="text: progress() + '%'"></span>
+                        <span class="library-uploading-progress" data-bind="text: progress() === null ? '0%' : progress() + '%'"></span>
                     </div>
                     <!-- /ko -->
                     <div class="library-list-item-title-container">

@@ -8,14 +8,15 @@ import app from 'durandal/app';
 import notify from 'notify';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
+import settings from 'videoUpload/settings';
 
-describe('[videoUpload]', function () {
+describe('[videoUpload]', () => {
 
-    it('should be object', function () {
-        expect(videoUpload).toBeObject();
+    it('should be function', () => {
+        expect(videoUpload).toBeFunction();
     });
 
-    describe('upload', function () {
+    describe('upload', () => {
 
         var storageCommandsgetTicketDefer,
             storageCommandsfinishUploadDefer,
@@ -24,16 +25,10 @@ describe('[videoUpload]', function () {
             userContextIdentifyStoragePermissionsDefer,
             removeVideoDefer,
             file = { name: 'name.mp4', size: 100 },
-            settings = {
-                acceptedTypes: '*',
-                supportedExtensions: '*',
-                uploadErrorMessage: 'error',
-                notAnoughSpaceMessage: 'not anough space',
-                startUpload: videoUpload.upload
-            },
-            video = { id: 1, status: constants.storage.video.statuses.inProgress };
+            video = { id: 1, status: constants.storage.video.statuses.inProgress },
+            associatedLearningContentId;
 
-        beforeEach(function () {
+        beforeEach(() => {
 
             storageCommandsgetTicketDefer = Q.defer();
             storageCommandsfinishUploadDefer = Q.defer();
@@ -58,40 +53,37 @@ describe('[videoUpload]', function () {
 
         });
 
-        it('should be function', function () {
-            expect(videoUpload.upload).toBeFunction();
+        
+        it('should return promise', () => {
+            expect(videoUpload(file, settings)).toBePromise();
         });
 
-        it('should return promise', function () {
-            expect(videoUpload.upload(file, settings)).toBePromise();
-        });
-
-        it('should publish event', function () {
-            videoUpload.upload(file, settings);
+        it('should publish event', () => {
+            videoUpload(file, settings);
             expect(eventTracker.publish).toHaveBeenCalledWith('Upload video file', 'Video library');
         });
 
-        it('should return promise', function () {
-            expect(videoUpload.upload(file, settings)).toBePromise();
+        it('should return promise', () => {
+            expect(videoUpload(file, settings)).toBePromise();
         });
 
-        it('should get ticket', function () {
-            videoUpload.upload(file, settings);
+        it('should get ticket', () => {
+            videoUpload(file, settings);
             expect(storageCommands.getTicket).toHaveBeenCalledWith(file.size, 'name');
         });
 
-        describe('when get ticket query failed', function () {
+        describe('when get ticket query failed', () => {
 
-            describe('and status is 403', function () {
+            describe('and status is 403', () => {
 
-                beforeEach(function () {
+                beforeEach(() => {
                     storageCommandsgetTicketDefer.reject(403);
                 });
 
                 it('should show notification error with not anought space message', function (done) {
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(notify.error).toHaveBeenCalledWith(settings.notAnoughSpaceMessage);
                         done();
                     });
@@ -100,16 +92,16 @@ describe('[videoUpload]', function () {
 
             });
 
-            describe('and status is not 403', function () {
+            describe('and status is not 403', () => {
 
-                beforeEach(function () {
+                beforeEach(() => {
                     storageCommandsgetTicketDefer.reject(500);
                 });
 
                 it('should show notification error with upload error message', function (done) {
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(notify.error).toHaveBeenCalledWith(settings.uploadErrorMessage);
                         done();
                     });
@@ -120,14 +112,14 @@ describe('[videoUpload]', function () {
 
         });
 
-        describe('when get ticket query successful', function () {
+        describe('when get ticket query successful', () => {
 
             var data = {
                 uploadUrl: '123',
                 videoId: 1
             };
 
-            beforeEach(function () {
+            beforeEach(() => {
                 storageCommandsgetTicketDefer.resolve(data);
                 userContextIdentifyStoragePermissionsDefer.resolve();
             });
@@ -136,10 +128,10 @@ describe('[videoUpload]', function () {
                 vimeoCommandsPutFileDefer.resolve();
                 storageCommandsfinishUploadDefer.resolve(123);
 
-                var promise = videoUpload.upload(file, settings);
+                var promise = videoUpload(file, settings, associatedLearningContentId);
 
-                promise.fin(function () {
-                    expect(uploadDataContext.saveVideo).toHaveBeenCalledWith(data.videoId, 'name');
+                promise.fin(() => {
+                    expect(uploadDataContext.saveVideo).toHaveBeenCalledWith(data.videoId, 'name', associatedLearningContentId);
                     done();
                 });
 
@@ -149,9 +141,9 @@ describe('[videoUpload]', function () {
                 vimeoCommandsPutFileDefer.resolve();
                 storageCommandsfinishUploadDefer.resolve(123);
 
-                var promise = videoUpload.upload(file, settings);
+                var promise = videoUpload(file, settings);
 
-                promise.fin(function () {
+                promise.fin(() => {
                     expect(userContext.identifyStoragePermissions).toHaveBeenCalledWith();
                     done();
                 });
@@ -162,9 +154,9 @@ describe('[videoUpload]', function () {
                 vimeoCommandsPutFileDefer.resolve();
                 storageCommandsfinishUploadDefer.resolve(123);
 
-                var promise = videoUpload.upload(file, settings);
+                var promise = videoUpload(file, settings);
 
-                promise.fin(function () {
+                promise.fin(() => {
                     expect(app.trigger).toHaveBeenCalledWith(constants.storage.changesInQuota);
                     done();
                 });
@@ -175,18 +167,18 @@ describe('[videoUpload]', function () {
                 vimeoCommandsPutFileDefer.resolve();
                 storageCommandsfinishUploadDefer.resolve(123);
 
-                var promise = videoUpload.upload(file, settings);
+                var promise = videoUpload(file, settings);
 
-                promise.fin(function () {
+                promise.fin(() => {
                     expect(vimeoCommands.putFile).toHaveBeenCalledWith(data.uploadUrl, file);
                     done();
                 });
 
             });
 
-            describe('and put query is failed', function () {
+            describe('and put query is failed', () => {
 
-                beforeEach(function () {
+                beforeEach(() => {
                     vimeoCommandsPutFileDefer.reject();
                     storageCommandscancelUploadDefer.resolve();
                     storageCommandsfinishUploadDefer.resolve(123);
@@ -194,9 +186,9 @@ describe('[videoUpload]', function () {
 
                 it('should remove upload from upload queue', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(uploadDataContext.removeFromUploadQueue).toHaveBeenCalledWith(data.videoId);
                         done();
                     });
@@ -205,9 +197,9 @@ describe('[videoUpload]', function () {
 
                 it('should show notification error', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(notify.error).toHaveBeenCalledWith(settings.uploadErrorMessage);
                         done();
                     });
@@ -216,9 +208,9 @@ describe('[videoUpload]', function () {
 
                 it('should set video status to failed', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(video.status).toBe(constants.storage.video.statuses.failed);
                         done();
                     });
@@ -227,9 +219,9 @@ describe('[videoUpload]', function () {
 
                 it('should set upload changes to true', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(uploadDataContext.uploadChanged).toHaveBeenCalledWith(true);
                         done();
                     });
@@ -238,9 +230,9 @@ describe('[videoUpload]', function () {
 
                 it('should remove video from data context', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(uploadDataContext.removeVideo).toHaveBeenCalledWith(video.id, constants.storage.video.removeVideoAfterErrorTimeout);
                         done();
                     });
@@ -249,9 +241,9 @@ describe('[videoUpload]', function () {
 
                 it('should cancel upload', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(storageCommands.cancelUpload).toHaveBeenCalledWith(video.id);
                         done();
                     });
@@ -260,9 +252,9 @@ describe('[videoUpload]', function () {
 
                 it('should identify storage permissions after cancel upload', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(userContext.identifyStoragePermissions.calls.count()).toBe(2);
                         done();
                     });
@@ -271,9 +263,9 @@ describe('[videoUpload]', function () {
 
                 it('should trigger changes in quota event after identify storage permissions and cancel upload', function (done) {
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(app.trigger).toHaveBeenCalledWith(constants.storage.changesInQuota);
                         done();
                     });
@@ -292,9 +284,9 @@ describe('[videoUpload]', function () {
                 it('should remove upload from upload queue', function (done) {
                     storageCommandsfinishUploadDefer.resolve(123);
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(uploadDataContext.removeFromUploadQueue).toHaveBeenCalledWith(data.videoId);
                         done();
                     });
@@ -304,9 +296,9 @@ describe('[videoUpload]', function () {
                 it('should finish upload', function(done) {
                     storageCommandsfinishUploadDefer.resolve(123);
 
-                    var promise = videoUpload.upload(file, settings);
+                    var promise = videoUpload(file, settings);
 
-                    promise.fin(function () {
+                    promise.fin(() => {
                         expect(storageCommands.finishUpload).toHaveBeenCalledWith(data.videoId);
                         done();
                     });
@@ -315,15 +307,15 @@ describe('[videoUpload]', function () {
 
                 describe('and finish upload query is failed', function() {
 
-                    beforeEach(function () {
+                    beforeEach(() => {
                         storageCommandsfinishUploadDefer.reject();
                     });
 
                     it('should show notification error', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(notify.error).toHaveBeenCalledWith(settings.uploadErrorMessage);
                             done();
                         });
@@ -332,9 +324,9 @@ describe('[videoUpload]', function () {
 
                     it('should set video status to failed', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(video.status).toBe(constants.storage.video.statuses.failed);
                             done();
                         });
@@ -343,9 +335,9 @@ describe('[videoUpload]', function () {
 
                     it('should set upload changes to true', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(uploadDataContext.uploadChanged).toHaveBeenCalledWith(true);
                             done();
                         });
@@ -354,9 +346,9 @@ describe('[videoUpload]', function () {
 
                     it('should remove video from data context', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(uploadDataContext.removeVideo).toHaveBeenCalledWith(video.id, constants.storage.video.removeVideoAfterErrorTimeout);
                             done();
                         });
@@ -365,9 +357,9 @@ describe('[videoUpload]', function () {
 
                     it('should cancel upload', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(storageCommands.cancelUpload).toHaveBeenCalledWith(video.id);
                             done();
                         });
@@ -376,9 +368,9 @@ describe('[videoUpload]', function () {
 
                     it('should identify storage permissions after cancel upload', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(userContext.identifyStoragePermissions.calls.count()).toBe(2);
                             done();
                         });
@@ -387,9 +379,9 @@ describe('[videoUpload]', function () {
 
                     it('should trigger changes in quota event after identify storage permissions and cancel upload', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(app.trigger).toHaveBeenCalledWith(constants.storage.changesInQuota);
                             done();
                         });
@@ -406,9 +398,9 @@ describe('[videoUpload]', function () {
 
                     it('should set vimeoId to video', function(done) {
                             
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(video.vimeoId).toBe(123);
                             done();
                         });
@@ -418,9 +410,9 @@ describe('[videoUpload]', function () {
                     it('should set video status to loaded', function (done) {
                         video.status = constants.storage.video.statuses.inProgress;
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(video.status).toBe(constants.storage.video.statuses.loaded);
                             done();
                         });
@@ -429,9 +421,9 @@ describe('[videoUpload]', function () {
 
                     it('should set upload changes to true', function (done) {
 
-                        var promise = videoUpload.upload(file, settings);
+                        var promise = videoUpload(file, settings);
 
-                        promise.fin(function () {
+                        promise.fin(() => {
                             expect(uploadDataContext.uploadChanged).toHaveBeenCalledWith(true);
                             done();
                         });

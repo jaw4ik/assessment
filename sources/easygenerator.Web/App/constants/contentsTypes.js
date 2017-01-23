@@ -8,5 +8,9 @@
     imageEditorOneColumn: 'imageEditorOneColumn',
     imageEditorTwoColumns: 'imageEditorTwoColumns',
     imageInTheLeft: 'imageInTheLeft',
-    imageInTheRight: 'imageInTheRight'
+    imageInTheRight: 'imageInTheRight',
+    singleVideo: 'singleVideo',
+    videoWithText: 'videoWithText',
+    videoInTheLeft: 'videoInTheLeft',
+    videoInTheRight: 'videoInTheRight'
 };

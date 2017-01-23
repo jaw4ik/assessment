@@ -2,8 +2,7 @@
     function (VideoModel) {
         "use strict";
 
-        var
-            map = function (item) {
+        var map = function (item) {
                 return new VideoModel({
 
                     id: item.Id,

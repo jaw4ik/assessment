@@ -1,0 +1,91 @@
+﻿<section class="videos">
+    <h1 class="dialog-header" data-bind="localize: { text: 'videoLibrary' }"></h1>
+    <div id="imageLibraryDialog" class="dialog-content" data-bind="scrollbar:{ checkDOMChanges: true }">
+        <div class="dialog-content-wrapper">
+            
+            <!--DRAG AND DROP SECTION-->
+            <div class="content-section-wrapper">
+                <div class="content-section">
+                    <ul class="library-list">
+
+                        <li class="library-list-item add-library-item-button" data-bind="click: uploadVideo, css: { 'with-indicator': !!storageSpace() }">
+                            <div class="free-space-section" data-bind="visible: !!storageSpace()">
+                                <span class="free-space-info">
+                                    <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>
+                                    <span class="free-space-info-value" data-bind="text: storageSpace().availableStorageSpace"></span>
+                                </span>
+                                <span class="free-space-progress-bar">
+                                    <span class="free-space-progress-bar-value" data-bind="style: { width: storageSpace().availableStorageSpacePersentages + '%' }"></span>
+                                </span>
+                            </div>
+                        </li>
+
+                        <!-- ko ifnot: videos().length -->
+                        <li class="add-library-item-button-description">
+                            <span class="tip-arrow-text" data-bind="localize: { text : 'uploadVideoDescription' }">Upload your own video by click on this button</span>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko foreach: videos -->
+                        <li class="library-list-item" data-bind="click: isDeleteConfirmationShown() ? function(){} : $parent.selectVideo.bind($parent), css: { hovered: status() == $parent.statuses.loaded, selected: $parent.selectedVideoId() === id }">
+                            <!-- ko if: status() == $parent.statuses.loaded -->
+                            <div class="library-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl() + ')' }">
+                                <span class="list-item-selected-indicator"></span>
+                                <span class="preview-icon" data-bind="click: $parent.showVideoPopup.bind($parent)"></span>
+                                <!--HERE DELETE -->
+                            </div>
+                            <!-- /ko-->
+                            <!-- ko if: status() == $parent.statuses.failed -->
+                            <div class="library-list-item-thumbnail error">
+                                <span class="library-upload-error-image"></span>
+                                <span class="library-upload-error-title" data-bind="localize: { text: 'videoUploadShortError' }"></span>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: status() == $parent.statuses.inProgress -->
+                            <div class="library-list-item-thumbnail uploading">
+                                <canvas width="70" height="70" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 2 }"></canvas>
+                                <span class="library-uploading-progress" data-bind="text: progress() === null ? '' : progress() + '%'"></span>
+                            </div>
+                            <!-- /ko -->
+                            <div class="library-list-item-title-container">
+                                <span class="library-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
+                            </div>
+                            <div class="library-list-item-delete-confirmation" data-bind="css: {shown: isDeleteConfirmationShown}">
+                                <!-- ko ifnot: isDeleting() -->
+                                <div class="library-list-item-delete-confirmation-content-wrapper">
+                                    <div class="library-list-item-delete-confirmation-content">
+                                        <div class="library-list-item-delete-confirmation-text" data-bind="localize: { text: 'videoDeleteConfirmation'}"></div>
+                                        <div class="library-list-item-delete-confirmation-actions">
+                                            <button class="library-list-item-delete-confirmation-action delete btn red small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.deleteVideo">
+                                                <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
+                                            </button>
+                                            <button class="library-list-item-delete-confirmation-action cancel btn white small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.hideDeleteVideoConfirmation">
+                                                <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="library-list-item-delete-confirmation-hint">
+                                    <span class="library-list-item-delete-confirmation-hint-warning" data-bind="localize: { text: 'warning'}"></span>:&nbsp;
+                                    <span data-bind="localize: { text: 'videoDeleteWarning'}"></span>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: isDeleting() -->
+                                <div data-bind="preloader: { type: 'circular', settings: 'big orange align-center' }"></div>
+                                <!-- /ko -->
+                            </div>
+                        </li>
+                        <!-- /ko -->
+
+                    </ul>
+
+                    <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <button class="action-item-btn btn green" data-bind="click: done">
+            <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
+        </button>
+    </div>
+</section>

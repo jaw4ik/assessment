@@ -14,6 +14,12 @@
                     <span class="title" data-bind="localize: { text: 'imagesTabName' }"></span>
                 </div>
             </li>
+            <li class="media" data-tab-link="media" data-bind="localize: { title: 'classicTabName' }">
+                <span class="icon"></span>
+                <div class="title-wrapper">
+                    <span class="title" data-bind="localize: { text: 'mediaTabName' }"></span>
+                </div>
+            </li>
             <li class="classic" data-tab-link="classic" data-bind="localize: { title: 'classicTabName' }">
                 <span class="icon"></span>
                 <div class="title-wrapper">
@@ -38,7 +44,7 @@
                 <div class="content-item text-editor three-columns" data-bind="draggableData: constants.contentsTypes.textEditorThreeColumns, click: createContent">
                     <div class="title not-accessible" data-bind="localize: { text: 'threeColumns' }"></div>
                 </div>
-                 <div class="content-item text-editor link" data-bind="draggableData: constants.contentsTypes.linkCuration, click: createContent">
+                <div class="content-item text-editor link" data-bind="draggableData: constants.contentsTypes.linkCuration, click: createContent">
                     <div class="title not-accessible" data-bind="localize: { text: 'linkCurationBlock' }"></div>
                 </div>
             </div>
@@ -54,6 +60,20 @@
                 </div>
                 <div class="content-item image-editor image-in-the-right" data-bind="draggableData: constants.contentsTypes.imageInTheRight, click: createContent">
                     <div class="title not-accessible" data-bind="localize: { text: 'imageInTheRight' }"></div>
+                </div>
+            </div>
+            <div class="tab-content content-editor-items-panel" data-tab-content="media" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">
+                <div class="content-item media-editor single-video" data-bind="draggableData: constants.contentsTypes.singleVideo, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'singleVideo' }"></div>
+                </div>
+                <div class="content-item media-editor video-with-text" data-bind="draggableData: constants.contentsTypes.videoWithText, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'videoWithText' }"></div>
+                </div>
+                <div class="content-item media-editor video-in-the-left" data-bind="draggableData: constants.contentsTypes.videoInTheLeft, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'videoInTheLeft' }"></div>
+                </div>
+                <div class="content-item media-editor video-in-the-right" data-bind="draggableData: constants.contentsTypes.videoInTheRight, click: createContent">
+                    <div class="title not-accessible" data-bind="localize: { text: 'videoInTheRight' }"></div>
                 </div>
             </div>
             <div class="tab-content content-editor-items-panel" data-tab-content="classic" data-bind="draggableContainer: { copy: true, useTargetWidth: true, mirrorContainer: '.question-view-holder-wrapper' }">

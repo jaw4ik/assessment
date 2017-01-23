@@ -16,8 +16,8 @@ export default class {
         this.buttonsPanel.addButton('content-duplicate', 'duplicate', this.duplicate);
         this.buttonsPanel.addButton('content-delete', 'delete', this.delete);
     }
-    save(data) {
-        this.trigger('save', data);
+    save(data, callback) {
+        this.trigger('save', data, callback);
     }
     delete() {
         this.trigger('deleteContent');

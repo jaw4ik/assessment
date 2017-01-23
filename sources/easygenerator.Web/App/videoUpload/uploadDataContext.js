@@ -21,7 +21,7 @@
         return uploadChanges;
     }
 
-    function saveVideo(videoId, title) {
+    function saveVideo(videoId, title, associatedLearningContentId) {
         var video = new VideoModel({
             id: videoId,
             title: title,
@@ -30,7 +30,8 @@
             progress: 0,
             createdOn: null,
             modifiedOn: null,
-            vimeoId: null
+            vimeoId: null,
+            associatedLearningContentId: associatedLearningContentId || null
         });
 
         repository.addVideo(video);

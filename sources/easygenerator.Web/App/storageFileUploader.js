@@ -9,11 +9,13 @@
         startUpload: function () { }
     };
 
+    var bytesInMegabyte = 1048576;
+
     return {
         upload: upload
     }
 
-    function upload(options) {
+    function upload(options, associatedLearningContentId, callback) {
         var settings = $.extend({}, defaultSettings, options);
 
         var input = $("<input>")
@@ -21,7 +23,6 @@
             .attr('name', 'file')
             .attr('accept', settings.acceptedTypes)
             .on('change', function (e) {
-
                 var filePath = $(this).val(),
                     file = e.target.files[0],
                     isExtensionValid;
@@ -38,7 +39,12 @@
                         if (file.size > userContext.storageIdentity.availableStorageSpace) {
                             notify.error(settings.notAnoughSpaceMessage);
                         } else {
-                            settings.startUpload(file, settings);
+                           if (_.isFunction(callback)) {
+                               var fileSizeInMegabytes = (file.size / bytesInMegabyte).toFixed(2);
+                               callback(fileSizeInMegabytes);
+                           }
+                               
+                           settings.startUpload(file, settings, associatedLearningContentId);
                         }
                     });
 

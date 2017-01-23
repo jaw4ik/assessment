@@ -1,6 +1,7 @@
 ﻿import ko from 'knockout';
 import $ from 'jquery';
 import _ from 'underscore';
+import composition from 'durandal/composition';
 
 const headerSize = 65;
 const userShift = 10;
@@ -33,9 +34,8 @@ function setToolbarPosition($parent, $element, defaultTopValue, parentSizeChange
     }
 }
 
-
 ko.bindingHandlers.floatingToolbar = {
-    init: (element, valueAccessors, allBindings, viewModel, bindingContext) => {
+    init: (element, valueAccessors, allBindings, viewModel) => {
         let $element = $(element);
         let value = ko.utils.unwrapObservable(valueAccessors());
         let $parent = $element.closest(`.${value.parent}`);
@@ -50,7 +50,7 @@ ko.bindingHandlers.floatingToolbar = {
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
             $scrollContainer.off('scroll', setToolbarPosition);
-        })
+        });
     },
     update: (element, valueAccessors) => {
         let value = ko.utils.unwrapObservable(valueAccessors());
@@ -64,3 +64,5 @@ ko.bindingHandlers.floatingToolbar = {
         }
     }
 };
+
+composition.addBindingHandler('floatingToolbar');

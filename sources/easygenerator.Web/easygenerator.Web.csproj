@@ -812,6 +812,15 @@
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\commands\videos\add.js" />
+    <Content Include="App\commands\videos\add.spec.js" />
+    <Content Include="App\commands\videos\delete.js" />
+    <Content Include="App\commands\videos\delete.spec.js" />
+    <Content Include="App\commands\videos\getAvailableStorageSpace.js" />
+    <Content Include="App\commands\videos\getAvailableStorageSpace.spec.js" />
+    <Content Include="App\commands\videos\getCollection.js" />
+    <Content Include="App\commands\videos\getCollection.spec.js" />
+    <Content Include="App\commands\videos\index.js" />
     <Content Include="App\components\bindingHandlers\copyToClipboardBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\dropDownAnimation.js" />
     <Content Include="App\components\bindingHandlers\lazyForeachBindingHandler.js" />
@@ -869,13 +878,25 @@
     <Content Include="App\contentEditor\contentTypes\ContentBase.spec.js">
       <DependentUpon>ContentBase.js</DependentUpon>
     </Content>
+    <Content Include="App\contentEditor\contentTypes\ContentTypeBaseClass\ContentTypeBase.spec.js" />
+    <Content Include="App\contentEditor\contentTypes\ContentTypeBaseClass\ContentTypeBase.js" />
     <Content Include="App\contentEditor\contentTypes\contentTypesFactory.js" />
     <Content Include="App\contentEditor\contentTypes\contentTypesFactory.spec.js">
       <DependentUpon>contentTypesFactory.js</DependentUpon>
     </Content>
-    <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\floatingToolbarBindingHandler.js" />
     <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\slideEditButtonsBindingHandler.js" />
     <Content Include="App\contentEditor\contentTypes\editors\imageEditor\bindingHandlers\toggleElementSizeBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\floatingToolbarBindingHandler.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\urlTransformer\transform.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\urlTransformer\parseUrl.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\urlTransformer\embededVideos\vimeo.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\urlTransformer\embededVideos\youtube.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\videoFrame\view.html" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\videoFrame\viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\components\videoFrame\viewmodel.spec.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\index.html" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\index.js" />
+    <Content Include="App\contentEditor\contentTypes\editors\videoEditor\index.spec.js" />
     <Content Include="App\contentEditor\contentTypes\imageEditorOneColumn\Viewmodel.spec.js">
       <DependentUpon>Viewmodel.js</DependentUpon>
     </Content>
@@ -943,6 +964,27 @@
     <Content Include="App\contentEditor\contentTypes\linkCuration\view.html" />
     <Content Include="App\contentEditor\contentTypes\linkCuration\viewModel.js" />
     <Content Include="App\contentEditor\contentTypes\linkCuration\viewModel.spec.js" />
+    <Content Include="App\contentEditor\contentTypes\mediaEditor\components\defaultDataGenerator.js" />
+    <Content Include="App\contentEditor\contentTypes\mediaEditor\components\parser.js" />
+    <Content Include="App\contentEditor\contentTypes\singleVideo\view.html" />
+    <Content Include="App\contentEditor\contentTypes\singleVideo\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\singleVideo\Viewmodel.spec.js" />
+    <Content Include="App\contentEditor\contentTypes\videoInTheLeft\view.html" />
+    <Content Include="App\contentEditor\contentTypes\videoInTheLeft\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\videoInTheLeft\Viewmodel.spec.js" />
+    <Content Include="App\contentEditor\contentTypes\videoInTheRight\view.html" />
+    <Content Include="App\contentEditor\contentTypes\videoInTheRight\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\videoInTheRight\Viewmodel.spec.js" />
+    <Content Include="App\contentEditor\contentTypes\videoWithText\view.html" />
+    <Content Include="App\contentEditor\contentTypes\videoWithText\Viewmodel.js" />
+    <Content Include="App\contentEditor\contentTypes\videoWithText\Viewmodel.spec.js" />
+    <Content Include="App\utils\htmlEncode.js" />
+    <Content Include="App\videoUpload\mappers\videoMapper.js" />
+    <Content Include="App\videoUpload\models\videoModel.js" />
+    <Content Include="App\videoUpload\uploadManager.js" />
+    <Content Include="App\contentEditor\contentTypes\mediaEditor\view.html" />
+    <Content Include="App\contentEditor\contentTypes\mediaEditor\viewModel.js" />
+    <Content Include="App\contentEditor\contentTypes\mediaEditor\viewModel.spec.js" />
     <Content Include="App\contentEditor\contentTypes\textEditorOneColumn\view.html" />
     <Content Include="App\contentEditor\contentTypes\textEditorOneColumn\Viewmodel.js" />
     <Content Include="App\contentEditor\contentTypes\textEditorOneColumn\Viewmodel.spec.js">
@@ -984,6 +1026,8 @@
     <Content Include="App\dialogs\course\addByExample\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\videoLibrary\videoLibrary.html" />
+    <Content Include="App\dialogs\videoLibrary\videoLibrary.js" />
     <Content Include="App\examples\courses\commands\createCourseByExample.js" />
     <Content Include="App\examples\courses\commands\createCourseByExample.spec.js">
       <DependentUpon>createCourseByExample.js</DependentUpon>
@@ -1114,6 +1158,7 @@
       <DependentUpon>modified.js</DependentUpon>
     </Content>
     <Content Include="App\utils\observableHelpers.js" />
+    <Content Include="App\videoUpload\settings.js" />
     <Content Include="App\viewmodels\courses\publishingActions\components\usersAccessControlList.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publishingToCoggnoAction.spec.js">
       <DependentUpon>publishingToCoggnoAction.js</DependentUpon>
@@ -2014,10 +2059,6 @@
     <Content Include="App\viewmodels\sections\sections.spec.js">
       <DependentUpon>sections.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\videos\commands\deleteVideo.js" />
-    <Content Include="App\viewmodels\videos\commands\deleteVideo.spec.js">
-      <DependentUpon>deleteVideo.js</DependentUpon>
-    </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
@@ -2482,6 +2523,10 @@
     <Content Include="Content\images\chrome.png" />
     <Content Include="Content\images\companies\Nuvola.jpg" />
     <Content Include="Content\images\contentTypes\four-link-blocks.png" />
+    <Content Include="Content\images\contentTypes\single-video.png" />
+    <Content Include="Content\images\contentTypes\video-in-the-left.png" />
+    <Content Include="Content\images\contentTypes\video-in-the-right.png" />
+    <Content Include="Content\images\contentTypes\video-with-text.png" />
     <Content Include="Content\images\examples\about_us.png" />
     <Content Include="Content\images\examples\beauty_solar_system.png" />
     <Content Include="Content\images\examples\customer_support.png" />
@@ -2532,9 +2577,12 @@
     <Content Include="Content\images\linkArrow.png" />
     <Content Include="Content\images\link-image-not-found.png" />
     <Content Include="Content\images\loader_16x16.gif" />
+    <Content Include="Content\images\media-stroke.png" />
+    <Content Include="Content\images\media.png" />
     <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\oragnizationUserBg.png" />
     <Content Include="Content\images\pen-edit-link.png" />
+    <Content Include="Content\images\play_icon.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
     <Content Include="Content\images\question-types-small-icon.png" />
     <Content Include="Content\images\ranking-text-icon-small.png" />

@@ -62,7 +62,7 @@ export default class {
     async mapContent(content, justCreated) {
         let viewmodel = await contentTypesFactory.createContentViewmodel(content.type);
         
-        viewmodel.on('save', (text) => this.saveContent(content, text));
+        viewmodel.on('save', (text, callback) => this.saveContent(content, text, callback));
         viewmodel.on('startEditing', () => this.startEditingContent(content));
         viewmodel.on('endEditing', () => this.endEditingContent(content));
         viewmodel.on('duplicateContent', () => this.duplicateContent(content));
@@ -70,6 +70,7 @@ export default class {
         viewmodel.on('enableOverlay', () => this.enableOverlay());
         viewmodel.on('disableOverlay', () => this.disableOverlay());
 
+        if (_.isUndefined(content.id)) { content.id = null; }
         content.viewmodel = viewmodel;
         content.isActive = ko.observable(false);
         content.isDeleted = ko.observable(false);
@@ -92,21 +93,20 @@ export default class {
             eventTracker.publish(events.endEditingContent);
             content.isActive(false);
         };
-
+        
         return content;
     }
-
-    async saveContent(content, text) {
+    async saveContent(content, text, callback) {
         if (content.text === text || this.contentsList.indexOf(content) === -1) {
             return;
         }
         
         eventTracker.publish(events.editContent);
-
         if (content.justCreated) {
             let createdContent = await this.adapter.createContent(content.type, content.position, text);
             content.id = createdContent.id;
             content.justCreated = false;
+            if (_.isFunction(callback)) { callback({id: content.id}); }
         } else {
             await this.adapter.updateContentText(content.id, text);
         }

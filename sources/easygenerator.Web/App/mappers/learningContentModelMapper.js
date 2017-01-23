@@ -40,6 +40,14 @@
                     return constants.contentsTypes.imageInTheLeft;
                 case constants.contentsTypes.imageInTheRight:
                     return constants.contentsTypes.imageInTheRight;
+                case constants.contentsTypes.singleVideo:
+                    return constants.contentsTypes.singleVideo;
+                case constants.contentsTypes.videoInTheLeft:
+                    return constants.contentsTypes.videoInTheLeft;
+                case constants.contentsTypes.videoInTheRight:
+                    return constants.contentsTypes.videoInTheRight;
+                case constants.contentsTypes.videoWithText:
+                    return constants.contentsTypes.videoWithText;
                 default:
                     return constants.contentsTypes.classicEditor;
             }
