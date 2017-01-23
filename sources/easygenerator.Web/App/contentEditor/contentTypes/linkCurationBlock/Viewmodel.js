@@ -149,7 +149,7 @@ export class LinkEditor {
                 
                 if(!!microformat) {
                     this.map.title(microformat.title);
-                    this.map.description(microformat.description);
+                    this.map.description(hellip.cut(microformat.description, 128));
                     this.map.images(!microformat.images.length ? [constants.linkCuration.defaultImage] : microformat.images);
                     this.map.selectedImage(this.map.images()[0]);
                 } else {
