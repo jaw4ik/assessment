@@ -46,19 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\entityGenerators\" />
-    <Folder Include="typings\" />
-    <Folder Include="typings\globals\" />
-    <Folder Include="typings\globals\node\" />
     <Folder Include="utils\" />
     <Folder Include="test\" />
     <Folder Include="extensions\" />
     <Folder Include="test\pageObjects\" />
     <Folder Include="test\specs\" />
     <Folder Include="test\specs\signUp\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
-    <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
 </Project>
