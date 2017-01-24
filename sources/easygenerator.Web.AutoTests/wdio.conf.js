@@ -10,11 +10,11 @@ exports.config = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    specs: [
+    specs: process.env.specs ? process.env.specs.split('|') : [
         './test/specs/**/*.js'
     ],
     // Patterns to exclude.
-    exclude: [
+    exclude: process.env.exclude ? process.env.exclude.split('|') : [
         // 'path/to/excluded/files'
     ],
     //
@@ -39,7 +39,22 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: process.env.capabilities ? JSON.parse(process.env.capabilities) : [{
+    capabilities: process.env.browserName ? (() => {
+        // browsers for autotests
+        let _browserNames = process.env.browserName.split(',');
+        let _capabilities = [];
+        for (let browserName of _browserNames) {
+            let capability = {
+                maxInstances: process.env.maxInstances ? parseInt(process.env.maxInstances) : 2,
+                browserName
+            }
+            if (browserName === 'internet explorer') {
+                capability.nativeEvents = false;
+            }
+            _capabilities.push(capability);
+        }
+        return _capabilities;
+    })() : [{
         maxInstances: 2,
         browserName: 'chrome'
     }, {
