@@ -1,3 +1,5 @@
+'use strict';
+
 exports.config = {
     // Enable debug for specs debugging
     // debug: true,
