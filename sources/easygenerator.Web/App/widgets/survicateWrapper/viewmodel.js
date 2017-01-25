@@ -1,10 +1,10 @@
 ﻿import userContext from 'userContext';
 import survicateLoader from 'analytics/survicate/survicateLoader';
-import updateStatus from 'analytics/survicate/commands/switchAnsweredStatusCommand'
+import updateStatus from 'analytics/survicate/commands/switchAnsweredStatusCommand';
 
 let helpPopupSelectors = [
     '#hs-beacon',
-    '#intercom-frame'
+    '#intercom-container'
 ]
 
 let survicateCookies = [
@@ -35,25 +35,33 @@ class SurvicateWrapper {
 
         var interval = setInterval(function() {
             if (window._sv && _sv.loaded && _sv.seen) {
-                _sv.subscribe('closed', () => { that.isShown(false); });
+                var delay = 0;
 
-                _sv.subscribe('pointSubmit', () => {
-                    if(_sv.survey.currentPoint.constructor.name === 'SurveyCta') {
-                        that.isShown(false);
-                    }
+                if(_sv.survey.appear_method = 'delayed') {
+                    delay = _sv.survey.display_delay * 1000;
+                }
 
-                    if(userContext.identity.canShowSurvicate) {
-                        updateStatus.execute();
-                        userContext.identity.canShowSurvicate = false;
-                    }
-                });
+                setTimeout(function(){
+                    _sv.subscribe('closed', () => { that.isShown(false); });
 
-                _sv.subscribe('pointRendered', () => {
-                    that.isShown.notifySubscribers(true);
-                });
+                    _sv.subscribe('pointSubmit', () => {
+                        if(_sv.survey.currentPoint.constructor.name === 'SurveyCta') {
+                            that.isShown(false);
+                        }
+
+                        if(userContext.identity.canShowSurvicate) {
+                            updateStatus.execute();
+                            userContext.identity.canShowSurvicate = false;
+                        }
+                    });
+
+                    _sv.subscribe('pointRendered', () => {
+                        that.isShown.notifySubscribers(true);
+                    });
                 
-                that.isShown(true);
-                that.isLoaded(true);
+                    that.isShown(true);
+                    that.isLoaded(true);
+                }, delay);
 
                 clearInterval(interval);
             }
