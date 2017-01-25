@@ -5,6 +5,7 @@
             speed = valueAccessor().speed ? valueAccessor().speed * 1000 : 200,
             hideSpeed = valueAccessor().hideSpeed ? valueAccessor().hideSpeed * 1000 : 200,
             animateOnAdd = _.isUndefined(valueAccessor().animateOnAdd) ? true : valueAccessor().animateOnAdd,
+            animationEnabled = _.isUndefined(valueAccessor().animationEnabled) ? true : valueAccessor().animationEnabled,
             removeDelay = valueAccessor().removeDelay ? valueAccessor().removeDelay * 1000 : 0;
 
         return function () {
@@ -19,7 +20,11 @@
                     return;
                 }
 
-                $(element).hide().slideDown(speed);
+                if (animationEnabled()) {
+                    $(element).hide().slideDown(speed);
+                } else {
+                    $(element).show()
+                }
             }
 
             function beforeRemove(element) {
@@ -28,11 +33,15 @@
                 }
 
                 var $element = $(element);
-                $element.children().fadeTo(removeDelay, 0.3, 'easeInQuint', function () {
-                    $element.slideUp(hideSpeed, function () {
-                        $element.remove();
+                if (animationEnabled()) {
+                    $element.children().fadeTo(removeDelay, 0.3, 'easeInQuint', function () {
+                        $element.slideUp(hideSpeed, function () {
+                            $element.remove();
+                        });
                     });
-                });
+                } else {
+                    $element.remove();
+                }
             }
         };
     },

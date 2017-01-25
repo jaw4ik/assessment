@@ -104,6 +104,14 @@ describe('viewModel [courses]', function () {
 
     });
 
+    describe('animationEnabled:', function () {
+
+        it('should be observable', function () {
+            expect(viewModel.courses).toBeObservable();
+        });
+
+    });
+
     describe('isCreateCourseAvailable:', function () {
 
         it('should be observable', function () {
@@ -224,7 +232,7 @@ describe('viewModel [courses]', function () {
                 viewModel.activate().fin(function () {
                     viewModel.coursesTemplateFilter(templates[0].name);
 
-                    expect(viewModel.ownedCourses().length).toBe(2);
+                    expect(viewModel.ownedCourses.lengthVisible()).toBe(2);
                     done(); 
                 });
             }); 
@@ -245,8 +253,8 @@ describe('viewModel [courses]', function () {
 
                 viewModel.activate().fin(function () {
                     viewModel.coursesTitleFilter('Test Course 4');
-
-                    expect(viewModel.organizationCourses().length).toBe(1);
+                    
+                    expect(viewModel.organizationCourses.lengthVisible()).toBe(1);
                     done(); 
                 });
             });   
@@ -255,8 +263,8 @@ describe('viewModel [courses]', function () {
 
                 viewModel.activate().fin(function () {
                     viewModel.coursesTitleFilter('someone');
-
-                    expect(viewModel.organizationCourses().length).toBe(2);
+                    
+                    expect(viewModel.organizationCourses.lengthVisible()).toBe(2);
                     done(); 
                 });
             });
@@ -265,8 +273,8 @@ describe('viewModel [courses]', function () {
 
                 viewModel.activate().fin(function () {
                     viewModel.coursesTitleFilter('User second');
-
-                    expect(viewModel.organizationCourses().length).toBe(2);
+                    
+                    expect(viewModel.organizationCourses.lengthVisible()).toBe(2);
                     done(); 
                 });
             });
@@ -275,8 +283,8 @@ describe('viewModel [courses]', function () {
 
                 viewModel.activate().fin(function () {
                     viewModel.coursesTitleFilter('user@user.com');
-
-                    expect(viewModel.organizationCourses().length).toBe(0);
+                    
+                    expect(viewModel.organizationCourses.lengthVisible()).toBe(0);
                     done(); 
                 });
             });
@@ -286,7 +294,7 @@ describe('viewModel [courses]', function () {
                 viewModel.activate().fin(function () {
                     viewModel.coursesTitleFilter('User first');
 
-                    expect(viewModel.organizationCourses().length).toBe(0);
+                    expect(viewModel.organizationCourses.lengthVisible()).toBe(0);
                     done(); 
                 });
             });
@@ -342,7 +350,7 @@ describe('viewModel [courses]', function () {
             viewModel.activate().fin(function(){
                 viewModel.coursesTemplateFilter(templates[1].name);
 
-                expect(viewModel.ownedCourses().length).toBe(0);
+                expect(viewModel.ownedCourses.lengthVisible()).toBe(0);
                 done();
             });
         });
@@ -608,6 +616,7 @@ describe('viewModel [courses]', function () {
             title: ko.observable('title'),
             createdBy: 'someone',
             createdByName: 'User second',
+            isVisible: ko.observable(true),
             ownership: ko.observable(constants.courseOwnership.owned),
         };
 
@@ -633,6 +642,7 @@ describe('viewModel [courses]', function () {
             title: ko.observable(""),
             createdBy: 'someone',
             createdByName: 'User second',
+            isVisible: ko.observable(true),
             modifiedOn: ko.observable(""),
             ownership: ko.observable(),
         };
@@ -669,6 +679,7 @@ describe('viewModel [courses]', function () {
             title: ko.observable('abs'),
             createdBy: 'someone',
             createdByName: 'User second',
+            isVisible: ko.observable(true),
             modifiedOn: ko.observable(""),
             ownership: ko.observable(),
         };
@@ -691,6 +702,7 @@ describe('viewModel [courses]', function () {
         var vmCourse = {
             id: courseId,
             modifiedOn: ko.observable(""),
+            isVisible: ko.observable(true),
             createdBy: 'someone',
             createdByName: 'User second',
             ownership: ko.observable(constants.courseOwnership.owned),

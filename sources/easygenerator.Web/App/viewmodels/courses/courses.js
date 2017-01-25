@@ -83,11 +83,30 @@
         viewModel.organizationCourses = ko.computed(function () {
             return getCoursesSubCollection(constants.courseOwnership.organization);
         });
+        viewModel.ownedCourses.lengthVisible = ko.computed(function () {
+            return _.filter(viewModel.ownedCourses(), function (item) {
+                return item.isVisible();
+            }).length;
+        });
+        viewModel.sharedCourses.lengthVisible = ko.computed(function () {
+            return _.filter(viewModel.sharedCourses(), function (item) {
+                return item.isVisible();
+            }).length;
+        });
+        viewModel.organizationCourses.lengthVisible = ko.computed(function () {
+            return _.filter(viewModel.organizationCourses(), function (item) {
+                return item.isVisible();
+            }).length;
+        });
+
+        viewModel.animationEnabled = ko.computed(function () {
+            return viewModel.courses().length < 30;
+        });
 
         viewModel.isCoursesListEmpty = ko.computed(function () {
-            var lengthOfVisibleCourses = (viewModel.ownedCourses().length
-                                        + viewModel.sharedCourses().length
-                                        + viewModel.organizationCourses().length);
+            var lengthOfVisibleCourses = (viewModel.ownedCourses.lengthVisible()
+                                        + viewModel.sharedCourses.lengthVisible()
+                                        + viewModel.organizationCourses.lengthVisible());
 
             return lengthOfVisibleCourses === 0;
         });
@@ -135,26 +154,7 @@
         function getCoursesSubCollection(ownership) {
             return _.chain(viewModel.courses())
                 .filter(function (item) {
-                    var title = item.title().trim().toLowerCase();
-                    var authorName = item.createdByName.trim().toLowerCase();
-                    var authorEmail = item.createdBy.trim().toLowerCase();
-                    var coursesTemplateFilter = viewModel.coursesTitleFilter().trim().toLowerCase();
-
-                    var isVisibleByTemplate = (viewModel.coursesTemplateFilter() === localizedSelectAll)
-                                             || (item.template === viewModel.coursesTemplateFilter());
-
-                    return item.ownership() === ownership
-                            && (
-                                ~title.indexOf(coursesTemplateFilter)
-                                ||  (
-                                    ownership !== constants.courseOwnership.owned
-                                    && (
-                                        ~authorName.indexOf(coursesTemplateFilter)
-                                        || ~authorEmail.indexOf(coursesTemplateFilter)
-                                       )
-                                    )
-                               )
-                            && isVisibleByTemplate;
+                    return item.ownership() === ownership;
                 })
                 .sortBy(function (course) {
                     switch (viewModel.coursesSortOrder()) {
@@ -232,8 +232,28 @@
             course.sections = item.sections;
             course.isProcessed = true;
             course.template = item.template.name;
-
             course.ownership = ko.observable(item.ownership);
+
+            course.isVisible = ko.computed(function () {
+                var title = course.title().trim().toLowerCase();
+                var authorName = course.createdByName.trim().toLowerCase();
+                var authorEmail = course.createdBy.trim().toLowerCase();
+                var coursesTitleFilter = viewModel.coursesTitleFilter().trim().toLowerCase();
+                var coursesTemplateFilter = viewModel.coursesTemplateFilter();
+
+                var isVisibleByTemplate = (coursesTemplateFilter === localizedSelectAll)
+                                             || (course.template === coursesTemplateFilter);
+
+                return isVisibleByTemplate
+                    && !!(~title.indexOf(coursesTitleFilter)
+                    || (
+                        course.ownership() !== constants.courseOwnership.owned
+                        && (
+                            ~authorName.indexOf(coursesTitleFilter)
+                            || ~authorEmail.indexOf(coursesTitleFilter)
+                            )
+                        ));
+            });
 
             return course;
         }
@@ -260,6 +280,7 @@
                 sections: course.sections,
                 isProcessed: false,
                 isDuplicatingFinished: ko.observable(false),
+                isVisible: ko.observable(true),
                 finishDuplicating: false,
                 template: course.template,
 

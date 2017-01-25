@@ -55,8 +55,8 @@
                     </div>                    
                 </div>                
             </div>
-            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: ownedCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4 }">
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed}">
+            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: ownedCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4, animationEnabled: animationEnabled }">
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed}, expandBlock: {expanded: isVisible, animationEnabled: $root.animationEnabled, duration: 350}">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
                             <div class="info-holder-table">
@@ -107,11 +107,11 @@
                 </li>                     
             </ul>
 
-            <div class="main-content-list-title-wrapper" data-bind="css: {visible: sharedCourses().length > 0}">
+            <div class="main-content-list-title-wrapper" data-bind="css: {visible: sharedCourses.lengthVisible() > 0}">
                 <span class="main-content-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
             </div>
-            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: sharedCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4 }" >
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: sharedCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4, animationEnabled: animationEnabled }" >
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }, expandBlock: {expanded: isVisible, animationEnabled: $root.animationEnabled, duration: 350}">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
                             <div class="info-holder-table">
@@ -147,11 +147,11 @@
                     </div>
                 </li>
             </ul>
-            <div class="main-content-list-title-wrapper" data-bind="css: {visible: organizationCourses().length > 0}">
+            <div class="main-content-list-title-wrapper" data-bind="css: {visible: organizationCourses.lengthVisible() > 0}">
                 <span class="main-content-list-title" data-bind="localize: { text: 'myOrganization' }"></span>
             </div>
-            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: organizationCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4 }">
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+            <ul class="unstyled main-content-list" data-bind="foreachAnimated: { data: organizationCourses, removeDelay: 0, speed: 0.3, hideSpeed: 0.4, animationEnabled: animationEnabled }">
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }, expandBlock: {expanded: isVisible, animationEnabled: $root.animationEnabled, duration: 350}">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-info-holder">
                             <div class="info-holder-table">
