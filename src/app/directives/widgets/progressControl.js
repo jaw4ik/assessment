@@ -28,16 +28,43 @@
         loadArrowImages(scope);
         removeFontPreloadelements();
 
+        var width = 600,
+            height = 250,
+            drawingSettings = {
+                circleX: 300,
+                circleY: 125,
+                circleRadius: 80,
+                maxMultilineTextWidth: 120,
+                maxMasteryScoreTextWidth: 150,
+                maxLinesCount: 2,
+                progressTextSize: 40,
+                statusTextSize: 19,
+                masteryScoreTextSize: 16
+        };
+
         var canvas = $(element).children('.progress-control-wrapper').children('canvas');
-        canvas.attr('width', '600');
-        canvas.attr('height', '250');
+        if (innerWidth < 640) {
+            width = 320;
+            height = 200;
+            drawingSettings.circleX = 160;
+            drawingSettings.circleY = 100;
+            drawingSettings.circleRadius = 60;
+            drawingSettings.maxMultilineTextWidth = 80;
+            drawingSettings.maxMasteryScoreTextWidth = 80;
+            drawingSettings.maxLinesCount = 3;
+            drawingSettings.progressTextSize = 32;
+            drawingSettings.statusTextSize = 16;
+            drawingSettings.masteryScoreTextSize = 12;
+        }
+        canvas.attr('width', width);
+        canvas.attr('height', height);
         canvas.attr('data-score', scope.progress);
         canvas.attr('data-masteryScore', scope.masteryScore);
 
         var context = canvas[0].getContext('2d');
-        context.clearRect(0, 0, 600, 250);
+        context.clearRect(0, 0, width, height);
 
-        buildProgressControl(scope, context);
+        buildProgressControl(scope, context, drawingSettings);
     }
 
     function loadArrowImages(scope) {
@@ -55,22 +82,21 @@
         $('.fontPreload').remove();
     }
 
-    function buildProgressControl(scope, context) {
+    function buildProgressControl(scope, context, drawingSettings) {
         var color = (scope.progress >= scope.masteryScore) ? '#4cbae6' : '#f16162',
             fadeColor = (scope.progress >= scope.masteryScore) ? '#3a91b4' : '#bc4d4d',
-            progressAngle = 2 * Math.PI * (scope.progress / 100) - 0.5 * Math.PI,
-            circleX = 300, circleY = 125, circleRadius = 80;
+            progressAngle = 2 * Math.PI * (scope.progress / 100) - 0.5 * Math.PI;
 
         //  drawing circle background
-        drawCircle(context, circleX, circleY, circleRadius, '#f0f0f0', 'rgba(0, 0, 0, 0.3)', 4);
+        drawCircle(context, drawingSettings.circleX, drawingSettings.circleY, drawingSettings.circleRadius, '#f0f0f0', 'rgba(0, 0, 0, 0.3)', 4);
 
         //  drawing circle
-        drawCircle(context, circleX, circleY, circleRadius, color, fadeColor, 4, progressAngle);
+        drawCircle(context, drawingSettings.circleX, drawingSettings.circleY, drawingSettings.circleRadius, color, fadeColor, 4, progressAngle);
 
         // draw score text
         var scoreTextColor = scope.progress >= scope.masteryScore ? '#4cbae6' : '#f16162';
 
-        drawText(context, scope.progress + '%', '40px robotoslabbold', scoreTextColor, circleX + 6, circleY + 2, 'center', 160);
+        drawText(context, scope.progress + '%', drawingSettings.progressTextSize + 'px robotoslabbold', scoreTextColor, drawingSettings.circleX + 6, drawingSettings.circleY + 2, 'center', 160);
 
         // draw course status text
         var statusTextKey = scope.progress >= scope.masteryScore ? '[tracking and tracing result success]' : '[tracking and tracing result failed]';
@@ -78,13 +104,13 @@
             var statusText = translation,
             statusTextColor = scope.progress >= scope.masteryScore ? '#4cbae6' : '#f16162';
 
-            drawMultilineText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 120, 0, 1, true);
+            drawMultilineText(context, statusText.toUpperCase(), drawingSettings.statusTextSize + 'px robotoslabbold', statusTextColor, drawingSettings.circleX + 2, drawingSettings.circleY + 36, 'center', drawingSettings.maxMultilineTextWidth, 0, 1, true);
 
-            drawMasteryScore(scope, context, circleX, circleY, circleRadius);
+            drawMasteryScore(scope, context, drawingSettings.circleX, drawingSettings.circleY, drawingSettings.circleRadius, drawingSettings.maxMasteryScoreTextWidth, drawingSettings.maxLinesCount, drawingSettings.masteryScoreTextSize);
         });
     }
 
-    function drawMasteryScore(scope, context, circleX, circleY, circleRadius) {
+    function drawMasteryScore(scope, context, circleX, circleY, circleRadius, maxWidth, maxLinesCount, masteryScoreTextSize) {
         // draw mastery score circle
         var masteryScoreAngle = 2 * Math.PI * (scope.masteryScore / 100) - 0.5 * Math.PI,
             masteryScoreX = circleX + (Math.cos(masteryScoreAngle) * (circleRadius)),
@@ -94,7 +120,7 @@
         drawFillCircle(context, masteryScoreX, masteryScoreY, masteryScoreRadius, '#c3c3c3', '#c3c3c3', '#f0f0f0', 1);
 
         // draw mastery score text
-        drawText(context, scope.masteryScore + '%', '13px robotoslabregular', '#222', masteryScoreX, masteryScoreY + 4, 'center', 34);
+        drawText(context, scope.masteryScore + '%', masteryScoreTextSize + 'px robotoslabregular', '#222', masteryScoreX, masteryScoreY + 4, 'center', 34);
 
         // draw mastery score hint text
         var isLeftSideText = scope.masteryScore >= 50,
@@ -103,7 +129,7 @@
             masteryScoreHintTextAlign = isLeftSideText ? 'right' : 'left';
 
         translate('[tracking and tracing mastery score hint]').then(function (translation) {
-            drawMultilineText(context, translation, '19px Rabiohead, BadScriptRegular', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, masteryScoreHintTextAlign, 150, 20, 2, false);
+            drawMultilineText(context, translation, '19px Rabiohead, BadScriptRegular', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, masteryScoreHintTextAlign, maxWidth, 20, maxLinesCount, false);
 
             // draw mastery score arrow
             var masteryScoreArrowX = isLeftSideText ? masteryScoreX - 63 : masteryScoreX + 22,

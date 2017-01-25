@@ -20,7 +20,8 @@
                     src = background.image.src,
                     position = '0 0',
                     repeat = 'no-repeat',
-                    size = 'auto';
+                    size = 'auto',
+                    height = '100%';
 
 
                 if (background.image.type === 'repeat') {
@@ -38,7 +39,8 @@
                         'background-position': position,
                         '-webkit-background-size': size,
                         'background-size': size,
-                        'background-repeat': repeat
+                        'background-repeat': repeat,
+                        'height': height
                     });
                 };
 
