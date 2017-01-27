@@ -1001,14 +1001,14 @@
     "notValidLink": "Nenhum link válido",
     "linkCurationBlock": "Link (curadoria)",
     "videoWithText": "Vídeo com texto",
-    "videoInTheLeft": "Vídeo à esquerda",
-    "videoInTheRight": "Vídeo à direita",
+    "videoInTheLeft": "Video on the left",
+    "videoInTheRight": "Video on the right",
     "singleAudio": "Áudio individual",
     "singleVideo": "Vídeo individual",
     "mediaTabName": "Mídia",
     "pasteOrTypeVideoLink": "Cole ou digite o link do vídeo...",
     "changeVideo": "Altere o vídeo",
-    "pasteOrTypeVideoLinkOrAnyEmbed": "Paste or type video link (YouTube, Vimeo) or any embed code...",
+    "pasteOrTypeVideoLinkOrAnyEmbed": "Cole ou digite o link do vídeo (YouTube, Vimeo) ou um código de inserção...",
     "enterVideoUrl": "Insira URL de vídeo (YouTube, Vimeo etc.)",
     "enterVideoUrlOrIframeTag": "Insira URL de vídeo ou marca iframe"
 }
