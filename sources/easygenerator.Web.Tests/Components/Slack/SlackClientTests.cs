@@ -50,7 +50,7 @@ namespace easygenerator.Web.Tests.Components.Slack
 
             _slackConfiguration.Enabled = true;
             _slackClient.PostMessage(text, username, channel);
-            _httpClient.Received().Post<object>(Arg.Is(SlackWebhookUrl), Arg.Is<object>((_) => _.IsObjectSimilarTo("{\"channel\":\"" + channel + "\",\"username\":\"" + username + "\",\"text\":\"" + text + "\"}")));
+            _httpClient.Received().Post<object>(Arg.Is(SlackWebhookUrl), "{\"channel\":\"" + channel + "\",\"username\":\"" + username + "\",\"text\":\"" + text + "\"}");
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace easygenerator.Web.Tests.Components.Slack
             
             _slackConfiguration.Enabled = true;
             _slackClient.PostMessage(text);
-            _httpClient.Received().Post<object>(Arg.Is(SlackWebhookUrl), Arg.Is<object>((_) => _.IsObjectSimilarTo("{\"channel\":null,\"username\":null,\"text\":\"" + text + "\"}")));
+            _httpClient.Received().Post<object>(Arg.Is(SlackWebhookUrl), "{\"channel\":null,\"username\":null,\"text\":\"" + text + "\"}");
         }
 
         [TestMethod]
