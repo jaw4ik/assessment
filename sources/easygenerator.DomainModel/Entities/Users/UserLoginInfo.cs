@@ -1,7 +1,7 @@
 ﻿using System;
 using easygenerator.Infrastructure;
 
-namespace easygenerator.DomainModel.Entities
+namespace easygenerator.DomainModel.Entities.Users
 {
     public class UserLoginInfo : LoginInfo
     {

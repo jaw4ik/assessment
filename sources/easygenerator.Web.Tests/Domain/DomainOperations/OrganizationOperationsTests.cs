@@ -14,6 +14,7 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Tests.Domain.DomainOperations
 {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace easygenerator.DomainModel.Entities
+namespace easygenerator.DomainModel.Entities.Users
 {
     public class User : Entity
     {

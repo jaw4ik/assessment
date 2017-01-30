@@ -2,6 +2,7 @@
 using easygenerator.Infrastructure;
 using easygenerator.Web.Security.PermissionsCheckers;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Components.ActionFilters.Permissions
 {

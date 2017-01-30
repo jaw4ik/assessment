@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Entities.Tickets;
 using System;
 using System.Collections.Generic;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel
 {

@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Domain.DomainOperations
 {

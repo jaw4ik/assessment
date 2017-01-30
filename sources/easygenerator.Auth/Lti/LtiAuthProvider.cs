@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using easygenerator.Auth.Security.Models;
 using easygenerator.Auth.Security.Providers;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.DomainModel.Events.UserEvents;
 
 namespace easygenerator.Auth.Lti

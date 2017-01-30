@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities

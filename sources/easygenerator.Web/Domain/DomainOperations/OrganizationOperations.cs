@@ -6,6 +6,7 @@ using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using Microsoft.Ajax.Utilities;
 using System.Linq;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Domain.DomainOperations
 {

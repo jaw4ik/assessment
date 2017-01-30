@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Security.PermissionsCheckers;
 

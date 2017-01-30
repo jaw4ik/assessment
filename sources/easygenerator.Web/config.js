@@ -37,7 +37,7 @@ System.config({
     "json": "github:systemjs/plugin-json@0.1.2",
     "knockout": "core/knockout",
     "moment": "npm:moment@2.17.1",
-    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.15",
+    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.16",
     "plugins": "core/durandal/plugins",
     "spectrum-colorpicker": "npm:spectrum-colorpicker@1.7.1",
     "text": "github:systemjs/plugin-text@0.0.3",

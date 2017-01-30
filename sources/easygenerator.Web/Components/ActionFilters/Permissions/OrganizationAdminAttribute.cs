@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using System.Linq;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Components.ActionFilters.Permissions
 {

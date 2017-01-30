@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.Auth.Security.Models

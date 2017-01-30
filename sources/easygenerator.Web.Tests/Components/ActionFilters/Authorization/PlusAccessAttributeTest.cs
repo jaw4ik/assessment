@@ -4,6 +4,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Tests.Utils;

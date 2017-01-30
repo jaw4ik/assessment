@@ -14,6 +14,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DataAccess
 {
@@ -66,6 +67,7 @@ namespace easygenerator.DataAccess
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<SamlIdentityProvider> SamlIdentityProviders { get; set; }
         public DbSet<SamlServiceProvider> SamlServiceProviders { get; set; }
+        public DbSet<UserDomain> UserDomains { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -412,6 +414,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<OrganizationUser>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<OrganizationUser>().Property(e => e.IsAdmin).IsRequired();
             modelBuilder.Entity<OrganizationUser>().Property(e => e.Status).IsRequired();
+
+            modelBuilder.Entity<UserDomain>().HasKey(e => e.Domain).Property(e => e.Domain).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<UserDomain>().Property(e => e.NumberOfUsers).IsRequired();
+            modelBuilder.Entity<UserDomain>().Property(e => e.Tracked).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

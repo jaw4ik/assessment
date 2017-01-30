@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Tickets;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers.Tickets
 {

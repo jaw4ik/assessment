@@ -1,11 +1,11 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Organizations;
+﻿using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure.DomainModel.Mappings;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DataAccess.Repositories
 {

@@ -17,6 +17,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {

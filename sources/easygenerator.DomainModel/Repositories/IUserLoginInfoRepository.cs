@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Repositories
 {

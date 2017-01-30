@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Entities
 {

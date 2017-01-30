@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.DomainModel.Events.UserEvents;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Components.Tasks
 {

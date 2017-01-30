@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {

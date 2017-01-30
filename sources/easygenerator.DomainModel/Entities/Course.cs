@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using easygenerator.DomainModel.Entities.ACL;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Entities
 {

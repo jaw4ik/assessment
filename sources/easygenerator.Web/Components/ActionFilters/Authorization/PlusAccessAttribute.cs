@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {

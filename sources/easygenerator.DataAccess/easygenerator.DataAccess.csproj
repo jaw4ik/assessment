@@ -519,8 +519,13 @@
     <Compile Include="Migrations\201701261033046_RemoveSignUpSecondStep.Designer.cs">
       <DependentUpon>201701261033046_RemoveSignUpSecondStep.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701301114498_AddUserDomainsTable.cs" />
+    <Compile Include="Migrations\201701301114498_AddUserDomainsTable.Designer.cs">
+      <DependentUpon>201701301114498_AddUserDomainsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserDomainRepository.cs" />
     <Compile Include="Repositories\UserLoginInfoRepository.cs" />
     <Compile Include="Repositories\IPLoginInfoRepository.cs" />
     <Compile Include="Repositories\SamlServiceProviderRepository.cs" />
@@ -907,6 +912,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701261033046_RemoveSignUpSecondStep.resx">
       <DependentUpon>201701261033046_RemoveSignUpSecondStep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701301114498_AddUserDomainsTable.resx">
+      <DependentUpon>201701301114498_AddUserDomainsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

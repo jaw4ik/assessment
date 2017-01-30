@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {

@@ -13,6 +13,7 @@ using NSubstitute;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Tests.Domain.DomainEvents.Handlers
 {

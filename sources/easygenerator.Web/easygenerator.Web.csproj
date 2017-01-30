@@ -319,8 +319,13 @@
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
+    <Compile Include="Components\Configuration\SlackConfigurationSection.cs" />
     <Compile Include="Components\IPInfoProvider.cs" />
     <Compile Include="Components\ReCaptchaVerifier.cs" />
+    <Compile Include="Components\Slack\Payload.cs" />
+    <Compile Include="Components\Slack\SlackClient.cs" />
+    <Compile Include="Controllers\Api\UserDomainController.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Slack\UserEventsHandler.cs" />
     <Compile Include="Security\BruteForceLoginProtection\BruteForceLoginProtectionProvider.cs" />
     <Compile Include="Security\BruteForceLoginProtection\BruteForceLoginProtectionManager.cs" />
     <Compile Include="Components\BranchTrackProvider.cs" />

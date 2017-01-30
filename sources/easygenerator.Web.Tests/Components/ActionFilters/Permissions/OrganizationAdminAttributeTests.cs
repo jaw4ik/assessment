@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.DomainModel.Tests.ObjectMothers.Organizations;

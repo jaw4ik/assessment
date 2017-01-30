@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace easygenerator.DomainModel.Entities
+namespace easygenerator.DomainModel.Entities.Users
 {
     public class UserSubscription
     {

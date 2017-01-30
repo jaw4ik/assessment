@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Entities.Tickets;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
@@ -172,6 +173,9 @@ namespace easygenerator.DataAccess
             builder.RegisterType<OrganizationUserRepository>()
                 .As<IQuerableRepository<OrganizationUser>>()
                 .As<IOrganizationUserRepository>();
+
+            builder.RegisterType<UserDomainRepository>()
+                .As<IUserDomainRepository>();
 
             base.Load(builder);
         }

@@ -4,6 +4,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
 using System;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {

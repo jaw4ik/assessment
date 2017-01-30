@@ -62,6 +62,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.Web.Components.Slack;
 using easygenerator.Web.Domain.DomainOperations;
 using easygenerator.Web.Security.BruteForceLoginProtection;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
@@ -336,6 +337,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<ReleaseNoteFileReader>().As<IReleaseNoteFileReader>().SingleInstance();
             builder.RegisterType<SurveyPopupSettingsProvider>().As<ISurveyPopupSettingsProvider>().SingleInstance();
+            builder.RegisterType<SlackClient>();
 
             var container = builder.Build();
 

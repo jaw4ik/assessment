@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {

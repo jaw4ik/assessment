@@ -20,6 +20,7 @@ using System;
 using System.Collections.ObjectModel;
 using easygenerator.Auth.Security.Models;
 using easygenerator.Auth.Security.Providers;
+using easygenerator.DomainModel.Entities.Users;
 using NSubstitute;
 using FluentAssertions;
 

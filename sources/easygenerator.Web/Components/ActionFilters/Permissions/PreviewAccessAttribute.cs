@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Configuration;
 

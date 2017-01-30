@@ -4,6 +4,7 @@ using easygenerator.Web.Domain.DomainOperations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Tests.Domain.DomainOperations
 {

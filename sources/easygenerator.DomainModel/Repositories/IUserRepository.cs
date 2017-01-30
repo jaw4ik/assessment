@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Repositories
 {

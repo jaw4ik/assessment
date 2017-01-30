@@ -12,6 +12,7 @@ using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 {

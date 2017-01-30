@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.Infrastructure.DomainModel.Mappings;
 using System.Collections.Generic;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Repositories
 {

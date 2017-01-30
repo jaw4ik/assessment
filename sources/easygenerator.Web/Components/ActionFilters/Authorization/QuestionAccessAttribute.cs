@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.ACL;
+using easygenerator.DomainModel.Entities.Users;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.CourseEvents

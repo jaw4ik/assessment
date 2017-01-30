@@ -4,6 +4,7 @@ using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {

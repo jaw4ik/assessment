@@ -1,4 +1,6 @@
-﻿namespace easygenerator.DomainModel.Entities.Tickets
+﻿using easygenerator.DomainModel.Entities.Users;
+
+namespace easygenerator.DomainModel.Entities.Tickets
 {
     public abstract class Ticket : Entity
     {

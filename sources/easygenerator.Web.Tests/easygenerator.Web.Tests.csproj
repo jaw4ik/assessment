@@ -192,9 +192,11 @@
     <Compile Include="Components\ManifestFileManagerTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
+    <Compile Include="Components\Slack\SlackClientTests.cs" />
     <Compile Include="Controllers\Api\CourseTemplateSettingsControllerTests.cs" />
     <Compile Include="Controllers\Api\DocumentControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
+    <Compile Include="Controllers\Api\UserDomainControllerTests.cs" />
     <Compile Include="Controllers\Api\OrganizationControllerTests.cs" />
     <Compile Include="Controllers\Api\RankingTextControllerTests.cs" />
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
@@ -242,6 +244,7 @@
     <Compile Include="Domain\DomainEvents\Handlers\OrganizationSettingsApplicationHandlerTests.cs" />
     <Compile Include="Domain\DomainEvents\Handlers\OrganizationUserAutoincludeHandlerTests.cs" />
     <Compile Include="Controllers\SAML\ServiceProvider\ServiceProviderControllerTests.cs" />
+    <Compile Include="Domain\DomainEvents\Handlers\Slack\UserEventsHandlerTests.cs" />
     <Compile Include="Domain\DomainOperations\CourseOperationsTests.cs" />
     <Compile Include="Domain\DomainOperations\CourseOwnershipProviderTests.cs" />
     <Compile Include="Domain\DomainOperations\UserOperationsTests.cs" />

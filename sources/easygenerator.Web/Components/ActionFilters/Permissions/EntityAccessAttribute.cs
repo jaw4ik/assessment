@@ -5,6 +5,7 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 using System;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities.Users;
 
 namespace easygenerator.Web.Components.ActionFilters.Permissions
 {
