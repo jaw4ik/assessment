@@ -5,7 +5,7 @@
             speed = valueAccessor().speed ? valueAccessor().speed * 1000 : 200,
             hideSpeed = valueAccessor().hideSpeed ? valueAccessor().hideSpeed * 1000 : 200,
             animateOnAdd = _.isUndefined(valueAccessor().animateOnAdd) ? true : valueAccessor().animateOnAdd,
-            animationEnabled = _.isUndefined(valueAccessor().animationEnabled) ? true : valueAccessor().animationEnabled,
+            animationEnabled = _.isUndefined(valueAccessor().animationEnabled) ? true : ko.unwrap(valueAccessor().animationEnabled),
             removeDelay = valueAccessor().removeDelay ? valueAccessor().removeDelay * 1000 : 0;
 
         return function () {
@@ -20,10 +20,10 @@
                     return;
                 }
 
-                if (animationEnabled()) {
+                if (animationEnabled) {
                     $(element).hide().slideDown(speed);
                 } else {
-                    $(element).show()
+                    $(element).show();
                 }
             }
 
@@ -33,7 +33,7 @@
                 }
 
                 var $element = $(element);
-                if (animationEnabled()) {
+                if (animationEnabled) {
                     $element.children().fadeTo(removeDelay, 0.3, 'easeInQuint', function () {
                         $element.slideUp(hideSpeed, function () {
                             $element.remove();
