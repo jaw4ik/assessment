@@ -188,49 +188,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         #endregion
-
-        #region SignUpSecondStep
-
-        [TestMethod]
-        public void SignUpSecondStep_ShouldReturnViewResult()
-        {
-            //Act
-            var result = _controller.SignUpSecondStep();
-
-            //Assert
-            ActionResultAssert.IsViewResult(result);
-        }
-
-        [TestMethod]
-        public void SignUpSecondStep_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(false);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            _controller.SignUpSecondStep();
-
-            //Assert
-            Assert.AreEqual(true, _controller.ViewBag.ClickOnLogoDisabled);
-        }
-
-        [TestMethod]
-        public void SignUpSecondStep_ShouldSetViewBagNavigationLinksAreDisabledToTrue_WhenExistingUserIsNotAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(false);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            _controller.SignUpSecondStep();
-
-            //Assert
-            Assert.AreEqual(true, _controller.ViewBag.NavigationLinksAreDisabled);
-        }
-
-        #endregion
-
+                
         #region SignIn
 
         [TestMethod]

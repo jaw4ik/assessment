@@ -223,10 +223,10 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
-            modelBuilder.Entity<User>().Property(e => e.Phone).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Phone).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.FirstName).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.LastName).IsRequired();
-            modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Country).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
             modelBuilder.Entity<User>().HasMany(e => e.TicketCollection).WithRequired(e => e.User);

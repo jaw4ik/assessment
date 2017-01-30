@@ -155,19 +155,53 @@ app.signupModel = function () {
             grecaptchaResponse: (typeof viewModel.grecaptchaResponse() === 'string') ? viewModel.grecaptchaResponse() : ''
         };
 
-        app.clientSessionContext.set(app.constants.userSignUpFirstStepData, data);
-        $.when(app.trackEvent(app.constants.events.signupFirstStep, { username: data.email, firstname: data.firstName, lastname: data.lastName }), app.trackPageview(app.constants.pageviewUrls.signupFirstStep))
+        $.when(app.trackEvent(app.constants.events.signup, { username: data.email, firstname: data.firstName, lastname: data.lastName }), app.trackPageview(app.constants.pageviewUrls.signup))
             .done(function () {
-                var href = app.getLocationHref();
-
-                if (href.indexOf('signup') != -1) {
-                    app.assingLocation(href.replace(/signup/, 'signupsecondstep'));
-                } else if (href.indexOf('register') != -1) {
-                    app.assingLocation(href.replace(/register/, 'signupsecondstep'));
-                }
-
-                viewModel.isSignupRequestPending(false);
+                $.ajax({
+                    url: '/api/user/signup',
+                    data: data,
+                    type: 'POST'
+                }).done(function (response) {
+                    $.when(
+                        login(response.data, data.password, data.grecaptchaResponse)
+                    ).done(function () {
+                        localStorage.setItem('showCreateCourseView', true);
+                        app.openHomePage();
+                    });
+                }).fail(function () {
+                    viewModel.isSignupRequestPending(false);
+                });
             });
+    }
+
+    function login(username, password, grecaptchaResponse) {
+        var defer = $.Deferred();
+        var data = {
+            username: username,
+            password: password,
+            grant_type: "password",
+            endpoints: window.auth.getRequiredEndpoints(),
+            grecaptchaResponse: grecaptchaResponse
+        };
+
+        var requestArgs = {
+            url: '/auth/token',
+            data: data,
+            type: 'POST'
+        };
+
+        $.ajax(requestArgs).done(function (response) {
+            if (!response || !response.success) {
+                defer.resolve(false);
+                return;
+            }
+            window.auth.login(response.data).then(function (success) {
+                defer.resolve(success);
+            });
+        }).fail(function (reason) {
+            defer.reject(reason);
+        });
+        return defer.promise();
     }
 
 }

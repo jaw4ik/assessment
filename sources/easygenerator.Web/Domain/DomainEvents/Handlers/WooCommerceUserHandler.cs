@@ -16,26 +16,12 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            if (args.User.Settings.IsCreatedThroughLti || args.User.Settings.IsCreatedThroughSamlIdP)
-            {
-                Task.Run(() => _wooCommerceApiService.RegisterUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword));
-            }
-            else
-            {
-                Task.Run(() => _wooCommerceApiService.RegisterUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword, args.User.Country, args.User.Phone));
-            }
+            Task.Run(() => _wooCommerceApiService.RegisterUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword));
         }
 
         public void Handle(UserUpdateEvent args)
         {
-            if (args.User.Settings.IsCreatedThroughLti || args.User.Settings.IsCreatedThroughSamlIdP)
-            {
-                Task.Run(() => _wooCommerceApiService.UpdateUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword));
-            }
-            else
-            {
-                Task.Run(() => _wooCommerceApiService.UpdateUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword, args.User.Country, args.User.Phone));
-            }
+            Task.Run(() => _wooCommerceApiService.UpdateUser(args.User.Email, args.User.FirstName, args.User.LastName, args.UserPassword));
         }
     }
 }

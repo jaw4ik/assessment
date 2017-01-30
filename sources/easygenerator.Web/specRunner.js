@@ -559,7 +559,6 @@
         './Scripts/account/signup.spec',
         './Scripts/account/signin.spec',
         './Scripts/account/passwordrecovery.spec',
-        './Scripts/account/signupsecondstep.spec',
         './Scripts/review/review.spec',
         './Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
     ];

@@ -6,13 +6,13 @@
         <tr><th>First name:</th><td>@Model.FirstName</td></tr>
         <tr><th>Last name:</th><td>@Model.LastName</td></tr>
         <tr><th>Role:</th><td>@DisplayStringValue(Model.Role)</td></tr>
-        <tr><th>Country:</th><td>@Model.Country</td></tr>
+        <tr><th>Country:</th><td>@DisplayStringValue(Model.Country)</td></tr>
         <tr><th>Plan:</th><td>
             @Model.AccessType
             <a style="cursor: pointer;" onclick="document.querySelector('#upgradeUser').style.display = 'block'; return false;">Change</a>
         </td></tr>
         <tr><th>Expiration date:</th><td>@DisplayNullableDateTimeValue(Model.ExpirationDate)</td></tr>
-        <tr><th>Phone:</th><td>@Model.Phone</td></tr>
+        <tr><th>Phone:</th><td>@DisplayStringValue(Model.Phone)</td></tr>
         <tr><th>Created on:</th><td>@Model.CreatedOn</td></tr>
     </table>
     <section id="upgradeUser" style="display: none;">

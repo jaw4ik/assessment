@@ -481,7 +481,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
 
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -498,13 +498,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var lastReadReleaseNote = "";
             var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             _controller.Signup(profile);
 
             //Assert
-            _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UserRole == profile.UserRole));
+            _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user));
         }
 
         [TestMethod]
@@ -515,7 +515,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var lastReadReleaseNote = "";
             var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -532,7 +532,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var lastReadReleaseNote = "";
             var surveyPopupVersion = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Email, lastReadReleaseNote, surveyPopupVersion).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -545,13 +545,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             return new UserSignUpViewModel()
             {
-                Country = "Ukraine",
                 Email = "easygenerator@easygenerator.com",
                 FirstName = "easygenerator user firstname",
                 LastName = "easygenerator user lastname",
-                Phone = "+380777777",
-                Password = "UserPassword777",
-                UserRole = "not in the list"
+                Password = "UserPassword777"
             };
         }
 

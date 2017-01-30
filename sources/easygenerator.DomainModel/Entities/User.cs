@@ -16,26 +16,22 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal User() { }
 
-        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
+        protected internal User(string email, string password, string firstname, string lastname, string createdBy,
             AccessType accessPlan, string lastReadReleaseNote, string lastReadSurveyPopup, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
             ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null, bool isEmailConfirmed = false,
             bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false, bool? isSurvicateAnswered = null)
-            : base(createdBy)
+            :base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
             ThrowIfPasswordIsNotValid(password);
             ArgumentValidation.ThrowIfNullOrEmpty(firstname, nameof(firstname));
             ArgumentValidation.ThrowIfNullOrEmpty(lastname, nameof(lastname));
-            ArgumentValidation.ThrowIfNullOrEmpty(phone, nameof(phone));
-            ArgumentValidation.ThrowIfNullOrEmpty(country, nameof(country));
 
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
             FirstName = firstname;
             LastName = lastname;
-            Phone = phone;
-            Country = country;
-            Role = role;
+
             IsEmailConfirmed = isEmailConfirmed;
             TicketCollection = new Collection<Ticket>();
             CompaniesCollection = companiesCollection ?? new Collection<Company>();
@@ -56,6 +52,19 @@ namespace easygenerator.DomainModel.Entities
             {
                 ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
             }
+        }
+
+        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
+            AccessType accessPlan, string lastReadReleaseNote, string lastReadSurveyPopup, DateTime? expirationDate = null, bool isCreatedThroughLti = false, bool isCreatedThroughSamlIdP = false,
+            ICollection<Company> companiesCollection = null, ICollection<SamlServiceProvider> allowedSamlServiceProviders = null, bool isEmailConfirmed = false,
+            bool? newEditor = true, bool isNewEditorByDefault = true, bool includeMediaToPackage = false, bool? isSurvicateAnswered = null)
+            : this(email, password, firstname, lastname, createdBy, accessPlan, lastReadReleaseNote, lastReadSurveyPopup, 
+                  expirationDate, isCreatedThroughLti, isCreatedThroughSamlIdP, companiesCollection, allowedSamlServiceProviders, isEmailConfirmed, 
+                  newEditor, isNewEditorByDefault, includeMediaToPackage, isSurvicateAnswered)
+        {
+            Phone = phone;
+            Country = country;
+            Role = role;
         }
 
         public string Email { get; protected set; }

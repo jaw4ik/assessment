@@ -12,12 +12,12 @@ namespace easygenerator.Web.Components
 
         public static string GetCountryCode(string countryName)
         {
-            return CountriesInfoDictionary.SingleOrDefault(i => i.Key == countryName).Value.CountryCode;
+            return CountriesInfoDictionary.SingleOrDefault(i => i.Key == countryName).Value?.CountryCode;
         }
 
         public static string GetCountryName(string countryCode)
         {
-            countryCode = countryCode.ToUpper().Trim();
+            countryCode = countryCode?.ToUpper().Trim();
             return CountriesInfoDictionary.SingleOrDefault(i => i.Value.CountryCode == countryCode).Key;
         }
 

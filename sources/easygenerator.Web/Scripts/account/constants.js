@@ -3,8 +3,7 @@ app.constants = {};
 
 app.constants.events = {
     signin: 'Sign in',
-    signupFirstStep: 'Sign up (1st step)',
-    signupSecondStep: 'Sign up (2nd step)'
+    signup: 'Sign up (1st step)'
 };
 
 app.constants.timeout = {
@@ -13,11 +12,9 @@ app.constants.timeout = {
 };
 
 app.constants.pageviewUrls = {
-    signupFirstStep: '/signup/step1.html',
-    signupSecondStep: '/signup/step2.html'
+    signup: '/signup/step1.html'
 };
 
-app.constants.userSignUpFirstStepData = "userSignUpFirstStepData";
 app.constants.userSignInData = 'userSignInData';
 
 app.constants.patterns = {

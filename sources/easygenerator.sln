@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
 EndProject
@@ -53,8 +53,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.PdfConverter", "easygenerator.PdfConverter\easygenerator.PdfConverter.csproj", "{18B7BAC7-5F56-4855-9F40-6E2D821A7FBF}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "easygenerator.WinToWebConverter", "easygenerator.WinToWebConverter\easygenerator.WinToWebConverter.njsproj", "{9179D075-7953-43C4-9B0E-D94DADAA309A}"
-EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "easygenerator.Web.AutoTests", "easygenerator.Web.AutoTests\easygenerator.Web.AutoTests.njsproj", "{8B7F91F3-EFB5-4A3B-AA8E-5676ECEEDA6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,10 +125,6 @@ Global
 		{9179D075-7953-43C4-9B0E-D94DADAA309A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9179D075-7953-43C4-9B0E-D94DADAA309A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9179D075-7953-43C4-9B0E-D94DADAA309A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B7F91F3-EFB5-4A3B-AA8E-5676ECEEDA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B7F91F3-EFB5-4A3B-AA8E-5676ECEEDA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B7F91F3-EFB5-4A3B-AA8E-5676ECEEDA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B7F91F3-EFB5-4A3B-AA8E-5676ECEEDA6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

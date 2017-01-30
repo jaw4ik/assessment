@@ -58,15 +58,6 @@ namespace easygenerator.Web.Controllers
         }
 
         [NoCache]
-        public ActionResult SignUpSecondStep()
-        {
-            ViewBag.ClickOnLogoDisabled = true;
-            ViewBag.NavigationLinksAreDisabled = true;
-
-            return View();
-        }
-
-        [NoCache]
         public ActionResult SignIn()
         {
             var redirectUrl = _bruteForceLoginProtectionManager.GetUrlWithCaptcha(HttpContext, _ipInfoProvider.GetIP(HttpContext));

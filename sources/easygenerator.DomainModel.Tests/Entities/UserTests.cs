@@ -127,27 +127,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Act & Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("lastname");
         }
-
-        [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenPhoneIsNull()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithPhone(null);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("phone");
-        }
-
-        [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenCountryIsNull()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithCountry(null);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("country");
-        }
-
+        
         [TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenFirstNameIsEmpty()
         {
@@ -166,26 +146,6 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act & Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("lastname");
-        }
-
-        [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenPhoneIsEmpty()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithPhone("");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("phone");
-        }
-
-        [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenCountryIsEmpty()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithCountry("");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("country");
         }
 
         [TestMethod]
@@ -1349,26 +1309,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
-
-        [TestMethod]
-        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenPhoneIsNull()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePhone(null, "aaa");
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("phone");
-        }
-
-        [TestMethod]
-        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenPhoneIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePhone("", "aaa");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("phone");
-        }
+        
 
         [TestMethod]
         public void UpdatePhone_ShouldSetPhone()

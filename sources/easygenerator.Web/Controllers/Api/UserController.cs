@@ -186,12 +186,11 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Country, profile.UserRole, profile.Email, _releaseNoteFileReader.GetReleaseVersion(), "");
+            var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Email, _releaseNoteFileReader.GetReleaseVersion(), "");
 
             _repository.Add(user);
 
-            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole));
+            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password));
             _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
 
             return JsonSuccess(profile.Email);

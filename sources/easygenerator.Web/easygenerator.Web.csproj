@@ -4007,7 +4007,6 @@
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
-    <Content Include="Views\Account\SignUpSecondStep.cshtml" />
     <Content Include="Views\Account\TermsOfUse.cshtml" />
     <Content Include="Views\Account\_Layout.cshtml" />
     <Content Include="Views\Application\index.cshtml" />
@@ -4411,10 +4410,6 @@
     <Content Include="Scripts\account\signup.js" />
     <Content Include="Scripts\account\signup.spec.js">
       <DependentUpon>signup.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\account\signupsecondstep.js" />
-    <Content Include="Scripts\account\signupsecondstep.spec.js">
-      <DependentUpon>signupsecondstep.js</DependentUpon>
     </Content>
     <Content Include="Scripts\common\app.js" />
     <Content Include="Scripts\common\clientSessionContext.js" />
