@@ -36,7 +36,7 @@ export default{
         },
         // html 
         htmlAllowComments: true,
-        htmlAllowedAttrs: ['title', 'href', 'alt', 'src', 'style', 'span'],
+        htmlAllowedAttrs: ['title', 'href', 'alt', 'src', 'style', 'span', 'target'],
         htmlAllowedEmptyTags: ['span'],
         htmlAllowedTags: ['p', 'h1', 'h2', 'h3', 'cite', 'mark', 'a', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'span'],
         // paste
