@@ -12,7 +12,7 @@ namespace easygenerator.PdfConverter.Controllers
 {
     public class DefaultController : BaseApiController
     {
-        private const string TEMP_FILES_LOCATION_DIRECTORY = "Pdf_Download";
+        private const long maxCacheSize = 1073741824;
 
         [HttpGet]
         public RedirectResult Index()
@@ -24,7 +24,7 @@ namespace easygenerator.PdfConverter.Controllers
         [FileName("Document"), FileDownload]
         public IHttpActionResult Convert(string url, string version = null, bool high_quality = false)
         {
-            var directoryPath = Path.Combine(HttpRuntime.AppDomainAppPath, TEMP_FILES_LOCATION_DIRECTORY);
+            var directoryPath = CacheManager.directoryPath;
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
@@ -35,9 +35,23 @@ namespace easygenerator.PdfConverter.Controllers
             {
                 try
                 {
+                    if (CacheManager.currentCacheSize >= maxCacheSize)
+                    {
+                        CacheManager.ClearCache();
+
+                        if (CacheManager.currentCacheSize >= maxCacheSize)
+                        {
+                            var pdfBytes = Converter.PdfConverter.ConvertWithoutSaving(url, high_quality);
+
+                            return new FileResult(pdfBytes);
+                        }
+                    }
+
                     filePath = Path.Combine(directoryPath, Guid.NewGuid() + ".pdf");
                     Converter.PdfConverter.Convert(url, filePath, high_quality);
                     CacheManager.Set(url, version, high_quality, filePath);
+                    CacheManager.currentCacheSize += new FileInfo(filePath).Length;
+                    File.SetLastAccessTimeUtc(filePath, DateTime.UtcNow);
                 }
                 catch (Exception e)
                 {
