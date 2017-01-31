@@ -19,7 +19,7 @@ import localizationManager from 'localization/localizationManager';
 
 var templates = [
         { id: '0', name: 'First template', thumbnail: 'img' },
-        { id: '1', name: 'Second template', thumbnail: 'img' },
+        { id: '1', name: 'Second template', thumbnail: 'img' }
 ];
 var courses = [
         new CourseModel({
