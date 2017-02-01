@@ -59,7 +59,7 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers.Slack
             Task.Run(() =>
             {
                 var message =
-                    $"<{currentDomain}>: The {GetNumberStr(userDomain.NumberOfUsers)} user from @{userDomain.Domain} just signed up: {email}";
+                    $"The {GetNumberStr(userDomain.NumberOfUsers)} user from *@{userDomain.Domain}* just signed up: {email} (on <{currentDomain}>)";
                 _slackClient.PostMessage(message, "Multiple signups");
             });
         }
@@ -82,7 +82,7 @@ namespace easygenerator.Web.Domain.DomainEvents.Handlers.Slack
                 case '2':
                     numStr += "nd";
                     break;
-                case '4':
+                case '3':
                     numStr += "rd";
                     break;
                 default:

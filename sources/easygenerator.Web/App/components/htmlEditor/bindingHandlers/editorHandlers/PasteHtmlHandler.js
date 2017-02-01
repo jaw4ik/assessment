@@ -25,10 +25,19 @@ class PasteHtmlHandler extends EditorHandler {
 
         _.each(htmlNodes, node => {
             this.cleanupNode(node);
+            this.setTargetToAnchorNode(node);
             cleanHtml += node.outerHTML ? node.outerHTML : node.nodeValue;
         });
 
         return cleanHtml;
+    }
+
+    setTargetToAnchorNode(node) {
+        if (node.nodeName.toUpperCase() === 'A' && node.href)
+            node.target = '_blank';
+        for(let childNode of node.childNodes) {
+            this.setTargetToAnchorNode(childNode);
+        }
     }
 
     getStylePropertyRegExp(attributeName) {

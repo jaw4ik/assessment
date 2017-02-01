@@ -148,6 +148,10 @@
                 viewModel.coursesTemplateFilter(localizedSelectAll);
 
                 viewModel.coursesSortOrder(localStorage.getItem(localStorageKey) || viewModel.sortingOptions.recentlyModified);
+
+                viewModel.courses.subscribe(function () {
+                    viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
+                });
             });
         }
 
