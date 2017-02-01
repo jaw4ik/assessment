@@ -4,8 +4,10 @@ class Page {
     get title() {
         return browser.getTitle();
     }
-    open(path) {
-        browser.url('/' + path);
+    open(path, reopen) {
+        if(reopen || (browser.getUrl() !== browser.baseUrl() + '/' +  path)){
+            browser.url('/' + path);
+        }
     }
 };
 

@@ -8,10 +8,7 @@ class UserGenerator {
             firstName: uniqueGenerator.str,
             lastName: uniqueGenerator.str,
             email: uniqueGenerator.email,
-            password: uniqueGenerator.str,
-            country: 'Ukraine',
-            phone: uniqueGenerator.str,
-            role: 'Other'
+            password: uniqueGenerator.str
         }
     }
 }

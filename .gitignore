@@ -227,3 +227,4 @@ FakesAssemblies/
 /sources/easygenerator.Web.AutoTests/allure-results/*
 /sources/easygenerator.Web.AutoTests/allure-report/*
 /sources/easygenerator.Web.AutoTests/seleniumLogs/*
+/sources/easygenerator.Web.AutoTests/.vscode/settings.json

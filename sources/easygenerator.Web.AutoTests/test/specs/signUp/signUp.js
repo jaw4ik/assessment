@@ -1,153 +1,141 @@
 ﻿'use strict';
 
-var userGenerator = require('../../entityGenerators/userGenerator');
-var signUpPage = require('../../pageObjects/signUp.page');
-
-const TITLE = 'Sign up';
-const FIRST_NAME_ERROR = 'Enter your first name';
-const LAST_NAME_ERROR = 'Enter your last name';
-const EXISTING_USER_EMAIL = 'existing@easygenerator.com';
-const EMAIL_EXISTING_ERROR = 'This account already exists. Click on Sign in and try again.';
-const INCORRECT_EMAIL = 'incorrect email';
-const EMAIL_INCORRECT_ERROR = 'Enter a valid e-mail address';
+var appData = require('../../../data/dbData/app');
+var page = require('../../pageObjects/signUp.page');
+var constants = require('../../constants');
 
 describe('Sign Up:', () => {
 
     beforeEach(() => {
-        signUpPage.open();
+        page.open();
     });
 
     describe('title', () => {
         it('should be set', () => {
-            expect(signUpPage.title).toBe(TITLE);
+            expect(page.title).toBe(constants.signUp.TITLE);
         });
     });
 
-    describe('Sign Up form:', () => {
-        it('should deny access with empty creds', () => {
-            var disabled = signUpPage.signUp.getAttribute('disabled');
-            expect(disabled).toBe('true');
+    describe('Sign up form:', () => {
+        describe('form title:', () => {
+            it('should be set', () => {
+                expect(page.formTitle.getText()).toBe(constants.signUp.FORM_TITLE);
+            });
         });
 
-        it('should show error message when firstName is empty after lost focus', () => {
-            signUpPage.firstName.setValue('');
-            signUpPage.lastName.click();
-            var errorMessage = signUpPage.firstNameFormMessage.getText();
-            expect(errorMessage).toBe(FIRST_NAME_ERROR);
+        describe('when creadentials are not set', () => {
+            it('should disable form submiting', () => {
+                var disabled = page.signUpBtn.getAttribute('disabled');
+                expect(disabled).toBe('true');
+            });
         });
 
-        it('should show error message when lastName is empty after lost focus', () => {
-            signUpPage.lastName.setValue('');
-            signUpPage.firstName.click();
-            var errorMessage = signUpPage.lastNameFormMessage.getText();
-            expect(errorMessage).toBe(LAST_NAME_ERROR);
+        describe('when firstName is empty', () => {
+            it('should show error message', () => {
+                page.firstName.setValue('');
+                page.lastName.click();
+                expect(page.firstNameWarning.getText()).toBe(constants.signUp.INCORRECT_FIRST_NAME);
+            });
         });
 
-        describe('when entered email already exists', () => {
+        describe('when lastName is empty', () => {
+            it('should show error message', () => {
+                page.lastName.setValue('');
+                page.firstName.click();
+                expect(page.lastNameWarning.getText()).toBe(constants.signUp.INCORRECT_LAST_NAME);
+            });
+        });
+
+        describe('when email already exists', () => {
             beforeEach(() => {
-                signUpPage.email.setValue(EXISTING_USER_EMAIL);
-                signUpPage.firstName.click();
+                page.email.setValue(appData.users.justCreated.email);
+                page.firstName.click();
             });
 
-            it('should show appropriate error message after lost focus', () => {
-                var errorMessage = signUpPage.emailFormMessage.getText();
-                expect(errorMessage).toBe(EMAIL_EXISTING_ERROR);
+            it('should show error message', () => {
+                expect(page.emailWarning.getText()).toBe(constants.signUp.EMAIL_EXISTS);
             });
         });
 
-        describe('when entered email is incorrect', () => {
+        describe('when email is incorrect', () => {
             beforeEach(() => {
-                signUpPage.email.setValue(INCORRECT_EMAIL);
-                signUpPage.firstName.click();
+                page.email.setValue(constants.INCORRECT_EMAIL);
+                page.firstName.click();
             });
 
-            it('should show appropriate error message after lost focus', () => {
-                var errorMessage = signUpPage.emailFormMessage.getText();
-                expect(errorMessage).toBe(EMAIL_INCORRECT_ERROR);
+            it('should show error message', () => {
+                expect(page.emailWarning.getText()).toBe(constants.signUp.INCORRECT_EMAIL);
             });
         });
 
         describe('when password length is lesser than 7 characters', () => {
             beforeEach(() => {
-                signUpPage.password.setValue('123');
+                page.password.setValue('123');
             });
 
-            it('should not mark appropriate condition as successful', () => {
-                var hasClass = signUpPage.passwordLengthControl.hasClass('success');
-                expect(hasClass).toBeFalsy();
+            it('should not mark password as successful', () => {
+                expect(page.passwordLengthControl.hasClass('success')).toBeFalsy();
             });
         });
 
         describe('when password contains spaces', () => {
             beforeEach(() => {
-                signUpPage.password.setValue('1 2');
+                page.password.setValue('1 2');
             });
 
-            it('should not mark appropriate condition as successful', () => {
-                var hasClass = signUpPage.passwordSpacesControl.hasClass('success');
-                expect(hasClass).toBeFalsy();
+            it('should not mark password as successful', () => {
+                expect(page.passwordSpacesControl.hasClass('success')).toBeFalsy();
             });
         });
 
         describe('when password is correct', () => {
             beforeEach(() => {
-                signUpPage.password.setValue('1234567');
-                signUpPage.email.click();
+                page.password.setValue(constants.DEFAULT_PASSWORD);
+                page.email.click();
             });
 
-            it('should mark length control as successful', () => {
-                var lengthSuccess = signUpPage.passwordLengthControl.hasClass('success');
-                expect(lengthSuccess).toBeTruthy();
+            it('should pass length-control check', () => {
+                expect(page.passwordLengthControl.hasClass('success')).toBeTruthy();
             });
 
-            it('should mark space control as successful', () => {
-                var spacesSuccess = signUpPage.passwordSpacesControl.hasClass('success');
-                expect(spacesSuccess).toBeTruthy();
+            it('should pass space-control check', () => {
+                expect(page.passwordSpacesControl.hasClass('success')).toBeTruthy();
             });
         });
 
         describe('when show password option is not set', () => {
             beforeEach(() => {
-                var checkbox = signUpPage.togglePasswordVisibility;
-                checkbox.unselectCheckBox();
-                signUpPage.password.setValue('I am hidden');
+                page.showHidePasswordCheckbox.unselectCheckBox();
+                page.password.setValue('I am hidden');
             });
 
             it('should hide password', () => {
-                var type = signUpPage.password.getAttribute('type');
-                expect(type).toBe("password");
+                expect(page.password.getAttribute('type')).toBe("password");
             });
         });
 
         describe('when show password option is set', () => {
             beforeEach(() => {
-                var checkbox = signUpPage.togglePasswordVisibility;
-                checkbox.selectCheckBox();
-                signUpPage.password.setValue('I am visible');
+                page.showHidePasswordCheckbox.selectCheckBox();
+                page.password.setValue('I am visible');
             });
 
-            it('should hide password', () => {
-                var type = signUpPage.password.getAttribute('type');
-                expect(type).toBe("text");
+            it('should show password', () => {
+                expect(page.password.getAttribute('type')).toBe("text");
             });
         });
 
-        describe('when creds are correct', () => {
-            var user = userGenerator.uniqueUser;
-
+        describe('when creadentials are correct', () => {
             beforeEach(() => {
-                signUpPage.sumbitCreds(user);
-                browser.waitForUrlChange('/signupsecondstep', 3000);
+                page.signUp(appData.users.notExisting);
             });
 
-            it('should set user data to session storage', () => {
-                var data = signUpPage.sessionUserData;
-                expect(data.firstName).toBe(user.firstName);
-                expect(data.lastName).toBe(user.lastName);
-                expect(data.email).toBe(user.email);
-                expect(data.password).toBe(user.password);
+            it('should navigate to courses page and display name', () => {
+                var changed = browser.waitForUrlChange(['', '/', '/#courses'], constants.signUp.LOGIN_WAIT_FOR);
+                page.view.waitForVisible(constants.PAGE_LOAD_LIMIT);
+                expect(changed).toBe(true);
+                expect(page.userAvatar.getText()).toBe(appData.users.notExisting.firstName[0]);
             });
-
         });
     });
 });

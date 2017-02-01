@@ -18,14 +18,14 @@
                                 <span class="user-form-input-wrapper"></span>
                                 <input tabindex="1" class="user-form-input" type="text" placeholder="@Resources.FirstNameCaption" name="firstName" data-bind="value: firstName, valueUpdate: 'afterkeydown', event: { blur: validateFirstName, focus: onFocusFirstName }" ondrop="return false;" />
                             </div>
-                            <span class="user-form-message" data-bind="visible: isFirstNameErrorVisible()">@Resources.EnterValidFirstName</span>
+                            <span class="user-form-message first-name-error-message" data-bind="visible: isFirstNameErrorVisible()">@Resources.EnterValidFirstName</span>
                         </div>
                         <div class="user-form-row pull-right" data-bind="css: { error: isLastNameErrorVisible(), success: !isLastNameErrorVisible() && lastName.isValid() }">
                             <div class="user-form-input-holder">
                                 <span class="user-form-input-wrapper"></span>
                                 <input tabindex="1" class="user-form-input" type="text" placeholder="@Resources.LastNameCaption" name="lastName" data-bind="value: lastName, valueUpdate: 'afterkeydown', event: { blur: validateLastName, focus: onFocusLastName }" ondrop="return false;" />
                             </div>
-                            <span class="user-form-message" data-bind="visible: isLastNameErrorVisible()">@Resources.EnterValidLastName</span>
+                            <span class="user-form-message last-name-error-message" data-bind="visible: isLastNameErrorVisible()">@Resources.EnterValidLastName</span>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -35,7 +35,7 @@
                             <input tabindex="2" class="user-form-input" type="email" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
                         </div>
                         <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
-                        <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage' "></span>
+                        <span class="user-form-message email-error-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage' "></span>
                     </div>
                     <div class="user-form-row" data-bind="css: { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                         <div class="user-form-input-holder password">
@@ -55,10 +55,10 @@
                                 <span class="password-requirements-item-text">@Resources.PleaseUse</span>
                             </li>
                             <li class="password-requirements-item">
-                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasMoreThanSevenSymbols }">@Resources.NotLessThanSevenSymbols</span>
+                                <span class="password-requirements-item-text requirement password-symbols-requirement" data-bind="css: { success: password.hasMoreThanSevenSymbols }">@Resources.NotLessThanSevenSymbols</span>
                             </li>
                             <li class="password-requirements-item">
-                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasSpaces }">@Resources.NoSpaces</span>
+                                <span class="password-requirements-item-text requirement password-spaces-requirement" data-bind="css: { success: password.hasSpaces }">@Resources.NoSpaces</span>
                             </li>
                         </ul>
                     </div>

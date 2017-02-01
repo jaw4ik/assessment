@@ -8,8 +8,9 @@
 5. Make sure you have `IE11`, latest `Chrome`, `Firefox <= 45` installed on your PC.
 6. Make sure you have enabled protected mode for all security zones in `IE11`. Go to `options` -> `internet options` -> `security`, then select `Enable Protected Mode` for all zones.
 7. Open `wdio.conf.js` file in the autotests project root and configure all needed settings.
-8. To run tests execute `node app.js` command in the autotests project root or execute `gulp run-autotests` in the solution root.
-9. To run tests and build allure report execute `gulp autotests` in the solution root.
+8. Open `data/config.js` file and configure databases settings (databases will be restored using backups with test data from `data/backups`).
+9. To run tests execute `node app.js` command in the autotests project root or execute `gulp run-autotests` in the solution root.
+10. To run tests and build allure report execute `gulp autotests` in the solution root.
 
 ###Useful links:
 1. http://wiki.qatools.ru/display/AL/Allure+Commandline

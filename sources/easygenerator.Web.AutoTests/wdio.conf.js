@@ -1,8 +1,12 @@
 'use strict';
 
+var colors = require('colors');
+var co = require('co');
+var dataManager = require('./data/dataManager');
+
 exports.config = {
     // Enable debug for specs debugging
-    // debug: true,
+    debug: process.env.debug || false,
     //
     // ==================
     // Specify Test Files
@@ -35,7 +39,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: process.env.maxInstances ? parseInt(process.env.maxInstances) : 2,
+    maxInstances: process.env.maxInstances ? parseInt(process.env.maxInstances) : 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -47,7 +51,7 @@ exports.config = {
         let _capabilities = [];
         for (let browserName of _browserNames) {
             let capability = {
-                maxInstances: process.env.maxInstances ? parseInt(process.env.maxInstances) : 2,
+                maxInstances: process.env.maxInstances ? parseInt(process.env.maxInstances) : 1,
                 browserName
             }
             if (browserName === 'internet explorer') {
@@ -57,16 +61,19 @@ exports.config = {
         }
         return _capabilities;
     })() : [{
-        maxInstances: 2,
+        maxInstances: 1,
+        browserName: 'phantomjs'
+    }/*,{
+        maxInstances: 1,
         browserName: 'chrome'
     }, {
-        maxInstances: 2,
+        maxInstances: 1,
         browserName: 'firefox'
     }, {
-        maxInstances: 2,
+        maxInstances: 1,
         browserName: 'internet explorer',
         nativeEvents: false
-    }],
+    }*/],
     //
     // ===================
     // Test Configurations
@@ -92,7 +99,7 @@ exports.config = {
     baseUrl: process.env.baseUrl || 'http://localhost:666',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 60000,
+    waitforTimeout: 1000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
@@ -123,7 +130,16 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone'],
+    services: (() => {
+        const services = ['selenium-standalone'];
+        (process.env.browserName && (process.env.browserName.split(',').indexOf('phantomjs')) === -1) || services.push('phantomjs');
+        return services;
+    })(),
+    phantomjsOpts: {
+        debug: process.env.debug || false,
+        ignoreSslErrors: true,
+        webdriver: '4444'
+    },
     seleniumLogs: './seleniumLogs',
     //
     // Framework you want to run your specs with.
@@ -154,7 +170,7 @@ exports.config = {
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
         // an assertion fails.
         expectationResultHandler: function (passed, assertion) {
-			if (passed) {
+            if (passed) {
                 return;
             }
             const browserName = this.desiredCapabilities.browserName.split(' ').join('_');
@@ -198,8 +214,9 @@ exports.config = {
     // },
     //
     // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-    // beforeTest: function (test) {
-    // },
+    beforeTest: function (test) {
+        browser.windowHandleMaximize();
+    },
     //
     // Runs before a WebdriverIO command gets executed.
     // beforeCommand: function (commandName, args) {
@@ -210,8 +227,10 @@ exports.config = {
     // },
     //
     // Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-    // afterTest: function (test) {
-    // },
+    afterTest: function (test) {
+        console.log(test.passed ? 'passed'.green : `failed - ${test.fullName}`.red);
+        return co(dataManager.resetChanges());
+    },
     //
     // Hook that gets executed after the suite has ended
     // afterSuite: function (suite) {
@@ -219,8 +238,9 @@ exports.config = {
     //
     // Gets executed after all tests are done. You still have access to all global variables from
     // the test.
-    // after: function (result, capabilities, specs) {
-    // },
+    after: function (result, capabilities, specs) {
+        dataManager.close();
+    }
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.

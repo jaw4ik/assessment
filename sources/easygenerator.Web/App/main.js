@@ -58,7 +58,7 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
     bootstrapper.run();
 
     await* [
-        fonts.load([{"family":'Open+Sans:400,400italic,300italic,300,600,600italic:latin,cyrillic-ext', "place":'google'}, {"family":'Droid+Sans+Mono::latin', "place":'google'}]),
+        loadFonts(),
         userContext.identify(),
         userContext.identifyStoragePermissions(),
         synchronization.start(),
@@ -69,6 +69,14 @@ userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenF
     errorTracker.initUserContext();
 
     app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+
+    async function loadFonts() {
+        try {
+            await fonts.load([{ "family": 'Open+Sans:400,400italic,300italic,300,600,600italic:latin,cyrillic-ext', "place": 'google' }, { "family": 'Droid+Sans+Mono::latin', "place": 'google' }]);
+        } catch (e) {
+            console.error('failed to load fonts');
+        }
+    }
 
     async function handleExternalUser(tokenName, tokenHashName, token, action) {
         if (!token) {

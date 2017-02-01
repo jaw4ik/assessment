@@ -1,0 +1,58 @@
+{
+    // Use IntelliSense to learn about possible Node.js debug attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "start-web-server",
+            "program": "${workspaceRoot}\\tasks\\start-web-server.js",
+            "cwd": "${workspaceRoot}\\tasks"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "launch-tests",
+            "program": "${workspaceRoot}\\app.js",
+            "cwd": "${workspaceRoot}",
+            "env" : {
+                "debug": "true",
+                "browserName": "phantomjs"
+            },
+            "port": 5858,
+            "runtimeArgs": [
+                "--harmony",
+                "--debug"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "connect-wdio",
+            "port": 5859
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "build-report",
+            "program": "${workspaceRoot}\\tasks\\build-report.js",
+            "cwd": "${workspaceRoot}\\tasks"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "restore-from-backups",
+            "program": "${workspaceRoot}\\tasks\\restore-from-backups.js",
+            "cwd": "${workspaceRoot}\\tasks"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "update-backups",
+            "program": "${workspaceRoot}\\tasks\\update-backups.js",
+            "cwd": "${workspaceRoot}\\tasks"
+        }
+    ]
+}
