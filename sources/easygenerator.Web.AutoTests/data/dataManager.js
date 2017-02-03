@@ -1,20 +1,20 @@
 ﻿'use strict';
 
 var config = require('./config');
-var DbManager = require('./dbManager');
+var DataAdapter = require('./dataAdapter');
 
 class DataManager {
     constructor() {
         this.instances = [];
         for (let key of Object.keys(config)) {
-            this.instances.push(new DbManager(config[key]));
+            this.instances.push(new DataAdapter(config[key]));
         }
     }
     *prepare() {
         console.log('-------------------------------------------------------------------------------------------');
         for (let instance of this.instances) {
             yield* instance.killAllConnections();
-            yield* instance.deployDbFromBackup();
+            yield* instance.deployFromBackups();
             yield* instance.addIdIfNotExists();
             yield* instance.cloneAllTables();
             yield* instance.addTableToStoreChanges();
@@ -25,12 +25,12 @@ class DataManager {
     *restoreFromBackups(){
         for (let instance of this.instances) {
             yield* instance.killAllConnections();
-            yield* instance.deployDbFromBackup();
+            yield* instance.deployFromBackups();
         }
     }
     *updateBackups() {
         for (let instance of this.instances) {
-            yield* instance.updateCurrentBackup();
+            yield* instance.updateCurrentBackups();
         }
     }
     close() {

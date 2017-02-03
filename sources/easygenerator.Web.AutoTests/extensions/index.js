@@ -5,7 +5,6 @@ const WEB_STORAGE_GET = 'GET';
 const WEB_STORAGE_POST = 'POST';
 const WEB_STOARGE_DELETE = 'DELETE';
 const BUFFER_PAGE = '/signin';
-const DEFAULT_WAIT_FOR = 1000;
 
 function add(commandName, commandMethod, overwrite) {
     return browser.addCommand(commandName, commandMethod, overwrite);
@@ -16,6 +15,18 @@ module.exports = {
         add('hasClass', function(className) {
             var classList = this.getAttribute('class').split(' ');
             return classList.indexOf(className) !== -1;
+        });
+        add('waitExist', function(time) {
+            this.waitForExist(time);
+            return $(this.lastResult.selector);
+        });
+        add('waitVisible', function(time) {
+            this.waitForVisible(time);
+            return $(this.lastResult.selector);
+        });
+        add('waitText', function(time) {
+            this.waitForText(time);
+            return $(this.lastResult.selector);
         });
         add('baseUrl', function() {
             return config.baseUrl;
@@ -181,8 +192,9 @@ module.exports = {
         }); 
         add('loginIfNotLogedIn', (email, password, emailToCheck) => {
             if(!browser.isLogedIn(emailToCheck)){
-                browser.login(email, password);
+                return browser.login(email, password);
             }
+            return false;
         });
         add('logout', () => {
             browser.openBufferPageIfOutOfApp();

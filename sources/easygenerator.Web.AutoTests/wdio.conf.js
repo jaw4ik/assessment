@@ -99,7 +99,7 @@ exports.config = {
     baseUrl: process.env.baseUrl || 'http://localhost:666',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 1000,
+    waitforTimeout: 3000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
@@ -200,8 +200,9 @@ exports.config = {
     },
     //
     // Hook that gets executed before the suite starts
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        browser.webLocalStorage('DELETE');
+    },
     //
     // Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
     // beforeEach in Mocha)

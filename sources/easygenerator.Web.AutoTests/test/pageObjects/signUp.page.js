@@ -4,9 +4,6 @@ var constants = require('../constants');
 var Page = require('./page');
 
 class SignUpPage extends Page {
-    get view(){
-        return $('.shell');
-    }
     get formTitle(){
         return $('.user-title');
     }
@@ -26,9 +23,7 @@ class SignUpPage extends Page {
         return $('.user-form-input[name="email"]');
     }
     get emailWarning() {
-        var elem = $('.email-error-message');
-        elem.waitForVisible(constants.signUp.EMAIL_CHECK_WAIT_FOR);
-        return elem;
+        return $('.email-error-message').waitVisible(constants.signUp.EMAIL_CHECK_WAIT_FOR);
     }
     get password() {
         return $('.user-form-input[name="password"]');
@@ -46,10 +41,7 @@ class SignUpPage extends Page {
         return $('.user-form-btn');
     }
     get userAvatar(){
-        var elem = $('.user-avatar');
-        elem.waitForVisible(3000);
-        elem.waitForText();
-        return elem;
+        return $('.user-avatar').waitText();
     }
     open() {
         super.open('signup');
@@ -60,6 +52,9 @@ class SignUpPage extends Page {
         this.email.setValue(user.email);
         this.password.setValue(user.password);
         this.signUpBtn.click();
+    }
+    waitForLogin() {
+        return $('.shell').waitVisible(constants.PAGE_LOAD_LIMIT);
     }
 }
 

@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="data\dbManager.js" />
+    <Compile Include="data\dataAdapter.js" />
     <Compile Include="data\config.js" />
     <Compile Include="data\dataManager.js" />
     <Compile Include="launcher.js" />

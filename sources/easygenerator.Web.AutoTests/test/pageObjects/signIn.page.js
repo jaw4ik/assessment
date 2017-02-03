@@ -1,11 +1,9 @@
 'use strict';
 
+var constants = require('../constants');
 var Page = require('./page');
 
 class SignInPage extends Page {
-    get view(){
-        return $('.shell');
-    }
     get formTitle(){
         return $('.user-title');
     }
@@ -19,20 +17,13 @@ class SignInPage extends Page {
         return $('.user-form-btn[type="submit"]');
     }
     get formWarning(){
-        var elem = $('.user-form-notification-text');
-        elem.waitForText();
-        return elem;
+        return $('.user-form-notification-text').waitText();
     }
     get emailWarning(){
-        var elem = $('.user-form-message');
-        elem.waitForText();
-        return elem;
+        return $('.user-form-message').waitText();
     }
     get userAvatar(){
-        var elem = $('.user-avatar');
-        elem.waitForVisible(3000);
-        elem.waitForText();
-        return elem;
+        return $('.user-avatar').waitText();
     }
     open() {
         super.open('signin');
@@ -41,6 +32,9 @@ class SignInPage extends Page {
         this.email.setValue(email);
         this.password.setValue(password);
         this.submitBtn.click();
+    }
+    waitForLogin() {
+        return $('.shell').waitVisible(constants.PAGE_LOAD_LIMIT);
     }
 }
 

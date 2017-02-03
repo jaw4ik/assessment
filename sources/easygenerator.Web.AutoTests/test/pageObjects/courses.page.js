@@ -4,23 +4,26 @@ var constants = require('../constants');
 var Page = require('./page');
 
 class CoursesPage extends Page {
-    get view(){
-        return $('.courses.view-module .content-section');
-    }
     get pageHeader(){
-        var elem = $('.page-view-caption-text');
-        elem.waitForText();
-        return elem;
+        return $('.page-view-caption-text').waitText();
     }
     get emptyCourseListTitle() {
-        return $('.empty-list.title');
+        return $('.empty-list.title').waitText();
     }
     get createCourseBtn() {
-        return $('.create-item.btn.green');
+        return $('.create-item.btn.green').waitText();
     }
-    open() {
-        super.open('#courses');
-        this.view.waitForVisible(constants.PAGE_LOAD_LIMIT);
+    get courseList(){
+        return $('.main-content-list').waitText();
+    }
+    get courseTitles(){
+         return this.courseList.$$('.main-content-list-item .list-item-title .selectable');
+    }
+    open(reopen) {
+        super.open('#courses', reopen);
+    }
+    waitForLoad(){
+        return $('.courses.view-module .content-section').waitVisible(constants.PAGE_LOAD_LIMIT);
     }
 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var appData = require('../../../data/dbData/app');
+var dbData = require('../../../data/dbData');
 var page = require('../../pageObjects/signIn.page');
 var constants = require('../../constants');
 
@@ -26,7 +26,7 @@ describe('Sign In:', () => {
 
         describe('when user does not exist in databse', () => {
             beforeEach(() => {
-                page.signIn(appData.users.notExisting.email, constants.DEFAULT_PASSWORD);
+                page.signIn(dbData.users.notExisting.email, constants.DEFAULT_PASSWORD);
             });
 
             it('should show error message', () => {
@@ -47,7 +47,7 @@ describe('Sign In:', () => {
 
             describe('and email/password combination does not exist', () => {
                 beforeEach(() => {
-                    page.signIn(appData.users.justCreated.email, constants.DEFAULT_PASSWORD);
+                    page.signIn(dbData.users.justCreated.email, constants.DEFAULT_PASSWORD);
                 });
 
                 it('should show error message', () => {
@@ -57,14 +57,14 @@ describe('Sign In:', () => {
 
             describe('and email/password combination exists', () => {
                 beforeEach(() => {
-                    page.signIn(appData.users.justCreated.email, appData.users.justCreated.password);
+                    page.signIn(dbData.users.justCreated.email, dbData.users.justCreated.password);
                 });
 
                 it('should navigate to courses page and display name', () => {
                     var changed = browser.waitForUrlChange(['', '/', '/#courses'], constants.signIn.LOGIN_WAIT_FOR);
-                    page.view.waitForVisible(constants.PAGE_LOAD_LIMIT);
                     expect(changed).toBe(true);
-                    expect(page.userAvatar.getText()).toBe(appData.users.justCreated.firstName[0]);
+                    page.waitForLogin();
+                    expect(page.userAvatar.getText()).toBe(dbData.users.justCreated.firstName[0]);
                 });
             });
         });

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var appData = require('../../../data/dbData/app');
+var dbData = require('../../../data/dbData');
 var page = require('../../pageObjects/signUp.page');
 var constants = require('../../constants');
 
@@ -48,7 +48,7 @@ describe('Sign Up:', () => {
 
         describe('when email already exists', () => {
             beforeEach(() => {
-                page.email.setValue(appData.users.justCreated.email);
+                page.email.setValue(dbData.users.justCreated.email);
                 page.firstName.click();
             });
 
@@ -127,14 +127,14 @@ describe('Sign Up:', () => {
 
         describe('when creadentials are correct', () => {
             beforeEach(() => {
-                page.signUp(appData.users.notExisting);
+                page.signUp(dbData.users.notExisting);
             });
 
             it('should navigate to courses page and display name', () => {
                 var changed = browser.waitForUrlChange(['', '/', '/#courses'], constants.signUp.LOGIN_WAIT_FOR);
-                page.view.waitForVisible(constants.PAGE_LOAD_LIMIT);
                 expect(changed).toBe(true);
-                expect(page.userAvatar.getText()).toBe(appData.users.notExisting.firstName[0]);
+                page.waitForLogin();
+                expect(page.userAvatar.getText()).toBe(dbData.users.notExisting.firstName[0]);
             });
         });
     });

@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "start-web-server",
-            "program": "${workspaceRoot}\\tasks\\start-web-server.js",
+            "name": "start-server",
+            "program": "${workspaceRoot}\\tasks\\start-server.js",
             "cwd": "${workspaceRoot}\\tasks"
         },
         {
@@ -19,7 +19,8 @@
             "cwd": "${workspaceRoot}",
             "env" : {
                 "debug": "true",
-                "browserName": "phantomjs"
+                "browserName": "phantomjs",
+                "specs": "./test/specs/**/*.js"
             },
             "port": 5858,
             "runtimeArgs": [
@@ -38,7 +39,7 @@
             "request": "launch",
             "name": "build-report",
             "program": "${workspaceRoot}\\tasks\\build-report.js",
-            "cwd": "${workspaceRoot}\\tasks"
+            "cwd": "${workspaceRoot}"
         },
         {
             "type": "node",
