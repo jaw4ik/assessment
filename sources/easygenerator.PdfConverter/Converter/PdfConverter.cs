@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using NReco.PdfGenerator;
+﻿using NReco.PdfGenerator;
 
 namespace easygenerator.PdfConverter.Converter
 {
@@ -11,11 +6,21 @@ namespace easygenerator.PdfConverter.Converter
     {
         public static void Convert(string url, string filePath, bool highQuality = false)
         {
+            CreateConverterInstance(highQuality, " --window-status READY ").GeneratePdfFromFile(url, null, filePath);
+        }
+
+        public static byte[] ConvertWithoutSaving(string url, bool highQuality = false)
+        {
+            return CreateConverterInstance(highQuality, " --window-status READY ").GeneratePdfFromFile(url, null);
+        }
+
+        private static HtmlToPdfConverter CreateConverterInstance(bool highQuality, string customWkHtmlArgs)
+        {
             var htmlToPdfConverter = new HtmlToPdfConverter();
             htmlToPdfConverter.LowQuality = !highQuality;
-            htmlToPdfConverter.CustomWkHtmlArgs = " --window-status READY ";
+            htmlToPdfConverter.CustomWkHtmlArgs = customWkHtmlArgs;
 
-            htmlToPdfConverter.GeneratePdfFromFile(url, null, filePath);
+            return htmlToPdfConverter;
         }
     }
 }

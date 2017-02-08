@@ -58,7 +58,7 @@ export default class IntercomProvider {
         let plan = getPlanName(accessType);
         let profileLink = `http://${window.location.host}/dashboard/users?email=${encodeURIComponent(email)}`;
 
-        this.intercomWrapper.boot(email, name, phone, role, plan, profileLink);
+        this.intercomWrapper.boot(email, name, role, phone, plan, profileLink);
     }
     trackEvent(eventName, category) {
         let intercomEvent = null;

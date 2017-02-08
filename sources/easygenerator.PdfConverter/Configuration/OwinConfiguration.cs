@@ -13,6 +13,7 @@ namespace easygenerator.PdfConverter.Configuration
             var config = new HttpConfiguration();
 
             WebApiConfiguration.Register(config);
+            UpdateCacheJobSchduler.Start();
             app.UseWebApi(config);
         }
     }

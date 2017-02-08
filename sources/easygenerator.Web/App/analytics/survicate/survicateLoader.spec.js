@@ -44,5 +44,14 @@ describe(' [survicate]', () => {
             expect(System.import).toHaveBeenCalledWith(survicateConstants.apiUrl);
         });
 
+        it('should set intecrom data', () => {
+            window.__sv = window.__sv || {};
+            window.__sv.intercom = null;
+            
+            survicate.load('test');
+            
+            expect(window.__sv.intercom).toEqual(jasmine.objectContaining({ email: 'test' }));
+        });
+
     });
 });

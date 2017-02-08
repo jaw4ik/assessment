@@ -2,20 +2,20 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/MaterialIcons-Regular.woff?v=1485259394221); /* For IE6-8 */
+  src: url(../fonts/MaterialIcons-Regular.woff?v=1486024705571); /* For IE6-8 */
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(MaterialIcons-Regular.woff?v=1485259394221) format('woff'),
+       url(MaterialIcons-Regular.woff?v=1486024705571) format('woff'),
 }
 
 @font-face {
     font-family: 'Custom Icons';
     font-weight: normal;
     font-style: normal;
-    src: url(../fonts/Custom-Icons.woff?v=1485259394221); /* For IE6-8 */
+    src: url(../fonts/Custom-Icons.woff?v=1486024705571); /* For IE6-8 */
     src: local('Custom Icons'),
         local('Custom-Icons'),
-        url(Custom-Icons.woff?v=1485259394221) format('woff'),
+        url(Custom-Icons.woff?v=1486024705571) format('woff'),
 }
 
 .material-icons {
