@@ -8,6 +8,9 @@ export default {
         window._sv.trackingCode = survicateConstants.trackingCode;
         window._sv.identity = identity;
 
+        window.__sv = window.__sv || {};
+        window.__sv.intercom = { email: identity };
+
         return System.import(survicateConstants.apiUrl);
     }
 };
