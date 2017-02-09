@@ -93,6 +93,10 @@ namespace easygenerator.Web.Components
             {
                 return false;
             }
+            if (ua.Contains("phantomjs"))
+            {
+                return true;
+            }
             if (!ua.Contains("chrome"))
             {
                 return false;

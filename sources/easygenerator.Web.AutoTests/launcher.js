@@ -2,9 +2,11 @@
 
 const WDIO_CONF_PATH = './wdio.conf.js';
 
+var co = require('co');
 var fs = require('fs');
 var del = require('del');
 var WdioLauncher = require('webdriverio').Launcher;
+var dataManager = require('./data/dataManager');
 
 var wdio = new WeakMap();
 var wdioConfig = new WeakMap();
@@ -14,17 +16,18 @@ class Launcher {
         wdioConfig.set(this, require(WDIO_CONF_PATH));
         wdio.set(this, new WdioLauncher(WDIO_CONF_PATH, opts));
     }
-    run() {
+    run(_continue) {
         this.removeResults();
         this.removeErrorShots();
         this.removeSeleniumLogs();
-
-        return wdio.get(this).run().then(code => {
-            console.log(`process exited with code ${code}`);
-            process.exit(0);
-        }, err => {
-            console.error('Launcher have failed to start the test', err.stacktrace);
-            process.exit(1);
+        return co(dataManager.prepare()).then(() => {
+            return wdio.get(this).run().then(code => {
+                console.log(`process exited with code ${code}`);
+                _continue || process.exit(0);
+            }, err => {
+                console.error('Launcher have failed to start the test', err.stacktrace);
+                _continue || process.exit(1);
+            });
         });
     }
     removeResults() {
