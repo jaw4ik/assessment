@@ -80,21 +80,31 @@ namespace easygenerator.Web.Controllers
             var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, endpoints);
             return JsonSuccess(tokens);
         }
-
-        //TODO: check brute force after this method will be used
+        
         [HttpPost, AllowAnonymous, CustomRequireHttps, WebApiKeyAccess("ExternalAuthToken")]
-        public ActionResult ExternalAuthToken(string username, string password, string grant_type)
+        public ActionResult ExternalAuthToken(string username, string password, string grant_type, string grecaptchaResponse)
         {
-            if (grant_type == "password")
+            if (grant_type != "password")
             {
-                var user = _repository.GetUserByEmail(username);
-                if (user != null && user.VerifyPassword(password))
-                {
-                    var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, new[] { "externalAuth" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
-                    return JsonSuccess(tokens);
-                }
+                return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
             }
-            return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+            var user = _repository.GetUserByEmail(username);
+            if (user == null)
+            {
+                return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+            }
+            var ip = _ipInfoProvider.GetIP(HttpContext);
+            if (_bruteForceLoginProtectionManager.IsRequiredCaptcha(username, ip) && !_reCaptchaVerifier.Verify(grecaptchaResponse, ip))
+            {
+                return new HttpStatusCodeResult(400, Errors.CaptchaVerificationFailed);
+            }
+            if (!user.VerifyPassword(password))
+            {
+                _bruteForceLoginProtectionManager.StoreFailedAttempt(username, ip);
+                return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
+            }
+            var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, new[] { "externalAuth" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
+            return JsonSuccess(tokens);
         }
 
         [HttpPost, Scope("lti", "samlAuth", "externalAuth")]
