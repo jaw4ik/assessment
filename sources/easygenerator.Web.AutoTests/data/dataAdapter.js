@@ -17,6 +17,9 @@ class DataAdapter {
 
         this.dbConfig = config.db;
         this.backupPath = path.resolve(__dirname, config.backupPath);
+        this.dbDataPath = config.dbDataPath;
+        this.dbLogPath = config.dbLogPath;
+
         if(config.fileStorage){
             this.fileStorage = {
                 backupPath: path.resolve(__dirname, config.fileStorage.backupPath),
@@ -49,7 +52,9 @@ class DataAdapter {
     *deployFromBackups() {
         yield* this._executeQuery(
             `USE master;
-            RESTORE DATABASE [${this.dbConfig.database}] FROM DISK = '${this.backupPath}'`
+            RESTORE DATABASE [${this.dbConfig.database}] FROM DISK = '${this.backupPath}' WITH REPLACE,
+            MOVE '${this.dbConfig.database}' TO '${this.dbDataPath}${this.dbConfig.database}.mdf',
+            MOVE '${this.dbConfig.database}_log' TO '${this.dbLogPath}${this.dbConfig.database}_log.ldf'`
         );
         console.log(`Database '${this.dbConfig.database.green}' have been successfully deployed`);
         if(!this.fileStorage || !this.fileStorage.backupPath || !this.fileStorage.destPath){
