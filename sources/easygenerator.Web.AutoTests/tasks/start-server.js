@@ -1,13 +1,19 @@
 var exec = require('child_process').exec;
+var co = require('co');
 
-var webResult = exec('call start-web-server.bat.lnk');
-webResult.stdout.pipe(process.stdout);
-webResult.stderr.pipe(process.stderr);
+co((function*() {
+    yield execCommand('call start-storage-server.bat.lnk');
+    yield execCommand('call start-web-server.bat.lnk');
+    yield execCommand('call start-publication-server.bat.lnk');
+})());
 
-var storageResult = exec('call start-storage-server.bat.lnk');
-storageResult.stdout.pipe(process.stdout);
-storageResult.stderr.pipe(process.stderr);
-
-var publicationResult = exec('call start-publication-server.bat.lnk');
-publicationResult.stdout.pipe(process.stdout);
-publicationResult.stderr.pipe(process.stderr);
+function execCommand(command){
+    return new Promise(resolve => {
+        setTimeout(() => {
+            var result = exec(command);
+            result.stdout.pipe(process.stdout);
+            result.stderr.pipe(process.stderr);
+            resolve();
+        }, 500);
+    });
+}
