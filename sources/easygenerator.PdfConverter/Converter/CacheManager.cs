@@ -31,7 +31,10 @@ namespace easygenerator.PdfConverter.Converter
         {            
             if (Directory.Exists(directoryPath))
             {
-                Directory.Delete(directoryPath, true);
+                foreach (var filePath in Directory.GetFiles(directoryPath, "*.pdf", SearchOption.AllDirectories))
+                {
+                    File.Delete(filePath);
+                }
             }
         }
 
