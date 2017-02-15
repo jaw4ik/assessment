@@ -102,6 +102,8 @@ class QuestionModalView {
             app.trigger(constants.messages.content.endEditing);
         }
         modalView.close();
+
+        app.trigger(constants.newCourseEditor.question.closed, this.questionId, this.sectionId);
     }
 
     toggleExpandLeftPanel() {

@@ -736,6 +736,8 @@
     <Content Include="App\analytics\survicate\survicateLoader.spec.js">
       <DependentUpon>survicateLoader.js</DependentUpon>
     </Content>
+    <Content Include="App\components\bindingHandlers\cssSingleAnimationStarterBindingHandler.js" />
+    <Content Include="App\editor\course\bindingHandlers\scrollTo.js" />
     <Content Include="App\widgets\survicateWrapper\bindingHandlers\survicateAnimationBindingHandler.js" />
     <Content Include="App\widgets\survicateWrapper\view.html" />
     <Content Include="App\widgets\survicateWrapper\viewmodel.js" />

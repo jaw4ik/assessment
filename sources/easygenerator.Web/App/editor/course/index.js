@@ -47,6 +47,8 @@ var _sectionsReordered = new WeakMap();
 var _sectionDeleted = new WeakMap();
 var _navigateToSection = new WeakMap();
 var _navigateToQuestion = new WeakMap();
+var _scrollToQuestion = new WeakMap();
+var _selectQuestion = new WeakMap();
 
 var instance = null;
 
@@ -69,6 +71,9 @@ export default class {
         this.notContainSections = ko.observable(false);
         this.highlightedSectionId = ko.observable(null);
         this.createBar = new CreateBar();
+        this.scrollTargetId = ko.observable('');
+
+        this.scrollTargetId.extend({ notify: 'always' });
 
         _introductionContentUpdated.set(this, course => {
             if (this.id !== course.id) {
@@ -130,6 +135,57 @@ export default class {
             this.openQuestionIfNeeded();
         });
 
+        _scrollToQuestion.set(this, (questionId, sectionId) => {
+            let section = _.find(this.sections(), section => section.id() === sectionId);
+
+            if (!section) {
+                return;
+            }
+
+            let question = _.find(section.questions(), item => item.id() === questionId);
+
+            if (!question) {
+                return;
+            }
+
+            if(!section.questionsExpanded()) {
+                let expandCallback = section.questionsExpanded.callback;
+                let expandDuration = section.questionsExpanded.duration;
+
+                section.questionsExpanded.duration = 1;
+                section.questionsExpanded.callback = () => {
+                    if(expandCallback) {
+                        expandCallback();
+                    }
+
+                    this.scrollTargetId(questionId);
+
+                    section.questionsExpanded.callback = expandCallback;
+                    section.questionsExpanded.duration = expandDuration;
+                };
+
+                section.questionsExpanded(true);
+            } else {
+                this.scrollTargetId(questionId);
+            }
+        });
+
+        _selectQuestion.set(this, (questionId, sectionId) => {
+            let section = _.find(this.sections(), section => section.id() === sectionId);
+
+            if (!section) {
+                return;
+            }
+
+            let question = _.find(section.questions(), item => item.id() === questionId);
+
+            if (!question) {
+                return;
+            }
+            
+            question.edited.notifySubscribers();
+        });
+
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
         app.on(constants.messages.course.sectionRelatedByCollaborator, _sectionConnected.get(this).bind(this));
         app.on(constants.messages.course.sectionsUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
@@ -138,6 +194,8 @@ export default class {
         app.on(constants.messages.section.deleted, _sectionDeleted.get(this).bind(this));
         app.on(constants.messages.section.navigated, _navigateToSection.get(this).bind(this));
         app.on(constants.messages.question.navigated, _navigateToQuestion.get(this).bind(this));
+        app.on(constants.newCourseEditor.question.closed, _scrollToQuestion.get(this).bind(this));
+        app.on(constants.newCourseEditor.question.closed, _selectQuestion.get(this).bind(this));
 
         return instance;
     }

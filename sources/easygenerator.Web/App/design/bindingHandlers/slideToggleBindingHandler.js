@@ -6,15 +6,15 @@ ko.bindingHandlers.slideToggle = {
         const value = valueAccessor();
         
         const expanded = ko.unwrap(value);
-        const duration = 300;
-
-        var callback = allBindings.get('slideToggleCallback') || () => {};
+        const duration = ko.unwrap(value.duration) || 300;
 
         const wrapper = ko.observable(expanded);
 
         element.style.display = expanded ? 'block' : 'none';
 
-        const subscription = value.subscribe(newValue => {
+        const subscription = value.subscribe(newValue => {            
+            var callback = allBindings.get('slideToggleCallback') || value.callback || () => {};
+
             if (newValue) {
                 $(element).velocity("finish");
                 animate(element, 'slideDown', {

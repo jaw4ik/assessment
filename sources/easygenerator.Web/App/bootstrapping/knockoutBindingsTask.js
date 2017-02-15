@@ -28,6 +28,8 @@
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('editor/course/bindingHandlers/hightlightSection');
     require('editor/course/bindingHandlers/tooltipPopover');
+    require('editor/course/bindingHandlers/scrollTo');
+    require('components/bindingHandlers/cssSingleAnimationStarterBindingHandler');
     require('components/bindingHandlers/dates/dateBindingHandler');
     require('components/bindingHandlers/dates/dateFromNowBindingHandler');
     require('components/bindingHandlers/editableTextBindingHandler');

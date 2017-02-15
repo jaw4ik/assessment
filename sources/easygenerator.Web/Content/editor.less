@@ -1697,4 +1697,102 @@
 }
 /*#endregion MEDIA*/
 
+/*#region QUESTION ANIMATION*/
 
+@-webkit-keyframes flipInYBlueBlick {
+  0% {
+    box-shadow: none;
+    background-color: #eff3f5;
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, 30deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, 30deg);
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    opacity: 0
+  }
+  10% {      
+    box-shadow: 0px 0px 6px 1px #469dd5;
+  }
+  40% {
+    background-color: #e6eff4;
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, -10deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, -10deg);
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in
+  }
+  60% {
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, 5deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, 5deg);
+    opacity: 1
+  }
+  80% {
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, -5deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, -5deg)
+  }
+  90% {      
+    box-shadow: 0px 0px 6px 1px #469dd5;
+  }
+  100% {
+    box-shadow: none;
+    background-color: #eff3f5;
+    -webkit-transform: perspective(1400px);
+    transform: perspective(1400px)
+  }
+}
+@keyframes flipInYBlueBlick {
+  0% {
+    box-shadow: none;
+    background-color: #eff3f5;
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, 30deg);
+    -ms-transform: perspective(1400px) rotate3d(0, 1, 0, 30deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, 30deg);
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    opacity: 0
+  }
+  20% {      
+    box-shadow: 0px 0px 6px 1px #469dd5;
+  }
+  40% {
+    box-shadow: 0px 0px 6px 1px #469dd5;
+    background-color: #e6eff4;
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, -10deg);
+    -ms-transform: perspective(1400px) rotate3d(0, 1, 0, -10deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, -10deg);
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+  }
+  60% {
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, 5deg);
+    -ms-transform: perspective(1400px) rotate3d(0, 1, 0, 5deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, 5deg);
+    opacity: 1;
+  }
+  80% {
+    -webkit-transform: perspective(1400px) rotate3d(0, 1, 0, -5deg);
+    -ms-transform: perspective(1400px) rotate3d(0, 1, 0, -5deg);
+    transform: perspective(1400px) rotate3d(0, 1, 0, -5deg);
+    box-shadow: 0px 0px 6px 1px #469dd5;
+  }
+  100% {
+    box-shadow: none;
+    background-color: #eff3f5;
+    -webkit-transform: perspective(1400px);
+    -ms-transform: perspective(1400px);
+    transform: perspective(1400px);
+  }
+}
+
+.questions-list-item-edited-animation {
+  -webkit-backface-visibility: visible!important;
+  -ms-backface-visibility: visible!important;
+  backface-visibility: visible!important;
+  -webkit-animation-name: flipInYBlueBlick;
+  animation-name: flipInYBlueBlick;
+
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+/*#endregion FLIPINY ANIMATION*/

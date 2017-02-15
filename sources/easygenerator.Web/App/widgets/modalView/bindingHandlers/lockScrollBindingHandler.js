@@ -6,9 +6,11 @@ class ScrollLocker{
     constructor (hideScroll) {
         this.lock = false;
         this.hideScroll = hideScroll;
-        this._currentScrollPosition = 0;
-        this._overflow = '';
+        this._currentScrollPosition = $(window).scrollTop();
+        this._overflowY = '';
+        this._overflowX = '';
 
+        hideScroll ? this.lockScroll() : this.releaseScroll();   
         $(window).on('scroll', this._scrollHandler.bind(this));
     }
     deactivate() {
@@ -35,7 +37,8 @@ class ScrollLocker{
         window.onmousewheel = document.onmousewheel = null;
 
         if (this.hideScroll) {
-            $('html').css('overflow',  this._overflow);
+            $('html').css('overflow-y', this._overflowY);
+            $('html').css('overflow-x', this._overflowX);
             $(window).scrollTop(this._currentScrollPosition);
         }
     }
@@ -47,8 +50,10 @@ class ScrollLocker{
         window.onmousewheel = document.onmousewheel = this._preventDefault;
 
         if (this.hideScroll) {
-            this._overflow = $('html').css('overflow');
-            $('html').css('overflow', 'hidden');
+            this._overflowY = $('html').css('overflow-y');
+            this._overflowX = $('html').css('overflow-x');
+            $('html').css('overflow-x', 'hidden');
+            $('html').css('overflow-y', 'hidden');
             $(window).scrollTop(this._currentScrollPosition);
         }
     }

@@ -1,4 +1,4 @@
-﻿<section class="editor view-module">
+﻿<section class="editor view-module" data-bind="scrollTo: { id: scrollTargetId, delay: 0 }">
     <div class="content-section-wrapper">
         <div class="content-section">
             <h2 class="course-editor-introduction-header" data-bind="localize: { text: 'courseIntroduction' }">Course introduction:</h2>
@@ -120,7 +120,7 @@
                         </div>
                         <div class="questions-list-container" data-bind="slideToggle: questionsExpanded, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list" data-bind="foreachAnimated: { data: questions, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
-                                <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed, editing: title.isEditing() }, draggableData: { id: id }">
+                                <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed, editing: title.isEditing() }, draggableData: { id: id }, attr: { id: id }, cssSingleAnimationStarter: {event: $data.edited, class: 'questions-list-item-edited-animation'} ">
                                     <!-- ko if: isProcessed -->
                                     <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
                                     <!-- /ko -->

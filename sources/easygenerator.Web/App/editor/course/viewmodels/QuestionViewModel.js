@@ -31,6 +31,8 @@ export default class QuestionViewmodel{
         this.canBeDeleted = ko.observable(false);
         this.isProcessed = ko.observable(isProcessed || false);
         this.justCreated = ko.observable(justCreated);
+
+        this.edited = ko.observable();
     }
     updateFields(question, isProcessed) {
         this.id(question.id);

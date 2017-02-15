@@ -104,7 +104,10 @@ export default {
     },
     newCourseEditor: {
         switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
-        switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
+        switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed',
+        question: {
+            closed: 'newCourseEditor:question:closed'
+        }
     },
     winToWeb: {
         host: window.winToWebConvertionServiceUrl ? `//${window.winToWebConvertionServiceUrl}`: '//localhost:444'
