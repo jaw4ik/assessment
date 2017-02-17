@@ -5,7 +5,7 @@
         .factory('upload', upload);
 
     function upload() {
-        var url = location.protocol + '//' + location.host + '/storage/image/upload';
+        var url = getImageUploadUrl();
         var headers = { 'Authorization': '' };
 
         var somethingWentWrongMessage = {
@@ -58,17 +58,12 @@
                             contentType: false,
                             processData: false
                         }).done(function (response) {
-                            try {
-                                var obj = JSON.parse(response);
-                                if (obj && obj.success && obj.data && obj.data.url) {
-                                    deffered.resolve(obj.data.url);
-                                } else {
-                                    deffered.reject(somethingWentWrongMessage);
-                                }
-                            } catch (e) {
+                            if (response) {
+                                deffered.resolve(response.url);
+                            } else {
                                 deffered.reject(somethingWentWrongMessage);
                             }
-                        }).fail(function () {
+                        }).fail(function (reason) {
                             deffered.reject(somethingWentWrongMessage);
                         });
                     });
@@ -130,6 +125,19 @@
     function getURLParameter(name) {
         var param = RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || null;
         return param === null ? null : decodeURI(param[1]);
+    }
+
+    function getImageUploadUrl(){
+        var localhostUrl = location.protocol + '//localhost:222/image/upload';
+        var stagingUrl = 'https://images-staging.easygenerator.com/image/upload';
+        var liveUrl = 'https://images-staging.easygenerator.com/image/upload';
+        if(location.host.indexOf('localhost') !== -1){
+            return localhostUrl;
+        }
+        if(location.host.indexOf('live.easygenerator.com') !== -1){
+            return liveUrl;
+        }
+        return stagingUrl;
     }
 
 })();
