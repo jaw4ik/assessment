@@ -4,7 +4,8 @@
 
         return {
             post: post,
-            get: get
+            get: get,
+            remove: remove
         };
 
         function post(url, data, headers) {
@@ -52,6 +53,22 @@
                 }).fail(function (reason) {
                     deferred.reject(reason);
                 });
+
+            return deferred.promise;
+        }
+
+        function remove(url, data, headers) {
+            var deferred = Q.defer();
+
+            http.remove(url, data, headers).done(function (response) {
+                if (!_.isObject(response)) {
+                    deferred.reject('Response data is not an object');
+                    return;
+                }
+                deferred.resolve(response);
+            }).fail(function (reason) {
+                deferred.reject(reason);
+            });
 
             return deferred.promise;
         }

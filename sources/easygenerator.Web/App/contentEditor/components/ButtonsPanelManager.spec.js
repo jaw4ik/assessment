@@ -21,7 +21,7 @@ describe('[ButtonsPanelManager]', () => {
         let position,
             cssClass = 'class',
             resourceKey = 'resourceKey',
-            handler = () => {};
+            binderOption = {};
 
         describe('when position is not defined', () => {
 
@@ -32,11 +32,11 @@ describe('[ButtonsPanelManager]', () => {
             it('should add button to the end of list', () => {
                 buttonsPanelManager.buttons = [{}, {}, {}, {}, {}];
                 let count = buttonsPanelManager.buttons.length;
-                buttonsPanelManager.addButton(cssClass, resourceKey, handler, position);
+                buttonsPanelManager.addButton(cssClass, resourceKey, binderOption, position);
                 expect(buttonsPanelManager.buttons.length).toBe(count + 1);
                 expect(buttonsPanelManager.buttons[buttonsPanelManager.buttons.length - 1].cssClass).toBe(cssClass);
                 expect(buttonsPanelManager.buttons[buttonsPanelManager.buttons.length - 1].resourceKey).toBe(resourceKey);
-                expect(buttonsPanelManager.buttons[buttonsPanelManager.buttons.length - 1].handler).toBe(handler);
+                expect(buttonsPanelManager.buttons[buttonsPanelManager.buttons.length - 1].binderOption).toBe(binderOption);
             });
 
         });
@@ -50,11 +50,11 @@ describe('[ButtonsPanelManager]', () => {
             it('should add button to the appropriate position', () => {
                 buttonsPanelManager.buttons = [{}, {}, {}, {}, {}];
                 let count = buttonsPanelManager.buttons.length;
-                buttonsPanelManager.addButton(cssClass, resourceKey, handler, position);
+                buttonsPanelManager.addButton(cssClass, resourceKey, binderOption, position);
                 expect(buttonsPanelManager.buttons.length).toBe(count + 1);
                 expect(buttonsPanelManager.buttons[1].cssClass).toBe(cssClass);
                 expect(buttonsPanelManager.buttons[1].resourceKey).toBe(resourceKey);
-                expect(buttonsPanelManager.buttons[1].handler).toBe(handler);
+                expect(buttonsPanelManager.buttons[1].binderOption).toBe(binderOption);
             });
 
         });

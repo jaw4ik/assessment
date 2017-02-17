@@ -38,7 +38,7 @@
                             <!-- /ko -->
                         </div>
                     </div>
-                    <div class="upload-background-image info-tooltip-holder" data-bind="click: uploadBackground">
+                    <div class="upload-background-image info-tooltip-holder" data-bind="browse: { callback: uploadBackground.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
                         <div class="info-tooltip browse-image">
                             <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
                         </div>
@@ -86,7 +86,7 @@
                     <div class="drag-and-drop-designer-empty-title" data-bind="localize: { text: 'dragAndDropText' }">Drag&amp;drop text</div>
                     <div class="drag-and-drop-designer-empty-description" data-bind="localize: { text: 'dragAndDropTextEmptyBackgroundDescription' }">your background image here or</div>
                     <div class="browse-image-btn-wrapper">
-                        <button class="hotspot-browse-image-btn btn green" data-bind="click: uploadBackground, localize: { html: 'browse' }"></button>
+                        <button class="hotspot-browse-image-btn btn green" data-bind="browse: { callback: uploadBackground.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}, localize: { html: 'browse' }"></button>
                     </div>
                 </div>
                 <!-- /ko -->

@@ -1,0 +1,11 @@
+{
+  "authSecret": "5DliLTP4ioPpec682CUWWltvJt6herUGawU3f/1MKFr3r6n5lVawlQBFO4HHHzy9TN7z9sjS9BInkWzUnq5CAw==",
+  "awsAccessKeyId": "AKIAICQIBA26SGMH3JEQ",
+  "awsOriginalBacketName": "live-images-original",
+  "awsResizedBucketName": "live-images-resized",
+  "awsSecretAccessKey": "9ahJ6gyNCvDQEgaWuIniUgqHpFPLvh5fc5TeTGee",
+  "supportedImageFormats": [ ".gif", ".jpeg", ".jpg", ".png", ".bmp" ],
+  "awsUrl": "https://s3-us-west-2.amazonaws.com/",
+  "imageNotFoundUrl": "https://s3-us-west-2.amazonaws.com/staging-common-images/image-not-found.png",
+  "maxFileSize":  10485760
+}

@@ -1,4 +1,4 @@
-﻿import imageUpload from 'imageUpload';
+﻿import uploadImage from 'images/commands/upload';
 import notify from 'notify';
 
 import eventTracker from 'eventTracker';
@@ -11,6 +11,8 @@ describe('Logo popover section', () => {
     
     beforeEach(() => {
         spyOn(eventTracker, 'publish');
+        spyOn(notify, 'saved');
+        spyOn(notify, 'error');
     });
 
     it('should create logo popover object', () => {
@@ -83,77 +85,78 @@ describe('Logo popover section', () => {
         
     });
 
-    describe('upload', () => {
-        
-        it('should be function', () => {
-            let logoPopover = new LogoPopover();
-            expect(logoPopover.upload).toBeFunction();
+    describe('upload:', () => {
+
+        let logoPopover;
+
+        beforeEach(() => {
+            logoPopover = new LogoPopover();
         });
 
-        describe('when file is not object', () => {
-            
-            it('should reject promise', done => {
-                let logoPopover = new LogoPopover();
-                logoPopover.upload().catch(reason => {
-                    expect(reason).toEqual('File was not provided.');
-                    done();
-                });
+        describe('and when image uploading successfull', () => {
+
+            let uploadImagePromise;
+            let file;
+            let imageUploadRes;
+
+            beforeEach(() => {
+                file = 'some image file';
+                imageUploadRes = {
+                    id: 'someid',
+                    title: 'title',
+                    url: 'https://urla.com'
+                };
+                uploadImagePromise = Promise.resolve(imageUploadRes);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
-        
+
+            it('should upload image to image storage', () => {
+                logoPopover.upload(file);
+                expect(uploadImage.execute).toHaveBeenCalledWith(file);
+            });
+
+            it('should update logo', done => (async () => {
+                spyOn(logoPopover, 'updateLogo');
+                logoPopover.upload(file);
+                await uploadImagePromise;
+                expect(logoPopover.updateLogo).toHaveBeenCalledWith(imageUploadRes.url);
+            })().then(done));
+
+            it('should send event \'Change logo (upload)\'', done => (async () => {
+                logoPopover.upload(file);
+                await uploadImagePromise;
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change logo (upload)');
+            })().then(done));
+
+            it('should show saved notification', done => (async () => {
+                logoPopover.upload(file);
+                await uploadImagePromise;
+                expect(notify.saved).toHaveBeenCalled();
+            })().then(done));
         });
 
-        describe('when file is defined', () => {
-            
-            it('should send file to server', done => {
-                spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' }));
-
-                let logoPopover = new LogoPopover();
-                logoPopover.upload({}).then(() => {
-                    expect(imageUpload.v2).toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            describe('and file is uploaded successfully', () => {
-            
-                beforeEach(() => spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' })));
-
-                it('should resolve promise', done => {
-                    let logoPopover = new LogoPopover();
-                    logoPopover.upload({}).then(imageUrl => {
-                        expect(imageUrl).toEqual('imageUrl');
-                        done();
-                    });
-                });
-
-                it('should call updateLogo function', done => {
-                    let logoPopover = new LogoPopover();
-                    spyOn(logoPopover, 'updateLogo');
-                    logoPopover.upload({}).then(() => {
-                        expect(logoPopover.updateLogo).toHaveBeenCalledWith('imageUrl');
-                        done();
-                    });
-                });
-            
-            });
-
-            describe('and failed to upload file', () => {
-            
-                beforeEach(() => {
-                    spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('reason'));
-                    spyOn(notify, 'error');
-                });
-            
-                it('should show notification', done => {
-                    let logoPopover = new LogoPopover();
-                    logoPopover.upload({}).then(() => {
-                        expect(notify.error).toHaveBeenCalled();
-                        done();
-                    });
+        describe('and when image uploading failed', () => {
                 
-                });
+            let uploadImagePromise;
+            let file;
+            let reason;
 
+            beforeEach(() => {
+                file = 'some image file';
+                reason = 'some reject reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
+
+            it('should show notify error message', done => (async () => {
+                try {
+                    logoPopover.upload(file);
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                    expect(e).toBe(reason);
+                } 
+            })().then(done));
 
         });
 

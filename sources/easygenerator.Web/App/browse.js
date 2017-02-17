@@ -80,5 +80,7 @@
         }
     }
 
+    window.BrowseFile = Browse;
+
     return Browse;
 });

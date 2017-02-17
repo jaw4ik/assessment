@@ -8,7 +8,7 @@ import getQuestionContentById from './queries/getQuestionContentById';
 
 import eventTracker from 'eventTracker';
 
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import notify from 'notify';
 import uiLocker from 'uiLocker';
 
@@ -81,25 +81,22 @@ function activate(questionId) {
     });
 }
 
-function uploadBackground() {
-    imageUpload.upload({
-        startLoading: function () {
-            uiLocker.lock();
-        },
-        success: function (url) {
-            designer.background.isLoading(true);
-            var backgroundUrl = url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
-            changeBackgroundCommand.execute(self.questionId, backgroundUrl).then(function() {
-                designer.background(backgroundUrl);
-                designer.background.isDirty(true);
-                notify.saved();
-                eventTracker.publish(self.events.changeBackground);
-            });
-        },
-        complete: function () {
-            uiLocker.unlock();
-        }
-    });
+async function uploadBackground(file) {
+    uiLocker.lock();
+    try {
+        let image = await uploadImage.execute(file);
+        designer.background.isLoading(true);
+        var backgroundUrl = image.url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
+        await changeBackgroundCommand.execute(self.questionId, backgroundUrl);
+        designer.background(backgroundUrl);
+        designer.background.isDirty(true);
+        notify.saved();
+        eventTracker.publish(self.events.changeBackground);
+    } catch (e) {
+        notify.error(e);
+    } finally {
+        uiLocker.unlock();
+    }
 }
 
 function addDropspot() {

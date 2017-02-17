@@ -1,20 +1,21 @@
 ﻿import * as command  from './deleteImage.js';
-
-import $ from 'jquery';
 import http from 'http/apiHttpWrapper.js';
+import constants from 'constants';
+
+var deleteUrl = `${constants.imageService.host}/image`;
 
 describe('command [deleteImage]', () => {
 
-    it('should post to server', () => {
-        spyOn(http, 'post').and.returnValue($.Deferred().resolve(true));
+    it('should send delete request to server', () => {
+        spyOn(http, 'remove').and.returnValue($.Deferred().resolve(true));
         command.execute('imageFileId');
-        expect(http.post).toHaveBeenCalledWith('storage/image/delete', { imageFileId : 'imageFileId' });
+        expect(http.remove).toHaveBeenCalledWith(deleteUrl, { id : 'imageFileId' });
     });
 
-    describe('when post failed', () => {
+    describe('when deleting failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'post').and.returnValue($.Deferred().reject('reason'));
+            spyOn(http, 'remove').and.returnValue($.Deferred().reject('reason'));
             command.execute().catch(reason => {
                 expect(reason).toBeDefined();
                 done();
@@ -23,10 +24,10 @@ describe('command [deleteImage]', () => {
 
     });
 
-    describe('when post successed', () => {
+    describe('when deleting successed', () => {
 
         beforeEach(() => {
-            spyOn(http, 'post').and.returnValue($.Deferred().resolve(true));
+            spyOn(http, 'remove').and.returnValue($.Deferred().resolve(true));
         });
 
         it('should resolve promise', done => {

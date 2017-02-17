@@ -1,0 +1,7 @@
+{
+    "user": "easygenerator",
+    "password": "Easy123!",
+    "server": "127.0.0.1",
+    "driver": "msnodesqlv8",
+    "database": "staging_images_easygenerator"
+}

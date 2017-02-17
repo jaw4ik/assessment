@@ -42,7 +42,7 @@
                                 <div class="sections-list-item-body">
                                     <div class="sections-list-item-image-container" data-bind="stopEventPropagation: { event: 'click'}">
                                         <div class="sections-list-item-image" data-bind="attr: { style: 'background-image: url(\'' + image() + '\')' }"></div>
-                                        <div class="sections-list-item-image-change" data-bind="click: updateImage">
+                                        <div class="sections-list-item-image-change" data-bind="browse: { callback: updateImage.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
                                             <span class="sections-list-item-image-change-icon"></span>
                                             <span class="sections-list-item-image-change-text" data-bind="localize: {text: 'change'}">Change</span>
                                         </div>
@@ -87,7 +87,7 @@
                                             <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: function() { menuExpanded(false); } }, stopEventPropagation: { event: 'click' }"></button>
                                             <ul class="sections-list-item-actions-menu">
                                                 <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: selectTitle, localize: {text:'editTitle'}, stopEventPropagation: { event: 'click'}">Edit title</li>
-                                                <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage, localize: {text: 'changeImage'}, stopEventPropagation: { event: 'click'}">Change image</li>
+                                                <li class="sections-list-item-actions-menu-item change-image" data-bind="browse: { callback: updateImage.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}, localize: {text: 'changeImage'}, stopEventPropagation: { event: 'click'}">Change image</li>
                                                 <li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection.bind($parent), localize: { text: 'deleteSection' }, stopEventPropagation: { event: 'click'}">Delete permanently</li>
                                             </ul>
                                         </div>

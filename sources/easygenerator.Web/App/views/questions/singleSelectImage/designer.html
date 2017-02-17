@@ -25,7 +25,7 @@
                             <!-- ko ifnot: isProcessing -->
                                 <!-- ko if: hasImage -->
                             <div class="list-item-context-actions-wrapper">
-                                <div class="list-item-context-action info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
+                                <div class="list-item-context-action info-tooltip-holder update-answer-image" data-bind="browse: { callback: $parent.updateAnswerImage.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
                                     <div class="info-tooltip">
                                         <span data-bind="localize: { text: 'changeImage' }"></span>
                                     </div>
@@ -41,7 +41,7 @@
                                 <div class="item-overlay" data-bind="click: $parent.previewAnswerImage"></div>
                                 <!-- /ko -->
                                 <!-- ko ifnot: hasImage -->
-                                <button class="single-select-image-browse-image-btn" data-bind="click: $parent.updateAnswerImage">
+                                <button class="single-select-image-browse-image-btn" data-bind="browse: { callback: $parent.updateAnswerImage.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
                                     <span class="single-select-image-browse-image-text" data-bind="localize: { text: 'addImage' }"></span>
                                 </button>
                                 <!-- /ko -->
@@ -65,7 +65,7 @@
                     </li>
                     <!-- /ko -->
                     <!-- ko if: canAddAnswer -->
-                        <li class="add-single-select-image-answer" data-bind="click: addAnswer"></li>
+                        <li class="add-single-select-image-answer" data-bind="browse: { callback: addAnswer.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}"></li>
                     <!-- /ko -->
                     <!-- ko ifnot: canAddAnswer -->
                         <li class="add-single-select-image-answer disabled"></li>

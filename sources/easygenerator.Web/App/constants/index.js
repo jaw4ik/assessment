@@ -112,6 +112,9 @@ export default {
     winToWeb: {
         host: window.winToWebConvertionServiceUrl ? `//${window.winToWebConvertionServiceUrl}`: '//localhost:444'
     },
+    imageService: {
+        host: window.imageSeviceUrl ? `//${window.imageSeviceUrl}` : '//localhost:222'
+    },
     coggno: {
         serviceUrl: window.coggnoServiceUrl || 'https://coggno.com/',
         serviceProviderUrl: window.coggnoServiceProviderUrl || 'https://coggno.com/easygenerator/sp/saml_login'

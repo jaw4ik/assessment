@@ -7,7 +7,7 @@ namespace easygenerator.DomainModel.Entities
 {
     public class ImageFile : Entity
     {
-        private static readonly string[] imageFileExtensions = { ".gif", ".jpeg", ".jpg", ".png", ".bmp" };
+        private static readonly string[] ImageFileExtensions = { ".gif", ".jpeg", ".jpg", ".png", ".bmp" };
 
         protected internal ImageFile() { }
 
@@ -23,16 +23,13 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual string Title { get; private set; }
 
-        public virtual string FileName
-        {
-            get { return Id.ToString() + Path.GetExtension(Title); }
-        }
+        public virtual string FileName => Id.ToString() + Path.GetExtension(Title);
 
         private static void ThrowIfNotImage(string title)
         {
             var extension = Path.GetExtension(title);
-            if(!imageFileExtensions.Contains(extension.ToLower()))
-                throw new ArgumentException(String.Format("{0} is not valid image file extension", extension), "title");
+            if(!ImageFileExtensions.Contains(extension?.ToLower()))
+                throw new ArgumentException($"{extension} is not valid image file extension", nameof(title));
         }
     }
 }

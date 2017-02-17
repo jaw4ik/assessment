@@ -14,6 +14,7 @@
     require('components/bindingHandlers/tabsBindingHandler');
     require('components/bindingHandlers/heightAnimation');
     require('components/bindingHandlers/expandBlock');
+    require('components/bindingHandlers/useBindingBindingHandler');
     require('components/bindingHandlers/stopPropagationBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();

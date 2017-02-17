@@ -3,7 +3,7 @@ import _ from 'underscore';
 import app from 'durandal/app';
 import moment from 'moment';
 import eventTracker from 'eventTracker';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import notify from 'notify';
 import constants from 'constants';
 import QuestionViewModel from './QuestionViewModel';
@@ -231,19 +231,19 @@ export default class SectionViewModel{
     toggleQuestions() {
         this.questionsExpanded(!this.questionsExpanded());
     }
-    updateImage() {
-        let that = this;
+    async updateImage(file) {
         eventTracker.publish(events.openChangeObjectiveImageDialog, eventCategory);
-        imageUpload.upload({
-            startLoading: () => that.imageLoading(true),
-            success: async url => {
-                let result = await sectionRepository.updateImage(that.id(), url);
-                that.image(result.imageUrl);
-                that.imageLoading(false);
-                notify.saved();
-            },
-            error: () => that.imageLoading(false)
-        });
+        try {
+            this.imageLoading(true);
+            let image = await uploadImage.execute(file);
+            let result = await sectionRepository.updateImage(this.id(), image.url);
+            this.image(result.imageUrl);
+            notify.saved();
+        } catch (e) {
+            notify.error(e);
+        } finally {
+            this.imageLoading(false);
+        }
     }
     deleteQuestion(question) {
         if (_.contains(this.questions(), question)) {

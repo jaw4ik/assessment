@@ -3,7 +3,7 @@
 import ko from 'knockout';
 import constants from 'constants';
 import moment from 'moment';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import eventTracker from 'eventTracker';
 import sectionRepository from 'repositories/sectionRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
@@ -42,6 +42,7 @@ describe('[SectionViewModel]', () => {
         sectionViewModel = new SectionViewModel(courseId, section, isProcessing, false, isExpanded);
         spyOn(eventTracker, 'publish');
         spyOn(notify, 'saved');
+        spyOn(notify, 'error');
         spyOn(localizationManager, 'localize').and.returnValue('localized');
     });
 
@@ -275,102 +276,117 @@ describe('[SectionViewModel]', () => {
     describe('updateImage:', () => {
 
         it(`should send event ${events.openChangeObjectiveImageDialog}`, () => {
-            spyOn(imageUpload, 'upload');
+            spyOn(uploadImage, 'execute');
             sectionViewModel.updateImage();
             expect(eventTracker.publish).toHaveBeenCalledWith(events.openChangeObjectiveImageDialog, eventCategory);
         });
 
-        it('should upload image', () => {
-            spyOn(imageUpload, 'upload');
+        it('should start loading', () => {
+            sectionViewModel.imageLoading(false);
+            spyOn(uploadImage, 'execute');
             sectionViewModel.updateImage();
-            expect(imageUpload.upload).toHaveBeenCalled();
+            expect(sectionViewModel.imageLoading()).toBeTruthy();
         });
 
-        describe('when image loading started', () => {
+        describe('when image uploading started', () => {
 
-            beforeEach(() => {
-                spyOn(imageUpload, 'upload').and.callFake(spec => spec.startLoading());
-            });
+            describe('and when image uploading successfull', () => {
 
-            it('should set start upload image', () => {
-                sectionViewModel.imageLoading(false);
-                sectionViewModel.updateImage();
-                expect(sectionViewModel.imageLoading()).toBeTruthy();
-            });
+                let uploadImagePromise;
+                let updateSectionImagePromise;
+                let file;
+                let imageUploadRes;
+                let sectionUpdateImageRes;
 
-        });
-
-        describe('when image was uploaded', () => {
-
-            let url = 'http://urlka.com';
-            let newUrl = 'new/image/url';
-            let promise;
-            let date;
-
-            beforeEach(() => {
-                spyOn(imageUpload, 'upload').and.callFake(spec => {
-                    spec.success(url);
+                beforeEach(() => {
+                    file = 'some image file';
+                    imageUploadRes = {
+                        id: 'someid',
+                        title: 'title',
+                        url: 'https://urla.com'
+                    };
+                    sectionUpdateImageRes = {
+                        imageUrl: imageUploadRes.url
+                    };
+                    uploadImagePromise = Promise.resolve(imageUploadRes);
+                    updateSectionImagePromise = Promise.resolve(sectionUpdateImageRes);
+                    spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
+                    spyOn(sectionRepository, 'updateImage').and.returnValue(updateSectionImagePromise);
                 });
 
-                date = new Date();
-
-                promise = Promise.resolve({
-                    modifiedOn: date,
-                    imageUrl: newUrl
+                it('should upload image to image storage', () => {
+                    sectionViewModel.updateImage(file);
+                    expect(uploadImage.execute).toHaveBeenCalledWith(file);
                 });
 
-                spyOn(sectionRepository, 'updateImage').and.returnValue(promise);
-            });
-
-            it('should update section image', () => {
-                sectionViewModel.updateImage();
-                expect(sectionRepository.updateImage).toHaveBeenCalledWith(sectionViewModel.id(), url);
-            });
-
-            describe('and when section image updated successfully', () => {
-
-                it('should update image', done => (async () => {
-                    sectionViewModel.image('');
-                    sectionViewModel.updateImage();
-                    await promise;
-                    expect(sectionViewModel.image()).toBe(newUrl);
+                it('should update section image on the server', done => (async () => {
+                    sectionViewModel.updateImage(file);
+                    await uploadImagePromise;
+                    expect(sectionRepository.updateImage).toHaveBeenCalledWith(sectionViewModel.id(), imageUploadRes.url);
                 })().then(done));
 
-                it('should update modifiedOn', done => (async () => {
-                    sectionViewModel.updateImage();
-                    await promise;
-                    expect(sectionViewModel.modifiedOn()).toBe(moment(date).format('DD/MM/YY'));
+                it('should update section image', done => (async () => {
+                    sectionViewModel.updateImage(file);
+                    await uploadImagePromise;
+                    await updateSectionImagePromise;
+                    expect(sectionViewModel.image()).toBe(sectionUpdateImageRes.imageUrl);
                 })().then(done));
 
-                it('should stop image loading', done => (async () => {
-                    sectionViewModel.imageLoading(true);
-                    sectionViewModel.updateImage();
-                    await promise;
-                    expect(sectionViewModel.imageLoading()).toBeFalsy();
-                })().then(done));
-
-                it('should call notify saved', done => (async () => {
-                    sectionViewModel.updateImage();
-                    await promise;
+                it('should show saved notification', done => (async () => {
+                    sectionViewModel.updateImage(file);
+                    await uploadImagePromise;
+                    await updateSectionImagePromise;
                     expect(notify.saved).toHaveBeenCalled();
                 })().then(done));
 
+                it('should stop image uploading', done => (async () => {
+                    sectionViewModel.imageLoading(true);
+                    sectionViewModel.updateImage(file);
+                    await uploadImagePromise;
+                    await updateSectionImagePromise;
+                    expect(sectionViewModel.imageLoading()).toBeFalsy();
+                })().then(done));
             });
 
-        });
+            describe('and when image uploading failed', () => {
+                
+                let uploadImagePromise;
+                let updateSectionImagePromise;
+                let file;
+                let reason;
 
-        describe('when image loading failed', () => {
-
-            beforeEach(() => {
-                spyOn(imageUpload, 'upload').and.callFake(spec => {
-                    spec.error();
+                beforeEach(() => {
+                    file = 'some image file';
+                    reason = 'some reject reason';
+                    uploadImagePromise = Promise.reject(reason);
+                    updateSectionImagePromise = Promise.resolve();
+                    spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
+                    spyOn(sectionRepository, 'updateImage').and.returnValue(updateSectionImagePromise);
                 });
-            });
 
-            it('should stop image loading', () => {
-                sectionViewModel.imageLoading(true);
-                sectionViewModel.updateImage();
-                expect(sectionViewModel.imageLoading()).toBeFalsy();
+                it('should show notify error message', done => (async () => {
+                    try {
+                        sectionViewModel.updateImage(file);
+                        await uploadImagePromise;
+                        await updateSectionImagePromise;
+                    } catch (e) {
+                        expect(notify.error).toHaveBeenCalledWith(reason);
+                        expect(e).toBe(reason);
+                    } 
+                })().then(done));
+
+                it('should stop image uploading', done => (async () => {
+                    try {
+                        sectionViewModel.imageLoading(true);
+                        sectionViewModel.updateImage(file);
+                        await uploadImagePromise;
+                        await updateSectionImagePromise;
+                    } catch (e) {
+                        expect(sectionViewModel.imageLoading()).toBeFalsy();
+                        expect(e).toBe(reason);
+                    } 
+                })().then(done));
+
             });
 
         });

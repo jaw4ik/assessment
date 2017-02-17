@@ -1,11 +1,11 @@
 ﻿import viewModel from './designer';
-
+import ko from 'knockout';
 import getQuestionContentById from './queries/getQuestionContentById';
 import addAnswerCommand from './commands/addAnswer';
 import updateAnswerImageCommand from './commands/updateAnswerImage';
 import setCorrectAnswerCommand from './commands/setCorrectAnswer';
 import removeAnswerCommand from './commands/removeAnswer';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import notify from 'notify';
 import eventTracker from 'eventTracker';
 import imagePreview from 'widgets/imagePreview/viewmodel';
@@ -19,6 +19,8 @@ describe('question single select image [designer]', function () {
 
     beforeEach(function () {
         spyOn(eventTracker, 'publish');
+        spyOn(notify, 'saved');
+        spyOn(notify, 'error');
     });
 
     it('should be defined', function () {
@@ -59,131 +61,122 @@ describe('question single select image [designer]', function () {
         });
     });
 
-    describe('addAnswer:', function () {
+    describe('addAnswer', () => {
 
-        var dfd;
+        let updateImagePromise;
+        let addAnswerPromise;
+        let imageResult;
+        let answerId;
 
-        beforeEach(function () {
-            dfd = Q.defer();
-            spyOn(addAnswerCommand, 'execute').and.returnValue(dfd.promise);
-            spyOn(notify, 'saved');
+        beforeEach(() => {
+            viewModel.answers([]);
+            answerId = 'some id';
+            imageResult = {
+                id: 'id',
+                title: 'Image.png',
+                url: 'https://urlko.com'
+            };
         });
 
-        it('should be function', function () {
-            expect(viewModel.addAnswer).toBeFunction();
-        });
-
-        it('should publish \'Add answer option (single select image)\' event', function () {
-            spyOn(imageUpload, 'upload');
+        it('should send event \'Add answer option (single select image)\'', () => {
             viewModel.addAnswer();
             expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option (single select image)');
         });
 
-        it('should upload image', function () {
-            spyOn(imageUpload, 'upload');
+        it('should add empty answer to collection', () => {
             viewModel.addAnswer();
-            expect(imageUpload.upload).toHaveBeenCalled();
+            expect(viewModel.answers()[0].isProcessing()).toBeTruthy();
+            expect(viewModel.answers()[0].isImageLoading()).toBeTruthy();
         });
 
-        describe('when image loading started', function () {
-            beforeEach(function () {
-                viewModel.answers([]);
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.startLoading();
-                });
-            });
-
-            it('should add answer to answers collection', function () {
-                viewModel.addAnswer();
-                expect(viewModel.answers().length).toBe(1);
-            });
-
-            it('should set isProcessing to true for added answer', function () {
-                viewModel.addAnswer();
-                expect(viewModel.answers()[0].isProcessing()).toBeTruthy();
-            });
-
-            it('should set isImageLoading to true for added answer', function () {
-                viewModel.addAnswer();
-                expect(viewModel.answers()[0].isImageLoading()).toBeTruthy();
-            });
+        it('should start upload image', () => {
+            spyOn(uploadImage, 'execute').and.returnValue(Promise.resolve());
+            viewModel.addAnswer('file');
+            expect(uploadImage.execute).toHaveBeenCalledWith('file');
         });
 
-        describe('when image was uploaded successfully', function () {
+        describe('when image is uploaded successfully', () => {
 
-            var url = 'http://url.com';
-
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.startLoading();
-                    spec.success(url);
-                });
+            beforeEach(() => {
+                updateImagePromise = Promise.resolve(imageResult);
+                spyOn(uploadImage, 'execute').and.returnValue(updateImagePromise);
             });
 
-            it('should execute command to add answer', function () {
-                viewModel.addAnswer();
-                expect(addAnswerCommand.execute).toHaveBeenCalled();
+            describe('and when answer is added successfully', () => {
+
+                beforeEach(() => {
+                    addAnswerPromise = Promise.resolve(answerId);
+                    spyOn(addAnswerCommand, 'execute').and.returnValue(addAnswerPromise);
+                });
+
+                it('should should update answer id', done => (async () => {
+                    viewModel.addAnswer();
+                    await updateImagePromise;
+                    await addAnswerPromise;
+                    expect(viewModel.answers()[0].id()).toBe(answerId);
+                })().then(done));
+
+                it('should update answer url', done => (async () => {
+                    viewModel.addAnswer();
+                    await updateImagePromise;
+                    await addAnswerPromise;
+                    expect(viewModel.answers()[0].image()).toBe(imageResult.url);
+                })().then(done));
+
+                it('should stop image loading', done => (async () => {
+                    viewModel.addAnswer();
+                    await updateImagePromise;
+                    await addAnswerPromise;
+                    expect(viewModel.answers()[0].isImageLoading()).toBeFalsy();
+                })().then(done));
+
             });
 
-            describe('and add answer command is executed', function () {
+            describe('and when answer is not added successfully', () => {
+                
+                let reason;
 
-                beforeEach(function (done) {
-                    viewModel.answers([]);
-                    dfd.resolve('id');
-                    done();
+                beforeEach(() => {
+                    reason = 'some reason';
+                    addAnswerPromise = Promise.reject(reason);
+                    spyOn(addAnswerCommand, 'execute').and.returnValue(addAnswerPromise);
                 });
 
-                it('should set isImageLoading to false', function (done) {
-                    viewModel.addAnswer();
+                it('should show error', done => (async () => {
+                    try {
+                        await viewModel.addAnswer('file');
+                        await updateImagePromise;
+                        await addAnswerPromise;
+                    } catch (e) {
+                        expect(notify.error).toHaveBeenCalledWith(reason);
+                        expect(e).toBe(reason);
+                    } 
+                })().then(done));
 
-                    dfd.promise.then(function () {
-                        expect(viewModel.answers()[0].isImageLoading()).toBeFalsy();
-                        done();
-                    });
-                });
-
-                it('should update answer id', function (done) {
-                    viewModel.addAnswer();
-
-                    dfd.promise.then(function () {
-                        expect(viewModel.answers()[0].id()).toEqual('id');
-                        done();
-                    });
-                });
-
-                it('should update answer image', function (done) {
-                    viewModel.addAnswer();
-
-                    dfd.promise.then(function () {
-                        expect(viewModel.answers()[0].image()).toEqual(url);
-                        done();
-                    });
-                });
-
-                it('should notify that data was saved', function (done) {
-                    viewModel.addAnswer();
-
-                    dfd.promise.then(function () {
-                        expect(notify.saved).toHaveBeenCalled();
-                        done();
-                    });
-                });
             });
+
         });
 
-        describe('when failed to upload image', function () {
-            beforeEach(function () {
-                viewModel.answers([]);
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.startLoading();
-                    spec.error();
-                });
+        describe('when image is not uploaded successfully', () => {
+
+            let reason;
+
+            beforeEach(() => {
+                reason = 'some reason';
+                updateImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(updateImagePromise);
             });
 
-            it('should not add answers to collection', function () {
-                viewModel.addAnswer();
-                expect(viewModel.answers().length).toBe(0);
-            });
+            it('should show error', done => (async () => {
+                try {
+                    await viewModel.addAnswer('file');
+                    await updateImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                    expect(e).toBe(reason);
+                } 
+            })().then(done));
+
         });
 
     });
@@ -197,7 +190,6 @@ describe('question single select image [designer]', function () {
         beforeEach(function () {
             dfd = Q.defer();
             spyOn(removeAnswerCommand, 'execute').and.returnValue(dfd.promise);
-            spyOn(notify, 'saved');
         });
 
         it('should be function', function () {
@@ -311,7 +303,6 @@ describe('question single select image [designer]', function () {
         beforeEach(function () {
             dfd = Q.defer();
             spyOn(setCorrectAnswerCommand, 'execute').and.returnValue(dfd.promise);
-            spyOn(notify, 'saved');
         });
 
         it('should be function', function () {
@@ -378,172 +369,240 @@ describe('question single select image [designer]', function () {
         });
     });
 
-    describe('updateAnswerImage:', function () {
+    describe('updateAnswerImage', () => {
 
-        var dfd,
-            answer = { id: ko.observable(), image: ko.observable(), isProcessing: ko.observable(), isImageLoading: ko.observable(), isEditing: ko.observable() };
+        let uploadImagePromise;
+        let imageResult;
+        let answer;
+        let updateAnswerImage;
+        let updateAnswerImagePromise;
 
-        beforeEach(function () {
-            dfd = Q.defer();
-            spyOn(updateAnswerImageCommand, 'execute').and.returnValue(dfd.promise);
-            spyOn(notify, 'saved');
+        beforeEach(() => {
+            answer = {
+                id: ko.observable(),
+                image: ko.observable(),
+                isProcessing: ko.observable(),
+                isImageLoading: ko.observable(),
+                isEditing: ko.observable(),
+                isDeleted: false
+            };
+            imageResult = {
+                id: 'id',
+                title: 'Image.png',
+                url: 'https://urlko.com'
+            };
+            updateAnswerImage = viewModel.updateAnswerImage.bind(answer);
         });
 
-        it('should be function', function () {
-            expect(viewModel.updateAnswerImage).toBeFunction();
+        afterEach(() => {
+            answer.isDeleted = false;
         });
 
-        it('should set answer isEditing to true', function () {
+        it('should send event \'Update answer option (single select image)\'', () => {
+            updateAnswerImage('file');
+            expect(eventTracker.publish).toHaveBeenCalledWith('Update answer option (single select image)');
+        });
+
+        it('should start answer editind', () => {
             answer.isEditing(false);
-            spyOn(imageUpload, 'upload');
-            viewModel.updateAnswerImage(answer);
+            updateAnswerImage('file');
             expect(answer.isEditing()).toBeTruthy();
         });
 
-        it('should upload image', function () {
-            spyOn(imageUpload, 'upload');
-            viewModel.updateAnswerImage(answer);
-            expect(imageUpload.upload).toHaveBeenCalled();
+        it('should start answer processing', () => {
+            answer.isProcessing(false);
+            updateAnswerImage('file');
+            expect(answer.isProcessing()).toBeTruthy();
         });
 
-        describe('when image loading started', function () {
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.startLoading();
-                });
-            });
-
-            it('should set answer isProcessing to true', function () {
-                answer.isProcessing(false);
-                viewModel.updateAnswerImage(answer);
-                expect(answer.isProcessing()).toBeTruthy();
-            });
-
-            it('should set answer isImageLoading to true', function () {
-                answer.isImageLoading(false);
-                viewModel.updateAnswerImage(answer);
-                expect(answer.isImageLoading()).toBeTruthy();
-            });
+        it('should startimage loading', () => {
+            answer.isImageLoading(false);
+            updateAnswerImage('file');
+            expect(answer.isImageLoading()).toBeTruthy();
         });
 
-        describe('when image was uploaded', function () {
+        describe('when image is uploaded successfully', () => {
 
-            var url = 'http://url.com';
-
-            beforeEach(function () {
-                viewModel.answers([answer]);
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.success(url);
-                });
+            beforeEach(() => {
+                uploadImagePromise = Promise.resolve(imageResult);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
 
-            describe('and when answer is deleted', function () {
-                beforeEach(function () {
+            describe('and when answer is deleted by collaborator', () => {
+
+                it('should remove answer', done => (async () => {
                     answer.isDeleted = true;
-                });
+                    spyOn(viewModel.answers, 'remove');
+                    await updateAnswerImage('file');
+                    await uploadImagePromise;
+                    expect(viewModel.answers.remove).toHaveBeenCalledWith(answer);
+                })().then(done));
 
-                it('should remove answer from collection', function () {
-                    viewModel.updateAnswerImage(answer);
-                    expect(viewModel.answers().length).toBe(0);
-                });
-
-                it('should not execute command to update answer image', function () {
-                    viewModel.updateAnswerImage(answer);
+                it('should not update answer image', done => (async () => {
+                    answer.isDeleted = true;
+                    spyOn(viewModel.answers, 'remove');
+                    spyOn(updateAnswerImageCommand, 'execute');
+                    await updateAnswerImage('file');
+                    await uploadImagePromise;
                     expect(updateAnswerImageCommand.execute).not.toHaveBeenCalled();
-                });
+                })().then(done));
+
             });
 
-            describe('and when answer is not deleted', function () {
-                beforeEach(function () {
-                    answer.isDeleted = false;
-                });
+            describe('and when answer is not deleted by collaborator', () => {
 
-                it('should execute command to update answer image', function () {
-                    viewModel.updateAnswerImage(answer);
-                    expect(updateAnswerImageCommand.execute).toHaveBeenCalled();
-                });
+                describe('and when answer image is updated successfully', () => {
 
-                describe('and update answer image command is executed', function () {
-
-                    beforeEach(function (done) {
-                        dfd.resolve();
-                        done();
+                    beforeEach(() => {
+                        updateAnswerImagePromise = Promise.resolve();
+                        spyOn(updateAnswerImageCommand, 'execute').and.returnValue(updateAnswerImagePromise);
                     });
 
-                    it('should set answer isImageLoading to false', function (done) {
+                    it('should update image url', done => (async () => {
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                        await updateAnswerImagePromise;
+                        expect(answer.image()).toBe(imageResult.url);
+                    })().then(done));
+
+                    it('should stop image loading', done => (async () => {
                         answer.isImageLoading(true);
-                        viewModel.updateAnswerImage(answer);
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                        await updateAnswerImagePromise;
+                        expect(answer.isImageLoading()).toBeFalsy();
+                    })().then(done));
 
-                        dfd.promise.then(function () {
-                            expect(answer.isImageLoading()).toBeFalsy();
-                            done();
-                        });
-                    });
+                    it('should stop answer editing', done => (async () => {
+                        answer.isEditing(true);
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                        await updateAnswerImagePromise;
+                        expect(answer.isEditing()).toBeFalsy();
+                    })().then(done));
 
-                    it('should update answer image', function (done) {
-                        viewModel.updateAnswerImage(answer);
+                    it('should show saved notification', done => (async () => {
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                        await updateAnswerImagePromise;
+                        expect(notify.saved).toHaveBeenCalled();
+                    })().then(done));
 
-                        dfd.promise.then(function () {
-                            expect(answer.image()).toEqual(url);
-                            done();
-                        });
-                    });
-
-                    it('should notify that data was saved', function (done) {
-                        viewModel.updateAnswerImage(answer);
-
-                        dfd.promise.then(function () {
-                            expect(notify.saved).toHaveBeenCalled();
-                            done();
-                        });
-                    });
                 });
+
+                describe('and when answer image is not updated successfully', () => {
+                
+                    let reason;
+
+                    beforeEach(() => {
+                        reason = 'some reason';
+                        updateAnswerImagePromise = Promise.reject(reason);
+                        spyOn(updateAnswerImageCommand, 'execute').and.returnValue(updateAnswerImagePromise);
+                    });
+
+                    describe('and when answer is not deleted by collaborator', () => {
+                
+                        it('should stop image loading', done => (async () => {
+                            try {
+                                answer.isImageLoading(true);
+                                await updateAnswerImage('file');
+                                await uploadImagePromise;
+                                await updateAnswerImagePromise;
+                            } catch (e) {
+                                expect(answer.isImageLoading()).toBeFalsy();
+                                expect(e).toBe(reason);
+                            } 
+                        })().then(done));
+
+                        it('should stop answer editing', done => (async () => {
+                            try {
+                                answer.isEditing(true);
+                                await updateAnswerImage('file');
+                                await uploadImagePromise;
+                                await updateAnswerImagePromise;
+                            } catch (e) {
+                                expect(answer.isEditing()).toBeFalsy();
+                                expect(e).toBe(reason);
+                            } 
+                        })().then(done));
+
+                    });
+
+                    describe('and when answer is deleted by collaborator', () => {
+                
+                        it('should remove answer', done => (async () => {
+                            try {
+                                answer.isDeleted = true;
+                                spyOn(viewModel.answers, 'remove');
+                                await updateAnswerImage('file');
+                                await uploadImagePromise;
+                                await updateAnswerImagePromise;
+                            } catch (e) {
+                                expect(viewModel.answers.remove).toHaveBeenCalledWith(answer);
+                                expect(e).toBe(reason);
+                            } 
+                        })().then(done));
+
+                    });
+
+                });
+
             });
+
         });
 
-        describe('when image loading failed', function () {
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.error();
-                });
+        describe('when image is not uploaded successfully', () => {
+            
+            let reason;
+
+            beforeEach(() => {
+                reason = 'some reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
 
-            describe('when answer is deleted', function () {
-                beforeEach(function () {
-                    answer.isDeleted = true;
-                });
+            describe('and when answer is not deleted by collaborator', () => {
+                
+                it('should stop image loading', done => (async () => {
+                    try {
+                        answer.isImageLoading(true);
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                    } catch (e) {
+                        expect(answer.isImageLoading()).toBeFalsy();
+                        expect(e).toBe(reason);
+                    } 
+                })().then(done));
 
-                it('should remove answer from collection', function () {
-                    viewModel.updateAnswerImage(answer);
-                    expect(viewModel.answers().length).toBe(0);
-                });
+                it('should stop answer editing', done => (async () => {
+                    try {
+                        answer.isEditing(true);
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                    } catch (e) {
+                        expect(answer.isEditing()).toBeFalsy();
+                        expect(e).toBe(reason);
+                    } 
+                })().then(done));
+
             });
 
-            describe('when answer is not deleted', function () {
-                beforeEach(function () {
-                    answer.isDeleted = false;
-                });
+            describe('and when answer is deleted by collaborator', () => {
+                
+                it('should stop image loading', done => (async () => {
+                    try {
+                        answer.isDeleted = true;
+                        spyOn(viewModel.answers, 'remove');
+                        await updateAnswerImage('file');
+                        await uploadImagePromise;
+                    } catch (e) {
+                        expect(viewModel.answers.remove).toHaveBeenCalledWith(answer);
+                        expect(e).toBe(reason);
+                    } 
+                })().then(done));
 
-                it('should set answer isImageLoading to false', function () {
-                    answer.isImageLoading(true);
-                    viewModel.updateAnswerImage(answer);
-                    expect(answer.isImageLoading()).toBeFalsy();
-                });
-            });
-        });
-
-        describe('when image loading complete', function () {
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.complete();
-                });
             });
 
-            it('should set answer isEditing to false', function () {
-                answer.isEditing(true);
-                viewModel.updateAnswerImage(answer);
-                expect(answer.isEditing()).toBeFalsy();
-            });
         });
     });
 
@@ -775,7 +834,6 @@ describe('question single select image [designer]', function () {
             beforeEach(function () {
                 viewModel.questionId = questionId;
                 viewModel.answers([vmAnswer]);
-                spyOn(notify, 'error');
                 spyOn(localizationManager, 'localize').and.returnValue(errorMessage);
             });
 

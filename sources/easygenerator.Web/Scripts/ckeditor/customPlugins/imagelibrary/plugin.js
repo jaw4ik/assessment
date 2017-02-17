@@ -12,7 +12,7 @@
             updateImageList: 'updateImageList'
         },
         imageLibraryDialogName: 'imageLibraryDialog',
-        getUserImagesApiUrl: 'api/images',
+        getUserImagesApiUrl: window.imageSeviceUrl ? '//' + window.imageSeviceUrl + '/images' : '//localhost:222/images',
 
         selectedImageUrl: null,
 
@@ -129,15 +129,15 @@
                             window.auth.getHeader('api').then(function(value) {
                                 var requestArgs = {
                                     url: plugin.getUserImagesApiUrl,
-                                    type: 'POST',
+                                    type: 'GET',
                                     headers: value
                                 };
 
                                 $.ajax(requestArgs)
                                     .done(function (response) {
                                         var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
-
-                                        if (!response || !response.data || response.data.length === 0) {
+                                        
+                                        if (!response || response.length === 0) {
                                             emptyListDialogElement.show();
                                             return;
                                         }
@@ -145,7 +145,7 @@
                                         emptyListDialogElement.hide();
                                         loadingErrorDialogElement.hide();
 
-                                        response.data.forEach(function (image) {
+                                        response.forEach(function (image) {
                                             imageLibrary.addImage(image,
                                                 //Double click event
                                                 function () {
@@ -162,7 +162,7 @@
                                             );
                                         });
 
-                                        resizeDialog(response.data.length);
+                                        resizeDialog(response.length);
                                     })
                                     .fail(function () {
                                         loadingErrorDialogElement.show();

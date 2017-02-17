@@ -27,7 +27,7 @@
                 <div class="content-editor-item" data-bind="css: { active: isActive }">
                     <div class="buttons-panel-wrapper">
                         <div class="buttons-panel" data-bind="foreach: viewmodel.buttonsPanel.buttons">
-                            <div class="button-item" data-bind="css: cssClass, click: handler, tip: { key: resourceKey, placement: 'left' }">
+                            <div class="button-item" data-bind="css: cssClass, useBinding: {name: binderOption.name, value: binderOption.value}, tip: { key: resourceKey, placement: 'left' }">
                             </div>
                         </div>
                     </div>

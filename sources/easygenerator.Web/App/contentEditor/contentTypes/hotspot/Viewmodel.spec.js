@@ -1,8 +1,9 @@
 ﻿import Viewmodel from './Viewmodel';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import hotspotParser from './components/hotspotParser';
 import eventTracker from 'eventTracker';
 import uiLocker from 'uiLocker';
+import notify from 'notify';
 
 describe('viewmodel hotspotOnImage', () => {
     let hotspotOnImage;
@@ -11,8 +12,9 @@ describe('viewmodel hotspotOnImage', () => {
     beforeEach(() => {
         hotspotOnImage = new Viewmodel();
         imageUploadFake = (spec) => {};
-        spyOn(imageUpload, 'upload').and.callFake((spec) => { imageUploadFake(spec); });
         spyOn(eventTracker, 'publish');
+        spyOn(notify, 'saved');
+        spyOn(notify, 'error');
     });
 
     it('should return ctor function', () => {
@@ -308,85 +310,103 @@ describe('viewmodel hotspotOnImage', () => {
 
     describe('uploadBackground:', () => {
 
+        let file;
+
         beforeEach(function () {
+            file = 'some image file';
             spyOn(uiLocker, 'lock');
             spyOn(uiLocker, 'unlock');
         });
 
-        it('should upload image', () => {
+        it('should lock ui', () => {
             hotspotOnImage.uploadBackground();
-            expect(imageUpload.upload).toHaveBeenCalled();
+            expect(uiLocker.lock).toHaveBeenCalled();
         });
 
-        describe('when image upload started', () => {
-
-            beforeEach(() => {
-                imageUploadFake = (spec) => {
-                    spec.startLoading();
-                };
-            });
-
-            it('should lock ui', () => {
-                hotspotOnImage.uploadBackground();
-                expect(uiLocker.lock).toHaveBeenCalled();
-            });
-        });
-
-        describe('when image upload finished successfully', () => {
-
-            let url = 'http://xxx.com';
-            let parsedHotPost = 'parsedHotPost';
-
-            beforeEach(function () {
-                imageUploadFake = (spec) => {
-                    spec.success(url);
-                };
-
-                spyOn(hotspotParser, 'updateHotspotOnAnImage').and.returnValue(parsedHotPost);
-                spyOn(hotspotOnImage, 'save');
-            });
-
-            it('should update background url', () => {
-                hotspotOnImage.background(undefined);
-
-                hotspotOnImage.uploadBackground();
-
-                expect(hotspotOnImage.background()).toEqual(url);
-            });
-
-
-            it('should send event \'Change background of hotspot content block\'', () => {
-                hotspotOnImage.uploadBackground();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block');
-            });
-
+        describe('when image upload successfull', () => {
             
-            it('should update data with parsed text', () => {
-                hotspotOnImage.data('');
-                hotspotOnImage.uploadBackground();
-                expect(hotspotOnImage.data()).toBe(parsedHotPost);
-            });
-
-            it('should call save with parsed text', () => {
-                hotspotOnImage.uploadBackground();
-                expect(hotspotOnImage.save).toHaveBeenCalledWith(parsedHotPost);
-            });
-        });
-
-        describe('when image upload finished', () => {
+            let uploadImagePromise;
+            let imageUploadRes;
 
             beforeEach(() => {
-                imageUploadFake = (spec) => {
-                    spec.complete();
+                imageUploadRes = {
+                    id: 'someid',
+                    title: 'title',
+                    url: 'https://urla.com'
                 };
+                uploadImagePromise = Promise.resolve(imageUploadRes);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
 
-            it('should unlock ui', () => {
-                hotspotOnImage.uploadBackground();
-                expect(uiLocker.unlock).toHaveBeenCalled();
+            it('should upload image to image storage', () => {
+                hotspotOnImage.uploadBackground(file);
+                expect(uploadImage.execute).toHaveBeenCalledWith(file);
             });
+
+            it('should send event \'Change background of hotspot content block\'', done => (async () => {
+                hotspotOnImage.uploadBackground(file);
+                await uploadImagePromise;
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block');
+            })().then(done));
+
+            it('should update hotspot background', done => (async () => {
+                hotspotOnImage.uploadBackground(file);
+                await uploadImagePromise;
+                expect(hotspotOnImage.background()).toBe(imageUploadRes.url);
+            })().then(done));
+
+            it('should update hotspot on an image', done => (async () => {
+                spyOn(hotspotOnImage, 'updateHotspotOnAnImage');
+                hotspotOnImage.uploadBackground(file);
+                await uploadImagePromise;
+                expect(hotspotOnImage.updateHotspotOnAnImage).toHaveBeenCalled();
+            })().then(done));
+
+            it('should show message about saving', done => (async () => {
+                hotspotOnImage.uploadBackground(file);
+                await uploadImagePromise;
+                expect(notify.saved).toHaveBeenCalled();
+            })().then(done));
+
+            it('should unlock ui', done => (async () => {
+                hotspotOnImage.uploadBackground(file);
+                await uploadImagePromise;
+                expect(uiLocker.unlock).toHaveBeenCalled();
+            })().then(done));
+
         });
 
+        describe('when image upload successfull', () => {
+            
+            let uploadImagePromise;
+            let reason;
+
+            beforeEach(() => {
+                reason = 'some reject reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
+            });
+
+            it('should show error message', done => (async () => {
+                try {
+                    hotspotOnImage.uploadBackground(file);
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                    expect(e).toBe(reason);
+                }
+            })().then(done).catch(done));
+
+            it('should unlock ui', done => (async () => {
+                try {
+                    hotspotOnImage.uploadBackground(file);
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(uiLocker.unlock).toHaveBeenCalled();
+                    expect(e).toBe(reason);
+                }
+            })().then(done).catch(done));
+        });
     });
 
     describe('editingEnded:', () => {

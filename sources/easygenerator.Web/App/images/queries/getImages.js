@@ -1,12 +1,15 @@
 ﻿import http from 'http/apiHttpWrapper.js';
+import constants from 'constants';
+
+const getImagesUrl = `${constants.imageService.host}/images`;
 
 async function execute() {
-    let response = await http.get('api/images');
-    if (!response || !response.success) {
+    try {
+        let response = await http.get(getImagesUrl);
+        return response;
+    } catch (e) {
         throw 'Failed to load Image library';
     }
-
-    return response.data;
 }
 
 export { execute };

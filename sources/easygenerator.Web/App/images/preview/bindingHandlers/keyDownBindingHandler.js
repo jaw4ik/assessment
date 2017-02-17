@@ -8,7 +8,7 @@ ko.bindingHandlers.keyDown = {
         let handlers = value.handlers;
         let bubbling = value.bubbling;
 
-        $(element).attr("tabindex", "1");
+        $(element).attr('tabindex', '1');
         $(element).focus();
 
         $(element).bind('keydown', function(event) {

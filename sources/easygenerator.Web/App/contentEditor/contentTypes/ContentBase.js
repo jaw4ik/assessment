@@ -12,9 +12,9 @@ export default class {
         events.includeIn(this);
 
         this.buttonsPanel = new ButtonsPanelManager();
-        this.buttonsPanel.addButton('content-reordering-handle', 'changeOrder');
-        this.buttonsPanel.addButton('content-duplicate', 'duplicate', this.duplicate);
-        this.buttonsPanel.addButton('content-delete', 'delete', this.delete);
+        this.buttonsPanel.addButton('content-reordering-handle', 'changeOrder', {name: 'click'});
+        this.buttonsPanel.addButton('content-duplicate', 'duplicate', { name: 'click', value: this.duplicate });
+        this.buttonsPanel.addButton('content-delete', 'delete', { name: 'click', value: this.delete });
     }
     save(data, callback) {
         this.trigger('save', data, callback);

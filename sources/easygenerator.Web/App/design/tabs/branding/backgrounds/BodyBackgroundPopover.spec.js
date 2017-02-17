@@ -1,7 +1,7 @@
 ﻿import { BackgroundPopover, COLOR_MODE, TEXTURE_MODE, EVENT_TEXTURE_SELECTED, EVENT_COLOR_SELECTED } from './BodyBackgroundPopover.js';
 
 import notify from 'notify';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 
 describe('Background popover class', () => {
 
@@ -280,104 +280,60 @@ describe('Background popover class', () => {
     });
 
     describe('upload:', () => {
-        
-        it('should be function', () => {
-            let background = new BackgroundPopover();
 
-            expect(background.upload).toBeFunction();
+        let uploadImagePromise;
+        let imageResult;
+        let background;
+
+        beforeEach(() => {
+            background = new BackgroundPopover();
+            imageResult = {
+                id: 'id',
+                title: 'image.png',
+                url: 'https://urlko.com'
+            };
         });
 
-        describe('when file is not an object', () => {
+        it('should send image to server', () => {
+            spyOn(uploadImage, 'execute');
+            background.upload('file');
+            expect(uploadImage.execute).toHaveBeenCalledWith('file');
+        });
 
-            it('should reject promise', done => {
-                let background = new BackgroundPopover();
-                background.upload().catch(reason => {
-                    expect(reason).toEqual('File was not provided.');
-                    done();
-                });
+        describe('when image is uploaded successfully', () => {
+
+            beforeEach(() => {
+                uploadImagePromise = Promise.resolve(imageResult);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
+
+            it('should update texture', done => (async () => {
+                background.upload();
+                await uploadImagePromise;
+                expect(background.texture()).toBe(imageResult.url);
+            })().then(done));
 
         });
 
-        describe('when file is defined', () => {
+        describe('when image is not uploaded successfully', () => {
 
-            it('should send file to server', done => {
-                spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' }));
+            let reason;
 
-                let background = new BackgroundPopover();
-                background.upload({}).then(() => {
-                    expect(imageUpload.v2).toHaveBeenCalled();
-                    done();
-                });
+            beforeEach(() => {
+                reason = 'some reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
 
-            describe('and file is uploaded successfully', () => {
-
-                beforeEach(() => spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'textureUrl' })));
-
-                it('should resolve promise', done => {
-                    let background = new BackgroundPopover();
-                    background.upload({}).then(textureUrl => {
-                        expect(textureUrl).toEqual('textureUrl');
-                        done();
-                    });
-                });
-
-                it('should set texture', done => {
-                    let background = new BackgroundPopover();
-                    background.texture('');
-                    background.upload({}).then(() => {
-                        expect(background.texture()).toEqual('textureUrl');
-                        done();
-                    });
-                });
-
-                it('should unselect color', done => {
-                    let background = new BackgroundPopover();
-                    background.color('#aabbcc');
-
-                    background.upload({}).then(() => {
-                        expect(background.color()).toEqual(null);
-                        done();
-                    });
-                });
-
-                it(`should trigger event ${EVENT_TEXTURE_SELECTED}`, done => {
-                    let background = new BackgroundPopover();
-                    spyOn(background, 'trigger');
-
-                    background.upload({}).then(() => {
-                        expect(background.trigger).toHaveBeenCalledWith(EVENT_TEXTURE_SELECTED, 'textureUrl');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('and failed to upload file', () => {
-
-                beforeEach(() => {
-                    spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('reason'));
+            it('should show error message', done => (async () => {
+                try {
                     spyOn(notify, 'error');
-                });
-
-                it('should resolve promise', done => {
-                    let background = new BackgroundPopover();
-                    background.upload({}).then(() => {
-                        expect(arguments.length).toEqual(0);
-                        done();
-                    });
-                });
-
-                it('should show notification', done => {
-                    let background = new BackgroundPopover();
-                    background.upload({}).then(() => {
-                        expect(notify.error).toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-            });
+                    background.upload();
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                }
+            })().then(done));
 
         });
 

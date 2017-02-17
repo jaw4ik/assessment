@@ -1,0 +1,8 @@
+{
+    "server": "127.0.0.1",
+    "driver": "msnodesqlv8",
+    "database": "easygenerator_Images",
+    "options": {
+        "trustedConnection": true
+    }
+}

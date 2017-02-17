@@ -17,10 +17,10 @@
                     <!-- /ko -->
 
                     <!-- ko lazyForeach: images -->
-                    <li class="library-list-item hovered" data-bind="click: isDeleteConfirmationShown() ? function(){} : $parent.showImagePopup.bind($parent) ">
+                    <li class="library-list-item hovered" data-bind="click: isDeleteConfirmationShown() || isDirty ? function(){} : $parent.showImagePopup.bind($parent) ">
                         <div class="library-list-item-thumbnail" data-bind="coverBackground: { src: url, width: 200, height: 113 }">
                             <span class="preview-icon"></span>
-                            <!-- ko ifnot: isDeleteConfirmationShown -->
+                            <!-- ko ifnot: isDeleteConfirmationShown && isDirty -->
                             <div class="list-item-context-actions-wrapper">
                                 <div class="list-item-context-action info-tooltip-holder delete" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.showDeleteImageConfirmation">
                                     <div class="info-tooltip">

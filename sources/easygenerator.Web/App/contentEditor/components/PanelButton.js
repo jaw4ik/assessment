@@ -1,7 +1,7 @@
 ﻿export default class {
-    constructor (cssClass, resourceKey, handler) {
+    constructor (cssClass, resourceKey, binderOption) {
         this.cssClass = cssClass;
         this.resourceKey = resourceKey;
-        this.handler = handler;
+        this.binderOption = binderOption;
     }
 }

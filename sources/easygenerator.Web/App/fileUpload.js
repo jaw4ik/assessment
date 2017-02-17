@@ -75,7 +75,7 @@
             }
 
         },
-        xhr2: function (url, file, headers) {
+        xhr2: function (url, file, headers, optionalData) {
             var dfd = Q.defer();
 
             var xhr = new XMLHttpRequest();
@@ -112,6 +112,11 @@
 
             var formData = new FormData();
             formData.append('file', file);
+
+            if (_.isObject(optionalData)) {
+                formData.append('data', JSON.stringify(optionalData));
+            }
+
             xhr.send(formData);
 
             function error(e) {

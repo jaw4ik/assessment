@@ -40,7 +40,7 @@
             </div>
 
             <div class="controls">
-                <div class="image-container" data-bind="click: updateImage">
+                <div class="image-container" data-bind="browse: { callback: updateImage.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
                     <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
                     <div class="overlay hover" data-bind="visible: !isImageLoading()">
                         <span class="image"></span>

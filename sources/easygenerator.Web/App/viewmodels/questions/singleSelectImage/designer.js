@@ -1,4 +1,4 @@
-﻿define(['imageUpload',
+﻿define(['images/commands/upload',
         'notify',
         'constants',
         'eventTracker',
@@ -11,7 +11,7 @@
         './commands/setCorrectAnswer',
         './commands/updateAnswerImage',
         './queries/getQuestionContentById'],
-    function (imageUpload, notify, constants, eventTracker, app, localizationManager, imagePreview, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
+    function (uploadImage, notify, constants, eventTracker, app, localizationManager, imagePreview, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
         "use strict";
 
         var events = {
@@ -83,27 +83,24 @@
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function addAnswer() {
+        function addAnswer(file) {
             eventTracker.publish(events.addAnswerOption);
             var answerToAdd = new Answer(null, null);
-            imageUpload.upload({
-                startLoading: function () {
-                    answerToAdd.isProcessing(true);
-                    answerToAdd.isImageLoading(true);
-                    viewModel.answers.push(answerToAdd);
-                },
-                success: function (url) {
-                    addAnswerCommand.execute(viewModel.questionId, url).then(function (id) {
+            answerToAdd.isProcessing(true);
+            answerToAdd.isImageLoading(true);
+            viewModel.answers.push(answerToAdd);
+            return uploadImage.execute(file)
+                .then(function(image) {
+                    return addAnswerCommand.execute(viewModel.questionId, image.url).then(function (id) {
                         answerToAdd.id(id);
-                        answerToAdd.image(url);
+                        answerToAdd.image(image.url);
                         answerToAdd.isImageLoading(false);
                         notify.saved();
                     });
-                },
-                error: function () {
+                }).catch(function(reason) {
                     viewModel.answers.remove(answerToAdd);
-                }
-            });
+                    notify.error(reason);
+                });
         }
 
         function removeAnswer(answer) {
@@ -115,38 +112,35 @@
             });
         }
 
-        function updateAnswerImage(answer) {
+        function updateAnswerImage(file) {
+            var that = this;
             eventTracker.publish(events.updateAnswerOption);
-            answer.isEditing(true);
-            imageUpload.upload({
-                startLoading: function () {
-                    answer.isProcessing(true);
-                    answer.isImageLoading(true);
-                },
-                success: function (url) {
-                    if (answer.isDeleted) {
-                        viewModel.answers.remove(answer);
+            that.isEditing(true);
+            that.isProcessing(true);
+            that.isImageLoading(true);
+
+            return uploadImage.execute(file)
+                .then(function (image) {
+                    if (that.isDeleted) {
+                        viewModel.answers.remove(that);
                         return;
                     }
 
-                    updateAnswerImageCommand.execute(answer.id, url).then(function () {
-                        answer.image(url);
-                        answer.isImageLoading(false);
+                    return updateAnswerImageCommand.execute(that.id, image.url).then(function () {
+                        that.image(image.url);
+                        that.isImageLoading(false);
+                        that.isEditing(false);
                         notify.saved();
                     });
-                },
-                error: function () {
-                    if (answer.isDeleted) {
-                        viewModel.answers.remove(answer);
+                }).catch(function () {
+                    if (that.isDeleted) {
+                        viewModel.answers.remove(that);
                         return;
                     }
 
-                    answer.isImageLoading(false);
-                },
-                complete: function () {
-                    answer.isEditing(false);
-                }
-            });
+                    that.isImageLoading(false);
+                    that.isEditing(false);
+                });
         }
 
         function setCorrectAnswer(answer) {

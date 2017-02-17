@@ -18,7 +18,6 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers
 {
-
     public class ImageController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
@@ -133,7 +132,7 @@ namespace easygenerator.Web.Controllers
 
         private ActionResult UploadImage(HttpPostedFileBase file)
         {
-            if (file == null || String.IsNullOrEmpty(file.FileName) || file.ContentLength == 0)
+            if (string.IsNullOrEmpty(file?.FileName) || file.ContentLength == 0)
             {
                 return BadRequest();
             }
@@ -187,8 +186,6 @@ namespace easygenerator.Web.Controllers
 
             return JsonSuccess();
         }
-
-
     }
 }
 

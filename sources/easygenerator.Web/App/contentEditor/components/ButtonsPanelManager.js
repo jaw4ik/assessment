@@ -6,11 +6,11 @@ export default class {
     constructor() {
         this.buttons = [];
     }
-    addButton(cssClass, resourceKey, handler, position) {
+    addButton(cssClass, resourceKey, binderOption, position) {
         guard.throwIfNotString(cssClass, 'Button must have a css class.');
         guard.throwIfNotString(resourceKey, 'Button must have a resource key.');
 
-        let newButton = new PanelButton(cssClass, resourceKey, handler);
+        let newButton = new PanelButton(cssClass, resourceKey, binderOption);
         
         if (_.isNullOrUndefined(position)) {
             this.buttons.push(newButton);

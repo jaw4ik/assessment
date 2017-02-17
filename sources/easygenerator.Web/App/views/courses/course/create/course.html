@@ -110,7 +110,7 @@
                             <div class="list-item-info-holder">
                                 <div class="info-holder-table">
                                     <div class="list-item-logo-wrapper">
-                                        <div class="list-item-logo changeable" data-bind="click: $parent.updateSectionImage, stopEventPropagation: { event: 'click' }">
+                                        <div class="list-item-logo changeable" data-bind="browse: { callback: $parent.updateSectionImage.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}, stopEventPropagation: { event: 'click' }">
                                             <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
                                             <div class="overlay hover" data-bind="visible: !isImageLoading()">
                                                 <span class="image"></span>

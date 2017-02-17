@@ -3,7 +3,8 @@
 
     return {
         post: post,
-        get: get
+        get: get,
+        remove: remove
     };
 
     function post(url, data) {
@@ -36,6 +37,15 @@
             _.extend(headers, { "cache-control": "no-cache" });
 
             return httpRequestSender.get(url, data, headers);
+        });
+    }
+
+    function remove(url, data) {
+        return window.auth.getHeader('api').then(function (value) {
+            var headers = value;
+            _.extend(headers, { "cache-control": "no-cache" });
+
+            return httpRequestSender.remove(url, data, headers);
         });
     }
 

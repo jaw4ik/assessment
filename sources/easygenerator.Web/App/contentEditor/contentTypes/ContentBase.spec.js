@@ -66,10 +66,10 @@ describe('[ContentBase]', () => {
         expect(contentBase.buttonsPanel.buttons[0].resourceKey).toBe('changeOrder');
         expect(contentBase.buttonsPanel.buttons[1].cssClass).toBe('content-duplicate');
         expect(contentBase.buttonsPanel.buttons[1].resourceKey).toBe('duplicate');
-        expect(contentBase.buttonsPanel.buttons[1].handler).toBeFunction();
+        expect(contentBase.buttonsPanel.buttons[1].binderOption).toBeObject();
         expect(contentBase.buttonsPanel.buttons[2].cssClass).toBe('content-delete');
         expect(contentBase.buttonsPanel.buttons[2].resourceKey).toBe('delete');
-        expect(contentBase.buttonsPanel.buttons[2].handler).toBeFunction();
+        expect(contentBase.buttonsPanel.buttons[2].binderOption).toBeObject();
     });
 
     describe('save:', () => {

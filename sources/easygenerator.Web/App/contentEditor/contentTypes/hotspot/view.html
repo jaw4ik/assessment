@@ -7,7 +7,7 @@
         <div class="question-learning-content selectable hotspot-on-image" data-bind="background: background, hotspotOnImage: { background: background, polygons: polygons, isEditing: hasFocus, save: updateHotspotOnAnImage, actions: { add: addPolygon, update: updatePolygon, delete: deletePolygon} }"></div>
         <!-- /ko -->
         <!-- ko ifnot: background -->
-        <div class="hotspot-image-placeholder" data-bind="click: uploadBackground">
+        <div class="hotspot-image-placeholder" data-bind="browse: { callback: uploadBackground.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
             <div class="hotspot-image-placeholder-image"></div>
             <div class="hotspot-image-placeholder-text" data-bind="localize: { html: 'clickToSelectBackgroundImage'}"></div>
         </div>

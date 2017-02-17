@@ -831,6 +831,7 @@
     <Content Include="App\components\bindingHandlers\copyToClipboardBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\dropDownAnimation.js" />
     <Content Include="App\components\bindingHandlers\lazyForeachBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\useBindingBindingHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\EditorHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\editorHandlers\ToolbarPositionHandler.js" />
     <Content Include="App\components\htmlEditor\bindingHandlers\htmlEditorBindingHandler.js" />
@@ -1100,6 +1101,10 @@
       <DependentUpon>start.js</DependentUpon>
     </Content>
     <Content Include="App\fonts.spec.js" />
+    <Content Include="App\images\commands\upload.js" />
+    <Content Include="App\images\commands\upload.spec.js">
+      <DependentUpon>upload.js</DependentUpon>
+    </Content>
     <Content Include="App\importfrompresentation\index.html" />
     <Content Include="App\importfrompresentation\index.js">
       <DependentUpon>index.html</DependentUpon>

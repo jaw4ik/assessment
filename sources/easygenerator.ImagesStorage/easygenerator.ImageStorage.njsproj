@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>easygenerator.ImageStorage</Name>
+    <RootNamespace>easygenerator.ImagesStorage</RootNamespace>
+    <NodejsPort>222</NodejsPort>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>5993dceb-4b34-4ddb-991e-b7e569e737db</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>app.js</StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartWebBrowser>False</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app.js" />
+    <Compile Include="aws\OriginalImageBucket.js" />
+    <Compile Include="aws\ResizedImageBucket.js" />
+    <Compile Include="aws\S3Client.js" />
+    <Compile Include="constants.js" />
+    <Compile Include="db\ImageRepository.js" />
+    <Compile Include="db\index.js" />
+    <Compile Include="gulpfile.js" />
+    <Compile Include="middlewares\auth.js" />
+    <Compile Include="middlewares\errorHandler.js" />
+    <Compile Include="middlewares\imageModelBinder.js" />
+    <Compile Include="middlewares\optionalUploadDataParser.js" />
+    <Compile Include="middlewares\uploadFile.js" />
+    <Compile Include="models\AuthToken.js" />
+    <Compile Include="models\errors\BadRequest.js" />
+    <Compile Include="models\errors\HttpError.js" />
+    <Compile Include="models\errors\index.js" />
+    <Compile Include="models\errors\NotFound.js" />
+    <Compile Include="models\errors\PayloadTooLarge.js" />
+    <Compile Include="models\errors\Unauthorized.js" />
+    <Compile Include="models\errors\UnsupportedMediaType.js" />
+    <Compile Include="models\Image.js" />
+    <Compile Include="resizer\index.js" />
+    <Compile Include="routes\image.js" />
+    <Compile Include="routes\images.js" />
+    <Compile Include="routes\index.js" />
+    <Compile Include="utils\urlHelper.js" />
+    <Content Include=".gitignore" />
+    <Content Include="config.json" />
+    <Content Include="db\config.json" />
+    <Content Include="deployLive.bat" />
+    <Content Include="deployment\live\config.json" />
+    <Content Include="deployment\live\db\config.json" />
+    <Content Include="deployment\live\iisnode.yml" />
+    <Content Include="deployment\live\Web.config" />
+    <Content Include="deployment\staging\config.json" />
+    <Content Include="deployment\staging\db\config.json" />
+    <Content Include="deployment\staging\iisnode.yml" />
+    <Content Include="deployment\staging\Web.config" />
+    <Content Include="deployStaging.bat" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="deployment\" />
+    <Folder Include="deployment\live\" />
+    <Folder Include="deployment\live\db\" />
+    <Folder Include="deployment\staging\" />
+    <Folder Include="deployment\staging\db\" />
+    <Folder Include="middlewares\" />
+    <Folder Include="db\" />
+    <Folder Include="models\" />
+    <Folder Include="models\errors\" />
+    <Folder Include="aws\" />
+    <Folder Include="resizer\" />
+    <Folder Include="routes\" />
+    <Folder Include="utils\" />
+  </ItemGroup>
+  <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+</Project>

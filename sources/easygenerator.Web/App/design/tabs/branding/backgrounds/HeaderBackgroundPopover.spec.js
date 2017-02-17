@@ -1,9 +1,14 @@
 ﻿import { HeaderPopover, IMAGE_MODE, COLOR_MODE, EVENT_IMAGE_SELECTED, EVENT_COLOR_SELECTED } from './HeaderBackgroundPopover.js';
 
 import notify from 'notify';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 
 describe('Background header popover', () => {
+
+    beforeEach(() => {
+        spyOn(notify, 'saved');
+        spyOn(notify, 'error');
+    });
 
     it('should include publish/subscribe', () => {
         let headerPopover = new HeaderPopover();
@@ -285,103 +290,70 @@ describe('Background header popover', () => {
 
     describe('upload:', () => {
 
-        it('should be function', () => {
-            let popover = new HeaderPopover();
+        let popover;
 
-            expect(popover.upload).toBeFunction();
+        beforeEach(() => {
+            popover = new HeaderPopover();
         });
 
-        describe('when file is not an object', () => {
+        describe('and when image uploading successfull', () => {
 
-            it('should reject promise', done => {
-                let popover = new HeaderPopover();
-                popover.upload().catch(reason => {
-                    expect(reason).toEqual('File was not provided.');
-                    done();
-                });
+            let uploadImagePromise;
+            let file;
+            let imageUploadRes;
+
+            beforeEach(() => {
+                file = 'some image file';
+                imageUploadRes = {
+                    id: 'someid',
+                    title: 'title',
+                    url: 'https://urla.com'
+                };
+                uploadImagePromise = Promise.resolve(imageUploadRes);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
 
+            it('should upload image to image storage', () => {
+                popover.upload(file);
+                expect(uploadImage.execute).toHaveBeenCalledWith(file);
+            });
+
+            it('should update logo', done => (async () => {
+                spyOn(popover, 'selectImage');
+                popover.upload(file);
+                await uploadImagePromise;
+                expect(popover.selectImage).toHaveBeenCalledWith(imageUploadRes.url);
+            })().then(done));
+
+            it('should show saved notification', done => (async () => {
+                popover.upload(file);
+                await uploadImagePromise;
+                expect(notify.saved).toHaveBeenCalled();
+            })().then(done));
         });
 
-        describe('when file is defined', () => {
+        describe('and when image uploading failed', () => {
+                
+            let uploadImagePromise;
+            let file;
+            let reason;
 
-            it('should send file to server', done => {
-                spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' }));
-
-                let popover = new HeaderPopover();
-                popover.upload({}).then(() => {
-                    expect(imageUpload.v2).toHaveBeenCalled();
-                    done();
-                });
+            beforeEach(() => {
+                file = 'some image file';
+                reason = 'some reject reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
 
-            describe('and file is uploaded successfully', () => {
-
-                beforeEach(() => spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' })));
-
-                it('should resolve promise', done => {
-                    let popover = new HeaderPopover();
-                    popover.upload({}).then(imageUrl => {
-                        expect(imageUrl).toEqual('imageUrl');
-                        done();
-                    });
-                });
-
-                it('should set image', done => {
-                    let popover = new HeaderPopover();
-                    popover.image('');
-                    popover.upload({}).then(() => {
-                        expect(popover.image()).toEqual('imageUrl');
-                        done();
-                    });
-                });
-
-                it('should unselect color', done => {
-                    let popover = new HeaderPopover();
-                    popover.color('#aabbcc');
-
-                    popover.upload({}).then(() => {
-                        expect(popover.color()).toEqual(null);
-                        done();
-                    });
-                });
-
-                it(`should trigger event ${EVENT_IMAGE_SELECTED}`, done => {
-                    let popover = new HeaderPopover();
-                    spyOn(popover, 'trigger');
-
-                    popover.upload({}).then(() => {
-                        expect(popover.trigger).toHaveBeenCalledWith(EVENT_IMAGE_SELECTED, 'imageUrl');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('and failed to upload file', () => {
-
-                beforeEach(() => {
-                    spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('reason'));
-                    spyOn(notify, 'error');
-                });
-
-                it('should resolve promise', done => {
-                    let popover = new HeaderPopover();
-                    popover.upload({}).then(() => {
-                        expect(arguments.length).toEqual(0);
-                        done();
-                    });
-                });
-
-                it('should show notification', done => {
-                    let popover = new HeaderPopover();
-                    popover.upload({}).then(() => {
-                        expect(notify.error).toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-            });
+            it('should show notify error message', done => (async () => {
+                try {
+                    popover.upload(file);
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                    expect(e).toBe(reason);
+                } 
+            })().then(done));
 
         });
 

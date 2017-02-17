@@ -1,7 +1,7 @@
 ﻿import viewModel from './index.js';
 
 import * as getImages from './queries/getImages.js';
-import imageUpload from 'imageUpload.js';
+import uploadImage from './commands/upload';
 import * as deleteImage from './commands/deleteImage.js';
 import Image from './image.js';
 import notify from 'notify.js';
@@ -101,65 +101,81 @@ describe('[images]', () => {
     });
 
     describe('uploadImage:', () => {
-        it('should publish event', () => {
-            spyOn(imageUpload, 'v2').and.returnValue(Promise.reject());
-            viewModel.uploadImage({});
+
+        let defaultImage;
+        let file;
+        let uploadImagePromise;
+        let imageResult;
+
+        beforeEach(() => {
+            file = 'some file';
+            imageResult = {
+                id: 'id',
+                title: 'image.jpg',
+                url: 'https://urlko.com'
+            };
+            defaultImage = viewModel._generateDefaultImage();
+            spyOn(viewModel, '_generateDefaultImage').and.returnValue(defaultImage);
+        });
+
+        it('should send event \'Upload image file\'', () => {
+            spyOn(uploadImage, 'execute');
+            viewModel.uploadImage();
             expect(eventTracker.publish).toHaveBeenCalledWith('Upload image file', 'Image library');
         });
 
-        it('should upload image to server', done => {
-            let file = { name: 'file' };
-            spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve());
+        it('should add defaultImage to collection', () => {
+            spyOn(uploadImage, 'execute');
+            viewModel.uploadImage();
+            expect(viewModel.images.indexOf(defaultImage)).not.toBe(-1);
+        });
 
-            viewModel.uploadImage(file).then(() => {
-                expect(imageUpload.v2).toHaveBeenCalledWith(file);
-                done();
+        describe('when images is loaded successfully', () => {
+
+            beforeEach(() => {
+                uploadImagePromise = Promise.resolve(imageResult);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
+
+            it('should delete generated images', done => (async () => {
+                viewModel.uploadImage(file);
+                await uploadImagePromise;
+                expect(viewModel.images.indexOf(defaultImage)).toBe(-1);
+            })().then(done));
+
         });
 
-        describe('when image is uploaded', () => {
-            it('should add it to viewModel images', done => {
-                let file = { name: 'file' };
-                viewModel.images([]);
-                spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve(image));
+        describe('when images is not loaded successfully', () => {
 
-                viewModel.uploadImage(file).then(() => {
-                    expect(viewModel.images()[0].id).toBe(imageViewModel.id);
-                    expect(viewModel.images()[0].title).toBe(imageViewModel.title);
-                    expect(viewModel.images()[0].url).toBe(imageViewModel.url);
-                    expect(viewModel.images()[0].thumbnailUrl).toBe(imageViewModel.thumbnailUrl);
-                    expect(viewModel.images()[0].isDeleteConfirmationShown()).toBe(imageViewModel.isDeleteConfirmationShown());
-                    expect(viewModel.images()[0].isDeleting()).toBe(imageViewModel.isDeleting());
+            let reason;
 
-                    done();
-                });
+            beforeEach(() => {
+                reason = 'some reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
             });
+
+            it('should delete generated images', done => (async () => {
+                try {
+                    viewModel.uploadImage(file);
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(viewModel.images.indexOf(defaultImage)).toBe(-1);
+                } 
+            })().then(done));
+
+            it('should show error notification', done => (async () => {
+                try {
+                    spyOn(notify, 'error');
+                    viewModel.uploadImage(file);
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                } 
+            })().then(done));
+
         });
 
-        describe('when error occures', () => {
-            it('should show error notification', done => {
-                let file = { name: 'file' };
-                spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('error'));
-                spyOn(notify, 'error');
-
-                viewModel.uploadImage(file).then(() => {
-                    expect(notify.error).toHaveBeenCalledWith('error');
-                    done();
-                });
-            });
-        });
-    });
-    
-    describe('uploadImages:', () => {
-        it('should upload all files', () => {
-            spyOn(viewModel, 'uploadImage');
-            let file1 = { name: 'file1' },
-                file2 = { name: 'file2' };
-
-            viewModel.uploadImages(file1, file2);
-            expect(viewModel.uploadImage).toHaveBeenCalledWith(file1);
-            expect(viewModel.uploadImage).toHaveBeenCalledWith(file2);
-        });
     });
 
     describe('deleteImage:', () => {

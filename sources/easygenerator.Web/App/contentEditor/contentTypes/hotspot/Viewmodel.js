@@ -1,10 +1,11 @@
 ﻿import ContentBase from './../ContentBase';
 
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import uiLocker from 'uiLocker';
 import parser from './components/hotspotParser';
 import PolygonModel from './components/polygonModel';
 import eventTracker from 'eventTracker';
+import notify from 'notify';
 
 const minPolygonSize = 10;
 const events = {
@@ -27,7 +28,10 @@ export default class extends ContentBase {
         this.updateTextInHotspotContentBlock = this.updateTextInHotspotContentBlock.bind(this);
         this.endEditing = this.endEditing.bind(this);
 
-        this.buttonsPanel.addButton('change-image', 'changeImage', this.uploadBackground, 2);
+        this.buttonsPanel.addButton('change-image', 'changeImage', {name: 'browse', value: {
+            callback: this.uploadBackground,
+            accept: '.png, .jpg, .jpeg, .gif, .bmp'
+        }}, 2);
 
         this.polygons = ko.observableArray([]);
         this.background = ko.observable('');
@@ -90,21 +94,19 @@ export default class extends ContentBase {
         this.polygons.remove(polygonToDelete);
         polygonToDelete.removed();
     }
-    uploadBackground() {
-        let that = this;
-        imageUpload.upload({
-            startLoading: function () {
-                uiLocker.lock();
-            },
-            success: function (url) {
-                eventTracker.publish(events.changeBackground);
-                that.background(url);
-                that.updateHotspotOnAnImage();
-            },
-            complete: function () {
-                uiLocker.unlock();
-            }
-        });
+    async uploadBackground(file) {
+        try {
+            uiLocker.lock();
+            let image = await uploadImage.execute(file);
+            eventTracker.publish(events.changeBackground);
+            this.background(image.url);
+            this.updateHotspotOnAnImage();
+            notify.saved();
+        } catch (e) {
+            notify.error(e);
+        } finally {
+            uiLocker.unlock();
+        }
     }
     updateHotspotOnAnImage() {
         let text = parser.updateHotspotOnAnImage(this.data(), this.background(), this.polygons());

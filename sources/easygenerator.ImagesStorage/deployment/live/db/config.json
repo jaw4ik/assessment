@@ -1,0 +1,7 @@
+{
+    "user": "easygenerator",
+    "password": "OT1Km21iO2",
+    "server": "127.0.0.1",
+    "driver": "msnodesqlv8",
+    "database": "live_images_easygenerator"
+}

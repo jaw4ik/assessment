@@ -1,73 +1,86 @@
-﻿define(['notify', 'localization/localizationManager', 'fileUpload'], function (notify, localizationManager, fileUpload) {
+﻿import notify from 'notify';
+import localizationManager from 'localization/localizationManager';
+import fileUpload from 'fileUpload';
+import $ from 'jquery';
+import constants from 'constants';
 
-    return {
-        upload: function (options) {
-            var defaults = {
-                startLoading: function () { },
-                success: function () { },
-                error: function () { },
-                complete: function () { }
-            };
+const imageServiceUploadUrl = `${constants.imageService.host}/image/upload`;
 
-            var settings = $.extend({}, defaults, options);
-
-            return fileUpload.upload({
-                action: '/storage/image/upload',
-                supportedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
-                notSupportedFileMessage: localizationManager.localize('imageIsNotSupported'),
-
-                startLoading: settings.startLoading,
-                success: function (data) {
-                    var obj = JSON.parse(data);
-                    if (obj.data && obj.data.url) {
-                        settings.success(obj.data.url);
-                    } else {
-                        settings.error();
-                    }
-                },
-                error: function (event) {
-                    var resourceKey = "responseFailed";
-
-                    if (event && event.status) {
-                        switch (event.status) {
-                            case 400:
-                                resourceKey = "imageUploadError";
-                                break;
-                            case 413:
-                                resourceKey = "imageSizeIsTooLarge";
-                                break;
-                        }
-                    }
-
-                    notify.error(localizationManager.localize(resourceKey));
-                    settings.error();
-                },
-                complete: settings.complete
-            });
-        },
-        v2: function (file) {
-            return window.auth.getHeader('api').then(function(value) {
-                return fileUpload.xhr2('/storage/image/upload', file, value)
-                .then(function (response) {
-                    if (response && response.success) {
-                        return response.data;
-                    }
-                    throw new Error();
-                }).catch(function (e) {
-                    var resourceKey = "responseFailed";
-                    if (e && e.srcElement) {
-                        switch (e.srcElement.status) {
-                            case 400:
-                                resourceKey = "imageUploadError";
-                                break;
-                            case 413:
-                                resourceKey = "imageSizeIsTooLarge";
-                                break;
-                        }
-                    }
-                    throw localizationManager.localize(resourceKey);
-                });
-            });
+class ImageUploader {
+    static async upload() {
+        try {
+            let header = await window.auth.getHeader('api');
+            let response = await fileUpload.xhr2(imageServiceUploadUrl, file, header);
+            if (response && response.success) {
+                return res;
+            }
+        } catch (e) {
+            let resourceKey = 'imageUploadError';
+            if (e && e.srcElement) {
+                resourceKey = ImageUploader._getErrorResourceKey(e.srcElement.status);
+            }
+            throw localizationManager.localize(resourceKey);
         }
-    };
-})
+    }
+    static async upload2(options){
+        let defaults = {
+            startLoading: () => {},
+            success: () => {},
+            error: () => {},
+            complete: () => {}
+        };
+
+        let settings = $.extend({}, defaults, options);
+        await fileUpload.upload({
+            action: 'storage/image/upload',
+            supportedExtensions: ['jpg','jpeg','png','gif','bmp'],
+            notSupportedFileMessage: localizationManager.localize('imageIsNotSupported'),
+            startLoading: settings.startLoading,
+            success: data => {
+                let obj = JSON.parse(data);
+                if(obj.data && obj.data.url){
+                    settings.success(obj.data.url);
+                } else {
+                    settings.error();
+                }
+            },
+            error: event => {
+                let resourceKey = 'imageUploadError';
+                if (event && event.status) {
+                    resourceKey = this._getErrorResourceKey(event.status);
+                }
+                notify.error(localizationManager.localize(resourceKey));
+                settings.error();
+            },
+            complete: settings.complete
+        });
+    }
+    static async v2(file) {
+        try {
+            let header = await window.auth.getHeader('api');
+            let response = await fileUpload.xhr2(imageServiceUploadUrl, file, header);
+            if (response && response.success) {
+                let res = await saveImageDataCommand.execute(response.data.id, response.data.filename);
+                return res;
+            }
+        } catch (e) {
+            let resourceKey = 'imageUploadError';
+            if (e && e.srcElement) {
+                resourceKey = ImageUploader._getErrorResourceKey(e.srcElement.status);
+            }
+            throw localizationManager.localize(resourceKey);
+        }
+    }
+    static _getErrorResourceKey(status) {
+        switch (status) {
+            case 400:
+                return 'imageUploadError';
+            case 413:
+                return 'imageSizeIsTooLarge';
+            default:
+                return 'imageUploadError';
+        }
+    }
+}
+
+export default ImageUploader;

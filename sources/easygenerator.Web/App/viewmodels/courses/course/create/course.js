@@ -1,7 +1,7 @@
 ﻿define(['routing/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'viewmodels/sections/sectionBrief',
         'localization/localizationManager', 'notify', 'repositories/sectionRepository', 'viewmodels/common/contentField',
-        'userContext', 'durandal/app', 'imageUpload', 'commands/createSectionCommand'],
-    function (router, constants, eventTracker, repository, sectionBrief, localizationManager, notify, sectionRepository, vmContentField, userContext, app, imageUpload, createSectionCommand) {
+        'userContext', 'durandal/app', 'images/commands/upload', 'commands/createSectionCommand'],
+    function (router, constants, eventTracker, repository, sectionBrief, localizationManager, notify, sectionRepository, vmContentField, userContext, app, uploadImage, createSectionCommand) {
         "use strict";
 
         var
@@ -105,24 +105,22 @@
             eventTracker.publish(events.navigateToCourses);
         }
 
-        function updateSectionImage(section) {
+        function updateSectionImage(file) {
             eventTracker.publish(events.openChangeSectionImageDialog);
-            imageUpload.upload({
-                startLoading: function () {
-                    section.isImageLoading(true);
-                },
-                success: function (url) {
-                    sectionRepository.updateImage(section.id, url).then(function (result) {
-                        section.imageUrl(result.imageUrl);
-                        section.isImageLoading(false);
+            var that = this;
+            that.isImageLoading(true);
+            return uploadImage.execute(file)
+                .then(function (image) {
+                    return sectionRepository.updateImage(that.id, image.url).then(function (result) {
+                        that.imageUrl(result.imageUrl);
+                        that.isImageLoading(false);
                         eventTracker.publish(events.changeSectionImage);
                         notify.saved();
                     });
-                },
-                error: function () {
-                    section.isImageLoading(false);
-                }
-            });
+                }).catch(function (reason) {
+                    notify.error(reason);
+                    that.isImageLoading(false);
+                });
         }
 
         function navigateToSectionDetails(section) {

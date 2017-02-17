@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'constants', 'eventTracker', 'routing/router', 'repositories/sectionRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'userContext', 'viewmodels/sections/sectionBrief', 'imageUpload','commands/createSectionCommand'],
-    function (app, constants, eventTracker, router, sectionRepository, courseRepository, notify, localizationManager, clientContext, userContext, sectionBrief, imageUpload, createSectionCommand) {
+    'clientContext', 'userContext', 'viewmodels/sections/sectionBrief', 'images/commands/upload', 'commands/createSectionCommand'],
+    function (app, constants, eventTracker, router, sectionRepository, courseRepository, notify, localizationManager, clientContext, userContext, sectionBrief, uploadImage, createSectionCommand) {
         "use strict";
 
         var
@@ -60,24 +60,22 @@
             router.navigate('courses');
         }
 
-        function updateSectionImage(section) {
+        function updateSectionImage(file) {
             eventTracker.publish(events.openChangeSectionImageDialog);
-            imageUpload.upload({
-                startLoading: function () {
-                    section.isImageLoading(true);
-                },
-                success: function (url) {
-                    sectionRepository.updateImage(section.id, url).then(function (result) {
-                        section.imageUrl(result.imageUrl);
-                        section.isImageLoading(false);
+            var that = this;
+            that.isImageLoading(true);
+            return uploadImage.execute(file)
+                .then(function (image) {
+                    return sectionRepository.updateImage(that.id, image.url).then(function (result) {
+                        that.imageUrl(result.imageUrl);
+                        that.isImageLoading(false);
                         eventTracker.publish(events.changeSectionImage);
                         notify.saved();
                     });
-                },
-                error: function () {
-                    section.isImageLoading(false);
-                }
-            });
+                }).catch(function (reason) {
+                    that.isImageLoading(false);
+                    notify.error(reason);
+                });
         }
 
         function toggleSectionSelection(section) {

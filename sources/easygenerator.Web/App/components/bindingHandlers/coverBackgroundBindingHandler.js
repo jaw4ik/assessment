@@ -7,12 +7,12 @@ ko.bindingHandlers.coverBackground = {
         let src = ko.unwrap(valueAccessor().src),
             width = ko.unwrap(valueAccessor().width),
             height = ko.unwrap(valueAccessor().height);
+        
+        setImageSrc(element, '/Content/images/buildprogress.gif', '24px');
 
         if (!src || !src.length) {
             return;
         }
-
-        setImageSrc(element, '/Content/images/buildprogress.gif', '24px');
 
         let thumbnailUrl = src;
         let backgroundSize = 'initial';
@@ -26,6 +26,7 @@ ko.bindingHandlers.coverBackground = {
             thumbnailUrl = `${thumbnailUrl}&scaleBySmallerSide=true`;
             backgroundSize = 'cover';
         }
+        await getImageSize(thumbnailUrl);
         setImageSrc(element, thumbnailUrl, backgroundSize);
     }
 };

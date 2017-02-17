@@ -1,8 +1,6 @@
 ﻿import Logo from './Logo';
 import { URL_MODE, UPLOAD_MODE, EVENT_LOGO_CHANGED, EVENT_LOGO_REMOVED } from './Logo';
 import bus from 'design/bus';
-import imageUpload from 'imageUpload';
-import notify from 'notify';
 import eventTracker from 'eventTracker';
 import userContext from 'userContext';
 import localizationManager from 'localization/localizationManager';

@@ -508,6 +508,7 @@
 
         //#region images
         'images/commands/deleteImage.spec',
+        'images/commands/upload.spec',
         'images/queries/getImages.spec',
         'images/preview/index.spec',
         'images/image.spec',

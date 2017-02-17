@@ -2,7 +2,7 @@
 import Events from 'durandal/events';
 
 import notify from 'notify';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 
 export const COLOR_MODE = 'color';
 export const TEXTURE_MODE = 'texture';
@@ -62,19 +62,14 @@ export class BackgroundPopover {
         this.trigger(EVENT_TEXTURE_SELECTED, texture);
     }
 
-    upload(file) {
-        if (!file) {
-            return Promise.reject('File was not provided.');
+    async upload(file) {
+        try {
+            let image = await uploadImage.execute(file);
+            this.selectTexture(image.url);
+            return image.url;
+        } catch (e) {
+            notify.error(e);
         }
-
-        return imageUpload.v2(file)
-            .then(response => {
-                this.selectTexture(response.url);
-                return response.url;
-            })
-            .catch(reason => {
-                notify.error(reason);
-            });
     }
 
     show() {

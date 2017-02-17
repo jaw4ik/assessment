@@ -27,19 +27,19 @@ namespace easygenerator.Web.Components
             _configurationReader = configurationReader;
         }
 
-        public HttpRequest HttpRequest
-        {
-            get { return HttpContext.Current.Request; }
-        }
+        public HttpRequest HttpRequest => HttpContext.Current.Request;
 
         public string RouteWebsiteUrl()
         {
-            return String.Format("{0}://{1}{2}", HttpRequest.Url.Scheme, HttpRequest.Url.Authority, new UrlHelper(HttpRequest.RequestContext).Content("~"));
+            return
+                $"{HttpRequest.Url.Scheme}://{HttpRequest.Url.Authority}{new UrlHelper(HttpRequest.RequestContext).Content("~")}";
         }
 
         public string RouteImageUrl(string fileName)
         {
-            return RouteUrlWithUrlHelper("ImageUrl", new { fileName });
+            var scheme =_configurationReader.ImageLibraryOnlyHttps ? Uri.UriSchemeHttps : HttpRequest.Url.Scheme;
+                return
+                    $"{scheme}://{_configurationReader.ImageSeviceUrl}/image/{fileName}";
         }
 
         public string RouteRestorePasswordUrl(string ticketId)
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Components
 
         public string ToAbsoluteUrl(string relativeUrl)
         {
-            return string.Format("{0}{1}", RouteWebsiteUrl(), VirtualPathUtility.ToAbsolute(relativeUrl).TrimStart('/'));
+            return $"{RouteWebsiteUrl()}{VirtualPathUtility.ToAbsolute(relativeUrl).TrimStart('/')}";
         }
 
         private string RouteUrlWithUrlHelper(string routeName, object routeValues)

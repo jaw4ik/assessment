@@ -37,7 +37,7 @@
                             <div class="hotspot-designer-empty-content-title" data-bind="localize: { text: 'chooseBackgroundImage' }"></div>
                             <div class="hotspot-designer-empty-content-text" data-bind="localize: { text: 'defineHotspots' }">and define hotspots</div>
                             <div class="hotspot-designer-empty-browse-btn-wrapper">
-                                <button class="hotspot-browse-image-btn btn green" data-bind="click: uploadBackground, localize: { html: 'chooseImage' }"></button>
+                                <button class="hotspot-browse-image-btn btn green" data-bind="browse: { callback: uploadBackground.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}, localize: { html: 'chooseImage' }"></button>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <span class="active" data-bind="localize: { text: 'hotSpotTooltipActive' }">Press "Delete" key to remove hotspot</span>
                         <span class="resize" data-bind="localize: { text: 'hotSpotTooltipResize' }">Drag to change size of hotspot</span>
                     </div>
-                    <div class="upload-background-image info-tooltip-holder" data-bind="click: uploadBackground">
+                    <div class="upload-background-image info-tooltip-holder" data-bind="browse: { callback: uploadBackground.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}">
                         <div class="info-tooltip browse-image">
                             <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
                         </div>

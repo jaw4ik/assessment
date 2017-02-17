@@ -2,7 +2,7 @@
 import Events from 'durandal/events';
 
 import notify from 'notify';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 
 export const IMAGE_MODE = 'image';
 export const COLOR_MODE = 'color';
@@ -57,19 +57,15 @@ export class HeaderPopover {
         this.color(null);
         this.trigger(EVENT_IMAGE_SELECTED, image);
     }
-    upload(file) {
-        if (!file) {
-            return Promise.reject('File was not provided.');
+    async upload(file) {
+        try {
+            let image = await uploadImage.execute(file);
+            this.selectImage(image.url);
+            notify.saved();
+            return image.url;
+        } catch (e) {
+            notify.error(e);
         }
-
-        return imageUpload.v2(file)
-            .then(response => {
-                this.selectImage(response.url);
-                return response.url;
-            })
-            .catch(reason => {
-                notify.error(reason);
-            });
     }
     show() {
         this.isVisible(true);

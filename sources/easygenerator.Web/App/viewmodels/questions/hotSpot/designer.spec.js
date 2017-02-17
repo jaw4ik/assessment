@@ -6,7 +6,7 @@ import addPolygonCommand from './commands/addPolygon';
 import removePolygonCommand from './commands/removePolygon';
 import getQuestionContentByIdQuery from './queries/getQuestionContentById';
 import eventTracker from 'eventTracker';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import notify from 'notify';
 import uiLocker from 'uiLocker';
 
@@ -146,7 +146,169 @@ describe('viewmodel [designer] (hotspot)', function () {
 
     });
 
-    describe('uploadBackground:', function () {
+    describe('uploadBackground:', () => {
+
+        let uploadImagePromise;
+        let imageResult;
+        let file;
+        let changeBackgroundPromise;
+
+        beforeEach(() => {
+            file = 'file';
+            imageResult = {
+                id: 'id',
+                title: 'Image.png',
+                url: 'https://urlko.com'
+            };
+            spyOn(uiLocker, 'lock');
+            spyOn(uiLocker, 'unlock');
+            spyOn(notify, 'saved');
+            spyOn(notify, 'error');
+            spyOn(eventTracker, 'publish');
+        });
+
+        it('should lock ui', () => {
+            designer.uploadBackground();
+            expect(uiLocker.lock).toHaveBeenCalled();
+        });
+
+        describe('when image is uploaded successfully', () => {
+
+            let backgroundUrl;
+
+            beforeEach(() => {
+                backgroundUrl = imageResult.url + '?width=941&height=785';
+                uploadImagePromise = Promise.resolve(imageResult);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
+            });
+
+            it('should start background loading', done => (async () => {
+                designer.background.isLoading(false);
+                designer.uploadBackground();
+                await uploadImagePromise;
+                expect(designer.background.isLoading()).toBeTruthy();
+            })().then(done));
+
+            it('should change background', done => (async () => {
+                spyOn(changeBackgroundCommand, 'execute');
+                designer.uploadBackground();
+                await uploadImagePromise;
+                expect(changeBackgroundCommand.execute).toHaveBeenCalledWith(null, backgroundUrl);
+            })().then(done));
+
+            describe('and when background is changed successfully', () => {
+                
+                beforeEach(() => {
+                    changeBackgroundPromise = Promise.resolve();
+                    spyOn(changeBackgroundCommand, 'execute').and.returnValue(changeBackgroundPromise);
+                });
+
+                it('should update background', done => (async () => {
+                    designer.background(undefined);
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                    await changeBackgroundPromise;
+                    expect(designer.background()).toBe(backgroundUrl);
+                })().then(done));
+
+                it('should make background dirty', done => (async () => {
+                    designer.background.isDirty(false);
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                    await changeBackgroundPromise;
+                    expect(designer.background.isDirty()).toBeTruthy();
+                })().then(done));
+
+                it('should show saved notification', done => (async () => {
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                    await changeBackgroundPromise;
+                    expect(notify.saved).toHaveBeenCalled();
+                })().then(done));
+
+                it('should publish event \'Change hotspot background\'', done => (async () => {
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                    await changeBackgroundPromise;
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change hotspot background');
+                })().then(done));
+
+                it('should unlock ui', done => (async () => {
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                    await changeBackgroundPromise;
+                    expect(uiLocker.unlock).toHaveBeenCalled();
+                })().then(done));
+
+            });
+
+            describe('and when background is not changed successfully', () => {
+
+                let reason;
+
+                beforeEach(() => {
+                    reason = 'some reason';
+                    changeBackgroundPromise = Promise.reject(reason);
+                    spyOn(changeBackgroundCommand, 'execute').and.returnValue(changeBackgroundPromise);
+                });
+
+                it('should show error notification', done => (async () => {
+                    try {
+                        designer.uploadBackground();
+                        await uploadImagePromise;
+                        await changeBackgroundPromise;
+                    } catch (e) {
+                        expect(notify.error).toHaveBeenCalledWith(reason);
+                    } 
+                })().then(done));
+
+                it('should unlock UI', done => (async () => {
+                    try {
+                        designer.uploadBackground();
+                        await uploadImagePromise;
+                        await changeBackgroundPromise;
+                    } catch (e) {
+                        expect(uiLocker.unlock).toHaveBeenCalled();
+                    } 
+                })().then(done));
+
+            });
+
+        });
+
+        describe('when image is uploaded successfully', () => {
+
+            let reason;
+
+            beforeEach(() => {
+                reason = 'some reason';
+                uploadImagePromise = Promise.reject(reason);
+                spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
+            });
+
+            it('should show error notification', done => (async () => {
+                try {
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(notify.error).toHaveBeenCalledWith(reason);
+                } 
+            })().then(done));
+
+            it('should unlock UI', done => (async () => {
+                try {
+                    designer.uploadBackground();
+                    await uploadImagePromise;
+                } catch (e) {
+                    expect(uiLocker.unlock).toHaveBeenCalled();
+                } 
+            })().then(done));
+
+        });
+
+    });
+
+    /*describe('uploadBackground:', function () {
 
         beforeEach(function () {
             spyOn(uiLocker, 'lock');
@@ -262,7 +424,7 @@ describe('viewmodel [designer] (hotspot)', function () {
             });
         });
 
-    });
+    });*/
 
     describe('polygons:', function () {
 

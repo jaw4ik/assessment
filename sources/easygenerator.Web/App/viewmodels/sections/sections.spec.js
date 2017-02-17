@@ -1,5 +1,5 @@
 ﻿import viewModel from './sections';
-
+import ko from 'knockout';
 import router from 'routing/router';
 import eventTracker from 'eventTracker';
 import sectionRepository from 'repositories/sectionRepository';
@@ -7,7 +7,7 @@ import courseRepository from 'repositories/courseRepository';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import userContext from 'userContext';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import createSectionCommand from 'commands/createSectionCommand';
 
 describe('viewModel [sections]', function () {
@@ -16,6 +16,7 @@ describe('viewModel [sections]', function () {
         spyOn(eventTracker, 'publish');
         spyOn(router, 'navigate');
         spyOn(createSectionCommand, 'execute');
+        spyOn(notify, 'saved');
     });
 
     it('should be object', function () {
@@ -30,129 +31,94 @@ describe('viewModel [sections]', function () {
 
     });
 
-    describe('updateSectionImage:', function () {
+    describe('updateSectionImage:', () => {
 
-        it('should be function', function () {
-            expect(viewModel.updateSectionImage).toBeFunction();
+        let section;
+        let viewModelUpdateSectionImage;
+        let file;
+
+        beforeEach(() => {
+            file = 'some image file';
+            section ={
+                id: 'some_section_id',
+                imageUrl: ko.observable(''),
+                isImageLoading: ko.observable(false),
+                modifiedOn: ko.observable(new Date())
+            };
+            viewModelUpdateSectionImage = viewModel.updateSectionImage.bind(section);
         });
 
-        it('should send event \'Open "change objective image" dialog\'', function () {
-            spyOn(imageUpload, 'upload');
-            viewModel.updateSectionImage();
+        it(`should send event \'Open "change objective image" dialog\'`, () => {
+            spyOn(uploadImage, 'execute').and.returnValue(Promise.resolve());
+            viewModelUpdateSectionImage();
             expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
         });
 
-        it('should upload image', function () {
-            spyOn(imageUpload, 'upload');
-            viewModel.updateSectionImage();
-            expect(imageUpload.upload).toHaveBeenCalled();
+        it('should start loading', () => {
+            section.isImageLoading(false);
+            spyOn(uploadImage, 'execute').and.returnValue(Promise.resolve());
+            viewModelUpdateSectionImage(file);
+            expect(section.isImageLoading()).toBeTruthy();
         });
 
-        var section = {
-            id: 'some_section_id',
-            imageUrl: ko.observable(''),
-            isImageLoading: ko.observable(false),
-            modifiedOn: ko.observable(new Date())
-        };
+        describe('when image uploading started', () => {
 
-        describe('when image loading started', function () {
+            describe('and when image uploading successfull', () => {
 
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.startLoading();
-                });
-            });
+                let uploadImagePromise;
+                let updateSectionImagePromise;
+                let file;
+                let imageUploadRes;
+                let sectionUpdateImageRes;
 
-            it('should set isImageLoading to true', function () {
-                section.isImageLoading(false);
-                viewModel.updateSectionImage(section);
-                expect(section.isImageLoading()).toBeTruthy();
-            });
-
-        });
-
-        describe('when image was uploaded', function () {
-
-            var url = 'http://url.com', updateImageDefer;
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.success(url);
+                beforeEach(() => {
+                    file = 'some image file';
+                    imageUploadRes = {
+                        id: 'someid',
+                        title: 'title',
+                        url: 'https://urla.com'
+                    };
+                    sectionUpdateImageRes = {
+                        imageUrl: imageUploadRes.url
+                    };
+                    uploadImagePromise = Promise.resolve(imageUploadRes);
+                    updateSectionImagePromise = Promise.resolve(sectionUpdateImageRes);
+                    spyOn(uploadImage, 'execute').and.returnValue(uploadImagePromise);
+                    spyOn(sectionRepository, 'updateImage').and.returnValue(updateSectionImagePromise);
                 });
 
-                updateImageDefer = Q.defer();
-                spyOn(sectionRepository, 'updateImage').and.returnValue(updateImageDefer.promise);
-            });
-
-            it('should update section image', function () {
-                viewModel.updateSectionImage(section);
-                expect(sectionRepository.updateImage).toHaveBeenCalledWith(section.id, url);
-            });
-
-            describe('and when section image updated successfully', function () {
-
-                var lastModifiedDate = new Date(), newUrl = 'new/image/url';
-                beforeEach(function () {
-                    updateImageDefer.resolve({
-                        modifiedOn: lastModifiedDate,
-                        imageUrl: newUrl
-                    });
+                it('should upload image to image storage', () => {
+                    viewModelUpdateSectionImage(file);
+                    expect(uploadImage.execute).toHaveBeenCalledWith(file);
                 });
 
-                it('should set imageUrl', function (done) {
-                    section.imageUrl('');
-                    viewModel.updateSectionImage(section);
+                it('should update section image on the server', done => (async () => {
+                    viewModelUpdateSectionImage(file);
+                    await uploadImagePromise;
+                    expect(sectionRepository.updateImage).toHaveBeenCalledWith(section.id, imageUploadRes.url);
+                })().then(done));
 
-                    updateImageDefer.promise.fin(function () {
-                        expect(section.imageUrl()).toBe(newUrl);
-                        done();
-                    });
-                });
-                                               
-                it('should set isImageLoading to false', function (done) {
+                it('should update section image', done => (async () => {
+                    viewModelUpdateSectionImage(file);
+                    await uploadImagePromise;
+                    await updateSectionImagePromise;
+                    expect(section.imageUrl()).toBe(sectionUpdateImageRes.imageUrl);
+                })().then(done));
+
+                it('should show saved notification', done => (async () => {
+                    viewModelUpdateSectionImage(file);
+                    await uploadImagePromise;
+                    await updateSectionImagePromise;
+                    expect(notify.saved).toHaveBeenCalled();
+                })().then(done));
+
+                it('should stop image uploading', done => (async () => {
                     section.isImageLoading(true);
-                    viewModel.updateSectionImage(section);
-
-                    updateImageDefer.promise.fin(function () {
-                        expect(section.isImageLoading()).toBeFalsy();
-                        done();
-                    });
-                });
-
-                it('should send event \'Change objective image\'', function (done) {
-                    viewModel.updateSectionImage(section);
-
-                    updateImageDefer.promise.fin(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change objective image');
-                        done();
-                    });
-                });
-
-                it('should update notificaion', function (done) {
-                    spyOn(notify, 'saved');
-                    viewModel.updateSectionImage(section);
-
-                    updateImageDefer.promise.fin(function () {
-                        expect(notify.saved).toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-            });
-
-        });
-
-        describe('when image loading failed', function () {
-
-            beforeEach(function () {
-                spyOn(imageUpload, 'upload').and.callFake(function (spec) {
-                    spec.error();
-                });
-            });
-
-            it('should set isImageLoading to false', function () {
-                section.isImageLoading(true);
-                viewModel.updateSectionImage(section);
-                expect(section.isImageLoading()).toBeFalsy();
+                    viewModelUpdateSectionImage(file);
+                    await uploadImagePromise;
+                    await updateSectionImagePromise;
+                    expect(section.isImageLoading()).toBeFalsy();
+                })().then(done));
             });
 
         });
@@ -645,7 +611,6 @@ describe('viewModel [sections]', function () {
                 });
 
                 it('should show saved notification', function (done) {
-                    spyOn(notify, 'saved');
                     deleteDeferred.resolve();
 
                     viewModel.deleteSelectedSections();

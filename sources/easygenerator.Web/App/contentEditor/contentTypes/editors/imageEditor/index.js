@@ -1,10 +1,11 @@
 ﻿import ko from 'knockout';
+import notify from 'notify';
 import imageLibraryDialog from 'images/imageLibraryDialog';
 import binder from 'binder';
 import constants from 'constants';
 import ImageCropper from './components/ImageCropper';
 import imageSourceHelper from './components/imageSourceHelper';
-import imageUpload from 'imageUpload';
+import uploadImage from 'images/commands/upload';
 import './bindingHandlers/resizableBindingHandler';
 import './bindingHandlers/toggleElementSizeBindingHandler';
 import './bindingHandlers/slideEditButtonsBindingHandler';
@@ -162,20 +163,17 @@ export default class ImageEditor {
         this.contentType(type);
         this.save();
     }
-    upload() {
-        imageUpload.upload({
-            startLoading: () => {
-                this.isLoading(true);
-            },
-            success: (url) => {
-                this.imageChanged(url);
-                this.currentImageUrl(url);
-                this.isLoading(false);
-            },
-            error: () => {
-                this.isLoading(false);
-            }
-        });
+    async upload(file) {
+        this.isLoading(true);
+
+        try {
+            let image = await uploadImage.execute(file);
+            this.imageChanged(image.url);
+            this.currentImageUrl(image.url);
+        } catch (e) {
+            this.isLoading(false);
+            notify.error(e);
+        }
     }
     getFromLibrary() {
         imageLibraryDialog.chooseImage(url => {

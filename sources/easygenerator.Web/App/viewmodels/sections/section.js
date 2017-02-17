@@ -1,5 +1,7 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'routing/router', 'repositories/sectionRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'durandal/app', 'imageUpload', 'userContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, app, imageUpload, userContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'routing/router', 'repositories/sectionRepository', 'repositories/courseRepository',
+    'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'durandal/app', 'images/commands/upload', 'userContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository,
+        questionRepository, notify, uiLocker, clientContext, app, uploadImage, userContext) {
         "use strict";
 
         var
@@ -120,24 +122,21 @@
             viewModel.imageUrl(section.image);
         }
 
-        function updateImage() {
+        function updateImage(file) {
             eventTracker.publish(events.openChangeSectionImageDialog);
-            imageUpload.upload({
-                startLoading: function () {
-                    viewModel.isImageLoading(true);
-                },
-                success: function (url) {
-                    repository.updateImage(viewModel.sectionId, url).then(function (result) {
+            viewModel.isImageLoading(true);
+            return uploadImage.execute(file)
+                .then(function (image) {
+                    return repository.updateImage(viewModel.sectionId, image.url).then(function (result) {
                         viewModel.imageUrl(result.imageUrl);
                         viewModel.isImageLoading(false);
                         eventTracker.publish(events.changeSectionImage);
                         showNotification();
                     });
-                },
-                error: function () {
+                }).catch(function (reason) {
                     viewModel.isImageLoading(false);
-                }
-            });
+                    notify.error(reason);
+                });
         }
 
         function startEditTitle() {

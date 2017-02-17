@@ -1,55 +1,61 @@
 ﻿import * as query  from './getImages.js';
-
 import $ from 'jquery';
 import http from 'http/apiHttpWrapper.js';
+import constants from 'constants';
 
 describe('query [getImages]', () => {
 
-    it('should get images from server', () => {
-        spyOn(http, 'get').and.returnValue($.Deferred().resolve({ success: true }));
+    let getImagesUrl;
+
+    beforeEach(() => {
+        getImagesUrl = `${constants.imageService.host}/images`;
+    });
+
+    it('should get images from the server', () => {
+        spyOn(http, 'get').and.returnValue(Promise.resolve());
         query.execute();
-        expect(http.get).toHaveBeenCalledWith('api/images');
+        expect(http.get).toHaveBeenCalledWith(getImagesUrl);
     });
 
-    describe('when request failed', () => {
+    describe('when images loaded successfully', () => {
 
-        it('should reject promise', done => {
-            spyOn(http, 'get').and.returnValue($.Deferred().reject('reason'));
-            query.execute().catch(reason => {
-                expect(reason).toBeDefined();
-                done();
-            });
-        });
-
-    });
-
-    describe('when response is succeed', () => {
+        let httpPromise;
+        let response;
 
         beforeEach(() => {
-            spyOn(http, 'get').and.returnValue($.Deferred().resolve({ success: true, data: [] }));
+            response = 'some response';
+            httpPromise = Promise.resolve(response);
+            spyOn(http, 'get').and.returnValue(httpPromise);
         });
 
-        it('should resolve promise', done => {
-            query.execute().then(images => {
-                expect(images).toEqual([]);
-                done();
-            });
-        });
+        it('should return images', done => (async () => {
+            await httpPromise;
+            var result = await query.execute();
+            expect(result).toBe(response);
+        })().then(done));
 
     });
 
-    describe('when response is not succeed', () => {
+    describe('when images loaded failure', () => {
+
+        let httpPromise;
+        let reason;
 
         beforeEach(() => {
-            spyOn(http, 'get').and.returnValue($.Deferred().resolve());
+            reason = 'some reason';
+            httpPromise = Promise.reject(reason);
+            spyOn(http, 'get').and.returnValue(httpPromise);
         });
 
-        it('should reject promise', done => {
-            query.execute().catch(reason => {
-                expect(reason).toBeDefined();
-                done();
-            });
-        });
+        it('should return images', done => (async () => {
+            try {
+                query.execute();
+                await httpPromise;
+            } catch (e) {
+                expect(e).toBe(reason);
+            } 
+        })().then(done));
 
     });
+
 });

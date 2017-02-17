@@ -9,111 +9,33 @@ namespace easygenerator.Web.Components.Configuration
 {
     public class ConfigurationReader
     {
-        public virtual FileStorageConfigurationSection FileStorageConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("fileStorage") as FileStorageConfigurationSection;
-            }
-        }
+        public virtual FileStorageConfigurationSection FileStorageConfiguration => ConfigurationManager.GetSection("fileStorage") as FileStorageConfigurationSection;
 
-        public virtual TemplateStorageConfigurationSection TempateStorageConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("templateStorage") as TemplateStorageConfigurationSection;
-            }
-        }
+        public virtual TemplateStorageConfigurationSection TempateStorageConfiguration => ConfigurationManager.GetSection("templateStorage") as TemplateStorageConfigurationSection;
 
-        public virtual MailSenderConfigurationSection MailSenderConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("mailSender") as MailSenderConfigurationSection;
-            }
-        }
+        public virtual MailSenderConfigurationSection MailSenderConfiguration => ConfigurationManager.GetSection("mailSender") as MailSenderConfigurationSection;
 
-        public virtual int PasswordRecoveryExpirationInterval
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["PasswordRecoveryTicketExpirationInterval"]);
-            }
-        }
+        public virtual int PasswordRecoveryExpirationInterval => int.Parse(ConfigurationManager.AppSettings["PasswordRecoveryTicketExpirationInterval"]);
 
-        public virtual MailChimpConfigurationSection MailChimpConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("mailChimp") as MailChimpConfigurationSection;
-            }
-        }
+        public virtual MailChimpConfigurationSection MailChimpConfiguration => ConfigurationManager.GetSection("mailChimp") as MailChimpConfigurationSection;
 
         public virtual DataDogStatsDClientConfigurationSection DataDogStatsDClientConfiguration => ConfigurationManager.GetSection("dataDogStatsDClient") as DataDogStatsDClientConfigurationSection;
 
-        public virtual ExternalApiSection ExternalApi
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("externalApi") as ExternalApiSection;
-            }
-        }
+        public virtual ExternalApiSection ExternalApi => ConfigurationManager.GetSection("externalApi") as ExternalApiSection;
 
-        public virtual HttpRequestsSenderConfigurationSection HttpRequestsSenderConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("httpRequestsSender") as HttpRequestsSenderConfigurationSection;
-            }
-        }
+        public virtual HttpRequestsSenderConfigurationSection HttpRequestsSenderConfiguration => ConfigurationManager.GetSection("httpRequestsSender") as HttpRequestsSenderConfigurationSection;
 
-        public virtual WooCommerceConfigurationSection WooCommerceConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("wooCommerce") as WooCommerceConfigurationSection;
-            }
-        }
+        public virtual WooCommerceConfigurationSection WooCommerceConfiguration => ConfigurationManager.GetSection("wooCommerce") as WooCommerceConfigurationSection;
 
-        public virtual PublicationConfigurationSection PublicationConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("publication") as PublicationConfigurationSection;
-            }
-        }
+        public virtual PublicationConfigurationSection PublicationConfiguration => ConfigurationManager.GetSection("publication") as PublicationConfigurationSection;
 
-        public virtual CourseImportConfigurationSection CourseImportConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("courseImport") as CourseImportConfigurationSection;
-            }
-        }
+        public virtual CourseImportConfigurationSection CourseImportConfiguration => ConfigurationManager.GetSection("courseImport") as CourseImportConfigurationSection;
 
-        public virtual BranchTrackConfigurationSection BranchTrackConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("branchtrack") as BranchTrackConfigurationSection;
-            }
-        }
+        public virtual BranchTrackConfigurationSection BranchTrackConfiguration => ConfigurationManager.GetSection("branchtrack") as BranchTrackConfigurationSection;
 
-        public virtual WinToWebConfigurationSection WinToWebConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("wintoweb") as WinToWebConfigurationSection;
-            }
-        }
+        public virtual WinToWebConfigurationSection WinToWebConfiguration => ConfigurationManager.GetSection("wintoweb") as WinToWebConfigurationSection;
 
-        public virtual IntercomConfigurationSection IntercomConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection;
-            }
-        }
+        public virtual IntercomConfigurationSection IntercomConfiguration => ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection;
 
         public virtual CoggnoConfigurationSection CoggnoConfiguration => ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection;
 
@@ -123,57 +45,27 @@ namespace easygenerator.Web.Components.Configuration
 
         public virtual SurveyPopupConfigurationSection SurveyPopup => ConfigurationManager.GetSection("surveyPopup") as SurveyPopupConfigurationSection;
 
-        public virtual string ConnectionString
-        {
-            get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
-        }
+        public virtual string ConnectionString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public virtual string PreviewAllowedUsers
-        {
-            get { return ConfigurationManager.AppSettings["preview.allowedUsers"] ?? string.Empty; }
-        }
+        public virtual string PreviewAllowedUsers => ConfigurationManager.AppSettings["preview.allowedUsers"] ?? string.Empty;
 
-        public virtual string StorageServiceUrl
-        {
-            get { return ConfigurationManager.AppSettings["StorageServiceUrl"] ?? string.Empty; }
-        }
+        public virtual string StorageServiceUrl => ConfigurationManager.AppSettings["StorageServiceUrl"] ?? string.Empty;
 
-        public virtual string MagickNetCacheDirectory
-        {
-            get { return ConfigurationManager.AppSettings["magick.net.cachedirectory"] ?? string.Empty; }
-        }
+        public virtual string ImageSeviceUrl => ConfigurationManager.AppSettings["ImageSeviceUrl"] ?? string.Empty;
 
-        public string LtiAuthPath
-        {
-            get { return ConfigurationManager.AppSettings["lti.auth.path"]; }
-        }
+        public virtual string MagickNetCacheDirectory => ConfigurationManager.AppSettings["magick.net.cachedirectory"] ?? string.Empty;
 
-        public string ReleaseVersion
-        {
-            get { return ConfigurationManager.AppSettings["version"]; }
-        }
+        public string LtiAuthPath => ConfigurationManager.AppSettings["lti.auth.path"];
 
-        public bool ImageLibraryOnlyHttps
-        {
-            get { return Convert.ToBoolean(ConfigurationManager.AppSettings["ImageLibraryOnlyHttps"]); }
-        }
+        public string ReleaseVersion => ConfigurationManager.AppSettings["version"];
 
-        public virtual GoogleFontsApiConfigurationSection GoogleFontsApiConfiguration
-        {
-            get
-            {
-                return ConfigurationManager.GetSection("googleFontsApi") as GoogleFontsApiConfigurationSection;
-            }
-        }
+        public bool ImageLibraryOnlyHttps => Convert.ToBoolean(ConfigurationManager.AppSettings["ImageLibraryOnlyHttps"]);
 
-        public string CustomFontPath
-        {
-            get { return ConfigurationManager.AppSettings["customFontPath"]; }
-        }
+        public virtual GoogleFontsApiConfigurationSection GoogleFontsApiConfiguration => ConfigurationManager.GetSection("googleFontsApi") as GoogleFontsApiConfigurationSection;
 
-        public virtual SentryConfigurationSection SentriConfiguration {
-            get { return ConfigurationManager.GetSection("sentry") as SentryConfigurationSection; }
-        }
+        public string CustomFontPath => ConfigurationManager.AppSettings["customFontPath"];
+
+        public virtual SentryConfigurationSection SentriConfiguration => ConfigurationManager.GetSection("sentry") as SentryConfigurationSection;
         public virtual ReCaptchaConfigurationSection ReCaptchaConfiguration => ConfigurationManager.GetSection("reCaptcha") as ReCaptchaConfigurationSection;
 
         public virtual SlackConfigurationSection SlackConfigurationSection => ConfigurationManager.GetSection("slack") as SlackConfigurationSection;
