@@ -1,4 +1,5 @@
 ﻿let toolbarButtons = [
+    'undo',
     'paragraphFormat', 'bold', 'italic', 'underline', 'mark', '|',
     'insertLink', '|',
     'align-left', 'align-center', 'align-right', 'align-justify', '|',
@@ -40,6 +41,8 @@ export default{
         htmlAllowedEmptyTags: ['span'],
         htmlAllowedTags: ['p', 'h1', 'h2', 'h3', 'cite', 'mark', 'a', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'span'],
         // paste
-        pasteDeniedAttrs: ['class', 'id']
+        pasteDeniedAttrs: ['class', 'id'],
+        // undo
+        undo: false
     }
 };

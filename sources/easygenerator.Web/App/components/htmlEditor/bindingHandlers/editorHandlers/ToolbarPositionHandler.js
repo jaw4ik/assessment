@@ -5,7 +5,7 @@ import EditorHandler from './EditorHandler';
 import constants from 'components/htmlEditor/constants';
 
 const defaultToolbarTopPosition = -45,
-    toolbarWidth = 610,
+    toolbarWidth = 650,
     htmlConstants = {
         scroll: 'scroll',
         position: 'position',
