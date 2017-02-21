@@ -426,7 +426,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (organization.Users.Count(e => e.IsAdmin) == 1)
             {
-                throw new InvalidOperationException("Cannot remove last admin user from organization");
+                throw new ArgumentException(@"Cannot remove last admin user from organization");
             }
             
             foreach (var user in organization.Users.Where(u => u.Email != admin.Email && u.Status == OrganizationUserStatus.Accepted))

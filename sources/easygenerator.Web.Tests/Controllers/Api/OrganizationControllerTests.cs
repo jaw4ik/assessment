@@ -213,7 +213,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             Action action = () => _controller.RemoveOrganizationUser(organization, admin.Email);
 
             // Assert
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ArgumentException>();
         }
 
         [TestMethod]
@@ -1318,7 +1318,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             Action action = () => _controller.RemoveOrganizationAdmin(organization, adminUser.Email);
 
             //Assert
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ArgumentException>();
         }
 
         [TestMethod]
