@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using easygenerator.Web.Domain.DomainOperations;
 
 namespace easygenerator.Web.Controllers.Api
@@ -132,8 +133,18 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.OrganizationNotFoundError);
             }
 
-            organization.RemoveUser(userEmail, GetCurrentUsername());
+            var organizationUser = organization.Users.FirstOrDefault(e => e.Email.Equals(userEmail, StringComparison.InvariantCultureIgnoreCase));
+            if (organizationUser == null)
+            {
+                return JsonSuccess();
+            }
 
+            if (organizationUser.IsAdmin)
+            {
+                RemoveOrganizationAdminPermissions(organization, organizationUser);
+            }
+            
+            organization.RemoveUser(organizationUser, GetCurrentUsername());
             foreach (var organizationAdmin in organization.Users.Where(u => u.IsAdmin && u.Status == OrganizationUserStatus.Accepted))
             {
                 if (_organizationUserRepository.HasMultipleOrganizationAdminRelations(userEmail, organizationAdmin.Email))
@@ -144,7 +155,7 @@ namespace easygenerator.Web.Controllers.Api
                     course.RemoveCollaborator(_cloner, organizationAdmin.Email);
                 }
             }
-
+            
             return JsonSuccess();
         }
 
@@ -226,7 +237,8 @@ namespace easygenerator.Web.Controllers.Api
                             Name = template.Name,
                             Id = template.Id.ToNString()
                         })
-                }
+                },
+                Admins = organization.Users.Where(u => u.IsAdmin).Select(u => u.Email)
             });
         }
 
@@ -360,6 +372,73 @@ namespace easygenerator.Web.Controllers.Api
             return Success();
         }
 
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/admin/add")]
+        public ActionResult AddOrganizationAdmin(Organization organization, string email)
+        {
+            if (organization == null)
+                throw new ArgumentException(@"Organization with specified id does not exist", nameof(organization));
+
+            if (_organizationUserRepository.IsAdminUser(email))
+                throw new ArgumentException(@"The user is already admin of organization", nameof(email));
+
+            var user = organization.Users.SingleOrDefault(u => u.Email == email && u.Status == OrganizationUserStatus.Accepted);
+            if (user == null)
+                throw new ArgumentException(@"There is no user with such e-mail in organization", nameof(email));
+            
+            user.SetAdminPermissions(true);
+            foreach (var course in organization.Users
+                .Where(member => member.Email != user.Email && member.Status == OrganizationUserStatus.Accepted)
+                .SelectMany(member => _courseRepository.GetOwnedCourses(member.Email)))
+            {
+                course.CollaborateAsAdmin(user.Email);
+            }
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("easygenerator")]
+        [Route("api/organization/admin/remove")]
+        public ActionResult RemoveOrganizationAdmin(Organization organization, string email)
+        {
+            if (organization == null)
+                throw new ArgumentException(@"Organization with specified id does not exist", nameof(organization));
+
+            var admin = organization.Users.SingleOrDefault(u => u.Email == email && u.IsAdmin);
+            if (admin == null)
+                throw new ArgumentException(@"There is no admin with such e-mail in organization", nameof(email));
+
+            RemoveOrganizationAdminPermissions(organization, admin);
+            admin.SetAdminPermissions(false);
+
+            return Success();
+        }
+
         #endregion
+
+        private void RemoveOrganizationAdminPermissions(Organization organization, OrganizationUser admin)
+        {
+            if (organization.Users.Count(e => e.IsAdmin) == 1)
+            {
+                throw new InvalidOperationException("Cannot remove last admin user from organization");
+            }
+            
+            foreach (var user in organization.Users.Where(u => u.Email != admin.Email && u.Status == OrganizationUserStatus.Accepted))
+            {
+                if (_organizationUserRepository.HasMultipleOrganizationAdminRelations(user.Email, admin.Email))
+                    continue;
+
+                foreach (var course in _courseRepository.GetOwnedCourses(user.Email))
+                {
+                    course.RemoveCollaborator(_cloner, admin.Email);
+                }
+            }
+        }
     }
 }

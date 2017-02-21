@@ -608,40 +608,14 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         #region Remove user
 
         [TestMethod]
-        public void RemoveUser_ShouldReturnFalse_WhenUserDoesNotExist()
-        {
-            // Arrange
-            var organization = OrganizationObjectMother.Create();
-
-            // Act
-            var result = organization.RemoveUser("some_email", ModifiedBy);
-
-            // Assert
-            result.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void RemoveUser_ShouldThrowInvalidOperationException_WhenRemoveLastAdminUser()
-        {
-            // Arrange
-            var organization = OrganizationObjectMother.Create();
-
-            // Act
-            Action action = () => organization.RemoveUser(organization.CreatedBy, ModifiedBy);
-
-            // Assert
-            action.ShouldThrow<InvalidOperationException>();
-        }
-
-        [TestMethod]
         public void RemoveUser_ShouldReturnTrue_WhenUserExists()
         {
             // Arrange
             var organization = OrganizationObjectMother.Create();
-            organization.AddUser(UserEmail, CreatedBy);
+            var user = organization.AddUser(UserEmail, CreatedBy);
 
             // Act
-            var result = organization.RemoveUser(UserEmail, ModifiedBy);
+            var result = organization.RemoveUser(user, ModifiedBy);
 
             // Assert
             result.Should().BeTrue();
@@ -652,10 +626,10 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         {
             // Arrange
             var organization = OrganizationObjectMother.Create();
-            organization.AddUser(UserEmail, CreatedBy);
+            var user = organization.AddUser(UserEmail, CreatedBy);
 
             // Act
-            organization.RemoveUser(UserEmail, ModifiedBy);
+            organization.RemoveUser(user, ModifiedBy);
 
             // Assert
             organization.Users.Count().Should().Be(1);
@@ -666,10 +640,10 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         {
             // Arrange
             var organization = OrganizationObjectMother.Create();
-            organization.AddUser(UserEmail, CreatedBy);
+            var user = organization.AddUser(UserEmail, CreatedBy);
 
             // Act
-            organization.RemoveUser(UserEmail, ModifiedBy);
+            organization.RemoveUser(user, ModifiedBy);
 
             // Assert
             organization.ShouldContainSingleEventOfType<OrganizationUserRemovedEvent>();
@@ -680,10 +654,10 @@ namespace easygenerator.DomainModel.Tests.Entities.Organizations
         {
             // Arrange
             var organization = OrganizationObjectMother.Create();
-            organization.AddUser(UserEmail, CreatedBy);
+            var user = organization.AddUser(UserEmail, CreatedBy);
 
             // Act
-            organization.RemoveUser(UserEmail, ModifiedBy);
+            organization.RemoveUser(user, ModifiedBy);
 
             // Assert
             organization.ModifiedOn.Should().Be(_currentDate);

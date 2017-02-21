@@ -135,7 +135,9 @@
                         organizationTitleUpdated: organizationEventHandler.titleUpdated,
                         organizationMembershipStarted: organizationEventHandler.membershipStarted,
                         organizationMembershipFinished: organizationEventHandler.membershipFinished,
-                        organizationUserAdded: organizationEventHandler.userAdded
+                        organizationMembershipUpdated: organizationEventHandler.membershipUpdated,
+                        organizationUserAdded: organizationEventHandler.userAdded,
+                        organizationUserUpdated: organizationEventHandler.userUpdated
                     };
 
                     $.connection.hub.disconnected(function () {

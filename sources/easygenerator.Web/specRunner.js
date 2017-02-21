@@ -298,7 +298,9 @@
         'synchronization/handlers/organizations/eventHandlers/inviteAccepted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipStarted.spec',
         'synchronization/handlers/organizations/eventHandlers/membershipFinished.spec',
+        'synchronization/handlers/organizations/eventHandlers/membershipUpdated.spec',
         'synchronization/handlers/organizations/eventHandlers/userAdded.spec',
+        'synchronization/handlers/organizations/eventHandlers/userUpdated.spec',
 
         // #endregion
 

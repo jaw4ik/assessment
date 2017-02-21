@@ -68,19 +68,8 @@ namespace easygenerator.DomainModel.Entities.Organizations
             return organizationUser;
         }
 
-        public virtual bool RemoveUser(string email, string modifiedBy)
+        public virtual bool RemoveUser(OrganizationUser organizationUser, string modifiedBy)
         {
-            var organizationUser = UserCollection.FirstOrDefault(e => e.Email.Equals(email, StringComparison.InvariantCultureIgnoreCase));
-            if (organizationUser == null)
-            {
-                return false;
-            }
-
-            if (organizationUser.IsAdmin && UserCollection.Count(e => e.IsAdmin) == 1)
-            {
-                throw new InvalidOperationException("Cannot remove last admin user from organization");
-            }
-
             organizationUser.Organization = null;
             UserCollection.Remove(organizationUser);
 

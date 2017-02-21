@@ -23,7 +23,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
-    "clipboard": "npm:clipboard@1.5.16",
+    "clipboard": "npm:clipboard@1.6.0",
     "core-js": "npm:core-js@2.4.1",
     "css": "github:systemjs/plugin-css@0.1.32",
     "dragula": "npm:dragula@3.7.2",
@@ -44,7 +44,7 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.3",
     "transitions": "core/durandal/transitions",
     "underscore": "core/underscore",
-    "velocity-animate": "npm:velocity-animate@1.4.0",
+    "velocity-animate": "npm:velocity-animate@1.4.2",
     "webfont": "github:components/webfontloader@1.6.3",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
@@ -81,9 +81,9 @@ System.config({
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:clipboard@1.5.16": {
+    "npm:clipboard@1.6.0": {
       "good-listener": "npm:good-listener@1.2.1",
-      "select": "npm:select@1.1.0",
+      "select": "npm:select@1.1.2",
       "tiny-emitter": "npm:tiny-emitter@1.1.0"
     },
     "npm:contra@1.9.4": {
@@ -148,7 +148,7 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:velocity-animate@1.4.0": {
+    "npm:velocity-animate@1.4.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:vm-browserify@0.0.4": {

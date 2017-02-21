@@ -32,6 +32,7 @@ class UserMenu {
         app.on(constants.messages.organization.created, organizationMembershipUpdatedProxy);
         app.on(constants.messages.organization.membershipStarted, organizationMembershipUpdatedProxy);
         app.on(constants.messages.organization.membershipFinished, organizationMembershipUpdatedProxy);
+        app.on(constants.messages.organization.membershipUpdated, organizationMembershipUpdatedProxy);
 
         var organizationInvitesUpdatedProxy = this.organizationInvitesUpdated.bind(this);
         app.on(constants.messages.organization.inviteCreated, organizationInvitesUpdatedProxy);
@@ -39,7 +40,7 @@ class UserMenu {
         app.on(constants.messages.organization.userStatusUpdated, organizationInvitesUpdatedProxy);
 
         app.on(constants.messages.organization.titleUpdated, this.setOrganizationTitle.bind(this));
-
+ 
         if (_.isObject(userContext.identity)) {
             this.isOrganizationAdmin(userContext.identity.isOrganizationAdmin());
             this.isOrganizationMember(userContext.identity.isOrganizationMember());

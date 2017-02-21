@@ -42,9 +42,14 @@ describe('organization [OrganizationUser]', () => {
         });
 
         describe('isAdmin:', () => {
+            it('should be observable', () => {
+                user = new OrganizationUser(userData);
+                expect(user.isAdmin).toBeObservable();
+            });
+
             it('should be set', () => {
                 user = new OrganizationUser(userData);
-                expect(user.isAdmin).toBe(userData.isAdmin);
+                expect(user.isAdmin()).toBe(userData.isAdmin);
             });
         });
 

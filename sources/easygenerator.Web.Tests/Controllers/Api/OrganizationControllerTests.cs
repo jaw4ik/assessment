@@ -203,16 +203,83 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void RemoveOrganizationUser_ShouldThrowInvalidOperationException_WhenRemoveLastAdminUser()
+        {
+            // Arrange
+            var organization = OrganizationObjectMother.Create();
+            var admin = organization.Users.First();
+
+            // Act
+            Action action = () => _controller.RemoveOrganizationUser(organization, admin.Email);
+
+            // Assert
+            action.ShouldThrow<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationUser_ShouldRemoveCollaborationWithOrganizationCourses_WhenUserIsAdmin()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var organization = OrganizationObjectMother.Create();
+
+            var adminUser = organization.Users.First();
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+            user.SetAdminPermissions(true);
+
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user.Email, adminUser.Email).Returns(false);
+            _courseRepository.GetOwnedCourses(CurrentUserEmail).Returns(new List<Course>() { course });
+
+            //Act
+            _controller.RemoveOrganizationUser(organization, adminUser.Email);
+
+            //Assert
+            course.Received().RemoveCollaborator(_cloner, adminUser.Email);
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationUser_ShouldNotRemoveCollaborationWithOrganizationCourses_WhenUserIsAdminAndHasMultipleAdminRelations()
+        {
+            //Arrange
+            var course1 = Substitute.For<Course>();
+            var course2 = Substitute.For<Course>();
+
+            var organization = OrganizationObjectMother.Create();
+
+            var adminUser = organization.Users.First();
+            var user1 = organization.AddUser("user1@test.test", "user1@test.test", OrganizationUserStatus.Accepted);
+            var user2 = organization.AddUser("user2@test.test", "user2@test.test", OrganizationUserStatus.Accepted);
+
+            user1.SetAdminPermissions(true);
+
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user1.Email, adminUser.Email).Returns(true);
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user2.Email, adminUser.Email).Returns(false);
+
+            _courseRepository.GetOwnedCourses(user1.Email).Returns(new List<Course>() { course1 });
+            _courseRepository.GetOwnedCourses(user2.Email).Returns(new List<Course>() { course2 });
+
+            //Act
+            _controller.RemoveOrganizationUser(organization, adminUser.Email);
+
+            //Assert
+            course1.DidNotReceive().RemoveCollaborator(_cloner, adminUser.Email);
+            course2.Received().RemoveCollaborator(_cloner, adminUser.Email);
+        }
+
+        [TestMethod]
         public void RemoveOrganizationUser_ShouldRemoveOrganizationUser()
         {
             //Arrange
             var organization = Substitute.For<Organization>();
+            var user = OrganizationUserObjectMother.Create();
+
+            organization.Users.Returns(new List<OrganizationUser>() { user });
 
             //Act
-            _controller.RemoveOrganizationUser(organization, UserEmail);
+            _controller.RemoveOrganizationUser(organization, user.Email);
 
             //Assert
-            organization.Received().RemoveUser(UserEmail, CurrentUserEmail);
+            organization.Received().RemoveUser(user, user.Email);
         }
 
         [TestMethod]
@@ -524,7 +591,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             {
                 Title = organization.Title,
                 EmailDomains = null as object,
-                Settings = null as object
+                Settings = null as object,
+                Admins = organization.Users.Where(u => u.IsAdmin).Select(u => u.Email)
             });
         }
 
@@ -542,7 +610,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             {
                 Title = organization.Title,
                 EmailDomains = EmailDomains,
-                Settings = null as object
+                Settings = null as object,
+                Admins = organization.Users.Where(u => u.IsAdmin).Select(u => u.Email)
             });
         }
 
@@ -566,7 +635,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
                     AccessType = null as object,
                     ExpirationDate = null as object,
                     Templates = new List<Template>()
-                }
+                },
+                Admins = organization.Users.Where(u => u.IsAdmin).Select(u => u.Email)
             });
         }
 
@@ -593,7 +663,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
                     AccessType = $"{accessType} ({(int)accessType})",
                     ExpirationDate = expirationDate,
                     Templates = new List<Template>()
-                }
+                },
+                Admins = organization.Users.Where(u => u.IsAdmin).Select(u => u.Email)
             });
         }
 
@@ -626,7 +697,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
                             Name = template.Name,
                             Id = template.Id.ToNString()
                         })
-                }
+                },
+                Admins = organization.Users.Where(u => u.IsAdmin).Select(u => u.Email)
             });
         }
 
@@ -1080,6 +1152,253 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Act
             var result = _controller.ResetOrganizationSettings(organization);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region AddOrganizationAdmin
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.AddOrganizationAdmin(null, "");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldThrowArgumentException_WnenNoUserWithDefinedEmailInOrganization()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            _organizationUserRepository.IsAdminUser(CurrentUserEmail).Returns(false);
+
+            //Act
+            Action action = () => _controller.AddOrganizationAdmin(organization, CurrentUserEmail);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldThrowArgumentException_WnenUserIsAlreadyAdmin()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            _organizationUserRepository.IsAdminUser(CurrentUserEmail).Returns(true);
+
+            //Act
+            Action action = () => _controller.AddOrganizationAdmin(organization, CurrentUserEmail);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldThrowArgumentException_WnenUserIsNotAcceptedInOrganization()
+        {
+            //Arrange
+            const string usermail = "user@test.test";
+            _organizationUserRepository.IsAdminUser(usermail).Returns(false);
+
+            var organization = OrganizationObjectMother.Create();
+            organization.AddUser(usermail, usermail);
+            
+            //Act
+            Action action = () => _controller.AddOrganizationAdmin(organization, usermail);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldSetIsAdminTrue()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+            _organizationUserRepository.IsAdminUser(CurrentUserEmail).Returns(false);
+
+            //Act
+            _controller.AddOrganizationAdmin(organization, CurrentUserEmail);
+
+            //Assert
+            user.IsAdmin.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldAddUserAsAdminCollaboratorForAllOrganizationCourses()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var organization = OrganizationObjectMother.Create();
+            
+            var user1 = organization.AddUser("user1@test.test", "user1@test.test", OrganizationUserStatus.Accepted);
+            var user2 = organization.AddUser("user2@test.test", "user2@test.test", OrganizationUserStatus.Accepted);
+
+            _courseRepository.GetOwnedCourses(user2.Email).Returns(new List<Course>() { course });
+            _organizationUserRepository.IsAdminUser(user1.Email).Returns(false);
+
+            //Act
+            _controller.AddOrganizationAdmin(organization, user1.Email);
+
+            //Assert
+            course.Received().CollaborateAsAdmin(user1.Email);
+        }
+
+        [TestMethod]
+        public void AddOrganizationAdmin_ShouldReturnSuccessResult()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+            _organizationUserRepository.IsAdminUser(CurrentUserEmail).Returns(false);
+
+            //Act
+            var result = _controller.AddOrganizationAdmin(organization, CurrentUserEmail);
+
+            //Assert
+            result.Should().BeSuccessResult();
+        }
+
+        #endregion
+
+        #region RemoveOrganizationAdmin
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldThrowArgumentException_WnenOrganizationsNull()
+        {
+            //Act
+            Action action = () => _controller.RemoveOrganizationAdmin(null, "");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldThrowArgumentException_WnenNoUserWithDefinedEmailInOrganization()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+
+            //Act
+            Action action = () => _controller.RemoveOrganizationAdmin(organization, "test@test.test");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldThrowArgumentException_WnenNoAdminUserWithDefinedEmailInOrganization()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+
+            //Act
+            Action action = () => _controller.RemoveOrganizationAdmin(organization, CurrentUserEmail);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldThrowArgumentException_WnenNoOtherAdminInOrganization()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            var adminUser = organization.Users.First();
+
+            //Act
+            Action action = () => _controller.RemoveOrganizationAdmin(organization, adminUser.Email);
+
+            //Assert
+            action.ShouldThrow<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldSetIsAdminFalse()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+            user.SetAdminPermissions(true);
+
+            //Act
+             _controller.RemoveOrganizationAdmin(organization, CurrentUserEmail);
+
+            //Assert
+            user.IsAdmin.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldRemoveCollaborationWithOrganizationCourses()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var organization = OrganizationObjectMother.Create();
+
+            var adminUser = organization.Users.First();
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+            user.SetAdminPermissions(true);
+
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user.Email, adminUser.Email).Returns(false);
+            _courseRepository.GetOwnedCourses(CurrentUserEmail).Returns(new List<Course>() { course });
+
+            //Act
+            _controller.RemoveOrganizationAdmin(organization, adminUser.Email);
+
+            //Assert
+            course.Received().RemoveCollaborator(_cloner, adminUser.Email);
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldNotRemoveCollaborationWithOrganizationCourses_WhenMultipleAdminRelations()
+        {
+            //Arrange
+            var course1 = Substitute.For<Course>();
+            var course2 = Substitute.For<Course>();
+
+            var organization = OrganizationObjectMother.Create();
+
+            var adminUser = organization.Users.First();
+            var user1 = organization.AddUser("user1@test.test", "user1@test.test", OrganizationUserStatus.Accepted);
+            var user2 = organization.AddUser("user2@test.test", "user2@test.test", OrganizationUserStatus.Accepted);
+
+            user1.SetAdminPermissions(true);
+
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user1.Email, adminUser.Email).Returns(true);
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user2.Email, adminUser.Email).Returns(false);
+
+            _courseRepository.GetOwnedCourses(user1.Email).Returns(new List<Course>() { course1 });
+            _courseRepository.GetOwnedCourses(user2.Email).Returns(new List<Course>() { course2 });
+
+            //Act
+            _controller.RemoveOrganizationAdmin(organization, adminUser.Email);
+
+            //Assert
+            course1.DidNotReceive().RemoveCollaborator(_cloner, adminUser.Email);
+            course2.Received().RemoveCollaborator(_cloner, adminUser.Email);
+        }
+
+        [TestMethod]
+        public void RemoveOrganizationAdmin_ShouldReturnSuccessResult()
+        {
+            //Arrange
+            var organization = OrganizationObjectMother.Create();
+            var adminUser = organization.Users.First();
+            var user = organization.AddUser(CurrentUserEmail, CurrentUserEmail, OrganizationUserStatus.Accepted);
+
+            user.SetAdminPermissions(true);
+            _organizationUserRepository.HasMultipleOrganizationAdminRelations(user.Email, adminUser.Email).Returns(false);
+            
+            //Act
+            var result = _controller.RemoveOrganizationAdmin(organization, adminUser.Email);
 
             //Assert
             result.Should().BeSuccessResult();

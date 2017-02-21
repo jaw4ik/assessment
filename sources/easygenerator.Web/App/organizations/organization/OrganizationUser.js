@@ -9,7 +9,7 @@ export default class OrganizationUser {
         let self = this;
         this.id = user.id;
         this.email = user.email;
-        this.isAdmin = user.isAdmin;
+        this.isAdmin = ko.observable(user.isAdmin);
         this.createdOn = user.createdOn;
         this.status = ko.observable(user.status);
         this.isRegistered = ko.observable(user.isRegistered);

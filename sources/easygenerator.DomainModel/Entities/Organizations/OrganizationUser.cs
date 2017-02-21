@@ -51,6 +51,12 @@ namespace easygenerator.DomainModel.Entities.Organizations
             RaiseEvent(new OrganizationUserReinvitedEvent(Organization, this));
         }
 
+        public virtual void SetAdminPermissions(bool isAdmin)
+        {
+            IsAdmin = isAdmin;
+            RaiseEvent(new OrganizationUserUpdateAdminPermissions(Organization, this));
+        }
+
         #region Guard methods
 
         private void ThrowIfOrganizationIsInvalid(Organization organization)

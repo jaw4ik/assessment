@@ -18,7 +18,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<OrganizationUserRemovedEvent>,
         IDomainEventHandler<OrganizationUserAddedEvent>,
         IDomainEventHandler<OrganizationTitleUpdatedEvent>,
-        IDomainEventHandler<OrganizationUserReinvitedEvent>
+        IDomainEventHandler<OrganizationUserReinvitedEvent>,
+        IDomainEventHandler<OrganizationUserUpdateAdminPermissions>
     {
         private readonly IOrganizationBroadcaster _organizationBroadcaster;
         private readonly IOrganizationUserBroadcaster _organizationUserBroadcaster;
@@ -107,6 +108,15 @@ namespace easygenerator.Web.Synchronization.Handlers
                 _organizationUserBroadcaster.User(args.User.Email)
                     .organizationInviteCreated(_organizationInviteMapper.Map(invite));
             }
+        }
+
+        public void Handle(OrganizationUserUpdateAdminPermissions args)
+        {
+            _organizationBroadcaster.User(args.User.Email)
+                .organizationMembershipUpdated(args.Organization.Id.ToNString(), _entityMapper.Map(args.User));
+
+            _organizationBroadcaster.OrganizationAdmins(args.Organization)
+                .organizationUserUpdated(args.Organization.Id.ToNString(), _entityMapper.Map(args.User));
         }
     }
 }

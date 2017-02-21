@@ -115,10 +115,13 @@ class Organization {
 
             this._organizationUserRemovedProxy = this.organizationUserRemoved.bind(this);
             this._organizationUsersAddedProxy = this.organizationUsersAdded.bind(this);
+            this._organizationUserUpdatedProxy = this.organizationUserUpdated.bind(this);
             this._inviteUsersDialogClosedProxy = this.inviteUsersDialogClosed.bind(this);
 
             app.on(constants.messages.organization.userRemoved + this.organizationId, this._organizationUserRemovedProxy);
             app.on(constants.messages.organization.usersAdded + this.organizationId, this._organizationUsersAddedProxy);
+            app.on(constants.messages.organization.userUpdated + this.organizationId, this._organizationUserUpdatedProxy);
+
             inviteOrganizationUsersDialog.on(constants.dialogs.dialogClosed, this._inviteUsersDialogClosedProxy);
         }
         catch (reason) {
@@ -130,6 +133,7 @@ class Organization {
     deactivate() {
         app.off(constants.messages.organization.userRemoved + this.organizationId, this._organizationUserRemovedProxy);
         app.off(constants.messages.organization.usersAdded + this.organizationId, this._organizationUsersAddedProxy);
+        app.off(constants.messages.organization.userUpdated + this.organizationId, this._organizationUserUpdatedProxy);
         inviteOrganizationUsersDialog.off(constants.dialogs.dialogClosed, this._inviteUsersDialogClosedProxy);
 
         _.each(this.users(), user => user.deactivate());
@@ -186,6 +190,13 @@ class Organization {
         var usersList = _.union(this.users(), newUsersList);
 
         this.users(usersList);
+    }
+
+    organizationUserUpdated(userData) {
+        let user = _.find(this.users(), function (item) {
+            return item.id === userData.id;
+        });
+        user.isAdmin(userData.isAdmin);
     }
 }
 

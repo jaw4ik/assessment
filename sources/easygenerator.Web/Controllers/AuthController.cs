@@ -12,6 +12,7 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities.Organizations;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Security.BruteForceLoginProtection;
 
@@ -138,7 +139,9 @@ namespace easygenerator.Web.Controllers
                 phone = string.IsNullOrEmpty(CountriesInfo.GetCountryPhoneCode(user.Country)) ? "" + user.Phone ?? "" : CountriesInfo.GetCountryPhoneCode(user.Country) + user.Phone ?? "",
                 companies = user.Companies.Select(e => _companyMapper.Map(e)),
                 organizations = _organizationRepository.GetAcceptedOrganizations(user.Email).Select(e => _organizationMapper.Map(e, user.Email)),
-                organizationInvites = _organizationUserRepository.GetOrganizationInvites(GetCurrentUsername()).Select(invite => _organizationInviteMapper.Map(invite)),
+                organizationInvites = _organizationUserRepository.GetOrganizationInvites(GetCurrentUsername())
+                    .Where(invite => invite.Status != (int)OrganizationUserStatus.Accepted && invite.Status != (int)OrganizationUserStatus.Declined)
+                    .Select(invite => _organizationInviteMapper.Map(invite)),
                 subscription = new
                 {
                     accessType = user.AccessType,

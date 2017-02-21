@@ -738,6 +738,14 @@
     </Content>
     <Content Include="App\components\bindingHandlers\cssSingleAnimationStarterBindingHandler.js" />
     <Content Include="App\editor\course\bindingHandlers\scrollTo.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipUpdated.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipUpdated.spec.js">
+      <DependentUpon>membershipUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\userUpdated.js" />
+    <Content Include="App\synchronization\handlers\organizations\eventHandlers\userUpdated.spec.js">
+      <DependentUpon>userUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\widgets\survicateWrapper\bindingHandlers\survicateAnimationBindingHandler.js" />
     <Content Include="App\widgets\survicateWrapper\view.html" />
     <Content Include="App\widgets\survicateWrapper\viewmodel.js" />

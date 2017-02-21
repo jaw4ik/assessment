@@ -19,6 +19,7 @@
         created: 'organization:created',
         userRemoved: 'organization:userRemoved',
         usersAdded: 'organization:usersAdded',
+        userUpdated: 'organization:userUpdated',
         userRegistered: 'organization:userRegistsred',
         inviteCreated: 'organization:inviteCreated',
         inviteRemoved: 'organization:inviteRemoved',
@@ -26,6 +27,7 @@
         userStatusUpdated: 'organization:userStatusUpdated',
         membershipStarted: 'organization:membershipStarted',
         membershipFinished: 'organization:membershipFinished',
+        membershipUpdated: 'organization:membershipUpdated',
         courseCollaborationStarted: 'organization:courseCollaborationStarted'
     },
     course: {

@@ -26,6 +26,18 @@ namespace easygenerator.DataAccess.Repositories
             return user?.Organization;
         }
 
+        public bool IsAdminUser(string userEmail)
+        {
+            var query = @"SELECT COUNT(u.Id) FROM OrganizationUsers u 
+				WHERE u.Email = @userEmail and u.Status = @status and u.IsAdmin = 1";
+
+            var count = Database.SqlQuery<int>(query,
+                new SqlParameter("@userEmail", userEmail),
+                new SqlParameter("@status", OrganizationUserStatus.Accepted)).FirstOrDefault();
+
+            return count > 0;
+        }
+
         public OrganizationInvite GetOrganizationInvite(OrganizationUser user)
         {
             var query = @"
