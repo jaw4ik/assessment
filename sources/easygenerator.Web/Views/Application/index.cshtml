@@ -111,6 +111,14 @@
         window.coggnoServiceProviderUrl = '@((ConfigurationManager.GetSection("coggno") as CoggnoConfigurationSection).ServiceProviderUrl)';
         </text>
     }
+
+    @if ((ConfigurationManager.GetSection("lrs") as LrsConfigurationSection) != null &&
+                !string.IsNullOrEmpty((ConfigurationManager.GetSection("lrs") as LrsConfigurationSection).lrsHostUrl))
+    {
+        <text>
+            window.lrsHostUrl = '@((ConfigurationManager.GetSection("lrs") as LrsConfigurationSection).lrsHostUrl)';
+        </text>
+    }
     </script>
     
     @*TODO: show this section( FB library import )*@
