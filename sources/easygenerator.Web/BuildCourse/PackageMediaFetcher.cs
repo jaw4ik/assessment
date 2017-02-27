@@ -116,6 +116,11 @@ namespace easygenerator.Web.BuildCourse
                     return loadedImages[imageUrl];
                 }
 
+                if (imageUrl.StartsWith("//"))
+                {
+                    imageUrl = "http:" + imageUrl;
+                }
+
                 var newImagePath = _buildPathProvider.GetNewImagePath(folderForMedia, imageUrl);
                 _fileDownloader.DownloadFile(imageUrl, newImagePath);
                 var newImageWebPath = _buildPathProvider.GetNewImageWebPath(newImagePath);
