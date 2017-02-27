@@ -130,7 +130,7 @@
     function getImageUploadUrl(){
         var localhostUrl = location.protocol + '//localhost:222/image/upload';
         var stagingUrl = 'https://images-staging.easygenerator.com/image/upload';
-        var liveUrl = 'https://images-staging.easygenerator.com/image/upload';
+        var liveUrl = 'https://images.easygenerator.com/image/upload';
         if(location.host.indexOf('localhost') !== -1){
             return localhostUrl;
         }
