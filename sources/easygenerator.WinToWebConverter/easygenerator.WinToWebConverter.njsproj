@@ -13,7 +13,7 @@
     <ProjectGuid>9179d075-7953-43c4-9b0e-d94dadaa309a</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>www.js</StartupFile>
+    <StartupFile>app.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -82,7 +82,7 @@
     <Compile Include="converter\models\questions\Statement.js" />
     <Compile Include="converter\models\questions\TextMatching.js" />
     <Compile Include="server.js" />
-    <Compile Include="www.js" />
+    <Compile Include="app.js" />
     <Content Include="config.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />

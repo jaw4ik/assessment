@@ -24,7 +24,7 @@ module.exports = {
 		            multipart: true,
 		            accessToken: authToken,
 		            data: {
-		                'filename': restler.file(pathToFile, null, stats.size, null, fileType)
+		                'file': restler.file(pathToFile, null, stats.size, null, fileType)
 		            }
 		        }).on('complete', response => {
 		            resolve(response);
