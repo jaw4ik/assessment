@@ -15,9 +15,12 @@
             init: init
         };
 
+        var host = window.location.host;
+        var lrsHost = (host.indexOf('localhost') === 0 || host.indexOf('elearning-staging') === 0 || host.indexOf('elearning-branches') === 0) ? 'reports-staging.easygenerator.com' : 'reports.easygenerator.com';
+
         var defaultSettings = {
             lrs: {
-                uri: '//reports.easygenerator.com/xApi/statements',
+                uri: '//' + lrsHost + '/xApi/statements',
                 authenticationRequired: false,
                 credentials: {
                     username: '',
