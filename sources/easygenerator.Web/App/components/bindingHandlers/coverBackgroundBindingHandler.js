@@ -28,7 +28,8 @@ ko.bindingHandlers.coverBackground = {
             thumbnailUrl = `${thumbnailUrl}&scaleBySmallerSide=true`;
             backgroundSize = 'cover';
         }*/
-        await getImageSize(`${thumbnailUrl}?width=${width}&height=${height}&scaleBySmallerSide=true`);
+        thumbnailUrl = `${thumbnailUrl}?width=${width}&height=${height}&scaleBySmallerSide=true`;
+        await getImageSize(thumbnailUrl);
         setImageSrc(element, thumbnailUrl, backgroundSize);
     }
 };
