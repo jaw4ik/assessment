@@ -19,12 +19,10 @@ var httpWrapper = require('./components/httpWrapper');
 function uploadImages(imagesStorage, authToken) {
     let promises = [];
     _.forEach(imagesStorage.images, image => {
-        let url = config.EG_DOMEN + config.UPLOAD_IMAGE_API;
-        promises.push(httpWrapper.postFile(url, image.pathToImage, `image/${image.fileType}`, authToken)
+        promises.push(httpWrapper.postFile(config.UPLOAD_IMAGE_API, image.pathToImage, `image/${image.fileType}`, authToken)
 			.then((response) => {
-                let resp = JSON.parse(response);
-                if (resp.success && _.isObject(resp.data)) {
-                    image.updateWebUrl(resp.data.url);
+                if (response.url) {
+                    image.updateWebUrl(response.url);
                 }
             }));
     });

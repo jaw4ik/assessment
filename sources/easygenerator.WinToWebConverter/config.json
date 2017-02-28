@@ -4,6 +4,6 @@
   "API_KEY": [ "907f7af6-1c20-4ff6-8588-67f120e1ac65" ],
   "TEMP_FOLDER": "D:\\TEMP\\WinToWebConverter\\",
   "EG_DOMEN": "http://localhost:666",
-  "UPLOAD_IMAGE_API": "/storage/image/serverupload",
+  "UPLOAD_IMAGE_API": "http://localhost:222/image/upload",
   "IMPORT_COURSE_API": "/api/course/import/wintoweb"
 }
