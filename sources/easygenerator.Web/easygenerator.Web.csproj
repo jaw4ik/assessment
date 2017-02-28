@@ -319,6 +319,7 @@
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
+    <Compile Include="Components\Configuration\LrsConfigurationSection.cs" />
     <Compile Include="Components\Configuration\SlackConfigurationSection.cs" />
     <Compile Include="Components\IPInfoProvider.cs" />
     <Compile Include="Components\ReCaptchaVerifier.cs" />
