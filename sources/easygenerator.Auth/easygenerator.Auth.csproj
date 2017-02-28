@@ -141,6 +141,7 @@
     <Compile Include="ConfigurationSections\Authorization\EndpointsCollection.cs" />
     <Compile Include="ConfigurationSections\CryptographySection.cs" />
     <Compile Include="Configuration\AuthorizationConfiguration.cs" />
+    <Compile Include="Lti\LtiExceptionHandler.cs" />
     <Compile Include="Providers\Cryptography\CryptographyConfigurationProvider.cs" />
     <Compile Include="Providers\Cryptography\ICryptographyConfigurationProvider.cs" />
     <Compile Include="Security\Models\ISecure.cs" />
