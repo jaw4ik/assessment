@@ -15,8 +15,10 @@ ko.bindingHandlers.coverBackground = {
         }
 
         let thumbnailUrl = src;
-        let backgroundSize = 'initial';
-        let imageSize = await getImageSize(thumbnailUrl);
+        let backgroundSize = 'contain';
+
+        //TODO: when we improve images and save width and height in database it must be uncommented
+        /*let imageSize = await getImageSize(thumbnailUrl);
 
         if(imageSize.width >= width || imageSize.height >= height) {
             thumbnailUrl = `${thumbnailUrl}?width=${width}&height=${height}`;
@@ -25,8 +27,8 @@ ko.bindingHandlers.coverBackground = {
         if(imageSize.width >= width && imageSize.height >= height) {
             thumbnailUrl = `${thumbnailUrl}&scaleBySmallerSide=true`;
             backgroundSize = 'cover';
-        }
-        await getImageSize(thumbnailUrl);
+        }*/
+        await getImageSize(`${thumbnailUrl}?width=${width}&height=${height}&scaleBySmallerSide=true`);
         setImageSrc(element, thumbnailUrl, backgroundSize);
     }
 };
