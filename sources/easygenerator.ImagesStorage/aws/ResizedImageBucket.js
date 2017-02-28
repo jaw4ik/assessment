@@ -14,7 +14,7 @@ class ResizedImageBucket extends S3Client {
         return _instance;
     }
     get url() {
-        return `${config.awsUrl}${config.awsResizedBucketName}/`;
+        return `https://${config.awsResizedBucketName}/`;
     }
 }
 

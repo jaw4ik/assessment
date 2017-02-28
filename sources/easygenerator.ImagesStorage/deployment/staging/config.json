@@ -1,11 +1,11 @@
 {
   "authSecret": "LacHZGA6Qk4CwHdVaS6ntt7C0Din9OufnvQii6ZG3NuB18yuU+cMkXkEr4CgsvnJ+COaTk9/H6120VUC87Zh6w==",
   "awsAccessKeyId": "AKIAICQIBA26SGMH3JEQ",
-  "awsOriginalBacketName": "staging-images-original",
-  "awsResizedBucketName": "staging-images-resized",
+  "awsEndpoint": "s3-us-west-2.amazonaws.com",
+  "awsOriginalBacketName": "s3-staging.easygenerator.com",
+  "awsResizedBucketName": "s3-staging-resized.easygenerator.com",
   "awsSecretAccessKey": "9ahJ6gyNCvDQEgaWuIniUgqHpFPLvh5fc5TeTGee",
   "supportedImageFormats": [ ".gif", ".jpeg", ".jpg", ".png", ".bmp" ],
-  "awsUrl": "https://s3-us-west-2.amazonaws.com/",
-  "imageNotFoundUrl": "https://s3-us-west-2.amazonaws.com/staging-common-images/image-not-found.png",
+  "imageNotFoundUrl": "image-not-found.png",
   "maxFileSize":  10485760
 }

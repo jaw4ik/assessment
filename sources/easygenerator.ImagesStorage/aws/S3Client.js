@@ -2,13 +2,15 @@
 
 var knox = require('knox');
 var _clients = new WeakMap();
+var config = require('../config');
 
 class S3Client {
     constructor(key, secret, bucket) {
         _clients.set(this, knox.createClient({
             key,
             secret,
-            bucket
+            bucket,
+            endpoint: config.awsEndpoint
         }));
     }
     fileExists(filename){

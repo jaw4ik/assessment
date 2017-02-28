@@ -1,11 +1,11 @@
 {
   "authSecret": "5DliLTP4ioPpec682CUWWltvJt6herUGawU3f/1MKFr3r6n5lVawlQBFO4HHHzy9TN7z9sjS9BInkWzUnq5CAw==",
   "awsAccessKeyId": "AKIAJMNIUYXYPTM5ID3A",
-  "awsOriginalBacketName": "original-live-images",
-  "awsResizedBucketName": "resized-live-images",
+  "awsEndpoint": "s3.amazonaws.com",
+  "awsOriginalBacketName": "s3.easygenerator.com",
+  "awsResizedBucketName": "s3-resized.easygenerator.com",
   "awsSecretAccessKey": "DE+ginDdIPi3+gUhQBJy6iQrsZOPMDd7+SyCKl8H",
   "supportedImageFormats": [ ".gif", ".jpeg", ".jpg", ".png", ".bmp" ],
-  "awsUrl": "https://s3.amazonaws.com/",
-  "imageNotFoundUrl": "https://s3.amazonaws.com/general-live-images/image-not-found.png",
+  "imageNotFoundUrl": "image-not-found.png",
   "maxFileSize":  10485760
 }

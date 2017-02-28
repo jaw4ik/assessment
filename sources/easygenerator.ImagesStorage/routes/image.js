@@ -49,7 +49,7 @@ router.get('/:filename', (req, res, next) => co(function* () {
 
     let originalImageExists = yield originalImageBucket.fileExists(filename);
     if (!originalImageExists) {
-        return res.redirect(config.imageNotFoundUrl);
+        return res.redirect(originalImageBucket.url + config.imageNotFoundUrl);
     }
 
     if (Number.isNaN(width) && Number.isNaN(height)) {

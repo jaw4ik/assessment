@@ -14,7 +14,7 @@ class OriginalImageBucket extends S3Client {
         return _instance;
     }
     get url() {
-        return `${config.awsUrl}${config.awsOriginalBacketName}/`;
+        return `https://${config.awsOriginalBacketName}/`;
     }
 }
 
