@@ -40,5 +40,7 @@
     "[type your answer here]": "Укажите Ваш ответ...",
     "[tracking and tracing error hint without continue]": "Нажмите \"Попробовать еще\".  Если ошибка повторяется, свяжитесь с организацией, предоставившей Вам курс.",
     "[attempts note limit acceeded]": "Вы использовали все попытки",
-    "[attempts remaining]": "Осталось попыток:"
+    "[attempts remaining]": "Осталось попыток:",
+    "[true]": "Верно",
+    "[false]": "Неверно"
 }

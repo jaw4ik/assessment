@@ -45,5 +45,10 @@
     "[back to sign in]": "Back to sign in",
     "[survey mode caption]": "The answer will not have any impact on your progress",
     "[confirn your name and email]": "OK, name and email are correct",
-    "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course."
+    "[login explanation]": "* By authorizing with any of the options above you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.",
+    "[true]": "True",
+    "[false]": "False",
+    "[login name field]": "Name",
+    "[login email field]": "Email",
+    "[start quiz]": "Start quiz"
 }

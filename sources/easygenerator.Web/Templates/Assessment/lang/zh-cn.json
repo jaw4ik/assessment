@@ -45,5 +45,10 @@
     "[back to sign in]": "返回登录",
     "[survey mode caption]": "答案不会对您的进度有任何影响",
     "[confirn your name and email]": "好，姓名和电子邮件正确无误",
-    "[login explanation]": "*通过用以上任一选项进行确认，表明您同意您的成绩和分数将被存储。只有课程的组织者（作者）才可看到这些成绩。"
+    "[login explanation]": "*通过用以上任一选项进行确认，表明您同意您的成绩和分数将被存储。只有课程的组织者（作者）才可看到这些成绩。",
+    "[true]": "对",
+    "[false]": "错",
+    "[login name field]": "姓名",
+    "[login email field]": "电子邮件",
+    "[start quiz]": "开始测验"
 }

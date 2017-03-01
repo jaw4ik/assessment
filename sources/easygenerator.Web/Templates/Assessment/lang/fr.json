@@ -45,5 +45,10 @@
     "[back to sign in]": "Retour à la connexion",
     "[survey mode caption]": "La réponse n'aura pas d'impact sur vos progrès",
     "[confirn your name and email]": "Ok, le nom est l'e-mail sont correct",
-    "[login explanation]": "En donnant votre autorisation au moyen de l'une des options ci-dessus, vous acceptez que vos résultats et scores soient enregistrés. Ces résultats ne sont visibles que par l'organisateur (auteur) de cette formation."
+    "[login explanation]": "En donnant votre autorisation au moyen de l'une des options ci-dessus, vous acceptez que vos résultats et scores soient enregistrés. Ces résultats ne sont visibles que par l'organisateur (auteur) de cette formation.",
+    "[true]": "Vrai",
+    "[false]": "Faux",
+    "[login name field]": "Nom",
+    "[login email field]": "E-mail",
+    "[start quiz]": "Démarrer le quiz"
 }

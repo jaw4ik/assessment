@@ -45,5 +45,10 @@
     "[back to sign in]": "Voltar para fazer login",
     "[survey mode caption]": "A resposta não afetará seu progresso",
     "[confirn your name and email]": "Ok, nome e e-mail corretos",
-    "[login explanation]": "* Autorizando com qualquer uma das opções indicadas acima, você concorda com o fato de que seus resultados e pontuações serão armazenados. Esses resultados estarão visíveis somente para o organizador (autor) de seu curso."
+    "[login explanation]": "* Autorizando com qualquer uma das opções indicadas acima, você concorda com o fato de que seus resultados e pontuações serão armazenados. Esses resultados estarão visíveis somente para o organizador (autor) de seu curso.",
+    "[true]": "True",
+    "[false]": "False",
+    "[login name field]": "Nome",
+    "[login email field]": "E-mail",
+    "[start quiz]": "Iniciar teste"
 }
