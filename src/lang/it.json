@@ -40,5 +40,7 @@
     "[type your answer here]": "Digita la tua risposta qui...",
     "[tracking and tracing error hint without continue]": "Riavviare il corso. Contattare il fornitore del corso se il problema persiste.",
     "[attempts note limit acceeded]": "È stato raggiunto il numero di tentativi consentiti",
-    "[attempts remaining]": "Tentativi rimanenti:"
+    "[attempts remaining]": "Tentativi rimanenti:",
+    "[true]": "Vero",
+    "[false]": "Falso"
 }

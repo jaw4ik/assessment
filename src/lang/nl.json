@@ -45,5 +45,9 @@
     "[back to sign in]": "Terug naar inloggen",
     "[survey mode caption]": "Het antwoord heeft geen invloed op de resultaten van deze cursus",
     "[confirn your name and email]": "OK, naam en email zijn correct",
-    "[login explanation]": "* Door akkoord te gaan met het bovenstaande, gaat u ook akkoord met het opslaan van uw leerresultaten. Deze resultaten zijn alleen zichtbaar voor de organisator van uw cursus."
+    "[login explanation]": "* Door akkoord te gaan met het bovenstaande, gaat u ook akkoord met het opslaan van uw leerresultaten. Deze resultaten zijn alleen zichtbaar voor de organisator van uw cursus.",
+    "[true]": "Waar",
+    "[false]": "Onwaar",
+    "[login name field]": "Naam",
+    "[login email field]": "Email"
 }

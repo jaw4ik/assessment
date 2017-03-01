@@ -40,5 +40,7 @@
     "[type your answer here]": "Skriv inn svaret ditt her…",
     "[tracking and tracing error hint without continue]": "Start kurset på nytt. Ta kontakt med kursleverandøren dersom problemet fortsetter",
     "[attempts note limit acceeded]": "Du har oversteget antall tillatte forsøk",
-    "[attempts remaining]": "Gjenværende forsøk:"
+    "[attempts remaining]": "Gjenværende forsøk:",
+    "[true]": "Riktig",
+    "[false]": "Galt"
 }
