@@ -16,7 +16,8 @@ namespace easygenerator.Auth.Lti
                 throw new ArgumentNullException("options");
             }
 
-            return app.Use(typeof(LtiAuthMiddleware), app, options);
+            app.Use<LtiExceptionHandler>();
+            return app.Use<LtiAuthMiddleware>(app, options);
         }
     }
 }
