@@ -134,7 +134,7 @@
         if(location.host.indexOf('localhost') !== -1){
             return localhostUrl;
         }
-        if(location.host.indexOf('live.easygenerator.com') !== -1){
+        if(location.host.indexOf('live.easygenerator.com') !== -1 || location.host.indexOf('beta.easygenerator.com') !== -1){
             return liveUrl;
         }
         return stagingUrl;
