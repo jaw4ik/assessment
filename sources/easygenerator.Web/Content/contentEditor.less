@@ -1279,6 +1279,7 @@
         &.edit {
             .image-editor-wrapper {
                 border-color: #50a1d7;
+                cursor: pointer;
             }
         }
 
@@ -1290,302 +1291,6 @@
 
                 .guillotine-window {
                     border-radius: 3px 3px 0 0;
-                }
-            }
-
-            .image-editor-edit-panel {
-                /*z-index: 0;*/
-            }
-        }
-
-        &.edit {
-
-            .image-editor-edit-panel {
-                .edit-image-container {
-                    &.edit-image,
-                    &.change-image {
-                        display: none;
-                    }
-                }
-            }
-        }
-
-        .image-editor-edit-panel {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-
-            &:hover {
-
-                .edit-image-container {
-
-                    &.edit-image {
-                        opacity: 1;
-                    }
-                }
-            }
-
-            &.small-height {
-
-                .small-btn() {
-                    min-width: 40px;
-                    height: 40px;
-                    margin: 0 8px;
-                    padding: 0;
-                }
-
-                &.small-width {
-                    .edit-image-container {
-                        &.edit-image {
-                            .image-editor-btn {
-                                .small-btn;
-
-                                .btn-text {
-                                    display: none;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .edit-image-container {
-                    &.edit-image {
-                        flex-direction: row;
-
-                        .image-editor-btn {
-                            margin: 0 8px;
-                        }
-                    }
-
-                    &.change-image {
-                        flex-direction: row;
-
-                        .edit-image-wrapper {
-                            flex-direction: row;
-                        }
-
-                        .image-editor-btn {
-                            .small-btn;
-
-                            &:before {
-                                margin-left: 0;
-                            }
-
-                            .btn-text {
-                                display: none;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .edit-image-container {
-                display: flex;
-
-                &.column {
-                    flex-direction: column;
-                    align-items: center;
-
-                    .image-editor-btn {
-                        min-width: 170px;
-                    }
-                }
-
-                &.row {
-                    flex-direction: row;
-                    justify-content: center;
-                }
-
-                &.edit-image {
-                    opacity: 0;
-                    transition: opacity .2s linear;
-
-                    .image-editor-btn {
-                        font-size: 14px;
-                    }
-                }
-
-                &.change-image {
-                    display: none;
-
-                    .image-editor-btn {
-                        font-size: 13px;
-                    }
-                }
-
-                .edit-image-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    padding: 0 5px;
-                }
-            }
-
-            .image-editor-btn {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 42px;
-                margin-bottom: 8px;
-                padding: 0 12px;
-                font-family: 'OpenSans';
-                text-align: center;
-                color: #fff;
-                background-color: rgba(66, 81, 95, .8);
-                box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.4);
-                border: 0;
-                border-radius: 40px;
-                outline: none;
-                transition: background-color .2s linear;
-                cursor: pointer;
-
-                &:hover,
-                &.active {
-                    background-color: rgba(70, 157, 213, .9);
-                }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-
-                &.small {
-                    min-width: 40px;
-                    height: 40px;
-                }
-
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    background-repeat: no-repeat;
-                    vertical-align: middle;
-                }
-
-                &.arrow {
-
-                    &:before {
-                        width: 15px;
-                        height: 11px;
-                        background-image: url("images/sprites_16.png");
-                        background-position: -64px -191px;
-                    }
-                }
-
-                &.change {
-
-                    &:before {
-                        width: 25px;
-                        height: 19px;
-                        margin-top: 2px;
-                        background-image: url("images/sprites_32.png");
-                        background-position: -115px -81px;
-                    }
-                }
-
-                &.edit {
-
-                    &:before {
-                        width: 20px;
-                        height: 19px;
-                        background-image: url("images/sprites_24.png");
-                        background-position: -235px -148px;
-                    }
-                }
-
-                &.upload {
-
-                    &:before {
-                        width: 22px;
-                        height: 18px;
-                        background-image: url("images/sprites_24.png");
-                        background-position: -205px -148px;
-                    }
-                }
-
-                &.library {
-
-                    &:before {
-                        width: 20px;
-                        height: 18px;
-                        margin-left: 1px;
-                        background-image: url("images/sprites_24.png");
-                        background-position: -177px -148px;
-                    }
-                }
-
-                &.link {
-
-                    &:before {
-                        width: 14px;
-                        height: 14px;
-                        margin-left: 4px;
-                        background-image: url("images/sprites_16.png");
-                        background-position: -43px -190px;
-                    }
-                }
-
-                .btn-text {
-                    margin-left: 9px;
-                }
-            }
-
-            .image-editor-link-container {
-                position: absolute;
-                top: -60px;
-                left: 50%;
-                z-index: 250;
-                width: 400px;
-                height: 50px;
-                margin-left: -200px;
-                padding: 0 14px;
-                display: none;
-                justify-content: space-between;
-                align-items: center;
-                border: 1px solid #ced5d9;
-                border-radius: 3px;
-                box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.15);
-                background-color: #fff;
-                font: 13px 'OpenSans';
-                color: #fff;
-                cursor: default;
-
-                &.showed {
-                    display: flex;
-                }
-
-                .image-editor-link-input {
-                    flex: 1 1 auto;
-                    margin-right: 20px;
-                    color: #42515f;
-                    height: 25px;
-                    border: none;
-                    border-bottom: 1px solid #469dd5;
-                    outline: none;
-                }
-
-                .btn {
-                    min-width: 64px;
-                    height: 30px;
-                }
-
-                &:after {
-                    content: '';
-                    position: absolute;
-                    left: 50%;
-                    bottom: -4px;
-                    width: 7px;
-                    height: 7px;
-                    margin-left: -6px;
-                    border-top: 1px solid #ced5d9;
-                    border-left: 1px solid #ced5d9;
-                    background: #fff;
-                    transform: rotate(225deg);
                 }
             }
         }
@@ -1671,7 +1376,6 @@
                             font-size: 13px;
                             line-height: 21px;
                             color: #546677;
-                            cursor: pointer;
                             transition: .2s;
 
                             &:hover {
@@ -2506,6 +2210,12 @@
                 border-radius: 3px;
                 overflow: hidden;
                 z-index: 1;
+
+                &.disabled {
+                    .guillotine-canvas {
+                        cursor: pointer;
+                    }
+                }
             }
 
             img {
