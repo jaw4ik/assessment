@@ -49,19 +49,6 @@
         </div>
         <!-- /ko -->
 
-        <!-- ko ifnot: isEditMode -->
-        <section class="image-editor-edit-panel" data-bind="slideEditImageButtons: {}, toggleElementSize: { isResizeMode: isResizeMode, smallHandler: canShowActionButtonTooltip, smallHeightHandler: canShowChangeImageButtonTooltip }, event: { dblclick: startResizing }, keyDown: { handlers: { 27: stopResizeAndEdit }, bubbling: true }">
-            <div class="edit-image-container column edit-image" data-step="1">
-                <div class="image-editor-btn change" data-next-button="" data-bind="click: callbacks.startEditing, tip: { key: 'changeImage', isShown: canShowActionButtonTooltip }">
-                    <span class="btn-text" data-bind="localize: { text: 'changeImage' }"></span>
-                </div>
-                <div class="image-editor-btn edit" data-bind="click: startEditMode, tip: { key: 'editImage', isShown: canShowActionButtonTooltip }">
-                    <span class="btn-text" data-bind="localize: { text: 'editImage' }"></span>
-                </div>
-            </div>
-        </section>
-        <!-- /ko -->
-
         <div class="image-editor-wrapper" data-bind="resizable: { init: !twoImagesMode(), enabled: isResizeMode, handler: sizeChanged }">
             <!-- ko compose: imageCropper -->
             <!-- /ko -->
