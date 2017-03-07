@@ -1,6 +1,6 @@
 {
     "pdfExport":{
-        "enabled":true
+        "enabled":false
     },
     "xApi":{
         "enabled":true,
