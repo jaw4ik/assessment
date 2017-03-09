@@ -16,6 +16,7 @@
         isAuthTokenPresentInHash: isAuthTokenPresentInHash,
         loginByAuthToken: loginByAuthToken,
         getCompanyIdFromHash: getCompanyIdFromHash,
+        getCustomCssUrlFromHash: getCustomCssUrlFromHash,
         getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash,
         getSamlIdPUserInfoTokenFromHash: getSamlIdPUserInfoTokenFromHash,
         getSignInUrl: getSignInUrl
@@ -73,6 +74,11 @@
     function getCompanyIdFromHash() {
         var hashParams = getHashParams(window.location.hash);
         return hashParams && hashParams['companyId'];
+    }
+
+    function getCustomCssUrlFromHash() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && hashParams['customCssUrl'];
     }
 
     function checkUserLogIn() {

@@ -108,6 +108,11 @@ namespace easygenerator.Auth.Lti
                     redirectUrl = $"{redirectUrl}&companyId={consumerTool.Settings.Company.Id.ToString("N")}";
                 }
 
+                if (context.LtiRequest.LaunchPresentationCssUrl != null)
+                {
+                    redirectUrl = $"{redirectUrl}&customCssUrl={context.LtiRequest.LaunchPresentationCssUrl}";
+                }
+
                 context.RedirectUrl = redirectUrl;
 
                 return Task.FromResult<object>(null);
