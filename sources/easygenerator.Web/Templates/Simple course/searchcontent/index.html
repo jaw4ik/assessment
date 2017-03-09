@@ -14,7 +14,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="styles.css?v=1487948904690">
+    <link rel="stylesheet" href="styles.css?v=1488894784008">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     <h1 class="course-caption" data-bind="text: title"></h1>
 
     <!-- ko if: hasIntroductionContent -->
-    <div class="course-intro-text styled-content content" data-bind="loadHtml: '../content/content.html?v=1487948904690'"></div>
+    <div class="course-intro-text styled-content content" data-bind="loadHtml: '../content/content.html?v=1488894784008'"></div>
     <!-- /ko -->
 
     <!-- ko foreach: { data: sections, as: 'section' } -->
@@ -42,7 +42,7 @@
             <!-- ko if: question.learningContents.length > 0 -->
             <ul class="learning-content-items content">
                 <!-- ko foreach: question.learningContents -->
-                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/' + id + '.html?v=1487948904690'"></li>
+                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/' + id + '.html?v=1488894784008'"></li>
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
@@ -54,7 +54,7 @@
             <!-- ko if: question.learningContents.length > 0 -->
             <ul class="learning-content-items content with-icon">
                 <!-- ko foreach: question.learningContents -->
-                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/' + id + '.html?v=1487948904690'"></li>
+                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/' + id + '.html?v=1488894784008'"></li>
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
@@ -62,7 +62,7 @@
 
             <!-- ko if: question.hasContent && question.type != 'fillInTheBlank' -->
             <div class="question-content-wrapper">
-                <div class="question-content styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/content.html?v=1487948904690'"></div>
+                <div class="question-content styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/content.html?v=1488894784008'"></div>
             </div>
             <!-- /ko -->
 
@@ -106,7 +106,7 @@
 
             <!-- ko if: question.type == 'fillInTheBlank' -->
             <div class="question-content-wrapper blank-content fill-in-the-blank">
-                <div class="question-content blank-answers styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/content.html?v=1487948904690'"></div>
+                <div class="question-content blank-answers styled-content" data-bind="loadHtml: '../content/' + section.id + '/' + question.id + '/content.html?v=1488894784008'"></div>
             </div>
             <!-- /ko -->
 
@@ -220,7 +220,7 @@
     <!-- /ko -->
     <!-- /ko -->
 
-    <script src="scripts.js?v=1487948904690"></script>
+    <script src="scripts.js?v=1488894784008"></script>
 </body>
 
 </html>
