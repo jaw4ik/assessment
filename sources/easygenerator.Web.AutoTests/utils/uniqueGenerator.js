@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-var uuid = require('node-uuid');
+var uuid = require('uuid/v4');
 const PREFIX = 'autotest';
 
 module.exports = {
     get guid() {
-        return uuid.v4().split('-').join('');
+        return uuid().split('-').join('');
     },
     get str() {
         return `${PREFIX}${this.guid}`;

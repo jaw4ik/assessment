@@ -1,5 +1,6 @@
 ﻿'use strict';
 
+require('dotenv').config();
 var Launcher = require('./launcher');
 
 var launcher = new Launcher();
