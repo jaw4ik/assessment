@@ -31,7 +31,7 @@ namespace easygenerator.Auth.Lti
         private readonly ISurveyPopupSettingsProvider _surveyPopupVersionReader;
 
         public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, IUserRepository userRepository,
-            IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork, 
+            IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork,
             ISecureTokenProvider<ISecure<LtiUserInfo>> secureTokenProvider, ISurveyPopupSettingsProvider surveyPopupVersionReader)
         {
             _consumerToolRepository = consumerToolRepository;
@@ -77,51 +77,74 @@ namespace easygenerator.Auth.Lti
                 }
 
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
-                if (string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
+                if (string.IsNullOrWhiteSpace(userEmail))
                 {
-                    throw new LtiException("Invalid LisPersonEmailPrimary: Email of the user is null or white space.");
+                    throw new LtiException("Invalid lis_person_contact_email_primary: Email of the user is null or white space.");
                 }
 
-                var user = _userRepository.GetUserByEmail(userEmail);
-                var ltiProviderUrl = context.LtiRequest.Parameters[Constants.ToolProviderUrl] ??
-                                 context.Request.Uri.GetLeftPart(UriPartial.Authority);
-
-                if (user == null)
-                {
-                    CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
-                        context.LtiRequest.LisPersonNameFamily, context.LtiRequest.UserId, consumerTool);
-
-                }
-                else
-                {
-                    if (user.GetLtiUserInfo(context.LtiRequest.UserId, consumerTool) == null)
-                    {
-                        return RedirectToRoot(context, ltiProviderUrl, consumerTool, user);
-                    }
-                }
-
-                var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "lti" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
-                var redirectUrl = $"{ltiProviderUrl}#token.lti={authToken[0].Token}";
-
-                if (consumerTool.Settings?.Company?.Id != null)
-                {
-                    redirectUrl = $"{redirectUrl}&companyId={consumerTool.Settings.Company.Id.ToString("N")}";
-                }
-
-                context.RedirectUrl = redirectUrl;
+                AuthenticateUser(context, consumerTool);
 
                 return Task.FromResult<object>(null);
             };
         }
 
-        private Task RedirectToRoot(LtiAuthenticatedContext context, string ltiProviderUrl, ConsumerTool consumerTool, User user)
+        private void AuthenticateUser(LtiAuthenticatedContext context, ConsumerTool consumerTool)
+        {
+            var userEmail = context.LtiRequest.LisPersonEmailPrimary;
+            var userLtiId = context.LtiRequest.UserId;
+
+            var user = _userRepository.GetUserByEmail(userEmail);
+
+            if (user == null)
+            {
+                CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven, context.LtiRequest.LisPersonNameFamily, userLtiId, consumerTool);
+            }
+
+            var ltiProviderUrl = context.LtiRequest.Parameters[Constants.ToolProviderUrl] ?? context.Request.Uri.GetLeftPart(UriPartial.Authority);
+
+            if (user?.GetLtiUserInfo(userLtiId, consumerTool) == null)
+            {
+                AddTokenForVerificationWithSignIn(context, ltiProviderUrl, consumerTool, user);
+            }
+            else
+            {
+                AddAuthToken(context, ltiProviderUrl, userEmail);
+                AddCompanyInfo(context, consumerTool);
+            }
+
+            AddCustomCssInfo(context);
+        }
+
+        private void AddTokenForVerificationWithSignIn(LtiAuthenticatedContext context, string ltiProviderUrl, ConsumerTool consumerTool, User user)
         {
             var ltiUserInfo = _entityFactory.LtiUserInfo(context.LtiRequest.UserId, consumerTool, user);
             var ltiUserInfoSecure = new LtiUserInfoSecure(ltiUserInfo);
             var token = HttpUtility.UrlEncode(_secureTokenProvider.GenerateToken(ltiUserInfoSecure));
 
             context.RedirectUrl = $"{ltiProviderUrl}#token.user.lti={token}";
-            return Task.FromResult<object>(null);
+        }
+
+        private void AddAuthToken(LtiAuthenticatedContext context, string ltiProviderUrl, string userEmail)
+        {
+            var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "lti" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
+
+            context.RedirectUrl = $"{ltiProviderUrl}#token.lti={authToken[0].Token}";
+        }
+
+        private void AddCompanyInfo(LtiAuthenticatedContext context, ConsumerTool consumerTool)
+        {
+            if (consumerTool.Settings?.Company?.Id != null)
+            {
+                context.RedirectUrl = $"{context.RedirectUrl}&companyId={consumerTool.Settings.Company.Id.ToString("N")}";
+            }
+        }
+
+        private void AddCustomCssInfo(LtiAuthenticatedContext context)
+        {
+            if (context.LtiRequest.LaunchPresentationCssUrl != null)
+            {
+                context.RedirectUrl = $"{context.RedirectUrl}&customCssUrl={context.LtiRequest.LaunchPresentationCssUrl}";
+            }
         }
 
         private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)

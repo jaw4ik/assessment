@@ -10,6 +10,7 @@ import audio from 'audio/index';
 import localizationManager from 'localization/localizationManager';
 import fonts from './fonts';
 import errorTracker from 'errorTracking/errorTracker';
+import { injectCssFile } from 'stylesInjector';
 
 // hook for system.js support
 viewEngine.convertViewIdToRequirePath = function (viewId) {
@@ -35,6 +36,11 @@ app.configurePlugins({
 userContext.ltiData.companyId = window.auth.getCompanyIdFromHash();
 userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
 userContext.samlData.samlIdPUserInfoToken = window.auth.getSamlIdPUserInfoTokenFromHash();
+
+const customCssUrl = window.auth.getCustomCssUrlFromHash();
+if (customCssUrl) {
+    injectCssFile(customCssUrl);
+}
 
 (async () => {
     if (window.auth.isAuthTokenPresentInHash()) {

@@ -739,6 +739,7 @@
     </Content>
     <Content Include="App\components\bindingHandlers\cssSingleAnimationStarterBindingHandler.js" />
     <Content Include="App\editor\course\bindingHandlers\scrollTo.js" />
+    <Content Include="App\stylesInjector.js" />
     <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipUpdated.js" />
     <Content Include="App\synchronization\handlers\organizations\eventHandlers\membershipUpdated.spec.js">
       <DependentUpon>membershipUpdated.js</DependentUpon>
