@@ -10,8 +10,8 @@
     "[drag and drop question all texts are placed]": "Todos os textos posicionados",
     "[drag and drop question drop here]": "Solte aquí",
     "[statement question hint]": "Selecione verdadeiro ou falso para cada afirmação abaixo",
-    "[statement question true text]": "TRUE",
-    "[statement question false text]": "FALSE",
+    "[statement question true text]": "True",
+    "[statement question false text]": "False",
     "[text matching question hint]": "Arraste os itens da esquerda para direita para formar os pares",
     "[text matching question drop here]": "Solte aquí",
     "[fill in the blank choose answer]": "Selecione a resposta",
@@ -50,5 +50,6 @@
     "[false]": "False",
     "[login name field]": "Nome",
     "[login email field]": "E-mail",
-    "[start quiz]": "Iniciar teste"
+    "[start quiz]": "Iniciar teste",
+    "[statement question or text]": "ou"
 }

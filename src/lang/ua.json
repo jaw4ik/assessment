@@ -50,5 +50,6 @@
     "[false]": "Невірно",
     "[login name field]": "Ім'я",
     "[login email field]": "Електронна адреса",
-    "[start quiz]": "Почати тестування"
+    "[start quiz]": "Почати тестування",
+    "[statement question or text]": "або"
 }

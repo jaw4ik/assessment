@@ -50,5 +50,6 @@
     "[false]": "Faux",
     "[login name field]": "Nom",
     "[login email field]": "E-mail",
-    "[start quiz]": "Démarrer le quiz"
+    "[start quiz]": "Démarrer le quiz",
+    "[statement question or text]": "ou"
 }

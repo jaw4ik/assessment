@@ -10,8 +10,8 @@
     "[drag and drop question all texts are placed]": "All texts have been placed",
     "[drag and drop question drop here]": "Drop here",
     "[statement question hint]": "Choose True or False for every statement below.",
-    "[statement question true text]": "TRUE",
-    "[statement question false text]": "FALSE",
+    "[statement question true text]": "True",
+    "[statement question false text]": "False",
     "[text matching question hint]": "Drag items from the column on the right to the left to match the pairs",
     "[text matching question drop here]": "Drop here",
     "[fill in the blank choose answer]": "Choose the answer",
@@ -50,5 +50,6 @@
     "[false]": "False",
     "[login name field]": "Name",
     "[login email field]": "Email",
-    "[start quiz]": "Start quiz"
+    "[start quiz]": "Start quiz",
+    "[statement question or text]": "or"
 }
