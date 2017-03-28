@@ -42,5 +42,6 @@
     "[attempts note limit acceeded]": "Вы использовали все попытки",
     "[attempts remaining]": "Осталось попыток:",
     "[true]": "Верно",
-    "[false]": "Неверно"
+    "[false]": "Неверно",
+    "[page not found title]": "Страница не найдена"
 }

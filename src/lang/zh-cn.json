@@ -51,5 +51,6 @@
     "[login name field]": "姓名",
     "[login email field]": "电子邮件",
     "[start quiz]": "开始测验",
-    "[statement question or text]": "或"
+    "[statement question or text]": "或",
+    "[page not found title]": "页面未找到"
 }

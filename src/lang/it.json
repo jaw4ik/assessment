@@ -42,5 +42,6 @@
     "[attempts note limit acceeded]": "È stato raggiunto il numero di tentativi consentiti",
     "[attempts remaining]": "Tentativi rimanenti:",
     "[true]": "Vero",
-    "[false]": "Falso"
+    "[false]": "Falso",
+    "[page not found title]": "Pagina non trovata"
 }

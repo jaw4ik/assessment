@@ -51,5 +51,6 @@
     "[login name field]": "Nombre",
     "[login email field]": "Dirección de correo electrónico",
     "[start quiz]": "Iniciar cuestionario",
-    "[statement question or text]": "o"
+    "[statement question or text]": "o",
+    "[page not found title]": "Página no encontrada"
 }

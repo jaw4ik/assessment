@@ -49,5 +49,6 @@
     "[true]": "Waar",
     "[false]": "Onwaar",
     "[login name field]": "Naam",
-    "[login email field]": "Email"
+    "[login email field]": "Email",
+    "[page not found title]": "De pagina is niet gevonden"
 }

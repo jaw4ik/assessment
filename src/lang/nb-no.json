@@ -42,5 +42,6 @@
     "[attempts note limit acceeded]": "Du har oversteget antall tillatte forsøk",
     "[attempts remaining]": "Gjenværende forsøk:",
     "[true]": "Riktig",
-    "[false]": "Galt"
+    "[false]": "Galt",
+    "[page not found title]": "Side ikke funnet"
 }
