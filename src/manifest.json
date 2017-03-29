@@ -73,6 +73,11 @@
       "code": "zh-cn",
       "name": "Chinese",
       "url": "lang/zh-cn.json"
+    },
+    {
+      "code": "sv",
+      "name": "Swedish",
+      "url": "lang/sv.json"
     }
   ]
 }
